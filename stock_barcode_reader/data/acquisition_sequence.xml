@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data noupdate="1">
+        <!-- Sequences for acquisition.acquisition --> 
+        <record id="seq_type_acquisition" model="ir.sequence.type">
+            <field name="name">Acquisition</field>
+            <field name="code">acquisition.acquisition</field>
+        </record>
+        <record id="seq_acquisitionr" model="ir.sequence">
+            <field name="name">Acquisition</field>
+            <field name="code">acquisition.acquisition</field>
+            <field name="prefix">ACQ</field>
+            <field name="padding">5</field>
+        </record>
+    </data>
+</openerp>

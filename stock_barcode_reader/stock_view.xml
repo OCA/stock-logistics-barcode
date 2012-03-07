@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+       
+       
+        <act_window domain="[('inventory_id', '=', active_id)]"
+        	context="{'default_type':'inventory', 'default_name': 'Scan Inventory ', 'default_inventory_id': active_id}"
+            id="inventory_acquisition_link_1" name="Inventory Acquisition"
+            res_model="acquisition.acquisition"
+            src_model="stock.inventory"
+            view_mode="form"/>
+        
+        <!--<act_window domain="[('inventory_id', '=', active_id)]"
+        	context="{'default_type':'move_stock', 'default_name': 'Scan Stock Move', 'default_move_stock_destination': location_id}"
+            id="move_stock_acquisition_link_2" name="Move Stock Acquisition"
+            res_model="acquisition.acquisition"
+            src_model="stock.inventory"
+            view_mode="form"/>-->
+     
+    	<report	
+	        auto="False"
+            id="account_invoices"
+            model="account.invoice"
+            name="account.invoice"
+            rml="voltalis_stock_picking_report_aeroo/report/pack_barcode_report.rml"
+            string="Invoices"
+            attachment_use="1"
+            multi="True"/>
+    
+        <record model="ir.ui.view" id="view_stock_tracking_list">
+			<field name="name">Acquisition.list.view</field>
+            <field name="model">acquisition.list</field>			
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Acquisition list" editable="1">
+					<field name="barcode_id" colspan="2"/>
+					<field name="type" colspan="2"/>
+				</tree>
+			</field>
+    	</record>
+
+        <record model="ir.ui.view" id="view_stock_tracking_acquisition_form">
+			<field name="name">Acquisition.view</field>
+            <field name="model">acquisition.acquisition</field>			
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Acquisition name">
+					<group width="400" height="100">
+						<group col="6" colspan="4">
+							<field name="name"/>
+							<field name="type"/>
+							<field name="origin_id"/>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','pack')]}">
+								<field name="logistic_unit" attrs="{'required':[('type','=','pack')]}" widget="selection"/>
+							</group>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','order')]}">
+								<field name="address_id" attrs="{'required':[('type','=','order')]}"/>
+								<field name="destination_id" attrs="{'required':[('type','=','order')]}"/>
+							</group>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','inventory')]}">
+								<field name="inventory_id" attrs="{'required':[('type','=','inventory')]}" on_change="onchange_inventory(inventory_id)"/>
+							</group>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','order')]}">
+								<field name="picking_id" invisible="1"/>
+								<field name="picking_name"/>
+							</group>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','pack')]}">
+								<field name="pack_id" invisible="1"/>
+								<field name="pack_name"/>
+							</group>
+							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','move_stock')]}">
+								<field name="move_stock_destination" attrs="{'required':[('type','=','move_stock')]}"/>
+								<field name="move_stock_date" attrs="{'required':[('type','=','move_stock')]}"/>
+							</group>
+							<field name="state" invisible="1"/>
+							<field name="acquisition_ids" colspan="6" nolabel="1"/>			
+							<button name="%(action_stock_reference)d" string="Start" type="action" icon="gtk-execute" states="open"/>
+							<button name="process" string="Process" type="object" icon="gtk-ok" states="open"/>					
+						</group>
+					</group>
+				</form>
+			</field>
+    	</record>
+    	
+    	<record model="ir.ui.view" id="view_stock_tracking_acquisition_tree">
+			<field name="name">Acquisition.view</field>
+            <field name="model">acquisition.acquisition</field>			
+			<field name="type">tree</field>
+			<field name="arch" type="xml">
+				<tree string="Acquisition name">
+					<field name="name"/>
+					<field name="acquisition_ids"/>	
+				</tree>
+			</field>
+    	</record>
+         
+        <record model="ir.actions.act_window" id="action_stock_tracking_acquisition">
+			<field name="name">Acquisition</field>
+			<field name="type">ir.actions.act_window</field>
+            <field name="res_model">acquisition.acquisition</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="target">current</field>
+            <field name="view_id" ref="view_stock_tracking_acquisition_tree"/>
+    	</record>
+        
+        <menuitem id="menu_stock_tracking_acquisition" action="action_stock_tracking_acquisition" parent="stock.menu_traceability" sequence="7"/>
+        
+        <!--<record model="ir.ui.view" id="view_stock_acquisition_setting_form">
+			<field name="name">Acquisition Setting.view</field>
+            <field name="model">acquisition.setting</field>		            
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<form string="Acquisistion Setting">
+					<group colspan="4">
+           				<field name="barcode_id" colspan="2"/>
+           				<field name="action_type" colspan="2"/>
+   					</group>
+				</form>
+			</field>	
+    	</record>
+                
+        <record model="ir.ui.view" id="view_stock_acquisition_setting_tree">
+			<field name="name">Acquisition Setting.view</field>
+            <field name="model">acquisition.setting</field>		            
+			<field name="type">tree</field>
+			<field name="arch" type="xml">        
+                <tree string="Acquisistion Setting">
+         			<field name="barcode_id"/>
+          			<field name="action_type"/>
+				</tree>
+			</field>	
+    	</record>
+                
+        <record model="ir.actions.act_window" id="action_stock_acquisition_setting">
+			<field name="name">Acquisition Setting</field>
+			<field name="type">ir.actions.act_window</field>
+            <field name="res_model">acquisition.setting</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_stock_acquisition_setting_tree"/>
+    	</record>
+        
+        <menuitem id="menu_stock_acquisition_setting" action="action_stock_acquisition_setting" parent="stock.menu_stock_configuration" sequence="7"/>-->    
+    </data>
+</openerp>

@@ -1,0 +1,39 @@
+--- /home/jules/Bureau/6.0.3/openerp-server-6.0.3/bin/addons/tr_barcode/tr_barcode.py	2011-10-04 16:31:19.049312725 +0200
++++ /home/jules/Bureau/mathieu/6.0.2/openerp-server-6.0.2/bin/addons/tr_barcode/tr_barcode.py	2011-10-04 16:31:51.606296921 +0200
+@@ -9,7 +9,9 @@
+ 
+ def _get_code(self, cr, uid, context=None):
+     """get availble code """
+-    return [(r, r) for r in getCodes()]
++    codes = [(r, r) for r in getCodes()]
++    codes.append(('qrcode','QR'))
++    return codes
+ 
+ class tr_barcode(osv.osv):
+     """ Barcode Class """
+@@ -35,12 +37,19 @@
+         if width:options['width'] = width
+         if hight:options['hight'] = hight
+         if hr:options['humanReadable'] = hr
+-        try:
+-            ret_val = createBarcodeDrawing(code, value=str(value), **options)
+-        except Exception, e:
+-            raise osv.except_osv('Error', e)
+-            
+-        return base64.encodestring(ret_val.asString('jpg'))
++        if code not in ['QR','qrcode']:
++            try:
++                ret_val = createBarcodeDrawing(code, value=str(value), **options)
++            except Exception, e:
++                raise osv.except_osv('Error', e)
++            return base64.encodestring(ret_val.asString('jpg'))
++        else:
++            ret_val = False
++            from qrtools import QR
++            qrCode = QR(data=value)
++            qrCode.encode()
++            return base64.encodestring(open(qrCode.filename,"rb").read())
++        
+     
+     def generate_image(self, cr, uid, ids, context=None):
+         "button function for genrating image """
