@@ -27,29 +27,33 @@ class stock_reference(osv.osv_memory):
     _name = "stock.reference"
     _description = 'Products Acquisition'
     
-    _rec_name = 'reference'
+#    _rec_name = 'reference'
+    
+    def _get_track_id(self, cr, uid, context=None):
+        if context == None:
+            context = {}
+        return context.get('active_id',False)
     
     _columns = {
+#        'barcode_id': fields.many2one('tr.barcode', 'Reference', required=True),
         'reference': fields.char('Reference', size=128, required=True),
-        'track_id': fields.many2one('acquisition.list','Track id', required=True),
+        'track_id': fields.many2one('acquisition.acquisition','Track id', required=True),
         'text': fields.text('Barcode list',readonly=True),
-        'bad_barcode': fields.text('Bad barcode list',readonly=True),
+#        'bad_barcode': fields.text('Bad barcode list',readonly=True),
     }
 
     _defaults = {
-        'track_id': lambda s,cr,uid,c: c.get('active_id',False),
+        'track_id': _get_track_id,
     }
            
-    def onchange_reference(self, cr, uid, ids, reference, track_id, barcode_list='', bad_barcode_list='', context=None):        
-        
+    def onchange_reference(self, cr, uid, ids, reference, track_id, barcode_list=''):        
+
         res = {}
         barcode_obj = self.pool.get('tr.barcode')
         acquisition_list = self.pool.get('acquisition.list')
-        acquisition_setting = self.pool.get('acquisition.setting')        
+#        acquisition_setting = self.pool.get('acquisition.setting')        
         
         text = barcode_list or ''
-        bad_barcode = bad_barcode_list or ''      
-        
         
         if reference:
             barcode_ids = barcode_obj.search(cr, uid, [('code', '=', reference)], limit=1)
@@ -61,20 +65,27 @@ class stock_reference(osv.osv_memory):
             
             if barcode_ids:                    
                 barcode_type = 'object'
-                setting_ids = acquisition_setting.search(cr, uid, [('barcode_id', '=', barcode_ids[0])], limit=1)
-                
-                if setting_ids:
-                    setting_data = acquisition_setting.browse(cr, uid, setting_ids, context)                    
-                    barcode_type = setting_data[0].action_type
-                            
-                acquisition_list.create(cr, uid, {
-                                            'barcode_id': barcode_ids[0],
-                                            'acquisition_id': track_id,
-                                            'type': barcode_type,
-                                            })        
-                text += reference
-                if text:                    
-                    text += '\n'
+                line_ids = acquisition_list.search(cr, uid, [('barcode_id', '=', barcode_ids[0]), ('acquisition_id', '=', track_id)])
+#                setting_ids = acquisition_setting.search(cr, uid, [('barcode_id', '=', barcode_ids[0])], limit=1)
+#                
+#                if setting_ids:
+#                    setting_data = acquisition_setting.browse(cr, uid, setting_ids)                    
+#                    barcode_type = setting_data[0].action_type
+                create = True
+                if line_ids:
+                    create = False
+                    line_barcode = barcode_obj.read(cr, uid, barcode_ids[0], 'model')
+                    if line_barcode.get('model',False) == 'product.product':
+                        create = True
+                if create:
+                    acquisition_list.create(cr, uid, {
+                        'barcode_id': barcode_ids[0],
+                        'acquisition_id': track_id,
+                        'type': barcode_type,
+                        })        
+                    text += reference
+                    if text:                    
+                        text += '\n'
                 
             else:
                 raise osv.except_osv(_('Warning!'),_('Barcode Not found!')) # Return of the wraning msg !!
@@ -84,7 +95,7 @@ class stock_reference(osv.osv_memory):
 #                        bad_barcode += '\n'
 
             
-        return {'value': {'reference' : False, 'text' : text, 'bad_barcode' : bad_barcode}}    
+        return {'value': {'reference' : False, 'text' : text}}    
 #        return res        
 
 stock_reference()

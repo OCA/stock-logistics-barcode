@@ -32,7 +32,7 @@
             <field name="model">acquisition.list</field>			
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
-				<tree string="Acquisition list" editable="1">
+				<tree string="Acquisition list">
 					<field name="barcode_id" colspan="2"/>
 					<field name="type" colspan="2"/>
 				</tree>

@@ -9,15 +9,15 @@
 			<field name="arch" type="xml">
 				<form string="Reference acquisistion">
 					<group width="400" height="100">
-						<group colspan="1">
-							<field name="reference" on_change="onchange_reference(reference,track_id,text,bad_barcode)" default_focus="1"/>
+						<group colspan="4">
+							<field name="reference" on_change="onchange_reference(reference,track_id,text)" colspan="4"/>
 							<field name="track_id" colspan="2" invisible="1"/>
 							<newline/>
 							<separator string="End of Acquisition" colspan="4"/>
 							<button special="cancel" string="Close" icon="gtk-ok"/>
 							<newline/>
 							<separator string="Barcode list" colspan="4"/>
-							<field name="text" colspan="2" nolabel="1"/>
+							<field name="text" colspan="4" nolabel="1"/>
 							<!--<newline/>
 							<separator string="Bad Barcode" colspan="4"/>
 							<field name="bad_barcode" colspan="2" nolabel="1"/>-->
