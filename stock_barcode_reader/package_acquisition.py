@@ -156,7 +156,7 @@ class acquisition_acquisition(osv.osv):
             res = self.print_pack_report(cr, uid, [parent_id], context)
             
         self.write(cr, uid, ids, {'state': 'done'}, context=context)
-        return res        
+        return res
                   
 acquisition_acquisition()
 

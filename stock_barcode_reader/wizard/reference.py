@@ -74,8 +74,8 @@ class stock_reference(osv.osv_memory):
                 create = True
                 if line_ids:
                     create = False
-                    line_barcode = barcode_obj.read(cr, uid, barcode_ids[0], 'model')
-                    if line_barcode.get('model',False) == 'product.product':
+                    line_barcode = barcode_obj.read(cr, uid, barcode_ids[0], ['res_model'])
+                    if line_barcode.get('res_model',False) == 'product.product':
                         create = True
                 if create:
                     acquisition_list.create(cr, uid, {
