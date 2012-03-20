@@ -35,6 +35,7 @@
     "demo_xml" : [],
     "update_xml" : [
         'wizard/reference_view.xml',
+        'acquisition_view.xml',
         'stock_view.xml',
         'data/acquisition_sequence.xml',
         "security/ir.model.access.csv",

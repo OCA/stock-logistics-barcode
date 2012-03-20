@@ -117,18 +117,18 @@ class acquisition_acquisition(osv.osv):
                                                              ('acquisition_id','=',line.acquisition_id.id)])
                 barcode_data = barcode_obj.browse(cr, uid, line.barcode_id.id)
                 if len(current_barcode) > 1 and barcode_data.res_model != 'product.product':
-                     acquisition_list_obj.unlink(cr, uid, line.id)
-                     continue
+                    acquisition_list_obj.unlink(cr, uid, line.id)
+                    continue
                      
                 if acquisition_type == 'pack': 
-                     '''Pack Creation'''
-                     if first_code == True:
+                    '''Pack Creation'''
+                    if first_code == True:
                         first_code = False
                         logistic_unit = acquisition_data[0].logistic_unit.id
                         parent_id = setting_obj.create_pack(cr, uid, ids, logistic_unit, context)
                         acquisition_obj.write(cr, uid, acquisition.id, {'pack_id': parent_id})
                         setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
-                     else:
+                    else:
                         setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)                
                 if acquisition_type == 'order': 
                     '''Order Creation'''
