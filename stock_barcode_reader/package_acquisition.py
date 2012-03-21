@@ -104,13 +104,15 @@ class acquisition_acquisition(osv.osv):
         acquisition_data = self.browse(cr, uid, ids, context)
         acquisition_type =  acquisition_data[0].type
         inventory_id = acquisition_data[0].inventory_id
+        picking_id = acquisition_data[0].picking_id
         setting_obj = self.pool.get('acquisition.setting')
         acquisition_obj = self.pool.get('acquisition.acquisition')
                   
         if context == None:
             context = {}
                
-        for acquisition in acquisition_data:                    
+        for acquisition in acquisition_data:
+            setting_ids = [x.id for x in acquisition.acquisition_ids if x.type != 'object']
             for line in acquisition.acquisition_ids:
                 ''' Integrity test : No possibility to have twice the same barcode '''
                 current_barcode = acquisition_list_obj.search(cr, uid, [('barcode_id','=',line.barcode_id.id),
@@ -132,13 +134,18 @@ class acquisition_acquisition(osv.osv):
                         setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)                
                 if acquisition_type == 'order': 
                     '''Order Creation'''
-                    if first_code == True:
-                        first_code = False
-                        order_id = setting_obj.create_order(cr, uid, ids, context)
-                        acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
-                        setting_obj.add_stock_move(cr, uid, ids, line.barcode_id.id, order_id, context)
-                    else:
-                        setting_obj.add_stock_move(cr, uid, ids, line.barcode_id.id, order_id, context)
+                    if not setting_ids:
+                        if picking_id:
+                            if first_code == True:
+                                first_code = False
+                                order_id = setting_obj.update_order(cr, uid, ids, context)
+                            setting_obj.update_stock_move(cr, uid, ids, line.barcode_id, order_id, context)
+                        else:
+                            if first_code == True:
+                                first_code = False
+                                order_id = setting_obj.create_order(cr, uid, ids, context)
+                                acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
+                            setting_obj.add_stock_move(cr, uid, ids, line.barcode_id, order_id, context)
                 if acquisition_type == 'inventory': 
                     setting_obj.check_inventory_line(cr, uid, ids, line.barcode_id.id, inventory_id, context)
                 if acquisition_type == 'move_stock': 
@@ -240,7 +247,54 @@ class acquisition_setting(osv.osv):
         '''End'''   
         return order_id
     
-    def add_stock_move(self, cr, uid, ids, barcode_id, order_id, context=None):
+    def update_order(self, cr, uid, ids, context=None):
+        '''init'''
+        if context == None:
+            context = {}
+        acquisition_obj = self.pool.get('acquisition.acquisition')
+        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])  
+        stock_picking_obj = self.pool.get('stock.picking')
+        '''variables'''
+        address_id = acquisition_data.address_id.id
+        picking_id = acquisition_data.picking_id.id
+        ''''order creation'''
+        stock_picking_obj.write(cr, uid, picking_id, {'address_id': address_id, 'type': 'out'})
+        '''End'''   
+        return picking_id
+    
+    def update_stock_move(self, cr, uid, ids, barcode_data, order_id, context=None):
+        res = {}
+        move_obj = self.pool.get('stock.move')
+        stock_production_lot_obj = self.pool.get('stock.production.lot')
+        split_obj = self.pool.get('stock.move.split')
+        split_line_obj = self.pool.get('stock.move.split.lines')
+        if context == None:
+            context = {}
+        res_model = barcode_data.res_model
+        res_id = barcode_data.res_id
+        print res_model
+        if res_model == 'stock.production.lot':
+            production_lot = stock_production_lot_obj.browse(cr, uid, res_id)
+            product_id = production_lot.product_id and production_lot.product_id.id or False
+            print product_id
+            if product_id:
+                move_ids = move_obj.search(cr, uid, [
+                            ('state', 'not in', ['cancel']),
+                            ('picking_id', '=', order_id),
+                            ('product_id', '=', product_id),
+                            ('prodlot_id', '=', False),
+                        ])
+                print move_ids
+                if move_ids:
+                    vals = {}
+                    split_context = context
+                    split_context.update({'active_id': move_ids[0], 'active_ids': [move_ids[0]], 'active_model': 'stock.move'})
+                    split_id = split_obj.create(cr, uid, vals, split_context)
+                    split_line_obj.create(cr, uid, {'prodlot_id':res_id, 'wizard_exist_id':split_id, 'quantity':1})
+                    split_obj.split_lot(cr, uid, [split_id], split_context)
+        return res
+    
+    def add_stock_move(self, cr, uid, ids, barcode_data, order_id, context=None):
         '''init'''
         res = {}
         if context == None:
@@ -253,7 +307,6 @@ class acquisition_setting(osv.osv):
         acquisition_obj = self.pool.get('acquisition.acquisition')
         stock_production_lot_obj = self.pool.get('stock.production.lot')        
         
-        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
         acquisition_data = acquisition_obj.browse(cr, uid, ids[0])  
         
         '''process'''        

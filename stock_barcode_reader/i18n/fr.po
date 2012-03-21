@@ -42,7 +42,7 @@ msgstr "Fin de saisie"
 #: selection:acquisition.list,type:0
 #: selection:acquisition.setting,action_type:0
 msgid "Close a pack"
-msgstr "Fermer un pack"
+msgstr "Fermer un colis"
 
 #. module: stock_barcode_reader
 #: view:acquisition.acquisition:0
@@ -114,7 +114,7 @@ msgstr "Préparation de l'inventaire"
 #. module: stock_barcode_reader
 #: field:stock.reference,track_id:0
 msgid "Track id"
-msgstr "Suivre id"
+msgstr "ID colis"
 
 #. module: stock_barcode_reader
 #: view:acquisition.acquisition:0
@@ -177,7 +177,7 @@ msgstr "Ajouter une unité logistique"
 #. module: stock_barcode_reader
 #: selection:acquisition.acquisition,type:0
 msgid "Pack Preparation"
-msgstr "Préparation de pack"
+msgstr "Préparation de colis"
 
 #. module: stock_barcode_reader
 #: view:stock.reference:0
@@ -188,7 +188,7 @@ msgstr "Fin de la saisie"
 #: selection:acquisition.list,type:0
 #: selection:acquisition.setting,action_type:0
 msgid "Create a pack"
-msgstr "Préparation d'un pack"
+msgstr "Préparation d'un colis"
 
 #. module: stock_barcode_reader
 #: field:acquisition.acquisition,acquisition_ids:0
@@ -274,7 +274,7 @@ msgstr "Attention!"
 #. module: stock_barcode_reader
 #: view:stock.reference:0
 msgid "Close"
-msgstr "Fermer"
+msgstr "Fermé"
 
 #. module: stock_barcode_reader
 #: selection:acquisition.acquisition,state:0

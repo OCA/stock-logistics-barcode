@@ -51,7 +51,7 @@ class stock_reference(osv.osv_memory):
         res = {}
         barcode_obj = self.pool.get('tr.barcode')
         acquisition_list = self.pool.get('acquisition.list')
-#        acquisition_setting = self.pool.get('acquisition.setting')        
+        acquisition_setting = self.pool.get('acquisition.setting')        
         
         text = barcode_list or ''
         
@@ -66,16 +66,16 @@ class stock_reference(osv.osv_memory):
             if barcode_ids:                    
                 barcode_type = 'object'
                 line_ids = acquisition_list.search(cr, uid, [('barcode_id', '=', barcode_ids[0]), ('acquisition_id', '=', track_id)])
-#                setting_ids = acquisition_setting.search(cr, uid, [('barcode_id', '=', barcode_ids[0])], limit=1)
-#                
-#                if setting_ids:
-#                    setting_data = acquisition_setting.browse(cr, uid, setting_ids)                    
-#                    barcode_type = setting_data[0].action_type
+                setting_ids = acquisition_setting.search(cr, uid, [('barcode_id', '=', barcode_ids[0])], limit=1)
+                
+                if setting_ids:
+                    setting_data = acquisition_setting.browse(cr, uid, setting_ids)                    
+                    barcode_type = setting_data[0].action_type
                 create = True
                 if line_ids:
                     create = False
                     line_barcode = barcode_obj.read(cr, uid, barcode_ids[0], ['res_model'])
-                    if line_barcode.get('res_model',False) == 'product.product':
+                    if line_barcode.get('res_model',False) == 'product.product' or setting_ids:
                         create = True
                 if create:
                     acquisition_list.create(cr, uid, {
