@@ -102,7 +102,10 @@ class acquisition_acquisition(osv.osv):
         acquisition_data = self.browse(cr, uid, ids, context)
         for acquisition in acquisition_data:
             if acquisition.type == 'order':
-                self.order_preparation(cr, uid, acquisition, context)
+                if acquisition.picking_id:
+                    self.order_preparation(cr, uid, acquisition, context)
+                else:
+                    self.order_creation(cr, uid, acquisition, context)
             elif acquisition.type == 'pack':
                 self.pack_preparation(cr, uid, acquisition, context)
             elif acquisition.type == 'inventory':
@@ -112,148 +115,86 @@ class acquisition_acquisition(osv.osv):
             self.write(cr, uid, acquisition.id, {'state': 'done'}, context=context)
         return res
     
-    '''Order Creation'''
+    """
+    ### DELIVERY ORDER PREPARATION ###
+    """
     def order_preparation(self, cr, uid, acquisition, context=None):
         res = {}
         if context==None:
             context = {}
         first_code = True
-        acquisition_obj = self.pool.get('acquisition.acquisition')
-        setting_obj = self.pool.get('acquisition.setting')
         for line in acquisition.acquisition_ids:
-            if acquisition.picking_id:
-                if first_code == True:
-                    first_code = False
-                    order_id = setting_obj.update_order(cr, uid, [acquisition.id], context)
-                setting_obj.update_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
-            else:
-                if first_code == True:
-                    first_code = False
-                    order_id = setting_obj.create_order(cr, uid, [acquisition.id], context)
-                    acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
-                setting_obj.add_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
+            if first_code == True:
+                first_code = False
+                self.update_order(cr, uid, acquisition, context)
+            self.update_stock_move(cr, uid, line, context)
         return res
     
-    '''Pack Creation'''
-    def pack_preparation(self, cr, uid, acquisition, context=None):
+    '''Updating the order'''
+    def update_order(self, cr, uid, acquisition, context=None):
+        if context == None:
+            context = {} 
+        stock_picking_obj = self.pool.get('stock.picking')
+        address_id = acquisition.address_id.id
+        picking_id = acquisition.picking_id.id
+        stock_picking_obj.write(cr, uid, picking_id, {'address_id': address_id, 'type': 'out'})
+        return picking_id
+    
+    '''Split moves of the order into different production lot / tracking packs'''
+    def update_stock_move(self, cr, uid, line, context=None):
+        res = {}
+        move_obj = self.pool.get('stock.move')
+        production_lot_obj = self.pool.get('stock.production.lot')
+        split_obj = self.pool.get('stock.move.split')
+        split_line_obj = self.pool.get('stock.move.split.lines')
+        if context == None:
+            context = {}
+        barcode = line.bracode_id
+        res_model = barcode.res_model
+        res_id = barcode.res_id
+        order_id = line.acquisition_id and line.acquisition_id.picking_id and line.acquisition_id.picking_id.id or False
+        if res_model == 'stock.production.lot':
+            """ Split in production lot """
+            production_lot = production_lot_obj.browse(cr, uid, res_id)
+            product_id = production_lot.product_id and production_lot.product_id.id or False
+            if product_id:
+                move_ids = move_obj.search(cr, uid, [
+                    ('state', 'not in', ['cancel']),
+                    ('picking_id', '=', order_id),
+                    ('product_id', '=', product_id),
+                    ('prodlot_id', '=', False),
+                ])
+                if move_ids:
+                    """ The move can be split """
+                    vals = {}
+                    split_context = context
+                    split_context.update({'active_id': move_ids[0], 'active_ids': [move_ids[0]], 'active_model': 'stock.move'})
+                    split_id = split_obj.create(cr, uid, vals, split_context)
+                    split_line_obj.create(cr, uid, {'prodlot_id': res_id, 'wizard_exist_id': split_id, 'quantity':1})
+                    split_obj.split_lot(cr, uid, [split_id], split_context)
+                else:
+                    """ There are no move """
+                    """ TODO Create the move """
+        return res
+    
+    """
+    ### DELIVERY ORDER CREATION ###
+    """
+    def order_creation(self, cr, uid, acquisition, context=None):
         res = {}
         if context==None:
             context = {}
         first_code = True
-        parent_id = False
         acquisition_obj = self.pool.get('acquisition.acquisition')
-        setting_obj = self.pool.get('acquisition.setting')
         for line in acquisition.acquisition_ids:
             if first_code == True:
                 first_code = False
-                logistic_unit = acquisition.logistic_unit.id
-                parent_id = setting_obj.create_pack(cr, uid, [acquisition.id], logistic_unit, context)
-                acquisition_obj.write(cr, uid, acquisition.id, {'pack_id': parent_id})
-            setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
-        if parent_id:
-            setting_obj.close_pack(cr, uid, [parent_id], context)
+                order_id = self.create_order(cr, uid, [acquisition.id], context)
+                acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
+            self.add_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
         return res
     
-    '''Inventory Creation'''
-    def inventory_preparation(self, cr, uid, acquisition, context=None):
-        res = {}
-        if context==None:
-            context = {}
-        setting_obj = self.pool.get('acquisition.setting')
-        inventory_id = acquisition.inventory_id
-        for line in acquisition.acquisition_ids:
-            setting_obj.check_inventory_line(cr, uid, [acquisition.id], line.barcode_id.id, inventory_id, context)
-        return res
-    
-    '''Move Stock Creation'''
-    def move_stock_preparation(self, cr, uid, acquisition, context=None):
-        res = {}
-        if context==None:
-            context = {}
-        first_code = True
-        move_stock_id = False
-        setting_obj = self.pool.get('acquisition.setting')
-        for line in acquisition.acquisition_ids:
-            if first_code == True:
-                first_code = False
-                move_stock_id = setting_obj.create_move_stock(cr, uid, [acquisition.id], context) 
-            setting_obj.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
-        return res        
-                  
-acquisition_acquisition()
-
-class acquisition_list(osv.osv):    
-    
-    _name = "acquisition.list"
-    _columns = {
-        'name': fields.char('List Name', size=128),
-        'barcode_id': fields.many2one('tr.barcode', 'Barcode', readonly=True),
-        'acquisition_id': fields.many2one('acquisition.acquisition','Acquisition'),
-        'type': fields.selection([
-            ('object','Logistic Unit'),
-            ('create_add', 'Create a pack and add a logistic unit')
-            ('create_pack','Create a pack'), 
-            ('add_child','Add a logistic unit'), 
-            ('close_pack','Close a pack'),
-#            ('end_acquisistion','End Acquisition')
-        ], 'Action Type', size=32),
-     }
-acquisition_list()
-
-class acquisition_setting(osv.osv):
-    
-    _name = "acquisition.setting"
-    _columns = {
-        'barcode_id': fields.many2one('tr.barcode', 'Barcode', required=True, readonly=False),
-        'action_type': fields.selection([
-            ('create_add', 'Create a pack and add a logistic unit')
-            ('create_pack','Create a pack'),
-            ('add_child','Add a logistic unit'),
-            ('close_pack','Close a pack'),
-#            ('end_acquisistion','End Acquisition')
-        ], 'Action Type', size=32, required=True, help="Selection of an action"),           
-    }
-    
-    '''Function for pack creation'''    
-    def create_pack(self, cr, uid, ids, ul_id, context=None):        
-        '''Init'''
-        res = {} 
-        acquisition_obj = self.pool.get('acquisition.acquisition')
-        stock_tracking_obj = self.pool.get('stock.tracking')     
-        if context == None:
-            context = {}            
-        '''Location determination'''
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])
-        location_id = acquisition_data.origin_id.id        
-        logistic_unit = ul_id
-        '''Pack Creation'''
-        tracking_id = stock_tracking_obj.create(cr, uid, {'ul_id': logistic_unit, 'location_id': location_id})        
-        '''Pack name is returned'''
-        return tracking_id
-        
-    def add_child(self, cr, uid, barcode_id, parent_id, context=None):
-        '''Init'''
-        res = {}
-        barcode_obj = self.pool.get('tr.barcode')
-        tracking_obj = self.pool.get('stock.tracking')               
-        if context == None:
-            context = {}                        
-        '''Get barcode number'''        
-        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
-        barcode_code = barcode_data.code  
-        ''' Call of adding function '''
-        tracking_obj.add_validation(cr, uid, [parent_id], [barcode_id], context=None) 
-        return res
-    
-    def close_pack(self, cr, uid, ids, context=None):
-        '''init'''
-        if context == None:
-            context = {}
-        tracking_obj = self.pool.get('stock.tracking')             
-        '''Call of the function in stock_tracking_reopen'''
-        return tracking_obj.set_close(cr, uid, ids, context)
-    
-    '''Function for order creation'''    
+    ''' Picking Creation '''
     def create_order(self, cr, uid, ids, context=None):
         '''init'''
         if context == None:
@@ -268,51 +209,7 @@ class acquisition_setting(osv.osv):
         '''End'''   
         return order_id
     
-    def update_order(self, cr, uid, ids, context=None):
-        '''init'''
-        if context == None:
-            context = {}
-        acquisition_obj = self.pool.get('acquisition.acquisition')
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])  
-        stock_picking_obj = self.pool.get('stock.picking')
-        '''variables'''
-        address_id = acquisition_data.address_id.id
-        picking_id = acquisition_data.picking_id.id
-        ''''order creation'''
-        stock_picking_obj.write(cr, uid, picking_id, {'address_id': address_id, 'type': 'out'})
-        '''End'''   
-        return picking_id
-    
-    def update_stock_move(self, cr, uid, ids, barcode_data, order_id, context=None):
-        res = {}
-        move_obj = self.pool.get('stock.move')
-        stock_production_lot_obj = self.pool.get('stock.production.lot')
-        split_obj = self.pool.get('stock.move.split')
-        split_line_obj = self.pool.get('stock.move.split.lines')
-        if context == None:
-            context = {}
-        res_model = barcode_data.res_model
-        res_id = barcode_data.res_id
-        print res_model
-        if res_model == 'stock.production.lot':
-            production_lot = stock_production_lot_obj.browse(cr, uid, res_id)
-            product_id = production_lot.product_id and production_lot.product_id.id or False
-            if product_id:
-                move_ids = move_obj.search(cr, uid, [
-                            ('state', 'not in', ['cancel']),
-                            ('picking_id', '=', order_id),
-                            ('product_id', '=', product_id),
-                            ('prodlot_id', '=', False),
-                        ])
-                if move_ids:
-                    vals = {}
-                    split_context = context
-                    split_context.update({'active_id': move_ids[0], 'active_ids': [move_ids[0]], 'active_model': 'stock.move'})
-                    split_id = split_obj.create(cr, uid, vals, split_context)
-                    split_line_obj.create(cr, uid, {'prodlot_id':res_id, 'wizard_exist_id':split_id, 'quantity':1})
-                    split_obj.split_lot(cr, uid, [split_id], split_context)
-        return res
-    
+    ''' Adding move in a picking '''
     def add_stock_move(self, cr, uid, ids, barcode_data, order_id, context=None):
         '''init'''
         res = {}
@@ -421,6 +318,198 @@ class acquisition_setting(osv.osv):
                        
         '''End'''
         return res
+    
+    """
+    ### PACK PREPARATION ###
+    """
+    def pack_preparation(self, cr, uid, acquisition, context=None):
+        res = {}
+        if context==None:
+            context = {}
+        first_code = True
+        parent_id = False
+        acquisition_obj = self.pool.get('acquisition.acquisition')
+        setting_obj = self.pool.get('acquisition.setting')
+        for line in acquisition.acquisition_ids:
+            if first_code == True:
+                first_code = False
+                logistic_unit = acquisition.logistic_unit.id
+                parent_id = setting_obj.create_pack(cr, uid, [acquisition.id], logistic_unit, context)
+                acquisition_obj.write(cr, uid, acquisition.id, {'pack_id': parent_id})
+            setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
+        if parent_id:
+            setting_obj.close_pack(cr, uid, [parent_id], context)
+        return res
+    
+    """
+    ### INVENTORY ###
+    """
+    def inventory_preparation(self, cr, uid, acquisition, context=None):
+        res = {}
+        if context==None:
+            context = {}
+        inventory_id = acquisition.inventory_id or False
+        if not inventory_id:
+            raise osv.except_osv(_('Warning!'),_('There is no inventory, please create one!'))
+        if inventory_id.state == 'draft':
+            raise osv.except_osv(_('Warning!'),_('This inventory is not in draft state, you can\'t continue !'))
+        location_id = acquisition.origin_id or False
+        if not location_id:
+            raise osv.except_osv(_('Warning!'),_('There is no location defined, please select one!'))
+        for line in acquisition.acquisition_ids:
+            self.check_inventory_line(cr, uid, line, context)
+        return res
+    
+    def check_inventory_line(self, cr, uid, line, context=None):
+        if context == None:
+            context = {}
+        acquisition = line.acquisition_id
+        barcode = line.barcode_id
+        production_lot_obj = self.pool.get('stock.production.lot')
+        inventory_line_obj = self.pool.get('stock.inventory.line')
+        product_obj = self.pool.get('product.product')
+        inventory_id = acquisition.inventory_id and acquisition.inventory_id.id or False
+        location_id = acquisition.origin_id and acquisition.origin_id.id or False
+        logistic_unit_id = barcode.res_id
+        
+        if barcode.res_model == 'stock.production.lot':
+            """ Production Lot Case """
+            """ TODO What if the production lot is in a tracking ? """
+            production_lot = production_lot_obj.browse(cr, uid, logistic_unit_id)
+            product = production_lot.product_id
+            lot_id = production_lot.id
+            vals = {
+                'inventory_id': inventory_id,     
+                'location_id': location_id,
+                'product_id': product.id,
+                'product_uom': product.uom_id.id,
+                'product_qty': 1,
+                'prod_lot_id': lot_id,
+            }
+            line_ids = inventory_line_obj.search(cr, uid, [('inventory_id', '=', inventory_id), ('product_id', '=', product.id), ('prod_lot_id', '=', lot_id)])
+            if line_ids:
+                inventory_line_obj.write(cr, uid, [line_ids[0]], vals)
+            else:
+                inventory_line_obj.create(cr, uid, vals)
+                    
+        elif barcode.res_model == 'product.product':
+            """ Product Case """
+            product = product_obj.browse(cr, uid, logistic_unit_id)
+            vals = {
+                'inventory_id': inventory_id,               
+                'location_id': location_id,
+                'product_id': product.id,
+                'product_uom': product.uom_id.id,
+            }
+            line_ids = inventory_line_obj.search(cr, uid, [('inventory_id', '=', inventory_id), ('product_id', '=', product.id), ('location_id', '=', location_id)])
+            if line_ids:
+                qty = inventory_line_obj.read(cr, uid, line_ids[0], ['product_qty'])['product_qty']
+                vals_update = vals
+                vals_update.update({'product_qty': qty >= 0 and qty + line.quantity or line.quantity})
+                inventory_line_obj.write(cr, uid, [line_ids[0]], vals_update)
+            else:
+                vals_create = vals
+                vals_create.update({'product_qty': line.quantity})
+                inventory_line_obj.create(cr, uid, vals_create)
+    
+    """
+    ### MOVE STOCK CREATION ###
+    """
+    def move_stock_preparation(self, cr, uid, acquisition, context=None):
+        res = {}
+        if context==None:
+            context = {}
+        first_code = True
+        move_stock_id = False
+        setting_obj = self.pool.get('acquisition.setting')
+        for line in acquisition.acquisition_ids:
+            if first_code == True:
+                first_code = False
+                move_stock_id = setting_obj.create_move_stock(cr, uid, [acquisition.id], context) 
+            setting_obj.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
+        return res        
+                  
+acquisition_acquisition()
+
+class acquisition_list(osv.osv):    
+    
+    _name = "acquisition.list"
+    _columns = {
+        'name': fields.char('List Name', size=128),
+        'barcode_id': fields.many2one('tr.barcode', 'Barcode', readonly=True),
+        'acquisition_id': fields.many2one('acquisition.acquisition','Acquisition'),
+        'type': fields.selection([
+            ('object','Logistic Unit'),
+            ('create_add', 'Create a pack and add a logistic unit')
+            ('create_pack','Create a pack'), 
+            ('add_child','Add a logistic unit'), 
+            ('close_pack','Close a pack'),
+        ], 'Action Type', size=32),
+        'quantity': fields.flaot('Quantity'),
+     }
+    
+    _defaults = {
+        'quantity': 1,
+    }
+acquisition_list()
+
+class acquisition_setting(osv.osv):
+    
+    _name = "acquisition.setting"
+    _columns = {
+        'barcode_id': fields.many2one('tr.barcode', 'Barcode', required=True, readonly=False),
+        'action_type': fields.selection([
+            ('create_add', 'Create a pack and add a logistic unit')
+            ('create_pack','Create a pack'),
+            ('add_child','Add a logistic unit'),
+            ('close_pack','Close a pack'),
+        ], 'Action Type', size=32, required=True, help="Selection of an action"),           
+    }
+    
+    '''Function for pack creation'''    
+    def create_pack(self, cr, uid, ids, ul_id, context=None):        
+        '''Init'''
+        res = {} 
+        acquisition_obj = self.pool.get('acquisition.acquisition')
+        stock_tracking_obj = self.pool.get('stock.tracking')     
+        if context == None:
+            context = {}            
+        '''Location determination'''
+        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])
+        location_id = acquisition_data.origin_id.id        
+        logistic_unit = ul_id
+        '''Pack Creation'''
+        tracking_id = stock_tracking_obj.create(cr, uid, {'ul_id': logistic_unit, 'location_id': location_id})        
+        '''Pack name is returned'''
+        return tracking_id
+        
+    def add_child(self, cr, uid, barcode_id, parent_id, context=None):
+        '''Init'''
+        res = {}
+        barcode_obj = self.pool.get('tr.barcode')
+        tracking_obj = self.pool.get('stock.tracking')               
+        if context == None:
+            context = {}                        
+        '''Get barcode number'''        
+        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
+        barcode_code = barcode_data.code  
+        ''' Call of adding function '''
+        tracking_obj.add_validation(cr, uid, [parent_id], [barcode_id], context=None) 
+        return res
+    
+    def close_pack(self, cr, uid, ids, context=None):
+        '''init'''
+        if context == None:
+            context = {}
+        tracking_obj = self.pool.get('stock.tracking')             
+        '''Call of the function in stock_tracking_reopen'''
+        return tracking_obj.set_close(cr, uid, ids, context)
+    
+
+    
+
+    
+
         
 #    def create_inventory(self, cr, uid, ids, context=None):
 #        '''init'''
@@ -436,57 +525,7 @@ class acquisition_setting(osv.osv):
 #        '''End'''
 #        return inventory_id
     
-    def check_inventory_line(self, cr, uid, ids, barcode_id, inventory_data, context=None):
-        res = {} 
-        '''init'''
-        if context == None:
-            context = {}
-        barcode_obj = self.pool.get('tr.barcode')
-        acquisition_obj = self.pool.get('acquisition.acquisition')   
-        stock_production_lot_obj = self.pool.get('stock.production.lot')  
-        inventory_line_obj = self.pool.get('stock.inventory.line')     
-        stock_tracking_obj = self.pool.get('stock.tracking')   
-        product_obj = self.pool.get('product.product') 
-        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0]) 
-         
-        location_id = acquisition_data.origin_id.id
-        logistic_unit_id = barcode_data.res_id
-        if barcode_data.res_model == 'stock.production.lot':            
-            stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id)
-            product = stock_production_lot_data.product_id
-            logistic_unit_number = stock_production_lot_data.id
-            vals = {
-                    'inventory_id': inventory_data.id,     
-                    'location_id': location_id,
-                    'product_id': product.id,
-                    'product_uom': product.uom_id.id,
-                    'product_qty': 1,
-                    'prod_lot_id':logistic_unit_number}
-            line_ids = inventory_line_obj.search(cr, uid, [('inventory_id', '=', inventory_data.id), ('product_id', '=', product.id), ('prod_lot_id', '=', logistic_unit_number)])
-            if line_ids:
-                inventory_line_obj.write(cr, uid, [line_ids[0]], vals)
-            else:
-                inventory_line_obj.create(cr, uid, vals)
-                    
-        elif barcode_data.res_model == 'product.product':
-            product_data = product_obj.browse(cr, uid, logistic_unit_id)
-            vals = {
-                'inventory_id': inventory_data.id,               
-                'location_id': location_id,
-                'product_id': product_data.id,
-                'product_uom': product_data.uom_id.id,
-                }
-            line_ids = inventory_line_obj.search(cr, uid, [('inventory_id', '=', inventory_data.id), ('product_id', '=', product_data.id), ('location_id', '=', location_id)])
-            if line_ids:
-                qty = inventory_line_obj.read(cr, uid, line_ids[0], ['product_qty'])['product_qty']
-                vals_update = vals
-                vals_update.update({'product_qty': qty >= 0 and int(qty) + 1 or 1})
-                inventory_line_obj.write(cr, uid, [line_ids[0]], vals_update)
-            else:
-                vals_create = vals
-                vals_create.update({'product_qty': 1})
-                inventory_line_obj.create(cr, uid, vals_create)
+
                 
 #            for line in inventory_data.inventory_line_id:                
 #                if line.product_id.id == product_data.id:

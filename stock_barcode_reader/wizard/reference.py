@@ -95,8 +95,7 @@ class stock_reference(osv.osv_memory):
 #                        bad_barcode += '\n'
 
             
-        return {'value': {'reference' : False, 'text' : text}}    
-#        return res        
+        return {'value': {'reference' : False, 'text' : text}}          
 
 stock_reference()
 
