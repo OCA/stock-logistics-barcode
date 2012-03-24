@@ -33,12 +33,26 @@
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Acquisition list">
-					<field name="barcode_id" colspan="2"/>
-					<field name="type" colspan="2"/>
-					<field name="quantity" colspan="2"/>
+					<field name="barcode_id"/>
+					<field name="type"/>
+					<field name="quantity"/>
 				</tree>
 			</field>
     	</record>
+    	
+		<record model="ir.ui.view" id="view_stock_tracking_form">
+			<field name="name">Acquisition.list.view</field>
+			<field name="model">acquisition.list</field>			
+			<field name="type">form</field>
+			<field name="arch" type="xml">
+				<tree string="Acquisition list">
+					<field name="acquisition_id" readonly="True"/>
+					<field name="barcode_id" readonly="True"/>
+					<field name="type" readonly="True"/>
+					<field name="quantity" on_change="on_change_quantity(quantity,barcode_id)"/>
+				</tree>
+			</field>
+		</record>
 
         <record model="ir.ui.view" id="view_stock_tracking_acquisition_form">
 			<field name="name">Acquisition.view</field>

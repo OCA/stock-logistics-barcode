@@ -149,7 +149,7 @@ class acquisition_acquisition(osv.osv):
         split_line_obj = self.pool.get('stock.move.split.lines')
         if context == None:
             context = {}
-        barcode = line.bracode_id
+        barcode = line.barcode_id
         res_model = barcode.res_model
         res_id = barcode.res_id
         order_id = line.acquisition_id and line.acquisition_id.picking_id and line.acquisition_id.picking_id.id or False
@@ -328,14 +328,13 @@ class acquisition_acquisition(osv.osv):
             context = {}
         first_code = True
         parent_id = False
-        acquisition_obj = self.pool.get('acquisition.acquisition')
         setting_obj = self.pool.get('acquisition.setting')
         for line in acquisition.acquisition_ids:
             if first_code == True:
                 first_code = False
                 logistic_unit = acquisition.logistic_unit.id
                 parent_id = setting_obj.create_pack(cr, uid, [acquisition.id], logistic_unit, context)
-                acquisition_obj.write(cr, uid, acquisition.id, {'pack_id': parent_id})
+                self.write(cr, uid, acquisition.id, {'pack_id': parent_id})
             setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
         if parent_id:
             setting_obj.close_pack(cr, uid, [parent_id], context)
@@ -451,6 +450,28 @@ class acquisition_list(osv.osv):
     _defaults = {
         'quantity': 1,
     }
+    
+    def on_change_quantity(self, cr, uid, ids, quantity=1, barcode_id=False, context=None):
+        res = {'value': {'quantity': 1}}
+        if context == None:
+            context = {}
+        if barcode_id:
+            if self.pool.get('tr.barcode').browse(cr, uid, barcode_id).res_model == 'product.product':
+                res = {'value': {'quantity' : quantity}}
+        return res
+    
+    def _check_quantity(self, cr, uid, ids, context=None):
+        for record in self.browse(cr, uid, ids, context=context):
+            if record.quantity != 1 and record.barcode_id.res_model!='product.product':
+                return False
+        return True
+    
+    _constraints = [
+        (_check_quantity,
+        'You assigned a wrong quantity for this line',
+        ['name']),
+    ]
+    
 acquisition_list()
 
 class acquisition_setting(osv.osv):
@@ -466,23 +487,28 @@ class acquisition_setting(osv.osv):
         ], 'Action Type', size=32, required=True, help="Selection of an action"),           
     }
     
+    def create_add(self, cr, uid, ids, ul_id, context=None):
+        if context == None:
+            context = {}
+        tracking_id = self.create_pack(cr, uid, ids, ul_id, context)
+        return tracking_id
+    
     '''Function for pack creation'''    
     def create_pack(self, cr, uid, ids, ul_id, context=None):        
         '''Init'''
-        res = {} 
-        acquisition_obj = self.pool.get('acquisition.acquisition')
-        stock_tracking_obj = self.pool.get('stock.tracking')     
+        res = {}
+        stock_tracking_obj = self.pool.get('stock.tracking')
         if context == None:
             context = {}            
         '''Location determination'''
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])
-        location_id = acquisition_data.origin_id.id        
+        acquisition_data = self.browse(cr, uid, ids[0])
+        location_id = acquisition_data.origin_id.id
         logistic_unit = ul_id
         '''Pack Creation'''
         tracking_id = stock_tracking_obj.create(cr, uid, {'ul_id': logistic_unit, 'location_id': location_id})        
         '''Pack name is returned'''
         return tracking_id
-        
+    
     def add_child(self, cr, uid, barcode_id, parent_id, context=None):
         '''Init'''
         res = {}
