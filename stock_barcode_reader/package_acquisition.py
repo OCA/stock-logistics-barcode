@@ -440,12 +440,12 @@ class acquisition_list(osv.osv):
         'acquisition_id': fields.many2one('acquisition.acquisition','Acquisition'),
         'type': fields.selection([
             ('object','Logistic Unit'),
-            ('create_add', 'Create a pack and add a logistic unit')
+            ('create_add', 'Create a pack and add a logistic unit'),
             ('create_pack','Create a pack'), 
             ('add_child','Add a logistic unit'), 
             ('close_pack','Close a pack'),
         ], 'Action Type', size=32),
-        'quantity': fields.flaot('Quantity'),
+        'quantity': fields.float('Quantity'),
      }
     
     _defaults = {
@@ -459,7 +459,7 @@ class acquisition_setting(osv.osv):
     _columns = {
         'barcode_id': fields.many2one('tr.barcode', 'Barcode', required=True, readonly=False),
         'action_type': fields.selection([
-            ('create_add', 'Create a pack and add a logistic unit')
+            ('create_add', 'Create a pack and add a logistic unit'),
             ('create_pack','Create a pack'),
             ('add_child','Add a logistic unit'),
             ('close_pack','Close a pack'),
