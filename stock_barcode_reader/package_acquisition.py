@@ -420,13 +420,81 @@ class acquisition_acquisition(osv.osv):
             context = {}
         first_code = True
         move_stock_id = False
-        setting_obj = self.pool.get('acquisition.setting')
         for line in acquisition.acquisition_ids:
             if first_code == True:
                 first_code = False
-                move_stock_id = setting_obj.create_move_stock(cr, uid, [acquisition.id], context) 
-            setting_obj.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
-        return res        
+                move_stock_id = self.create_move_stock(cr, uid, [acquisition.id], context) 
+            self.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
+        return res
+    
+    def create_move_stock(self, cr, uid, ids, context=None):
+        '''init'''
+        if context == None:
+            context = {}
+        acquisition_data = self.browse(cr, uid, ids[0])
+        stock_inventory_obj = self.pool.get('stock.inventory')      
+        
+        '''variables'''       
+        origin_id = acquisition_data.origin_id.id    
+        destination_id = acquisition_data.move_stock_destination.id      
+        date = acquisition_data.move_stock_date
+        ''''inventory creation'''
+        move_stock_id = stock_inventory_obj.create(cr, uid, {
+                    'type': 'move',
+                    'date_done': date,
+                    'location_id': origin_id,
+                    'location_dest_id': destination_id,
+                })
+        '''End'''
+        return move_stock_id
+    
+    def add_stock_move_line(self, cr, uid, ids, barcode_id, inventory_id, inventory_line_id, context=None):
+        res = {} 
+        '''init'''        
+        if context == None:
+            context = {}
+        barcode_obj = self.pool.get('tr.barcode')  
+        stock_production_lot_obj = self.pool.get('stock.production.lot')  
+        inventory_line_obj = self.pool.get('stock.inventory.line')     
+        stock_tracking_obj = self.pool.get('stock.tracking')   
+        product_obj = self.pool.get('product.product') 
+        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
+        acquisition_data = self.browse(cr, uid, ids[0]) 
+         
+        location_id = acquisition_data.origin_id.id
+        logistic_unit_id = barcode_data.res_id
+        if barcode_data.res_model == 'stock.production.lot':       
+            stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id)
+            product = stock_production_lot_data.product_id
+            logistic_unit_number = stock_production_lot_data.id 
+            vals = {
+                    'inventory_id': inventory_id,                    
+                    'location_id': location_id,
+                    'product_id': product.id,
+                    'product_uom': product.uom_id.id,
+                    'product_qty': 1,
+                    'prod_lot_id':logistic_unit_number}     
+            inventory_line_obj.create(cr, uid, vals)
+        elif barcode_data.res_model == 'product.product':
+            product_data = product_obj.browse(cr, uid, logistic_unit_id)
+            vals = {
+                    'inventory_id': inventory_id,               
+                    'location_id': location_id,
+                    'product_id': product_data.id,
+                    'product_uom': product_data.uom_id.id,
+                    'product_qty': 1}        
+            inventory_line_obj.create(cr, uid, vals)            
+        elif barcode_data.res_model == 'stock.tracking':
+            stock_tracking_data = stock_tracking_obj.browse(cr, uid, logistic_unit_id)
+            if stock_tracking_data.parent_id:
+                raise osv.except_osv(_('Warning!'),_('You cannot move this pack because it\'s inside of an other pack: %s.') % (stock_tracking_data.parent_id.name))
+            for child in stock_tracking_data.child_ids:
+                if child.state != 'close':
+                    raise osv.except_osv(_('Warning!'),_('You cannot move this pack because there is a none closed pack inside of it: %s.') % (child.name))            
+            
+            raise osv.except_osv(_('Warning!'),_('Not developed yet'))
+                                 
+        return res   
                   
 acquisition_acquisition()
 
@@ -567,77 +635,9 @@ class acquisition_setting(osv.osv):
 #                            'product_qty': 1}        
 #                    inventory_line_obj.create(cr, uid, vals)
     
-    def create_move_stock(self, cr, uid, ids, context=None):
-        '''init'''
-        if context == None:
-            context = {}
-        acquisition_obj = self.pool.get('acquisition.acquisition')
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0])
-        stock_inventory_obj = self.pool.get('stock.inventory')      
+
         
-        '''variables'''       
-        origin_id = acquisition_data.origin_id.id    
-        destination_id = acquisition_data.move_stock_destination.id      
-        date = acquisition_data.move_stock_date
-        ''''inventory creation'''
-        move_stock_id = stock_inventory_obj.create(cr, uid, {
-                                                            'type': 'move',
-                                                            'date_done': date,
-                                                            'location_id': origin_id,
-                                                            'location_dest_id': destination_id,
-                                                            })
-        '''End'''
-        return move_stock_id
-        
-    def add_stock_move_line(self, cr, uid, ids, barcode_id, inventory_id, inventory_line_id, context=None):
-        res = {} 
-        '''init'''        
-        if context == None:
-            context = {}        
-        in_inventory = False
-        barcode_obj = self.pool.get('tr.barcode')
-        acquisition_obj = self.pool.get('acquisition.acquisition')   
-        stock_production_lot_obj = self.pool.get('stock.production.lot')  
-        inventory_line_obj = self.pool.get('stock.inventory.line')     
-        stock_tracking_obj = self.pool.get('stock.tracking')   
-        product_obj = self.pool.get('product.product') 
-        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
-        acquisition_data = acquisition_obj.browse(cr, uid, ids[0]) 
-         
-        location_id = acquisition_data.origin_id.id
-        logistic_unit_id = barcode_data.res_id
-        if barcode_data.res_model == 'stock.production.lot':       
-            stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id)
-            product = stock_production_lot_data.product_id
-            logistic_unit_number = stock_production_lot_data.id 
-            vals = {
-                    'inventory_id': inventory_id,                    
-                    'location_id': location_id,
-                    'product_id': product.id,
-                    'product_uom': product.uom_id.id,
-                    'product_qty': 1,
-                    'prod_lot_id':logistic_unit_number}     
-            inventory_line_obj.create(cr, uid, vals)
-        elif barcode_data.res_model == 'product.product':
-            product_data = product_obj.browse(cr, uid, logistic_unit_id)
-            vals = {
-                    'inventory_id': inventory_id,               
-                    'location_id': location_id,
-                    'product_id': product_data.id,
-                    'product_uom': product_data.uom_id.id,
-                    'product_qty': 1}        
-            inventory_line_obj.create(cr, uid, vals)            
-        elif barcode_data.res_model == 'stock.tracking':
-            stock_tracking_data = stock_tracking_obj.browse(cr, uid, logistic_unit_id)
-            if stock_tracking_data.parent_id:
-                raise osv.except_osv(_('Warning!'),_('You cannot move this pack because it\'s inside of an other pack: %s.') % (stock_tracking_data.parent_id.name))
-            for child in stock_tracking_data.child_ids:
-                if child.state != 'close':
-                    raise osv.except_osv(_('Warning!'),_('You cannot move this pack because there is a none closed pack inside of it: %s.') % (child.name))            
-            
-            raise osv.except_osv(_('Warning!'),_('Not developed yet'))
-                                 
-        return res   
+
     
 acquisition_setting()
 
