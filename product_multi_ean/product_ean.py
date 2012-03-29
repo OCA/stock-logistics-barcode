@@ -171,9 +171,6 @@ class ProductProduct(osv.osv):
             ean_ids = self.pool.get('product.ean13').search(
                 cr, uid, [('name', ean_operator, ean_value)])
 
-            if not ean_ids:
-                return []
-
             #get the other arguments of the search
             args = filter(lambda x: x[0] != 'ean13', args)
             #add the new criterion
