@@ -18,4 +18,26 @@
 #
 ##############################################################################
 
-import product_ean
+{
+    'name' : 'Multiple EAN13 on products',
+    'version' : '1.0',
+    'depends' : ['base', 'product'],
+    'author' : 'Camptocamp',
+    'description': """Multiple EAN13 for one product.
+Product EAN13 field is replaced by a function which returns the first EAN13 found.
+
+Need to manually comment out the constraint :
+_constraints = [(_check_ean_key, 'Error: Invalid ean code', ['ean13'])]
+in product/product.py because, sadly, it is impossible to inherit it.
+
+WARNING !!! THIS WILL DROP ALL YOUR CURRENT EAN13 AS OPENERP DROP THE COLUMN.
+PLEASE BE SURE TO EXPORT THEM BEFORE INSTALLATION OF THE MODULE AND RESTORE THEM WITH AN IMPORT.
+
+""",
+    'website': 'http://www.camptocamp.com',
+    'init_xml': [],
+    'update_xml': ['product_view.xml'],
+    'demo_xml': [],
+    'installable': True,
+    'active': False,
+}

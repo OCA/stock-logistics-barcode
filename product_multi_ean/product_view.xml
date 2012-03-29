@@ -10,7 +10,6 @@
                 <group colspan="2" col="2" name="misc" position="inside">
                     <field groups="base.group_extended" name="ean13_ids" select="2">
                         <form string="EAN13">
-                            <field name="sequence"/>
                             <field name="name"/>
                         </form>
                         <tree string="EAN13">
