@@ -20,6 +20,9 @@
 
 import product as base_product
 import math
+
+import netsvc
+from tools.translate import _
 from osv import osv, fields
 
 
@@ -49,6 +52,7 @@ class ProductProduct(osv.osv):
         return True
 
     _constraints = [(_check_ean_key, 'Error: Invalid ean code', ['ean13'])]
+
 
     def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
         """overwrite the search method in order to search
@@ -91,15 +95,21 @@ class ProductEan13(osv.osv):
     def _check_ean_key(self, cr, uid, ids):
         def is_pair(x):
             return not x % 2
-
+        logger = netsvc.Logger()
         for ean in self.browse(cr, uid, ids):
             if not ean.name:
                 continue
             if len(ean.name) != 13:
+                logger.notifyChannel(_("EAN Validation"),
+                                     netsvc.LOG_ERROR,
+                                     _("EAN %s is not 13 char long" % (ean.name)))
                 return False
             try:
                 int(ean.name)
             except:
+                logger.notifyChannel(_("EAN Validation"),
+                                     netsvc.LOG_ERROR,
+                                     _("EAN %s is contains non numeric value" % (ean.name)))
                 return False
             sum = 0
             for i in range(12):
@@ -109,6 +119,9 @@ class ProductEan13(osv.osv):
                     sum += 3 * int(ean.name[i])
             check = int(math.ceil(sum / 10.0) * 10 - sum)
             if check != int(ean.name[12]):
+                logger.notifyChannel(_("EAN Validation"),
+                                     netsvc.LOG_ERROR,
+                                     _("EAN %s check sum is wrong" % (ean.name)))
                 return False
         return True
 
