@@ -17,14 +17,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
-import product as base_product
-import math
-
-import netsvc
-from tools.translate import _
+from product.product import check_ean
 from osv import osv, fields
-
 
 class ProductProduct(osv.osv):
     _inherit = 'product.product'
@@ -39,18 +33,25 @@ class ProductProduct(osv.osv):
             values[product.id] = ean13
         return values
 
-    _columns = {
-        'ean13': fields.function(_get_main_ean13, type='many2one',
-                                 obj='product.ean13', method=True,
-                                 string='Main EAN13'),
-        'ean13_ids': fields.one2many('product.ean13', 'product_id', 'EAN13'),
-    }
+    def _get_ean(self, cr, uid, ids, context=None):
+        res = set()
+        obj = self.pool.get('product.ean13')
+        for ean in obj.browse(cr, uid, ids, context):
+            res.add(ean.product_id.id)
+        return list(res)
+
+    _columns = {'ean13': fields.function(_get_main_ean13,
+                                         type='many2one',
+                                         obj='product.ean13',
+                                         method=True,
+                                         string='Main EAN13',
+                                         store ={'product.ean13':(_get_ean, [],10)}),
+                'ean13_ids': fields.one2many('product.ean13', 'product_id', 'EAN13')}
 
     # disable constraint
     def _check_ean_key(self, cr, uid, ids):
         "Inherit the method to disable the EAN13 check"
         return True
-
     _constraints = [(_check_ean_key, 'Error: Invalid ean code', ['ean13'])]
 
 
@@ -81,51 +82,21 @@ class ProductEan13(osv.osv):
     _name = 'product.ean13'
     _description = "List of EAN13 for a product."
 
-    _columns = {
-        'name': fields.char('EAN13', size=13),
-        'product_id': fields.many2one('product.product', 'Product'),
-        'sequence': fields.integer('Sequence'),
-    }
+    _columns = {'name': fields.char('EAN13', size=13),
+                'product_id': fields.many2one('product.product', 'Product'),
+                'sequence': fields.integer('Sequence'),}
 
-    _defaults = {
-        'sequence': lambda *a: 1,
-    }
+    _defaults = {'sequence': lambda *a: 1}
 
     _order = 'sequence'
 
-    # original code taken from OpenERP code (product/product.py)
     def _check_ean_key(self, cr, uid, ids):
-        def is_pair(x):
-            return not x % 2
-        logger = netsvc.Logger()
+        res = False
         for ean in self.browse(cr, uid, ids):
-            if not ean.name:
-                continue
-            if len(ean.name) != 13:
-                logger.notifyChannel(_("EAN Validation"),
-                                     netsvc.LOG_ERROR,
-                                     _("EAN %s is not 13 char long" % (ean.name)))
-                return False
-            try:
-                int(ean.name)
-            except:
-                logger.notifyChannel(_("EAN Validation"),
-                                     netsvc.LOG_ERROR,
-                                     _("EAN %s is contains non numeric value" % (ean.name)))
-                return False
-            sum = 0
-            for i in range(12):
-                if is_pair(i):
-                    sum += int(ean.name[i])
-                else:
-                    sum += 3 * int(ean.name[i])
-            check = int(math.ceil(sum / 10.0) * 10 - sum)
-            if check != int(ean.name[12]):
-                logger.notifyChannel(_("EAN Validation"),
-                                     netsvc.LOG_ERROR,
-                                     _("EAN %s check sum is wrong" % (ean.name)))
-                return False
-        return True
+            res = check_ean(ean.name)
+            if not res:
+                return res
+        return res
 
     _constraints = [(_check_ean_key, 'Error: Invalid ean code', ['name'])]
 
