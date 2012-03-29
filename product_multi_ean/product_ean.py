@@ -50,6 +50,24 @@ class ProductProduct(osv.osv):
 
     _constraints = [(_check_ean_key, 'Error: Invalid ean code', ['ean13'])]
 
+    def search(self, cr, uid, args, offset=0, limit=None, order=None, context=None, count=False):
+        """overwrite the search method in order to search
+        on all ean13 codes of a product when we search an ean13"""
+
+        if filter(lambda x: x[0] == 'ean13', args):
+            # get the operator of the search
+            ean_operator = filter(lambda x: x[0] == 'ean13', args)[0][1]
+            #get the value of the search
+            ean_value = filter(lambda x: x[0] == 'ean13', args)[0][2]
+            # search the ean13
+            ean_ids = self.pool.get('product.ean13').search(cr, uid, [('name', ean_operator, ean_value)])
+
+            #get the other arguments of the search
+            args = filter(lambda x: x[0] != 'ean13', args)
+            #add the new criterion
+            args += [('ean13_ids', 'in', ean_ids)]
+        return super(ProductProduct, self).search(cr, uid, args, offset, limit, order, context=context, count=count)
+
 ProductProduct()
 
 
