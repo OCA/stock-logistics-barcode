@@ -18,6 +18,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {'name' : 'Multiple EAN13 on products',
  'version' : '1.1',
  'author' : 'Camptocamp',
@@ -25,10 +26,10 @@
  'category': 'Warehouse',
  'complexity': "normal",  # easy, normal, expert
  'depends' : ['base', 'product'],
- 'description': """"Multiple EAN13 for one product.
-Product EAN13 field is replaced by a function which returns the first EAN13 found.
-WARNING !!! THIS WILL DROP ALL YOUR CURRENT EAN13 AS OPENERP DROP THE COLUMN.
-PLEASE BE SURE TO EXPORT THEM BEFORE INSTALLATION OF THE MODULE AND RESTORE THEM WITH AN IMPORT.
+ 'description': """"
+Allow Multiple EAN13 on products.
+A list of EAN13 is available for each product with a priority, so a
+main ean13 code is defined.
 """,
  'website': 'http://www.camptocamp.com',
  'init_xml': [],
@@ -40,5 +41,5 @@ PLEASE BE SURE TO EXPORT THEM BEFORE INSTALLATION OF THE MODULE AND RESTORE THEM
  'images' : ['/static/src/images/image'],
  'auto_install': False,
  'license': 'AGPL-3',
- 'application': True}
-
+ 'application': True
+}
