@@ -23,7 +23,22 @@
     "name" : "Stock bar code reader",
     "version" : "1.0",
     "author" : "Julius Network Solutions",
-    "description" : """ This module is an ergonomic wizard to fill in package """,
+    "description" : """
+
+Presentation:
+
+This module is an ergonomic wizard to fill in package.
+Add menu for acquisition of package.
+Add Button in Stock picking for start acquisition.
+
+
+Configuration:
+
+Warehouse>Configuration>Acquisition Setting
+
+This module adds a submenu for acquisition setting with a field Barcode and Action type.
+
+ """,
     "website" : "http://www.julius.fr",
     "depends" : [
          "stock",
@@ -33,6 +48,7 @@
     "category" : "Customs/Stock",
     "init_xml" : [],
     "demo_xml" : [],
+    "images" : ['images/Acquisition.png'],
     "update_xml" : [
         'wizard/reference_view.xml',
         'acquisition_view.xml',

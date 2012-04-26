@@ -23,7 +23,13 @@
     "name" : "Barcode field Module",
     "version" : "1.0",
     "author" : "Julius Network Solutions",
-    "description" : """ This module is the Barcode field module""",
+    "description" : """
+
+Presentation:
+
+This module adds a field to make a link between the product and the barcode.
+
+""",
     "website" : "http://www.julius.fr",
     "depends" : [
             "tr_barcode",

@@ -23,7 +23,14 @@
     "name" : "Barcode link Module",
     "version" : "1.0",
     "author" : "Julius Network Solutions",
-    "description" : """ This module is the Barcode link module""",
+    "description" : """
+    
+Presentation:
+
+The module Barcode_link adds a field Link in the barcode form.
+And link the barcode with a product.
+
+""",
     "website" : "http://www.julius.fr",
     "depends" : [
             "tr_barcode",
@@ -31,6 +38,7 @@
     "category" : "Generic Modules/Inventory Control",
     "init_xml" : [],
     "demo_xml" : [],
+    "images" : ['images/Barcode link.png'],
     "update_xml" : [
                     'barcode_link_view.xml',
     ],
