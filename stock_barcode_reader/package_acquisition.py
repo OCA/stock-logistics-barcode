@@ -106,7 +106,7 @@ class acquisition_acquisition(osv.osv):
         '''We add a move form it position to the current stock'''
         if stock_production_lot_data.location_id:
             if stock_production_lot_data.location_id.id != origin_id:
-                new_move_id = stock_move_obj.create(cr, uid, {'name': stock_production_lot_name,
+                result = stock_move_obj.create(cr, uid, {'name': stock_production_lot_name,
                                                               'state': 'draft',
                                                               'product_id': product.id,
                                                               'product_uom': product.uom_id.id,
@@ -235,7 +235,7 @@ class acquisition_acquisition(osv.osv):
         
         if res_model == 'stock.production.lot':
             """ Check of production lot creation """
-            self.check_production_lot_location(cr, uid, origin_id, res_id, context) 
+            new_move_id = self.check_production_lot_location(cr, uid, origin_id, res_id, context) 
             """ Split in production lot """
             self.update_delivery_order_line(cr, uid, res_id, order_id, origin_id, destination_id, parent_id, context)  
                       
@@ -323,7 +323,7 @@ class acquisition_acquisition(osv.osv):
             name_list = self.pool.get('product.product').name_get(cr, uid, [product.id], context)
             stock_production_lot_name = name_list[0][1]
             '''If the production lot is not in the current stock'''
-            self.check_production_lot_location(cr, uid, origin_id, logistic_unit_id, context)            
+            new_move_id = self.check_production_lot_location(cr, uid, origin_id, logistic_unit_id, context)            
             ''''stock move creation'''
             move_id = stock_move_obj.create(cr, uid, {
                                                   'name': stock_production_lot_name,
@@ -332,7 +332,8 @@ class acquisition_acquisition(osv.osv):
                                                   'prodlot_id': logistic_unit_number,
                                                   'location_id': origin_id,
                                                   'location_dest_id': destination_id,
-                                                  'picking_id': order_id
+                                                  'picking_id': order_id,
+                                                  'move_ori_id': new_move_id,
                                                 })
         elif barcode_data.res_model == 'product.product':
             product_data = product_obj.browse(cr, uid, logistic_unit_id)
