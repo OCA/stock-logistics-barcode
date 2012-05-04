@@ -32,7 +32,7 @@ class tr_barcode_installer(osv.osv_memory):
         model_obj = self.pool.get('ir.model')
         field_obj = self.pool.get('ir.model.fields')
         read_datas = model_obj.read(cr, uid,
-                vals['models_ids'][0][-1], ['model','name'], context=context)        
+                vals['models_ids'][0][-1], ['model','name'], context=context)     
         for model in read_datas:
             field_ids = field_obj.search(cr, uid, [
                                 ('name', '=', 'x_barcode_id'),
