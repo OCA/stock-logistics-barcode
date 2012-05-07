@@ -50,7 +50,7 @@ class tr_barcode_installer(osv.osv_memory):
              'model': model['model'],
              'key2': 'client_action_multi',
              'value': "ir.actions.act_window," + str(act_id),
-             'object': True,
+#             'object': True,
                 }, context)
         return ret
 tr_barcode_installer()
