@@ -428,7 +428,7 @@ class acquisition_acquisition(osv.osv):
         inventory_id = acquisition.inventory_id or False
         if not inventory_id:
             raise osv.except_osv(_('Warning!'),_('There is no inventory, please create one!'))
-        if inventory_id.state == 'draft':
+        if inventory_id.state != 'draft':
             raise osv.except_osv(_('Warning!'),_('This inventory is not in draft state, you can\'t continue !'))
         location_id = acquisition.origin_id or False
         if not location_id:
