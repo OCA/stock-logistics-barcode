@@ -23,6 +23,8 @@ from osv import osv,fields
 from tools.translate import _
 from report import report_sxw
 from report_aeroo import report_aeroo
+import datetime
+from tools import misc
 
 class stock_fill_inventory(osv.osv_memory):
     _inherit = "stock.fill.inventory"    
@@ -66,6 +68,7 @@ class acquisition_acquisition(osv.osv):
         'state': 'open',
         'type': 'pack',
         'name': lambda self,cr,uid,ctx={}: self.pool.get('ir.sequence').get(cr, uid, 'acquisition.acquisition'),
+        'move_stock_date': lambda * a: datetime.datetime.now().strftime(misc.DEFAULT_SERVER_DATETIME_FORMAT),
     }
     
     def onchange_inventory(self, cr, uid, ids, inventory_id=False, context=None):
@@ -273,12 +276,17 @@ class acquisition_acquisition(osv.osv):
             context = {}
         first_code = True
         acquisition_obj = self.pool.get('acquisition.acquisition')
+        setting_obj = self.pool.get('acquisition.setting')
         for line in acquisition.acquisition_ids:
             if first_code == True:
                 first_code = False
                 order_id = self.create_order(cr, uid, [acquisition.id], context)
                 acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
-            self.add_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
+            if line.type == 'object':
+                self.add_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
+            else:
+                tracking_id = setting_obj.do_action(cr, uid, [acquisition.id], line.type, context)
+                context['tracking_id'] = tracking_id
         return res
     
     ''' Picking Creation '''
@@ -316,6 +324,7 @@ class acquisition_acquisition(osv.osv):
         origin_id = acquisition_data.origin_id.id    
         destination_id = acquisition_data.destination_id.id
         logistic_unit_id = barcode_data.res_id
+        tracking_id = context.get('tracking_id', False)
         if barcode_data.res_model == 'stock.production.lot':            
             stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id)
             logistic_unit_number = stock_production_lot_data.id            
@@ -334,6 +343,7 @@ class acquisition_acquisition(osv.osv):
                                                   'location_dest_id': destination_id,
                                                   'picking_id': order_id,
                                                   'move_ori_id': new_move_id,
+                                                  'tracking_id' : tracking_id,
                                                 })
         elif barcode_data.res_model == 'product.product':
             product_data = product_obj.browse(cr, uid, logistic_unit_id)
@@ -343,7 +353,8 @@ class acquisition_acquisition(osv.osv):
                                                   'product_uom': product_data.uom_id.id,
                                                   'location_id': origin_id,
                                                   'location_dest_id': destination_id,
-                                                  'picking_id': order_id
+                                                  'picking_id': order_id,
+                                                  'tracking_id' : tracking_id,
                                                 })
         elif barcode_data.res_model == 'stock.tracking':
             stock_tracking_data = stock_tracking_obj.browse(cr, uid, logistic_unit_id)                                          
@@ -355,24 +366,25 @@ class acquisition_acquisition(osv.osv):
                 
             for move_data in stock_tracking_data.move_ids:
                 if move_data.location_dest_id.id != origin_id:
-                    new_move_id = stock_move_obj.create(cr, uid, {'name': move_data.name,
-                                                                  'state': 'draft',
-                                                                  'product_id': move_data.product_id.id,
-                                                                  'product_uom': move_data.product_uom.id,
-                                                                  'prodlot_id': move_data.prodlot_id.id,
-                                                                  'location_id': move_data.location_dest_id.id,
-                                                                  'location_dest_id': origin_id,
-                                                            })    
+                    new_move_id = stock_move_obj.create(cr, uid, {
+                                                              'name': move_data.name,
+                                                              'state': 'draft',
+                                                              'product_id': move_data.product_id.id,
+                                                              'product_uom': move_data.product_uom.id,
+                                                              'prodlot_id': move_data.prodlot_id.id,
+                                                              'location_id': move_data.location_dest_id.id,
+                                                              'location_dest_id': origin_id,
+                                                        })    
                 
             child_packs = stock_tracking_obj.hierarchy_ids(stock_tracking_data)
             for child_pack in child_packs:
                 '''historic creation'''
                 hist_id = history_obj.create(cr, uid, {
-                                                       'tracking_id': child_pack.id,
-                                                       'type': 'move',
-                                                       'location_id': child_pack.location_id.id,
-                                                       'location_dest_id': destination_id,
-                                                       })
+                                               'tracking_id': child_pack.id,
+                                               'type': 'move',
+                                               'location_id': child_pack.location_id.id,
+                                               'location_dest_id': destination_id,
+                                           })
                 for move_data in child_pack.move_ids:
                     if move_data.location_dest_id.id != origin_id:
                         new_move_id = stock_move_obj.create(cr, uid, {'name': move_data.name,
@@ -517,12 +529,13 @@ class acquisition_acquisition(osv.osv):
         destination_id = acquisition_data.move_stock_destination.id      
         date = acquisition_data.move_stock_date
         ''''inventory creation'''
+        context.update({'type':'move'})
         move_stock_id = stock_inventory_obj.create(cr, uid, {
                     'type': 'move',
                     'date_done': date,
                     'location_id': origin_id,
                     'location_dest_id': destination_id,
-                })
+                }, context=context)
         '''End'''
         return move_stock_id
     
@@ -536,13 +549,13 @@ class acquisition_acquisition(osv.osv):
         inventory_line_obj = self.pool.get('stock.inventory.line')     
         stock_tracking_obj = self.pool.get('stock.tracking')   
         product_obj = self.pool.get('product.product') 
-        barcode_data = barcode_obj.browse(cr, uid, barcode_id)
-        acquisition_data = self.browse(cr, uid, ids[0]) 
+        barcode_data = barcode_obj.browse(cr, uid, barcode_id, context=context)
+        acquisition_data = self.browse(cr, uid, ids[0], context=context) 
          
         location_id = acquisition_data.origin_id.id
         logistic_unit_id = barcode_data.res_id
         if barcode_data.res_model == 'stock.production.lot':       
-            stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id)
+            stock_production_lot_data = stock_production_lot_obj.browse(cr, uid, logistic_unit_id, context=context)
             product = stock_production_lot_data.product_id
             logistic_unit_number = stock_production_lot_data.id 
             vals = {
@@ -638,17 +651,31 @@ class acquisition_setting(osv.osv):
 #            context = {}
 #        tracking_id = self.create_pack(cr, uid, ids, ul_id, context)
 #        return tracking_id
+
+    def do_action(self, cr, uid, ids, action_type, context=None):
+        if context == None:
+            context = {}
+        tracking_id = False
+        if action_type == 'create_add':
+            tracking_id = self.create_pack(cr, uid, ids, context=context)
+        elif action_type == 'close_pack':
+            tracking_to_close_id = context.get('tracking_id', False)
+            if tracking_to_close_id:
+                self.close_pack(cr, uid, [tracking_to_close_id], context=context)
+        return tracking_id
     
     '''Function for pack creation'''    
-    def create_pack(self, cr, uid, ids, ul_id, context=None):        
+    def create_pack(self, cr, uid, ids, ul_id=None, context=None):        
         '''Init'''
         res = {}
         stock_tracking_obj = self.pool.get('stock.tracking')
         if context == None:
-            context = {}            
+            context = {}
         '''Location determination'''
         acquisition_data = self.pool.get('acquisition.acquisition').browse(cr, uid, ids[0])
         location_id = acquisition_data.origin_id.id
+        if ul_id == None:
+            ul_id = self.pool.get('product.ul').search(cr, uid, [], limit=1)[0]
         logistic_unit = ul_id
         '''Pack Creation'''
         tracking_id = stock_tracking_obj.create(cr, uid, {'ul_id': logistic_unit, 'location_id': location_id})        
