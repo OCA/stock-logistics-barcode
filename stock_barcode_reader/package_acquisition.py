@@ -71,6 +71,14 @@ class acquisition_acquisition(osv.osv):
         'move_stock_date': lambda * a: datetime.datetime.now().strftime(misc.DEFAULT_SERVER_DATETIME_FORMAT),
     }
     
+    def onchange_destination(self, cr, uid, ids, destination_id=False, context=None):
+        res = {'value':{'address_id': False}}
+        if destination_id:
+            destination = self.pool.get('stock.location').browse(cr, uid, destination_id)
+            if destination.address_id:
+                res['value']['address_id'] = destination.address_id.id
+        return res
+    
     def onchange_inventory(self, cr, uid, ids, inventory_id=False, context=None):
         res = {'value':{'location_id': False}}
         if inventory_id:

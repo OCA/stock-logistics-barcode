@@ -69,7 +69,7 @@
 								<field name="logistic_unit" attrs="{'required':[('type','=','pack')]}" widget="selection"/>
 							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','order')]}">
-								<field name="destination_id" attrs="{'required':[('type','=','order')]}"/>
+								<field name="destination_id" attrs="{'required':[('type','=','order')]}" on_change="onchange_destination(destination_id)"/>
 								<field name="address_id" attrs="{'required':[('type','=','order')]}"/>
 							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','inventory')]}">
