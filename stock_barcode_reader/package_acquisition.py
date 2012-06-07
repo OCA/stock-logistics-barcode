@@ -708,9 +708,31 @@ class acquisition_setting(osv.osv):
         '''init'''
         if context == None:
             context = {}
-        tracking_obj = self.pool.get('stock.tracking')             
+        tracking_obj = self.pool.get('stock.tracking')     
         '''Call of the function in stock_tracking_reopen'''
-        return tracking_obj.set_close(cr, uid, ids, context)
+        tracking_obj.set_close(cr, uid, ids, context)
+        '''Call of the function in stock_tracking_reopen'''
+        if self.pool.get('acquisition.acquisition').browse(cr, uid, context.get('current_id'), context).picking_id:
+            origin_id = self.pool.get('acquisition.acquisition').browse(cr, uid, context.get('current_id'), context).origin_id.id
+            destination_id = self.pool.get('acquisition.acquisition').browse(cr, uid, context.get('current_id'), context).destination_id.id
+            stock_move_ids = self.pool.get('stock.move').search(cr, uid, [('tracking_id','=',ids[0])])
+            for stock_move_id in stock_move_ids:
+                stock_move_data = self.pool.get('stock.move').browse(cr, uid, stock_move_id, context)
+                self.pool.get('stock.move').write(cr, uid, stock_move_id, {'state':'done', 'picking_id': False, 'location_dest_id': origin_id}, context)
+                self.pool.get('stock.move').create(cr, uid, {'name': stock_move_data.name,
+                                                             'state': 'draft',
+                                                             'product_id': stock_move_data.product_id.id,
+                                                             'product_uom': stock_move_data.product_uom.id,
+                                                             'prodlot_id': stock_move_data.prodlot_id.id,
+                                                             'tracking_id': stock_move_data.tracking_id.id,
+                                                             'picking_id': self.pool.get('acquisition.acquisition').browse(cr, uid, context.get('current_id'), context).picking_id.id,
+                                                             'location_id': stock_move_data.location_dest_id.id,
+                                                             'location_dest_id': destination_id,
+                                                             })
+        '''Call for a function who will display serial code list and product list in the pack layout'''                                                
+        tracking_obj.get_products(cr, uid, ids, context=None)
+        tracking_obj.get_serials(cr, uid, ids, context=None)
+        return True
        
 
         
