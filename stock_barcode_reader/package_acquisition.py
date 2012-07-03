@@ -432,7 +432,11 @@ class acquisition_acquisition(osv.osv):
                 first_code = False
                 logistic_unit = acquisition.logistic_unit.id
                 parent_id = setting_obj.create_pack(cr, uid, [acquisition.id], logistic_unit, context)
-                self.write(cr, uid, acquisition.id, {'pack_id': parent_id})
+                vals = {'pack_id': parent_id}
+                name = self.pool.get('stock.tracking').browse(cr, uid, parent_id, context=context).name or False
+                if name:
+                    vals['name'] = name
+                self.write(cr, uid, acquisition.id, vals, context=context)
             setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
         if parent_id:
             setting_obj.close_pack(cr, uid, [parent_id], context)
