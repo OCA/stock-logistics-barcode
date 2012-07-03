@@ -85,6 +85,7 @@ class acquisition_acquisition(osv.osv):
             inventory = self.pool.get('stock.inventory').browse(cr, uid, inventory_id)
             if inventory.location_id:
                 res['value']['origin_id'] = inventory.location_id.id
+                res['value']['name'] = inventory.name
         return res
     
 #    def print_pack_report(self, cr, uid, ids, context=None):
@@ -302,6 +303,7 @@ class acquisition_acquisition(osv.osv):
         '''init'''
         if context == None:
             context = {}
+        vals = {}
         acquisition_obj = self.pool.get('acquisition.acquisition')
         acquisition_data = acquisition_obj.browse(cr, uid, ids[0])  
         stock_picking_obj = self.pool.get('stock.picking')
@@ -309,6 +311,10 @@ class acquisition_acquisition(osv.osv):
         address_id = acquisition_data.address_id.id
         ''''order creation'''
         order_id = stock_picking_obj.create(cr, uid, {'address_id': address_id, 'type': 'out'})
+        name = self.pool.get('stock.picking').browse(cr, uid, order_id, context=context).name or False
+        if name:
+            vals['name'] = name
+            self.write(cr, uid, acquisition_data.id, vals, context=context)
         '''End'''   
         return order_id
     
@@ -522,11 +528,17 @@ class acquisition_acquisition(osv.osv):
             context = {}
         first_code = True
         move_stock_id = False
+        name = False
+        vals = {}
         for line in acquisition.acquisition_ids:
             if first_code == True:
                 first_code = False
-                move_stock_id = self.create_move_stock(cr, uid, [acquisition.id], context) 
+                move_stock_id = self.create_move_stock(cr, uid, [acquisition.id], context=context)
+                name = self.pool.get('stock.inventory').browse(cr, uid, move_stock_id, context=context).name or False
             self.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
+        if name:
+            vals['name'] = name
+            self.write(cr, uid, acquisition.id, vals, context=context)
         return res
     
     def create_move_stock(self, cr, uid, ids, context=None):
