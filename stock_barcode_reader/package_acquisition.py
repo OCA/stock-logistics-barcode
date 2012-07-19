@@ -128,14 +128,19 @@ class acquisition_acquisition(osv.osv):
                                                 })       
         return result
     
-    def update_delivery_order_line(self, cr, uid, res_id=None, order_id=None, origin_id=None, destination_id=None, tracking_id=None, context=None):
+    def update_delivery_order_line(self, cr, uid, product_id=False, res_id=False, order_id=False, origin_id=False, destination_id=False, tracking_id=False, quantity=1, context=None):
         result = {}
         move_obj = self.pool.get('stock.move')
         production_lot_obj = self.pool.get('stock.production.lot')
         split_obj = self.pool.get('stock.move.split')
         split_line_obj = self.pool.get('stock.move.split.lines')
-        production_lot = production_lot_obj.browse(cr, uid, res_id)
-        product_id = production_lot.product_id and production_lot.product_id.id or False
+        product_obj = self.pool.get('product.product')
+        product_product = False
+        if res_id:
+            production_lot = production_lot_obj.browse(cr, uid, res_id)
+            product_id = production_lot.product_id and production_lot.product_id.id or False
+        else:
+            product_product = True
         if product_id:
             move_ids = move_obj.search(cr, uid, [
                 ('state', 'not in', ['cancel']),
@@ -143,18 +148,21 @@ class acquisition_acquisition(osv.osv):
                 ('product_id', '=', product_id),
                 ('prodlot_id', '=', False),
             ])
-            if move_ids:
+            if move_ids and not product_product:
                 """ The move can be split """
                 vals = {}
                 split_context = context
                 split_context.update({'active_id': move_ids[0], 'active_ids': [move_ids[0]], 'active_model': 'stock.move', 'tracking_id': tracking_id})
                 split_id = split_obj.create(cr, uid, vals, split_context)
-                split_line_obj.create(cr, uid, {'prodlot_id': res_id, 'wizard_exist_id': split_id, 'quantity':1})
+                split_line_obj.create(cr, uid, {'prodlot_id': res_id, 'wizard_exist_id': split_id, 'quantity':quantity})
                 split_obj.split_lot(cr, uid, [split_id], split_context)
             else:
                 """ There are no move """
-                product = production_lot.product_id       
-                name_list = self.pool.get('product.product').name_get(cr, uid, [product_id], context)                    
+                if res_id:
+                    product = production_lot.product_id
+                else:
+                    product = product_obj.browse(cr, uid, product_id, context=context)
+                name_list = product_obj.name_get(cr, uid, [product_id], context)                    
                 stock_production_lot_name = name_list[0][1]
                 move_id = move_obj.create(cr, uid, {
                                               'name': stock_production_lot_name,
@@ -162,6 +170,7 @@ class acquisition_acquisition(osv.osv):
                                               'product_uom': product.uom_id.id,
                                               'prodlot_id': res_id,
                                               'location_id': origin_id,
+                                              'product_qty': quantity,
                                               'location_dest_id': destination_id,
                                               'picking_id': order_id,
                                               'tracking_id': tracking_id,
@@ -249,8 +258,8 @@ class acquisition_acquisition(osv.osv):
             """ Check of production lot creation """
             new_move_id = self.check_production_lot_location(cr, uid, origin_id, res_id, context) 
             """ Split in production lot """
-            self.update_delivery_order_line(cr, uid, res_id, order_id, origin_id, destination_id, parent_id, context)  
-                      
+            self.update_delivery_order_line(cr, uid, product_id=False, res_id=res_id, order_id=order_id, \
+                        origin_id=origin_id, destination_id=destination_id, tracking_id=parent_id, quantity=1, context=context)
         elif res_model == 'stock.tracking':
             stock_tracking_data = stock_tracking_obj.browse(cr, uid, res_id)   
             pack_list = {}
@@ -272,8 +281,11 @@ class acquisition_acquisition(osv.osv):
                                                        })
                 for move_data in child_pack.move_ids:
                     """ Split in production lot """
-                    self.update_delivery_order_line(cr, uid, move_data.prodlot_id.id, order_id, origin_id, destination_id, res_id, context)
-                            
+                    self.update_delivery_order_line(cr, uid, product_id=False, res_id=move_data.prodlot_id.id, order_id=order_id, \
+                        origin_id=origin_id, destination_id=destination_id, tracking_id=res_id, quantity=1, context=context)
+        if res_model == 'product.product':
+            self.update_delivery_order_line(cr, uid, product_id=res_id, res_id=False, order_id=order_id, \
+                origin_id=origin_id, destination_id=destination_id, tracking_id=parent_id, quantity=line.quantity, context=context)
         return parent_id
     
     """
