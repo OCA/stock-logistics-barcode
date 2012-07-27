@@ -61,32 +61,35 @@
 			<field name="arch" type="xml">
 				<form string="Acquisition name">
 					<group width="400" height="100">
-						<group col="6" colspan="4">
+						<group col="4" colspan="4">
 							<field name="name"/>
 							<field name="type"/>
 							<field name="origin_id"/>
-							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','pack')]}">
+							<group col="2" colspan="2" attrs="{'invisible':[('type','!=','pack')]}">
 								<field name="logistic_unit" attrs="{'required':[('type','=','pack')]}" widget="selection"/>
 							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','order')]}">
 								<field name="destination_id" attrs="{'required':[('type','=','order')]}" on_change="onchange_destination(destination_id)"/>
 								<field name="address_id" attrs="{'required':[('type','=','order')]}"/>
 							</group>
-							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','inventory')]}">
-								<field name="inventory_id" attrs="{'required':[('type','=','inventory')]}" on_change="onchange_inventory(inventory_id)"/>
-							</group>
-							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','order')]}">
-								<field name="picking_id" readonly="1"/>
-							</group>
-							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','pack')]}">
-								<field name="pack_id" readonly="1"/>
-							</group>
 							<group col="4" colspan="4" attrs="{'invisible':[('type','!=','move_stock')]}">
 								<field name="move_stock_destination" attrs="{'required':[('type','=','move_stock')]}"/>
 								<field name="move_stock_date" attrs="{'required':[('type','=','move_stock')]}"/>
 							</group>
+							<group col="2" colspan="2" attrs="{'invisible':[('type','!=','inventory')]}">
+								<field name="inventory_id" attrs="{'required':[('type','=','inventory')]}" on_change="onchange_inventory(inventory_id)"/>
+							</group>
+							<group col="2" colspan="2" attrs="{'invisible':[('type','!=','move_stock')]}">
+								<field name="move_stock_id"/>
+							</group>
+							<group col="2" colspan="2" attrs="{'invisible':[('type','!=','order')]}">
+								<field name="picking_id" readonly="1"/>
+							</group>
+							<group col="2" colspan="2" attrs="{'invisible':[('type','!=','pack')]}">
+								<field name="pack_id" readonly="1"/>
+							</group>
 							<field name="state" invisible="1"/>
-							<field name="acquisition_ids" colspan="6" nolabel="1"/>			
+							<field name="acquisition_ids" colspan="4" nolabel="1"/>			
 							<button name="%(action_stock_reference)d" string="Start" type="action" icon="gtk-execute" states="open"/>
 							<button name="process" string="Process" type="object" icon="gtk-ok" states="open"/>					
 						</group>

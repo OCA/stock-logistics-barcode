@@ -56,7 +56,8 @@ class acquisition_acquisition(osv.osv):
         'destination_id': fields.many2one('stock.location', 'Destination Location' , readonly=True, states={'open':[('readonly',False)]}),
         'address_id': fields.many2one('res.partner.address','Partner Address', readonly=True, states={'open':[('readonly',False)]}),
         'logistic_unit': fields.many2one('product.ul', 'Unit Size', readonly=True, states={'open':[('readonly',False)]}),
-        'inventory_id': fields.many2one('stock.inventory', 'Inventory', readonly=True, states={'open':[('readonly',False)]}),
+        'inventory_id': fields.many2one('stock.inventory', 'Inventory', readonly=True, states={'open':[('readonly',False)]}, domain="[('type', '!=', 'move')]"),
+        'move_stock_id': fields.many2one('stock.inventory', 'Move stock', readonly=True, domain="[('type', '=', 'move')]"),
         'pack_id': fields.many2one('stock.tracking', 'Pack', readonly=True),
         'pack_name': fields.related('pack_id', 'name', type='char', string="Pack Name", size=64, readonly=True),
         'picking_id': fields.many2one('stock.picking', 'Picking', readonly=True),
@@ -451,9 +452,9 @@ class acquisition_acquisition(osv.osv):
                 logistic_unit = acquisition.logistic_unit.id
                 parent_id = setting_obj.create_pack(cr, uid, [acquisition.id], logistic_unit, context)
                 vals = {'pack_id': parent_id}
-                name = self.pool.get('stock.tracking').browse(cr, uid, parent_id, context=context).name or False
-                if name:
-                    vals['name'] = name
+#                name = self.pool.get('stock.tracking').browse(cr, uid, parent_id, context=context).name or False
+#                if name:
+#                    vals['name'] = name
                 self.write(cr, uid, acquisition.id, vals, context=context)
             setting_obj.add_child(cr, uid, line.barcode_id.id, parent_id, context)
         if parent_id:
@@ -546,10 +547,10 @@ class acquisition_acquisition(osv.osv):
             if first_code == True:
                 first_code = False
                 move_stock_id = self.create_move_stock(cr, uid, [acquisition.id], context=context)
-                name = self.pool.get('stock.inventory').browse(cr, uid, move_stock_id, context=context).name or False
+#                name = self.pool.get('stock.inventory').browse(cr, uid, move_stock_id, context=context).name or False
             self.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
-        if name:
-            vals['name'] = name
+        if move_stock_id:
+            vals['move_stock_id'] = move_stock_id
             self.write(cr, uid, acquisition.id, vals, context=context)
         return res
     
