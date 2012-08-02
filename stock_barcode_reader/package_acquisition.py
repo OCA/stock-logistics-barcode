@@ -324,10 +324,10 @@ class acquisition_acquisition(osv.osv):
         address_id = acquisition_data.address_id.id
         ''''order creation'''
         order_id = stock_picking_obj.create(cr, uid, {'address_id': address_id, 'type': 'out'})
-        name = self.pool.get('stock.picking').browse(cr, uid, order_id, context=context).name or False
-        if name:
-            vals['name'] = name
-            self.write(cr, uid, acquisition_data.id, vals, context=context)
+#        name = self.pool.get('stock.picking').browse(cr, uid, order_id, context=context).name or False
+#        if name:
+#            vals['name'] = name
+#            self.write(cr, uid, acquisition_data.id, vals, context=context)
         '''End'''   
         return order_id
     
