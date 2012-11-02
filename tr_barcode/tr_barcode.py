@@ -2,7 +2,7 @@
 import os
 from osv import fields, osv
 import base64
-import Image
+from PIL import Image
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, \
             getCodes
