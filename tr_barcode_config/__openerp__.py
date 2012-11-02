@@ -46,6 +46,7 @@ class product_product(barcode_osv.barcode_osv):
     "demo_xml" : [],
     "update_xml" : [
         'barcode_config_view.xml',
+        "security/ir.model.access.csv",
     ],
     'test': [],
     'installable': True,

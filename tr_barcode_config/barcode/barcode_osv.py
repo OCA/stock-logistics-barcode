@@ -40,13 +40,20 @@ def write_barcode(cr, uid, ids, vals, model, context=None):
                 'hr_form': barcode_config.hr_form,
             }
             if not barcode_vals['code']:
-                data = pool.get(model).read(cr, uid, context.get('obj_id',False))
-                if data:
-                    code = data[barcode_config.field.name]
-                    if code:
-                        barcode_vals['code'] = code
-                    else:
-                        barcode_vals.pop('code')
+                current_id = False
+                if context.get('obj_id'):
+                    current_id = context.get('obj_id')
+                elif context.get('__copy_data_seen'):
+                    current_id = context.get('__copy_data_seen')
+                    current_id = current_id.get(model)[0]
+                if current_id:
+                    data = pool.get(model).read(cr, uid, current_id)
+                    if data:
+                        code = data[barcode_config.field.name]
+                        if code:
+                            barcode_vals['code'] = code
+                        else:
+                            barcode_vals.pop('code')
             barcode_obj = pool.get('tr.barcode')
             barcode_obj.write(cr, uid, [id], barcode_vals, context)
             barcode_obj.generate_image(cr, uid, [id], context)
@@ -55,7 +62,10 @@ def write_barcode(cr, uid, ids, vals, model, context=None):
 def create_barcode(cr, uid, id, vals, model, context=None):
     pool = pooler.get_pool(cr.dbname)
     config_obj = pool.get('tr.barcode.config')
-    barcode_id = vals.get('x_barcode_id', False)
+    if not context.get('__copy_data_seen'):
+        barcode_id = vals.get('x_barcode_id', False)
+    else:
+        barcode_id = False
     if not barcode_id:
         config = config_obj.search(cr, uid, [
                                     ('res_model.model', '=', model),

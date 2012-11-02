@@ -305,7 +305,7 @@ class acquisition_acquisition(osv.osv):
                 order_id = self.create_order(cr, uid, [acquisition.id], context)
                 acquisition_obj.write(cr, uid, acquisition.id, {'picking_id': order_id})
             if line.type == 'object':
-                self.add_stock_move(cr, uid, [acquisition.id], line.barcode_id, order_id, context)
+                self.add_stock_move(cr, uid, [acquisition.id], line, order_id, context)
             else:
                 tracking_id = setting_obj.do_action(cr, uid, [acquisition.id], line.type, context)
                 context['tracking_id'] = tracking_id
@@ -332,7 +332,7 @@ class acquisition_acquisition(osv.osv):
         return order_id
     
     ''' Adding move in a picking '''
-    def add_stock_move(self, cr, uid, ids, barcode_data, order_id, context=None):
+    def add_stock_move(self, cr, uid, ids, line, order_id, context=None):
         '''init'''
         res = {}
         if context == None:
@@ -350,6 +350,7 @@ class acquisition_acquisition(osv.osv):
         '''process'''        
         origin_id = acquisition_data.origin_id.id    
         destination_id = acquisition_data.destination_id.id
+        barcode_data = line.barcode_id
         logistic_unit_id = barcode_data.res_id
         tracking_id = context.get('tracking_id', False)
         if barcode_data.res_model == 'stock.production.lot':            
@@ -378,6 +379,7 @@ class acquisition_acquisition(osv.osv):
                                                   'name': product_data.name,
                                                   'product_id': product_data.id,
                                                   'product_uom': product_data.uom_id.id,
+                                                  'product_qty': line.quantity,
                                                   'location_id': origin_id,
                                                   'location_dest_id': destination_id,
                                                   'picking_id': order_id,
@@ -548,7 +550,7 @@ class acquisition_acquisition(osv.osv):
                 first_code = False
                 move_stock_id = self.create_move_stock(cr, uid, [acquisition.id], context=context)
 #                name = self.pool.get('stock.inventory').browse(cr, uid, move_stock_id, context=context).name or False
-            self.add_stock_move_line(cr, uid, [acquisition.id], line.barcode_id.id, move_stock_id, context) 
+            self.add_stock_move_line(cr, uid, [acquisition.id], line, move_stock_id, context) 
         if move_stock_id:
             vals['move_stock_id'] = move_stock_id
             self.write(cr, uid, acquisition.id, vals, context=context)
@@ -576,7 +578,7 @@ class acquisition_acquisition(osv.osv):
         '''End'''
         return move_stock_id
     
-    def add_stock_move_line(self, cr, uid, ids, barcode_id, inventory_id, inventory_line_id, context=None):
+    def add_stock_move_line(self, cr, uid, ids, line, inventory_id, inventory_line_id, context=None):
         res = {} 
         '''init'''        
         if context == None:
@@ -586,6 +588,7 @@ class acquisition_acquisition(osv.osv):
         inventory_line_obj = self.pool.get('stock.inventory.line')     
         stock_tracking_obj = self.pool.get('stock.tracking')   
         product_obj = self.pool.get('product.product') 
+        barcode_id = line.barcode_id.id
         barcode_data = barcode_obj.browse(cr, uid, barcode_id, context=context)
         acquisition_data = self.browse(cr, uid, ids[0], context=context) 
          
@@ -610,7 +613,7 @@ class acquisition_acquisition(osv.osv):
                     'location_id': location_id,
                     'product_id': product_data.id,
                     'product_uom': product_data.uom_id.id,
-                    'product_qty': 1}        
+                    'product_qty': line.quantity}        
             inventory_line_obj.create(cr, uid, vals)            
         elif barcode_data.res_model == 'stock.tracking':
             stock_tracking_data = stock_tracking_obj.browse(cr, uid, logistic_unit_id)
