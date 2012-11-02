@@ -22,15 +22,15 @@ class tr_barcode_installer(osv.osv_memory):
             return ret
         unlink_ids = self.pool.get('ir.actions.act_window').search(cr,
                         uid, [('res_model' , '=', 'tr.barcode.wizard')])
-        
+
         for unlink_id in unlink_ids:
-        
+
             self.pool.get('ir.actions.act_window').unlink(cr, uid, unlink_id)
             un_val_ids = self.pool.get('ir.values').search(cr, uid,
                     [('value' , '=',
                     "ir.actions.act_window," + str(unlink_id))])
             self.pool.get('ir.values').unlink(cr, uid, un_val_ids)
-            
+
         read_datas = self.pool.get('ir.model').read(cr, uid,
                 vals['models_ids'][0][-1], ['model','name'], context=context)
         for model in read_datas:

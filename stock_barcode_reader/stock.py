@@ -24,7 +24,7 @@ from tools.translate import _
 
 class stock_picking(osv.osv):
     _inherit = "stock.picking"
-    
+
     def start_acquisition(self, cr, uid, ids, context=None):
         if context == None:
             context = {}

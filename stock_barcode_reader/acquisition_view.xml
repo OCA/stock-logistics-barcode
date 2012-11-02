@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-       
-       
-        <act_window 
+
+
+        <act_window
         	context="{'default_type':'inventory', 'default_name': 'Scan Inventory '}"
             id="inventory_acquisition_link_1" name="Inventory Acquisition"
             res_model="acquisition.acquisition"
             src_model="stock.inventory"
             view_mode="form"/>
-        
+
         <!--<act_window domain="[('inventory_id', '=', active_id)]"
         	context="{'default_type':'move_stock', 'default_name': 'Scan Stock Move', 'default_move_stock_destination': location_id}"
             id="move_stock_acquisition_link_2" name="Move Stock Acquisition"
             res_model="acquisition.acquisition"
             src_model="stock.inventory"
             view_mode="form"/>-->
-     
-    	<report	
+
+    	<report
 	        auto="False"
             id="account_invoices"
             model="account.invoice"
@@ -26,10 +26,10 @@
             string="Invoices"
             attachment_use="1"
             multi="True"/>
-    
+
         <record model="ir.ui.view" id="view_stock_tracking_list">
 			<field name="name">Acquisition.list.view</field>
-            <field name="model">acquisition.list</field>			
+            <field name="model">acquisition.list</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Acquisition list">
@@ -39,10 +39,10 @@
 				</tree>
 			</field>
     	</record>
-    	
+
 		<record model="ir.ui.view" id="view_stock_tracking_form">
 			<field name="name">Acquisition.list.view</field>
-			<field name="model">acquisition.list</field>			
+			<field name="model">acquisition.list</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<tree string="Acquisition list">
@@ -56,7 +56,7 @@
 
         <record model="ir.ui.view" id="view_stock_tracking_acquisition_form">
 			<field name="name">Acquisition.view</field>
-            <field name="model">acquisition.acquisition</field>			
+            <field name="model">acquisition.acquisition</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Acquisition name">
@@ -89,27 +89,27 @@
 								<field name="pack_id" readonly="1"/>
 							</group>
 							<field name="state" invisible="1"/>
-							<field name="acquisition_ids" colspan="4" nolabel="1"/>			
+							<field name="acquisition_ids" colspan="4" nolabel="1"/>
 							<button name="%(action_stock_reference)d" string="Start" type="action" icon="gtk-execute" states="open"/>
-							<button name="process" string="Process" type="object" icon="gtk-ok" states="open"/>					
+							<button name="process" string="Process" type="object" icon="gtk-ok" states="open"/>
 						</group>
 					</group>
 				</form>
 			</field>
     	</record>
-    	
+
     	<record model="ir.ui.view" id="view_stock_tracking_acquisition_tree">
 			<field name="name">Acquisition.view</field>
-            <field name="model">acquisition.acquisition</field>			
+            <field name="model">acquisition.acquisition</field>
 			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Acquisition name">
 					<field name="name"/>
-					<field name="acquisition_ids"/>	
+					<field name="acquisition_ids"/>
 				</tree>
 			</field>
     	</record>
-         
+
         <record model="ir.actions.act_window" id="action_stock_tracking_acquisition">
 			<field name="name">Acquisition</field>
 			<field name="type">ir.actions.act_window</field>
@@ -119,12 +119,12 @@
             <field name="target">current</field>
             <field name="view_id" ref="view_stock_tracking_acquisition_tree"/>
     	</record>
-        
+
         <menuitem id="menu_stock_tracking_acquisition" action="action_stock_tracking_acquisition" parent="stock.menu_traceability" sequence="7"/>
-        
+
         <record model="ir.ui.view" id="view_stock_acquisition_setting_form">
 			<field name="name">Acquisition Setting.view</field>
-            <field name="model">acquisition.setting</field>		            
+            <field name="model">acquisition.setting</field>
 			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Acquisistion Setting">
@@ -133,21 +133,21 @@
            				<field name="action_type" colspan="2"/>
    					</group>
 				</form>
-			</field>	
+			</field>
     	</record>
-                
+
         <record model="ir.ui.view" id="view_stock_acquisition_setting_tree">
 			<field name="name">Acquisition Setting.view</field>
-            <field name="model">acquisition.setting</field>		            
+            <field name="model">acquisition.setting</field>
 			<field name="type">tree</field>
-			<field name="arch" type="xml">        
+			<field name="arch" type="xml">
                 <tree string="Acquisistion Setting">
          			<field name="barcode_id"/>
           			<field name="action_type"/>
 				</tree>
-			</field>	
+			</field>
     	</record>
-                
+
         <record model="ir.actions.act_window" id="action_stock_acquisition_setting">
 			<field name="name">Acquisition Setting</field>
 			<field name="type">ir.actions.act_window</field>
@@ -156,8 +156,8 @@
             <field name="view_mode">tree,form</field>
             <field name="view_id" ref="view_stock_acquisition_setting_tree"/>
     	</record>
-        
+
         <menuitem id="menu_stock_acquisition_setting" action="action_stock_acquisition_setting" parent="stock.menu_stock_configuration" sequence="7"/>
-  
+
     </data>
 </openerp>
