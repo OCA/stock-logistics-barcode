@@ -20,6 +20,7 @@
 #################################################################################
 
 from osv import fields, osv
+
 from tools.translate import _
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, \
