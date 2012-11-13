@@ -51,6 +51,5 @@ class product_product(barcode_osv.barcode_osv):
     'test': [],
     'installable': True,
     'active': False,
-    'certificate': '',
 }
 
