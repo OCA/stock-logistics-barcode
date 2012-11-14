@@ -1,0 +1,850 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* product_gs1_128
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 5.0.10\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2010-09-28 17:39:07+0000\n"
+"PO-Revision-Date: 2010-09-28 17:39:07+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AREA
+msgid "Product Area, in square meters"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_WEIGHT
+msgid "Product Net Weight in kg"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.LENGTH_IN
+msgid "Product Length/1st Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.MOBILE_PHONE_ID
+msgid "Mobile phone identifier"
+msgstr ""
+
+#. module: product_gs1_128
+#: view:product.gs1_128:0
+msgid "Application Identifier"
+msgstr "Identifiant d'Application"
+
+#. module: product_gs1_128
+#: constraint:ir.actions.act_window:0
+msgid "Invalid model name in the action definition."
+msgstr "Invalid model name in the action definition."
+
+#. module: product_gs1_128
+#: field:product.gs1_128,type:0
+msgid "Data Type"
+msgstr "Type de données"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_DEPTH_FT
+msgid "Container Depth/Thickness/Height/3rd Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SECONDARY_SN
+msgid "Secondary Serial Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_GALLONS
+msgid "Container Gross Volume (U.S. Gallons)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PACKAGING_DATE
+msgid "Packaging Date"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.ROLL_PRODUCTS_DIMENSIONS
+msgid "Roll Products - Width/Length/Core Diameter/Direction/Splices"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SSCC
+msgid "Serial Shipping Container Code (SSCC)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_DEPTH_IN
+msgid "Container Depth/Thickness/Height/3rd Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SN
+msgid "Serial Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DEPTH_YD
+msgid "Product Depth/Thickness/3rd Dimension, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:product.gs1_128,ai:0
+msgid "Application Identifer"
+msgstr "Identifiant d'Application"
+
+#. module: product_gs1_128
+#: view:product.gs1_128:0
+msgid "Data Description"
+msgstr "Description des données"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_AREA_IN2
+msgid "Container Area (Square Inches)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_AREA_FT2
+msgid "Container Area (Square Feet)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DUE_DATE
+msgid "Due Date"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GLOBAL_INDIVIDUAL_ASSET_ID
+msgid "Global Individual Asset Identifier"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CUSTOMER_PURCHASE_ORDER
+msgid "Customer Purchase Order Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.ADDITIONAL_PRODUCT_ID
+msgid "Additional Product Identification"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_2
+msgid "Processor approval (with ISO country code) --2nd processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VOLUME_QUARTS
+msgid "Product Volume (Quarts)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNTRY_DISASSEMBLY
+msgid "Country of disassembly"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.LENGTH
+msgid "Product Length/1st Dimension, in meters"
+msgstr ""
+
+#. module: product_gs1_128
+#: selection:product.gs1_128,type:0
+msgid "Any character string"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_YD3
+msgid "Container Gross Volume (Cubic Yards)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUPON_EXTENDED_CODE_NB_SYSTEM_PRECEDED_BY_0
+msgid "Coupon Extended Code: Number System preceded by 0"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:product.gs1_128,ai:0
+msgid "The standard Application Identifier (AI)"
+msgstr "L'Identifiant d'Application (AI) standard"
+
+#. module: product_gs1_128
+#: selection:product.gs1_128,type:0
+msgid "Numeric value"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_AREA
+msgid "Container Area (Square Meters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_FT3
+msgid "Container Gross Volume (Cubic Feet)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER_END
+msgid "Coupon Extended Code: Number System, Offer, End of Offer"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_WEIGHT_LB
+msgid "Product Net Weight, in pounds"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNT
+msgid "Count of items"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER
+msgid "Coupon Extended Code: Number System and Offer"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:ir.actions.act_window,name:product_gs1_128.action_config_gs1_128
+#: model:ir.ui.menu,name:product_gs1_128.menu_config_gs1_128
+msgid "GS1-128 and UCC/EAN-128 Decoding"
+msgstr "Décodage GS1-128 et UCC/EAN-128"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_LENGTH_FT
+msgid "Container Length/1st Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_DEPTH
+msgid "Container Depth/Thickness/3rd Dimension (Meters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:product.gs1_128,length_min:0
+msgid "Minimum Data Length"
+msgstr "Taille des données minimum"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AMOUNT_PAYABLE_SINGLE_ITEM_CURRENCY
+msgid "Amount payable per single item (with ISO currency code)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_4
+msgid "Processor approval (with ISO country code) – 4th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: view:product.gs1_128:0
+msgid "GS1-128 decoding configuration"
+msgstr "Configuration du décodage GS1-128"
+
+#. module: product_gs1_128
+#: code:addons/product_gs1_128/product_gs1_128.py:0
+#, python-format
+msgid "Error decoding GS1-128 code"
+msgstr "Erreur pendant le décodage du code GS1-128"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AMOUNT_PAYABLE_SINGLE_ITEM
+msgid "Amount payable per single item (local currency)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CUSTOMER_PART
+msgid "Customer Part Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.LENGTH_YD
+msgid "Product Length/1st Dimension, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_DEPTH_YD
+msgid "Container Depth/Thickness/Height/3rd Dimension, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AMOUNT_PAYABLE
+msgid "Amount payable (local currency)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_7
+msgid "Processor approval (with ISO country code) – 7th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.EXPIRATION_DATE
+msgid "Expiration Date"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_9
+msgid "Processor approval (with ISO country code) – 9th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NB_CONTAINED
+msgid "Number of Units Contained"
+msgstr ""
+
+#. module: product_gs1_128
+#: constraint:ir.ui.view:0
+msgid "Invalid XML for View Architecture!"
+msgstr "Invalid XML for View Architecture!"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_WIDTH_IN
+msgid "Container Width/Diameter/2nd Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:res.users,gs1_128_prefix:0
+msgid "The prefix that the barcode scanner will send when GS1-128 codes are scanned. No prefix is expected if this fields is left empty"
+msgstr "Le préfixe que le lecteur de codes à barres envoi lorsqu'un code GS1-128 est scanné. Aucun préfixe ne sera attendu si vous laissze ce champs vide."
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DELIVER_TO_LOCATION
+msgid "Ship To/Deliver To Location Code (Global Location Number)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_L
+msgid "Container Gross Volume (Liters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PAYMENT_SLIP
+msgid "Payment slip reference number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SELL_BY_DATE
+msgid "Sell by Date (Quality Control)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_8
+msgid "Internal Company Code 8"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_9
+msgid "Internal Company Code 9"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_6
+msgid "Internal Company Code 6"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_7
+msgid "Internal Company Code 7"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_4
+msgid "Internal Company Code 4"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_5
+msgid "Internal Company Code 5"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_2
+msgid "Internal Company Code 2"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_3
+msgid "Internal Company Code 3"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INTERNAL_COMPANY_CODE_1
+msgid "Internal Company Code 1"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AREA_IN2
+msgid "Product Area (Square Inches)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_LENGTH
+msgid "Container Length/1st Dimension (Meters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNTRY__PROCESSING
+msgid "Country of processing"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:ir.module.module,shortdesc:product_gs1_128.module_meta_information
+msgid "Decoding features for GS1-128 codes (aka UCC/EAN-128)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VARIATION
+msgid "Made-to-Order Variation Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_VOLUME
+msgid "Product Net Volume, in cubic meters"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_IN3
+msgid "Container Gross Volume (Cubic Inches)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GLOBAL_RETURNABLE_ASSET_ID
+msgid "Global Returnable Asset Identifier"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DEPTH_IN
+msgid "Product Depth/Thickness/Height/3rd Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_WIDTH_YD
+msgid "Container Width/Diameter/2nd Dimension, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GLOBAL_SERVICE_RELATION
+msgid "Global Service Relation Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DELIVER_FOR
+msgid "Ship for, Deliver for, or Forward to Location Code (Global Locat"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GTIN
+msgid "Global Trade Item Number (GTIN)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DATE_PRODUCTION
+msgid "Date/time of production"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PRICE_PER_UOM
+msgid "Price per Unit of Measure"
+msgstr ""
+
+#. module: product_gs1_128
+#: view:res.users:0
+msgid "GS1-128 Barcodes"
+msgstr "Codes à barre GS1-128"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.ACTIVE_POTENCY
+msgid "Active Potency"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NATO_STOCK
+msgid "NATO Stock Number (NSN)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AREA_FT2
+msgid "Product Area (Square Feet)"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:product.gs1_128,decimal:0
+msgid "Decimal Indicator"
+msgstr "Indicateur de décimale"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.IBAN
+msgid "International Bank Account Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.LENGTH_FT
+msgid "Product Length/1st Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: code:addons/product_gs1_128/product_gs1_128.py:0
+#, python-format
+msgid "Could not decode GS1-128 code : wrong prefix - the code should start with \"%s\""
+msgstr "Impossible de décoder le code GS1-128 : préfixe incorrect ; le code devrait commencer par \"%s\""
+
+#. module: product_gs1_128
+#: help:res.users,gs1_128_separator:0
+msgid "The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be used as a default if this field is left empty."
+msgstr "Le caractère que le lecteur de codes à barres envoi lorsqu'un <GS> (Séparateur de Groupe) est présent dans un code GS1-128. <GS> se trouve généralement dans les données de longueur variable. Le caractère ASCII 29 sera utilisé par défaut si vous laissez ce champ vide."
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DEPTH_FT
+msgid "Product Depth/Thickness/Height/3rd Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNTRY_ORIGIN
+msgid "Country of Origin (ISO country code)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DELIVER_TO_POSTAL_CODE_COUNTRY
+msgid "Ship To/Deliver To Postal Code (with ISO country code)"
+msgstr ""
+
+#. module: product_gs1_128
+#: selection:product.gs1_128,type:0
+msgid "Date"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AMOUNT_PAYABLE_CURRENCY
+msgid "Amount payable (with ISO currency code)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_LENGTH_YD
+msgid "Container Length/1st Dimension in, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COMPONENTS
+msgid "identification of the components of an item"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DEPTH
+msgid "Product Depth/Thickness/Height/3rd Dimension, in meters"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNTRY
+msgid "Country of full process chain"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.INVOICE_LOCATION
+msgid "Bill To/Invoice Location Code (Global Location Number)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VOLUME_IN3
+msgid "Product Volume (Cubic Inches)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONSIGNMENT
+msgid "Consignment Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_WEIGHT_VOLUME_OZ
+msgid "Net Weight/Volume (Ounces)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTENT_GTIN
+msgid "GTIN of Contained Trade Items"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:product.gs1_128,length_min:0
+msgid "Minimum length of the data for this Application Identifier."
+msgstr "Taille minimum des données pour cet Identifiant d'Application."
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_WIDTH_FT
+msgid "Container Width/Diameter/2nd Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:product.gs1_128,length_fixed:0
+msgid "Fixed-length Data"
+msgstr "Données de longueur fixe"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GLN_EXTENSION_COMPONENT
+msgid "GLN Extension Component"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.UN_ECE_CLASSIFICATION
+msgid "UN/ECE Meat Carcasses and cuts classification"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PHYSICAL_LOCATION_ID
+msgid "Identification of a physical location (Global Location Number)"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:product.gs1_128,decimal:0
+msgid "Indicates whether a digit is expected before the data for this Application Identifier to indicate the position of the decimal point."
+msgstr "Indique si un chiffre est attendu avant les données de cet Identifiant d'Application pour indiquer la position de la virgule décimale."
+
+#. module: product_gs1_128
+#: field:res.users,gs1_128_prefix:0
+msgid "GS1-128 Prefix"
+msgstr "Préfixe GS1-128"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VOLUME_YD3
+msgid "Product Volume (Cubic Yards)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.ROUTING_CODE
+msgid "Routing code"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:ir.module.module,description:product_gs1_128.module_meta_information
+msgid "\n"
+"This makes OpenERP capable of decoding GS1-128 codes.\n"
+"\n"
+"GS1-128 (formerly known as UCC-128, EAN 128 or UCC/EAN-128) is a standard for encoding item identification and logistics data.\n"
+"Physically it is represented as a Code-128 barcode, but this module does not directly allow you to print or scan them.\n"
+"\n"
+"Instead, the focus of this module is on decoding the data contained in barcodes. To this end, it provides objects to fine-tune the Application Identifiers and\n"
+"the associated data types.\n"
+""
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.GLOBAL_DOCUMENT_TYPE_ID
+msgid "Global Document Type Identifier"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_WEIGHT_LB
+msgid "Container Gross Weight (Pounds)"
+msgstr ""
+
+#. module: product_gs1_128
+#: constraint:ir.model:0
+msgid "The Object name must start with x_ and not contain any special character !"
+msgstr "Le nom de l'objet doit commencer avec x_ et ne pas contenir de charactères spéciaux !"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.WIDTH
+msgid "Product Width/Diameter/2nd Dimension, in meters"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:ir.model,name:product_gs1_128.model_product_gs1_128
+msgid "GS1-128 bar codes decoder configuration"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_WEIGHT_OZT
+msgid "Net Weight (Troy Ounces)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.EXPIRATION_DATE_AND_TIME
+msgid "expiration date and time"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PRODUCTION_DATE
+msgid "Production Date"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.LOT
+msgid "Batch/Lot Number"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:product.gs1_128,length_max:0
+msgid "Maximum length of the data for this Application Identifier."
+msgstr "Taille maximum des données pour cet Identifiant d'Application"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.BILL_OF_LADING
+msgid "Bill of Lading number"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_5
+msgid "Processor approval (with ISO country code) – 5th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME
+msgid "Container Gross Volume (Cubic Meters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:res.users,gs1_128_separator:0
+msgid "GS1-128 Group Separator"
+msgstr "Séparateur de groupes GS1-128"
+
+#. module: product_gs1_128
+#: field:product.gs1_128,name:0
+msgid "Description"
+msgstr "Description"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.WIDTH_IN
+msgid "Product Width/Diameter/2nd Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VOLUME_FT3
+msgid "Product Volume (Cubic Feet)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_WEIGHT
+msgid "Container Gross Weight (kg)"
+msgstr ""
+
+#. module: product_gs1_128
+#: code:addons/product_gs1_128/product_gs1_128.py:0
+#, python-format
+msgid "Could not decode GS1-128 code: incorrect value for Application Identifer \"%s\" at position %d"
+msgstr "Impossible de décoder le code GS1-128 : valeur incorrecte pour l'Identifiant d'Application \"%s\" à la position %d"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_8
+msgid "Processor approval (with ISO country code) –8th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_GROSS_VOLUME_QUARTS
+msgid "Container Gross Volume (Quarts)"
+msgstr ""
+
+#. module: product_gs1_128
+#: help:product.gs1_128,length_fixed:0
+msgid "Indicates whether the length of the data for this Application Identifier is fixed or not."
+msgstr "Indique si la longueur des données pour cet Identifiant d'Application est fixe ou non."
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.WIDTH_YD
+msgid "Product Width/Diameter/2nd Dimension, in yards"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_6
+msgid "Processor approval (with ISO country code) – 6th processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.AREA_SQUARE_YD
+msgid "Product Area (Square Yards)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VARIANT
+msgid "Product Variant"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_AREA_SQUARE_YD
+msgid "Container Area (Square Yards)"
+msgstr ""
+
+#. module: product_gs1_128
+#: field:product.gs1_128,length_max:0
+msgid "Maximum Data Length"
+msgstr "Taille maximum des données"
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.DELIVER_TO_POSTAL_CODE
+msgid "Ship To/Deliver To Postal Code (Single Postal Authority)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_WIDTH
+msgid "Container Width/Diameter/2nd Dimension (Meters)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.MUTUALLY_AGREED_BETWEEN_TRADING_PARTNERS
+msgid "Mutually Agreed Between Trading Partners"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SOURCE_ENTITY
+msgid "Reference to Source Entity"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUPON_CODE_ID
+msgid "Coupon code ID (North America)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.SECONDARY_DATA_FIELDS
+msgid "Secondary Data Fields"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.NET_VOLUME_L
+msgid "Product Net Volume, in liters"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.WIDTH_FT
+msgid "Product Width/Diameter/2nd Dimension, in feet"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PURCHASE_LOCATION_
+msgid "Purchase From Location Code (Global Location Number)"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_1
+msgid "Processor approval (with ISO country code) --1st processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.PROCESSOR_APPROVAL_WITH_COUNTRY_3
+msgid "Processor approval (with ISO country code) --3rd processor"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.COUNTRY_INITIAL_PROCESSING
+msgid "Country or countries of initial processing"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.CONTAINER_LENGTH_IN
+msgid "Container Length/1st Dimension, in inches"
+msgstr ""
+
+#. module: product_gs1_128
+#: model:product.gs1_128,name:product_gs1_128.VOLUME_GALLONS
+msgid "Product Volume (Gallons)"
+msgstr ""
+
+#. module: product_gs1_128
+#: code:addons/product_gs1_128/product_gs1_128.py:0
+#, python-format
+msgid "Could not decode GS1-128 code : unknown Application Identifier at position %d"
+msgstr "Impossible de décoder le code GS1-128 : Identifiant d'Application inconnu à la position %d"
+
