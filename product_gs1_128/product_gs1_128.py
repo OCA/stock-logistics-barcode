@@ -27,6 +27,9 @@ here.
 Instead we focus on decoding the data contained in this bar-code.
 """
 
+# Make it easier to divide integers and get floating point results
+from __future__ import division
+
 import re
 import time
 
@@ -88,14 +91,12 @@ class product_gs1_128(osv.osv):
         @return:               A dictionary of values with Application Identifiers as keys
         """
 
-        logger = netsvc.Logger()
-
         # Prefix and Group Separator
         user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
         prefix = user.gs1_128_prefix or ''
         separator = user.gs1_128_separator or '\x1D'
 
-        if gs1_128_string[:len(prefix)] != prefix:
+        if not gs1_128_string.startswith(prefix):
             raise invalid_gs1_128(_('Error decoding GS1-128 code'),
                                  _('Could not decode GS1-128 code : wrong prefix - the code should start with "%s"') % prefix)
 
@@ -141,15 +142,12 @@ class product_gs1_128(osv.osv):
         results = {}
         # start searching from the first character after the prefix
         position = len(prefix)
-        while gs1_128_string[position:]:
+        while position < len(gs1_128_string):
             # Search for a known Application Identifier
             for (ai, regexp) in ai_regexps.items():
                 match = regexp.match(gs1_128_string, position)
                 if match:
                     position += len(match.group('ai'))
-                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
-                                         "Searching for value in %s"
-                                            % gs1_128_string[position:])
 
                     # We found the Application Identifier, now decode the value
                     try:
@@ -158,15 +156,14 @@ class product_gs1_128(osv.osv):
                         raise invalid_gs1_128(_('Error decoding GS1-128 code'),
                                              _('Could not decode GS1-128 code: incorrect value for Application Identifer "%s" at position %d') % (ai, position))
 
-
-                    logger.notifyChannel("GS1-128", netsvc.LOG_DEBUG,
-                                         "found %s" % groups)
                     position += len(groups['value'])
                     results[ai] = groups['value'].replace(separator, '')
-                    if types[ai] == 'numeric' and 'decimal' in groups:
+                    if types[ai] == 'numeric':
+                        results[ai] = int(results[ai])
+                        if 'decimal' in groups:
                         # account for the decimal position
-                        results[ai] = float(results[ai]) / (10 ^ groups['decimal'])
-                        position += len(groups['decimal'])
+                            results[ai] = results[ai] / (10 ** int(groups['decimal']))
+                            position += len(groups['decimal'])
                     if types[ai] == 'date':
                         # format the date
                         results[ai] = time.strftime('%Y-%m-%d',
@@ -181,5 +178,3 @@ class product_gs1_128(osv.osv):
                                       _('Could not decode GS1-128 code : unknown Application Identifier at position %d') % position)
 
         return results
-
-product_gs1_128()
