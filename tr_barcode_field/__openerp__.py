@@ -42,7 +42,6 @@ This module adds a field to make a link between the product and the barcode.
     'test': [],
     'installable': True,
     'active': False,
-    'certificate': '',
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

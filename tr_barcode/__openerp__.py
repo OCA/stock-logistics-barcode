@@ -13,8 +13,9 @@ This module adds the menu Barcode used to generate and configuration barcodes.
     """,
     'author': 'Tech Receptives',
     'website': 'http://www.techreceptives.com',
-    'depends': ["base",
-                ],
+    'depends': [
+        "base",
+    ],
     'init_xml': [],
     'update_xml': [
         "tr_barcode_installer.xml",
