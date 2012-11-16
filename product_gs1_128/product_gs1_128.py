@@ -140,7 +140,7 @@ class product_gs1_128(osv.osv):
 
         # Now let's decode the string, one Application Identifier at a time
         results = {}
-        # start searching from the first character after the prefix
+        # Start searching from the first character after the prefix
         position = len(prefix)
         while position < len(gs1_128_string):
             # Search for a known Application Identifier
@@ -161,11 +161,11 @@ class product_gs1_128(osv.osv):
                     if types[ai] == 'numeric':
                         results[ai] = int(results[ai])
                         if 'decimal' in groups:
-                        # account for the decimal position
+                        	# Account for the decimal position
                             results[ai] = results[ai] / (10 ** int(groups['decimal']))
                             position += len(groups['decimal'])
                     if types[ai] == 'date':
-                        # format the date
+                        # Format the date
                         results[ai] = time.strftime('%Y-%m-%d',
                                                     time.strptime(results[ai],
                                                                   '%y%m%d'))
