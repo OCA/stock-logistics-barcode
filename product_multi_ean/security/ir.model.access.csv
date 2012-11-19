@@ -1,3 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-access_product_multi_ean_product_ean13_user,product_multi_ean_product_ean13.user,model_product_ean13,base.group_user,1,0,0,0
-access_product_multi_ean_product_ean13_manager,product_multi_ean_product_ean13 salemanager,model_product_ean13,base.group_sale_manager,1,1,1,1

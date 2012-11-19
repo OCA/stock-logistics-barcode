@@ -1,7 +1,0 @@
-"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
-"access_acquisition_acquisition_manager","acquisition.aquisition.manager","model_acquisition_acquisition","stock.group_stock_manager",1,1,1,1
-"access_acquisition_acquisition_user","acquisition.aquisition.manager","model_acquisition_acquisition","stock.group_stock_user",1,1,1,0
-"access_acquisition_list_manager","acquisition.list.manager","model_acquisition_list","stock.group_stock_manager",1,1,1,1
-"access_acquisition_list_user","acquisition.list.manager","model_acquisition_list","stock.group_stock_user",1,1,1,1
-"access_acquisition_setting_manager","acquisition.setting.manager","model_acquisition_setting","stock.group_stock_manager",1,1,1,1
-"access_acquisition_setting_user","acquisition.setting.manager","model_acquisition_setting","stock.group_stock_user",1,1,1,1
