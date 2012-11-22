@@ -17,7 +17,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-"""This file customizes the "Users" object"""
 
 from osv import osv, fields
 
@@ -28,8 +27,9 @@ class res_users(osv.osv):
 
     _columns = {
         # XXX those should be properties, not standard fields
-        'gs1_128_prefix': fields.char('GS1-128 Prefix', size=64,help="The prefix that the barcode scanner will send when GS1-128 codes are scanned. No prefix is expected if this fields is left empty"),
-        'gs1_128_separator': fields.char('GS1-128 Group Separator', size=1,
-                                         help="The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be used as a default if this field is left empty."),
+        'gs1_barcode_prefix': fields.char('Prefix', size=64,help="The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix codes are scanned. No prefix is expected if this fields is left empty"),
+        'gs1_barcode_separator': fields.char('Group Separator', size=1,
+                                         help="The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be expected by default if this field is left empty."),
     }
+# XXX Instantiate to retain compatibility of this module with v6.0, remove later
 res_users()

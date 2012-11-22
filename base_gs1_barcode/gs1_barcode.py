@@ -1,7 +1,7 @@
 # -*- encoding: utf-8 -*-
 ##############################################################################
 #
-#    This module is copyright (C) 2009 Numérigraphe SARL. All Rights Reserved.
+#    This module is copyright (C) 2012 Numérigraphe SARL. All Rights Reserved.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -18,15 +18,6 @@
 #
 ##############################################################################
 
-"""This file defines a utility class to encode/decode GS1-128 codes
-
-GS1-128 codes (formerly known as UCC-128, EAN 128 or UCC/EAN-128) is a standard
-for encoding item identification and logistics data.
-Physically it is represented as a Code-128 bar-code, but this is not processed
-here.
-Instead we focus on decoding the data contained in this bar-code.
-"""
-
 # Make it easier to divide integers and get floating point results
 from __future__ import division
 
@@ -37,13 +28,13 @@ import netsvc
 from osv import osv, fields
 from tools.translate import _
 
-class invalid_gs1_128(osv.except_osv):
-    """Indicate an error occurred while decoding a GS1-128 code"""
+class invalid_gs1_barcode(osv.except_osv):
+    """Indicate an error occurred while decoding a GS1-128/GS1-Datamatrix code"""
     pass
 
-class product_gs1_128(osv.osv):
-    """GS1-128 bar codes decoder configuration"""
-    _name = "product.gs1_128"
+class gs1_barcode(osv.osv):
+    """GS1-128/GS1-Datamatrix barcode decoder API and configuration"""
+    _name = "gs1_barcode"
     _description = __doc__
     _columns = {
         'ai' : fields.char('Application Identifer', size=14,
@@ -76,29 +67,31 @@ class product_gs1_128(osv.osv):
     ]
     _order = 'ai'
 
-    def decode(self, cr, uid, gs1_128_string, context=None):
+    def decode(self, cr, uid, barcode_string, context=None):
         """
-        Decode a GS1-128 string to dictionary of values with Application
-        Identifiers as keys.
+        Decode a GS1-128/GS1-Datamatrix string to dictionary of values with
+        Application Identifiers as keys.
         Please note that the string MUST contain a <GS> character (group
-        separator, ASCI code 29) after each variable-length value.
+        separator) after each variable-length value. <GS> is usually
+        expected to be sent as ASCII character 29 but that may be configured
+        per user.
         
         If the same Application Identifier is present several times in the
-        decoded, only the its last value is returned.
+        string, only the its last value is returned.
     
-        @type  gs1_128_string: string
-        @param gs1_128_string: GS1-128 string  to decode (ie. content of a code-128 bar code)
+        @type  barcode_string: string
+        @param barcode_string: GS1-128/GS1-Datamatrix string  to decode
         @return:               A dictionary of values with Application Identifiers as keys
         """
 
         # Prefix and Group Separator
         user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
-        prefix = user.gs1_128_prefix or ''
-        separator = user.gs1_128_separator or '\x1D'
+        prefix = user.gs1_barcode_prefix or ''
+        separator = user.gs1_barcode_separator or '\x1D'
 
-        if not gs1_128_string.startswith(prefix):
-            raise invalid_gs1_128(_('Error decoding GS1-128 code'),
-                                 _('Could not decode GS1-128 code : wrong prefix - the code should start with "%s"') % prefix)
+        if not barcode_string.startswith(prefix):
+            raise invalid_gs1_barcode(_('Error decoding barcode'),
+                                 _('Could not decode barcode : wrong prefix - the code should start with "%s"') % prefix)
 
         # We are going to use lots of regular expressions to decode the string,
         # and they all boil down to the following templates:
@@ -142,19 +135,19 @@ class product_gs1_128(osv.osv):
         results = {}
         # Start searching from the first character after the prefix
         position = len(prefix)
-        while position < len(gs1_128_string):
+        while position < len(barcode_string):
             # Search for a known Application Identifier
             for (ai, regexp) in ai_regexps.items():
-                match = regexp.match(gs1_128_string, position)
+                match = regexp.match(barcode_string, position)
                 if match:
                     position += len(match.group('ai'))
 
                     # We found the Application Identifier, now decode the value
                     try:
-                        groups = value_regexps[ai].match(gs1_128_string, position).groupdict()
+                        groups = value_regexps[ai].match(barcode_string, position).groupdict()
                     except AttributeError:
-                        raise invalid_gs1_128(_('Error decoding GS1-128 code'),
-                                             _('Could not decode GS1-128 code: incorrect value for Application Identifer "%s" at position %d') % (ai, position))
+                        raise invalid_gs1_barcode(_('Error decoding barcode'),
+                                             _('Could not decode barcode: incorrect value for Application Identifer "%s" at position %d') % (ai, position))
 
                     position += len(groups['value'])
                     results[ai] = groups['value'].replace(separator, '')
@@ -166,6 +159,9 @@ class product_gs1_128(osv.osv):
                             position += len(groups['decimal'])
                     if types[ai] == 'date':
                         # Format the date
+                        # Some barcodes are edited with a day of 0 - change it to 1 to make it a valid date
+                        if results[ai].endswith('00'):
+                            results[ai] = results[ai][:5]+'1'
                         results[ai] = time.strftime('%Y-%m-%d',
                                                     time.strptime(results[ai],
                                                                   '%y%m%d'))
@@ -174,7 +170,9 @@ class product_gs1_128(osv.osv):
                     break
             else:
                 # We couldn't find another valid AI in the rest of the code, give up
-                raise invalid_gs1_128(_('Error decoding GS1-128 code'),
-                                      _('Could not decode GS1-128 code : unknown Application Identifier at position %d') % position)
+                raise invalid_gs1_barcode(_('Error decoding barcode'),
+                                      _('Could not decode barcode: unknown Application Identifier at position %d') % position)
 
         return results
+# XXX Instantiate to retain compatibility of this module with v6.0, remove later
+gs1_barcode()
