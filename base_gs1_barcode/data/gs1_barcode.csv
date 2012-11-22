@@ -1,0 +1,131 @@
+id,name,ai,length_fixed,length_max,length_min,decimal,type
+SSCC,Serial Shipping Container Code (SSCC),00,True,18,0,False,string
+GTIN,Global Trade Item Number (GTIN),01,True,14,0,False,string
+CONTENT_GTIN,GTIN of Contained Trade Items,02,True,14,0,False,string
+LOT,Batch/Lot Number,10,False,20,0,False,string
+PRODUCTION_DATE,Production Date,11,True,6,0,False,date
+DUE_DATE,Due Date,12,True,6,0,False,date
+PACKAGING_DATE,Packaging Date,13,True,6,0,False,date
+SELL_BY_DATE,Sell by Date (Quality Control),15,True,6,0,False,date
+EXPIRATION_DATE,Expiration Date,17,True,6,0,False,date
+VARIANT,Product Variant,20,True,2,0,False,string
+SN,Serial Number,21,False,20,0,False,string
+SECONDARY_DATA_FIELDS,Secondary Data Fields,22,False,29,0,False,string
+ADDITIONAL_PRODUCT_ID,Additional Product Identification,240,False,30,0,False,string
+CUSTOMER_PART,Customer Part Number,241,False,30,0,False,string
+VARIATION,Made-to-Order Variation Number,242,False,6,0,False,string
+SECONDARY_SN,Secondary Serial Number,250,False,30,0,False,string
+SOURCE_ENTITY,Reference to Source Entity,251,False,30,0,False,string
+GLOBAL_DOCUMENT_TYPE_ID,Global Document Type Identifier,253,False,17,13,False,string
+GLN_EXTENSION_COMPONENT,GLN Extension Component,254,False,20,0,False,string
+COUNT,Count of items,30,False,20,0,False,numeric
+NET_WEIGHT,Product Net Weight in kg,310,True,6,0,True,numeric
+LENGTH,"Product Length/1st Dimension, in meters",311,True,6,0,True,numeric
+WIDTH,"Product Width/Diameter/2nd Dimension, in meters",312,True,6,0,True,numeric
+DEPTH,"Product Depth/Thickness/Height/3rd Dimension, in meters",313,True,6,0,True,numeric
+AREA,"Product Area, in square meters",314,True,6,0,True,numeric
+NET_VOLUME_L,"Product Net Volume, in liters",315,True,6,0,True,numeric
+NET_VOLUME,"Product Net Volume, in cubic meters",316,True,6,0,True,numeric
+NET_WEIGHT_LB,"Product Net Weight, in pounds",320,True,6,0,True,numeric
+LENGTH_IN,"Product Length/1st Dimension, in inches",321,True,6,0,True,numeric
+LENGTH_FT,"Product Length/1st Dimension, in feet",322,True,6,0,True,numeric
+LENGTH_YD,"Product Length/1st Dimension, in yards",323,True,6,0,True,numeric
+WIDTH_IN,"Product Width/Diameter/2nd Dimension, in inches",324,True,6,0,True,numeric
+WIDTH_FT,"Product Width/Diameter/2nd Dimension, in feet",325,True,6,0,True,numeric
+WIDTH_YD,"Product Width/Diameter/2nd Dimension, in yards",326,True,6,0,True,numeric
+DEPTH_IN,"Product Depth/Thickness/Height/3rd Dimension, in inches",327,True,6,0,True,numeric
+DEPTH_FT,"Product Depth/Thickness/Height/3rd Dimension, in feet",328,True,6,0,True,numeric
+DEPTH_YD,"Product Depth/Thickness/3rd Dimension, in yards",329,True,6,0,True,numeric
+CONTAINER_GROSS_WEIGHT,Container Gross Weight (kg),330,True,6,0,True,numeric
+CONTAINER_LENGTH,Container Length/1st Dimension (Meters),331,True,6,0,True,numeric
+CONTAINER_WIDTH,Container Width/Diameter/2nd Dimension (Meters),332,True,6,0,True,numeric
+CONTAINER_DEPTH,Container Depth/Thickness/3rd Dimension (Meters),333,True,6,0,True,numeric
+CONTAINER_AREA,Container Area (Square Meters),334,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_L,Container Gross Volume (Liters),335,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME,Container Gross Volume (Cubic Meters),336,True,6,0,True,numeric
+CONTAINER_GROSS_WEIGHT_LB,Container Gross Weight (Pounds),340,True,6,0,True,numeric
+CONTAINER_LENGTH_IN,"Container Length/1st Dimension, in inches",341,True,6,0,True,numeric
+CONTAINER_LENGTH_FT,"Container Length/1st Dimension, in feet",342,True,6,0,True,numeric
+CONTAINER_LENGTH_YD,"Container Length/1st Dimension in, in yards",343,True,6,0,True,numeric
+CONTAINER_WIDTH_IN,"Container Width/Diameter/2nd Dimension, in inches",344,True,6,0,True,numeric
+CONTAINER_WIDTH_FT,"Container Width/Diameter/2nd Dimension, in feet",345,True,6,0,True,numeric
+CONTAINER_WIDTH_YD,"Container Width/Diameter/2nd Dimension, in yards",346,True,6,0,True,numeric
+CONTAINER_DEPTH_IN,"Container Depth/Thickness/Height/3rd Dimension, in inches",347,True,6,0,True,numeric
+CONTAINER_DEPTH_FT,"Container Depth/Thickness/Height/3rd Dimension, in feet",348,True,6,0,True,numeric
+CONTAINER_DEPTH_YD,"Container Depth/Thickness/Height/3rd Dimension, in yards",349,True,6,0,True,numeric
+AREA_IN2,Product Area (Square Inches),350,True,6,0,True,numeric
+AREA_FT2,Product Area (Square Feet),351,True,6,0,True,numeric
+AREA_SQUARE_YD,Product Area (Square Yards),352,True,6,0,True,numeric
+CONTAINER_AREA_IN2,Container Area (Square Inches),353,True,6,0,True,numeric
+CONTAINER_AREA_FT2,Container Area (Square Feet),354,True,6,0,True,numeric
+CONTAINER_AREA_SQUARE_YD,Container Area (Square Yards),355,True,6,0,True,numeric
+NET_WEIGHT_OZT,Net Weight (Troy Ounces),356,True,6,0,True,numeric
+NET_WEIGHT_VOLUME_OZ,Net Weight/Volume (Ounces),357,True,6,0,True,numeric
+VOLUME_QUARTS,Product Volume (Quarts),360,True,6,0,True,numeric
+VOLUME_GALLONS,Product Volume (Gallons),361,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_QUARTS,Container Gross Volume (Quarts),362,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_GALLONS,Container Gross Volume (U.S. Gallons),363,True,6,0,True,numeric
+VOLUME_IN3,Product Volume (Cubic Inches),364,True,6,0,True,numeric
+VOLUME_FT3,Product Volume (Cubic Feet),365,True,6,0,True,numeric
+VOLUME_YD3,Product Volume (Cubic Yards),366,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_IN3,Container Gross Volume (Cubic Inches),367,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_FT3,Container Gross Volume (Cubic Feet),368,True,6,0,True,numeric
+CONTAINER_GROSS_VOLUME_YD3,Container Gross Volume (Cubic Yards),369,True,6,0,True,numeric
+NB_CONTAINED,Number of Units Contained,37,False,8,0,False,numeric
+AMOUNT_PAYABLE,Amount payable (local currency),390,False,15,0,True,numeric
+AMOUNT_PAYABLE_CURRENCY,Amount payable (with ISO currency code),391,False,18,3,True,numeric
+AMOUNT_PAYABLE_SINGLE_ITEM,Amount payable per single item (local currency),392,False,15,0,True,numeric
+AMOUNT_PAYABLE_SINGLE_ITEM_CURRENCY,Amount payable per single item (with ISO currency code),393,False,18,3,True,numeric
+CUSTOMER_PURCHASE_ORDER,Customer Purchase Order Number,400,False,30,0,False,string
+CONSIGNMENT,Consignment Number,401,False,30,0,False,string
+BILL_OF_LADING,Bill of Lading number,402,True,17,0,False,string
+ROUTING_CODE,Routing code,403,False,30,0,False,string
+DELIVER_TO_LOCATION,Ship To/Deliver To Location Code (Global Location Number),410,True,13,0,False,string
+INVOICE_LOCATION,Bill To/Invoice Location Code (Global Location Number),411,True,13,0,False,string
+PURCHASE_LOCATION_,Purchase From Location Code (Global Location Number),412,True,13,0,False,string
+DELIVER_FOR,"Ship for, Deliver for, or Forward to Location Code (Global Location Number)",413,True,13,0,False,string
+PHYSICAL_LOCATION_ID,Identification of a physical location (Global Location Number),414,True,13,0,False,string
+DELIVER_TO_POSTAL_CODE,Ship To/Deliver To Postal Code (Single Postal Authority),420,False,20,0,False,string
+DELIVER_TO_POSTAL_CODE_COUNTRY,Ship To/Deliver To Postal Code (with ISO country code),421,False,15,3,False,string
+COUNTRY_ORIGIN,Country of Origin (ISO country code),422,True,3,0,False,string
+COUNTRY_INITIAL_PROCESSING,Country or countries of initial processing,423,False,15,3,False,string
+COUNTRY__PROCESSING,Country of processing,424,True,3,0,False,string
+COUNTRY_DISASSEMBLY,Country of disassembly,425,True,3,0,False,string
+COUNTRY,Country of full process chain,426,True,3,0,False,string
+NATO_STOCK,NATO Stock Number (NSN),7001,True,13,0,False,string
+UN_ECE_CLASSIFICATION,UN/ECE Meat Carcasses and cuts classification,7002,False,30,0,False,string
+EXPIRATION_DATE_AND_TIME,expiration date and time,7003,True,10,0,False,string
+ACTIVE_POTENCY,Active Potency,7004,False,4,0,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_1,Processor approval (with ISO country code) --1st processor,7031,False,30,3,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_2,Processor approval (with ISO country code) --2nd processor,7032,False,31,4,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_3,Processor approval (with ISO country code) --3rd processor,7033,False,32,5,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_4,Processor approval (with ISO country code) – 4th processor,7034,False,33,6,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_5,Processor approval (with ISO country code) – 5th processor,7035,False,34,7,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_6,Processor approval (with ISO country code) – 6th processor,7036,False,35,8,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_7,Processor approval (with ISO country code) – 7th processor,7037,False,36,9,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_8,Processor approval (with ISO country code) –8th processor,7038,False,37,10,False,string
+PROCESSOR_APPROVAL_WITH_COUNTRY_9,Processor approval (with ISO country code) – 9th processor,7039,False,38,11,False,string
+ROLL_PRODUCTS_DIMENSIONS,Roll Products - Width/Length/Core Diameter/Direction/Splices,8001,True,14,0,False,string
+MOBILE_PHONE_ID,Mobile phone identifier,8002,False,20,0,False,string
+GLOBAL_RETURNABLE_ASSET_ID,Global Returnable Asset Identifier,8003,False,30,14,False,string
+GLOBAL_INDIVIDUAL_ASSET_ID,Global Individual Asset Identifier,8004,False,30,0,False,string
+PRICE_PER_UOM,Price per Unit of Measure,8005,True,6,0,False,numeric
+COMPONENTS,identification of the components of an item,8006,True,18,0,False,string
+IBAN,International Bank Account Number,8007,False,30,0,False,string
+DATE_PRODUCTION,Date/time of production,8008,False,12,8,False,date
+GLOBAL_SERVICE_RELATION,Global Service Relation Number,8018,True,18,0,False,string
+PAYMENT_SLIP,Payment slip reference number,8020,False,25,0,False,string
+COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER,Coupon Extended Code: Number System and Offer,8100,True,6,0,False,string
+COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER_END,"Coupon Extended Code: Number System, Offer, End of Offer",8101,True,10,0,False,string
+COUPON_EXTENDED_CODE_NB_SYSTEM_PRECEDED_BY_0,Coupon Extended Code: Number System preceded by 0,8102,True,2,0,False,string
+COUPON_CODE_ID,Coupon code ID (North America),8110,False,30,0,False,string
+MUTUALLY_AGREED_BETWEEN_TRADING_PARTNERS,Mutually Agreed Between Trading Partners,90,False,999,0,False,string
+INTERNAL_COMPANY_CODE_1,Internal Company Code 1,91,False,30,0,False,string
+INTERNAL_COMPANY_CODE_2,Internal Company Code 2,92,False,30,0,False,string
+INTERNAL_COMPANY_CODE_3,Internal Company Code 3,93,False,30,0,False,string
+INTERNAL_COMPANY_CODE_4,Internal Company Code 4,94,False,30,0,False,string
+INTERNAL_COMPANY_CODE_5,Internal Company Code 5,95,False,30,0,False,string
+INTERNAL_COMPANY_CODE_6,Internal Company Code 6,96,False,30,0,False,string
+INTERNAL_COMPANY_CODE_7,Internal Company Code 7,97,False,30,0,False,string
+INTERNAL_COMPANY_CODE_8,Internal Company Code 8,98,False,30,0,False,string
+INTERNAL_COMPANY_CODE_9,Internal Company Code 9,99,False,30,0,False,string
