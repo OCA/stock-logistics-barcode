@@ -30,8 +30,9 @@
         "tr_barcode_config",
         "tr_barcode_field",
     ],
-    "description" : """This module will add automatically the inherit on barcode osv for stock production lot table
-You may have to create the specific config for it.
+    "description" : """This module provides a stock.production.lot model deriving from barcode_osv, which will manage the population of the x_barcode_id column. 
+
+It is still necessary to configure the model to specify which field is used to generate the barcode.
      """,
     "init_xml" : [],
     "demo_xml" : [],
