@@ -94,6 +94,14 @@ def create_barcode(cr, uid, id, vals, model, context=None):
 class barcode_osv(osv.osv):
     _register = False
     
+    def __init__(self, pool, cr):
+        installer_obj = pool.get('tr_barcode.installer')
+        model_obj = pool.get('ir.model')
+        uid = openerp.SUPERUSER_ID
+        model_ids = model_obj.search(cr, uid, [('model', '=', self._name)])
+        installer_obj.create(cr, uid, {'models_ids': [(6,0,model_ids)]}, context=None)
+        super(barcode_osv, self).__init__(pool, cr)
+    
     def create(self, cr, uid, vals, context=None):
         res = super(osv.osv, self).create(cr, uid, vals, context)
         barcode_id = create_barcode(cr, uid, res, vals, self._name, context)
