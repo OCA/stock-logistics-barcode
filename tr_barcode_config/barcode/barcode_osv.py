@@ -21,6 +21,7 @@
 
 from osv import osv, fields
 import pooler
+from openerp import SUPERUSER_ID
     
 def write_barcode(cr, uid, ids, vals, model, context=None):
     pool = pooler.get_pool(cr.dbname)
@@ -97,7 +98,7 @@ class barcode_osv(osv.osv):
     def __init__(self, pool, cr):
         installer_obj = pool.get('tr_barcode.installer')
         model_obj = pool.get('ir.model')
-        uid = openerp.SUPERUSER_ID
+        uid = SUPERUSER_ID
         model_ids = model_obj.search(cr, uid, [('model', '=', self._name)])
         installer_obj.create(cr, uid, {'models_ids': [(6,0,model_ids)]}, context=None)
         super(barcode_osv, self).__init__(pool, cr)
