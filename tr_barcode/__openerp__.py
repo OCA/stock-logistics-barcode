@@ -38,16 +38,17 @@ This module adds the menu Barcode used to generate and configuration barcodes.
     ],
     'init_xml': [],
     'update_xml': [
-        "tr_barcode_installer.xml",
-        "tr_barcode_view.xml",
+#        "tr_barcode_installer.xml",
         "wizard/tr_barcode_wizard.xml",
-        "security/ir.model.access.csv",
+        "res_config_view.xml",
+        "tr_barcode_view.xml",
+#        "security/ir.model.access.csv",
     ],
     'demo_xml': [],
-    "images" : ['images/Barcode configuration.png','images/Barcode.png'],
+#    "images" : ['images/Barcode configuration.png','images/Barcode.png'],
     'test': [
     ],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

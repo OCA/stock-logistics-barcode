@@ -14,19 +14,25 @@
           <separator string="title" position="attributes">
             <attribute name="string">Configure Your Barcode Application</attribute>
           </separator>
-          <xpath expr="//label[@string='description']"
+          <!--<xpath expr="//label[@string='description']"
                  position="attributes">
             <attribute name="string">Enhance your core OpenERP with Barcode</attribute>
           </xpath>
           <xpath expr='//separator[@string="vsep"]' position='attributes'>
                 <attribute name='string'></attribute>
-          </xpath>
+          </xpath>-->
           <xpath expr="//button[@string='Install Modules']" position="attributes">
                    <attribute name="string">Configure</attribute>
           </xpath>
-	<group colspan="8">
-	  <field name="models_ids" colspan="4" nolabel="1"/>
-	</group>
+          <!--<separator string="title" position="after">
+              <label align="0.0" string="Enhance your core OpenERP with Barcode" width="200" colspan="2"/>
+              <xpath expr='//separator[@string="vsep"]' position='attributes'>
+                  <attribute name='string'></attribute>
+              </xpath>
+          </separator>-->
+	      <!--<group colspan="8">
+	          <field name="models_ids" colspan="4" nolabel="1"/>
+	      </group>-->
         </data>
       </field>
     </record>
