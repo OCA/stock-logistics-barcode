@@ -37,7 +37,7 @@ main ean13 code is defined.
                 'security/ir.model.access.csv'],
  'demo_xml': [],
  'tests': [],
- 'installable': True,
+ 'installable': False,
  'images' : ['/static/src/images/image'],
  'auto_install': False,
  'license': 'AGPL-3',

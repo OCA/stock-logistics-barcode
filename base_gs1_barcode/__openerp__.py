@@ -65,6 +65,6 @@ let you configure how to map <GS>, which may help improve compatibility.
         'test/gs1_barcode_test.yml'
     ],
     'active': False,
-    'installable': True,
+    'installable': False,
     'license' : 'GPL-3',
 }

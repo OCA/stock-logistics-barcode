@@ -38,7 +38,7 @@ It is still necessary to configure the model to specify which field is used to g
     "demo_xml" : [],
     "update_xml" : [],
     "active": False,
-    "installable": True,
+    "installable": False,
 }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
