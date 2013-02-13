@@ -40,7 +40,7 @@ This module adds a field to make a link between the product and the barcode.
     "update_xml" : [
     ],
     'test': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 

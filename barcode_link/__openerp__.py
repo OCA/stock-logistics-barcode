@@ -38,12 +38,12 @@ And link the barcode with a product.
     "category" : "Generic Modules/Inventory Control",
     "init_xml" : [],
     "demo_xml" : [],
-    "images" : ['images/Barcode link.png'],
+#    "images" : ['images/Barcode link.png'],
     "update_xml" : [
                     'barcode_link_view.xml',
     ],
     'test': [],
-    'installable': False,
+    'installable': True,
     'active': False,
 }
 

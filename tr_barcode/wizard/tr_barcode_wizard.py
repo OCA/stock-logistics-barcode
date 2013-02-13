@@ -40,9 +40,9 @@ class tr_barcode_wizard(osv.osv_memory):
             context = {}
         if not context.get('active_model',False) or not context.get('active_id',False):
             return False
-        vals = self.pool.get(context['active_model']).name_get(cr, uid, [context['active_id']], context=context)
-        
-        return vals[0][-1]
+        vals = self.pool.get(context['active_model']).browse(cr, uid, context['active_id'], context=context)
+        return vals and vals.x_barcode_id and vals.x_barcode_id.code or False
+
     _columns = {
         'barcode':fields.char('Barcode',size=256),
         'width':fields.integer("Width",

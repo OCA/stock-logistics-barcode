@@ -23,16 +23,22 @@ from osv import fields, osv
 
 class tr_barcode_installer(osv.osv_memory):
 
-    _inherit = 'tr_barcode.installer'
+    _inherit = 'tr.barcode.settings'
 
-    def create(self, cr, uid, vals, context=None):
+    def install(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        res = super(tr_barcode_installer,self).create(cr, uid, vals, context)
+        
         model_obj = self.pool.get('ir.model')
         field_obj = self.pool.get('ir.model.fields')
+        
+        for vals in self.read(cr, uid, ids, context=context):
+        
+            if not vals or not vals.get('models_ids', False):
+                return False
+            
         read_datas = model_obj.read(cr, uid,
-                vals['models_ids'][0][-1], ['model','name'], context=context)     
+                vals['models_ids'], ['model','name'], context=context)     
         for model in read_datas:
             field_ids = field_obj.search(cr, uid, [
                                 ('name', '=', 'x_barcode_id'),
@@ -51,7 +57,10 @@ class tr_barcode_installer(osv.osv_memory):
                         'on_delete': 'set null',
                         }
                 field_obj.create(cr, uid, data_field, context)
-        return res
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }
 
 tr_barcode_installer()
 

@@ -42,7 +42,7 @@ This module adds the menu Barcode used to generate and configuration barcodes.
         "wizard/tr_barcode_wizard.xml",
         "res_config_view.xml",
         "tr_barcode_view.xml",
-#        "security/ir.model.access.csv",
+        "security/ir.model.access.csv",
     ],
     'demo_xml': [],
 #    "images" : ['images/Barcode configuration.png','images/Barcode.png'],

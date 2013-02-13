@@ -30,55 +30,68 @@ class tr_barcode_settings(osv.osv_memory):
                         'tr_barcode_settings_mode_rel',
                         'tr_id', 'model_id', 'Models'),
                 }
-    def install(self, cr, uid, ids, context=None):
-        
-        
-#       Initialisation of the configuration
-        
+    
+    
+    def update_field(self, cr, uid, vals, context=None):
+        ## Init ##
         if context is None:
             context = {}
+        model_ids = []
         model_obj = self.pool.get('ir.model')
         action_obj = self.pool.get('ir.actions.act_window')
         value_obj = self.pool.get('ir.values')
-        
-        """ create method """
-        for vals in self.read(cr, uid, ids, context=context):
-        
-            if not vals or not vals.get('models_ids', False):
-                return False
+        ## Process ##
+        if not vals or not vals.get('models_ids', False):
+            return False
+        elif vals['models_ids'][0] and vals['models_ids'][0][2]:
+            model_ids = vals['models_ids'][0][2]
+        ### Unlink Previous Entries ###
+        unlink_ids = action_obj.search(cr,  uid, [('res_model' , '=', 'tr.barcode.wizard')])
+        for unlink_id in unlink_ids:
+            action_obj.unlink(cr, uid, unlink_id)
+            un_val_ids = value_obj.search(cr, uid,[
+                ('value' , '=',"ir.actions.act_window," + str(unlink_id)),
+                ])
+            value_obj.unlink(cr, uid, un_val_ids)
             
-#           Supression of the old configuration
-            
-            unlink_ids = action_obj.search(cr,  uid, [('res_model' , '=', 'tr.barcode.wizard')])
-            for unlink_id in unlink_ids:
-                action_obj.unlink(cr, uid, unlink_id)
-                un_val_ids = value_obj.search(cr, uid,[
-                    ('value' , '=',"ir.actions.act_window," + str(unlink_id)),
-                    ])
-                value_obj.unlink(cr, uid, un_val_ids)
-                
-            ######################### 
-                
-            read_datas = model_obj.read(cr, uid, vals['models_ids'], ['model','name'], context=context)
-            for model in read_datas:
-                act_id = action_obj.create(cr, uid, {
-                     'name': "%s Barcode" % model['name'],
-                     'type': 'ir.actions.act_window',
-                     'res_model': 'tr.barcode.wizard',
-                     'src_model': model['model'],
-                     'view_type': 'form',
-                     'context': "{'src_model':'%s','src_rec_id':active_id,"\
-                     "'src_rec_ids':active_ids}" % (model['model']),
-                     'view_mode':'form,tree',
-                     'target': 'new',
-                }, context)
-                value_obj.create(cr, uid, {
+        ### Create New Fields ###
+        read_datas = model_obj.read(cr, uid, model_ids, ['model','name'], context=context)
+        for model in read_datas:
+            act_id = action_obj.create(cr, uid, {
+                 'name': "%s Barcode" % model['name'],
+                 'type': 'ir.actions.act_window',
+                 'res_model': 'tr.barcode.wizard',
+                 'src_model': model['model'],
+                 'view_type': 'form',
+                 'context': "{'src_model':'%s','src_rec_id':active_id,"\
+                 "'src_rec_ids':active_ids}" % (model['model']),
+                 'view_mode':'form,tree',
+                 'target': 'new',
+            }, context)
+            value_obj.create(cr, uid, {
                  'name': "%s Barcode" % model['name'],
                  'model': model['model'],
                  'key2': 'client_action_multi',
                  'value': "ir.actions.act_window," + str(act_id),
-    #             'object': True,
-                    }, context)
+            }, context)
+            
+        return True
+    
+    def create(self, cr, uid, vals, context=None):
+        """ create method """
+        vals2 = copy.deepcopy(vals)
+        result = super(tr_barcode_settings, self).create(cr, uid, vals2, context=context)
+        ## Fields Process ##
+        self.update_field(cr, uid, vals, context=context)
+        return result
+    
+    def install(self, cr, uid, ids, context=None):
+#       Initialisation of the configuration
+        if context is None:
+            context = {}
+        """ create method """
+        for vals in self.read(cr, uid, ids, context=context):
+            result = self.update_field(cr, uid, vals, context=context)
             
         return {
             'type': 'ir.actions.client',

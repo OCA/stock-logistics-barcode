@@ -13,12 +13,6 @@
                     </header>
                     <separator string="Barcode Configuration"/>
                     <group name="barcode_config">
-                        <label string="Enhance your core OpenERP with Barcode"/>
-                        <!--<div name="barcode">
-                            <div>                                
-                            	<button name='%(action_tr_barcode_wizard)d' type="action" string="Configure" class="oe_link"/>
-                            </div>
-                        </div>-->
                         <div name="barcode2">
                        		<group colspan="8">
 	  							<field name="models_ids" colspan="4" nolabel="1"/>
