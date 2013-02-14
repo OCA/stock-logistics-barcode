@@ -113,7 +113,7 @@ class ProductProduct(osv.osv):
 
     def _get_main_ean13(self, cr, uid, ids, field_name, arg, context):
         values = {}
-        for product in self.browse(cr, uid, ids, context):
+        for product in self.browse(cr, uid, ids, context=context):
             ean13 = False
             if product.ean13_ids:
                 # get the first ean13 as main ean13
@@ -124,7 +124,7 @@ class ProductProduct(osv.osv):
     def _get_ean(self, cr, uid, ids, context=None):
         res = set()
         obj = self.pool.get('product.ean13')
-        for ean in obj.browse(cr, uid, ids, context):
+        for ean in obj.browse(cr, uid, ids, context=context):
             res.add(ean.product_id.id)
         return list(res)
 
