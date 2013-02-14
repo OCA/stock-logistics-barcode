@@ -124,14 +124,14 @@ class barcode_osv(osv.osv):
            context = {}
         if type(ids) in (type(1), type(1L), type(1.0)):
             ids = [ids]
+        barcode_obj = self.pool.get('tr.barcode')
         for obj in self.browse(cr, uid, ids, context=context):
             context.update({'obj_id':obj.id})
             if not obj.x_barcode_id:
-                barcode_obj = self.pool.get('tr.barcode')
                 barcode_ids = barcode_obj.search(cr, uid, [
                                             ('res_model', '=', self._name),
                                             ('res_id', '=', obj.id)
-                                            ])
+                                            ], limit=1, context=context)
                 if barcode_ids:
                     write_barcode(cr, uid, [barcode_ids[0]], vals, self._name, context)
                     vals['x_barcode_id'] = barcode_ids[0]
