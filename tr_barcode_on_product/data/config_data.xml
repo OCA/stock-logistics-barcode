@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <record id="default_config_product" model="tr.barcode.config">
+            <field name="res_model" ref="product.model_product_product"/>
+            <field name="field" ref="product.field_product_product_default_code"/>
+            <field name="barcode_type">Code128</field>
+        </record>
+
+    </data>
+</openerp>
+

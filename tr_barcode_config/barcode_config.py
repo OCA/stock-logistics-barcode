@@ -37,7 +37,7 @@ class tr_barcode_config(osv.osv):
     _name = 'tr.barcode.config'
     
     _columns = {
-        'res_model': fields.many2one('ir.model', 'Object', required=True),
+        'res_model': fields.many2one('ir.model', 'Object', domain=[('barcode_model', '=', True)], required=True),
         'field': fields.many2one('ir.model.fields', 'Field', domain=[('ttype', '=', 'char')], required=True),
         'width': fields.integer("Width",
                 help="Leave Blank or 0(ZERO) for default size"),

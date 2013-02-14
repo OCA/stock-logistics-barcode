@@ -23,13 +23,34 @@
 from openerp.osv import fields, osv
 import copy
 
+class ir_model(osv.osv):
+    _inherit = 'ir.model'
+    
+    _columns = {
+        'barcode_model': fields.boolean('Barcode linked', help='If checked, by default the barcode configuration will get this module in the list'),
+    }
+    
+    _defaults = {
+        'barcode_model': False,
+    }
+
+ir_model()
+
 class tr_barcode_settings(osv.osv_memory):
     _name = 'tr.barcode.settings'
     _inherit = 'res.config.settings'
+    
+    def _get_default_barcode_models(self, cr, uid, context=None):
+        return self.pool.get('ir.model').search(cr, uid, [('barcode_model', '=', True)], context=context)
+    
     _columns = {
         'models_ids': fields.many2many('ir.model',
             'tr_barcode_settings_mode_rel',
             'tr_id', 'model_id', 'Models'),
+    }
+    
+    _defaults = {
+        'models_ids': _get_default_barcode_models,
     }
     
     def update_field(self, cr, uid, vals, context=None):

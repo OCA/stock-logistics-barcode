@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_tr_barcode_configuration" model="ir.ui.view">
+			<field name="name">tr barcode settings</field>
+			<field name="model">tr.barcode.settings</field>
+			<field name="inherit_id" ref="tr_barcode.view_tr_barcode_configuration"/>
+			<field name="arch" type="xml">
+				<group name="barcode_config" position="after">
+					<group name="barcode_default_product_config">
+                        <label for="id" string="Products"/>
+                        <div>
+							<div name="default_product" invisible="1">
+								<field name="product_config_id" class="oe_inline"
+	                                    on_change="onchange_product_config_id(product_config_id, context)"/>
+								<field name="product_model_id" class="oe_inline"/>
+							</div>
+							<div name="default_product_field">
+								<label for="product_field_id"/>
+								<field name="product_field_id" class="oe_inline"
+										domain="[('model_id', '=', product_model_id), ('ttype', '=', 'char')]"
+										attrs="{'required':[('product_config_id', '!=', False)]}"/>
+							</div>
+							<div name="default_product_width">
+								<label for="product_width"/>
+								<field name="product_width" class="oe_inline"/>
+							</div>
+							<div name="default_product_height">
+								<label for="product_height"/>
+								<field name="product_height" class="oe_inline"/>
+							</div>
+							<div name="default_product_hr_form">
+								<label for="product_hr_form"/>
+								<field name="product_hr_form" class="oe_inline"/>
+							</div>
+							<div name="default_product_barcode_type">
+								<label for="product_barcode_type"/>
+								<field name="product_barcode_type" class="oe_inline"
+										attrs="{'required':[('product_config_id', '!=', False)]}"/>
+							</div>
+						</div>
+					</group>
+				</group>
+			</field>
+		</record>
+
+    </data>
+</openerp>
+

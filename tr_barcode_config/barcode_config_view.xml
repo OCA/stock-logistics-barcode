@@ -9,7 +9,7 @@
 			<field name="arch" type="xml">
 				<form string="Config">
 					<field name="res_model"/>
-					<field name="field"/>
+					<field name="field" domain="[('model_id', '=', res_model), ('ttype', '=', 'char')]"/>
 					<field name="width"/>
 					<field name="height"/>
 					<field name="hr_form"/>

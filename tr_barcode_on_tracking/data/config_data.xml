@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <record id="default_config_tracking" model="tr.barcode.config">
+            <field name="res_model" ref="stock.model_stock_tracking"/>
+            <field name="field" ref="stock.field_stock_tracking_name"/>
+            <field name="barcode_type">Code128</field>
+        </record>
+
+    </data>
+</openerp>
+

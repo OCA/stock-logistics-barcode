@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_tr_barcode_configuration" model="ir.ui.view">
+			<field name="name">tr barcode settings</field>
+			<field name="model">tr.barcode.settings</field>
+			<field name="inherit_id" ref="tr_barcode.view_tr_barcode_configuration"/>
+			<field name="arch" type="xml">
+				<group name="barcode_config" position="after">
+					<group name="barcode_default_picking_config">
+                        <label for="id" string="Picking"/>
+                        <div>
+							<div name="default_picking" invisible="1">
+								<field name="picking_config_id" class="oe_inline"
+	                                    on_change="onchange_picking_config_id(picking_config_id, context)"/>
+								<field name="picking_model_id" class="oe_inline"/>
+							</div>
+							<div name="default_picking_field">
+								<label for="picking_field_id"/>
+								<field name="picking_field_id" class="oe_inline"
+										domain="[('model_id', '=', picking_model_id), ('ttype', '=', 'char')]"
+										attrs="{'required':[('picking_config_id', '!=', False)]}"/>
+							</div>
+							<div name="default_picking_width">
+								<label for="picking_width"/>
+								<field name="picking_width" class="oe_inline"/>
+							</div>
+							<div name="default_picking_height">
+								<label for="picking_height"/>
+								<field name="picking_height" class="oe_inline"/>
+							</div>
+							<div name="default_picking_hr_form">
+								<label for="picking_hr_form"/>
+								<field name="picking_hr_form" class="oe_inline"/>
+							</div>
+							<div name="default_picking_barcode_type">
+								<label for="picking_barcode_type"/>
+								<field name="picking_barcode_type" class="oe_inline"
+										attrs="{'required':[('picking_config_id', '!=', False)]}"/>
+							</div>
+						</div>
+					</group>
+				</group>
+			</field>
+		</record>
+
+    </data>
+</openerp>
+

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_tr_barcode_configuration" model="ir.ui.view">
+			<field name="name">tr barcode settings</field>
+			<field name="model">tr.barcode.settings</field>
+			<field name="inherit_id" ref="tr_barcode.view_tr_barcode_configuration"/>
+			<field name="arch" type="xml">
+				<group name="barcode_config" position="after">
+					<group name="barcode_default_tracking_config">
+                        <label for="id" string="Tracking"/>
+                        <div>
+							<div name="default_tracking" invisible="1">
+								<field name="tracking_config_id" class="oe_inline"
+	                                    on_change="onchange_tracking_config_id(tracking_config_id, context)"/>
+								<field name="tracking_model_id" class="oe_inline"/>
+							</div>
+							<div name="default_tracking_field">
+								<label for="tracking_field_id"/>
+								<field name="tracking_field_id" class="oe_inline"
+										domain="[('model_id', '=', tracking_model_id), ('ttype', '=', 'char')]"
+										attrs="{'required':[('tracking_config_id', '!=', False)]}"/>
+							</div>
+							<div name="default_tracking_width">
+								<label for="tracking_width"/>
+								<field name="tracking_width" class="oe_inline"/>
+							</div>
+							<div name="default_tracking_height">
+								<label for="tracking_height"/>
+								<field name="tracking_height" class="oe_inline"/>
+							</div>
+							<div name="default_tracking_hr_form">
+								<label for="tracking_hr_form"/>
+								<field name="tracking_hr_form" class="oe_inline"/>
+							</div>
+							<div name="default_tracking_barcode_type">
+								<label for="tracking_barcode_type"/>
+								<field name="tracking_barcode_type" class="oe_inline"
+										attrs="{'required':[('tracking_config_id', '!=', False)]}"/>
+							</div>
+						</div>
+					</group>
+				</group>
+			</field>
+		</record>
+
+    </data>
+</openerp>
+

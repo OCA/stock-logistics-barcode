@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+		<record id="view_tr_barcode_configuration" model="ir.ui.view">
+			<field name="name">tr barcode settings</field>
+			<field name="model">tr.barcode.settings</field>
+			<field name="inherit_id" ref="tr_barcode.view_tr_barcode_configuration"/>
+			<field name="arch" type="xml">
+				<group name="barcode_config" position="after">
+					<group name="barcode_default_prodlots_config">
+                        <label for="id" string="Production lots"/>
+                        <div>
+							<div name="default_prodlot" invisible="1">
+								<field name="prodlot_config_id" class="oe_inline"
+	                                    on_change="onchange_prodlot_config_id(prodlot_config_id, context)"/>
+								<field name="prodlot_model_id" class="oe_inline"/>
+							</div>
+							<div name="default_prodlot_field">
+								<label for="prodlot_field_id"/>
+								<field name="prodlot_field_id" class="oe_inline"
+										domain="[('model_id', '=', prodlot_model_id), ('ttype', '=', 'char')]"
+										attrs="{'required':[('prodlot_config_id', '!=', False)]}"/>
+							</div>
+							<div name="default_prodlot_width">
+								<label for="prodlot_width"/>
+								<field name="prodlot_width" class="oe_inline"/>
+							</div>
+							<div name="default_prodlot_height">
+								<label for="prodlot_height"/>
+								<field name="prodlot_height" class="oe_inline"/>
+							</div>
+							<div name="default_prodlot_hr_form">
+								<label for="prodlot_hr_form"/>
+								<field name="prodlot_hr_form" class="oe_inline"/>
+							</div>
+							<div name="default_prodlot_barcode_type">
+								<label for="prodlot_barcode_type"/>
+								<field name="prodlot_barcode_type" class="oe_inline"
+										attrs="{'required':[('prodlot_config_id', '!=', False)]}"/>
+							</div>
+						</div>
+					</group>
+				</group>
+			</field>
+		</record>
+
+    </data>
+</openerp>
+

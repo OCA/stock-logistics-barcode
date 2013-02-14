@@ -36,7 +36,11 @@ It is still necessary to configure the model to specify which field is used to g
      """,
     "init_xml" : [],
     "demo_xml" : [],
-    "update_xml" : [],
+    "update_xml" : [
+        'data/model_data.xml',
+        'data/config_data.xml',
+        'res_config_view.xml',
+    ],
     "active": False,
     "installable": True,
 }

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+
+        <record id="default_config_picking" model="tr.barcode.config">
+            <field name="res_model" ref="stock.model_stock_picking"/>
+            <field name="field" ref="stock.field_stock_picking_name"/>
+            <field name="barcode_type">Code128</field>
+        </record>
+
+    </data>
+</openerp>
+
