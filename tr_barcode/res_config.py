@@ -26,11 +26,11 @@ import copy
 class tr_barcode_settings(osv.osv_memory):
     _name = 'tr.barcode.settings'
     _inherit = 'res.config.settings'
-    _columns = {        'models_ids': fields.many2many('ir.model',
-                        'tr_barcode_settings_mode_rel',
-                        'tr_id', 'model_id', 'Models'),
-                }
-    
+    _columns = {
+        'models_ids': fields.many2many('ir.model',
+            'tr_barcode_settings_mode_rel',
+            'tr_id', 'model_id', 'Models'),
+    }
     
     def update_field(self, cr, uid, vals, context=None):
         ## Init ##
@@ -89,7 +89,7 @@ class tr_barcode_settings(osv.osv_memory):
 #       Initialisation of the configuration
         if context is None:
             context = {}
-        """ create method """
+        """ install method """
         for vals in self.read(cr, uid, ids, context=context):
             result = self.update_field(cr, uid, vals, context=context)
             
@@ -97,8 +97,5 @@ class tr_barcode_settings(osv.osv_memory):
             'type': 'ir.actions.client',
             'tag': 'reload',
         }
-    
-        
-    
 
 tr_barcode_settings()

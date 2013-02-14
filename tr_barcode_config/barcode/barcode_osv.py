@@ -106,13 +106,13 @@ class barcode_osv(osv.osv):
     def create(self, cr, uid, vals, context=None):
         barcode_id = False
         res = super(osv.osv, self).create(cr, uid, vals, context)
-        #### modification because the create goes into the write ####
         
-        for obj in self.browse(cr, uid, [res]):
-            if not obj.x_barcode_id:
-                barcode_id = create_barcode(cr, uid, res, vals, self._name, context)
-            else:
-                barcode_id = obj.x_barcode_id.id
+        #### modification because the orm create method seems to go into the write method so there is 2 barcode created instead of one ####
+        obj = self.browse(cr, uid, res, context=context)
+        if not obj.x_barcode_id:
+            barcode_id = create_barcode(cr, uid, res, vals, self._name, context)
+        else:
+            barcode_id = obj.x_barcode_id.id
         #############################################################        
                 
         if barcode_id:
@@ -124,7 +124,7 @@ class barcode_osv(osv.osv):
            context = {}
         if type(ids) in (type(1), type(1L), type(1.0)):
             ids = [ids]
-        for obj in self.browse(cr, uid, ids):
+        for obj in self.browse(cr, uid, ids, context=context):
             context.update({'obj_id':obj.id})
             if not obj.x_barcode_id:
                 barcode_obj = self.pool.get('tr.barcode')
