@@ -34,12 +34,12 @@ main ean13 code is defined.
  'website': 'http://www.camptocamp.com',
  'init_xml': [],
  'update_xml': [
-#                'product_view.xml',
+                'product_view.xml',
                 'security/ir.model.access.csv'],
  'demo_xml': [],
  'tests': [],
- 'installable': True,
-# 'images' : ['/static/src/images/image'],
+ 'installable': False,
+ 'images' : ['/static/src/images/image'],
  'auto_install': False,
  'license': 'AGPL-3',
  'application': True
