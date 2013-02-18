@@ -21,10 +21,10 @@
 
 {
     "name" : "Barcode for product",
-    "version" : "1.0",
+    "version" : "1.1",
     "author" : "Julius Network Solutions",
     "website" : "http://www.julius.fr",
-    "category" : "Customs/Stock", 
+    "category" : "Warehouse Management", 
     "depends" : [
         "product",
         "tr_barcode_config",
@@ -34,9 +34,8 @@
 
 It is still necessary to configure the model to specify which field is used to generate the barcode.
      """,
-    "init_xml" : [],
-    "demo_xml" : [],
-    "update_xml" : [
+    "demo" : [],
+    "data" : [
         'data/model_data.xml',
         'data/config_data.xml',
         'res_config_view.xml',

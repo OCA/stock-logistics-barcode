@@ -30,7 +30,6 @@
             <field name="view_mode">form</field>
             <field name="target">inline</field>
         </record>
-        
 
         <menuitem id="menu_tr_barcode_configuration" name="Barcode" parent="base.menu_config"
             sequence="30" action="action_tr_barcode_configuration"/>

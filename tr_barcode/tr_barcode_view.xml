@@ -3,7 +3,6 @@
     <record id="view_tr_barcode_form" model="ir.ui.view">
             <field name="name">tr.barcode.tree</field>
             <field name="model">tr.barcode</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="Barcode">
                     <field name="code" select="1"/>
@@ -24,7 +23,6 @@
     <record id="view_tr_barcode_tree" model="ir.ui.view">
             <field name="name">tr.barcode.form</field>
             <field name="model">tr.barcode</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="Barcode">
                     <field name="code" select="1"/>

@@ -19,8 +19,8 @@
 #
 #/#############################################################################
 
-from osv import osv, fields
-from tools.translate import _
+from openerp.osv import  fields, osv, orm
+from openerp.tools.translate import _
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, \
             getCodes
@@ -31,7 +31,7 @@ def _get_code(self, cr, uid, context=None):
     """get availble code """
     return [(r, r) for r in getCodes()]
 
-class tr_barcode_wizard(osv.osv_memory):
+class tr_barcode_wizard(orm.TransientModel):
     """ wizard for barcode """
     _name = "tr.barcode.wizard"
     _description = "Barcode Wizard for generic use"
@@ -109,6 +109,4 @@ class tr_barcode_wizard(osv.osv_memory):
                 'type': 'ir.actions.act_window',
             } 
 
-    
-tr_barcode_wizard()
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

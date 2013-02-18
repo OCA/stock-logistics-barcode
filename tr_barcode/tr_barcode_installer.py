@@ -19,9 +19,10 @@
 #
 #/#############################################################################
 
-from osv import fields, osv
+from osv import fields, osv, orm
 import copy
-class tr_barcode_installer(osv.osv_memory):
+
+class tr_barcode_installer(orm.TransientModel):
     """ config wizard for barcode module """
     _name = 'tr_barcode.installer'
     _inherit = 'res.config.installer'
@@ -63,15 +64,14 @@ class tr_barcode_installer(osv.osv_memory):
                  "'src_rec_ids':active_ids}" % (model['model']),
                  'view_mode':'form,tree',
                  'target': 'new',
-            }, context)
+            }, context=context)
             self.pool.get('ir.values').create(cr, uid, {
              'name': "%s Barcode" % model['name'],
              'model': model['model'],
              'key2': 'client_action_multi',
              'value': "ir.actions.act_window," + str(act_id),
 #             'object': True,
-                }, context)
+                }, context=context)
         return ret
-tr_barcode_installer()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

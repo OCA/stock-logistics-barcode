@@ -20,10 +20,10 @@
 #################################################################################
 
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, osv, orm
 import copy
 
-class ir_model(osv.osv):
+class ir_model(orm.Model):
     _inherit = 'ir.model'
     
     _columns = {
@@ -34,9 +34,7 @@ class ir_model(osv.osv):
         'barcode_model': False,
     }
 
-ir_model()
-
-class tr_barcode_settings(osv.osv_memory):
+class tr_barcode_settings(orm.TransientModel):
     _name = 'tr.barcode.settings'
     _inherit = 'res.config.settings'
     
@@ -88,13 +86,13 @@ class tr_barcode_settings(osv.osv_memory):
                  "'src_rec_ids':active_ids}" % (model['model']),
                  'view_mode':'form,tree',
                  'target': 'new',
-            }, context)
+            }, context=context)
             value_obj.create(cr, uid, {
                  'name': "%s Barcode" % model['name'],
                  'model': model['model'],
                  'key2': 'client_action_multi',
                  'value': "ir.actions.act_window," + str(act_id),
-            }, context)
+            }, context=context)
             
         return True
     
@@ -119,4 +117,4 @@ class tr_barcode_settings(osv.osv_memory):
             'tag': 'reload',
         }
 
-tr_barcode_settings()
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

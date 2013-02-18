@@ -19,7 +19,7 @@
 #
 #################################################################################
 
-from osv import osv, fields
+from openerp.osv import orm, fields
 import pooler
 from openerp import SUPERUSER_ID
     
@@ -56,8 +56,8 @@ def write_barcode(cr, uid, ids, vals, model, context=None):
                         else:
                             barcode_vals.pop('code')
             barcode_obj = pool.get('tr.barcode')
-            barcode_obj.write(cr, uid, [id], barcode_vals, context)
-            barcode_obj.generate_image(cr, uid, [id], context)
+            barcode_obj.write(cr, uid, [id], barcode_vals, context=context)
+            barcode_obj.generate_image(cr, uid, [id], context=context)
     return True
 
 def create_barcode(cr, uid, id, vals, model, context=None):
@@ -86,13 +86,13 @@ def create_barcode(cr, uid, id, vals, model, context=None):
                 read_value = pool.get(model).read(cr, uid, id)
                 barcode_vals['code'] = read_value.get(barcode_config.field.name, False)
             barcode_obj = pool.get('tr.barcode')
-            barcode_id = barcode_obj.create(cr, uid, barcode_vals, context)
-            barcode_obj.generate_image(cr, uid, [barcode_id], context)
+            barcode_id = barcode_obj.create(cr, uid, barcode_vals, context=context)
+            barcode_obj.generate_image(cr, uid, [barcode_id], context=context)
     else:
-        write_barcode(cr, uid, [barcode_id], vals, model, context)
+        write_barcode(cr, uid, [barcode_id], vals, model, context=context)
     return barcode_id
 
-class barcode_osv(osv.osv):
+class barcode_osv(orm.Model):
     _register = False
     
     def __init__(self, pool, cr):
@@ -105,12 +105,12 @@ class barcode_osv(osv.osv):
     
     def create(self, cr, uid, vals, context=None):
         barcode_id = False
-        res = super(osv.osv, self).create(cr, uid, vals, context)
+        res = super(orm.Model, self).create(cr, uid, vals, context=context)
         
         #### modification because the orm create method seems to go into the write method so there is 2 barcode created instead of one ####
         obj = self.browse(cr, uid, res, context=context)
         if not obj.x_barcode_id:
-            barcode_id = create_barcode(cr, uid, res, vals, self._name, context)
+            barcode_id = create_barcode(cr, uid, res, vals, self._name, context=context)
         else:
             barcode_id = obj.x_barcode_id.id
         #############################################################        
@@ -133,14 +133,14 @@ class barcode_osv(osv.osv):
                                             ('res_id', '=', obj.id)
                                             ], limit=1, context=context)
                 if barcode_ids:
-                    write_barcode(cr, uid, [barcode_ids[0]], vals, self._name, context)
+                    write_barcode(cr, uid, [barcode_ids[0]], vals, self._name, context=context)
                     vals['x_barcode_id'] = barcode_ids[0]
                 else:
-                    barcode_id = create_barcode(cr, uid, obj.id, vals, self._name, context)
+                    barcode_id = create_barcode(cr, uid, obj.id, vals, self._name, context=context)
                     if barcode_id:
                         vals['x_barcode_id'] = barcode_id
             else:
-                write_barcode(cr, uid, [obj.x_barcode_id.id], vals, self._name, context)
-        return super(osv.osv, self).write(cr, uid, ids, vals, context)
+                write_barcode(cr, uid, [obj.x_barcode_id.id], vals, self._name, context=context)
+        return super(orm.Model, self).write(cr, uid, ids, vals, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

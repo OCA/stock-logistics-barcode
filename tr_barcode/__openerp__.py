@@ -21,8 +21,8 @@
 
 {
     'name': 'TR Barcode',
-    'version': '1.0',
-    'category': 'Generic Modules',
+    'version': '1.1',
+    'category': 'Warehouse Management',
     'description': """
 
 Presentation:
@@ -36,18 +36,14 @@ This module adds the menu Barcode used to generate and configuration barcodes.
         "base",
         'stock',
     ],
-    'init_xml': [],
-    'update_xml': [
-#        "tr_barcode_installer.xml",
+    'data': [
         "wizard/tr_barcode_wizard.xml",
         "res_config_view.xml",
         "tr_barcode_view.xml",
         "security/ir.model.access.csv",
     ],
-    'demo_xml': [],
-#    "images" : ['images/Barcode configuration.png','images/Barcode.png'],
-    'test': [
-    ],
+    'demo': [],
+    'test': [],
     'installable': True,
     'active': False,
 }

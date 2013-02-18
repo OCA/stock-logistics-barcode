@@ -19,9 +19,9 @@
 #
 #################################################################################
 
-from osv import fields, osv
+from openerp.osv import fields, osv, orm
 
-from tools.translate import _
+from openerp.tools.translate import _
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, \
             getCodes
@@ -32,7 +32,7 @@ def _get_code(self, cr, uid, context=None):
     """get availble code """
     return [(r, r) for r in getCodes()]
 
-class tr_barcode_config(osv.osv):
+class tr_barcode_config(orm.Model):
     
     _name = 'tr.barcode.config'
     
@@ -51,7 +51,5 @@ class tr_barcode_config(osv.osv):
     _sql_constraints = [
         ('res_model_uniq', 'unique(res_model)', 'You can have only one config by model !'),
     ]
-    
-tr_barcode_config()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

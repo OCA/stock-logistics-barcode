@@ -20,7 +20,7 @@
 #/#############################################################################
 
 import os
-from osv import fields, osv
+from openerp.osv import fields, osv, orm
 import base64
 from PIL import Image
 try:
@@ -35,7 +35,7 @@ def _get_code(self, cr, uid, context=None):
     codes.append(('qrcode','QR'))
     return codes
 
-class tr_barcode(osv.osv):
+class tr_barcode(orm.Model):
     """ Barcode Class """
     _name = "tr.barcode"
     _description = "Barcode"
@@ -99,4 +99,5 @@ class tr_barcode(osv.osv):
             self.write(cr, uid, self_obj.id,
                 {'image':image},context=context)
         return True
-tr_barcode()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

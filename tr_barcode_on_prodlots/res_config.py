@@ -19,10 +19,10 @@
 #
 #################################################################################
 
-from openerp.osv import fields, osv
+from openerp.osv import fields, orm
 from openerp.addons.tr_barcode.tr_barcode import _get_code
 
-class tr_barcode_settings(osv.osv_memory):
+class tr_barcode_settings(orm.TransientModel):
     _inherit = 'tr.barcode.settings'
     
     def _get_default_prodlot_config_id(self, cr, uid, context=None):
@@ -62,5 +62,5 @@ class tr_barcode_settings(osv.osv_memory):
                 'prodlot_barcode_type': prodlot_config.barcode_type or False,
             })
         return {'value': values}
-    
-tr_barcode_settings()
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

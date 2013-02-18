@@ -5,7 +5,6 @@
 		<record id="view_tr_barcode_config_form" model="ir.ui.view">
 			<field name="name">tr.barcode.config.form</field>
 			<field name="model">tr.barcode.config</field>
-			<field name="type">form</field>
 			<field name="arch" type="xml">
 				<form string="Config">
 					<field name="res_model"/>
@@ -21,7 +20,6 @@
 		<record id="view_tr_barcode_config_tree" model="ir.ui.view">
 			<field name="name">tr.barcode.config.tree</field>
 			<field name="model">tr.barcode.config</field>
-			<field name="type">tree</field>
 			<field name="arch" type="xml">
 				<tree string="Config">
 					<field name="res_model"/>

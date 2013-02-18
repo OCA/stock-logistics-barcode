@@ -4,11 +4,9 @@
         <record id="view_tr_barcode_wizard" model="ir.ui.view">
             <field name="name">Barcode</field>
             <field name="model">tr.barcode.wizard</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
             <form string="Barcode">
                 <group colspan="4">
-                    
 		            <field name="barcode" width="200"/>
 		            <field name="barcode_type"/>
 		            <field name="width"/>
@@ -16,9 +14,8 @@
 		            <field name="hr_form"/>
 		            <separator string=""  colspan="4"/>
 		            <button string="Open Existing Barcode" name="open_existing" type="object" icon="terp-gtk-jump-to-ltr"/>
-		            
-		             <button special="cancel" string="Close" type="object" icon="terp-dialog-close"/>
-                     <button name="create_barcode_record" string="Generate Barcode" type="object" icon="gtk-go-forward"/>
+					<button special="cancel" string="Close" type="object" icon="terp-dialog-close"/>
+					<button name="create_barcode_record" string="Generate Barcode" type="object" icon="gtk-go-forward"/>
                  </group>
             </form>
             </field>

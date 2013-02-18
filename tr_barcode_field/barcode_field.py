@@ -19,9 +19,9 @@
 #
 #################################################################################
 
-from osv import fields, osv
+from osv import fields, orm
 
-class tr_barcode_installer(osv.osv_memory):
+class tr_barcode_installer(orm.TransientModel):
 
     _inherit = 'tr.barcode.settings'
 
@@ -56,12 +56,10 @@ class tr_barcode_installer(osv.osv_memory):
                         'selection': False,
                         'on_delete': 'set null',
                         }
-                field_obj.create(cr, uid, data_field, context)
+                field_obj.create(cr, uid, data_field, context=context)
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',
         }
-
-tr_barcode_installer()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

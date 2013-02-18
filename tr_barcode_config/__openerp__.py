@@ -21,7 +21,7 @@
 
 {
     "name" : "Barcode configuration Module",
-    "version" : "1.0",
+    "version" : "1.1",
     "author" : "Julius Network Solutions",
     "description" : """
 
@@ -41,10 +41,9 @@ class product_product(barcode_osv.barcode_osv):
         "tr_barcode",
         "tr_barcode_field",
     ],
-    "category" : "Customs/Stock",
-    "init_xml" : [],
-    "demo_xml" : [],
-    "update_xml" : [
+    "category" : "Warehouse Management",
+    "demo" : [],
+    "data" : [
         'barcode_config_view.xml',
         "security/ir.model.access.csv",
     ],
