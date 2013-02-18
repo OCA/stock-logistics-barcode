@@ -19,10 +19,10 @@
 #
 #################################################################################
 
-from osv import fields, osv
-import pooler
+from openerp.osv import fields, osv, orm
+from openerp.tools.translate import _
 
-class tr_barcode(osv.osv):
+class tr_barcode(orm.Model):
 
     _inherit = 'tr.barcode'
 
@@ -41,7 +41,5 @@ class tr_barcode(osv.osv):
     _columns = {
         'link': fields.function(_name_get_barcode, method=True, type='char', size=100, string="Link"),
     }
-
-tr_barcode()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

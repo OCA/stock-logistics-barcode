@@ -33,14 +33,13 @@ And link the barcode with a product.
 """,
     "website" : "http://www.julius.fr",
     "depends" : [
-            "tr_barcode",
-        ],
+        "tr_barcode",
+    ],
     "category" : "Generic Modules/Inventory Control",
-    "init_xml" : [],
-    "demo_xml" : [],
+    "demo" : [],
 #    "images" : ['images/Barcode link.png'],
-    "update_xml" : [
-                    'barcode_link_view.xml',
+    "data" : [
+        'barcode_link_view.xml',
     ],
     'test': [],
     'installable': True,
