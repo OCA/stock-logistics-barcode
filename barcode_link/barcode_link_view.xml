@@ -6,7 +6,6 @@
             <field name="name">tr.barcode.form add link</field>
             <field name="model">tr.barcode</field>
         	<field name="inherit_id" ref="tr_barcode.view_tr_barcode_form"/>
-        	<field name="type">form</field>
             <field name="arch" type="xml">
             	<field name="hr_form" position="after">
                     <group col="2" colspan="2">
