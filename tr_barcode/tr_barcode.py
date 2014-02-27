@@ -20,14 +20,17 @@
 #/#############################################################################
 
 import os
-from openerp.osv import fields, osv, orm
+import logging
 import base64
+
+_logger = logging.getLogger(__name__)
+from openerp.osv import fields, osv, orm
+
 from PIL import Image
 try:
-    from reportlab.graphics.barcode import createBarcodeDrawing, \
-            getCodes
+    from reportlab.graphics.barcode import createBarcodeDrawing, getCodes
 except :
-    print "ERROR IMPORTING REPORT LAB"
+    _logger.warning("ERROR IMPORTING REPORT LAB")
 
 def _get_code(self, cr, uid, context=None):
     """get availble code """
@@ -76,8 +79,8 @@ class tr_barcode(orm.Model):
                 ret_val = createBarcodeDrawing(code, value=str(value), **options)
             except Exception, e:
                 raise osv.except_osv('Error', e)
-            ret_val.save(formats=['png'], fnRoot='barcode', outDir='/tmp/')
-            return base64.encodestring(open("/tmp/barcode.png","rb").read())
+            image_data = ret_val.asString('png')
+            return base64.encodestring(image_data)
         else:
             ret_val = False
             from qrtools import QR
