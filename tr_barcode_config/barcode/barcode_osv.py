@@ -94,7 +94,7 @@ def create_barcode(cr, uid, id, vals, model, context=None):
 
 class barcode_osv(orm.Model):
     _register = False
-    
+
     def __init__(self, pool, cr):
         installer_obj = pool.get('tr.barcode.settings')
         model_obj = pool.get('ir.model')
@@ -102,23 +102,23 @@ class barcode_osv(orm.Model):
         model_ids = model_obj.search(cr, uid, [('model', '=', self._name)])
         installer_obj.create(cr, uid, {'models_ids': [(6,0,model_ids)]}, context=None)
         super(barcode_osv, self).__init__(pool, cr)
-    
+
     def create(self, cr, uid, vals, context=None):
         barcode_id = False
         res = super(orm.Model, self).create(cr, uid, vals, context=context)
-        
+
         #### modification because the orm create method seems to go into the write method so there is 2 barcode created instead of one ####
         obj = self.browse(cr, uid, res, context=context)
-        if not obj.x_barcode_id:
-            barcode_id = create_barcode(cr, uid, res, vals, self._name, context=context)
-        else:
-            barcode_id = obj.x_barcode_id.id
-        #############################################################        
-                
-        if barcode_id:
-            cr.execute(("UPDATE %s SET x_barcode_id = %s WHERE id = %s") %(self._table,barcode_id,res))
+        if hasattr(obj, 'x_barcode_id'):
+            if not obj.x_barcode_id:
+                barcode_id = create_barcode(cr, uid, res, vals, self._name, context=context)
+            else:
+                barcode_id = obj.x_barcode_id.id
+        #############################################################
+            if barcode_id:
+                cr.execute(("UPDATE %s SET x_barcode_id = %s WHERE id = %s") %(self._table,barcode_id,res))
         return res
-    
+
     def write(self, cr, uid, ids, vals, context=None):
         if context==None:
            context = {}
@@ -127,6 +127,8 @@ class barcode_osv(orm.Model):
         barcode_obj = self.pool.get('tr.barcode')
         for obj in self.browse(cr, uid, ids, context=context):
             context.update({'obj_id':obj.id})
+            if not hasattr(obj, 'x_barcode_id'):
+                break # the module is not fully configured, quick exit
             if not obj.x_barcode_id:
                 barcode_ids = barcode_obj.search(cr, uid, [
                                             ('res_model', '=', self._name),
