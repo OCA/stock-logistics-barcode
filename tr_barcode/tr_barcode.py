@@ -76,8 +76,7 @@ class tr_barcode(orm.Model):
                 ret_val = createBarcodeDrawing(code, value=str(value), **options)
             except Exception, e:
                 raise osv.except_osv('Error', e)
-            ret_val.save(formats=['svg'], fnRoot='barcode', outDir='/tmp/')
-            os.system('rsvg-convert %s -o %s' % ('/tmp/barcode.svg', '/tmp/barcode.png'))
+            ret_val.save(formats=['png'], fnRoot='barcode', outDir='/tmp/')
             return base64.encodestring(open("/tmp/barcode.png","rb").read())
         else:
             ret_val = False
