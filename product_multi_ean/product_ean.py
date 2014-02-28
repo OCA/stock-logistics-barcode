@@ -19,23 +19,19 @@
 #
 ##############################################################################
 
-import openerp.addons.product.product as product
-from osv import osv, fields
+from openerp.osv import orm, fields
+from openerp.addons.product import product
 
 
-class ProductEan13(osv.osv):
-
+class ProductEan13(orm.Model):
     _name = 'product.ean13'
-
     _description = "List of EAN13 for a product."
-
     _columns = {'name': fields.char('EAN13', size=13),
                 'product_id':
                     fields.many2one('product.product',
                                     'Product',
                                     required=True),
                 'sequence': fields.integer('Sequence'), }
-
     _order = 'sequence'
 
     def _check_ean_key(self, cr, uid, ids):
@@ -62,33 +58,25 @@ class ProductEan13(osv.osv):
                 vals['sequence'] = max([ean.sequence for ean in ean13s]) + 1
         return super(ProductEan13, self).create(cr, uid, vals, context=context)
 
-ProductEan13()
 
-
-class ProductProductEan(osv.osv):
+class ProductProductEan(orm.Model):
     """ Inherit the model product.product in order to create the m2o link
         This class definition has to be before the others below to ensure that
         the table is created before the migration
     """
-
     _inherit = 'product.product'
-
     _columns = {
         'ean13_ids': fields.one2many('product.ean13', 'product_id', 'EAN13'),
         }
 
-ProductProductEan()
 
-
-class ProductProductMigration(osv.osv):
+class ProductProductMigration(orm.Model):
     """ Inherit the model product.product in order to migrate the ean13
         column in the m2o table product_ean13
         This class definition has to be before the others below to ensure that
         the migration is done before the creation of the ean13 fields.function
     """
-
     _inherit = 'product.product'
-
     _columns = {
         'legacy_ean13': fields.char('Original EAN13', size=13, oldname='ean13'),
         }
@@ -104,14 +92,11 @@ class ProductProductMigration(osv.osv):
                    " WHERE name = p.legacy_ean13 "
                    "       AND product_id = p.id)")
 
-ProductProductMigration()
 
-
-class ProductProduct(osv.osv):
-
+class ProductProduct(orm.Model):
     _inherit = 'product.product'
 
-    def _get_main_ean13(self, cr, uid, ids, field_name, arg, context):
+    def _get_main_ean13(self, cr, uid, ids, _field_name, _arg, context):
         values = {}
         for product in self.browse(cr, uid, ids, context=context):
             ean13 = False
@@ -128,7 +113,7 @@ class ProductProduct(osv.osv):
             res.add(ean.product_id.id)
         return list(res)
 
-    def _write_ean(self, cr, uid, product_id, name, value, arg, context=None):
+    def _write_ean(self, cr, uid, product_id, _name, value, _arg, context=None):
         product = self.browse(cr, uid, product_id, context=context)
         if not value in [ean.name for ean in product.ean13_ids]:
             self.pool.get('product.ean13').create(
@@ -177,5 +162,3 @@ class ProductProduct(osv.osv):
             args += [('ean13_ids', 'in', ean_ids)]
         return super(ProductProduct, self).search(
             cr, uid, args, offset, limit, order, context=context, count=count)
-
-ProductProduct()
