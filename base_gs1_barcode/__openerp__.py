@@ -19,9 +19,9 @@
 ##############################################################################
 
 {
-    'name' : 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
-    'version' : '1.0',
-    'author' : u'Numérigraphe',
+    'name': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
+    'version': '1.0',
+    'author': u'Numérigraphe',
     'website': 'http://numerigraphe.com',
     'category': 'Generic Modules/Inventory Control',
     'description': """
@@ -51,20 +51,20 @@ readers will translate GS1 to ASCII character 29, but this character is not \
 printable, and some applications may not record it. Yet other readers will \
 let you configure how to map <GS>, which may help improve compatibility.
 """,
-    'depends' : [
+    'depends': [
         'product',
     ],
-    'init_xml' : [],
-    'update_xml' : [
+    'init_xml': [],
+    'update_xml': [
         'gs1_barcode_view.xml',
         'res_users_view.xml',
         'data/gs1_barcode.csv',
         "security/ir.model.access.csv",
     ],
-    'test' : [
+    'test': [
         'test/gs1_barcode_test.yml'
     ],
     'active': False,
     'installable': False,
-    'license' : 'GPL-3',
+    'license': 'GPL-3',
 }
