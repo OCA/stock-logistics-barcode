@@ -20,23 +20,23 @@
 #################################################################################
 
 {
-    "name" : "Barcode field Module",
-    "version" : "1.1",
-    "author" : "Julius Network Solutions",
-    "description" : """
+    "name": "Barcode field Module",
+    "version": "1.1",
+    "author": "Julius Network Solutions",
+    "description": """
 
 Presentation:
 
 This module adds a field to make a link between the product and the barcode.
 
 """,
-    "website" : "http://www.julius.fr",
-    "depends" : [
+    "website": "http://www.julius.fr",
+    "depends": [
         "tr_barcode",
     ],
-    "category" : "Warehouse Management",
-    "demo" : [],
-    "data" : [],
+    "category": "Warehouse Management",
+    "demo": [],
+    "data": [],
     'test': [],
     'installable': True,
     'active': False,

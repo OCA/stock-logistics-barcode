@@ -24,38 +24,61 @@ from openerp.addons.tr_barcode.tr_barcode import _get_code
 
 class tr_barcode_settings(orm.TransientModel):
     _inherit = 'tr.barcode.settings'
-    
+
     def _get_default_picking_config_id(self, cr, uid, context=None):
         config_obj = self.pool.get('tr.barcode.config')
         md_obj = self.pool.get('ir.model.data')
         model_id, res_id = md_obj.get_object_reference(cr, uid, 'stock', 'model_stock_picking')
         res = config_obj.search(cr, uid, [('res_model', '=', res_id)], limit=1, context=context)
         return res and res[0] or False
-    
+
     _columns = {
-        'picking_config_id': fields.many2one('tr.barcode.config', 'Picking Config'),
-        'picking_model_id': fields.related('picking_config_id', 'res_model', type='many2one', relation="ir.model", string="Model"),
-        'picking_field_id': fields.related('picking_config_id', 'field', type='many2one', relation="ir.model.fields", string="Field"),
-        'picking_width': fields.related('picking_config_id', 'width', type='integer', string="Width",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'picking_height': fields.related('picking_config_id', 'height', type='integer', string="Height",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'picking_hr_form': fields.related('picking_config_id', 'hr_form', type='boolean', string="Human Readable",
-                help="To generate Barcode In Human readable form"),
-        'picking_barcode_type': fields.related('picking_config_id', 'barcode_type', type='selection', selection=_get_code, string="Field"),
-    }
-    
+        'picking_config_id': fields.many2one('tr.barcode.config',
+                                             'Picking Config'),
+        'picking_model_id': fields.related('picking_config_id',
+                                           'res_model',
+                                           type='many2one',
+                                           relation="ir.model",
+                                           string="Model"),
+        'picking_field_id': fields.related('picking_config_id',
+                                           'field',
+                                           type='many2one',
+                                           relation="ir.model.fields",
+                                           string="Field"),
+        'picking_width': fields.related('picking_config_id',
+                                        'width',
+                                        type='integer',
+                                        string="Width",
+                                        help="Leave Blank or 0(ZERO) for default size"),
+        'picking_height': fields.related('picking_config_id',
+                                         'height',
+                                         type='integer',
+                                         string="Height",
+                                         help="Leave Blank or 0(ZERO) for default size"),
+        'picking_hr_form': fields.related('picking_config_id',
+                                          'hr_form',
+                                          type='boolean',
+                                          string="Human Readable",
+                                          help="To generate Barcode In Human readable form"),
+        'picking_barcode_type': fields.related('picking_config_id',
+                                               'barcode_type',
+                                               type='selection',
+                                               selection=_get_code,
+                                               string="Field"),
+        }
     _defaults = {
         'picking_config_id': _get_default_picking_config_id,
-    }
-    
-    def onchange_picking_config_id(self, cr, uid, ids, picking_config_id, context=None):
+        }
+
+    def onchange_picking_config_id(self, cr, uid, _ids, picking_config_id, context=None):
         values = {}
         if picking_config_id:
-            picking_config = self.pool.get('tr.barcode.config').browse(cr, uid, picking_config_id, context=context)
+            picking_config = self.pool.get('tr.barcode.config').browse(cr, uid,
+                                                                       picking_config_id,
+                                                                       context=context)
             values.update({
-                'picking_model_id': picking_config.res_model and picking_config.res_model.id or False,
-                'picking_field_id': picking_config.field and picking_config.field.id or False,
+                'picking_model_id': picking_config.res_model.id if picking_config.res_model else False,
+                'picking_field_id': picking_config.field.id if picking_config.field else False,
                 'picking_width': picking_config.width or 0,
                 'picking_height': picking_config.height or 0,
                 'picking_hr_form': picking_config.hr_form or False,

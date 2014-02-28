@@ -20,15 +20,15 @@
 #################################################################################
 
 {
-    "name" : "Barcode configuration Module",
-    "version" : "1.1",
-    "author" : "Julius Network Solutions",
-    "description" : """
-
+    "name": "Barcode configuration Module",
+    "version": "1.1",
+    "author": "Julius Network Solutions",
+    "description": """
 Presentation:
 
 This module adds a configuration object and barcode osv to manage the barcode.
-You should define your object like this to manage automatically the creation / edition of your barcode:
+You should define your object like this to manage automatically the creation /
+edition of your barcode:
 
 from tr_barcode_config.barcode import barcode_osv
 
@@ -36,14 +36,14 @@ class product_product(barcode_osv.barcode_osv):
     _inherit = 'product.product'
 
 """,
-    "website" : "http://www.julius.fr",
-    "depends" : [
+    "website": "http://www.julius.fr",
+    "depends": [
         "tr_barcode",
         "tr_barcode_field",
     ],
-    "category" : "Warehouse Management",
-    "demo" : [],
-    "data" : [
+    "category": "Warehouse Management",
+    "demo": [],
+    "data": [
         'barcode_config_view.xml',
         "security/ir.model.access.csv",
     ],
