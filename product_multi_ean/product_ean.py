@@ -18,9 +18,13 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+import logging
 
 from openerp.osv import orm, fields
 from openerp.addons.product import product
+
+
+_logger = logging.getLogger(__name__)
 
 
 class ProductEan13(orm.Model):
@@ -59,42 +63,29 @@ class ProductEan13(orm.Model):
         return super(ProductEan13, self).create(cr, uid, vals, context=context)
 
 
-class ProductProductEan(orm.Model):
-    """ Inherit the model product.product in order to create the m2o link
-        This class definition has to be before the others below to ensure that
-        the table is created before the migration
-    """
-    _inherit = 'product.product'
-    _columns = {
-        'ean13_ids': fields.one2many('product.ean13', 'product_id', 'EAN13'),
-        }
-
-
-class ProductProductMigration(orm.Model):
-    """ Inherit the model product.product in order to migrate the ean13
-        column in the m2o table product_ean13
-        This class definition has to be before the others below to ensure that
-        the migration is done before the creation of the ean13 fields.function
-    """
-    _inherit = 'product.product'
-    _columns = {
-        'legacy_ean13': fields.char('Original EAN13', size=13, oldname='ean13'),
-        }
-
-    def init(self, cr):
-        cr.execute("INSERT INTO "
-                   "product_ean13 (name, product_id, sequence) "
-                   "SELECT p.legacy_ean13, p.id, 1 "
-                   "FROM product_product p WHERE "
-                   "legacy_ean13 IS NOT NULL "
-                   "AND NOT EXISTS "
-                   "(SELECT id FROM product_ean13 "
-                   " WHERE name = p.legacy_ean13 "
-                   "       AND product_id = p.id)")
-
-
 class ProductProduct(orm.Model):
     _inherit = 'product.product'
+
+    def _auto_init(self, cr, context=None):
+        sql = ("SELECT data_type "
+               "FROM information_schema.columns "
+               "WHERE table_name = 'product_product' "
+               "AND column_name = 'ean13' ")
+        cr.execute(sql)
+        column = cr.fetchone()
+        if column[0] == 'character varying':
+            # module was not installed, the column will be replaced by
+            _logger.info('migrating the EAN13')
+            cr.execute("INSERT INTO "
+                       "product_ean13 (name, product_id, sequence) "
+                       "SELECT p.ean13, p.id, 1 "
+                       "FROM product_product p WHERE "
+                       "p.ean13 IS NOT NULL ")
+            # drop the field otherwise the function field will
+            # not be computed
+            cr.execute("ALTER TABLE product_product "
+                       "DROP ean13")
+        return super(ProductProduct, self)._auto_init(cr, context=context)
 
     def _get_main_ean13(self, cr, uid, ids, _field_name, _arg, context):
         values = {}
@@ -115,7 +106,7 @@ class ProductProduct(orm.Model):
 
     def _write_ean(self, cr, uid, product_id, _name, value, _arg, context=None):
         product = self.browse(cr, uid, product_id, context=context)
-        if not value in [ean.name for ean in product.ean13_ids]:
+        if value and not value in [ean.name for ean in product.ean13_ids]:
             self.pool.get('product.ean13').create(
                 cr, uid,
                 {'name': value, 'product_id': product.id},
@@ -123,6 +114,7 @@ class ProductProduct(orm.Model):
         return True
 
     _columns = {
+        'ean13_ids': fields.one2many('product.ean13', 'product_id', 'EAN13'),
         'ean13': fields.function(
             _get_main_ean13,
             fnct_inv=_write_ean,
