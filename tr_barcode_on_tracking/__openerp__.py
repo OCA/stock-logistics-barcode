@@ -20,22 +20,25 @@
 #################################################################################
 
 {
-    "name" : "Barcode for tracking",
-    "version" : "1.1",
-    "author" : "Julius Network Solutions",
-    "website" : "http://www.julius.fr",
-    "category" : "Warehouse Management",
-    "depends" : [
+    "name": "Barcode for tracking",
+    "version": "1.1",
+    "author": "Julius Network Solutions",
+    "website": "http://www.julius.fr",
+    "category": "Warehouse Management",
+    "depends": [
         "stock",
         "tr_barcode_config",
         "tr_barcode_field",
     ],
-    "description" : """This module provides a stock.tracking model deriving from barcode_osv, which will manage the population of the x_barcode_id column. 
+    "description": """
+This module provides a stock.tracking model deriving from barcode_osv, which
+will manage the population of the x_barcode_id column.
 
-It is still necessary to configure the model to specify which field is used to generate the barcode.
+xIt is still necessary to configure the model to specify which field is used to
+generate the barcode.
      """,
-    "demo" : [],
-    "data" : [
+    "demo": [],
+    "data": [
         'data/model_data.xml',
         'data/config_data.xml',
         'res_config_view.xml',

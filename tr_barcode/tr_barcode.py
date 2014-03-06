@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #/#############################################################################
-#    
+#
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
 #
@@ -15,19 +15,22 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #/#############################################################################
 
 import os
-from openerp.osv import fields, osv, orm
 import base64
+
 from PIL import Image
+
+from openerp.osv import fields, osv, orm
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, \
             getCodes
 except :
     print "ERROR IMPORTING REPORT LAB"
+
 
 def _get_code(self, cr, uid, context=None):
     """get availble code """
@@ -35,19 +38,20 @@ def _get_code(self, cr, uid, context=None):
     codes.append(('qrcode','QR'))
     return codes
 
+
 class tr_barcode(orm.Model):
     """ Barcode Class """
     _name = "tr.barcode"
     _description = "Barcode"
     _rec_name = 'code'
-    
+
     def _get_barcode2(self, cr, uid, ids, name, attr, context=None):
         res = {}
         barcodes = self.browse(cr, uid, ids, context=context)
         for barcode in barcodes:
             res[barcode.id] = barcode.code
         return res
-    
+
     _columns = {
         'code': fields.char('Barcode',size=256),
         'code2': fields.function(_get_barcode2, method=True, string='Barcode2', type='char', size=256, store=True),
@@ -62,6 +66,7 @@ class tr_barcode(orm.Model):
                 help="To genrate Barcode In Human readable form"),
         'barcode_type':fields.selection(_get_code, 'Type'),
     }
+
     def get_image(self, value, width, hight, hr, code='QR'):
         """ genrating image for barcode """
         options = {}
@@ -85,7 +90,7 @@ class tr_barcode(orm.Model):
             qrCode = QR(data=value)
             qrCode.encode()
             return base64.encodestring(open(qrCode.filename,"rb").read())
-    
+
     def generate_image(self, cr, uid, ids, context=None):
         "button function for genrating image """
         if not context:

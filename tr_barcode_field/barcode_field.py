@@ -19,26 +19,25 @@
 #
 #################################################################################
 
-from osv import fields, orm
+from openerp.osv import orm
 
 class tr_barcode_installer(orm.TransientModel):
-
     _inherit = 'tr.barcode.settings'
 
     def install(self, cr, uid, ids, context=None):
         if context is None:
             context = {}
-        
+        if not ids:
+            return False
         model_obj = self.pool.get('ir.model')
         field_obj = self.pool.get('ir.model.fields')
-        
         for vals in self.read(cr, uid, ids, context=context):
-        
             if not vals or not vals.get('models_ids', False):
                 return False
-            
         read_datas = model_obj.read(cr, uid,
-                vals['models_ids'], ['model','name'], context=context)     
+                                    vals['models_ids'],
+                                    ['model','name'],
+                                    context=context)
         for model in read_datas:
             field_ids = field_obj.search(cr, uid, [
                                 ('name', '=', 'x_barcode_id'),
