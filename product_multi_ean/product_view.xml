@@ -5,20 +5,21 @@
             <field name="name">product.normal.form.multi.ean13</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view" />
-            <field name="type">form</field>
             <field name="arch" type="xml">
-                <group colspan="2" col="2" name="misc" position="inside">
-                    <field groups="base.group_extended" name="ean13_ids" select="2">
+                <xpath expr="/form//div[@name='ean']/preceding-sibling::label[1]" position="replace">
+                </xpath>
+                <xpath expr="/form//div[@name='ean']" position="replace">
+                    <field name="ean13_ids">
                         <form string="EAN13">
-                            <field name="sequence"/>
                             <field name="name"/>
                         </form>
                         <tree string="EAN13">
-                            <field name="sequence"/>
+                            <field name="sequence" widget="handle"/>
                             <field name="name"/>
                         </tree>
                     </field>
-                </group>
+                    <field name="ean13" invisible="1"/>
+                </xpath>
             </field>
         </record>
     </data>
