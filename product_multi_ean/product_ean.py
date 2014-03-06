@@ -106,7 +106,7 @@ class ProductProduct(orm.Model):
 
     def _write_ean(self, cr, uid, product_id, _name, value, _arg, context=None):
         product = self.browse(cr, uid, product_id, context=context)
-        if value and not value in [ean.name for ean in product.ean13_ids]:
+        if value and value not in [ean.name for ean in product.ean13_ids]:
             self.pool.get('product.ean13').create(
                 cr, uid,
                 {'name': value, 'product_id': product.id},
