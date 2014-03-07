@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #/#############################################################################
-#    
+#
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
 #
@@ -15,7 +15,7 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #/#############################################################################
 
@@ -28,7 +28,7 @@
 Presentation:
 
 This module adds the menu Barcode used to generate and configuration barcodes.
-    
+
     """,
     'author': 'Tech-Receptives Solutions Pvt. Ltd.',
     'website': 'http://www.techreceptives.com',

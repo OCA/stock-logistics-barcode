@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 #/#############################################################################
-#    
+#
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
 #
@@ -15,23 +15,23 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #/#############################################################################
 
-from osv import fields, osv, orm
+from openerp.osv import fields, orm
 import copy
 
 class tr_barcode_installer(orm.TransientModel):
     """ config wizard for barcode module """
     _name = 'tr_barcode.installer'
     _inherit = 'res.config.installer'
-
     _columns = {
         'models_ids': fields.many2many('ir.model',
                         'tr_barcode_installer_mode_rel',
                         'tr_id', 'model_id', 'Models'),
     }
+
     def create(self, cr, uid, vals, context=None):
         """ create method """
         vals2 = copy.deepcopy(vals)

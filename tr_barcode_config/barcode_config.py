@@ -18,38 +18,43 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 #################################################################################
+import logging
 
-from openerp.osv import fields, osv, orm
+from openerp.osv import fields, orm
 
-from openerp.tools.translate import _
+_logger = logging.getLogger(__name__)
 try:
-    from reportlab.graphics.barcode import createBarcodeDrawing, \
-            getCodes
-except :
-    print "ERROR IMPORTING REPORT LAB"
+    from reportlab.graphics.barcode import getCodes
+except ImportError:
+    _logger.warning('unable to import reportlab')
+
 
 def _get_code(self, cr, uid, context=None):
     """get availble code """
     return [(r, r) for r in getCodes()]
 
+
 class tr_barcode_config(orm.Model):
-    
     _name = 'tr.barcode.config'
-    
     _columns = {
-        'res_model': fields.many2one('ir.model', 'Object', domain=[('barcode_model', '=', True)], required=True),
-        'field': fields.many2one('ir.model.fields', 'Field', domain=[('ttype', '=', 'char')], required=True),
+        'res_model': fields.many2one('ir.model', 'Object',
+                                     domain=[('barcode_model', '=', True)],
+                                     required=True),
+        'field': fields.many2one('ir.model.fields', 'Field',
+                                 domain=[('ttype', '=', 'char')],
+                                 required=True),
         'width': fields.integer("Width",
-                help="Leave Blank or 0(ZERO) for default size"),
+                     help="Leave Blank or 0(ZERO) for default size"),
         'height': fields.integer("Height",
-                help="Leave Blank or 0(ZERO) for default size"),
+                     help="Leave Blank or 0(ZERO) for default size"),
         'hr_form': fields.boolean("Human Readable",
-                help="To generate Barcode In Human readable form"),
+                     help="To generate Barcode In Human readable form"),
         'barcode_type': fields.selection(_get_code, 'Type', required=True),
-    }
-    
+        }
     _sql_constraints = [
-        ('res_model_uniq', 'unique(res_model)', 'You can have only one config by model !'),
-    ]
+        ('res_model_uniq',
+         'unique(res_model)',
+         'You can have only one config by model !'),
+        ]
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
