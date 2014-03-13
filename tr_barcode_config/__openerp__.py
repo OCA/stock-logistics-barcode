@@ -21,7 +21,7 @@
 
 {
     "name": "Barcode configuration Module",
-    "version": "1.1",
+    "version": "1.1.1",
     "author": "Julius Network Solutions",
     "description": """
 Presentation:
