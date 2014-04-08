@@ -20,16 +20,20 @@
 #/#############################################################################
 
 import os
+import logging
 import base64
+from tempfile import mkstemp
+
+_logger = logging.getLogger(__name__)
+from openerp.osv import fields, osv, orm
 
 from PIL import Image
 
 from openerp.osv import fields, osv, orm
 try:
-    from reportlab.graphics.barcode import createBarcodeDrawing, \
-            getCodes
+    from reportlab.graphics.barcode import createBarcodeDrawing, getCodes
 except :
-    print "ERROR IMPORTING REPORT LAB"
+    _logger.warning("ERROR IMPORTING REPORT LAB")
 
 
 def _get_code(self, cr, uid, context=None):
@@ -81,15 +85,20 @@ class tr_barcode(orm.Model):
                 ret_val = createBarcodeDrawing(code, value=str(value), **options)
             except Exception, e:
                 raise osv.except_osv('Error', e)
-            ret_val.save(formats=['svg'], fnRoot='barcode', outDir='/tmp/')
-            os.system('rsvg-convert %s -o %s' % ('/tmp/barcode.svg', '/tmp/barcode.png'))
-            return base64.encodestring(open("/tmp/barcode.png","rb").read())
+            image_data = ret_val.asString('png')
+            return base64.encodestring(image_data)
         else:
             ret_val = False
             from qrtools import QR
+            fd, temp_path = mkstemp(suffix='.png')
             qrCode = QR(data=value)
-            qrCode.encode()
-            return base64.encodestring(open(qrCode.filename,"rb").read())
+            qrCode.encode(temp_path)
+            fdesc = open(qrCode.filename,"rb")
+            data = base64.encodestring(fdesc.read())
+            fdesc.close()
+            os.close(fd)
+            os.remove(temp_path)
+            return data
 
     def generate_image(self, cr, uid, ids, context=None):
         "button function for genrating image """
