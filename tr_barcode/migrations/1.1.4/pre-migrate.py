@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 #/#############################################################################
 #
-#    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    Author: Alexandre Fayolle <alexandre.fayolle@camptocamp.com>
+#    Copyright (C) 2014 Camptocamp.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,32 +19,6 @@
 #
 #/#############################################################################
 
-{
-    'name': 'TR Barcode',
-    'version': '1.1.4',
-    'category': 'Warehouse Management',
-    'description': """
-
-Presentation:
-
-This module adds the menu Barcode used to generate and configuration barcodes.
-
-    """,
-    'author': 'Tech-Receptives Solutions Pvt. Ltd.',
-    'website': 'http://www.techreceptives.com',
-    'depends': [
-        "base",
-        'stock',
-    ],
-    'data': [
-        "wizard/tr_barcode_wizard.xml",
-        "res_config_view.xml",
-        "tr_barcode_view.xml",
-        "security/ir.model.access.csv",
-    ],
-    'demo': [],
-    'test': [],
-    'installable': True,
-    'active': False,
-}
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+def migrate(cr, version):
+    if version:
+        cr.execute('ALTER TABLE tr_barcode RENAME COLUMN hight TO height')

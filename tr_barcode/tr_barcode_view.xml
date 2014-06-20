@@ -10,7 +10,7 @@
                     <field name="res_id" select="1" readonly="1"/>
                     <field name="barcode_type" required="1"/>
                     <field name="width"/>
-                    <field name="hight"/>
+                    <field name="height"/>
                     <field name="hr_form"/>
                     <newline/>
                     <button name="generate_image" string="Generate Barcode Image" type="object" icon="gtk-go-forward" colspan="2"/>

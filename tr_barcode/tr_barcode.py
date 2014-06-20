@@ -64,19 +64,22 @@ class tr_barcode(orm.Model):
         'image': fields.binary('Data'),
         'width':fields.integer("Width",
                 help="Leave Blank or 0(ZERO) for default size"),
-        'hight':fields.integer("Hight",
+        'height':fields.integer("Height",
                 help="Leave Blank or 0(ZERO) for default size"),
         'hr_form':fields.boolean("Human Readable",
                 help="To genrate Barcode In Human readable form"),
         'barcode_type':fields.selection(_get_code, 'Type'),
     }
 
-    def get_image(self, value, width, hight, hr, code='QR'):
+    def get_image(self, value, width, height, hr, code='QR'):
         """ genrating image for barcode """
         options = {}
-        if width:options['width'] = width
-        if hight:options['hight'] = hight
-        if hr:options['humanReadable'] = hr
+        if width:
+            options['width'] = width
+        if height:
+            options['height'] = height
+        if hr:
+            options['humanReadable'] = hr
         options['quiet'] = False
         options['barWidth'] = 2
 #        options['isoScale'] = 1
@@ -108,7 +111,7 @@ class tr_barcode(orm.Model):
         for self_obj in self.browse(cr, uid, ids, context=context):
             image = self.get_image(self_obj.code,
                         code=self_obj.barcode_type or 'qrcode',
-                        width=self_obj.width, hight=self_obj.hight,
+                        width=self_obj.width, height=self_obj.height,
                         hr=self_obj.hr_form)
             self.write(cr, uid, self_obj.id,
                 {'image':image},context=context)
