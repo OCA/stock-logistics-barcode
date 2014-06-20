@@ -53,7 +53,7 @@ class tr_barcode_wizard(orm.TransientModel):
         'barcode':fields.char('Barcode',size=256),
         'width':fields.integer("Width",
                 help="Leave Blank or 0(ZERO) for default size"),
-        'hight':fields.integer("Hight",
+        'height':fields.integer("Height",
                 help="Leave Blank or 0(ZERO) for default size"),
         'hr_form':fields.boolean("Human Readable",
                 help="To genrate Barcode In Human readable form"),
@@ -98,7 +98,7 @@ class tr_barcode_wizard(orm.TransientModel):
                 'code':self_obj.barcode,
                 'barcode_type':self_obj.barcode_type,
                 'width':self_obj.width,
-                'hight':self_obj.hight,
+                'height':self_obj.height,
                 'hr_form':self_obj.hr_form,
                 'res_model':context.get('src_model',False) or \
                             context['active_model'],

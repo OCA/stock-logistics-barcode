@@ -38,7 +38,7 @@ def write_barcode(cr, uid, ids, vals, model, context=None):
                 'code': vals.get(barcode_config.field.name, False),
                 'barcode_type': barcode_config.barcode_type,
                 'width': barcode_config.width,
-                'hight': barcode_config.height,
+                'height': barcode_config.height,
                 'hr_form': barcode_config.hr_form,
             }
             if not barcode_vals['code']:
@@ -81,7 +81,7 @@ def create_barcode(cr, uid, id, vals, model, context=None):
                 'res_id': id,
                 'barcode_type': barcode_config.barcode_type,
                 'width': barcode_config.width,
-                'hight': barcode_config.height,
+                'height': barcode_config.height,
                 'hr_form': barcode_config.hr_form,
             }
             if not barcode_vals.get('code', False):
