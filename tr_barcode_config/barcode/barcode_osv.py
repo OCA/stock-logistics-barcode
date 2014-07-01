@@ -25,6 +25,8 @@ from openerp import SUPERUSER_ID
 
 
 def write_barcode(cr, uid, ids, vals, model, context=None):
+    if context is None:
+       context = {}
     pool = pooler.get_pool(cr.dbname)
     for id in ids:
         config_obj = pool.get('tr.barcode.config')
@@ -63,6 +65,8 @@ def write_barcode(cr, uid, ids, vals, model, context=None):
 
 
 def create_barcode(cr, uid, id, vals, model, context=None):
+    if context is None:
+       context = {}
     pool = pooler.get_pool(cr.dbname)
     config_obj = pool.get('tr.barcode.config')
     if not context.get('__copy_data_seen'):
