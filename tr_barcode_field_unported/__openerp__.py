@@ -38,7 +38,7 @@ This module adds a field to make a link between the product and the barcode.
     "demo": [],
     "data": [],
     'test': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 

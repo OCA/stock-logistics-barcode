@@ -42,7 +42,7 @@ And link the barcode with a product.
         'barcode_link_view.xml',
     ],
     'test': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 

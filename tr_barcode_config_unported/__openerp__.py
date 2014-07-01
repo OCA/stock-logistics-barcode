@@ -48,7 +48,7 @@ class product_product(barcode_osv.barcode_osv):
         "security/ir.model.access.csv",
     ],
     'test': [],
-    'installable': True,
+    'installable': False,
     'active': False,
 }
 
