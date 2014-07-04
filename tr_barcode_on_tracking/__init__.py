@@ -19,8 +19,7 @@
 #
 #################################################################################
 
-from . import tracking
-from . import res_config
+from . import tracking    # noqa
+from . import res_config  # noqa
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
-
