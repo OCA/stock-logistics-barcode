@@ -21,7 +21,7 @@
 import logging
 
 from openerp.osv import orm, fields
-from openerp.addons.product import product
+from openerp.addons.product import product as addon_product
 
 
 _logger = logging.getLogger(__name__)
@@ -41,7 +41,7 @@ class ProductEan13(orm.Model):
     def _check_ean_key(self, cr, uid, ids):
         res = False
         for ean in self.browse(cr, uid, ids):
-            res = product.check_ean(ean.name)
+            res = addon_product.product.check_ean(ean.name)
             if not res:
                 return res
         return res
@@ -142,15 +142,15 @@ class ProductProduct(orm.Model):
         if filter(lambda x: x[0] == 'ean13', args):
             # get the operator of the search
             ean_operator = filter(lambda x: x[0] == 'ean13', args)[0][1]
-            #get the value of the search
+            # get the value of the search
             ean_value = filter(lambda x: x[0] == 'ean13', args)[0][2]
             # search the ean13
             ean_ids = self.pool.get('product.ean13').search(
                 cr, uid, [('name', ean_operator, ean_value)])
 
-            #get the other arguments of the search
+            # get the other arguments of the search
             args = filter(lambda x: x[0] != 'ean13', args)
-            #add the new criterion
+            # add the new criterion
             args += [('ean13_ids', 'in', ean_ids)]
         return super(ProductProduct, self).search(
             cr, uid, args, offset, limit, order, context=context, count=count)

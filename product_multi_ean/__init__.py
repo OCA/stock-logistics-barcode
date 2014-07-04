@@ -19,4 +19,4 @@
 #
 ##############################################################################
 
-from . import product_ean
+from . import product_ean   # noqa

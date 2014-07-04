@@ -19,16 +19,17 @@
 #
 ##############################################################################
 
-{'name': 'Multiple EAN13 on products',
- 'version': '1.2',
- 'author': 'Camptocamp',
- 'maintainer': 'Camptocamp',
- 'category': 'Warehouse',
- 'complexity': "normal",  # easy, normal, expert
- 'depends': ['base',
-             'product',
-             ],
- 'description': """
+{
+    'name': 'Multiple EAN13 on products',
+    'version': '1.2',
+    'author': 'Camptocamp',
+    'maintainer': 'Camptocamp',
+    'category': 'Warehouse',
+    'complexity': "normal",  # easy, normal, expert
+    'depends': ['base',
+                'product',
+                ],
+    'description': """
 Multiple EAN13 on products
 ==========================
 
@@ -36,11 +37,11 @@ Allow Multiple EAN13 on products.
 A list of EAN13 is available for each product with a priority, so a
 main ean13 code is defined.
 """,
- 'website': 'http://www.camptocamp.com',
- 'data': ['product_view.xml',
-          'security/ir.model.access.csv',
-          ],
- 'installable': True,
- 'auto_install': False,
- 'license': 'AGPL-3',
+    'website': 'http://www.camptocamp.com',
+    'data': ['product_view.xml',
+             'security/ir.model.access.csv',
+             ],
+    'installable': True,
+    'auto_install': False,
+    'license': 'AGPL-3',
 }
