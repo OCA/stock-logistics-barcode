@@ -21,6 +21,7 @@
 
 from openerp.addons.tr_barcode_config.barcode import barcode_osv
 
+
 class product_product(barcode_osv.barcode_osv):
     _inherit = 'product.product'
 

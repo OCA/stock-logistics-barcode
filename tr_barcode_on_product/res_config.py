@@ -22,6 +22,7 @@
 from openerp.osv import fields, orm
 from openerp.addons.tr_barcode.tr_barcode import _get_code
 
+
 class tr_barcode_settings(orm.TransientModel):
     _inherit = 'tr.barcode.settings'
 
