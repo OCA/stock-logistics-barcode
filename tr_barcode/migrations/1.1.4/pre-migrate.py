@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#/#############################################################################
+##############################################################################
 #
 #    Author: Alexandre Fayolle <alexandre.fayolle@camptocamp.com>
 #    Copyright (C) 2014 Camptocamp.
@@ -17,7 +17,8 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#/#############################################################################
+##############################################################################
+
 
 def migrate(cr, version):
     if version:

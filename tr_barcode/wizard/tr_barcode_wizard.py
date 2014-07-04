@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#/#############################################################################
+##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
@@ -17,10 +17,10 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#/#############################################################################
+##############################################################################
 import logging
 
-from openerp.osv import  fields, osv, orm
+from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
 
 _logger = logging.getLogger(__name__)
@@ -39,10 +39,12 @@ class tr_barcode_wizard(orm.TransientModel):
     """ wizard for barcode """
     _name = "tr.barcode.wizard"
     _description = "Barcode Wizard for generic use"
+
     def _get_val(self, cr, uid, context=None):
         if not context:
             context = {}
-        if not context.get('active_model',False) or not context.get('active_id',False):
+        if not context.get('active_model', False) \
+           or not context.get('active_id', False):
             return False
         vals = self.pool.get(context['active_model']).browse(cr, uid,
                                                              context['active_id'],
@@ -50,30 +52,38 @@ class tr_barcode_wizard(orm.TransientModel):
         return vals and vals.x_barcode_id and vals.x_barcode_id.code or False
 
     _columns = {
-        'barcode':fields.char('Barcode',size=256),
-        'width':fields.integer("Width",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'height':fields.integer("Height",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'hr_form':fields.boolean("Human Readable",
-                help="To genrate Barcode In Human readable form"),
-        'barcode_type':fields.selection(_get_code, 'Type'),
-        'hr_form':fields.boolean("Human Readable",
-                help="To genrate Barcode In Human readable form"),
+        'barcode': fields.char('Barcode', size=256),
+        'width':
+            fields.integer("Width",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'height':
+            fields.integer("Height",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'hr_form':
+            fields.boolean("Human Readable",
+                           help="To genrate Barcode In Human readable form"),
+        'barcode_type': fields.selection(_get_code, 'Type'),
+        'hr_form':
+            fields.boolean("Human Readable",
+                           help="To genrate Barcode In Human readable form"),
         }
+
     _defaults = {
         'barcode': _get_val,
         }
+
     def open_existing(self, cr, uid, ids, context=None):
         """ function will open existing report """
         if not context:
             context = {}
         return {
-            'domain': "[('res_id','in', ["+','.join(map(str,
-                        context.get('active_ids',[])))+\
-                        "]),('res_model', '=', '%s')]"\
-                        %context.get('src_model',False) or \
-                        context['active_model'],
+            'domain':
+            "[('res_id','in', [" +
+            ','.join(map(str,
+                         context.get('active_ids', []))) +
+            "]),('res_model', '=', '%s')]"
+            % context.get('src_model', False) or
+            context['active_model'],
             'name': 'Barcode',
             'view_type': 'form',
             'view_mode': 'tree,form',
@@ -95,14 +105,15 @@ class tr_barcode_wizard(orm.TransientModel):
             if not self_obj.barcode_type:
                 raise osv.except_osv(_('Error'), _('Please Select Type !'))
             cr_id = barcode_pool.create(cr, uid, {
-                'code':self_obj.barcode,
-                'barcode_type':self_obj.barcode_type,
-                'width':self_obj.width,
-                'height':self_obj.height,
-                'hr_form':self_obj.hr_form,
-                'res_model':context.get('src_model',False) or \
-                            context['active_model'],
-                'res_id':context['active_id'],
+                'code': self_obj.barcode,
+                'barcode_type': self_obj.barcode_type,
+                'width': self_obj.width,
+                'height': self_obj.height,
+                'hr_form': self_obj.hr_form,
+                'res_model':
+                    context.get('src_model', False) or
+                    context['active_model'],
+                'res_id': context['active_id'],
                 })
             barcode_pool.generate_image(cr, uid, [cr_id], context=context)
             return {
