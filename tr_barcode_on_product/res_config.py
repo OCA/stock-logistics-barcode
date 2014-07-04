@@ -68,10 +68,17 @@ class tr_barcode_settings(orm.TransientModel):
     def onchange_product_config_id(self, cr, uid, _ids, product_config_id, context=None):
         values = {}
         if product_config_id:
-            product_config = self.pool.get('tr.barcode.config').browse(cr, uid, product_config_id, context=context)
+            config_obj = self.pool.get('tr.barcode.config')
+            product_config = config_obj.browse(cr, uid,
+                                               product_config_id,
+                                               context=context)
             values.update({
-                'product_model_id': product_config.res_model.id if product_config.res_model else False,
-                'product_field_id': product_config.field.id  if product_config.field else False,
+                'product_model_id':
+                    product_config.res_model.id
+                    if product_config.res_model else False,
+                'product_field_id':
+                    product_config.field.id
+                    if product_config.field else False,
                 'product_width': product_config.width or 0,
                 'product_height': product_config.height or 0,
                 'product_hr_form': product_config.hr_form or False,
