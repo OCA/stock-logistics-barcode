@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#/#############################################################################
+##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
@@ -17,9 +17,10 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#/#############################################################################
+##############################################################################
 
-from . import tr_barcode
-from . import res_config
-from . import wizard
+from . import tr_barcode  # noqa
+from . import res_config  # noqa
+from . import wizard      # noqa
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
