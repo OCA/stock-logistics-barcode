@@ -19,6 +19,6 @@
 #
 #################################################################################
 
-from . import barcode_config
+from . import barcode_config  # noqa
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
