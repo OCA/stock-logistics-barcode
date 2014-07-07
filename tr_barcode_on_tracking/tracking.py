@@ -21,6 +21,7 @@
 
 from openerp.addons.tr_barcode_config.barcode import barcode_osv
 
+
 class stock_tracking(barcode_osv.barcode_osv):
     _inherit = 'stock.tracking'
 

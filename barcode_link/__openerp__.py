@@ -37,7 +37,6 @@ And link the barcode with a product.
     ],
     "category": "Generic Modules/Inventory Control",
     "demo": [],
-#    "images": ['images/Barcode link.png'],
     "data": [
         'barcode_link_view.xml',
     ],

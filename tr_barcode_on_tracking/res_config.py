@@ -22,6 +22,7 @@
 from openerp.osv import fields, orm
 from openerp.addons.tr_barcode.tr_barcode import _get_code
 
+
 class tr_barcode_settings(orm.TransientModel):
     _inherit = 'tr.barcode.settings'
 
@@ -67,10 +68,19 @@ class tr_barcode_settings(orm.TransientModel):
     def onchange_tracking_config_id(self, cr, uid, _ids, tracking_config_id, context=None):
         values = {}
         if tracking_config_id:
-            tracking_config = self.pool.get('tr.barcode.config').browse(cr, uid, tracking_config_id, context=context)
+            config_obj = self.pool.get('tr.barcode.config')
+            tracking_config = config_obj.browse(cr, uid,
+                                                tracking_config_id,
+                                                context=context)
             values.update({
-                'tracking_model_id': tracking_config.res_model.id if tracking_config.res_model else False,
-                'tracking_field_id': tracking_config.field.id if tracking_config.field else False,
+                'tracking_model_id':
+                    tracking_config.res_model.id
+                    if tracking_config.res_model
+                    else False,
+                'tracking_field_id':
+                    tracking_config.field.id
+                    if tracking_config.field
+                    else False,
                 'tracking_width': tracking_config.width or 0,
                 'tracking_height': tracking_config.height or 0,
                 'tracking_hr_form': tracking_config.hr_form or False,
