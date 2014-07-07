@@ -24,5 +24,3 @@ from openerp.addons.tr_barcode_config.barcode import barcode_osv
 
 class stock_picking(barcode_osv.barcode_osv):
     _inherit = 'stock.picking'
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
