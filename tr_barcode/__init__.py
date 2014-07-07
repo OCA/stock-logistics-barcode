@@ -19,8 +19,6 @@
 #
 ##############################################################################
 
-from . import tr_barcode  # noqa
-from . import res_config  # noqa
-from . import wizard      # noqa
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+from . import tr_barcode
+from . import res_config
+from . import wizard
