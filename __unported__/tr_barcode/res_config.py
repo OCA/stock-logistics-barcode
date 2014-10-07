@@ -23,13 +23,15 @@ import copy
 
 from openerp.osv import fields, orm
 
+
 class ir_model(orm.Model):
     _inherit = 'ir.model'
     _columns = {
-        'barcode_model': fields.boolean('Barcode linked',
-                                        help='If checked, by default the barcode '
-                                             'configuration will get this module '
-                                             'in the list'),
+        'barcode_model':
+            fields.boolean('Barcode linked',
+                           help='If checked, by default the barcode '
+                           'configuration will get this module '
+                           'in the list'),
         }
     _defaults = {
         'barcode_model': False,
@@ -46,54 +48,56 @@ class tr_barcode_settings(orm.TransientModel):
                                                 context=context)
 
     _columns = {
-        'models_ids': fields.many2many('ir.model',
-            'tr_barcode_settings_mode_rel',
-            'tr_id', 'model_id', 'Models'),
+        'models_ids':
+            fields.many2many('ir.model',
+                             'tr_barcode_settings_mode_rel',
+                             'tr_id', 'model_id', 'Models'),
         }
     _defaults = {
         'models_ids': _get_default_barcode_models,
         }
 
     def update_field(self, cr, uid, vals, context=None):
-        ## Init ##
+        # Init
         if context is None:
             context = {}
         model_ids = []
         model_obj = self.pool.get('ir.model')
         action_obj = self.pool.get('ir.actions.act_window')
         value_obj = self.pool.get('ir.values')
-        ## Process ##
+        # Process #
         if not vals or not vals.get('models_ids', False):
             return False
         elif vals['models_ids'][0] and vals['models_ids'][0][2]:
             model_ids = vals['models_ids'][0][2]
-        ### Unlink Previous Entries ###
+        # Unlink Previous Entries #
         unlink_ids = action_obj.search(cr,  uid,
-                                       [('res_model' , '=', 'tr.barcode.wizard')],
+                                       [('res_model', '=', 'tr.barcode.wizard')],
                                        context=context)
         for unlink_id in unlink_ids:
             action_obj.unlink(cr, uid, unlink_id)
-            un_val_ids = value_obj.search(cr, uid,[
-                ('value' , '=',"ir.actions.act_window," + str(unlink_id)),
-                ])
+            domain = [('value', '=', "ir.actions.act_window,%s" % unlink_id)]
+            un_val_ids = value_obj.search(cr, uid,
+                                          domain)
             value_obj.unlink(cr, uid, un_val_ids)
-        ### Create New Fields ###
+        # Create New Fields #
         read_datas = model_obj.read(cr, uid,
                                     model_ids,
                                     ['model', 'name'],
                                     context=context)
         for model in read_datas:
-            act_id = action_obj.create(cr, uid, {
-                 'name': "%s Barcode" % model['name'],
-                 'type': 'ir.actions.act_window',
-                 'res_model': 'tr.barcode.wizard',
-                 'src_model': model['model'],
-                 'view_type': 'form',
-                 'context': "{'src_model':'%s','src_rec_id':active_id,"\
-                 "'src_rec_ids':active_ids}" % (model['model']),
-                 'view_mode':'form,tree',
-                 'target': 'new',
-            }, context=context)
+            vals = {'name': "%s Barcode" % model['name'],
+                    'type': 'ir.actions.act_window',
+                    'res_model': 'tr.barcode.wizard',
+                    'src_model': model['model'],
+                    'view_type': 'form',
+                    'context': "{'src_model':'%s','src_rec_id':active_id,"
+                    "'src_rec_ids':active_ids}" % (model['model']),
+                    'view_mode': 'form,tree',
+                    'target': 'new',
+                    }
+            act_id = action_obj.create(cr, uid, vals,
+                                       context=context)
             value_obj.create(cr, uid,
                              {'name': "%s Barcode" % model['name'],
                               'model': model['model'],
@@ -107,7 +111,7 @@ class tr_barcode_settings(orm.TransientModel):
         """ create method """
         vals2 = copy.deepcopy(vals)
         result = super(tr_barcode_settings, self).create(cr, uid, vals2, context=context)
-        ## Fields Process ##
+        # Fields Process #
         self.update_field(cr, uid, vals, context=context)
         return result
 
@@ -115,9 +119,9 @@ class tr_barcode_settings(orm.TransientModel):
         # Initialisation of the configuration
         if context is None:
             context = {}
-        # install method 
+        # install method
         for vals in self.read(cr, uid, ids, context=context):
-            result = self.update_field(cr, uid, vals, context=context)
+            _result = self.update_field(cr, uid, vals, context=context)
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',

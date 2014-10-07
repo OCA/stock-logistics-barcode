@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/OCA/stock-logistics-barcode.svg?branch=master)](https://travis-ci.org/OCA/stock-logistics-barcode)
-[![Coverage Status](https://img.shields.io/coveralls/OCA/stock-logistics-barcode.svg)](https://coveralls.io/r/OCA/stock-logistics-barcode?branch=master)
+[![Build Status](https://travis-ci.org/OCA/stock-logistics-barcode.svg?branch=8.0)](https://travis-ci.org/OCA/stock-logistics-barcode)
+[![Coverage Status](https://img.shields.io/coveralls/OCA/stock-logistics-barcode.svg)](https://coveralls.io/r/OCA/stock-logistics-barcode?branch=8.0)
 
 Odoo Stock Logistic Barcode
 ===========================

@@ -10,7 +10,7 @@
 		            <field name="barcode" width="200"/>
 		            <field name="barcode_type"/>
 		            <field name="width"/>
-		            <field name="hight"/>
+		            <field name="height"/>
 		            <field name="hr_form"/>
 		            <separator string=""  colspan="4"/>
 		            <button string="Open Existing Barcode" name="open_existing" type="object" icon="terp-gtk-jump-to-ltr"/>

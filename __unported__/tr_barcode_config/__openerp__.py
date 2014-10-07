@@ -51,4 +51,3 @@ class product_product(barcode_osv.barcode_osv):
     'installable': False,
     'active': False,
 }
-

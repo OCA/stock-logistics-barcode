@@ -43,12 +43,15 @@ class tr_barcode_config(orm.Model):
         'field': fields.many2one('ir.model.fields', 'Field',
                                  domain=[('ttype', '=', 'char')],
                                  required=True),
-        'width': fields.integer("Width",
-                     help="Leave Blank or 0(ZERO) for default size"),
-        'height': fields.integer("Height",
-                     help="Leave Blank or 0(ZERO) for default size"),
-        'hr_form': fields.boolean("Human Readable",
-                     help="To generate Barcode In Human readable form"),
+        'width':
+            fields.integer("Width",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'height':
+            fields.integer("Height",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'hr_form':
+            fields.boolean("Human Readable",
+                           help="To generate Barcode In Human readable form"),
         'barcode_type': fields.selection(_get_code, 'Type', required=True),
         }
     _sql_constraints = [
