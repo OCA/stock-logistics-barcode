@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#/#############################################################################
+##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
 #    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#/#############################################################################
+##############################################################################
 
 import os
 import logging
@@ -27,19 +27,16 @@ from tempfile import mkstemp
 _logger = logging.getLogger(__name__)
 from openerp.osv import fields, osv, orm
 
-from PIL import Image
-
-from openerp.osv import fields, osv, orm
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, getCodes
-except :
+except:
     _logger.warning("ERROR IMPORTING REPORT LAB")
 
 
 def _get_code(self, cr, uid, context=None):
     """get availble code """
     codes = [(r, r) for r in getCodes()]
-    codes.append(('qrcode','QR'))
+    codes.append(('qrcode', 'QR'))
     return codes
 
 
@@ -57,18 +54,26 @@ class tr_barcode(orm.Model):
         return res
 
     _columns = {
-        'code': fields.char('Barcode',size=256),
-        'code2': fields.function(_get_barcode2, method=True, string='Barcode2', type='char', size=256, store=True),
-        'res_model':fields.char('Model',size=256),
-        'res_id':fields.integer('Res Id'),
+        'code': fields.char('Barcode', size=256),
+        'code2': fields.function(_get_barcode2,
+                                 method=True,
+                                 string='Barcode2',
+                                 type='char',
+                                 size=256,
+                                 store=True),
+        'res_model': fields.char('Model', size=256),
+        'res_id': fields.integer('Res Id'),
         'image': fields.binary('Data'),
-        'width':fields.integer("Width",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'height':fields.integer("Height",
-                help="Leave Blank or 0(ZERO) for default size"),
-        'hr_form':fields.boolean("Human Readable",
-                help="To genrate Barcode In Human readable form"),
-        'barcode_type':fields.selection(_get_code, 'Type'),
+        'width':
+            fields.integer("Width",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'height':
+            fields.integer("Height",
+                           help="Leave Blank or 0(ZERO) for default size"),
+        'hr_form':
+            fields.boolean("Human Readable",
+                           help="To genrate Barcode In Human readable form"),
+        'barcode_type': fields.selection(_get_code, 'Type'),
     }
 
     def get_image(self, value, width, height, hr, code='QR'):
@@ -83,7 +88,7 @@ class tr_barcode(orm.Model):
         options['quiet'] = False
         options['barWidth'] = 2
 #        options['isoScale'] = 1
-        if code not in ['QR','qrcode']:
+        if code not in ('QR', 'qrcode'):
             try:
                 ret_val = createBarcodeDrawing(code, value=str(value), **options)
             except Exception, e:
@@ -96,7 +101,7 @@ class tr_barcode(orm.Model):
             fd, temp_path = mkstemp(suffix='.png')
             qrCode = QR(data=value)
             qrCode.encode(temp_path)
-            fdesc = open(qrCode.filename,"rb")
+            fdesc = open(qrCode.filename, "rb")
             data = base64.encodestring(fdesc.read())
             fdesc.close()
             os.close(fd)
@@ -110,11 +115,13 @@ class tr_barcode(orm.Model):
 
         for self_obj in self.browse(cr, uid, ids, context=context):
             image = self.get_image(self_obj.code,
-                        code=self_obj.barcode_type or 'qrcode',
-                        width=self_obj.width, height=self_obj.height,
-                        hr=self_obj.hr_form)
+                                   code=self_obj.barcode_type or 'qrcode',
+                                   width=self_obj.width,
+                                   height=self_obj.height,
+                                   hr=self_obj.hr_form)
             self.write(cr, uid, self_obj.id,
-                {'image':image},context=context)
+                       {'image': image},
+                       context=context)
         return True
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

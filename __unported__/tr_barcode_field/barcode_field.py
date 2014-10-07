@@ -21,6 +21,7 @@
 
 from openerp.osv import orm
 
+
 class tr_barcode_installer(orm.TransientModel):
     _inherit = 'tr.barcode.settings'
 
@@ -36,29 +37,27 @@ class tr_barcode_installer(orm.TransientModel):
                 return False
         read_datas = model_obj.read(cr, uid,
                                     vals['models_ids'],
-                                    ['model','name'],
+                                    ['model', 'name'],
                                     context=context)
         for model in read_datas:
-            field_ids = field_obj.search(cr, uid, [
-                                ('name', '=', 'x_barcode_id'),
-                                ('model', '=', model['model']),
-                            ])
+            domain = [('name', '=', 'x_barcode_id'),
+                      ('model', '=', model['model']),
+                      ]
+            field_ids = field_obj.search(cr, uid, domain)
             if not field_ids:
-                data_field = {
-                        'model': model['model'],
-                        'relation': 'tr.barcode',
-                        'model_id': model['id'],
-                        'name': 'x_barcode_id',
-                        'field_description': 'Barcode',
-                        'state': 'manual',
-                        'ttype': 'many2one',
-                        'selection': False,
-                        'on_delete': 'set null',
-                        }
+                data_field = {'model': model['model'],
+                              'relation': 'tr.barcode',
+                              'model_id': model['id'],
+                              'name': 'x_barcode_id',
+                              'field_description': 'Barcode',
+                              'state': 'manual',
+                              'ttype': 'many2one',
+                              'selection': False,
+                              'on_delete': 'set null',
+                              }
                 field_obj.create(cr, uid, data_field, context=context)
-        return {
-            'type': 'ir.actions.client',
-            'tag': 'reload',
-        }
+        return {'type': 'ir.actions.client',
+                'tag': 'reload',
+                }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

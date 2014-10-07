@@ -19,8 +19,8 @@
 #
 #################################################################################
 
-from openerp.osv import fields, osv, orm
-from openerp.tools.translate import _
+from openerp.osv import fields, orm
+
 
 class tr_barcode(orm.Model):
 
@@ -39,7 +39,11 @@ class tr_barcode(orm.Model):
         return res
 
     _columns = {
-        'link': fields.function(_name_get_barcode, method=True, type='char', size=100, string="Link"),
+        'link': fields.function(_name_get_barcode,
+                                method=True,
+                                type='char',
+                                size=100,
+                                string="Link"),
     }
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
