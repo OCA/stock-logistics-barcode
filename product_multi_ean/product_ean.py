@@ -41,7 +41,7 @@ class ProductEan13(orm.Model):
     def _check_ean_key(self, cr, uid, ids):
         res = False
         for ean in self.browse(cr, uid, ids):
-            res = addon_product.product.check_ean(ean.name)
+            res = addon_product.check_ean(ean.name)
             if not res:
                 return res
         return res
