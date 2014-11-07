@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    Copyright (C) 2004-TODAY Tech-Receptives <http://www.tech-receptives.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -90,7 +90,9 @@ class tr_barcode(orm.Model):
 #        options['isoScale'] = 1
         if code not in ('QR', 'qrcode'):
             try:
-                ret_val = createBarcodeDrawing(code, value=str(value), **options)
+                ret_val = createBarcodeDrawing(code,
+                                               value=str(value),
+                                               **options)
             except Exception, e:
                 raise osv.except_osv('Error', e)
             image_data = ret_val.asString('png')

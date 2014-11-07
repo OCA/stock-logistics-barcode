@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2012 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,12 +17,9 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
-
+###############################################################################
 from openerp.addons.tr_barcode_config.barcode import barcode_osv
 
 
 class product_product(barcode_osv.barcode_osv):
     _inherit = 'product.product'
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,8 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
-
+###############################################################################
 import copy
 
 from openerp.osv import fields, orm
@@ -32,10 +31,11 @@ class ir_model(orm.Model):
                            help='If checked, by default the barcode '
                            'configuration will get this module '
                            'in the list'),
-        }
+    }
+
     _defaults = {
         'barcode_model': False,
-        }
+    }
 
 
 class tr_barcode_settings(orm.TransientModel):
@@ -52,10 +52,11 @@ class tr_barcode_settings(orm.TransientModel):
             fields.many2many('ir.model',
                              'tr_barcode_settings_mode_rel',
                              'tr_id', 'model_id', 'Models'),
-        }
+    }
+
     _defaults = {
         'models_ids': _get_default_barcode_models,
-        }
+    }
 
     def update_field(self, cr, uid, vals, context=None):
         # Init
@@ -71,9 +72,11 @@ class tr_barcode_settings(orm.TransientModel):
         elif vals['models_ids'][0] and vals['models_ids'][0][2]:
             model_ids = vals['models_ids'][0][2]
         # Unlink Previous Entries #
-        unlink_ids = action_obj.search(cr,  uid,
-                                       [('res_model', '=', 'tr.barcode.wizard')],
-                                       context=context)
+        unlink_ids = action_obj.search(
+            cr,  uid,
+            [('res_model', '=', 'tr.barcode.wizard')],
+            context=context
+        )
         for unlink_id in unlink_ids:
             action_obj.unlink(cr, uid, unlink_id)
             domain = [('value', '=', "ir.actions.act_window,%s" % unlink_id)]
@@ -110,7 +113,9 @@ class tr_barcode_settings(orm.TransientModel):
     def create(self, cr, uid, vals, context=None):
         """ create method """
         vals2 = copy.deepcopy(vals)
-        result = super(tr_barcode_settings, self).create(cr, uid, vals2, context=context)
+        result = super(tr_barcode_settings, self).create(
+            cr, uid, vals2, context=context
+        )
         # Fields Process #
         self.update_field(cr, uid, vals, context=context)
         return result
@@ -121,10 +126,8 @@ class tr_barcode_settings(orm.TransientModel):
             context = {}
         # install method
         for vals in self.read(cr, uid, ids, context=context):
-            _result = self.update_field(cr, uid, vals, context=context)
+            self.update_field(cr, uid, vals, context=context)
         return {
             'type': 'ir.actions.client',
             'tag': 'reload',
-            }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        }
