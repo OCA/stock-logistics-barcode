@@ -104,7 +104,8 @@ class ProductProduct(orm.Model):
             res.add(ean.product_id.id)
         return list(res)
 
-    def _write_ean(self, cr, uid, product_id, _name, value, _arg, context=None):
+    def _write_ean(self, cr, uid, product_id, _name, value, _arg,
+                   context=None):
         product = self.browse(cr, uid, product_id, context=context)
         if value and value not in [ean.name for ean in product.ean13_ids]:
             self.pool.get('product.ean13').create(
@@ -124,7 +125,9 @@ class ProductProduct(orm.Model):
             readonly=True,
             store={
                 'product.product':
-                    (lambda self, cr, uid, ids, c=None: ids, ['ean13_ids'], 10),
+                    (lambda self, cr, uid, ids, c=None: ids,
+                     ['ean13_ids'],
+                     10),
                 'product.ean13':
                     (_get_ean, [], 10)})}
 
