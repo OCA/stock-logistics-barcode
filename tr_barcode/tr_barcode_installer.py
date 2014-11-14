@@ -24,6 +24,7 @@ import copy
 
 
 class tr_barcode_installer(orm.TransientModel):
+
     """ config wizard for barcode module """
     _name = 'tr_barcode.installer'
     _inherit = 'res.config.installer'

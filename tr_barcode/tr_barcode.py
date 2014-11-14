@@ -41,6 +41,7 @@ def _get_code(self, cr, uid, context=None):
 
 
 class tr_barcode(orm.Model):
+
     """ Barcode Class """
     _name = "tr.barcode"
     _description = "Barcode"

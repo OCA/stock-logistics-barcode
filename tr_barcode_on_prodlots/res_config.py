@@ -107,5 +107,5 @@ class tr_barcode_settings(orm.TransientModel):
                 'prodlot_height': prodlot_config.height or 0,
                 'prodlot_hr_form': prodlot_config.hr_form or False,
                 'prodlot_barcode_type': prodlot_config.barcode_type or False,
-                })
+            })
         return {'value': values}
