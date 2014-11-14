@@ -104,6 +104,6 @@ class tr_barcode_settings(orm.TransientModel):
                 'tracking_height': tracking_config.height or 0,
                 'tracking_hr_form': tracking_config.hr_form or False,
                 'tracking_barcode_type': tracking_config.barcode_type or False,
-                })
+            })
 
         return {'value': values}

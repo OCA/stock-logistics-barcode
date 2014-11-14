@@ -36,6 +36,7 @@ def _get_code(self, cr, uid, context=None):
 
 
 class tr_barcode_wizard(orm.TransientModel):
+
     """ wizard for barcode """
     _name = "tr.barcode.wizard"
     _description = "Barcode Wizard for generic use"
@@ -68,11 +69,11 @@ class tr_barcode_wizard(orm.TransientModel):
         'hr_form':
             fields.boolean("Human Readable",
                            help="To genrate Barcode In Human readable form"),
-        }
+    }
 
     _defaults = {
         'barcode': _get_val,
-        }
+    }
 
     def open_existing(self, cr, uid, ids, context=None):
         """ function will open existing report """
@@ -92,7 +93,7 @@ class tr_barcode_wizard(orm.TransientModel):
             'res_model': 'tr.barcode',
             'view_id': False,
             'type': 'ir.actions.act_window',
-            }
+        }
 
     def create_barcode_record(self, cr, uid, ids, context=None):
         """
