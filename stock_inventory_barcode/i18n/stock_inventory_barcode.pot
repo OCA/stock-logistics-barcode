@@ -1,0 +1,65 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#	* stock_inventory_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-13 14:59+0000\n"
+"PO-Revision-Date: 2014-11-13 14:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/barcode_input.py:57
+#, python-format
+msgid "Unknown barcode %s"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model,name:stock_inventory_barcode.model_product_product_barcode_input
+msgid "Abstract class to handle barcode input"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/stock.py:38
+#, python-format
+msgid "Please select a location before entering a barcode"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: field:product.product.barcode.input,barcode_input:0
+#: field:stock.inventory,barcode_input:0
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/barcode_input.py:56
+#: code:addons/stock_inventory_barcode/barcode_input.py:63
+#: code:addons/stock_inventory_barcode/stock.py:37
+#, python-format
+msgid "Warning"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model,name:stock_inventory_barcode.model_stock_inventory
+msgid "Inventory"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/barcode_input.py:65
+#, python-format
+msgid "Multiple products match barcode %s"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: field:product.product.barcode.input,input_location_id:0
+#: field:stock.inventory,input_location_id:0
+msgid "Location for Barcode Input"
+msgstr ""
+
