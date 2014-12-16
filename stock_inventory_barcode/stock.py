@@ -26,7 +26,7 @@ from openerp.tools.translate import _
 
 class stock_inventory(orm.Model):
     _name = 'stock.inventory'
-    _inherit = ['stock.inventory', 'product.product.barcode.input']
+    _inherit = ['stock.inventory', 'abstract.product.barcode.input']
 
     def onchange_barcode(self, cr, uid, ids, barcode_input=None,
                          inventory_line_id=None, input_location_id=None,

@@ -25,7 +25,7 @@ from openerp.tools.translate import _
 
 
 class abtract_product_barcode_input(orm.AbstractModel):
-    _name = 'product.product.barcode.input'
+    _name = 'abstract.product.barcode.input'
     _description = 'Abstract class to handle barcode input'
 
     _columns = {
