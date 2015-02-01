@@ -1,0 +1,183 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* tr_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 6.0.3\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-12-19 10:50+0000\n"
+"PO-Revision-Date: 2015-02-01 14:40+0100\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: tr_barcode
+#: model:ir.model,name:tr_barcode.model_tr_barcode_wizard
+msgid "Barcode Wizard for generic use"
+msgstr "Barcode-Assistent für allgemeinen Gebrauch"
+
+#. module: tr_barcode
+#: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:67
+#: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:69
+#, python-format
+msgid "Error"
+msgstr "Fehler"
+
+#. module: tr_barcode
+#: field:tr.barcode,width:0 field:tr.barcode.wizard,width:0
+msgid "Width"
+msgstr "Breite"
+
+#. module: tr_barcode
+#: field:tr.barcode,barcode_type:0 field:tr.barcode.wizard,barcode_type:0
+msgid "Type"
+msgstr "Art"
+
+#. module: tr_barcode
+#: field:tr.barcode,res_model:0
+msgid "Model"
+msgstr "Modell"
+
+#. module: tr_barcode
+#: view:tr_barcode.installer:0
+msgid "Configure"
+msgstr "Einstellen"
+
+#. module: tr_barcode
+#: view:tr_barcode.installer:0
+msgid "title"
+msgstr "Titel"
+
+#. module: tr_barcode
+#: field:tr_barcode.installer,models_ids:0
+msgid "Models"
+msgstr "Modelle"
+
+#. module: tr_barcode
+#: model:ir.actions.act_window,name:tr_barcode.act_tr_barcode_wiz
+#: model:ir.actions.act_window,name:tr_barcode.action_tr_barcode_form
+#: model:ir.model,name:tr_barcode.model_tr_barcode
+#: model:ir.ui.menu,name:tr_barcode.main_menu_barcode
+#: model:ir.ui.menu,name:tr_barcode.menu_action_tr_barcode
+#: model:ir.ui.menu,name:tr_barcode.menu_action_tr_barcodee_form
+#: view:tr.barcode:0 field:tr.barcode,code:0 view:tr.barcode.wizard:0
+#: field:tr.barcode.wizard,barcode:0
+msgid "Barcode"
+msgstr "Barcode"
+
+#. module: tr_barcode
+#: field:tr.barcode,hight:0 field:tr.barcode.wizard,hight:0
+msgid "Hight"
+msgstr "Höhe"
+
+#. module: tr_barcode
+#: view:tr_barcode.installer:0
+msgid "Enhance your core OpenERP with Barcode"
+msgstr "Erweitern Sie OpenERP mit Barcode-Funktionalitäten"
+
+#. module: tr_barcode
+#: help:tr.barcode,hr_form:0 help:tr.barcode.wizard,hr_form:0
+msgid "To genrate Barcode In Human readable form"
+msgstr "Um menschenlesbare Barcodes zu erzeugen"
+
+#. module: tr_barcode
+#: field:tr.barcode,image:0
+msgid "Data"
+msgstr "Daten"
+
+#. module: tr_barcode
+#: view:tr_barcode.installer:0
+msgid "Barcode Applications"
+msgstr "Barcode-Anwendungen"
+
+#. module: tr_barcode
+#: model:ir.actions.act_window,name:tr_barcode.action_tr_barcode_installer
+msgid "Barcode Application Configuration"
+msgstr "Einstellung von Barcodeanwendungen"
+
+#. module: tr_barcode
+#: model:ir.module.module,shortdesc:tr_barcode.module_meta_information
+msgid "TR Barcode"
+msgstr "TR Barcode"
+
+#. module: tr_barcode
+#: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:67
+#, python-format
+msgid "Please specify code to generate Barcode !"
+msgstr "Geben Sie bitte den Code für den Barcode an!"
+
+#. module: tr_barcode
+#: field:tr_barcode.installer,progress:0
+msgid "Configuration Progress"
+msgstr "Einstellvorgang"
+
+#. module: tr_barcode
+#: field:tr.barcode,hr_form:0 field:tr.barcode.wizard,hr_form:0
+msgid "Human Readable"
+msgstr "Menschenlesbar"
+
+#. module: tr_barcode
+#: view:tr.barcode.wizard:0
+msgid "Open Existing Barcode"
+msgstr "Vorhandenen Barcode öffnen"
+
+#. module: tr_barcode
+#: view:tr.barcode.wizard:0
+msgid "Generate Barcode"
+msgstr "Barcode erzeugen"
+
+#. module: tr_barcode
+#: view:tr.barcode:0
+msgid "Generate Barcode Image"
+msgstr "Barcode-Abbild erzeugen"
+
+#. module: tr_barcode
+#: field:tr_barcode.installer,config_logo:0
+msgid "Image"
+msgstr "Abbild"
+
+#. module: tr_barcode
+#: model:ir.module.module,description:tr_barcode.module_meta_information
+msgid ""
+"\n"
+"    "
+msgstr ""
+"\n"
+"    "
+
+#. module: tr_barcode
+#: model:ir.model,name:tr_barcode.model_tr_barcode_installer
+msgid "tr_barcode.installer"
+msgstr "tr_barcode.installer"
+
+#. module: tr_barcode
+#: view:tr_barcode.installer:0
+msgid "Configure Your Barcode Application"
+msgstr "Stellen Sie Ihre Barcode-Anwendung ein"
+
+#. module: tr_barcode
+#: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:69
+#, python-format
+msgid "Please Select Type !"
+msgstr "Bitte Art auswählen!"
+
+#. module: tr_barcode
+#: view:tr.barcode.wizard:0
+msgid "Close"
+msgstr "GeschlossenFermer"
+
+#. module: tr_barcode
+#: field:tr.barcode,res_id:0
+msgid "Res Id"
+msgstr "Res Id"
+
+#. module: tr_barcode
+#: help:tr.barcode,hight:0 help:tr.barcode,width:0
+#: help:tr.barcode.wizard,hight:0 help:tr.barcode.wizard,width:0
+msgid "Leave Blank or 0(ZERO) for default size"
+msgstr "Leer oder Null (0) setzen, für Vorgabegrösse"
