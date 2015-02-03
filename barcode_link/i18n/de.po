@@ -19,7 +19,7 @@ msgstr ""
 #. module: barcode_link
 #: model:ir.module.module,description:barcode_link.module_meta_information
 msgid " This module is the Barcode link module"
-msgstr "Dieses Modul stellt stellt Barcode-Verknüpfungen her"
+msgstr "Dieses Modul stellt Barcode-Verknüpfungen her"
 
 #. module: barcode_link
 #: model:ir.model,name:barcode_link.model_tr_barcode
