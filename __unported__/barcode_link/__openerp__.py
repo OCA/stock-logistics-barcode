@@ -32,6 +32,7 @@ And link the barcode with a product.
 
 """,
     "website": "http://www.julius.fr",
+    "license": "GPL-3 or any later version",
     "depends": [
         "tr_barcode",
     ],

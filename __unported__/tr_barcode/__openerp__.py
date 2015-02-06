@@ -32,6 +32,7 @@ This module adds the menu Barcode used to generate and configuration barcodes.
     """,
     'author': 'Tech-Receptives Solutions Pvt. Ltd.',
     'website': 'http://www.techreceptives.com',
+    'license': 'AGPL-3',
     'depends': [
         "base",
         'stock',

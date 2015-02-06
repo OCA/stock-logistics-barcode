@@ -37,6 +37,7 @@ class product_product(barcode_osv.barcode_osv):
 
 """,
     "website": "http://www.julius.fr",
+    "license": "GPL-3 or any later version",
     "depends": [
         "tr_barcode",
         "tr_barcode_field",

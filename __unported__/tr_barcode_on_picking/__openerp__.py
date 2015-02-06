@@ -24,6 +24,7 @@
     "version": "1.1",
     "author": "Julius Network Solutions",
     "website": "http://www.julius.fr",
+    "license": "GPL-3 or any later version",
     "category": "Warehouse Management",
     "depends": [
         "stock",
