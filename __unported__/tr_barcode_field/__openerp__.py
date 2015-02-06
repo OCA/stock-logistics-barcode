@@ -31,6 +31,7 @@ This module adds a field to make a link between the product and the barcode.
 
 """,
     "website": "http://www.julius.fr",
+    "license": "GPL-3 or any later version",
     "depends": [
         "tr_barcode",
     ],
