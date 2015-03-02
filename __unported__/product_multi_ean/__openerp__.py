@@ -22,7 +22,7 @@
 {
     'name': 'Multiple EAN13 on products',
     'version': '1.2',
-    'author': 'Camptocamp',
+    'author': "Camptocamp,Odoo Community Association (OCA)",
     'maintainer': 'Camptocamp',
     'category': 'Warehouse',
     'complexity': "normal",  # easy, normal, expert

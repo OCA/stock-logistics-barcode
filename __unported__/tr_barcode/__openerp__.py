@@ -30,7 +30,7 @@ Presentation:
 This module adds the menu Barcode used to generate and configuration barcodes.
 
     """,
-    'author': 'Tech-Receptives Solutions Pvt. Ltd.',
+    'author': "Tech-Receptives Solutions Pvt. Ltd.,Odoo Community Association (OCA)",
     'website': 'http://www.techreceptives.com',
     'license': 'AGPL-3',
     'depends': [

@@ -22,7 +22,7 @@
 {
     "name": "Barcode for tracking",
     "version": "1.1",
-    "author": "Julius Network Solutions",
+    "author": "Julius Network Solutions,Odoo Community Association (OCA)",
     "website": "http://www.julius.fr",
     "license": "GPL-3 or any later version",
     "category": "Warehouse Management",
