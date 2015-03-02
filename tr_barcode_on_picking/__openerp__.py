@@ -22,7 +22,7 @@
 {
     "name": "Barcode for pickings",
     "version": "1.1",
-    "author": "Julius Network Solutions",
+    "author": "Julius Network Solutions,Odoo Community Association (OCA)",
     "website": "http://www.julius.fr",
     "category": "Warehouse Management",
     "depends": [
