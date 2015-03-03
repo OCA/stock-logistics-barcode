@@ -24,12 +24,12 @@ import logging
 import base64
 from tempfile import mkstemp
 
-_logger = logging.getLogger(__name__)
 from openerp.osv import fields, osv, orm
 
 try:
     from reportlab.graphics.barcode import createBarcodeDrawing, getCodes
 except:
+    _logger = logging.getLogger(__name__)
     _logger.warning("ERROR IMPORTING REPORT LAB")
 
 
