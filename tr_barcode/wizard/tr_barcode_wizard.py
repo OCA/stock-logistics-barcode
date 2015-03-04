@@ -65,9 +65,6 @@ class tr_barcode_wizard(orm.TransientModel):
             fields.boolean("Human Readable",
                            help="To genrate Barcode In Human readable form"),
         'barcode_type': fields.selection(_get_code, 'Type'),
-        'hr_form':
-            fields.boolean("Human Readable",
-                           help="To genrate Barcode In Human readable form"),
         }
 
     _defaults = {
