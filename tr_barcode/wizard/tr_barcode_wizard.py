@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    Copyright (C) 2004-TODAY Tech-Receptives <http://www.tech-receptives.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -46,9 +46,11 @@ class tr_barcode_wizard(orm.TransientModel):
         if not context.get('active_model', False) \
            or not context.get('active_id', False):
             return False
-        vals = self.pool.get(context['active_model']).browse(cr, uid,
-                                                             context['active_id'],
-                                                             context=context)
+        vals = self.pool.get(context['active_model']).browse(
+            cr, uid,
+            context['active_id'],
+            context=context
+        )
         return vals and vals.x_barcode_id and vals.x_barcode_id.code or False
 
     _columns = {
@@ -63,9 +65,6 @@ class tr_barcode_wizard(orm.TransientModel):
             fields.boolean("Human Readable",
                            help="To genrate Barcode In Human readable form"),
         'barcode_type': fields.selection(_get_code, 'Type'),
-        'hr_form':
-            fields.boolean("Human Readable",
-                           help="To genrate Barcode In Human readable form"),
         }
 
     _defaults = {
@@ -100,21 +99,27 @@ class tr_barcode_wizard(orm.TransientModel):
         barcode_pool = self.pool.get('tr.barcode')
         for self_obj in self.browse(cr, uid, ids, context=context):
             if not self_obj.barcode:
-                raise osv.except_osv(_('Error'),
-                                     _('Please specify code to generate Barcode !'))
+                raise osv.except_osv(
+                    _('Error'),
+                    _('Please specify code to generate Barcode !')
+                )
             if not self_obj.barcode_type:
                 raise osv.except_osv(_('Error'), _('Please Select Type !'))
-            cr_id = barcode_pool.create(cr, uid, {
-                'code': self_obj.barcode,
-                'barcode_type': self_obj.barcode_type,
-                'width': self_obj.width,
-                'height': self_obj.height,
-                'hr_form': self_obj.hr_form,
-                'res_model':
-                    context.get('src_model', False) or
-                    context['active_model'],
-                'res_id': context['active_id'],
-                })
+            cr_id = barcode_pool.create(
+                cr,
+                uid,
+                {
+                    'code': self_obj.barcode,
+                    'barcode_type': self_obj.barcode_type,
+                    'width': self_obj.width,
+                    'height': self_obj.height,
+                    'hr_form': self_obj.hr_form,
+                    'res_model': (context.get('src_model', False) or
+                                  context['active_model']),
+                    'res_id': context['active_id']
+                }
+            )
+
             barcode_pool.generate_image(cr, uid, [cr_id], context=context)
             return {
                 'res_id': cr_id,
@@ -124,6 +129,4 @@ class tr_barcode_wizard(orm.TransientModel):
                 'res_model': 'tr.barcode',
                 'view_id': False,
                 'type': 'ir.actions.act_window',
-                }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+            }

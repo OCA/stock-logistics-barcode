@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,8 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
-
+###############################################################################
 from openerp.osv import orm
 
 
@@ -41,8 +40,7 @@ class tr_barcode_installer(orm.TransientModel):
                                     context=context)
         for model in read_datas:
             domain = [('name', '=', 'x_barcode_id'),
-                      ('model', '=', model['model']),
-                      ]
+                      ('model', '=', model['model'])]
             field_ids = field_obj.search(cr, uid, domain)
             if not field_ids:
                 data_field = {'model': model['model'],
@@ -53,11 +51,9 @@ class tr_barcode_installer(orm.TransientModel):
                               'state': 'manual',
                               'ttype': 'many2one',
                               'selection': False,
-                              'on_delete': 'set null',
-                              }
+                              'on_delete': 'set null'}
                 field_obj.create(cr, uid, data_field, context=context)
-        return {'type': 'ir.actions.client',
-                'tag': 'reload',
-                }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'reload',
+        }

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 from openerp.osv import fields, orm
 
@@ -26,7 +26,8 @@ class tr_barcode(orm.Model):
 
     _inherit = 'tr.barcode'
 
-    def _name_get_barcode(self, cr, uid, ids, field_name, arg=None, context=None):
+    def _name_get_barcode(self, cr, uid, ids, field_name, arg=None,
+                          context=None):
         if not len(ids):
             return []
         reads = self.browse(cr, uid, ids, context=context)
@@ -45,5 +46,3 @@ class tr_barcode(orm.Model):
                                 size=100,
                                 string="Link"),
     }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

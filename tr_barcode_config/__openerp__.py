@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,12 +17,11 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
-
+###############################################################################
 {
     "name": "Barcode configuration Module",
     "version": "1.1.1",
-    "author": "Julius Network Solutions",
+    "author": "Julius Network Solutions,Odoo Community Association (OCA)",
     "description": """
 Presentation:
 

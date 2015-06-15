@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 import logging
 
 from openerp.osv import fields, orm
@@ -53,11 +53,9 @@ class tr_barcode_config(orm.Model):
             fields.boolean("Human Readable",
                            help="To generate Barcode In Human readable form"),
         'barcode_type': fields.selection(_get_code, 'Type', required=True),
-        }
+    }
     _sql_constraints = [
         ('res_model_uniq',
          'unique(res_model)',
          'You can have only one config by model !'),
-        ]
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    ]

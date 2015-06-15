@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2012 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,12 +17,12 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 {
     "name": "Barcode for pickings",
     "version": "1.1",
-    "author": "Julius Network Solutions",
+    "author": "Julius Network Solutions,Odoo Community Association (OCA)",
     "website": "http://www.julius.fr",
     "category": "Warehouse Management",
     "depends": [
@@ -46,5 +46,3 @@ generate the barcode.
     "active": False,
     "installable": True,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

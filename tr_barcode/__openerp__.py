@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    Copyright (C) 2004-TODAY Tech-Receptives<http://www.tech-receptives.com>.
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -30,7 +30,8 @@ Presentation:
 This module adds the menu Barcode used to generate and configuration barcodes.
 
     """,
-    'author': 'Tech-Receptives Solutions Pvt. Ltd.',
+    'author': "Tech-Receptives Solutions Pvt. Ltd.,"
+              "Odoo Community Association (OCA)",
     'website': 'http://www.techreceptives.com',
     'depends': [
         "base",
@@ -47,4 +48,3 @@ This module adds the menu Barcode used to generate and configuration barcodes.
     'installable': True,
     'active': False,
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

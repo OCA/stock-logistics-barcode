@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 from openerp.osv import fields, orm
 from openerp.addons.tr_barcode.tr_barcode import _get_code
@@ -39,49 +39,66 @@ class tr_barcode_settings(orm.TransientModel):
         return res and res[0] or False
 
     _columns = {
-        'picking_config_id': fields.many2one('tr.barcode.config',
-                                             'Picking Config'),
-        'picking_model_id': fields.related('picking_config_id',
-                                           'res_model',
-                                           type='many2one',
-                                           relation="ir.model",
-                                           string="Model"),
-        'picking_field_id': fields.related('picking_config_id',
-                                           'field',
-                                           type='many2one',
-                                           relation="ir.model.fields",
-                                           string="Field"),
-        'picking_width': fields.related('picking_config_id',
-                                        'width',
-                                        type='integer',
-                                        string="Width",
-                                        help="Leave Blank or 0(ZERO) for default size"),
-        'picking_height': fields.related('picking_config_id',
-                                         'height',
-                                         type='integer',
-                                         string="Height",
-                                         help="Leave Blank or 0(ZERO) for default size"),
-        'picking_hr_form': fields.related('picking_config_id',
-                                          'hr_form',
-                                          type='boolean',
-                                          string="Human Readable",
-                                          help="To generate Barcode In Human readable form"),
-        'picking_barcode_type': fields.related('picking_config_id',
-                                               'barcode_type',
-                                               type='selection',
-                                               selection=_get_code,
-                                               string="Field"),
-        }
+        'picking_config_id': fields.many2one(
+            'tr.barcode.config',
+            'Picking Config'
+        ),
+        'picking_model_id': fields.related(
+            'picking_config_id',
+            'res_model',
+            type='many2one',
+            relation="ir.model",
+            string="Model"
+        ),
+        'picking_field_id': fields.related(
+            'picking_config_id',
+            'field',
+            type='many2one',
+            relation="ir.model.fields",
+            string="Field"
+        ),
+        'picking_width': fields.related(
+            'picking_config_id',
+            'width',
+            type='integer',
+            string="Width",
+            help="Leave Blank or 0(ZERO) for default size"
+        ),
+        'picking_height': fields.related(
+            'picking_config_id',
+            'height',
+            type='integer',
+            string="Height",
+            help="Leave Blank or 0(ZERO) for default size"
+        ),
+        'picking_hr_form': fields.related(
+            'picking_config_id',
+            'hr_form',
+            type='boolean',
+            string="Human Readable",
+            help="To generate Barcode In Human readable form"
+        ),
+        'picking_barcode_type': fields.related(
+            'picking_config_id',
+            'barcode_type',
+            type='selection',
+            selection=_get_code,
+            string="Field"
+        ),
+    }
     _defaults = {
         'picking_config_id': _get_default_picking_config_id,
-        }
+    }
 
-    def onchange_picking_config_id(self, cr, uid, _ids, picking_config_id, context=None):
+    def onchange_picking_config_id(self, cr, uid, _ids, picking_config_id,
+                                   context=None):
         values = {}
         if picking_config_id:
-            picking_config = self.pool.get('tr.barcode.config').browse(cr, uid,
-                                                                       picking_config_id,
-                                                                       context=context)
+            picking_config = self.pool.get('tr.barcode.config').browse(
+                cr, uid,
+                picking_config_id,
+                context=context
+            )
             values.update({
                 'picking_model_id':
                     picking_config.res_model.id
@@ -95,5 +112,3 @@ class tr_barcode_settings(orm.TransientModel):
                 'picking_barcode_type': picking_config.barcode_type or False,
             })
         return {'value': values}
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

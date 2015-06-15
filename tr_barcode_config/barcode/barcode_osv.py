@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2011 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,7 +17,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 from openerp.osv import orm
 from openerp import pooler
@@ -84,9 +84,13 @@ def create_barcode(cr, uid, id, vals, model, context=None):
             }
             if not barcode_vals.get('code', False):
                 read_value = pool.get(model).read(cr, uid, id)
-                barcode_vals['code'] = read_value.get(barcode_config.field.name, False)
+                barcode_vals['code'] = read_value.get(
+                    barcode_config.field.name,
+                    False
+                )
             barcode_obj = pool.get('tr.barcode')
-            barcode_id = barcode_obj.create(cr, uid, barcode_vals, context=context)
+            barcode_id = barcode_obj.create(cr, uid, barcode_vals,
+                                            context=context)
             barcode_obj.generate_image(cr, uid, [barcode_id], context=context)
     else:
         write_barcode(cr, uid, [barcode_id], vals, model, context=context)
@@ -115,13 +119,15 @@ class barcode_osv(orm.Model):
         obj = self.browse(cr, uid, res, context=context)
         if hasattr(obj, 'x_barcode_id'):
             if not obj.x_barcode_id:
-                barcode_id = create_barcode(cr, uid, res, vals, self._name, context=context)
+                barcode_id = create_barcode(cr, uid, res, vals,
+                                            self._name, context=context)
             else:
                 barcode_id = obj.x_barcode_id.id
         # end modification
 
             if barcode_id:
-                query = "UPDATE %s SET x_barcode_id = %%s WHERE id = %%s" % self._table
+                query = ("UPDATE %s SET x_barcode_id = %%s "
+                         "WHERE id = %%s") % self._table
                 cr.execute(query, (barcode_id, res))
         return res
 
@@ -136,12 +142,14 @@ class barcode_osv(orm.Model):
             if not hasattr(obj, 'x_barcode_id'):
                 break  # the module is not fully configured, quick exit
             if not obj.x_barcode_id:
-                barcode_ids = barcode_obj.search(cr, uid,
-                                                 [('res_model', '=', self._name),
-                                                  ('res_id', '=', obj.id)
-                                                  ],
-                                                 limit=1,
-                                                 context=context)
+                barcode_ids = barcode_obj.search(
+                    cr,
+                    uid,
+                    [('res_model', '=', self._name),
+                     ('res_id', '=', obj.id)],
+                    limit=1,
+                    context=context
+                )
                 if barcode_ids:
                     write_barcode(cr, uid,
                                   [barcode_ids[0]],
@@ -163,6 +171,5 @@ class barcode_osv(orm.Model):
                               vals,
                               self._name,
                               context=context)
-        return super(orm.Model, self).write(cr, uid, ids, vals, context=context)
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+        return super(orm.Model, self).write(cr, uid, ids, vals,
+                                            context=context)

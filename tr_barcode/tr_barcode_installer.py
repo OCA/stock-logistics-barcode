@@ -2,7 +2,7 @@
 ##############################################################################
 #
 #    Tech-Receptives Solutions Pvt. Ltd.
-#    Copyright (C) 2004-TODAY Tech-Receptives(<http://www.tech-receptives.com>).
+#    Copyright (C) 2004-TODAY Tech-Receptives <http://www.tech-receptives.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -47,9 +47,11 @@ class tr_barcode_installer(orm.TransientModel):
         act_window = self.pool.get('ir.actions.act_window')
         ir_value = self.pool.get('ir.values')
         ir_model = self.pool.get('ir.model')
-        unlink_ids = act_window.search(cr,
-                                       uid,
-                                       [('res_model', '=', 'tr.barcode.wizard')])
+        unlink_ids = act_window.search(
+            cr,
+            uid,
+            [('res_model', '=', 'tr.barcode.wizard')]
+        )
 
         for unlink_id in unlink_ids:
 
