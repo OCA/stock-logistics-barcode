@@ -18,5 +18,25 @@
 #
 ##############################################################################
 
-from . import gs1_barcode
-from . import res_users
+{
+    'name': 'GS1 Barcode API',
+    'summary': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
+    'version': '1.0',
+    'author': u'Numérigraphe,Odoo Community Association (OCA)',
+    'website': 'http://numerigraphe.com',
+    'category': 'Generic Modules/Inventory Control',
+    'depends': [
+        'product',
+    ],
+    'data': [
+        'gs1_barcode_view.xml',
+        'data/gs1_barcode.csv',
+        'data/ir_config_parameter.xml',
+        "security/ir.model.access.csv",
+    ],
+    'test': [
+        'test/gs1_barcode_test.yml'
+    ],
+    'installable': True,
+    'license': 'GPL-3',
+}
