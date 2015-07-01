@@ -39,30 +39,27 @@ class GS1Barcode(models.Model):
         'Application Identifier',
         size=14,
         required=True,
-        help='The standard Application Identifier (AI)',)
+        help='The standard Application Identifier (AI)')
     name = fields.Char('Description', required=True, translate=True)
     length_fixed = fields.Boolean(
         'Fixed-length Data',
         default=True,
-        help=(
-            'Indicates whether the length of the data '
-            'for this Application Identifier is fixed or not.'))
+        help=('Indicates whether the length of the data '
+              'for this Application Identifier is fixed or not.'))
     length_max = fields.Integer(
         'Maximum Data Length',
         default=30,
         required=True,
-        help=('Maximum length of the data for this Application Identifier.'))
+        help='Maximum length of the data for this Application Identifier.')
     length_min = fields.Integer(
         'Minimum Data Length',
-        help=(
-            'Minimum length of the data for this Application Identifier.'))
+        help='Minimum length of the data for this Application Identifier.')
     decimal = fields.Boolean(
         'Decimal Indicator',
         default=False,
-        help=(
-            'Indicates whether a digit is expected before the data for this '
-            'Application Identifier to indicate the position of the decimal '
-            'point.'))
+        help=('Indicates whether a digit is expected before the data for this '
+              'Application Identifier to indicate the position of the decimal '
+              'point.'))
     data_type = fields.Selection(
         [('string', 'Any character string'), ('numeric', 'Numeric value'),
          ('date', 'Date')],
@@ -111,12 +108,8 @@ genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
             return date.strftime(DATEFMT)
 
         # Prefix and Group Separator
-        prefix = self.env['ir.config_parameter'].get_param(
-            'gs1.barcode.prefix')
-        if not prefix or prefix == 'None':
-            prefix = ''
-        separator = self.env['ir.config_parameter'].get_param(
-            'gs1.barcode.separator')
+        prefix = self.env.user.gs1_barcode_prefix or ''
+        separator = self.env.user.gs1_barcode_separator or '\x1D'
 
         if not barcode_string.startswith(prefix):
             raise exceptions.ValidationError(
