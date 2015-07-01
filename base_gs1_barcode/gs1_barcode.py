@@ -22,10 +22,12 @@
 from __future__ import division
 
 import re
-import time
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from openerp.tools.translate import _
 from openerp import models, fields, api, exceptions
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT as DATEFMT
 
 
 class gs1_barcode(models.Model):
@@ -92,6 +94,21 @@ class gs1_barcode(models.Model):
         @param barcode_string: GS1-128/GS1-Datamatrix string  to decode
         @return: A dictionary of values with Application Identifiers as keys
         """
+
+        def normalize_date(datestring):
+            """
+            Convert dates like '151231' as Odoo formatted '2015-12-31'.
+            Note that the day can be underspecified as '00'. As per
+            https://www.gs1.ch/docs/default-source/gs1-system-document/\
+genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
+            this denotes the end of the month.
+            """
+            if datestring.endswith('00'):
+                date = (datetime.strptime(datestring[:4], "%y%m") +
+                        relativedelta(months=1) - relativedelta(days=1))
+            else:
+                date = datetime.strptime(datestring, '%y%m%d')
+            return date.strftime(DATEFMT)
 
         # Prefix and Group Separator
         prefix = self.env['ir.config_parameter'].get_param(
@@ -178,13 +195,7 @@ class gs1_barcode(models.Model):
                         results[ai] /= (10 ** int(groups['decimal']))
                         position += len(groups['decimal'])
                 elif types[ai] == 'date':
-                    # Format the date
-                    # Some barcodes are edited with a day of 0 - change it
-                    # to 1 to make it a valid date
-                    if results[ai].endswith('00'):
-                        results[ai] = results[ai][:5] + '1'
-                    results[ai] = time.strftime(
-                        '%Y-%m-%d', time.strptime(results[ai], '%y%m%d'))
+                    results[ai] = normalize_date(results[ai])
 
                 # We know we won't match another AI for now, move on
                 break
