@@ -1,19 +1,19 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 #
-#    This module is copyright (C) 2012 Numérigraphe SARL. All Rights Reserved.
+#    This module is copyright (C) 2012-2014 Numérigraphe SARL.
 #
 #    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU General Public License as published by
-#    the Free Software Foundation, either version 3 of the License, or
-#    (at your option) any later version.
+#    it under the terms of the GNU Affero General Public License as
+#    published by the Free Software Foundation, either version 3 of the
+#    License, or (at your option) any later version.
 #
 #    This program is distributed in the hope that it will be useful,
 #    but WITHOUT ANY WARRANTY; without even the implied warranty of
 #    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU General Public License for more details.
+#    GNU Affero General Public License for more details.
 #
-#    You should have received a copy of the GNU General Public License
+#    You should have received a copy of the GNU Affero General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
@@ -22,13 +22,15 @@
 from __future__ import division
 
 import re
-import time
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 from openerp.tools.translate import _
 from openerp import models, fields, api, exceptions
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT as DATEFMT
 
 
-class gs1_barcode(models.Model):
+class GS1Barcode(models.Model):
     """GS1-128/GS1-Datamatrix barcode decoder API and configuration"""
     _name = "gs1_barcode"
     _description = __doc__
@@ -37,30 +39,27 @@ class gs1_barcode(models.Model):
         'Application Identifier',
         size=14,
         required=True,
-        help='The standard Application Identifier (AI)',)
+        help='The standard Application Identifier (AI)')
     name = fields.Char('Description', required=True, translate=True)
     length_fixed = fields.Boolean(
         'Fixed-length Data',
         default=True,
-        help=(
-            'Indicates whether the length of the data '
-            'for this Application Identifier is fixed or not.'))
+        help=('Indicates whether the length of the data '
+              'for this Application Identifier is fixed or not.'))
     length_max = fields.Integer(
         'Maximum Data Length',
         default=30,
         required=True,
-        help=('Maximum length of the data for this Application Identifier.'))
+        help='Maximum length of the data for this Application Identifier.')
     length_min = fields.Integer(
         'Minimum Data Length',
-        help=(
-            'Minimum length of the data for this Application Identifier.'))
+        help='Minimum length of the data for this Application Identifier.')
     decimal = fields.Boolean(
         'Decimal Indicator',
         default=False,
-        help=(
-            'Indicates whether a digit is expected before the data for this '
-            'Application Identifier to indicate the position of the decimal '
-            'point.'))
+        help=('Indicates whether a digit is expected before the data for this '
+              'Application Identifier to indicate the position of the decimal '
+              'point.'))
     data_type = fields.Selection(
         [('string', 'Any character string'), ('numeric', 'Numeric value'),
          ('date', 'Date')],
@@ -93,13 +92,24 @@ class gs1_barcode(models.Model):
         @return: A dictionary of values with Application Identifiers as keys
         """
 
+        def normalize_date(datestring):
+            """
+            Convert dates like '151231' as Odoo formatted '2015-12-31'.
+            Note that the day can be underspecified as '00'. As per
+            https://www.gs1.ch/docs/default-source/gs1-system-document/\
+genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
+            this denotes the end of the month.
+            """
+            if datestring.endswith('00'):
+                date = (datetime.strptime(datestring[:4], "%y%m") +
+                        relativedelta(months=1) - relativedelta(days=1))
+            else:
+                date = datetime.strptime(datestring, '%y%m%d')
+            return date.strftime(DATEFMT)
+
         # Prefix and Group Separator
-        prefix = self.env['ir.config_parameter'].get_param(
-            'gs1.barcode.prefix')
-        if not prefix or prefix == 'None':
-            prefix = ''
-        separator = self.env['ir.config_parameter'].get_param(
-            'gs1.barcode.separator')
+        prefix = self.env.user.gs1_barcode_prefix or ''
+        separator = self.env.user.gs1_barcode_separator or '\x1D'
 
         if not barcode_string.startswith(prefix):
             raise exceptions.ValidationError(
@@ -114,7 +124,9 @@ class gs1_barcode(models.Model):
         #  * regular expression template to match a fixed-length value of
         #    %d characters, to the group called "value".
         #    Must be formated with an integer.
-        FIXED_LENGTH = r'(?P<value>.{%d})'
+        #    <GS> can optionally follow after a fixed length value. See p.19
+        #    of http://www.gs1.org/docs/barcodes/GS1_DataMatrix_Guideline.pdf
+        FIXED_LENGTH = r'(?P<value>.{%d}' + separator + r'?)'
         # * regular expression to match a variable length value ending with
         #   a <GS> character, to the group called "value".
         #   Must be formated with a pair of integers.
@@ -176,13 +188,7 @@ class gs1_barcode(models.Model):
                         results[ai] /= (10 ** int(groups['decimal']))
                         position += len(groups['decimal'])
                 elif types[ai] == 'date':
-                    # Format the date
-                    # Some barcodes are edited with a day of 0 - change it
-                    # to 1 to make it a valid date
-                    if results[ai].endswith('00'):
-                        results[ai] = results[ai][:5] + '1'
-                    results[ai] = time.strftime(
-                        '%Y-%m-%d', time.strptime(results[ai], '%y%m%d'))
+                    results[ai] = normalize_date(results[ai])
 
                 # We know we won't match another AI for now, move on
                 break
