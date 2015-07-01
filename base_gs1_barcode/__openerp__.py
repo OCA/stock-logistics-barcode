@@ -29,9 +29,9 @@
         'product',
     ],
     'data': [
-        'gs1_barcode_view.xml',
+        'views/gs1_barcode.xml',
+        'views/res_users.xml',
         'data/gs1_barcode.csv',
-        'data/ir_config_parameter.xml',
         "security/ir.model.access.csv",
     ],
     'test': [
