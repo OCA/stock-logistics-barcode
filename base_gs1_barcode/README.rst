@@ -73,6 +73,7 @@ Contributors
 ------------
 
 * Lionel Sausin <ls@numerigraphe.fr>
+* Stefan Rijnhart <stefan@therp.nl>
 
 Maintainer
 ----------
