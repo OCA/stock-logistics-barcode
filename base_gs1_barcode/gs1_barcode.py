@@ -30,7 +30,7 @@ from openerp import models, fields, api, exceptions
 from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT as DATEFMT
 
 
-class gs1_barcode(models.Model):
+class GS1Barcode(models.Model):
     """GS1-128/GS1-Datamatrix barcode decoder API and configuration"""
     _name = "gs1_barcode"
     _description = __doc__
