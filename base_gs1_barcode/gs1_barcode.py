@@ -114,7 +114,9 @@ class gs1_barcode(models.Model):
         #  * regular expression template to match a fixed-length value of
         #    %d characters, to the group called "value".
         #    Must be formated with an integer.
-        FIXED_LENGTH = r'(?P<value>.{%d})'
+        #    <GS> can optionally follow after a fixed length value. See p.19
+        #    of http://www.gs1.org/docs/barcodes/GS1_DataMatrix_Guideline.pdf
+        FIXED_LENGTH = r'(?P<value>.{%d}' + separator + r'?)'
         # * regular expression to match a variable length value ending with
         #   a <GS> character, to the group called "value".
         #   Must be formated with a pair of integers.
