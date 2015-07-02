@@ -21,7 +21,7 @@
 {
     'name': 'GS1 Barcode API',
     'summary': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
-    'version': '1.0',
+    'version': '1.1',
     'author': u'Numérigraphe,Odoo Community Association (OCA)',
     'website': 'http://numerigraphe.com',
     'category': 'Generic Modules/Inventory Control',
@@ -38,5 +38,5 @@
         'test/gs1_barcode_test.yml'
     ],
     'installable': True,
-    'license': 'GPL-3',
+    'license': 'AGPL-3',
 }
