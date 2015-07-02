@@ -5,7 +5,6 @@
         <record id="gs1_barcode_tree_view" model="ir.ui.view">
             <field name="name">gs1_barcode.tree</field>
             <field name="model">gs1_barcode</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="GS1-128/GS1-Datamatrix decoding configuration">
                     <field name="ai" />
@@ -16,7 +15,6 @@
         <record id="gs1_barcode_form_view" model="ir.ui.view">
             <field name="name">gs1_barcode.form</field>
             <field name="model">gs1_barcode</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="GS1-128/GS1-Datamatrix decoding configuration">
                     <separator string="Application Identifier" colspan="4" />
