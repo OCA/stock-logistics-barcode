@@ -16,7 +16,7 @@
     
     assert len(result)==4, "The barcode should decode to 4 AIs"
     assert result.get('01') == gtin, "The GTIN should be %s" % gtin
-    assert result.get('17') == '2014-05-31', "The expiry date should be %s" % '2014-05-31'
+    assert result.get('17') == '2014-05-31', "The expiry date should be 2014-05-31"
     assert result.get('10') == lot, "The lot should be %s" % lot
     assert result.get('310') == 0.06385, "The weight should be %s" % weight
 ...
