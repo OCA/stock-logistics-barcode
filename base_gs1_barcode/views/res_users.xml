@@ -8,8 +8,10 @@
             <field name="arch" type="xml">
                 <notebook position="inside">
                     <page string="GS1-128/GS1-Datamatrix barcodes">
-                        <field name="gs1_barcode_prefix" />
-                        <field name="gs1_barcode_separator" />
+                        <group>
+                            <field name="gs1_barcode_prefix" />
+                            <field name="gs1_barcode_separator" />
+                        </group>
                     </page>
                 </notebook>
             </field>
