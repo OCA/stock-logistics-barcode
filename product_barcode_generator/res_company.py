@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,17 +17,15 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 from openerp.osv import fields, orm
-from openerp.tools.translate import _
+
 
 class res_company(orm.Model):
-    
+
     _inherit = 'res.company'
-            
+
     _columns = {
         'ean_sequence_id': fields.many2one('ir.sequence', 'Ean Sequence'),
     }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

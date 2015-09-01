@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,20 +17,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 from openerp.osv import fields, orm
-from openerp.tools.translate import _
+
 
 class ir_sequence(orm.Model):
     _inherit = 'ir.sequence'
-    
+
     _columns = {
         'barcode_sequence': fields.boolean('Barcode Sequence'),
     }
-    
+
     _defaults = {
         'barcode_sequence': False,
     }
-    
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

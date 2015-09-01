@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-#################################################################################
+###############################################################################
 #
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
@@ -17,15 +17,18 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-#################################################################################
+###############################################################################
 
 {
     "name": 'Product barcode generator',
     "version": '1.0',
     "description": """
-    This module will add a function which leads to an automatic generation of EAN13 for products
-    
-    You will have to define the company default value (6 firsts number of EAN13) then the 6 next number the sequence.
+    This module will add a function which leads to an automatic generation
+     of EAN13 for products
+
+    You will have to define the company default value
+     (6 firsts number of EAN13) then the 6 next number the sequence.
+
     The 13rd is the key of the EAN13, this will be automatically computed.
     """,
     "author": 'Julius Network Solutions',
@@ -36,13 +39,12 @@
     ],
     "demo": [],
     "data": [
-       "data/ean_sequence.xml",
-       "res_company_view.xml",
-       "product_view.xml",
-       "sequence_view.xml",
+        "data/ean_sequence.xml",
+        "res_company_view.xml",
+        "product_view.xml",
+        "sequence_view.xml",
     ],
     "installable": True,
     "active": False,
-    "category" : "Stock Management",
+    "category": "Stock Management",
 }
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
