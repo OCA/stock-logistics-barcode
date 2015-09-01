@@ -21,17 +21,10 @@
 
 {
     "name": 'Product barcode generator',
-    "version": '1.0',
-    "description": """
-    This module will add a function which leads to an automatic generation
-     of EAN13 for products
-
-    You will have to define the company default value
-     (6 firsts number of EAN13) then the 6 next number the sequence.
-
-    The 13rd is the key of the EAN13, this will be automatically computed.
-    """,
-    "author": 'Julius Network Solutions',
+    "license": "AGPL-3",
+    "category": "Stock Management",
+    "version": '8.0.1.0.0',
+    "author": 'Julius Network Solutions, Odoo Community Association (OCA)',
     "website": 'http://www.julius.fr/',
     "depends": [
         'base',
@@ -46,5 +39,4 @@
     ],
     "installable": True,
     "active": False,
-    "category": "Stock Management",
 }
