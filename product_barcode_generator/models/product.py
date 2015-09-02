@@ -36,12 +36,12 @@ class ProductCategory(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
+    ean13 = fields.Char(copy=False)
     ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
 
     @api.model
     def _get_ean_next_code(self, product):
         sequence_obj = self.env['ir.sequence']
-        ean = ''
         if product.ean_sequence_id:
             ean = sequence_obj.next_by_id(product.ean_sequence_id.id)
         elif product.categ_id.ean_sequence_id:
@@ -53,19 +53,19 @@ class ProductProduct(models.Model):
             ean = sequence_obj.next_by_id(self.env.context.get('sequence_id'))
         else:
             return None
+        ean = (len(ean[0:6]) == 6 and ean[0:6] or
+               ean[0:6].ljust(6, '0')) + ean[6:].rjust(6, '0')
         if len(ean) > 12:
             raise exceptions.Warning(
-                _("Configuration Error!"),
-                _("There next sequence is upper than 12 characters. "
+                _("Configuration Error!"
+                  "The next sequence is upper than 12 characters. "
                   "This can't work. "
                   "You will have to redefine the sequence or create a new one")
                 )
-        else:
-            ean = (len(ean[0:6]) == 6 and ean[0:6] or
-                   ean[0:6].ljust(6, '0')) + ean[6:].rjust(6, '0')
+
         return ean
 
-    def _get_ean_key(self, code):
+    def _get_ean_control_digit(self, code):
         sum = 0
         for i in range(12):
             if isodd(i):
@@ -80,24 +80,16 @@ class ProductProduct(models.Model):
         ean = self._get_ean_next_code(product)
         if not ean:
             return None
-        key = self._get_ean_key(ean)
+        key = self._get_ean_control_digit(ean)
         ean13 = ean + key
         return ean13
 
-    @api.multi
-    def generate_ean13(self):
-        for product in self:
-            if product.ean13:
-                continue
-            ean13 = self._generate_ean13_value(product)
-            if not ean13:
-                continue
-            product.write({'ean13': ean13})
-        return True
-
     @api.one
-    def copy(self, default=None):
-        if default is None:
-            default = {}
-        default['ean13'] = False
-        return super(ProductProduct, self).copy(default=default)
+    def generate_ean13(self):
+        if self.ean13:
+            return
+        ean13 = self._generate_ean13_value(self)
+        if not ean13:
+            return
+        self.write({'ean13': ean13})
+        return True
