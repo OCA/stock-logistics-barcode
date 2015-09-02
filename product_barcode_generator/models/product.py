@@ -86,8 +86,7 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_ean13(self):
-        product_ids = self
-        for product in product_ids:
+        for product in self:
             if product.ean13:
                 continue
             ean13 = self._generate_ean13_value(product)
