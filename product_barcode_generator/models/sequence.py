@@ -19,13 +19,10 @@
 #
 ###############################################################################
 
-from openerp.osv import fields, orm
+from openerp import models, fields
 
 
-class res_company(orm.Model):
+class IrSequence(models.Model):
+    _inherit = 'ir.sequence'
 
-    _inherit = 'res.company'
-
-    _columns = {
-        'ean_sequence_id': fields.many2one('ir.sequence', 'Ean Sequence'),
-    }
+    barcode_sequence = fields.Boolean(string='Barcode Sequence', default=False)

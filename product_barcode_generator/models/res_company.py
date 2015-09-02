@@ -19,23 +19,10 @@
 #
 ###############################################################################
 
-{
-    "name": 'Product barcode generator',
-    "license": "AGPL-3",
-    "category": "Stock Management",
-    "version": '8.0.1.0.0',
-    "author": 'Julius Network Solutions, Odoo Community Association (OCA)',
-    "website": 'http://www.julius.fr/',
-    "depends": [
-        'product',
-    ],
-    "demo": [],
-    "data": [
-        "data/ean_sequence.xml",
-        "views/res_company_view.xml",
-        "views/product_view.xml",
-        "views/sequence_view.xml",
-    ],
-    "installable": True,
-    "active": False,
-}
+from openerp import models, fields
+
+
+class ResCompany(models.Model):
+    _inherit = 'res.company'
+
+    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')

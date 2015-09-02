@@ -19,55 +19,42 @@
 #
 ###############################################################################
 
-from openerp.osv import fields, orm
-from openerp.tools.translate import _
+from openerp import api, models, fields, _
+from openerp import exceptions
 
 
 def isodd(x):
     return bool(x % 2)
 
 
-class product_category(orm.Model):
+class ProductCategory(models.Model):
     _inherit = 'product.category'
 
-    _columns = {
-        'ean_sequence_id': fields.many2one('ir.sequence', 'Ean Sequence'),
-    }
+    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
 
 
-class product_product(orm.Model):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    _columns = {
-        'ean_sequence_id': fields.many2one('ir.sequence', 'Ean Sequence'),
-    }
+    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
 
-    def _get_ean_next_code(self, cr, uid, product, context=None):
-        if context is None:
-            context = {}
-        sequence_obj = self.pool.get('ir.sequence')
+    @api.model
+    def _get_ean_next_code(self, product):
+        sequence_obj = self.env['ir.sequence']
         ean = ''
         if product.ean_sequence_id:
-            ean = sequence_obj.next_by_id(cr, uid,
-                                          product.ean_sequence_id.id,
-                                          context=context)
+            ean = sequence_obj.next_by_id(product.ean_sequence_id.id)
         elif product.categ_id.ean_sequence_id:
-            ean = sequence_obj.next_by_id(cr, uid,
-                                          product.categ_id.ean_sequence_id.id,
-                                          context=context)
+            ean = sequence_obj.next_by_id(product.categ_id.ean_sequence_id.id)
         elif product.company_id and product.company_id.ean_sequence_id:
             ean = sequence_obj.next_by_id(
-                cr, uid,
-                product.company_id.ean_sequence_id.id,
-                context=context)
-        elif context.get('sequence_id'):
-            ean = sequence_obj.next_by_id(cr, uid,
-                                          context.get('sequence_id'),
-                                          context=context)
+                product.company_id.ean_sequence_id.id)
+        elif self.env.context.get('sequence_id', False):
+            ean = sequence_obj.next_by_id(self.env.context.get('sequence_id'))
         else:
             return None
         if len(ean) > 12:
-            raise orm.except_orm(
+            raise exceptions.Warning(
                 _("Configuration Error!"),
                 _("There next sequence is upper than 12 characters. "
                   "This can't work. "
@@ -86,43 +73,32 @@ class product_product(orm.Model):
             else:
                 sum += int(code[i])
         key = (10 - sum % 10) % 10
-        return str(key)
+        return '%d' % key
 
-    def _generate_ean13_value(self, cr, uid, product, context=None):
-        ean13 = False
-        if context is None:
-            context = {}
-        ean = self._get_ean_next_code(cr, uid, product, context=context)
+    @api.model
+    def _generate_ean13_value(self, product):
+        ean = self._get_ean_next_code(product)
         if not ean:
             return None
         key = self._get_ean_key(ean)
         ean13 = ean + key
         return ean13
 
-    def generate_ean13(self, cr, uid, ids, context=None):
-        if context is None:
-            context = {}
-        product_ids = self.browse(cr, uid, ids, context=context)
+    @api.multi
+    def generate_ean13(self):
+        product_ids = self
         for product in product_ids:
             if product.ean13:
                 continue
-            ean13 = self._generate_ean13_value(cr, uid,
-                                               product,
-                                               context=context)
+            ean13 = self._generate_ean13_value(product)
             if not ean13:
                 continue
-            self.write(cr, uid,
-                       [product.id],
-                       {'ean13': ean13},
-                       context=context)
+            product.write({'ean13': ean13})
         return True
 
-    def copy(self, cr, uid, id, default=None, context=None):
+    @api.one
+    def copy(self, default=None):
         if default is None:
             default = {}
-        if context is None:
-            context = {}
         default['ean13'] = False
-        return super(product_product, self).copy(cr, uid, id,
-                                                 default=default,
-                                                 context=context)
+        return super(ProductProduct, self).copy(default=default)

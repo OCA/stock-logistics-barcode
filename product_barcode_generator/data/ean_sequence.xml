@@ -13,6 +13,7 @@
             <field name="prefix">000000</field>
             <field name="padding">6</field>
             <field name="number_next">1</field>
+            <field name="barcode_sequence" eval="True"/>
         </record>
 
     </data>

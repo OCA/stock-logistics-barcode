@@ -19,16 +19,6 @@
 #
 ###############################################################################
 
-from openerp.osv import fields, orm
-
-
-class ir_sequence(orm.Model):
-    _inherit = 'ir.sequence'
-
-    _columns = {
-        'barcode_sequence': fields.boolean('Barcode Sequence'),
-    }
-
-    _defaults = {
-        'barcode_sequence': False,
-    }
+from . import res_company
+from . import product
+from . import sequence

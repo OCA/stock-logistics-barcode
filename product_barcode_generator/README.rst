@@ -12,12 +12,13 @@ You will have to define the company default value (6 firsts number of EAN13) the
 
 The 13rd is the key of the EAN13, this will be automatically computed.
 
+The sequence to use to generate the ean13 can be specified at 3 levels (in the specified order):
+* product
+* category
+* company
+
 Usage
 =====
-
-To use this module, you need to:
-
-* go to ...
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
