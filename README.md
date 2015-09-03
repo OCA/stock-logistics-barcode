@@ -41,3 +41,8 @@ addon | version | summary
 [tr_barcode_on_tracking](tr_barcode_on_tracking/) | 1.1 (unported) | Barcode for tracking
 
 [//]: # (end addons)
+
+
+Translation Status
+------------------
+[![Transifex Status](https://www.transifex.com/projects/p/OCA-stock-logistics-barcode-8-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-stock-logistics-barcode-8-0)
