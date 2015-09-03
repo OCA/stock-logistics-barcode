@@ -58,8 +58,9 @@ class ProductProduct(models.Model):
         if len(ean) > 12:
             raise exceptions.Warning(
                 _("Configuration Error!"
-                  "The next sequence is upper than 12 characters. "
-                  "This can't work. "
+                  "The next sequence is longer than 12 characters. "
+                  "It is not valid for an EAN13 needing 12 characters, "
+                  "the 13 being used as a control digit"
                   "You will have to redefine the sequence or create a new one")
                 )
 

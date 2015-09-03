@@ -29,7 +29,7 @@ class TestProductBarcodeGenerator(common.TransactionCase):
         self.sequence1 = self.env.ref(
             'product_barcode_generator.seq_ean13_sequence')
         if not self.sequence1.barcode_sequence:
-            self.sequence1.write({'barcode_sequence': True})
+            self.sequence1.barcode_sequence = True
 
         self.product_demo = self.env.ref('product.product_product_6')
         self.product_obj = self.env['product.product']

@@ -29,7 +29,7 @@ class TestEanOnProduct(common.TransactionCase):
         self.sequence1 = self.env.ref(
             'product_barcode_generator.seq_ean13_sequence')
         if not self.sequence1.barcode_sequence:
-            self.sequence1.write({'barcode_sequence': True})
+            self.sequence1.barcode_sequence = True
 
         self.product_demo = self.env.ref('product.product_product_6')
         self.product_obj = self.env['product.product']
@@ -37,10 +37,10 @@ class TestEanOnProduct(common.TransactionCase):
     def test_generate_ean_sequence_on_product_no_sequence(self):
         self.product_demo.write({'ean13': False})
         self.product_demo.generate_ean13()
-        self.assertEqual(bool(self.product_demo.ean13), False)
+        self.assertFalse(bool(self.product_demo.ean13))
 
     def test_generate_ean_sequence_on_product_with_sequence(self):
         self.product_demo.write({'ean13': False,
                                  'ean_sequence_id': self.sequence1.id})
         self.product_demo.generate_ean13()
-        self.assertEqual(bool(self.product_demo.ean13), True)
+        self.assertTrue(bool(self.product_demo.ean13))
