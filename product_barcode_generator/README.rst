@@ -8,7 +8,7 @@ Product barcode generator
 
 This module will add a function which leads to an automatic generation of EAN13 for products
 
-You will have to define the company default value (6 firsts number of EAN13) then the 6 next number the sequence.
+You will have to define the company default value (6 first numbers of EAN13) then the 6 next numbers of the sequence.
 
 The 13rd is the control digit of the EAN13, this will be automatically computed.
 
