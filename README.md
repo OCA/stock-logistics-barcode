@@ -17,3 +17,7 @@ Please don't hesitate to suggest one of your module to this project. Also, you m
  - https://github.com/OCA/stock-logistics-tracking
  - https://github.com/OCA/stock-logistics-workflow
  - https://github.com/OCA/stock-logistics-warehouse
+
+Translation Status
+------------------
+[![Transifex Status](https://www.transifex.com/projects/p/OCA-stock-logistics-barcode-7-0/chart/image_png)](https://www.transifex.com/projects/p/OCA-stock-logistics-barcode-7-0)
