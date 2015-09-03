@@ -1,0 +1,37 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* barcode_link
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0\n"
+"Report-Msgid-Bugs-To: support@openerp.com\n"
+"POT-Creation-Date: 2011-12-19 10:52+0000\n"
+"PO-Revision-Date: 2015-02-01 14:33+0100\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Language: de\n"
+"X-Generator: Poedit 1.5.4\n"
+
+#. module: barcode_link
+#: model:ir.module.module,description:barcode_link.module_meta_information
+msgid " This module is the Barcode link module"
+msgstr "Dieses Modul stellt Barcode-Verknüpfungen her"
+
+#. module: barcode_link
+#: model:ir.model,name:barcode_link.model_tr_barcode
+msgid "Barcode"
+msgstr "Barcodes"
+
+#. module: barcode_link
+#: field:tr.barcode,link:0
+msgid "Link"
+msgstr "Verknüpfung"
+
+#. module: barcode_link
+#: model:ir.module.module,shortdesc:barcode_link.module_meta_information
+msgid "Barcode link Module"
+msgstr "Barcode-Verknüpfungs-Modul"
