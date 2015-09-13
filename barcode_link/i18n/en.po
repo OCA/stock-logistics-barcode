@@ -8,21 +8,21 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-09-03 12:45+0000\n"
-"PO-Revision-Date: 2015-09-03 12:46+0000\n"
+"PO-Revision-Date: 2015-09-03 12:45+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/de/)\n"
+"Language-Team: English (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/en/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
+"Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: barcode_link
 #: model:ir.model,name:barcode_link.model_tr_barcode
 msgid "Barcode"
-msgstr "Barcodes"
+msgstr "Barcode"
 
 #. module: barcode_link
 #: field:tr.barcode,link:0
 msgid "Link"
-msgstr "Verknüpfung"
+msgstr "Link"
