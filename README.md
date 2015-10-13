@@ -29,15 +29,15 @@ Unported addons
 ---------------
 addon | version | summary
 --- | --- | ---
-[barcode_link](__unported__/barcode_link/) | 1.0 (unported) | Barcode link Module
-[base_gs1_barcode](__unported__/base_gs1_barcode/) | 1.0 (unported) | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
-[product_multi_ean](__unported__/product_multi_ean/) | 1.2 (unported) | Multiple EAN13 on products
-[tr_barcode](__unported__/tr_barcode/) | 1.1.4 (unported) | TR Barcode
-[tr_barcode_config](__unported__/tr_barcode_config/) | 1.1.1 (unported) | Barcode configuration Module
-[tr_barcode_field](__unported__/tr_barcode_field/) | 1.1 (unported) | Barcode field Module
-[tr_barcode_on_picking](__unported__/tr_barcode_on_picking/) | 1.1 (unported) | Barcode for pickings
-[tr_barcode_on_prodlots](__unported__/tr_barcode_on_prodlots/) | 1.1 (unported) | Barcode for production lots
-[tr_barcode_on_product](__unported__/tr_barcode_on_product/) | 1.1 (unported) | Barcode for product
-[tr_barcode_on_tracking](__unported__/tr_barcode_on_tracking/) | 1.1 (unported) | Barcode for tracking
+[barcode_link](barcode_link/) | 1.0 (unported) | Barcode link Module
+[base_gs1_barcode](base_gs1_barcode/) | 1.0 (unported) | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
+[product_multi_ean](product_multi_ean/) | 1.2 (unported) | Multiple EAN13 on products
+[tr_barcode](tr_barcode/) | 1.1.4 (unported) | TR Barcode
+[tr_barcode_config](tr_barcode_config/) | 1.1.1 (unported) | Barcode configuration Module
+[tr_barcode_field](tr_barcode_field/) | 1.1 (unported) | Barcode field Module
+[tr_barcode_on_picking](tr_barcode_on_picking/) | 1.1 (unported) | Barcode for pickings
+[tr_barcode_on_prodlots](tr_barcode_on_prodlots/) | 1.1 (unported) | Barcode for production lots
+[tr_barcode_on_product](tr_barcode_on_product/) | 1.1 (unported) | Barcode for product
+[tr_barcode_on_tracking](tr_barcode_on_tracking/) | 1.1 (unported) | Barcode for tracking
 
 [//]: # (end addons)
