@@ -1,188 +1,198 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_gs1_barcode
+# * base_gs1_barcode
 #
+# Translators:
+# Antonio Trueba, 2016
+# Antonio Trueba, 2016
+# Fernando Lara <gennesis45@gmail.com>, 2017
+# Roberto Lizana <robertolizana@trey.es>, 2017
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
-"Language-Team: \n"
+"POT-Creation-Date: 2017-02-19 03:46+0000\n"
+"PO-Revision-Date: 2017-02-20 12:40+0000\n"
+"Last-Translator: Fernando Lara <gennesis45@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: \n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ACTIVE_POTENCY
 msgid "Active Potency"
-msgstr ""
+msgstr "Potencia Activa"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
 msgid "Additional Product Identification"
-msgstr ""
+msgstr "Identificación adicional del producto"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
 msgid "Amount payable (local currency)"
-msgstr ""
+msgstr "Importe a pagar (moneda local)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
 msgid "Amount payable (with ISO currency code)"
-msgstr ""
+msgstr "Importe a pagar (con código de moneda ISO)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM
 msgid "Amount payable per single item (local currency)"
-msgstr ""
+msgstr "Importe a pagar por artículo único (moneda local)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM_CURRENCY
 msgid "Amount payable per single item (with ISO currency code)"
-msgstr ""
+msgstr "Importe a pagar por artículo único (con código de moneda ISO)"
 
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,data_type:0
 msgid "Any character string"
-msgstr ""
+msgstr "Cualquier cadena de caracteres"
 
 #. module: base_gs1_barcode
 #: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
 #: field:gs1_barcode,ai:0
 msgid "Application Identifier"
-msgstr ""
+msgstr "Identificador de aplicación"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.LOT
 msgid "Batch/Lot Number"
-msgstr ""
+msgstr "Número de Grupo/ Lote"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.INVOICE_LOCATION
 msgid "Bill To/Invoice Location Code (Global Location Number)"
 msgstr ""
+"Facturar a / Código de Ubicación a Facturar (Número de Ubicación Global)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.BILL_OF_LADING
 msgid "Bill of Lading number"
-msgstr ""
+msgstr "Número de Factura de Envío"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONSIGNMENT
 msgid "Consignment Number"
-msgstr ""
+msgstr "Número de Envío"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_FT2
 msgid "Container Area (Square Feet)"
-msgstr ""
+msgstr "Área del Contenedor (Pies Cuadrados)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_IN2
 msgid "Container Area (Square Inches)"
-msgstr ""
+msgstr "Área de Contenedores (Pulgadas Cuadradas)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA
 msgid "Container Area (Square Meters)"
-msgstr ""
+msgstr "Área de Contenedores (Metros Cuadrados)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_SQUARE_YD
 msgid "Container Area (Square Yards)"
-msgstr ""
+msgstr "Área de Contenedores (Yardas Cuadradas)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH
 msgid "Container Depth/Thickness/3rd Dimension (Meters)"
-msgstr ""
+msgstr "Grosor / Espesor del Contenedor /3rd Dimensión (Metros)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_FT
 msgid "Container Depth/Thickness/Height/3rd Dimension, in feet"
-msgstr ""
+msgstr "Grosor / Espesor del Contenedor /Altura/ 3rd Dimensión, en piés"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_IN
 msgid "Container Depth/Thickness/Height/3rd Dimension, in inches"
-msgstr ""
+msgstr "Grosor / Espesor del Contenedor /Altura/ 3rd Dimensión, en pulgadas"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_YD
 msgid "Container Depth/Thickness/Height/3rd Dimension, in yards"
-msgstr ""
+msgstr "Grosor / Espesor del Contenedor /Altura/ 3rd Dimensión, en yardas"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_FT3
 msgid "Container Gross Volume (Cubic Feet)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Pies Cúbicos)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_IN3
 msgid "Container Gross Volume (Cubic Inches)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Pulgadas Cúbicas)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME
 msgid "Container Gross Volume (Cubic Meters)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Metros Cúbicos)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_YD3
 msgid "Container Gross Volume (Cubic Yards)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Yardas Cúbicas)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_L
 msgid "Container Gross Volume (Liters)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Litros)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_QUARTS
 msgid "Container Gross Volume (Quarts)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Cuartos)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_GALLONS
 msgid "Container Gross Volume (U.S. Gallons)"
-msgstr ""
+msgstr "Contenido Bruto del Envase (Galones Americanos)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_WEIGHT_LB
 msgid "Container Gross Weight (Pounds)"
-msgstr ""
+msgstr "Peso Bruto del Envase (Libras)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_WEIGHT
 msgid "Container Gross Weight (kg)"
-msgstr ""
+msgstr "Peso Bruto del Envase (kg)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH
 msgid "Container Length/1st Dimension (Meters)"
-msgstr ""
+msgstr "Longitud del Contenedor / 1ª Dimensión (Metros)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_YD
 msgid "Container Length/1st Dimension in, in yards"
-msgstr ""
+msgstr "Longitud del Contenedor / 1ª Dimensión en, en yardas"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_FT
 msgid "Container Length/1st Dimension, in feet"
-msgstr ""
+msgstr "Longitud del Contenedor / 1ª Dimensión, en pies"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_IN
 msgid "Container Length/1st Dimension, in inches"
-msgstr ""
+msgstr "Longitud del Contenedor / 1ª Dimensión, en pulgadas"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH
 msgid "Container Width/Diameter/2nd Dimension (Meters)"
-msgstr ""
+msgstr "Ancho / Diámetro / 2da Dimensión del Contenedor (Metros)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_FT
@@ -202,85 +212,94 @@ msgstr ""
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:116
 #, python-format
-msgid "Could not decode barcode : wrong prefix - the code should start with \"%s\""
+msgid ""
+"Could not decode barcode : wrong prefix - the code should start with \"%s\""
 msgstr ""
+"No se ha podido decodificar el código de barras: prefijo incorrecto - el "
+"código debe comenzar por \"%s\""
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:178
 #, python-format
-msgid "Could not decode barcode: incorrect value for Application Identifer \"%s\" at position %d"
+msgid ""
+"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
+"at position %d"
 msgstr ""
+"No se ha podido decodificar el código de barras: valor incorrecto para el "
+"identificador de aplicación \"%s\" en la posición %d"
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:199
 #, python-format
 msgid "Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
+"No se ha podido decodificar el código de barras: identificador de aplicación "
+"desconocido en la posición %d"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNT
 msgid "Count of items"
-msgstr ""
+msgstr "Cuenta de Artículos"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_ORIGIN
 msgid "Country of Origin (ISO country code)"
-msgstr ""
+msgstr "País de origen (Código ISO)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_DISASSEMBLY
 msgid "Country of disassembly"
-msgstr ""
+msgstr "País de desmontaje"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY
 msgid "Country of full process chain"
-msgstr ""
+msgstr "País de la cadena del proceso completo"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY__PROCESSING
 msgid "Country of processing"
-msgstr ""
+msgstr "País de procesamiento"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_INITIAL_PROCESSING
 msgid "Country or countries of initial processing"
-msgstr ""
+msgstr "País o países de procesamiento inicial"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER
 msgid "Coupon Extended Code: Number System and Offer"
-msgstr ""
+msgstr "Código Cupón Extendido : Número de Sistema y Oferta"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_PRECEDED_BY_0
 msgid "Coupon Extended Code: Number System preceded by 0"
-msgstr ""
+msgstr "Código Cupón Extended : Numero de Sistema precedido por 0"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER_END
 msgid "Coupon Extended Code: Number System, Offer, End of Offer"
-msgstr ""
+msgstr "Código Cupón Extendido : Sistema de Número, Oferta, Fin de la Oferta"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUPON_CODE_ID
 msgid "Coupon code ID (North America)"
-msgstr ""
+msgstr "ID del Código de Cupón (America del Norte)"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Creado por"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Fecha de creación"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CUSTOMER_PART
 msgid "Customer Part Number"
-msgstr ""
+msgstr "Número de Pieza del Cliente"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CUSTOMER_PURCHASE_ORDER
@@ -290,47 +309,47 @@ msgstr ""
 #. module: base_gs1_barcode
 #: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
 msgid "Data Description"
-msgstr ""
+msgstr "Descripción de los Datos"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,data_type:0
 msgid "Data Type"
-msgstr ""
+msgstr "Tipo de Datos "
 
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,data_type:0
 msgid "Date"
-msgstr ""
+msgstr "Fecha"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DATE_PRODUCTION
 msgid "Date/time of production"
-msgstr ""
+msgstr "Fecha / hora de producción"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,decimal:0
 msgid "Decimal Indicator"
-msgstr ""
+msgstr "Indicador Decimal"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,name:0
 msgid "Description"
-msgstr ""
+msgstr "Descripción"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Nombre mostrado"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
-msgstr ""
+msgstr "Fecha vencimiento"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE
 msgid "Expiration Date"
-msgstr ""
+msgstr "Fecha de caducidad"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,length_fixed:0
@@ -397,12 +416,12 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:res.users,gs1_barcode_separator:0
 msgid "Group Separator"
-msgstr ""
+msgstr "Separador de Grupo "
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.PHYSICAL_LOCATION_ID
@@ -411,18 +430,22 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: help:gs1_barcode,decimal:0
-msgid "Indicates whether a digit is expected before the data for this Application Identifier to indicate the position of the decimal point."
+msgid ""
+"Indicates whether a digit is expected before the data for this Application "
+"Identifier to indicate the position of the decimal point."
 msgstr ""
 
 #. module: base_gs1_barcode
 #: help:gs1_barcode,length_fixed:0
-msgid "Indicates whether the length of the data for this Application Identifier is fixed or not."
+msgid ""
+"Indicates whether the length of the data for this Application Identifier is "
+"fixed or not."
 msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_1
 msgid "Internal Company Code 1"
-msgstr ""
+msgstr "Código 1 Interno de la Empresa"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_2
@@ -472,17 +495,17 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Última modificación en"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Última actualización por"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Última actualización en"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VARIATION
@@ -557,7 +580,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:res.users,gs1_barcode_prefix:0
 msgid "Prefix"
-msgstr ""
+msgstr "Prefijo"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.PRICE_PER_UOM
@@ -692,17 +715,17 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VARIANT
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante de producto"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_FT3
 msgid "Product Volume (Cubic Feet)"
-msgstr ""
+msgstr "Volumen del producto (pies cúbicos)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_IN3
 msgid "Product Volume (Cubic Inches)"
-msgstr ""
+msgstr "Volumen del producto (pulgadas cúbicas)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_YD3
@@ -782,7 +805,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SN
 msgid "Serial Number"
-msgstr ""
+msgstr "Número de serie"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SSCC
@@ -806,7 +829,8 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DELIVER_FOR
-msgid "Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
+msgid ""
+"Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -816,12 +840,18 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: help:res.users,gs1_barcode_separator:0
-msgid "The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be expected by default if this field is left empty."
+msgid ""
+"The characters that the barcode scanner will send when a <GS> (Group "
+"Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is "
+"usually found when the data is of variable length. The ASCII character 29 "
+"will be expected by default if this field is left empty."
 msgstr ""
 
 #. module: base_gs1_barcode
 #: help:res.users,gs1_barcode_prefix:0
-msgid "The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix codes are scanned. No prefix is expected if this fields is left empty"
+msgid ""
+"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix "
+"codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -837,7 +867,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_res_users
 msgid "Users"
-msgstr ""
+msgstr "Usuarios"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE_AND_TIME
@@ -848,4 +878,3 @@ msgstr ""
 #: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
 msgid "identification of the components of an item"
 msgstr ""
-
