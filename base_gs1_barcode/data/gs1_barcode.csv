@@ -1,4 +1,4 @@
-id,name,ai,length_fixed,length_max,length_min,decimal,type
+id,name,ai,length_fixed,length_max,length_min,decimal,data_type
 SSCC,Serial Shipping Container Code (SSCC),00,True,18,0,False,string
 GTIN,Global Trade Item Number (GTIN),01,True,14,0,False,string
 CONTENT_GTIN,GTIN of Contained Trade Items,02,True,14,0,False,string

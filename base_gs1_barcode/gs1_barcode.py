@@ -24,57 +24,59 @@ from __future__ import division
 import re
 import time
 
-from openerp import netsvc
-from openerp.osv import orm, fields
 from openerp.tools.translate import _
+from openerp import models, fields, api, exceptions
 
-class invalid_gs1_barcode(orm.except_orm):
-    """Indicate an error occurred while decoding a GS1-128/GS1-Datamatrix code"""
-    pass
 
-class gs1_barcode(orm.Model):
+class gs1_barcode(models.Model):
     """GS1-128/GS1-Datamatrix barcode decoder API and configuration"""
     _name = "gs1_barcode"
     _description = __doc__
-    _columns = {
-        'ai' : fields.char('Application Identifer', size=14,
-                           help='The standard Application Identifier (AI)',
-                           required=1, select=1),
-        'name': fields.char('Description', size=64, required=True, select=1,
-                            translate=True),
-        'length_fixed': fields.boolean('Fixed-length Data',
-                                       help='Indicates whether the length of '
-                                            'the data for this Application '
-                                            'Identifier is fixed or not.'),
-        'length_max': fields.integer('Maximum Data Length',
-                                     help='Maximum length of the data for this '
-                                          'Application Identifier.', required=1),
-        'length_min': fields.integer('Minimum Data Length',
-                                     help='Minimum length of the data for '
-                                          'this Application Identifier.'),
-        'decimal': fields.boolean('Decimal Indicator',
-                                  help='Indicates whether a digit is expected '
-                                       'before the data for this Application '
-                                       'Identifier to indicate the position of '
-                                       'the decimal point.'
-                                  ),
-        'type': fields.selection([ ('string', 'Any character string'),
-                                    ('numeric', 'Numeric value'),
-                                    ('date', 'Date') ],
-                                    'Data Type', required=1),
-    }
-    _defaults = {
-        'length_fixed': True,
-        'length_max': 30,
-        'decimal': False,
-        'type': 'string',
-    }
+
+    ai = fields.Char(
+        'Application Identifier',
+        size=14,
+        required=True,
+        help='The standard Application Identifier (AI)',)
+    name = fields.Char('Description', required=True, translate=True)
+    length_fixed = fields.Boolean(
+        'Fixed-length Data',
+        default=True,
+        help=(
+            'Indicates whether the length of the data '
+            'for this Application Identifier is fixed or not.'))
+    length_max = fields.Integer(
+        'Maximum Data Length',
+        default=30,
+        required=True,
+        help=('Maximum length of the data for this Application Identifier.'))
+    length_min = fields.Integer(
+        'Minimum Data Length',
+        help=(
+            'Minimum length of the data for this Application Identifier.'))
+    decimal = fields.Boolean(
+        'Decimal Indicator',
+        default=False,
+        help=(
+            'Indicates whether a digit is expected before the data for this '
+            'Application Identifier to indicate the position of the decimal '
+            'point.'))
+    data_type = fields.Selection(
+        [('string', 'Any character string'), ('numeric', 'Numeric value'),
+         ('date', 'Date')],
+        'Data Type',
+        default='string',
+        required=True,
+        oldname='type')
+
     _sql_constraints = [
-        ('ai_uniq', 'unique (ai)', 'The Application Identifier must be unique!'),
+        ('ai_uniq', 'unique (ai)',
+         'The Application Identifier must be unique!'),
     ]
     _order = 'ai'
 
-    def decode(self, cr, uid, barcode_string, context=None):
+    @api.model
+    def decode(self, barcode_string):
         """
         Decode a GS1-128/GS1-Datamatrix string to dictionary of values with
         Application Identifiers as keys.
@@ -88,19 +90,21 @@ class gs1_barcode(orm.Model):
 
         @type  barcode_string: string
         @param barcode_string: GS1-128/GS1-Datamatrix string  to decode
-        @return:               A dictionary of values with Application Identifiers as keys
+        @return: A dictionary of values with Application Identifiers as keys
         """
 
         # Prefix and Group Separator
-        user = self.pool.get('res.users').browse(cr, uid, uid, context=context)
-        prefix = user.gs1_barcode_prefix or ''
-        separator = user.gs1_barcode_separator or '\x1D'
+        prefix = self.env['ir.config_parameter'].get_param(
+            'gs1.barcode.prefix')
+        if not prefix or prefix == 'None':
+            prefix = ''
+        separator = self.env['ir.config_parameter'].get_param(
+            'gs1.barcode.separator')
 
         if not barcode_string.startswith(prefix):
-            raise invalid_gs1_barcode(_('Error decoding barcode'),
-                                 _('Could not decode barcode : '
-                                   'wrong prefix - the code should '
-                                   'start with "%s"') % prefix)
+            raise exceptions.ValidationError(
+                _('Could not decode barcode : wrong prefix - the code should '
+                  'start with "%s"') % prefix)
 
         # We are going to use lots of regular expressions to decode the string,
         # and they all boil down to the following templates:
@@ -114,18 +118,18 @@ class gs1_barcode(orm.Model):
         # * regular expression to match a variable length value ending with
         #   a <GS> character, to the group called "value".
         #   Must be formated with a pair of integers.
-        VARIABLE_LENGTH = r'(?P<value>[^' + separator + r']{%d,%d}' + separator + r'?)'
+        VARIABLE_LENGTH = \
+            r'(?P<value>[^' + separator + r']{%d,%d}' + separator + r'?)'
         #  * regular expression to match the position of the decimal separator
         #    after the AI code, to the group called "decimal".
         DECIMAL = r'(?P<decimal>\d)'
 
-        # Make a dictionary of compiled regular expressions to decode the string
+        # Make a dictionary of compiled regular expressions to decode the
+        # string
         ai_regexps = {}
         value_regexps = {}
         types = {}
-        for config in self.browse(cr, uid,
-                                  self.search(cr, uid, [], context=context),
-                                  context=context):
+        for config in self.search([]):
             # Compile a regular expression to match the Application Identifier
             ai = config.ai
             ai_regexps[ai] = re.compile(AI % ai)
@@ -139,7 +143,7 @@ class gs1_barcode(orm.Model):
                 value_regexp = DECIMAL + value_regexp
             value_regexps[ai] = re.compile(value_regexp)
             # remember the data type
-            types[ai] = config.type
+            types[ai] = config.data_type
 
         # Now let's decode the string, one Application Identifier at a time
         results = {}
@@ -149,43 +153,44 @@ class gs1_barcode(orm.Model):
             # Search for a known Application Identifier
             for (ai, regexp) in ai_regexps.items():
                 match = regexp.match(barcode_string, position)
-                if match:
-                    position += len(match.group('ai'))
+                if not match:
+                    continue
+                position += len(match.group('ai'))
 
-                    # We found the Application Identifier, now decode the value
-                    try:
-                        groups = value_regexps[ai].match(barcode_string, position).groupdict()
-                    except AttributeError:
-                        raise invalid_gs1_barcode(_('Error decoding barcode'),
-                                             _('Could not decode barcode: '
-                                               'incorrect value for Application '
-                                               'Identifer "%s" at position %d') % (ai, position))
+                # We found the Application Identifier, now decode the value
+                try:
+                    groups = value_regexps[ai].match(
+                        barcode_string, position).groupdict()
+                except AttributeError:
+                    raise exceptions.ValidationError(
+                        _('Could not decode barcode: incorrect value for '
+                          'Application Identifer "%s" at position %d') % (
+                            ai, position))
 
-                    position += len(groups['value'])
-                    results[ai] = groups['value'].replace(separator, '')
-                    if types[ai] == 'numeric':
-                        results[ai] = int(results[ai])
-                        if 'decimal' in groups:
-                            # Account for the decimal position
-                            results[ai] = results[ai] / (10 ** int(groups['decimal']))
-                            position += len(groups['decimal'])
-                    if types[ai] == 'date':
-                        # Format the date
-                        # Some barcodes are edited with a day of 0 - change it
-                        # to 1 to make it a valid date
-                        if results[ai].endswith('00'):
-                            results[ai] = results[ai][:5] + '1'
-                        results[ai] = time.strftime('%Y-%m-%d',
-                                                    time.strptime(results[ai],
-                                                                  '%y%m%d'))
+                position += len(groups['value'])
+                results[ai] = groups['value'].replace(separator, '')
+                if types[ai] == 'numeric':
+                    results[ai] = int(results[ai])
+                    if 'decimal' in groups:
+                        # Account for the decimal position
+                        results[ai] /= (10 ** int(groups['decimal']))
+                        position += len(groups['decimal'])
+                elif types[ai] == 'date':
+                    # Format the date
+                    # Some barcodes are edited with a day of 0 - change it
+                    # to 1 to make it a valid date
+                    if results[ai].endswith('00'):
+                        results[ai] = results[ai][:5] + '1'
+                    results[ai] = time.strftime(
+                        '%Y-%m-%d', time.strptime(results[ai], '%y%m%d'))
 
-                    # We know we won't match another AI for now, move on
-                    break
+                # We know we won't match another AI for now, move on
+                break
             else:
-                # We couldn't find another valid AI in the rest of the code, give up
-                raise invalid_gs1_barcode(_('Error decoding barcode'),
-                                      _('Could not decode barcode: '
-                                        'unknown Application Identifier '
-                                        'at position %d') % position)
+                # We couldn't find another valid AI in the rest of the code,
+                # give up
+                raise exceptions.ValidationError(
+                    _('Could not decode barcode: unknown Application '
+                      'Identifier at position %d') % position)
 
         return results
