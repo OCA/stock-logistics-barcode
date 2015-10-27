@@ -87,10 +87,9 @@ class ProductProduct(models.Model):
 
     @api.one
     def generate_ean13(self):
-        if self.ean13:
-            return
-        ean13 = self._generate_ean13_value(self)
-        if not ean13:
-            return
-        self.write({'ean13': ean13})
+        if not self.ean13:
+            ean13 = self._generate_ean13_value(self)
+            if ean13:
+                self.write({'ean13': ean13})
+
         return True
