@@ -3,6 +3,8 @@
 #
 #    Author:  Author Guewen Baconnier
 #    Copyright 2012-2014 Camptocamp SA
+#    Author:  Roberto Lizana
+#    Copyright 2015 Trey, Kilobytes de Soluciones
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,28 +21,19 @@
 #
 ##############################################################################
 
-{'name': 'Multiple EAN13 on products',
- 'version': '1.2',
- 'author': 'Camptocamp',
- 'maintainer': 'Camptocamp',
- 'category': 'Warehouse',
- 'complexity': "normal",  # easy, normal, expert
- 'depends': ['base',
-             'product',
-             ],
- 'description': """
-Multiple EAN13 on products
-==========================
-
-Allow Multiple EAN13 on products.
-A list of EAN13 is available for each product with a priority, so a
-main ean13 code is defined.
-""",
- 'website': 'http://www.camptocamp.com',
- 'data': ['product_view.xml',
-          'security/ir.model.access.csv',
-          ],
- 'installable': True,
- 'auto_install': False,
- 'license': 'AGPL-3',
+{
+    'name': 'Multiple EAN13 on products',
+    'version': '1.3',
+    'license': 'AGPL-3',
+    'author': "Camptocamp,"
+              "Trey,"
+              "Odoo Community Association (OCA)",
+    'category': 'Warehouse',
+    'depends': ['product'],
+    'website': 'https://github.com/OCA/stock-logistics-barcode',
+    'data': [
+        'views/product_view.xml',
+        'security/ir.model.access.csv',
+    ],
+    'installable': True,
 }
