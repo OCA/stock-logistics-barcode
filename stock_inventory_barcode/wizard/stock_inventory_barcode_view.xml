@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright (C) 2015 Akretion (http://www.akretion.com/)
+    @author: Alexis de Lattre <alexis.delattre@akretion.com>
+-->
+
+<openerp>
+<data>
+
+<record id="stock_inventory_barcode_form" model="ir.ui.view">
+    <field name="name">stock.inventory.barcode.form</field>
+    <field name="model">stock.inventory.barcode</field>
+    <field name="arch"  type="xml">
+        <form string="Inventory Barcode Wizard">
+            <group name="product" string="Select Product">
+                <field name="product_code"/>
+                <field name="product_id"/>
+                <field name="theoretical_qty"/>
+                <field name="product_qty"/>
+                <field name="inventory_line_id" invisible="1"/>
+            </group>
+            <group name="qty" string="Update Quantity">
+                <field name="change_qty"/>
+                <label string="OR" colspan="2"/>
+                <field name="add_qty"/>
+            </group>
+            <footer>
+                <button name="save" type="object"
+                    class="oe_highlight" string="Update"/>
+                <button special="cancel" string="Cancel" class="oe_link"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="stock_inventory_barcode_action" model="ir.actions.act_window">
+    <field name="name">Inventory Barcode Wizard</field>
+    <field name="res_model">stock.inventory.barcode</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+</data>
+</openerp>
