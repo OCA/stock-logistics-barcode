@@ -1,0 +1,69 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_barcode_generator
+# 
+# Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-11-23 20:13+0000\n"
+"PO-Revision-Date: 2016-01-18 16:13+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: product_barcode_generator
+#: field:ir.sequence,barcode_sequence:0
+msgid "Barcode Sequence"
+msgstr "Barcode-Nummernkreis"
+
+#. module: product_barcode_generator
+#: model:ir.model,name:product_barcode_generator.model_res_company
+msgid "Companies"
+msgstr "Unternehmen"
+
+#. module: product_barcode_generator
+#: view:res.company:product_barcode_generator.view_company_ean_form
+msgid "Configuration"
+msgstr "Konfiguration"
+
+#. module: product_barcode_generator
+#: code:addons/product_barcode_generator/models/product.py:60
+#, python-format
+msgid ""
+"Configuration Error!The next sequence is longer than 12 characters. It is "
+"not valid for an EAN13 needing 12 characters, the 13 being used as a control"
+" digitYou will have to redefine the sequence or create a new one"
+msgstr "Konfigurationsfehler. Die nächste Folgennummer ist länger als 12 Zeichen. Dies ist für EAN13 unzulässig, welches 12 Zeichen vorschreibt, die 13. Ziffer ist eine Prüfziffer. Sie werden den Nummernkreis neu festlegen oder einen neuen Anlegen müssen."
+
+#. module: product_barcode_generator
+#: view:res.company:product_barcode_generator.view_company_ean_form
+msgid "Ean Company code"
+msgstr "EAN-Unternehmensschlüssel"
+
+#. module: product_barcode_generator
+#: field:product.category,ean_sequence_id:0
+#: field:product.product,ean_sequence_id:0 field:res.company,ean_sequence_id:0
+msgid "Ean sequence"
+msgstr "EAN-Nummernkreis"
+
+#. module: product_barcode_generator
+#: view:product.product:product_barcode_generator.view_product_simple_ean_form
+msgid "Generate the EAN13"
+msgstr "Erzeuge EAN13"
+
+#. module: product_barcode_generator
+#: model:ir.model,name:product_barcode_generator.model_product_product
+msgid "Product"
+msgstr "Produkt"
+
+#. module: product_barcode_generator
+#: model:ir.model,name:product_barcode_generator.model_product_category
+msgid "Product Category"
+msgstr "Produktkategorie"
