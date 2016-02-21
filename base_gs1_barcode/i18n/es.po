@@ -4,12 +4,13 @@
 # 
 # Translators:
 # Antonio Trueba, 2016
+# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2015-11-23 20:13+0000\n"
-"PO-Revision-Date: 2016-02-05 12:02+0000\n"
+"PO-Revision-Date: 2016-02-16 14:56+0000\n"
 "Last-Translator: Antonio Trueba\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +27,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
 msgid "Additional Product Identification"
-msgstr ""
+msgstr "Identificación adicional del producto"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
@@ -51,7 +52,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,data_type:0
 msgid "Any character string"
-msgstr ""
+msgstr "Cualquier cadena de caracteres"
 
 #. module: base_gs1_barcode
 #: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
