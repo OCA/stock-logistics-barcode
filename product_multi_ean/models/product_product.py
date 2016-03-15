@@ -12,7 +12,7 @@ from openerp.addons.product import product as addons_product
 class ProductEan13(models.Model):
     _name = 'product.ean13'
     _description = "List of EAN13 for a product."
-    _order = 'sequence'
+    _order = 'sequence, id'
 
     name = fields.Char(string='EAN13', size=13, required=True)
     sequence = fields.Integer(string='Sequence', default=0)
@@ -38,7 +38,7 @@ class ProductEan13(models.Model):
             if eans:
                 raise UserError(
                     _('The EAN13 Barcode "%s" already exists for product '
-                      '"%s"!') % (record.name, eans[0].product_id.name))
+                      '"%s"') % (record.name, eans[0].product_id.name))
 
 
 class ProductProduct(models.Model):

@@ -72,8 +72,8 @@ msgstr "Secuencia"
 #. module: product_multi_ean
 #: code:addons/product_multi_ean/models/product_ean.py:41
 #, python-format
-msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\"!"
-msgstr "El código EAN13 \"%s\" ya existe para el producto \"%s\"!"
+msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\""
+msgstr "El código EAN13 \"%s\" ya existe para el producto \"%s\""
 
 #. module: product_multi_ean
 #: view:product.product:product_multi_ean.product_normal_form_view_multi_ean13
