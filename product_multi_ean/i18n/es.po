@@ -26,8 +26,9 @@ msgid "Created on"
 msgstr "Creado en"
 
 #. module: product_multi_ean
-#: view:product.product:product_multi_ean.product_normal_form_view_multi_ean13
 #: field:product.ean13,name:0
+#: view:product.product:product_multi_ean.product_normal_form_view_multi_ean13
+#: view:product.product:product_multi_ean.product_search_form_view_multi_ean13
 #: field:product.product,ean13_ids:0
 msgid "EAN13"
 msgstr "EAN13"
