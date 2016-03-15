@@ -13,6 +13,7 @@ class TestProductMultiEan(common.TransactionCase):
             'name': 'Test product',
         })
         self.valid_ean = '1234567890128'
+        self.valid_ean2 = '0123456789012'
 
     def test_set_main_ean(self):
         self.product.ean13 = self.valid_ean
@@ -38,3 +39,14 @@ class TestProductMultiEan(common.TransactionCase):
         self.product.refresh()
         self.assertEqual(len(self.product.ean13_ids), 1)
         self.assertEqual(self.product.ean13_ids.name, self.valid_ean)
+
+    def test_search(self):
+        self.product.ean13_ids = [
+            (0, 0, {'name': self.valid_ean}),
+            (0, 0, {'name': self.valid_ean2})]
+        products = self.product.search([('ean13', '=', self.valid_ean)])
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products, self.product)
+        products = self.product.search([('ean13', '=', self.valid_ean2)])
+        self.assertEqual(len(products), 1)
+        self.assertEqual(products, self.product)

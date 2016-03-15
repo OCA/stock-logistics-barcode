@@ -28,6 +28,11 @@ class ProductEan13(models.Model):
                 raise UserError(
                     _('You provided an invalid "EAN13 Barcode" reference. You '
                       'may use the "Internal Reference" field instead.'))
+
+    @api.multi
+    @api.constrains('name')
+    def _check_duplicates(self):
+        for record in self:
             eans = self.search(
                 [('id', '!=', record.id), ('name', '=', record.name)])
             if eans:
