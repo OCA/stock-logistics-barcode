@@ -5,13 +5,13 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-from datetime import datetime
+from openerp import fields
 
 # No current inventory, create a new one
 if not terminal.tmp_val1:
     stock_inventory_obj = env['stock.inventory']
     stock_inventory_id = stock_inventory_obj.create({
-        'name': '%s : %s' % (terminal.code, datetime.today().strftime('%Y-%m-%d %H:%M:%S')),
+        'name': '%s : %s' % (terminal.code, fields.Datetime.now()),
     })
     terminal.write({'tmp_val1': stock_inventory_id.id})
 elif tracer == 'location' and terminal.tmp_val2:
