@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <id>scanner_scenario_shipping</id>
+  <model_id>stock.picking</model_id>
+  <name>Shipping</name>
+  <sequence>120</sequence>
+  <parent_id>stock_scanner.scanner_scenario_stock</parent_id>
+  <active>True</active>
+  <type>scenario</type>
+  <Step id="scanner_scenario_step_shipping_done" name="Done" no_back="False" step_back="False" step_start="False" step_stop="True"/>
+  <Step id="scanner_scenario_step_shipping_end_confirmation" name="End confirmation" no_back="True" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_invalid_product" name="Invalid Product" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_invalid_quantity" name="Invalid Quantity" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_location_selection" name="Location Selection" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_picking_selection" name="Picking Selection" no_back="True" step_back="True" step_start="True" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_product_selection" name="Product Selection" no_back="True" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_quantity_selection" name="Quantity Selection" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_unknown_location" name="Unknown Location" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_shipping_unknown_picking" name="Unknown Picking" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Transition condition="True" from_id="scanner_scenario_step_shipping_location_selection" id="scanner_scenario_shipping_location_selection_nok" name="Location Selection NOK" sequence="10" to_id="scanner_scenario_step_shipping_unknown_location" tracer="" transition_type="keyboard"/>
+  <Transition condition="env['stock.location'].search([('name', '=', message)])" from_id="scanner_scenario_step_shipping_location_selection" id="scanner_scenario_shipping_location_selection_ok" name="Location Selection OK" sequence="0" to_id="scanner_scenario_step_shipping_product_selection" tracer="loop" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_shipping_picking_selection" id="scanner_scenario_shipping_picking_selection_nok" name="Picking Selection NOK" sequence="10" to_id="scanner_scenario_step_shipping_unknown_picking" tracer="" transition_type="keyboard"/>
+  <Transition condition="model.search([('name', '=', message), ('picking_type_id.code', '=', 'outgoing')])" from_id="scanner_scenario_step_shipping_picking_selection" id="scanner_scenario_shipping_picking_selection_ok" name="Picking Selection OK" sequence="0" to_id="scanner_scenario_step_shipping_product_selection" tracer="picking" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_shipping_product_selection" id="scanner_scenario_shipping_product_selection_nok" name="Product Selection NOK" sequence="20" to_id="scanner_scenario_step_shipping_invalid_product" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_shipping_product_selection" id="scanner_scenario_shipping_product_selection_ok" name="Product Selection OK" sequence="10" to_id="scanner_scenario_step_shipping_quantity_selection" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_shipping_quantity_selection" id="scanner_scenario_shipping_quantity_selection_nok" name="Quantity Selection NOK" sequence="10" to_id="scanner_scenario_step_shipping_invalid_quantity" tracer="" transition_type="keyboard"/>
+  <Transition condition="float(message) > 0" from_id="scanner_scenario_step_shipping_quantity_selection" id="scanner_scenario_shipping_quantity_selection_ok" name="Quantity Selection OK" sequence="0" to_id="scanner_scenario_step_shipping_location_selection" tracer="" transition_type="keyboard"/>
+  <Transition condition="message" from_id="scanner_scenario_step_shipping_end_confirmation" id="scanner_scenario_shipping_shipping_done" name="Shipping Done" sequence="0" to_id="scanner_scenario_step_shipping_done" tracer="" transition_type="keyboard"/>
+  <Transition condition="message == ''" from_id="scanner_scenario_step_shipping_product_selection" id="scanner_scenario_shipping_shipping_finished" name="Shipping Finished" sequence="0" to_id="scanner_scenario_step_shipping_end_confirmation" tracer="" transition_type="keyboard"/>
+  <Transition condition="not message" from_id="scanner_scenario_step_shipping_end_confirmation" id="scanner_scenario_shipping_shipping_not_done" name="Shipping not done" sequence="10" to_id="scanner_scenario_step_shipping_product_selection" tracer="" transition_type="keyboard"/>
+</scenario>
