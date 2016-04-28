@@ -10,7 +10,7 @@
     'license': 'AGPL-3',
     'author': "Camptocamp, "
               "Trey, "
-              "Serv. Tecnol. Avanzados - Pedro M. Baeza, "
+              "Tecnativa, "
               "Odoo Community Association (OCA)",
     'category': 'Product Management',
     'depends': ['product'],
