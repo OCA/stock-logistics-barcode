@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-20 19:06+0000\n"
-"PO-Revision-Date: 2015-10-19 07:59+0000\n"
+"POT-Creation-Date: 2016-04-30 02:48+0000\n"
+"PO-Revision-Date: 2016-04-28 13:01+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: English (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/en/)\n"
 "MIME-Version: 1.0\n"
@@ -326,6 +326,11 @@ msgid "Description"
 msgstr "Description"
 
 #. module: base_gs1_barcode
+#: field:gs1_barcode,display_name:0
+msgid "Display Name"
+msgstr "Display Name"
+
+#. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
 msgstr "Due Date"
@@ -475,6 +480,11 @@ msgstr "Internal Company Code 9"
 #: model:gs1_barcode,name:base_gs1_barcode.IBAN
 msgid "International Bank Account Number"
 msgstr "International Bank Account Number"
+
+#. module: base_gs1_barcode
+#: field:gs1_barcode,__last_update:0
+msgid "Last Modified on"
+msgstr "Last Modified on"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_uid:0

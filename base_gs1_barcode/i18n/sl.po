@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-10-20 19:06+0000\n"
-"PO-Revision-Date: 2015-10-22 11:27+0000\n"
+"POT-Creation-Date: 2016-04-30 02:48+0000\n"
+"PO-Revision-Date: 2016-04-30 05:17+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -327,6 +327,11 @@ msgid "Description"
 msgstr "Opis"
 
 #. module: base_gs1_barcode
+#: field:gs1_barcode,display_name:0
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
 msgstr "Datum zapadlosti"
@@ -476,6 +481,11 @@ msgstr "Interna koda družbe 9"
 #: model:gs1_barcode,name:base_gs1_barcode.IBAN
 msgid "International Bank Account Number"
 msgstr "Mednarodna bančna številka računa - IBAN"
+
+#. module: base_gs1_barcode
+#: field:gs1_barcode,__last_update:0
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_uid:0
