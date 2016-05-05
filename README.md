@@ -26,6 +26,7 @@ addon | version | summary
 [base_gs1_barcode](base_gs1_barcode/) | 1.1 | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_barcode_generator](product_barcode_generator/) | 8.0.1.0.0 | Product barcode generator
 [product_multi_ean](product_multi_ean/) | 8.0.1.0.0 | Multiple EAN13 on products
+[stock_inventory_barcode](stock_inventory_barcode/) | 8.0.0.1.0 | Add simple barcode interface on inventories
 
 Unported addons
 ---------------
