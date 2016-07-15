@@ -36,21 +36,20 @@ class ProductCategory(models.Model):
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    ean13 = fields.Char(copy=False)
     ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
 
     @api.model
     def _get_ean_next_code(self, product):
         sequence_obj = self.env['ir.sequence']
         if product.ean_sequence_id:
-            ean = sequence_obj.next_by_id(product.ean_sequence_id.id)
+            ean = sequence_obj.get_id(product.ean_sequence_id.id)
         elif product.categ_id.ean_sequence_id:
-            ean = sequence_obj.next_by_id(product.categ_id.ean_sequence_id.id)
+            ean = sequence_obj.get_id(product.categ_id.ean_sequence_id.id)
         elif product.company_id and product.company_id.ean_sequence_id:
-            ean = sequence_obj.next_by_id(
+            ean = sequence_obj.get_id(
                 product.company_id.ean_sequence_id.id)
         elif self.env.context.get('sequence_id', False):
-            ean = sequence_obj.next_by_id(self.env.context.get('sequence_id'))
+            ean = sequence_obj.get_id(self.env.context.get('sequence_id'))
         else:
             return None
         ean = (len(ean[0:6]) == 6 and ean[0:6] or
@@ -87,10 +86,10 @@ class ProductProduct(models.Model):
 
     @api.one
     def generate_ean13(self):
-        if self.ean13:
+        if self.barcode:
             return
         ean13 = self._generate_ean13_value(self)
         if not ean13:
             return
-        self.write({'ean13': ean13})
+        self.write({'barcode': ean13})
         return True
