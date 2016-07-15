@@ -21,10 +21,10 @@
 
 {
     "name": 'Product barcode generator',
-    "license": "GPL-3",
+    "license": "AGPL-3",
     "category": "Stock Management",
-    "version": '8.0.1.0.0',
-    "author": 'Julius Network Solutions, Odoo Community Association (OCA)',
+    "version": '9.0.1.0.0',
+    "author": 'IT-Projects LLC, Julius Network Solutions, Odoo Community Association (OCA)',
     "website": 'http://www.julius.fr/',
     "depends": [
         'product',
@@ -36,6 +36,6 @@
         "views/product_view.xml",
         "views/sequence_view.xml",
     ],
-    'installable': False,
+    'installable': True,
     "active": False,
 }
