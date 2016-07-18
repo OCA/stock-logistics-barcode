@@ -35,13 +35,13 @@ class TestEanOnCompany(common.TransactionCase):
         self.product_obj = self.env['product.product']
 
     def test_generate_ean_sequence_on_company_no_sequence(self):
-        self.product_demo.write({'ean13': False})
+        self.product_demo.write({'barcode': False})
         self.product_demo.generate_ean13()
-        self.assertFalse(bool(self.product_demo.ean13))
+        self.assertFalse(bool(self.product_demo.barcode))
 
     def test_generate_ean_sequence_on_company_with_sequence(self):
-        self.product_demo.write({'ean13': False})
+        self.product_demo.write({'barcode': False})
         self.product_demo.company_id.write(
             {'ean_sequence_id': self.sequence1.id})
         self.product_demo.generate_ean13()
-        self.assertTrue(bool(self.product_demo.ean13))
+        self.assertTrue(bool(self.product_demo.barcode))
