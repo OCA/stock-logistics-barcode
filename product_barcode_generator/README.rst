@@ -43,6 +43,7 @@ Contributors
 * Mathieu VATEL <mathieu@julius.fr>
 * Ivan Yelizariev <yelizariev@it-projects.info>
 * Damien Crier <damien.crier@camptocamp.com>
+* Pavel Romanchenko <romanchenko@it-projects.info>
 
 Maintainer
 ----------

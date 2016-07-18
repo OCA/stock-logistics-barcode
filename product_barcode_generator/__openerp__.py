@@ -21,7 +21,7 @@
 
 {
     "name": 'Product barcode generator',
-    "license": "AGPL-3",
+    "license": "GPL-3",
     "category": "Stock Management",
     "version": '9.0.1.0.0',
     "author": 'IT-Projects LLC, Julius Network Solutions, Odoo Community Association (OCA)',
