@@ -35,7 +35,10 @@ class TestProductBarcodeGenerator(common.TransactionCase):
         self.product_obj = self.env['product.product']
 
     def test_product_copy(self):
-        self.product_demo.write({'ean13': False})
+        self.product_demo.write({'barcode': False})
         self.product_demo.generate_ean13()
-        new_product = self.product_demo.copy(default=None)
-        self.assertFalse(bool(new_product.ean13))
+        new_product = self.env['product.product'].create({
+            'name': 'Test product',
+            'product_tmpl_id': self.product_demo.product_tmpl_id.id,
+        })
+        self.assertFalse(bool(new_product.barcode))
