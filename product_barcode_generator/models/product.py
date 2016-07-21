@@ -84,7 +84,7 @@ class ProductProduct(models.Model):
         ean13 = ean + key
         return ean13
 
-    @api.one
+    @api.multi
     def generate_ean13(self):
         if self.barcode:
             return

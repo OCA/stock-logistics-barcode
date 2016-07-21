@@ -37,5 +37,4 @@
         "views/sequence_view.xml",
     ],
     'installable': True,
-    "active": False,
 }
