@@ -86,10 +86,11 @@ class ProductProduct(models.Model):
 
     @api.multi
     def generate_ean13(self):
-        if self.barcode:
-            return
-        ean13 = self._generate_ean13_value(self)
-        if not ean13:
-            return
-        self.write({'barcode': ean13})
+        for r in self:
+            if r.barcode:
+                continue
+            ean13 = self._generate_ean13_value(r)
+            if not ean13:
+                continue
+            r.write({'barcode': ean13})
         return True
