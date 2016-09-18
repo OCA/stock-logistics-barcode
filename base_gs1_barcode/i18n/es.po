@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-08-15 23:10+0000\n"
-"PO-Revision-Date: 2016-09-16 21:46+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: French (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/fr/)\n"
+"PO-Revision-Date: 2015-09-03 12:45+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AREA
@@ -40,7 +40,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: view:gs1_barcode:0
 msgid "Application Identifier"
-msgstr "Identifiant d'Application"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.NET_VOLUME
@@ -50,7 +50,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,type:0
 msgid "Data Type"
-msgstr "Type de données"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_FT
@@ -69,7 +69,7 @@ msgid ""
 "Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is "
 "usually found when the data is of variable length. The ASCII character 29 "
 "will be expected by default if this field is left empty."
-msgstr "Le caractère que le lecteur de code-barres envoi lorsqu'un <GS> (\"Group Separator\") est présent dans un code GS1-128 ou GS1-Datamatrix. <GS> se trouve généralement dans les données de longueur variable. Le caractère ASCII 29 sera attendu par défaut si vous laissez ce champ vide."
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_GALLONS
@@ -109,12 +109,12 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,ai:0
 msgid "Application Identifer"
-msgstr "Identifiant d'Application"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: view:gs1_barcode:0
 msgid "Data Description"
-msgstr "Description des données"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_IN2
@@ -149,7 +149,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: view:res.users:0
 msgid "GS1-128/GS1-Datamatrix barcodes"
-msgstr "Code-barres GS1-128/GS1-Datamatrix"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_2
@@ -194,7 +194,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: help:gs1_barcode,ai:0
 msgid "The standard Application Identifier (AI)"
-msgstr "L'Identifiant d'Application (AI) standard"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,type:0
@@ -228,7 +228,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:base_gs1_barcode.action_config_gs1_barcode
 #: model:ir.ui.menu,name:base_gs1_barcode.menu_config_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix Decoding"
-msgstr "Decodage GS1-128/GS1-Datamatrix"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNT
@@ -327,7 +327,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Could not decode barcode: unknown Application Identifier at position %d"
-msgstr "Impossible de décoder le code-barres : identifiant d'application inconnu à la position %d"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_IN
@@ -407,7 +407,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
-msgstr "Décodeur des codes-barres GS1-128/GS1-Datamatrix (API et configuration)"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH
@@ -419,7 +419,7 @@ msgstr ""
 msgid ""
 "The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix"
 " codes are scanned. No prefix is expected if this field is left empty"
-msgstr "Le préfixe que le lecteur de codes à barres envoi lorsqu'un code GS1-128 ou GS1-Datamatrix est scanné. Aucun préfixe ne sera attendu si vous laissez ce champs vide."
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY__PROCESSING
@@ -489,7 +489,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: view:gs1_barcode:0
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
-msgstr "Configuration du décodage GS1-128/GS1-Datamatrix"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.NATO_STOCK
@@ -504,12 +504,12 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:res.users,gs1_barcode_separator:0
 msgid "Group Separator"
-msgstr "Séparateur de groupes"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,decimal:0
 msgid "Decimal Indicator"
-msgstr "Indicateur de décimale"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.IBAN
@@ -547,7 +547,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,type:0
 msgid "Date"
-msgstr "Date"
+msgstr "Fecha"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
@@ -597,7 +597,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: help:gs1_barcode,length_min:0
 msgid "Minimum length of the data for this Application Identifier."
-msgstr "Taille minimum des données pour cet Identifiant d'Application."
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_FT
@@ -607,7 +607,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,length_fixed:0
 msgid "Fixed-length Data"
-msgstr "Données de longueur fixe"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.GLN_EXTENSION_COMPONENT
@@ -629,12 +629,12 @@ msgstr ""
 msgid ""
 "Indicates whether a digit is expected before the data for this Application "
 "Identifier to indicate the position of the decimal point."
-msgstr "Indique si un chiffre est attendu avant les données de cet Identifiant d'Application pour indiquer la position de la virgule décimale."
+msgstr ""
 
 #. module: base_gs1_barcode
 #: field:res.users,gs1_barcode_prefix:0
 msgid "Prefix"
-msgstr "Préfixe"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_YD3
@@ -684,7 +684,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: help:gs1_barcode,length_max:0
 msgid "Maximum length of the data for this Application Identifier."
-msgstr "Taille maximum des données pour cet Identifiant d'Application"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.BILL_OF_LADING
@@ -736,7 +736,7 @@ msgstr ""
 msgid ""
 "Indicates whether the length of the data for this Application Identifier is "
 "fixed or not."
-msgstr "Indique si la longueur des données pour cet Identifiant d'Application est fixe ou non."
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.WIDTH_YD
@@ -796,7 +796,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_res_users
 msgid "Users"
-msgstr "Utilisateurs"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SECONDARY_DATA_FIELDS
