@@ -10,27 +10,27 @@ msgstr ""
 "POT-Creation-Date: 2016-08-15 23:13+0000\n"
 "PO-Revision-Date: 2016-04-28 13:01+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/de/)\n"
+"Language-Team: Turkish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/tr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: tr\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: product_multi_ean
 #: field:product.ean13,create_uid:0
 msgid "Created by"
-msgstr "Angelegt durch"
+msgstr "Oluşturan"
 
 #. module: product_multi_ean
 #: field:product.ean13,create_date:0
 msgid "Created on"
-msgstr "Angelegt am"
+msgstr "Oluşturuldu"
 
 #. module: product_multi_ean
 #: field:product.ean13,display_name:0
 msgid "Display Name"
-msgstr "Anzeigename"
+msgstr ""
 
 #. module: product_multi_ean
 #: field:product.ean13,name:0
@@ -48,17 +48,17 @@ msgstr "ID"
 #. module: product_multi_ean
 #: field:product.ean13,__last_update:0
 msgid "Last Modified on"
-msgstr "Zuletzt geändert am"
+msgstr ""
 
 #. module: product_multi_ean
 #: field:product.ean13,write_uid:0
 msgid "Last Updated by"
-msgstr "Zuletzt aktualisiert durch"
+msgstr "Son güncelleyen"
 
 #. module: product_multi_ean
 #: field:product.ean13,write_date:0
 msgid "Last Updated on"
-msgstr "Zuletzt aktualisiert am"
+msgstr "Son güncelleme"
 
 #. module: product_multi_ean
 #: model:ir.model,name:product_multi_ean.model_product_ean13
@@ -69,7 +69,7 @@ msgstr ""
 #: model:ir.model,name:product_multi_ean.model_product_product
 #: field:product.ean13,product_id:0
 msgid "Product"
-msgstr "Produkt"
+msgstr ""
 
 #. module: product_multi_ean
 #: field:product.ean13,sequence:0

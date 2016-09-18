@@ -8,9 +8,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-23 20:13+0000\n"
-"PO-Revision-Date: 2016-01-18 19:45+0000\n"
-"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
+"POT-Creation-Date: 2016-08-15 23:13+0000\n"
+"PO-Revision-Date: 2016-09-18 08:13+0000\n"
+"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/de/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -327,6 +327,11 @@ msgid "Description"
 msgstr "Beschreibung"
 
 #. module: base_gs1_barcode
+#: field:gs1_barcode,display_name:0
+msgid "Display Name"
+msgstr "Anzeigename"
+
+#. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
 msgstr "Fälligkeitsdatum"
@@ -476,6 +481,11 @@ msgstr "Interner Unternehmenschlüssel 9"
 #: model:gs1_barcode,name:base_gs1_barcode.IBAN
 msgid "International Bank Account Number"
 msgstr "International Bank Account Number (IBAN)"
+
+#. module: base_gs1_barcode
+#: field:gs1_barcode,__last_update:0
+msgid "Last Modified on"
+msgstr "Zuletzt geändert am"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_uid:0
