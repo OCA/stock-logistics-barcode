@@ -5,7 +5,7 @@
 {
     'name': 'Stock Scanner',
     'summary': 'Allows managing barcode readers with simple scenarios',
-    'version': '8.0.1.0.0',
+    'version': '9.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
     'author': 'SYLEAM,'

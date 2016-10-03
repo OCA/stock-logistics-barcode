@@ -45,7 +45,7 @@ Declare hardware
 
 You have to declare some hardware scanners in Odoo.
 
-Go to "Warehouse > Configuration > Scanner Hardware" and create a new record.
+Go to "Inventory > Configuration > Scanner Configuration > Scanner Hardware" and create a new record.
 
 The "step type code" sent by the "sentinel.py" client at start-up is the IP address of the hardware, if connected through SSH.
 
