@@ -26,6 +26,6 @@
         #
         ##############################################################################
 
-        <menuitem id="menu_scanner_configuration" parent="stock.menu_stock_configuration" sequence="50" name="Scanner Configuration"/>
+        <menuitem id="menu_scanner_configuration" parent="stock.menu_stock_config_settings" sequence="50" name="Scanner Configuration"/>
     </data>
 </openerp>
