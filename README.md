@@ -19,6 +19,12 @@ Please don't hesitate to suggest one of your module to this project. Also, you m
  - https://github.com/OCA/stock-logistics-warehouse
 
 [//]: # (addons)
+Available addons
+----------------
+addon | version | summary
+--- | --- | ---
+[stock_scanner](stock_scanner/) | 9.0.1.0.0 | Allows managing barcode readers with simple scenarios
+
 Unported addons
 ---------------
 addon | version | summary
