@@ -6,12 +6,12 @@ import os
 from lxml.etree import parse
 from StringIO import StringIO
 
-import openerp
-from openerp import exceptions
-from openerp.tools import misc
-from openerp.tools.safe_eval import safe_eval
-from openerp.tools.translate import _
-from openerp.tools.convert import convert_file
+import odoo
+from odoo import exceptions
+from odoo.tools import misc
+from odoo.tools.safe_eval import safe_eval
+from odoo.tools.translate import _
+from odoo.tools.convert import convert_file
 import logging
 logger = logging.getLogger('init:stock_scanner')
 
@@ -215,9 +215,9 @@ def scenario_convert_file(cr, module, filename, idref,
     if extension == '.scenario':
         fp = misc.file_open(pathname)
         try:
-            with openerp.api.Environment.manage():
-                uid = openerp.SUPERUSER_ID
-                env = openerp.api.Environment(cr, uid, {'active_test': False})
+            with odoo.api.Environment.manage():
+                uid = odoo.SUPERUSER_ID
+                env = odoo.api.Environment(cr, uid, {'active_test': False})
 
                 import_scenario(env, module, fp.read(),
                                 mode, directory, filename)
@@ -230,5 +230,5 @@ def scenario_convert_file(cr, module, filename, idref,
 
 # Monkey patch Odoo's module file loading
 # To be able to load scenarios from manifest file
-openerp.tools.convert_file = scenario_convert_file
-openerp.tools.convert.convert_file = scenario_convert_file
+odoo.tools.convert_file = scenario_convert_file
+odoo.tools.convert.convert_file = scenario_convert_file
