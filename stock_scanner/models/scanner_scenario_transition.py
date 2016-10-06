@@ -5,8 +5,8 @@
 import sys
 import compiler
 import traceback
-from openerp import models, api, fields, exceptions
-from openerp import _
+from odoo import models, api, fields, exceptions
+from odoo import _
 
 import logging
 logger = logging.getLogger('stock_scanner')
