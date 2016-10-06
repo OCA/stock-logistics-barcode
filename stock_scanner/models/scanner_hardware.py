@@ -9,11 +9,11 @@ import datetime
 
 from psycopg2 import OperationalError, errorcodes
 
-from openerp import models, api, fields, exceptions
-from openerp import workflow
-from openerp import _
-from openerp.tools.misc import ustr
-from openerp.tools.safe_eval import safe_eval
+from odoo import models, api, fields, exceptions
+from odoo import workflow
+from odoo import _
+from odoo.tools.misc import ustr
+from odoo.tools.safe_eval import safe_eval
 
 
 logger = logging.getLogger('stock_scanner')
