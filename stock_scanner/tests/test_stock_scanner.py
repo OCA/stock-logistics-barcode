@@ -4,8 +4,8 @@
 
 import datetime
 
-from openerp import _, fields
-from openerp.tests import common
+from odoo import _, fields
+from odoo.tests import common
 
 
 class TestStockScanner(common.TransactionCase):
