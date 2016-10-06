@@ -13,7 +13,7 @@
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
     'application': True,
-    'installable': True,
+    'installable': False,
     'depends': [
         'product',
         'stock',
