@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <id>scanner_scenario_receipt</id>
+  <model_id>stock.picking</model_id>
+  <name>Receipt</name>
+  <sequence>110</sequence>
+  <parent_id>stock_scanner.scanner_scenario_stock</parent_id>
+  <active>True</active>
+  <type>scenario</type>
+  <Step id="scanner_scenario_step_receipt_done" name="Done" no_back="False" step_back="False" step_start="False" step_stop="True"/>
+  <Step id="scanner_scenario_step_receipt_end_confirmation" name="End confirmation" no_back="True" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_invalid_prodlot" name="Invalid Prodlot" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_invalid_quantity" name="Invalid quantity" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_location_selection" name="Location selection" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_picking_selection" name="Picking Selection" no_back="True" step_back="True" step_start="True" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_prodlot_selection" name="Prodlot selection" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_product_selection" name="Product Selection" no_back="True" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_quantity_selection" name="Quantity selection" no_back="False" step_back="True" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_unknown_location" name="Unknown location" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Step id="scanner_scenario_step_receipt_unknown_picking" name="Unknown picking" no_back="False" step_back="False" step_start="False" step_stop="False"/>
+  <Transition condition="True" from_id="scanner_scenario_step_receipt_location_selection" id="scanner_scenario_receipt_location_selection_nok" name="Location Selection NOK" sequence="10" to_id="scanner_scenario_step_receipt_unknown_location" tracer="" transition_type="keyboard"/>
+  <Transition condition="env['stock.location'].search([('name', '=', message)])" from_id="scanner_scenario_step_receipt_location_selection" id="scanner_scenario_receipt_location_selection_ok" name="Location Selection OK" sequence="0" to_id="scanner_scenario_step_receipt_product_selection" tracer="loop" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_receipt_picking_selection" id="scanner_scenario_receipt_picking_selection_nok" name="Picking Selection NOK" sequence="10" to_id="scanner_scenario_step_receipt_unknown_picking" tracer="" transition_type="keyboard"/>
+  <Transition condition="model.search([('name', '=', message), ('picking_type_id.code', '=', 'incoming')])" from_id="scanner_scenario_step_receipt_picking_selection" id="scanner_scenario_receipt_picking_selection_ok" name="Picking selection OK" sequence="0" to_id="scanner_scenario_step_receipt_product_selection" tracer="picking" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_receipt_prodlot_selection" id="scanner_scenario_receipt_prodlot_selection_nok" name="Prodlot Selection NOK" sequence="10" to_id="scanner_scenario_step_receipt_invalid_prodlot" tracer="" transition_type="keyboard"/>
+  <Transition condition="env['stock.move'].browse(int(terminal.tmp_val1)).product_id.tracking == 'none' or message" from_id="scanner_scenario_step_receipt_prodlot_selection" id="scanner_scenario_receipt_prodlot_selection_ok" name="Prodlot selection OK" sequence="0" to_id="scanner_scenario_step_receipt_location_selection" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_receipt_product_selection" id="scanner_scenario_receipt_product_selection_ok" name="Product Selection OK" sequence="10" to_id="scanner_scenario_step_receipt_quantity_selection" tracer="" transition_type="keyboard"/>
+  <Transition condition="True" from_id="scanner_scenario_step_receipt_quantity_selection" id="scanner_scenario_receipt_quantity_selection_nok" name="Quantity Selection NOK" sequence="10" to_id="scanner_scenario_step_receipt_invalid_quantity" tracer="" transition_type="keyboard"/>
+  <Transition condition="float(message) > 0" from_id="scanner_scenario_step_receipt_quantity_selection" id="scanner_scenario_receipt_quantity_selection_ok" name="Quantity Selection OK" sequence="0" to_id="scanner_scenario_step_receipt_prodlot_selection" tracer="" transition_type="keyboard"/>
+  <Transition condition="message" from_id="scanner_scenario_step_receipt_end_confirmation" id="scanner_scenario_receipt_receipt_done" name="Receipt done" sequence="0" to_id="scanner_scenario_step_receipt_done" tracer="" transition_type="keyboard"/>
+  <Transition condition="message == ''" from_id="scanner_scenario_step_receipt_product_selection" id="scanner_scenario_receipt_receipt_finished" name="Receipt finished" sequence="0" to_id="scanner_scenario_step_receipt_end_confirmation" tracer="" transition_type="keyboard"/>
+  <Transition condition="not message" from_id="scanner_scenario_step_receipt_end_confirmation" id="scanner_scenario_receipt_receipt_not_done" name="Receipt not done" sequence="10" to_id="scanner_scenario_step_receipt_product_selection" tracer="" transition_type="keyboard"/>
+</scenario>
