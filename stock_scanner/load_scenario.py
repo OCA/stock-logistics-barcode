@@ -189,7 +189,11 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
         transition_values = {}
         for key, item in node.items():
             if key in ['to_id', 'from_id']:
-                item = resid[get_xml_id(_('step'), module, {'id': item})]
+                step_xml_id = get_xml_id(_('step'), module, {'id': item})
+                if step_xml_id in resid:
+                    item = resid[step_xml_id]
+                else:
+                    item = env.ref(step_xml_id).id
 
             transition_values[key] = item
 
