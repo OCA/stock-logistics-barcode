@@ -8,7 +8,7 @@
     'name': 'Generate Barcodes (Abstract)',
     'summary': 'Generate Barcodes for Any Models',
     'version': '9.0.1.0.0',
-    'category': 'Point Of Sale',
+    'category': 'Tools',
     'author':
         'GRAP,'
         'La Louve,'

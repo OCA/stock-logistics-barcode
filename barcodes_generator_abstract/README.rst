@@ -6,7 +6,7 @@
 Generate Barcodes for any Models (Abstract)
 ===========================================
 
-This module expends Odoo functionnality, allowing user to generate barcode
+This module expends Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for any Model.
 
 For exemple, a typical pattern for products is  "20.....{NNNDD}" that means
@@ -31,17 +31,17 @@ With this module, it is possible to:
 Installation
 ============
 
-This module use an extra python librairy named 'pyBarcode' you should install
+This module use an extra python library named 'pyBarcode' you should install
 to make barcode generation works properly.
 
-sudo pip install pyBarcode
+``sudo pip install pyBarcode``
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-* Go to XXX / Configuration / Barcode Nomenclatures and select
+* Go to Settings / Technical / Sequences & Identifiers / Barcode Nomenclatures
 * Select a Nomenclature
 * Create or select a rule
 
@@ -79,7 +79,7 @@ Try this module on Runbot
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/184/9.0
+   :target: https://runbot.odoo-community.org/runbot/150/9.0
 
 Inheritance
 ===========
