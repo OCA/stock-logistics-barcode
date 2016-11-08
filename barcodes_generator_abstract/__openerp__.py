@@ -5,8 +5,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Generate Barcodes',
-    'summary': 'Generate Barcodes for Products and Partners',
+    'name': 'Generate Barcodes (Abstract)',
+    'summary': 'Generate Barcodes for Any Models',
     'version': '9.0.1.0.0',
     'category': 'Point Of Sale',
     'author':
@@ -17,24 +17,13 @@
     'license': 'AGPL-3',
     'depends': [
         'barcodes',
-        'point_of_sale',
     ],
     'data': [
         'security/res_groups.xml',
-        'views/view_res_partner.xml',
-        'views/view_product_product.xml',
-        'views/view_product_template.xml',
         'views/view_barcode_rule.xml',
+        'views/menu.xml',
     ],
     'demo': [
         'demo/res_users.xml',
-        'demo/ir_sequence.xml',
-        'demo/barcode_rule.xml',
-        'demo/res_partner.xml',
-        'demo/product.xml',
-        'demo/function.xml',
-    ],
-    'images': [
-        'static/description/barcode_rule.png'
     ],
 }
