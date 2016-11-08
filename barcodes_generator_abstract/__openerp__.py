@@ -26,4 +26,5 @@
     'demo': [
         'demo/res_users.xml',
     ],
+    'external_dependencies': {'python': ['pyBarcode']},
 }
