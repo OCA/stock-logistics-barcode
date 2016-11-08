@@ -61,7 +61,7 @@ Try this module on Runbot
 Known issues / Roadmap
 ======================
 
-1. Dependency to point_of_sale is required because barcode field, defined in 'base'
+Dependency to point_of_sale is required because barcode field, defined in 'base'
 module (in the res.partner model), is defined in a 'point_of_sale' view.
 
 It's a relative problem, because barcodes generation for partners will occures
