@@ -25,6 +25,7 @@ addon | version | summary
 --- | --- | ---
 [stock_scanner](stock_scanner/) | 9.0.1.0.0 | Allows managing barcode readers with simple scenarios
 [stock_scanner_inventory](stock_scanner_inventory/) | 9.0.1.0.0 | Stock Scanner Inventory
+[stock_scanner_location_info](stock_scanner_location_info/) | 9.0.1.0.0 | Stock Scanner Location Info
 [stock_scanner_receipt](stock_scanner_receipt/) | 9.0.1.0.0 | Stock Scanner Receipt
 [stock_scanner_shipping](stock_scanner_shipping/) | 9.0.1.0.0 | Stock Scanner Shipping
 
