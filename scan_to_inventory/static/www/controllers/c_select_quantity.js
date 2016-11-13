@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'SelectQuantityCtrl',
         ['$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel', '$translate',
@@ -18,28 +15,28 @@ angular.module('scan_to_inventory').controller(
             angular.element(document.querySelector('#input_quantity'))[0].focus();
             $scope.data.qty = '';
             // Get Product Data
-            $scope.product = $rootScope.ProductListByEan13[toParams['ean13']];
+            $scope.product = $rootScope.ProductListByEan13[toParams.ean13];
         }
     });
 
     $scope.submit = function () {
-        if ($scope.data.qty != null && !isNaN($scope.data.qty)){
+        if ($scope.data.qty !== null && !isNaN($scope.data.qty)){
             if ($scope.data.qty < 1000000){
                 if ($scope.data.qty > 0){
                     StockInventoryModel.AddInventoryLine(
                             $rootScope.currentInventoryId,
                             $rootScope.currentLocationId, $scope.product.id,
                             $scope.data.qty, 'ask').then(function (res){
-                        if (res['state'] == 'write_ok'){
+                        if (res.state == 'write_ok'){
                             angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                             setTimeout(function(){
                                 $state.go('select_product_product');
                             }, 300);
                         }else {
-                            if (res['state'] == 'duplicate'){
+                            if (res.state == 'duplicate'){
                                 $state.go('confirm_quantity', {
                                     product_id: $scope.product.id,
-                                    current_qty: res['qty'],
+                                    current_qty: res.qty,
                                     new_qty: $scope.data.qty});
                             } else {
                                 $scope.errorMessage = $translate.instant("Too Many Duplicate Lines");

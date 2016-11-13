@@ -13,7 +13,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="list_price">1.95</field>
         <field name="weight_net">0.125</field>
         <field name="sale_ok" eval="True" />
-        <field name="ean13">5400313040109</field>
         <field name="uom_id" ref="product.product_uom_unit" />
     </record>
 
@@ -23,7 +22,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="list_price">2.10</field>
         <field name="volume">0.33</field>
         <field name="sale_ok" eval="True" />
-        <field name="ean13">4260108510016</field>
         <field name="uom_id" ref="product.product_uom_unit" />
     </record>
 

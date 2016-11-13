@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'SelectStockLocationCtrl', [
         '$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel',
@@ -9,7 +6,7 @@ angular.module('scan_to_inventory').controller(
     $scope.data = {
         'location_qty': 0,
         'location_list': false,
-    }
+    };
 
     $scope.$on(
             '$stateChangeSuccess',

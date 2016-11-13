@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'SelectStockInventoryCtrl', [
         '$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel',
@@ -9,7 +6,7 @@ angular.module('scan_to_inventory').controller(
     $scope.data = {
         'inventory_qty': 0,
         'inventory_list': false,
-    }
+    };
 
     $scope.$on(
             '$stateChangeSuccess',
@@ -26,7 +23,7 @@ angular.module('scan_to_inventory').controller(
     };
 
     $scope.submit = function () {
-        if ($scope.data.inventory_name != '') {
+        if ($scope.data.inventory_name !==   '') {
             StockInventoryModel.CreateInventory($scope.data.inventory_name).then(function(inventory_id){
                 $rootScope.currentInventoryId = inventory_id;
                 $state.go('select_stock_location');

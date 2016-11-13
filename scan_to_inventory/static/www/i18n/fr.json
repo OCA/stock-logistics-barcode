@@ -25,6 +25,7 @@
     "Inventories": "Inventaires",
     "Inventory Name": "Nom de l'inventaire",
     "Create New Inventory": "Créer un nouvel inventaire",
+    "Select Existing Inventory": "Choisir un inventaire existant",
     "Line(s)": "Ligne(s)",
 
     "Product": "Produit",
@@ -47,8 +48,9 @@
     "Something Wrong Happened": "Quelquechose ne s'est pas passé comme prévu",
 
     "Duplicate Lines": "Lignes en doublons",
-    "Existing Quantity": "Quantité Actuelle",
-    "Filled Quantity": "Quantité Renseignée",
+    "Existing Quantity": "Quantité actuelle",
+    "Filled Quantity": "Quantité renseignée",
+    "Available Actions": "Actions Disponibles",
     "Sum": "Somme",
     "Add To the Current Quantity": "Ajouter à la quantité actuelle",
     "Substitution": "Remplacement",

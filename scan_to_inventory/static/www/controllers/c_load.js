@@ -1,12 +1,9 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'LoadCtrl', [
         '$scope', '$rootScope', 'jsonRpc', '$state', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
         function ($scope, $rootScope, jsonRpc, $state, ProductProductModel, StockLocationModel, StockInventoryModel, $translate) {
 
-    $scope.data = {}
+    $scope.data = {};
 
     $scope.$on(
             '$stateChangeSuccess',

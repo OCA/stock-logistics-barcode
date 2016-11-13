@@ -9,19 +9,22 @@
     <ion-content class="has-header">
         <div class="list">
             <label class="item item-input">
-                <div class="input-label">{{'Existing Quantity' | translate}}</div>
-                <span class="input-label">{{data.current_qty}}</span>
+                <div class="form-label">{{'Existing Quantity' | translate}}</div>
+                <span class="form-field">{{data.current_qty}}</span>
             </label>
             <label class="item item-input">
-                <div class="input-label">{{'Filled Quantity' | translate}}</div>
-                <span class="input-label">{{data.new_qty}}</span>
+                <div class="form-label">{{'Filled Quantity' | translate}}</div>
+                <span class="form-field">{{data.new_qty}}</span>
             </label>
         </div>
+        <div class="item item-divider">
+            {{'Available Actions' | translate}}
+         </div>
         <form ng-submit="add_quantity()">
             <div class="list">
             <label class="item item-input">
-                <div class="input-label">{{'Sum' | translate}}</div>
-                <span class="input-label">{{data.sum_qty}}</span>
+                <div class="form-label">{{'Sum' | translate}}</div>
+                <span class="form-field">{{data.sum_qty}}</span>
             </label>
                 <label class="item">
                     <button class="button button-full button-royal" translate="Add To the Current Quantity" />
@@ -31,8 +34,8 @@
         <form ng-submit="replace_quantity()">
             <div class="list">
             <label class="item item-input">
-                <div class="input-label">{{'Substitution' | translate}}</div>
-                <span class="input-label">{{data.new_qty}}</span>
+                <div class="form-label">{{'Substitution' | translate}}</div>
+                <span class="form-field">{{data.new_qty}}</span>
             </label>
                 <label class="item">
                     <button class="button button-full button-royal" translate="Replace by the Filled Quantity" />

@@ -9,16 +9,16 @@
         <form ng-submit="submit()">
             <div class="list">
                 <label class="item item-input input-select"> 
-                    <div class="input-label" for="db">{{'Database Name' | translate}}</div>
-                    <select name="db" ng-options="value for value in data.db_list" ng-model="data.db"></select>
+                    <div class="form-label" for="db">{{'Database Name' | translate}}</div>
+                    <select name="db" ng-options="value for value in data.db_list" ng-model="data.db" class="item-input select-required"></select>
                 </label>
                 <label class="item item-input">
-                    <div class="input-label">{{'Login' | translate}}</div>
-                    <input type="text" ng-model="data.login" id="input_login" autocomplete="off"/>
+                    <div class="form-label">{{'Login' | translate}}</div>
+                    <input type="text" ng-model="data.login" id="input_login" name="input_login" autocomplete="off" class="item-input input-required"/>
                 </label>
                 <label class="item item-input">
-                    <div class="input-label">{{'Password' | translate}}</div>
-                    <input type="password" ng-model="data.password"/>
+                    <div class="form-label">{{'Password' | translate}}</div>
+                    <input type="password" ng-model="data.password" id="input_password" name="input_password" class="item-input input-required"/>
                 </label>
                 <label class="item">
                     <button class="button button-full button-royal" translate="Log In" />

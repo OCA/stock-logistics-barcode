@@ -5,11 +5,12 @@
 
 {
     'name': 'Scan To Inventory',
-    'version': '1.0',
+    'version': '7.0.1.0.0',
     'category': 'Stock',
-    'author': 'GRAP',
+    'author': 'GRAP,Odoo Community Association (OCA)',
     'website': 'http://www.grap.coop',
     'license': 'AGPL-3',
+    'description': "See README.rst file",
     'depends': [
         'stock',
     ],

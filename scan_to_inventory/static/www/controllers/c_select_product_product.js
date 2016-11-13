@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'SelectProductProductCtrl', [
         '$scope', '$rootScope', 'jsonRpc', '$state', '$translate', 'StockInventoryModel',
@@ -26,7 +23,7 @@ angular.module('scan_to_inventory').controller(
             StockInventoryModel.LoadInventory(
                     $rootScope.currentInventoryId).then(function (res){
                 $scope.inventory = res;
-            })
+            });
         }
     });
 

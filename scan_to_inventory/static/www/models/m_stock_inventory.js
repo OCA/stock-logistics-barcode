@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').factory(
         'StockInventoryModel', [
         '$q', '$rootScope', 'jsonRpc',

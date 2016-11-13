@@ -10,21 +10,21 @@
         <form ng-submit="submit()">
             <div class="list">
                 <div class="item item-input">
-                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off"/>
+                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off" class="item-input input-required"/>
                     <button class="button button-positive">
                         <i class="icon ion-plus-circled"></i> {{'Add' | translate}}
                     </button>
                 </div>
 
                 <label class="item item-input">
-                    <div class="input-label">{{'Name' | translate}}</div>
-                    <span class="input-label">{{product.name}}</span>
+                    <div class="form-label">{{'Name' | translate}}</div>
+                    <span class="form-field">{{product.name}}</span>
                 </label>
 
                 <div ng-repeat="extra_field in product">
                     <label class="item item-input" ng-if="extra_field.field_name">
-                        <div class="input-label">{{extra_field.field_name}}</div>
-                        <span class="input-label">{{extra_field.value}}</span>
+                        <div class="form-label">{{extra_field.field_name}}</div>
+                        <span class="form-field">{{extra_field.value}}</span>
                     </label>
                 </div>
 

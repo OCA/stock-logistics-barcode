@@ -1,6 +1,3 @@
-'use strict';
-
-
 angular.module('scan_to_inventory').controller(
         'ConfirmQuantityCtrl',
         ['$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel', '$translate',
@@ -18,9 +15,9 @@ angular.module('scan_to_inventory').controller(
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'confirm_quantity') {
             // Get Product Data
-            $scope.data.product_id = parseInt(toParams['product_id']);
-            $scope.data.current_qty = parseInt(toParams['current_qty']);
-            $scope.data.new_qty = parseInt(toParams['new_qty']);
+            $scope.data.product_id = parseInt(toParams.product_id);
+            $scope.data.current_qty = parseInt(toParams.current_qty);
+            $scope.data.new_qty = parseInt(toParams.new_qty);
             $scope.data.sum_qty = $scope.data.current_qty + $scope.data.new_qty;
         }
     });
@@ -32,7 +29,7 @@ angular.module('scan_to_inventory').controller(
                 $rootScope.currentInventoryId,
                 $rootScope.currentLocationId, $scope.data.product_id,
                 $scope.data.sum_qty, 'add').then(function (res){
-            if (res['state'] == 'write_ok'){
+            if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                 setTimeout(function(){
                     $state.go('select_product_product');
@@ -51,7 +48,7 @@ angular.module('scan_to_inventory').controller(
                 $rootScope.currentInventoryId,
                 $rootScope.currentLocationId, $scope.data.product_id,
                 $scope.data.new_qty, 'replace').then(function (res){
-            if (res['state'] == 'write_ok'){
+            if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                 setTimeout(function(){
                     $state.go('select_product_product');
