@@ -11,10 +11,10 @@ class ProductProduct(Model):
 
     _SCAN_TO_INVENTORY_MANDATORY_FIELDS = ['id', 'name', 'ean13']
 
-    def _scan_to_inventory_product_fields(self, cr, uid, context=None):
+    def _scan_to_inventory_product_field_ids(self, cr, uid, context=None):
         user_obj = self.pool['res.users']
         company = user_obj.browse(cr, uid, uid, context=context).company_id
-        return [x.name for x in company.scan_inventory_product_fields_ids]
+        return [x.name for x in company.scan_inventory_product_field_ids]
 
     def scan_to_inventory_load_product(self, cr, uid, context=None):
         def _get_field_name(pool, cr, uid, field, model=False):
@@ -27,7 +27,7 @@ class ProductProduct(Model):
                     model = 'product.template'
             # Get translation if defined
             translation_ids = translation_obj.search(cr, uid, [
-                ('lang', '=', context['lang']),
+                ('lang', '=', context.get('lang', False)),
                 ('type', '=', 'field'),
                 ('name', '=', '%s,%s' % (model, field))],
                 context=context)
@@ -37,7 +37,8 @@ class ProductProduct(Model):
             else:
                 return pool.pool[model]._columns[field].string
 
-        product_fields = self._scan_to_inventory_product_fields(
+        context = context and context or {}
+        product_fields = self._scan_to_inventory_product_field_ids(
             cr, uid, context=context)
 
         res = {}

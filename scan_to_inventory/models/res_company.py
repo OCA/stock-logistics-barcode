@@ -11,7 +11,7 @@ class ResCompany(Model):
     _inherit = 'res.company'
 
     _columns = {
-        'scan_inventory_product_fields_ids': fields.many2many(
+        'scan_inventory_product_field_ids': fields.many2many(
             'ir.model.fields', 'res_company_product_fields_inventory_rel',
             'config_id', 'field_id', string='Product Fields',
             domain=[('model', 'in', ['product.template', 'product.product'])]),

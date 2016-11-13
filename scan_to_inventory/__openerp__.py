@@ -19,6 +19,7 @@
     ],
     'demo': [
         'demo/res_users.xml',
+        'demo/res_company.xml',
         'demo/product_product.xml',
     ],
 }

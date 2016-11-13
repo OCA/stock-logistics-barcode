@@ -15,7 +15,7 @@ Copyright (C) 2015-Today GRAP (http://www.grap.coop)
             <xpath expr="//page[@string='General Information']" position="after">
                 <page string="Scan To Inventory">
                     <group string="Settings">
-                        <field name="scan_inventory_product_fields_ids" widget="many2many_tags"/>
+                        <field name="scan_inventory_product_field_ids" widget="many2many_tags"/>
                     </group>
                 </page>
             </xpath>
