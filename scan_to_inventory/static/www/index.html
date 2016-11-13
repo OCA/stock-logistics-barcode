@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+
+        <!-- App Icons / Fav Icons -->
+        <link rel="apple-touch-icon" sizes="57x57" href="static/img/icons/apple-touch-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="static/img/icons/apple-touch-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="static/img/icons/apple-touch-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="static/img/icons/apple-touch-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="static/img/icons/apple-touch-icon-114x114.png">
+        <link rel="icon" type="image/png" href="static/img/icons/favicon-32x32.png" sizes="32x32">
+        <link rel="icon" type="image/png" href="static/img/icons/favicon-96x96.png" sizes="96x96">
+        <link rel="icon" type="image/png" href="static/img/icons/favicon-16x16.png" sizes="16x16">
+        <link rel="manifest" href="static/img/icons/manifest.json">
+        <link rel="mask-icon" href="static/img/icons/safari-pinned-tab.svg" color="#5bbad5">
+        <link rel="shortcut icon" href="static/img/icons/favicon.ico">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="msapplication-config" content="static/img/icons/browserconfig.xml">
+        <meta name="theme-color" content="#ffffff">
+
+        <!-- Ionic - CSS -->
+        <link href="static/lib/ionic/ionic.css" rel="stylesheet">
+
+        <!-- Ionic - JS -->
+        <script src="static/lib/ionic/ionic.bundle.js"></script>
+
+        <!-- Ionic Icon - CSS -->
+        <link href="static/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+
+        <!-- Angular - JS -->
+        <script src="static/lib/angular-cookies/angular-cookies.js"></script>
+
+        <!-- Angular-Translate - JS -->
+        <script src="static/lib/angular-translate/angular-translate.min.js"></script>
+        <script src="static/lib/angular-translate/angular-translate-loader-static-files.min.js"></script>
+
+        <!-- Odoo Connection - JS -->
+        <script src="static/lib/odoo/odoo.js"></script>
+
+        <!-- Import Custom JS Apps -->
+        <script src="app.js"></script>
+
+        <!-- Import Custom CSS -->
+        <link href="static/css/css.css" rel="stylesheet">
+
+        <!-- Import Models -->
+        <script src="models/m_stock_location.js"></script>
+        <script src="models/m_stock_inventory.js"></script>
+        <script src="models/m_product_product.js"></script>
+
+        <!-- Import Controllers -->
+        <script src="controllers/c_login.js"></script>
+        <script src="controllers/c_credit.js"></script>
+        <script src="controllers/c_load.js"></script>
+        <script src="controllers/c_select_stock_inventory.js"></script>
+        <script src="controllers/c_select_stock_location.js"></script>
+        <script src="controllers/c_select_product_product.js"></script>
+        <script src="controllers/c_select_quantity.js"></script>
+        <script src="controllers/c_confirm_quantity.js"></script>
+    </head>
+
+    <body ng-app="scan_to_inventory">
+        <ion-side-menus enable-menu-with-back-views="true">
+
+            <ion-side-menu side="right">
+                <header class="bar bar-header bar-stable">
+                    <h1 class="title">{{'Scan To Inventory' | translate}}</h1>
+                </header>
+                <ion-content class="has-header">
+                    <ion-list>
+                        <ion-item menu-close class="item-icon-left" href="#/credit"
+                                ng-show="['login', 'logout'].indexOf(currentState) != -1">
+                            <i class="icon ion-person-stalker"></i>{{'Credits' | translate}}
+                        </ion-item>
+                        <ion-item menu-close class="item-icon-left" href="#/login"
+                                ng-show="['credit'].indexOf(currentState) != -1">
+                            <i class="icon ion-log-in"></i>{{'Log In' | translate}}
+                        </ion-item>
+                        <ion-item menu-close class="item-icon-left" href="#/load"
+                                ng-show="['select_stock_inventory', 'select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-refresh"></i>{{'Refresh' | translate}}
+                        </ion-item>
+                        <ion-item menu-close class="item-icon-left" href="#/select_stock_inventory"
+                                ng-show="['select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-clipboard"></i>{{'Inventories' | translate}}
+                        </ion-item>
+                        <ion-item menu-close class="item-icon-left" href="#/select_stock_location"
+                                ng-show="['select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-home"></i>{{'Locations' | translate}}
+                        </ion-item>
+                        <ion-item menu-close class="item-icon-left" href="#/logout"
+                                ng-show="['load', 'select_stock_inventory', 'select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-log-out"></i>{{'Log Out' | translate}}
+                        </ion-item>
+                    </ion-list>
+                </ion-content>
+            </ion-side-menu>
+
+           <ion-side-menu-content ng-controller="AppCtrl">
+              <ion-nav-view />
+           </ion-side-menu-content>
+
+        </ion-side-menus>
+    </body>
+</html>
+
+
+
+
+

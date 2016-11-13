@@ -1,0 +1,50 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title" translate="Loading Data"></h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <ul class="list">
+            <label class="item item-icon-right">
+                {{'Products' | translate}}
+                <i class="icon ion-checkmark-round" ng-show="data.product_ok"></i>
+                <i class="icon ion-close-round" ng-show="data.product_ko"></i>
+                <span class="badge badge-energized load-quantity" ng-show="data.product_ok">
+                    {{data.product_qty}}
+                </span>
+            </label>
+            <label class="item item-icon-right">
+                {{'Locations' | translate}}
+                <i class="icon ion-checkmark-round" ng-show="data.location_ok"></i>
+                <i class="icon ion-close-round" ng-show="data.location_ko"></i>
+                <span class="badge badge-energized load-quantity" ng-show="data.location_ok">
+                    {{data.location_qty}}
+                </span>
+            </label>
+            <label class="item item-icon-right">
+                {{'Draft Inventories' | translate}}
+                <i class="icon ion-checkmark-round" ng-show="data.inventory_ok"></i>
+                <i class="icon ion-close-round" ng-show="data.inventory_ko"></i>
+                <span class="badge badge-energized load-quantity" ng-show="data.inventory_ok">
+                    {{data.inventory_qty}}
+                </span>
+            </label>
+        </ul>
+        <audio id="sound_loading_failed" src="./static/audio/loading_failed.mp3"></audio>
+    </ion-content>
+
+    <ion-footer-bar class="bar-energized" ng-show="loadingMessage">
+      <h1 class="title">{{loadingMessage}}</h1>
+    </ion-footer-bar>
+
+    <ion-footer-bar class="bar-balanced" ng-show="doneMessage">
+      <h1 class="title">{{doneMessage}}</h1>
+    </ion-footer-bar>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{errorMessage}}</h1>
+    </ion-footer-bar>
+
+</ion-view>

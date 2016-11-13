@@ -1,0 +1,17 @@
+.button-royal{
+    border: 2px solid;
+    border-radius: 15px;
+}
+
+.item-input{
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+.load-quantity{
+    margin-right: 15px;
+}
+
+.location-parent-name{
+    font-size: small;
+}

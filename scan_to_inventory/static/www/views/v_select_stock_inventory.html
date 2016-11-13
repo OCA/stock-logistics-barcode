@@ -1,0 +1,35 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Inventories' | translate}} ({{data.inventory_qty }})</h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <form ng-submit="submit()">
+            <div class="list">
+                <label class="item item-input input-select"> 
+                    <div class="input-label" for="input_inventory_name">{{'Inventory Name' | translate}}</div>
+                    <input type="text" ng-model="data.inventory_name" id="input_inventory_name" autocomplete="off"/>
+                </label>
+                <label class="item">
+                    <button class="button button-full button-royal">{{'Create New Inventory' | translate}}</button>
+                </label>
+                <ion-list>
+                    <ion-item ng-repeat="inventory in data.inventory_list">
+                        <a class="item" href="#" ng-click="selectInventory({{inventory.id}})">
+                            <span class="badge badge-energized" ng-show="inventory.inventory_line_qty">
+                                {{inventory.inventory_line_qty}} {{'Line(s)' | translate}}
+                            </span>
+                            <h2>{{inventory.name}}</h2>
+                            <p>
+                                <span ng-show="inventory.date">{{inventory.date}}</span>
+                            </p>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-view>

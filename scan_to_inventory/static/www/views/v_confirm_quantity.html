@@ -1,0 +1,50 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Duplicate Lines' | translate}}</h1>
+        <a class="button icon ion-android-cancel" href="#/select_product_product"></a>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <div class="list">
+            <label class="item item-input">
+                <div class="input-label">{{'Existing Quantity' | translate}}</div>
+                <span class="input-label">{{data.current_qty}}</span>
+            </label>
+            <label class="item item-input">
+                <div class="input-label">{{'Filled Quantity' | translate}}</div>
+                <span class="input-label">{{data.new_qty}}</span>
+            </label>
+        </div>
+        <form ng-submit="add_quantity()">
+            <div class="list">
+            <label class="item item-input">
+                <div class="input-label">{{'Sum' | translate}}</div>
+                <span class="input-label">{{data.sum_qty}}</span>
+            </label>
+                <label class="item">
+                    <button class="button button-full button-royal" translate="Add To the Current Quantity" />
+                </label>
+            </div>
+        </form>
+        <form ng-submit="replace_quantity()">
+            <div class="list">
+            <label class="item item-input">
+                <div class="input-label">{{'Substitution' | translate}}</div>
+                <span class="input-label">{{data.new_qty}}</span>
+            </label>
+                <label class="item">
+                    <button class="button button-full button-royal" translate="Replace by the Filled Quantity" />
+                </label>
+            </div>
+        </form>
+        <audio id="sound_quantity_selected" src="./static/audio/quantity_selected.mp3"></audio>
+        <audio id="sound_user_error" src="./static/audio/user_error.mp3"></audio>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

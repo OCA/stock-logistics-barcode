@@ -1,0 +1,41 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Quantity' | translate}}</h1>
+        <a class="button icon ion-android-cancel" href="#/select_product_product"></a>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <form ng-submit="submit()">
+            <div class="list">
+                <div class="item item-input">
+                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off"/>
+                    <button class="button button-positive">
+                        <i class="icon ion-plus-circled"></i> {{'Add' | translate}}
+                    </button>
+                </div>
+
+                <label class="item item-input">
+                    <div class="input-label">{{'Name' | translate}}</div>
+                    <span class="input-label">{{product.name}}</span>
+                </label>
+
+                <div ng-repeat="extra_field in product">
+                    <label class="item item-input" ng-if="extra_field.field_name">
+                        <div class="input-label">{{extra_field.field_name}}</div>
+                        <span class="input-label">{{extra_field.value}}</span>
+                    </label>
+                </div>
+
+            </div>
+        </form>
+        <audio id="sound_quantity_selected" src="./static/audio/quantity_selected.mp3"></audio>
+        <audio id="sound_user_error" src="./static/audio/user_error.mp3"></audio>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+        <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

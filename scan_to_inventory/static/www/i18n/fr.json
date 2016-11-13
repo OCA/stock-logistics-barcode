@@ -1,0 +1,58 @@
+{
+
+    "Scan To Inventory": "Scan -> Inventaire",
+
+    "Credits": "Crédits",
+    "Refresh": "Rafraichir",
+    "Log In": "Se connecter",
+    "Log Out": "Se déconnecter",
+
+    "Authentication": "Authentification",
+    "Database Name": "Base de données",
+    "Login": "Identifiant",
+    "Password": "Mot de passe",
+    "Bad Login / Password": "Identifiants incorrects",
+    "Insufficient Acces Right: you should be member of 'Purchase / user' group." : "Droits d'accès insuffisants : Vous devez être membre du groupe 'Achat / Utilisateur'.",
+
+    "Loading Data": "Chargement des données",
+    "Products": "Produits",
+    "Locations": "Emplacements",
+    "Draft Inventories": "Inventaire en brouillon",
+    "Pending Loading ...": "Chargement en cours ...",
+    "Loading Done": "Chargement terminé",
+    "Loading Failed": "Chargement en échec",
+
+    "Inventories": "Inventaires",
+    "Inventory Name": "Nom de l'inventaire",
+    "Create New Inventory": "Créer un nouvel inventaire",
+    "Line(s)": "Ligne(s)",
+
+    "Product": "Produit",
+    "Scan": "Scan",
+    "Name": "Nom",
+    "Current Location": "Emplacement courant",
+
+    "EAN13 Barcode": "Code barre EAN13",
+    "Analyze EAN13 Barcode": "Analyser le Code barre EAN13",
+    "Unknown EAN13 Barcode": "Code barre EAN13 inconnu",
+
+    "Quantity": "Quantité",
+    "Add": "Ajouter",
+    "Qty": "Qté",
+    "Incorrect Quantity": "Quantité incorrecte",
+    "Too Many Duplicate Lines": "Trop de lignes en doublon",
+    "Too Big Quantity": "Quantité trop grande",
+    "Too Small Quantity": "Quantité trop petite",
+
+    "Something Wrong Happened": "Quelquechose ne s'est pas passé comme prévu",
+
+    "Duplicate Lines": "Lignes en doublons",
+    "Existing Quantity": "Quantité Actuelle",
+    "Filled Quantity": "Quantité Renseignée",
+    "Sum": "Somme",
+    "Add To the Current Quantity": "Ajouter à la quantité actuelle",
+    "Substitution": "Remplacement",
+    "Replace by the Filled Quantity": "Remplacer par la quantité renseignée",
+
+    "": ""
+}

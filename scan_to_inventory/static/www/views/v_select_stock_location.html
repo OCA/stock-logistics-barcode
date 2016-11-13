@@ -1,0 +1,25 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Locations' | translate}} ({{data.location_qty }})</h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <form ng-submit="submit()">
+            <div class="list">
+                <ion-list>
+                    <ion-item ng-repeat="location in data.location_list">
+                        <a class="item" href="#" ng-click="selectLocation({{location.id}}, '{{location.name}}')">
+                            <h2>{{location.name}}</h2>
+                            <p>
+                                <span class="location-parent-name">({{location.parent_complete_name}})</span>
+                            </p>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-view>
