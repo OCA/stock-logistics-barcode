@@ -18,7 +18,7 @@ angular.module('scan_to_inventory').controller(
             if ($rootScope.LocationList.length === 1){
             $rootScope.currentLocationId = $rootScope.LocationList[0].id;
             $rootScope.currentLocationName = $rootScope.LocationList[0].name;
-                $state.go('select_product_product');
+            $state.go('select_product_product');
             }
         }
     });

@@ -156,7 +156,6 @@ Configuration
 
 * Language is displayed, depending on the languages provided by the browser.
   If you want to manually change it, you can to do so on firefox:
-
     * go to about:config
     * Change the value of the key 'intl.accept_languages'
 
@@ -171,6 +170,11 @@ http//localhost:8069/scan_to_inventory/static/www/index.html
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/150/7.0
 
+**Note**
+
+* If you test the module on runbot, make sure products have barcodes and
+product_multi_ean module is **NOT** installed.
+
 Roadmap / Current Limits
 ------------------------
 
@@ -184,6 +188,13 @@ Roadmap / Current Limits
 
 Known Issues
 ------------
+
+* Due to bad design of the module 'product_multi_ean' that changes type of
+  code product ean13 field from char to many2one, 'scan_to_inventory will not
+  work if 'product_multi_ean' is installed. (Products loading will fail)
+  This issue will not occur in V8+, due to refactoring of 'product_multi_ean'
+  that fixes this bug.
+  `See the bug report on Github <https://github.com/OCA/stock-logistics-barcode/issues/52>`_
 
 * Databases list on login view displays all databases, while only databases
   with 'scan_to_inventory' module installed should be displayed. But this
@@ -237,4 +248,3 @@ mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
 To contribute to this module, please visit https://odoo-community.org.
-

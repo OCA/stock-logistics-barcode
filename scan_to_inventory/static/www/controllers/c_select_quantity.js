@@ -20,7 +20,7 @@ angular.module('scan_to_inventory').controller(
     });
 
     $scope.submit = function () {
-        if ($scope.data.qty !== null && !isNaN($scope.data.qty)){
+        if ($scope.data.qty){
             if ($scope.data.qty < 1000000){
                 if ($scope.data.qty > 0){
                     StockInventoryModel.AddInventoryLine(
