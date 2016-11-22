@@ -21,7 +21,7 @@
 from openerp import api, fields, models
 
 
-class ProductBarcodeMassAssignmentWiz(models.TransientModel):
+class ProductBarcodeMassAssignmentWizz(models.TransientModel):
     """ wizard for barcode """
 
     _name = "product.barcode.mass.assignment.wizz"
@@ -35,18 +35,15 @@ class ProductBarcodeMassAssignmentWiz(models.TransientModel):
         """
         This function gets default values
         """
-        res = super(ProductBarcodeMassAssignmentWiz, self).default_get(fields)
+        res = super(ProductBarcodeMassAssignmentWizz, self).default_get(fields)
         user = self.env['res.users'].browse(self._uid)
         if user.company_id.ean_sequence_id:
-            res.update({
-                'ean_sequence_id': user.company_id.ean_sequence_id.id
-                if user.company_id.ean_sequence_id else False})
+            res.update({'ean_sequence_id': user.company_id.ean_sequence_id.id
+                        if user.company_id.ean_sequence_id else False})
         return res
 
     @api.multi
     def do_assign(self):
-        if self.env.context is None:
-            self.env.context = {}
         productobj = self.env['product.product']
         user = self.env['res.users'].browse(self._uid)
 
@@ -55,21 +52,20 @@ class ProductBarcodeMassAssignmentWiz(models.TransientModel):
             ('company_id', '=', user.company_id.id)])
         if products:
             for product in products:
-                if not self.ean13:
+                if not product.ean13:
                     ean = self._get_ean_next_code()
                     if not ean:
                         continue
-                    key = self._get_ean_control_digit(ean)
-                    ean13 = ean + key
+                    ean13 = ean + productobj._get_ean_control_digit(ean)
                     product.write({'ean13': ean13,
-                                   'ean_sequence_id': self.sequence_id.id})
+                                   'ean_sequence_id': self.ean_sequence_id.id})
 
     @api.model
     def _get_ean_next_code(self):
         sequence_obj = self.env['ir.sequence']
         exit = False
         while not exit:
-            ean = sequence_obj.next_by_id(self.sequence_id.id)
+            ean = sequence_obj.next_by_id(self.ean_sequence_id.id)
             ean = (len(ean[0:6]) == 6 and ean[0:6] or
                    ean[0:6].ljust(6, '0')) + ean[6:].rjust(6, '0')
             if len(ean) <= 12:
