@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- © 2016 Factor Libre, soluciones tecnologicas
+     Copyright (C) 2016-TODAY Janire Olagibel <janire.olagibel@factorlibre.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html). -->
+
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="product_barcode_mass_assignment_wiz_form">
+            <field name="name">Assign Product Barcode</field>
+            <field name="model">product.barcode.mass.assignment.wizz</field>
+            <field name="arch" type="xml">
+                <form string="Lost Employee">
+                    <group>
+                        <field name="ean_sequence_id" 
+                            domain="[('barcode_sequence', '=', 1)]"/>
+                    </group>
+                    <footer>
+                        <button name="do_assign" string="Assign" type="object" class="oe_highlight"/>
+                        or
+                        <button string="Cancel" class="oe_link" special="cancel" />
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="product_barcode_mass_assignment_wiz_action" model="ir.actions.act_window">
+            <field name="name">Assign Product EAN13</field>
+            <field name="res_model">product.barcode.mass.assignment.wizz</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+        </record>
+
+        <record model="ir.values" id="product_barcode_mass_assignment_wiz">
+            <field name="model_id" ref="product.model_product_product" />
+            <field name="name">Assign EAN13s</field>
+            <field name="key2">client_action_multi</field>
+            <field name="value" eval="'ir.actions.act_window,' +
+                         str(ref('product_barcode_mass_assignment_wiz_action'))" />
+            <field name="key">action</field>
+            <field name="model">product.product</field>
+        </record>
+
+    </data>
+</openerp>

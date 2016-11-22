@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-#    OpenERP, Open Source Management Solution
-#    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
+#    Factor Libre, soluciones tecnologicas
+#    Copyright (C) 2016-TODAY Janire Olagibel <janire.olagibel@factorlibre.com>
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -19,24 +19,4 @@
 #
 ###############################################################################
 
-{
-    "name": 'Product barcode generator',
-    "license": "GPL-3",
-    "category": "Stock Management",
-    "version": '8.0.1.0.0',
-    "author": 'Julius Network Solutions, Odoo Community Association (OCA)',
-    "website": 'http://www.julius.fr/',
-    "depends": [
-        'product',
-    ],
-    "demo": [],
-    "data": [
-        "data/ean_sequence.xml",
-        "views/res_company_view.xml",
-        "views/product_view.xml",
-        "views/sequence_view.xml",
-        "wizard/product_barcode_mass_assignment_wiz_view.xml"
-    ],
-    "installable": True,
-    "active": False,
-}
+from . import product_barcode_mass_assignment_wizz

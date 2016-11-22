@@ -19,9 +19,29 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: product_barcode_generator
+#: view:product.barcode.mass.assignment.wizz:product_barcode_generator.product_barcode_mass_assignment_wiz_form
+msgid "Assign"
+msgstr "Asignar"
+
+#. module: product_barcode_generator
+#: model:ir.actions.act_window,name:product_barcode_generator.product_barcode_mass_assignment_wiz_action
+msgid "Assign Product EAN13"
+msgstr "Asignar EAN13 al Producto"
+
+#. module: product_barcode_generator
 #: field:ir.sequence,barcode_sequence:0
 msgid "Barcode Sequence"
-msgstr ""
+msgstr "Secuencia Barcode"
+
+#. module: product_barcode_generator
+#: model:ir.model,name:product_barcode_generator.model_product_barcode_mass_assignment_wizz
+msgid "Barcode Wizard for mass assignment"
+msgstr "Asistente de asignación masiva de barcodes"
+
+#. module: product_barcode_generator
+#: view:product.barcode.mass.assignment.wizz:product_barcode_generator.product_barcode_mass_assignment_wiz_form
+msgid "Cancel"
+msgstr "Cancelar"
 
 #. module: product_barcode_generator
 #: model:ir.model,name:product_barcode_generator.model_res_company
@@ -48,10 +68,11 @@ msgid "Ean Company code"
 msgstr ""
 
 #. module: product_barcode_generator
+#: field:product.barcode.mass.assignment.wizz,ean_sequence_id:0
 #: field:product.category,ean_sequence_id:0
 #: field:product.product,ean_sequence_id:0 field:res.company,ean_sequence_id:0
 msgid "Ean sequence"
-msgstr ""
+msgstr "Secuencia Ean"
 
 #. module: product_barcode_generator
 #: view:product.product:product_barcode_generator.view_product_simple_ean_form
