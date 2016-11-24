@@ -6,37 +6,39 @@
 Stock Scanner Web
 =================
 
-This module extends the functionality of stock scanner play scenarios on web interface.
+This module extends the functionality of stock scanner play scenarios on web
+interface. Some features of this module are:
+
+*  Responsive layout, properly displayed on mobiles.
+*  Link called "Web Stock Scanner" in the inventory menu to access the website.
+*  Added modifications to restrict hardware usage to specific users.
+*  Initial View to allow user to select among various hardware devices.
+
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-#. Scanner Hardware
-
-.. figure:: path/to/local/image.png
-   :alt: alternative description
-   :width: 600 px
+* Create a Scanner Hardware and add to the user. You can now do this
+directly from the user form.
+* Also, do not forget to enable "Sentinel: technical users" option in the user
+form, as it is required by the basic stock_scanner module.
+* Go to "Inventory > Configuration > Scanner Configuration > Scanner
+Scenario" and manually remove the "log in" and "log out" scenarios as they
+aren't needed anymore.
 
 Usage
 =====
 
-To use this module, you need to:
 
-#. .../scanner_call/hardware_code
+To use this module, you need to go to:
 
-.. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
-   :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/{repo_id}/{branch}
+* .../scanner_call/
 
-.. repo_id is available in https://github.com/OCA/maintainer-tools/blob/master/tools/repos_with_ids.txt
-.. branch is "8.0" for example
+or call it directly clicking on the "Web Stock Scanner" option of the
+inventory menu.
 
-Known issues / Roadmap
-======================
-
-* ...
 
 Bug Tracker
 ===========
@@ -58,6 +60,10 @@ Contributors
 ------------
 
 * Angel Moya <contacto@angelmoya.es>
+* Jordi Ballester <jordi.ballester@eficent.com>
+* Aarón Henríquez <ahenriquez@eficent.com>
+* Lois Rilo <lois.rilo@eficent.com>
+
 
 Maintainer
 ----------
