@@ -1,96 +1,162 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright 2016 Angel Moya <http://angelmoya.es>
-     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<!--
+    Copyright 2016 Angel Moya <http://angelmoya.es>
+    Copyright 2016 Eficent Business and IT Consulting Services, S.L.
+    <http://www.eficent.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
 
 <openerp>
     <data>
 
         <template id="stock_scanner_web.assets_frontend" name="Website assets">
-            <script type="text/javascript" src="/stock_scanner_web/static/src/js/stock_scanner_web.js"/>
-            <link rel="stylesheet" href="/stock_scanner_web/static/src/css/stock_scanner_web.css"/>
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1"/>
+            <!-- Include the jQuery library -->
+            <script type="text/javascript"
+                    src="https://code.jquery.com/jquery-1.11.3.min.js"/>
+            <!-- Include jQuery Mobile stylesheets -->
+            <link rel="stylesheet"
+                  href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
+            <!-- Include the jQuery Mobile library -->
+            <script type="text/javascript"
+                    src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"/>
         </template>
 
         <template id="layout" name="Main layout">&lt;!DOCTYPE html&gt;
             <html>
                 <head>
                     <title>Scanner Web</title>
-
-                    <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
-                    <link rel="stylesheet" href="/web/static/lib/jquery.ui/css/smoothness/jquery-ui-1.9.1.custom.css"/>
-                    <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
-
                     <t t-call-assets="stock_scanner_web.assets_frontend" t-js="false"/>
                 </head>
-                <body>
-
-                    <div class="content">
+                <body style="background-color:powderblue;">
+                    <div class="content" >
                         <t t-raw="0"/>
                     </div>
-
                     <t t-call-assets="stock_scanner_web.assets_frontend" t-css="false"/>
                 </body>
             </html>
         </template>
 
+
+        <template id="hardware_select" name="header" page="True">
+            <t t-call="stock_scanner_web.layout">
+                <div id="wrap" class="oe_structure oe_empty" data-role="page">
+                    <div data-role="main" class="ui-content">
+                        <div class="col-xs-12 text-center">
+                            <p t-if="code == 'L'">
+                                <center>
+                                    <h3>Please, Select your hardware:</h3>
+                                </center>
+                                <div data-role="controlgroup"
+                                     data-type="vertical">
+                                    <t t-foreach="result" t-as="line">
+                                        <a id="btn-go"
+                                           t-attf-href="/scanner_call/{{line}}" class="ui-btn">
+                                            <span t-esc="line"/>
+                                        </a>
+                                    </t>
+                                </div>
+                            </p>
+                            <p t-if="code in ['E','N']">
+                                <h3>
+                                    <span t-esc="result"/>
+                                </h3>
+                                <p t-if="code == 'E'">
+                                    <a id="btn-go" t-attf-href="/scanner_call/" class="ui-btn">
+                                        Back
+                                    </a>
+                                </p>
+                                <p t-if="code == 'N'">
+                                    <a id="btn-back" href="#" data-rel="back"
+                                       class="ui-btn ui-btn-b">
+                                        Back to Odoo
+                                    </a>
+                                </p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
         <template id="scanner_call" name="header" page="True">
             <t t-call="stock_scanner_web.layout">
-                <div id="wrap" class="oe_structure oe_empty">
-                    <div class="row">
+                <div id="wrap" class="oe_structure oe_empty" data-role="page">
+                    <div data-role="main" class="ui-content">
+                        <a t-attf-href="/scanner_call/"
+                           class="ui-btn ui-btn-inline ui-btn-b">Home</a>
                         <div class="col-xs-12 text-center">
-                            <h3>
-                                <span t-esc="code"/>
-                            </h3>
+                            <!--<p t-if="code == 'TERM'">-->
+                                <!--<form method="get"-->
+                                      <!--class="search_class form-inline">-->
+                                    <!--<div class="input-group">-->
+                                        <!--<input type="text"-->
+                                               <!--name="terminal_number"-->
+                                               <!--class="search-query form-control"/>-->
+                                        <!--<span class="input-group-btn">-->
+                                            <!--<button class="ui-btn">Submit</button>-->
+                                        <!--</span>-->
+                                    <!--</div>-->
+                                <!--</form>-->
+                            <!--</p>-->
                             <p t-if="code == 'L'">
-                                <table class="table table-condensed">
-                                    <thead>
-                                        <tr>
-                                            <th>Index</th>
-                                            <th>Menu</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr t-foreach="result" t-as="line">
-                                            <td>
-                                                <span t-esc="result.index(line)"/>
-                                            </td>
-                                            <td t-if="len(line) != 2 and line[0] != '|'">
-                                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/{{line}}" class="btn">
-                                                    <span t-esc="line"/>
-                                                </a>
-                                            </td>
-                                            <td t-if="len(line) != 2 and line[0] == '|'">
-                                                <span t-esc="line[1:]"/>
-                                            </td>
-                                            <td t-if="len(line) == 2 and line[0] != '|'">
-                                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/{{line[0]}}" class="btn">
-                                                    <span t-esc="line[1]"/>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div data-role="controlgroup"
+                                     data-type="vertical">
+                                    <t t-foreach="result" t-as="line">
+                                        <t t-if="len(line) != 2 and line[0] != '|'">
+                                            <a id="btn-go"
+                                               t-attf-href="/scanner_call/{{terminal_number}}/action/{{line}}" class="ui-btn">
+                                                <span t-esc="line"/>
+                                            </a>
+                                        </t>
+                                        <t t-if="len(line) != 2 and line[0] == '|'">
+                                            <center>
+                                                <h2 t-esc="line[1:]"/>
+                                            </center>
+                                        </t>
+                                        <t t-if="len(line) == 2 and line[0] != '|'">
+                                            <a id="btn-go"
+                                               t-attf-href="/scanner_call/{{terminal_number}}/action/{{line[0]}}" class="ui-btn">
+                                                <span t-esc="line[1]"/>
+                                            </a>
+                                        </t>
+                                    </t>
+                                </div>
                             </p>
-                            <p t-if="code in ['M','E']">
-
+                            <p t-if="code == 'M'">
                                 <h3>
-                                    <span t-esc="result[0][1:]"/>
+                                    <span t-esc="result[0]"/>
                                 </h3>
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
                                 </t>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/0" class="btn">
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/action/0" class="ui-btn">
+                                    Go
+                                </a>
+                            </p>
+                            <p t-if="code == 'E'">
+                                <h3>
+                                    <span style="color:red;" t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/" class="ui-btn">
                                     Go
                                 </a>
                             </p>
                             <p t-if="code == 'F'">
-
                                 <h3>
-                                    <span t-esc="result[0][1:]"/>
+                                    <span t-esc="result[0]"/>
                                 </h3>
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
                                 </t>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/Menu" class="btn">
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/Menu" class="ui-btn">
                                     Go to menu
                                 </a>
                             </p>
@@ -102,17 +168,17 @@
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
                                 </t>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/True" class="btn">
+                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/True" class="ui-btn">
                                     Yes
                                 </a>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/False" class="btn">
+                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/False" class="ui-btn">
                                     No
                                 </a>
                             </p>
                             <p t-if="code in ['N','Q']">
 
                                 <h3>
-                                    <span t-esc="result[0][1:]"/>
+                                    <span t-esc="result[0][0:]"/>
                                 </h3>
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
@@ -123,15 +189,14 @@
                                     <div class="input-group">
                                         <input type="number" name="message" class="search-query form-control"/>
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default a-submit"><i class="fa fa-go"/></button>
+                                            <button class="ui-btn">Submit</button>
                                         </span>
                                     </div>
                                 </form>
                             </p>
                             <p t-if="code == 'T'">
-
                                 <h3>
-                                    <span t-esc="result[0][1:]"/>
+                                    <span t-esc="result[0]"/>
                                 </h3>
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
@@ -142,12 +207,34 @@
                                     <div class="input-group">
                                         <input type="text" name="message" class="search-query form-control"/>
                                         <span class="input-group-btn">
-                                            <button type="submit" class="btn btn-default a-submit"><i class="fa fa-go"/></button>
+                                            <button type="submit"
+                                                    class="ui-btn-b"><i
+                                                    class="fa fa-go"/>Submit</button>
                                         </span>
                                     </div>
                                 </form>
                             </p>
+                            <p t-if="code == 'R'">
+                                <h3>
+                                    <span t-esc="result[0]"/>
+                                </h3>
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/Menu" class="ui-btn">
+                                    Go to menu
+                                </a>
+                            </p>
+                            <p t-if="code == 'U'">
+                                <h3>Please, contact you administrator</h3>
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/" class="ui-btn">
+                                    Go to menu
+                                </a>
+                            </p>
                             <p>
+                                <!-- Debuggin tags:-->
+                                <h3>
+                                    <span t-esc="code" > </span>
+                                </h3>
                                 <span t-esc="result"/>
                                 <span t-esc="value"/>
                             </p>
