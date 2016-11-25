@@ -24,9 +24,6 @@ To configure this module, you need to:
 directly from the user form.
 * Also, do not forget to enable "Sentinel: technical users" option in the user
 form, as it is required by the basic stock_scanner module.
-* Go to "Inventory > Configuration > Scanner Configuration > Scanner
-Scenario" and manually remove the "log in" and "log out" scenarios as they
-aren't needed anymore.
 
 Usage
 =====

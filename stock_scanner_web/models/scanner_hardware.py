@@ -3,17 +3,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
-import random
-import time
-import datetime
 
-from psycopg2 import OperationalError, errorcodes
+from psycopg2 import errorcodes
 
-from openerp import models, api, fields, exceptions
-from openerp import workflow
+from openerp import models, api, exceptions
 from openerp import _
-from openerp.tools.misc import ustr
-from openerp.tools.safe_eval import safe_eval
 
 
 logger = logging.getLogger('stock_scanner')
