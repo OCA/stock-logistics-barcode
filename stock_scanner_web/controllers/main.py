@@ -40,8 +40,9 @@ class ScannerWeb(http.Controller):
                 if not allowed_hardware(user, terminal_number):
                     values = {
                         'code': 'E',
-                        'result': 'Hardware {} not allowed for user {}.'.format(
-                            terminal_number, user.name)
+                        'result':
+                            'Hardware {} not allowed for user {}.'.format(
+                                terminal_number, user.name)
                     }
                     return http.request.render(
                         'stock_scanner_web.hardware_select',
@@ -78,7 +79,8 @@ class ScannerWeb(http.Controller):
                 'scenario': scenario,
                 'terminal_number': terminal_number
             }
-            return http.request.render('stock_scanner_web.scanner_call', values)
-        except Exception as e:
-            # Generate warning page
+            return http.request.render('stock_scanner_web.scanner_call',
+                                       values)
+        except Exception as e:  # 'e' is unused!
+            # TODO: Generate warning page
             pass
