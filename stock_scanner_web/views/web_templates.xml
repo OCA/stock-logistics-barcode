@@ -12,15 +12,12 @@
         <template id="stock_scanner_web.assets_frontend" name="Website assets">
             <meta name="viewport"
                   content="width=device-width, initial-scale=1"/>
-            <!-- Include the jQuery library -->
             <script type="text/javascript"
-                    src="https://code.jquery.com/jquery-1.11.3.min.js"/>
-            <!-- Include jQuery Mobile stylesheets -->
+                    src="/stock_scanner_web/static/src/js/jquery-1.11.3.min.js"/>
             <link rel="stylesheet"
-                  href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"/>
-            <!-- Include the jQuery Mobile library -->
+                  href="/stock_scanner_web/static/src/css/jquery.mobile-1.4.5.min.css"/>
             <script type="text/javascript"
-                    src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"/>
+                    src="/stock_scanner_web/static/src/js/jquery.mobile-1.4.5.min.js"/>
         </template>
 
         <template id="layout" name="Main layout">&lt;!DOCTYPE html&gt;
@@ -87,19 +84,6 @@
                         <a t-attf-href="/scanner_call/"
                            class="ui-btn ui-btn-inline ui-btn-b">Home</a>
                         <div class="col-xs-12 text-center">
-                            <!--<p t-if="code == 'TERM'">-->
-                                <!--<form method="get"-->
-                                      <!--class="search_class form-inline">-->
-                                    <!--<div class="input-group">-->
-                                        <!--<input type="text"-->
-                                               <!--name="terminal_number"-->
-                                               <!--class="search-query form-control"/>-->
-                                        <!--<span class="input-group-btn">-->
-                                            <!--<button class="ui-btn">Submit</button>-->
-                                        <!--</span>-->
-                                    <!--</div>-->
-                                <!--</form>-->
-                            <!--</p>-->
                             <p t-if="code == 'L'">
                                 <div data-role="controlgroup"
                                      data-type="vertical">
@@ -144,8 +128,8 @@
                                     <p t-esc="line"/>
                                 </t>
                                 <a id="btn-go"
-                                   t-attf-href="/scanner_call/{{terminal_number}}/" class="ui-btn">
-                                    Go
+                                   t-attf-href="/scanner_call/{{terminal_number}}/back" class="ui-btn">
+                                    Back
                                 </a>
                             </p>
                             <p t-if="code == 'F'">
@@ -163,7 +147,7 @@
                             <p t-if="code == 'C'">
 
                                 <h3>
-                                    <span t-esc="result[0][1:]"/>
+                                    <span t-esc="result[0]"/>
                                 </h3>
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>

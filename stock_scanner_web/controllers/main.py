@@ -22,7 +22,8 @@ class ScannerWeb(http.Controller):
         '/scanner_call',
         '/scanner_call/<string:terminal_number>',
         '/scanner_call/<string:terminal_number>/<string:action>',
-        '/scanner_call/<string:terminal_number>/<string:action>/<string:message>',
+        '/scanner_call/<string:terminal_number>/<string:action>/'
+        '<string:message>',
     ], website=True, auth='user')
     def scanner_call(self,
                      terminal_number='',
@@ -32,6 +33,7 @@ class ScannerWeb(http.Controller):
                      auth='public',
                      website=True):
         values = {}
+        scanner_hardware = request.env()['scanner.hardware']
         try:
             user = request.env()['res.users'].browse(request.uid)
             if terminal_number:
@@ -56,26 +58,27 @@ class ScannerWeb(http.Controller):
                 else:
                     values = {
                         'code': 'N',
-                        'result': "You do not have any hardware allowed. " \
+                        'result': "You do not have any hardware allowed. "
                                   "Please contact your administrator."
                     }
                 return http.request.render('stock_scanner_web.hardware_select',
-                                               values)
+                                           values)
+            # action = int(action)
 
-            scanner_hardware = request.env()['scanner.hardware'].sudo()
-            action = int(action)
+            (code, result, value) = scanner_hardware.with_context(
+                stock_scanner_call_from_web=True).scanner_call(
+                terminal_number,
+                action,
+                message)
+            scenario = scanner_hardware.scanner_check(terminal_number)
+            values = {
+                'code': code,
+                'result': result,
+                'value': value,
+                'scenario': scenario,
+                'terminal_number': terminal_number
+            }
+            return http.request.render('stock_scanner_web.scanner_call', values)
         except Exception as e:
+            # Generate warning page
             pass
-        (code, result, value) = scanner_hardware.scanner_call(
-            terminal_number,
-            action,
-            message)
-        scenario = scanner_hardware.scanner_check(terminal_number)
-        values = {
-            'code': code,
-            'result': result,
-            'value': value,
-            'scenario': scenario,
-            'terminal_number': terminal_number
-        }
-        return http.request.render('stock_scanner_web.scanner_call', values)
