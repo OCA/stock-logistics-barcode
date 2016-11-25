@@ -4,4 +4,5 @@
 # <http://www.eficent.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-import res_user
+from . import res_user
+from . import scanner_hardware
