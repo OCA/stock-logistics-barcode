@@ -6,6 +6,7 @@
 
 from openerp import http
 from openerp.http import request
+from openerp import _
 
 
 def allowed_hardware(user, t_num):
@@ -17,7 +18,6 @@ def allowed_hardware(user, t_num):
 
 
 class ScannerWeb(http.Controller):
-
     @http.route([
         '/scanner_call',
         '/scanner_call/<string:terminal_number>',
@@ -33,20 +33,22 @@ class ScannerWeb(http.Controller):
                      auth='public',
                      website=True):
         values = {}
-        scanner_hardware = request.env()['scanner.hardware']
+        if message == 'False':
+            message = False
+
+        scanner_hardware = request.env['scanner.hardware']
         try:
-            user = request.env()['res.users'].browse(request.uid)
-            if terminal_number:
-                if not allowed_hardware(user, terminal_number):
-                    values = {
-                        'code': 'E',
-                        'result':
-                            'Hardware {} not allowed for user {}.'.format(
-                                terminal_number, user.name)
-                    }
-                    return http.request.render(
-                        'stock_scanner_web.hardware_select',
-                        values)
+            user = request.env.user.browse(request.uid)
+            if terminal_number and not allowed_hardware(user, terminal_number):
+                values = {
+                    'code': 'E',
+                    'result':
+                        _('Hardware {} not allowed for user {}.').format(
+                            terminal_number, user.name)
+                }
+                return http.request.render(
+                    'stock_scanner_web.hardware_select',
+                    values)
             terminal_list = []
             if not terminal_number:
                 for hardware in user.scanner_hardware_ids:
@@ -59,12 +61,11 @@ class ScannerWeb(http.Controller):
                 else:
                     values = {
                         'code': 'N',
-                        'result': "You do not have any hardware allowed. "
-                                  "Please contact your administrator."
+                        'result': _("You do not have any hardware allowed. "
+                                    "Please contact your administrator.")
                     }
                 return http.request.render('stock_scanner_web.hardware_select',
                                            values)
-            # action = int(action)
 
             (code, result, value) = scanner_hardware.with_context(
                 stock_scanner_call_from_web=True).scanner_call(
@@ -81,6 +82,6 @@ class ScannerWeb(http.Controller):
             }
             return http.request.render('stock_scanner_web.scanner_call',
                                        values)
-        except Exception as e:  # 'e' is unused!
+        except Exception as e:
             # TODO: Generate warning page
             pass
