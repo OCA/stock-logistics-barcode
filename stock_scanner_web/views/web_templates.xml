@@ -13,11 +13,11 @@
             <meta name="viewport"
                   content="width=device-width, initial-scale=1"/>
             <script type="text/javascript"
-                    src="/stock_scanner_web/static/src/js/jquery-1.11.3.min.js"/>
+                    src="/stock_scanner_web/static/lib/js/jquery-1.11.3.min.js"/>
             <link rel="stylesheet"
-                  href="/stock_scanner_web/static/src/css/jquery.mobile-1.4.5.min.css"/>
+                  href="/stock_scanner_web/static/lib/css/jquery.mobile-1.4.5.min.css"/>
             <script type="text/javascript"
-                    src="/stock_scanner_web/static/src/js/jquery.mobile-1.4.5.min.js"/>
+                    src="/stock_scanner_web/static/lib/js/jquery.mobile-1.4.5.min.js"/>
         </template>
 
         <template id="layout" name="Main layout">&lt;!DOCTYPE html&gt;
@@ -81,8 +81,8 @@
             <t t-call="stock_scanner_web.layout">
                 <div id="wrap" class="oe_structure oe_empty" data-role="page">
                     <div data-role="main" class="ui-content">
-                        <a t-attf-href="/scanner_call/"
-                           class="ui-btn ui-btn-inline ui-btn-b">Home</a>
+                        <!--<a t-attf-href="/scanner_call/"-->
+                           <!--class="ui-btn ui-btn-inline ui-btn-b">Home</a>-->
                         <div class="col-xs-12 text-center">
                             <p t-if="code == 'L'">
                                 <div data-role="controlgroup"
@@ -101,7 +101,7 @@
                                         </t>
                                         <t t-if="len(line) == 2 and line[0] != '|'">
                                             <a id="btn-go"
-                                               t-attf-href="/scanner_call/{{terminal_number}}/action/{{line[0]}}" class="ui-btn">
+                                               t-attf-href="/scanner_call/{{terminal_number}}/action?message={{line[0]}}" class="ui-btn">
                                                 <span t-esc="line[1]"/>
                                             </a>
                                         </t>
@@ -152,10 +152,12 @@
                                 <t t-foreach="result[1:]" t-as="line">
                                     <p t-esc="line"/>
                                 </t>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/True" class="ui-btn">
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/action?message=True" class="ui-btn">
                                     Yes
                                 </a>
-                                <a id="btn-go" t-attf-href="/scanner_call/{{terminal_number}}/action/False" class="ui-btn">
+                                <a id="btn-go"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/action?message=False" class="ui-btn">
                                     No
                                 </a>
                             </p>
@@ -200,7 +202,9 @@
                             </p>
                             <p t-if="code == 'R'">
                                 <h3>
-                                    <span t-esc="result[0]"/>
+                                    <t t-foreach="result" t-as="line">
+                                        <span t-esc="line"/>
+                                    </t>
                                 </h3>
                                 <a id="btn-go"
                                    t-attf-href="/scanner_call/{{terminal_number}}/Menu" class="ui-btn">
@@ -210,17 +214,17 @@
                             <p t-if="code == 'U'">
                                 <h3>Please, contact you administrator</h3>
                                 <a id="btn-go"
-                                   t-attf-href="/scanner_call/{{terminal_number}}/" class="ui-btn">
+                                   t-attf-href="/scanner_call/{{terminal_number}}/back" class="ui-btn">
                                     Go to menu
                                 </a>
                             </p>
                             <p>
                                 <!-- Debuggin tags:-->
-                                <h3>
-                                    <span t-esc="code" > </span>
-                                </h3>
-                                <span t-esc="result"/>
-                                <span t-esc="value"/>
+                                <!--<h3>-->
+                                    <!--<span t-esc="code" > </span>-->
+                                <!--</h3>-->
+                                <!--<span t-esc="result"/>-->
+                                <!--<span t-esc="value"/>-->
                             </p>
                         </div>
                     </div>
