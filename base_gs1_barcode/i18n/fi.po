@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 23:13+0000\n"
-"PO-Revision-Date: 2016-09-15 12:45+0000\n"
+"POT-Creation-Date: 2016-09-18 10:53+0000\n"
+"PO-Revision-Date: 2016-11-25 14:55+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Finnish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/fi/)\n"
 "MIME-Version: 1.0\n"
@@ -323,7 +323,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,name:0
 msgid "Description"
-msgstr ""
+msgstr "Kuvaus"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,display_name:0
@@ -856,7 +856,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_res_users
 msgid "Users"
-msgstr ""
+msgstr "Käyttäjät"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE_AND_TIME
