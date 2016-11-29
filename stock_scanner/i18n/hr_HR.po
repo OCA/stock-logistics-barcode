@@ -3,20 +3,20 @@
 # * stock_scanner
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2016
+# Bole <bole@dajmi5.com>, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 08:41+0000\n"
 "PO-Revision-Date: 2016-11-25 08:41+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
-"Language-Team: Spanish (Spain) (https://www.transifex.com/oca/teams/23907/es_ES/)\n"
+"Last-Translator: Bole <bole@dajmi5.com>, 2016\n"
+"Language-Team: Croatian (Croatia) (https://www.transifex.com/oca/teams/23907/hr_HR/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es_ES\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: hr_HR\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_return_values.py:26
@@ -89,12 +89,12 @@ msgstr ""
 #: code:addons/stock_scanner/models/scanner_hardware.py:486
 #, python-format
 msgid "A001"
-msgstr ""
+msgstr "A001"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_active
 msgid "Active"
-msgstr ""
+msgstr "Aktivan"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
@@ -138,13 +138,13 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_group_ids
 msgid "Allowed Groups"
-msgstr ""
+msgstr "Dozvoljeno grupama"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_user_ids
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 msgid "Allowed Users"
-msgstr ""
+msgstr "Dozvoljeno korisnicima"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
@@ -170,7 +170,7 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_name
 msgid "Appear on barcode reader screen."
-msgstr ""
+msgstr "Vidljivo na ekranu za barcode čitač"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/hardware/sentinel.py:137
@@ -179,51 +179,53 @@ msgid ""
 "Autoconfiguration failed !\n"
 "Please enter terminal code"
 msgstr ""
+"Autokonfiguracija nije uspjela!\n"
+"Molimo unesite šifru ručno"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_base_bg_color
 msgid "Base - Background Color"
-msgstr ""
+msgstr "Osnovno - boja pozadine"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_base_fg_color
 msgid "Base - Text Color"
-msgstr ""
+msgstr "Osnovno - boja teksta"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/models/scanner_hardware.py:22
 #, python-format
 msgid "Black"
-msgstr ""
+msgstr "Crno"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/models/scanner_hardware.py:23
 #, python-format
 msgid "Blue"
-msgstr ""
+msgstr "Plavo"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_going_back.py:12
 #, python-format
 msgid ""
 "By pressing the escape key, you can return back to the last 'Return step'."
-msgstr ""
+msgstr "Pritiskom a ESC tipku, možete se vratiti na zadnji 'Korak povrata'"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:13
 #, python-format
 msgid "Bye !"
-msgstr ""
+msgstr "Bok !"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
 msgid "Can contain scenarios or submenus"
-msgstr ""
+msgstr "Nemože sadržavati scenarije ili pod izbornike"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
 msgid "Char"
-msgstr ""
+msgstr "Znak"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val1
@@ -275,7 +277,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_step_form
 msgid "Code"
-msgstr ""
+msgstr "Šifra"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_code
@@ -305,7 +307,7 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_company_id
 msgid "Company"
-msgstr ""
+msgstr "Poduzeće"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_company_id
@@ -315,12 +317,12 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_condition
 msgid "Condition"
-msgstr ""
+msgstr "Uvijet"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.stock_config_setting_view_form_inherit_stock_scanner
 msgid "Configure scanner module"
-msgstr ""
+msgstr "Postavke modula scaniranja"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_create_uid
@@ -330,7 +332,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_create_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_create_uid
 msgid "Created by"
-msgstr "Creado por"
+msgstr "Kreirao"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_create_date
@@ -340,28 +342,28 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_create_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Kreirano"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_id
 msgid "Current Step"
-msgstr ""
+msgstr "Trenutni korak"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_hardware_form
 msgid "Current Steps History"
-msgstr ""
+msgstr "Povijest trenutnih koraka"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_step_id
 msgid "Current step for this hardware."
-msgstr ""
+msgstr "Trenutni korak za ovaj čitač"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/models/scanner_hardware.py:24
 #, python-format
 msgid "Cyan"
-msgstr ""
+msgstr "Cyan"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_last_call_dt
@@ -371,22 +373,22 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_base_bg_color
 msgid "Default color for the background."
-msgstr ""
+msgstr "Zadana boja pozadine"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_base_fg_color
 msgid "Default color for the text."
-msgstr ""
+msgstr "Zadana boja teksta"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_type
 msgid "Defines if this scenario is a menu or an executable scenario."
-msgstr ""
+msgstr "Definira dali je ovaj scenario izbornik ili izvršni scenario."
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
 msgid "Directly launch a scenario"
-msgstr ""
+msgstr "Direktno pokreni scenario"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_display_name
@@ -396,31 +398,31 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_display_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirm.py:11
 #, python-format
 msgid "Do you really want to logout?"
-msgstr ""
+msgstr "Stvarno se želite odjaviti?"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_log_enabled
 msgid "Enable logging messages from scenarios."
-msgstr ""
+msgstr "Omogući upisivanje poruka iz scenaria."
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_step_form
 msgid "Enter the python code here"
-msgstr ""
+msgstr "Ovdje unesite python kod"
 
 #. module: stock_scanner
 #: code:addons/stock_scanner/models/scanner_scenario.py:110
 #: code:addons/stock_scanner/models/scanner_scenario_transition.py:83
 #, python-format
 msgid "Error ! You can not create recursive scenarios."
-msgstr ""
+msgstr "Greška ! Nije moguće kreiranje rekurzivnih scenaria."
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_error_bg_color
@@ -548,7 +550,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_res_id
@@ -636,7 +638,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_write_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_write_uid
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_write_date
@@ -646,7 +648,7 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_write_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_write_date
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_last_call_dt
@@ -764,7 +766,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_name
 msgid "Name"
-msgstr ""
+msgstr "Naziv"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_name
@@ -807,12 +809,12 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 msgid "Note"
-msgstr ""
+msgstr "Bilješka"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_notes
 msgid "Notes"
-msgstr ""
+msgstr "Bilješke"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_out_transition_ids
@@ -825,7 +827,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_parent_id
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
 msgid "Parent"
-msgstr ""
+msgstr "Nadređeni"
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_parent_id
@@ -859,12 +861,12 @@ msgstr ""
 #: code:addons/stock_scanner/models/scanner_hardware.py:27
 #, python-format
 msgid "Red"
-msgstr ""
+msgstr "Crveno"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_reference_document
 msgid "Reference"
-msgstr ""
+msgstr "Referenca"
 
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_hardware_form
@@ -880,7 +882,7 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scanner_id
 msgid "Scanner"
-msgstr ""
+msgstr "Skener"
 
 #. module: stock_scanner
 #: model:ir.ui.menu,name:stock_scanner.menu_scanner_configuration
@@ -920,7 +922,7 @@ msgstr ""
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
 #, python-format
 msgid "Scenario"
-msgstr ""
+msgstr "Scenario"
 
 #. module: stock_scanner
 #: model:ir.actions.act_window,name:stock_scanner.act_open_scanner_scenario_custom_view
@@ -1046,7 +1048,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_step_id
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 msgid "Step"
-msgstr ""
+msgstr "Korak"
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_step_back
