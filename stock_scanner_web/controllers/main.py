@@ -83,5 +83,11 @@ class ScannerWeb(http.Controller):
             return http.request.render('stock_scanner_web.scanner_call',
                                        values)
         except Exception as e:
-            # TODO: Generate warning page
-            pass
+            values = {
+                'code': 'E',
+                'result':
+                    _('Error: %s') % e.message
+            }
+            return http.request.render(
+                'stock_scanner_web.hardware_select',
+                values)
