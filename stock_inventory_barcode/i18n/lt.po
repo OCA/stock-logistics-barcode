@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 23:13+0000\n"
+"POT-Creation-Date: 2016-09-18 10:53+0000\n"
 "PO-Revision-Date: 2016-05-04 05:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Lithuanian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/lt/)\n"
@@ -35,12 +35,12 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Sukūrė"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Sukurta"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,product_qty:0
@@ -50,7 +50,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Vaizduojamas pavadinimas"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,product_code:0
@@ -68,7 +68,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_inventory_barcode
 #: model:ir.actions.act_window,name:stock_inventory_barcode.stock_inventory_barcode_action
@@ -79,17 +79,17 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Paskutinį kartą keista"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Paskutinį kartą atnaujino"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Paskutinį kartą atnaujinta"
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:73
