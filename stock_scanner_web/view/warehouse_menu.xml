@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+    Copyright 2016 Eficent Business and IT Consulting Services, S.L.
+    <http://www.eficent.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<openerp>
+    <data>
+        <record id="stock_web_action" model="ir.actions.act_url">
+            <field name="name">Stock Web</field>
+            <field name="target">self</field>
+            <field name="url">stock_scanner_web</field>
+        </record>
+
+        <menuitem id="stock_picking_web"
+                  name="Web Stock Scanner"
+                  parent="stock.menu_stock_inventory_control"
+                  action="stock_web_action"
+                  />
+    </data>
+</openerp>

@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Copyright 2016 Eficent Business and IT Consulting Services, S.L.
+    <http://www.eficent.com>
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<openerp>
+    <data>
+
+        <template id="stock_scanner_web.assets_frontend" name="Website assets">
+            <meta name="viewport"
+                  content="width=device-width, initial-scale=1"/>
+            <script type="text/javascript"
+                    src="/web/static/lib/jquery/jquery.js"/>
+            <link rel="stylesheet"
+                  href="/stock_scanner_web/static/lib/css/jquery.mobile-1.4.5.min.css"/>
+            <script type="text/javascript"
+                    src="/stock_scanner_web/static/lib/js/jquery.mobile-1.4.5.min.js"/>
+            <link rel="stylesheet"
+                  href="/stock_scanner_web/static/lib/css/jquery.numpad.css"/>
+            <script src="/stock_scanner_web/static/lib/js/jquery.numpad.js"/>
+        </template>
+
+        <template id="text_script">
+            <script type="text/javascript">
+                    // Set NumPad defaults for jQuery mobile.
+                    $.fn.numpad.defaults.gridTpl = '<table class="ui-bar-a"/>';
+                    $.fn.numpad.defaults.backgroundTpl = '<div
+                    class="ui-popup-screen ui-overlay-a"/>';
+                    $.fn.numpad.defaults.displayTpl = '<input data-theme="b" type="text" />';
+                    $.fn.numpad.defaults.buttonNumberTpl =  '<a
+                    data-role="button" data-theme="b"/>';
+                    $.fn.numpad.defaults.buttonFunctionTpl = '<a
+                    data-role="button" data-theme="a"/>';
+                    $.fn.numpad.defaults.onKeypadCreate = function(){$(this).enhanceWithin();};
+                    // Instantiate NumPad once the page is ready to be shown
+                    $(document).on('pageshow', function(){
+                        $('#text-basic').numpad();
+                        $('#numpadButton-btn').numpad({
+                            target: $('#numpadButton'),
+                        });
+                    });
+            </script>
+        </template>
+
+        <template id="layout" name="Main layout">&lt;!DOCTYPE html&gt;
+            <html>
+                <head>
+                    <title>Scanner Web</title>
+                    <t t-call-assets="stock_scanner_web.assets_frontend"/>
+                    <t t-call="stock_scanner_web.text_script"/>
+                </head>
+                <body>
+                    <div class="content" >
+                        <t t-raw="0"/>
+                    </div>
+                </body>
+            </html>
+        </template>
+
+
+        <template id="hardware_select" name="header" page="True">
+            <t t-call="stock_scanner_web.layout">
+                <div id="wrap" class="oe_structure oe_empty" data-role="page">
+                    <div data-role="main" class="ui-content">
+                        <div class="col-xs-12 text-center">
+                            <p t-if="code == 'L'">
+                                <center>
+                                    <h3>Please, Select your hardware:</h3>
+                                </center>
+                                <div data-role="controlgroup"
+                                     data-type="vertical">
+                                    <t t-foreach="result" t-as="line">
+                                        <a id="btn-go"
+                                           t-attf-href="/stock_scanner_web/{{line}}" class="ui-btn">
+                                            <span t-esc="line"/>
+                                        </a>
+                                    </t>
+                                </div>
+                            </p>
+                            <p t-if="code == 'N'">
+                                <h3>
+                                    <span t-esc="result"/>
+                                </h3>
+                                <a id="btn-back" href="#" data-rel="back"
+                                   class="ui-btn ui-btn-b">
+                                    Back to Odoo
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+
+        <template id="error_message" name="header" page="True">
+            <t t-call="stock_scanner_web.layout">
+                <div id="wrap" class="oe_structure oe_empty" data-role="page">
+                    <div data-role="main" class="ui-content">
+                        <div class="col-xs-12 text-center">
+                            <h3>
+                                <span t-esc="result"/>
+                            </h3>
+                            <p t-if="code == 'E'">
+                                <a id="btn-go" t-attf-href="/stock_scanner_web/" class="ui-btn">
+                                    Back
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+
+        <template id="scanner_call" name="header" page="True">
+            <t t-call="stock_scanner_web.layout">
+                <div id="wrap" class="oe_structure oe_empty" data-role="page">
+                    <div data-role="main" class="ui-content">
+                        <div class="col-xs-12 text-center">
+                            <p t-if="code == 'L'">
+                                <div data-role="controlgroup"
+                                     data-type="vertical">
+                                    <t t-foreach="result" t-as="line">
+                                        <t t-if="len(line) != 2 and line[0] != '|' and line[0] != '#'">
+                                            <a id="btn-go"
+                                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/{{line}}" class="ui-btn">
+                                                <span t-esc="line"/>
+                                            </a>
+                                        </t>
+                                        <t t-if="len(line) != 2 and line[0] == '|'">
+                                            <center>
+                                                <h2 t-esc="line[1:]"/>
+                                            </center>
+                                        </t>
+                                        <t t-if="len(line) == 2 and line[0] != '|'">
+                                            <a id="btn-go"
+                                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message={{line[0]}}" class="ui-btn">
+                                                <span t-esc="line[1]"/>
+                                            </a>
+                                        </t>
+                                        <t t-if="len(line) != 2 and line[0] == '#'">
+                                            <center>
+                                                <span t-esc="line[1:]"/>
+                                            </center>
+                                        </t>
+                                    </t>
+                                </div>
+                            </p>
+                            <p t-if="code == 'M'">
+                                <h3>
+                                    <span t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0" class="ui-btn">
+                                    Go
+                                </a>
+                            </p>
+                            <p t-if="code == 'E'">
+                                <h3>
+                                    <span style="color:red;" t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
+                                    Back
+                                </a>
+                            </p>
+                            <p t-if="code == 'F'">
+                                <h3>
+                                    <span t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
+                                    Go to menu
+                                </a>
+                            </p>
+                            <p t-if="code == 'C'">
+
+                                <h3>
+                                    <span t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True" class="ui-btn">
+                                    Yes
+                                </a>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False" class="ui-btn">
+                                    No
+                                </a>
+                            </p>
+                            <p t-if="code in ['N','Q']">
+                                <h3>
+                                    <span t-esc="result[0][0:]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+                                <form method="get" id="my_form"
+                                        t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
+                                            <input type="text" id="numpadButton"
+                                                   name="message"
+                                                   class="search-query form-control"
+                                                   autofocus="autofocus"/>
+                                </form>
+                                <button id="numpadButton-btn"
+                                        class="ui-btn ui-icon-grid ui-alt-icon ui-nodisc-icon ui-btn-icon-left">Add manually
+                                </button>
+                                <button class="ui-btn ui-icon-carat-r ui-alt-icon ui-btn-icon-left ui-nodisc-icon"
+                                        form="my_form">Submit
+                                </button>
+                            </p>
+                            <p t-if="code == 'T'">
+                                <h3>
+                                    <span t-esc="result[0]"/>
+                                </h3>
+                                <t t-foreach="result[1:]" t-as="line">
+                                    <p t-esc="line"/>
+                                </t>
+
+                                <form method="get"
+                                    t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
+                                    <div class="input-group">
+                                        <input type="text" name="message"
+                                               class="search-query form-control" autofocus="autofocus"/>
+                                        <span class="input-group-btn">
+                                            <button type="submit"
+                                                    class="ui-btn-b"><i
+                                                    class="fa fa-go"/>Submit</button>
+                                        </span>
+                                    </div>
+                                </form>
+                            </p>
+                            <p t-if="code == 'R'">
+                                <h3>
+                                    <t t-foreach="result" t-as="line">
+                                        <span t-esc="line"/>
+                                    </t>
+                                </h3>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
+                                    Go to menu
+                                </a>
+                            </p>
+                            <p t-if="code == 'U'">
+                                <h3>Please, contact you administrator</h3>
+                                <a id="btn-go"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
+                                    Go to menu
+                                </a>
+                            </p>
+                            <p t-if="action is not 'reset'">
+                                <a id="btn-home"
+                                   t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="ui-btn ui-mini">
+                                    Main Menu
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </t>
+        </template>
+    </data>
+</openerp>
