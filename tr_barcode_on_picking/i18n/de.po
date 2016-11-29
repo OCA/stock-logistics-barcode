@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-03 12:45+0000\n"
+"POT-Creation-Date: 2016-09-18 10:42+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/de/)\n"
@@ -40,7 +40,7 @@ msgstr ""
 #. module: tr_barcode_on_picking
 #: model:ir.model,name:tr_barcode_on_picking.model_stock_picking
 msgid "Picking List"
-msgstr ""
+msgstr "Pickliste"
 
 #. module: tr_barcode_on_picking
 #: help:tr.barcode.settings,picking_height:0
@@ -52,7 +52,7 @@ msgstr "Leer oder Null (0) setzen, für Vorgabegrösse"
 #: field:tr.barcode.settings,picking_barcode_type:0
 #: field:tr.barcode.settings,picking_field_id:0
 msgid "Field"
-msgstr ""
+msgstr "Feld"
 
 #. module: tr_barcode_on_picking
 #: field:tr.barcode.settings,picking_hr_form:0

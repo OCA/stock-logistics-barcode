@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 23:10+0000\n"
-"PO-Revision-Date: 2016-09-09 12:25+0000\n"
+"POT-Creation-Date: 2016-09-18 10:42+0000\n"
+"PO-Revision-Date: 2016-11-02 09:30+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/fr/)\n"
 "MIME-Version: 1.0\n"
@@ -25,7 +25,7 @@ msgstr "Assistant des codes-barres pour une utilisation générique"
 #. module: tr_barcode
 #: view:tr.barcode.settings:0
 msgid "Apply"
-msgstr ""
+msgstr "Appliquer"
 
 #. module: tr_barcode
 #: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:103
@@ -57,7 +57,7 @@ msgstr ""
 #. module: tr_barcode
 #: view:tr.barcode.settings:0
 msgid "or"
-msgstr ""
+msgstr "ou"
 
 #. module: tr_barcode
 #: view:tr.barcode.wizard:0

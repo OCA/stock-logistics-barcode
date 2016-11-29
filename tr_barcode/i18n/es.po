@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 23:10+0000\n"
+"POT-Creation-Date: 2016-09-18 10:42+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/es/)\n"
@@ -25,14 +25,14 @@ msgstr ""
 #. module: tr_barcode
 #: view:tr.barcode.settings:0
 msgid "Apply"
-msgstr ""
+msgstr "Aplicar"
 
 #. module: tr_barcode
 #: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:103
 #: code:addons/tr_barcode/wizard/tr_barcode_wizard.py:107
 #, python-format
 msgid "Error"
-msgstr ""
+msgstr "Error"
 
 #. module: tr_barcode
 #: field:tr.barcode,width:0 field:tr.barcode.wizard,width:0
@@ -42,12 +42,12 @@ msgstr ""
 #. module: tr_barcode
 #: field:tr.barcode,barcode_type:0 field:tr.barcode.wizard,barcode_type:0
 msgid "Type"
-msgstr ""
+msgstr "Tipo"
 
 #. module: tr_barcode
 #: field:tr.barcode,res_model:0
 msgid "Model"
-msgstr ""
+msgstr "Modelo"
 
 #. module: tr_barcode
 #: field:ir.model,barcode_model:0
@@ -57,7 +57,7 @@ msgstr ""
 #. module: tr_barcode
 #: view:tr.barcode.settings:0
 msgid "or"
-msgstr ""
+msgstr "o"
 
 #. module: tr_barcode
 #: view:tr.barcode.wizard:0
@@ -73,7 +73,7 @@ msgstr ""
 #: model:ir.model,name:tr_barcode.model_ir_model
 #: field:tr.barcode.settings,models_ids:0
 msgid "Models"
-msgstr ""
+msgstr "Modelos"
 
 #. module: tr_barcode
 #: model:ir.actions.act_window,name:tr_barcode.action_tr_barcode_form
