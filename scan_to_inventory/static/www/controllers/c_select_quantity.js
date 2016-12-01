@@ -20,36 +20,32 @@ angular.module('scan_to_inventory').controller(
     });
 
     $scope.submit = function () {
-        if ($scope.data.qty){
-            if ($scope.data.qty < 1000000){
-                if ($scope.data.qty > 0){
-                    StockInventoryModel.AddInventoryLine(
-                            $rootScope.currentInventoryId,
-                            $rootScope.currentLocationId, $scope.product.id,
-                            $scope.data.qty, 'ask').then(function (res){
-                        if (res.state == 'write_ok'){
-                            angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
-                            setTimeout(function(){
-                                $state.go('select_product_product');
-                            }, 300);
-                        }else {
-                            if (res.state == 'duplicate'){
-                                $state.go('confirm_quantity', {
-                                    product_id: $scope.product.id,
-                                    current_qty: res.qty,
-                                    new_qty: $scope.data.qty});
-                            } else {
-                                $scope.errorMessage = $translate.instant("Too Many Duplicate Lines");
-                                angular.element(document.querySelector('#sound_user_error'))[0].play();
-                            }
+        parsed_qty = parseInt($scope.data.qty);
+        if (! isNaN(parsed_qty)){
+            if (parsed_qty < 1000000){
+                StockInventoryModel.AddInventoryLine(
+                        $rootScope.currentInventoryId,
+                        $rootScope.currentLocationId, $scope.product.id,
+                        parsed_qty, 'ask').then(function (res){
+                    if (res.state == 'write_ok'){
+                        angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
+                        setTimeout(function(){
+                            $state.go('select_product_product');
+                        }, 300);
+                    }else {
+                        if (res.state == 'duplicate'){
+                            $state.go('confirm_quantity', {
+                                product_id: $scope.product.id,
+                                current_qty: res.qty,
+                                new_qty: parsed_qty});
+                        } else {
+                            $scope.errorMessage = $translate.instant("Too Many Duplicate Lines");
+                            angular.element(document.querySelector('#sound_user_error'))[0].play();
                         }
-                    }, function(reason) {
-                        $scope.errorMessage = $translate.instant("Something Wrong Happened");
-                    });
-                }else{
-                    $scope.errorMessage = $translate.instant("Too Small Quantity");
-                    angular.element(document.querySelector('#sound_user_error'))[0].play();
-                }
+                    }
+                }, function(reason) {
+                    $scope.errorMessage = $translate.instant("Something Wrong Happened");
+                });
             }else{
                 $scope.errorMessage = $translate.instant("Too Big Quantity");
                 angular.element(document.querySelector('#sound_user_error'))[0].play();

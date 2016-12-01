@@ -9,8 +9,7 @@ angular.module('scan_to_inventory').factory(
                     'product.product', 'scan_to_inventory_load_product', []).then(function (res) {
                 $rootScope.ProductListByEan13 = res;
                 var quantity = 0;
-                for (var a in res){quantity ++;}
-                return quantity;
+                return Object.keys(res).length;
             });
         },
 

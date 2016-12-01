@@ -25,7 +25,6 @@ angular.module('scan_to_inventory').controller(
 
     $scope.submit = function () {
         if ($scope.data.inventory_name !== '') {
-            console.log("coincoin");
             StockInventoryModel.CreateInventory($scope.data.inventory_name).then(function(inventory_id){
                 $rootScope.currentInventoryId = inventory_id;
                 $state.go('select_stock_location');

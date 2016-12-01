@@ -9,27 +9,27 @@
         <ul class="list">
             <label class="item item-icon-right">
                 {{'Products' | translate}}
-                <i class="icon ion-checkmark-round" ng-show="data.product_ok"></i>
-                <i class="icon ion-close-round" ng-show="data.product_ko"></i>
-                <span class="badge badge-energized load-quantity" ng-show="data.product_ok">
+                <span class="badge badge-energized load-quantity" ng-show="data.product_load_state">
                     {{data.product_qty}}
                 </span>
+                <i class="icon ion-checkmark-round" ng-show="data.product_load_state"></i>
+                <i class="icon ion-close-round" ng-show="data.product_load_state == false"></i>
             </label>
             <label class="item item-icon-right">
                 {{'Locations' | translate}}
-                <i class="icon ion-checkmark-round" ng-show="data.location_ok"></i>
-                <i class="icon ion-close-round" ng-show="data.location_ko"></i>
-                <span class="badge badge-energized load-quantity" ng-show="data.location_ok">
+                <span class="badge badge-energized load-quantity" ng-show="data.location_load_state">
                     {{data.location_qty}}
                 </span>
+                <i class="icon ion-checkmark-round" ng-show="data.location_load_state"></i>
+                <i class="icon ion-close-round" ng-show="data.location_load_state == false"></i>
             </label>
             <label class="item item-icon-right">
                 {{'Draft Inventories' | translate}}
-                <i class="icon ion-checkmark-round" ng-show="data.inventory_ok"></i>
-                <i class="icon ion-close-round" ng-show="data.inventory_ko"></i>
-                <span class="badge badge-energized load-quantity" ng-show="data.inventory_ok">
+                <span class="badge badge-energized load-quantity" ng-show="data.inventory_load_state">
                     {{data.inventory_qty}}
                 </span>
+                <i class="icon ion-checkmark-round" ng-show="data.inventory_load_state"></i>
+                <i class="icon ion-close-round" ng-show="data.inventory_load_state == false"></i>
             </label>
         </ul>
         <audio id="sound_loading_failed" src="./static/audio/loading_failed.mp3"></audio>
