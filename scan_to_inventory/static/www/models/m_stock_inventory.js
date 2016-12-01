@@ -6,7 +6,7 @@ angular.module('scan_to_inventory').factory(
     return {
         LoadDraftInventoryList: function() {
             return jsonRpc.searchRead(
-                    'stock.inventory', [['state', '=', 'draft']], [
+                    'stock.inventory', [['state', '=', 'draft'], ['scan_ok', '=', false]], [
                     'id', 'name', 'date', 'inventory_line_qty',
                     ]).then(function (res) {
                 $rootScope.DraftInventoryList = res.records;

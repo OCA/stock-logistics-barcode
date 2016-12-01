@@ -23,13 +23,14 @@ class StockInventory(Model):
     _columns = {
         'inventory_line_qty': fields.function(
             compute_inventory_line_qty, string='Lines Qty', type='integer'),
+        'scan_ok': fields.boolean(string='Scan Finished'),
     }
 
     def create_by_scan(
             self, cr, uid, name, context=None):
         vals = self.default_get(
             cr, uid, self._defaults.keys(), context=context)
-        vals.update({'name': _('[Barcode Reader] %s') % (name)})
+        vals.update({'name': _('%s (Barcode Reader)') % (name)})
         return super(StockInventory, self).create(
             cr, uid, vals, context=context)
 

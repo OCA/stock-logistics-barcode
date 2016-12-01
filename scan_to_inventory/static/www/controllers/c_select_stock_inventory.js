@@ -1,7 +1,7 @@
 angular.module('scan_to_inventory').controller(
         'SelectStockInventoryCtrl', [
-        '$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel',
-        function ($scope, $rootScope, jsonRpc, $state, StockInventoryModel) {
+        '$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel', '$translate',
+        function ($scope, $rootScope, jsonRpc, $state, StockInventoryModel, $translate) {
 
     $scope.data = {
         'inventory_qty': 0,
@@ -12,6 +12,7 @@ angular.module('scan_to_inventory').controller(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'select_stock_inventory') {
+            $scope.data.inventory_name = '';
             $scope.data.inventory_list = $rootScope.DraftInventoryList;
             $scope.data.inventory_qty = $rootScope.DraftInventoryList.length;
         }
@@ -23,7 +24,8 @@ angular.module('scan_to_inventory').controller(
     };
 
     $scope.submit = function () {
-        if ($scope.data.inventory_name !==   '') {
+        if ($scope.data.inventory_name !== '') {
+            console.log("coincoin");
             StockInventoryModel.CreateInventory($scope.data.inventory_name).then(function(inventory_id){
                 $rootScope.currentInventoryId = inventory_id;
                 $state.go('select_stock_location');

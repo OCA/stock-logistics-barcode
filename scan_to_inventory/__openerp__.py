@@ -15,6 +15,7 @@
         'stock',
     ],
     'data': [
+        'views/view_stock_inventory.xml',
         'views/view_res_company.xml',
     ],
     'demo': [
