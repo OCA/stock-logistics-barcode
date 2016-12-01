@@ -14,6 +14,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="weight_net">0.125</field>
         <field name="sale_ok" eval="True" />
         <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="ean13">5400313040109</field>
     </record>
 
     <record id="product_beer_gluten_free" model="product.product">
@@ -23,6 +24,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="volume">0.33</field>
         <field name="sale_ok" eval="True" />
         <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="ean13">4260108510016</field>
     </record>
 
 </data></openerp>

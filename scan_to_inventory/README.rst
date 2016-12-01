@@ -43,7 +43,7 @@ want to complete.
 
 .. image:: /scan_to_inventory/static/src/img/04_phone_select_stock_inventory.png
 
-Alternatively, user can create a new stock inventory, tipping an inventory name.
+Alternatively, he can create a new stock inventory, tipping an inventory name.
 
 
 Location Selection
@@ -111,8 +111,8 @@ This module is designed to work with
 **Implementation Sample**
 
 * Mobile : `Samsung Galaxy Xcover 3 <http://www.samsung.com/fr/consumer/mobile-devices/smartphones/others/SM-G388FDSAXEF>`_
-* Browser : `Firefox 46+ <https://www.mozilla.org/en-US/firefox/os/>`_
 * Scan Reader : `KDC 400 <https://koamtac.com/kdc400-bluetooth-barcode-scanner/>`_
+* Browser : `Firefox 46+ <https://www.mozilla.org/en-US/firefox/os/>`_
 
 
 Used Technologies
@@ -152,7 +152,7 @@ Similar Projects
 Configuration
 =============
 
-* Optionnaly, admin user can select extra fields to display. (see above)
+* Optionnaly, admin user can select extra fields to display. (see above, 'Extra Fields' Section)
 
 * Language is displayed, depending on the languages provided by the browser.
   If you want to manually change it, you can to do so on firefox:
@@ -170,21 +170,20 @@ http//localhost:8069/scan_to_inventory/static/www/index.html
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/150/7.0
 
-**Note**
+If you're testing this module with demo data installed, you can test scanning
+(or copying values) with the following two barcodes :
 
-* If you test the module on runbot, make sure products have barcodes and
-product_multi_ean module is **NOT** installed.
+* 5400313040109 : Organic Chips (Paprika)
+* 4260108510016 : Organic Beer (Gluten Free)
 
 Roadmap / Current Limits
 ------------------------
 
-* Dates displays does NOT change depending of the localization of the user;
+* Dates displays does NOT change depending of the localization of the user
 
 * JS and CSS lib are hard included. So if many apps are developped, it could
   be great to have a generic 'web_ionic' module that have all tools to avoid
   to duplicate files
-
-* Extra Fields Names are displayed only in english
 
 Known Issues
 ------------
