@@ -35,38 +35,57 @@ class ScannerWeb(http.Controller):
         values = {}
         if message == 'False':
             message = False
-
-        scanner_hardware = request.env['scanner.hardware']
         try:
+            # Determine the correct hardware:
+            scanner_hardware = False
             user = request.env.user.browse(request.uid)
-            if terminal_number and not allowed_hardware(user, terminal_number):
-                values = {
-                    'code': 'E',
-                    'result':
-                        _('Hardware {} not allowed for user {}.').format(
-                            terminal_number, user.name)
-                }
-                return http.request.render(
-                    'stock_scanner_web.hardware_select',
-                    values)
-            terminal_list = []
-            if not terminal_number:
+            if terminal_number:
+                if not allowed_hardware(user, terminal_number):
+                    values = {
+                        'code': 'E',
+                        'result':
+                            _('Hardware {} not allowed for user {}.').format(
+                                terminal_number, user.name)
+                    }
+                    return http.request.render(
+                        'stock_scanner_web.hardware_select',
+                        values)
+            else:
+                terminal_list = []
                 for hardware in user.scanner_hardware_ids:
                     terminal_list.append(hardware.code)
-                if terminal_list:
+                if terminal_list and len(terminal_list) > 1:
                     values = {
                         'code': 'L',
                         'result': terminal_list
                     }
-                else:
+                    return http.request.render(
+                        'stock_scanner_web.hardware_select',
+                        values)
+                elif terminal_list and len(terminal_list) == 1:
+                    terminal_number = terminal_list[0]
+                elif not terminal_list:
                     values = {
                         'code': 'N',
                         'result': _("You do not have any hardware allowed. "
                                     "Please contact your administrator.")
                     }
-                return http.request.render('stock_scanner_web.hardware_select',
-                                           values)
-
+                    return http.request.render(
+                        'stock_scanner_web.hardware_select',
+                        values)
+            # Now we have a valid hardware.
+            scanner_hardware = request.env['scanner.hardware'].search(
+                [('code', '=', terminal_number)])
+            if not scanner_hardware:
+                values = {
+                    'code': 'N',
+                    'result': _("No valid terminal.")
+                }
+                return http.request.render(
+                    'stock_scanner_web.hardware_select',
+                    values)
+            if not message and action == 'reset':
+                scanner_hardware.sudo().empty_scanner_values()
             (code, result, value) = scanner_hardware.with_context(
                 stock_scanner_call_from_web=True).scanner_call(
                 terminal_number,
@@ -80,6 +99,8 @@ class ScannerWeb(http.Controller):
                 'scenario': scenario,
                 'terminal_number': terminal_number
             }
+            if not message and action == 'reset':
+                values['action'] = 'reset'
             return http.request.render('stock_scanner_web.scanner_call',
                                        values)
         except Exception as e:
