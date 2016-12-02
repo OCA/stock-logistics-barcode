@@ -173,7 +173,8 @@
                                 <form method="get"
                                     t-att-action="'/scanner_call/%s/action' % (terminal_number)" class="search_class form-inline">
                                     <div class="input-group">
-                                        <input type="number" name="message" class="search-query form-control"/>
+                                        <input type="number" name="message"
+                                               class="search-query form-control" autofocus="autofocus"/>
                                         <span class="input-group-btn">
                                             <button class="ui-btn">Submit</button>
                                         </span>
@@ -191,7 +192,8 @@
                                 <form method="get"
                                     t-att-action="'/scanner_call/%s/action' % (terminal_number)" class="search_class form-inline">
                                     <div class="input-group">
-                                        <input type="text" name="message" class="search-query form-control"/>
+                                        <input type="text" name="message"
+                                               class="search-query form-control" autofocus="autofocus"/>
                                         <span class="input-group-btn">
                                             <button type="submit"
                                                     class="ui-btn-b"><i
@@ -216,6 +218,12 @@
                                 <a id="btn-go"
                                    t-attf-href="/scanner_call/{{terminal_number}}/back" class="ui-btn">
                                     Go to menu
+                                </a>
+                            </p>
+                            <p t-if="action is not 'reset'">
+                                <a id="btn-home"
+                                   t-attf-href="/scanner_call/{{terminal_number}}/?action=reset" class="ui-btn ui-mini">
+                                    Main Menu
                                 </a>
                             </p>
                             <p>
