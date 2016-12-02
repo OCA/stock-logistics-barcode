@@ -25,6 +25,7 @@ directly from the user form.
 * Also, do not forget to enable "Sentinel: technical users" option in the user
 form, as it is required by the basic stock_scanner module.
 
+
 Usage
 =====
 
