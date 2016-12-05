@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    odoo, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,8 +19,8 @@
 #
 ###############################################################################
 
-from openerp import api, models, fields, _
-from openerp import exceptions
+from odoo import api, models, fields, _
+from odoo import exceptions
 
 
 def isodd(x):
@@ -30,67 +30,67 @@ def isodd(x):
 class ProductCategory(models.Model):
     _inherit = 'product.category'
 
-    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
+    barcode_sequence_id = fields.Many2one(comodel_name='ir.sequence',
+                                          string='Ean sequence')
+
+
+class ProductProduct(models.Model):
+    _inherit = 'product.template'
+
+    @api.one
+    def generate_barcode(self):
+        return self.product_variant_ids.generate_barcode()
 
 
 class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    ean13 = fields.Char(copy=False)
-    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
-
     @api.model
-    def _get_ean_next_code(self, product):
-        sequence_obj = self.env['ir.sequence']
-        if product.ean_sequence_id:
-            ean = sequence_obj.next_by_id(product.ean_sequence_id.id)
-        elif product.categ_id.ean_sequence_id:
-            ean = sequence_obj.next_by_id(product.categ_id.ean_sequence_id.id)
-        elif product.company_id and product.company_id.ean_sequence_id:
-            ean = sequence_obj.next_by_id(
-                product.company_id.ean_sequence_id.id)
-        elif self.env.context.get('sequence_id', False):
-            ean = sequence_obj.next_by_id(self.env.context.get('sequence_id'))
+    def _get_barcode_next_code(self, ):
+        if self.categ_id.barcode_sequence_id:
+            barcode = self.categ_id.barcode_sequence_id.next_by_id()
+        elif self.company_id and self.company_id.barcode_sequence_id:
+            barcode = self.company_id.barcode_sequence_id.next_by_id()
         else:
-            return None
-        ean = (len(ean[0:6]) == 6 and ean[0:6] or
-               ean[0:6].ljust(6, '0')) + ean[6:].rjust(6, '0')
-        if len(ean) > 12:
+            barcode = self.env['ir.sequence'].\
+                next_by_code('product.barcode.code')
+
+        barcode = (len(barcode[0:6]) == 6 and barcode[0:6] or
+                   barcode[0:6].ljust(6, '0')) + barcode[6:].rjust(6, '0')
+        if len(barcode) > 12:
             raise exceptions.Warning(
                 _("Configuration Error!"
                   "The next sequence is longer than 12 characters. "
                   "It is not valid for an EAN13 needing 12 characters, "
                   "the 13 being used as a control digit"
                   "You will have to redefine the sequence or create a new one")
-                )
+            )
 
-        return ean
+        return barcode
 
-    def _get_ean_control_digit(self, code):
+    def _get_barcode_control_digit(self, barcode):
         sum = 0
         for i in range(12):
             if isodd(i):
-                sum += 3 * int(code[i])
+                sum += 3 * int(barcode[i])
             else:
-                sum += int(code[i])
+                sum += int(barcode[i])
         key = (10 - sum % 10) % 10
         return '%d' % key
 
     @api.model
-    def _generate_ean13_value(self, product):
-        ean = self._get_ean_next_code(product)
-        if not ean:
+    def _generate_barcode_value(self):
+        barcode = self._get_barcode_next_code()
+        if not barcode:
             return None
-        key = self._get_ean_control_digit(ean)
-        ean13 = ean + key
-        return ean13
+        return barcode + self._get_barcode_control_digit(barcode)
 
     @api.one
-    def generate_ean13(self):
-        if self.ean13:
+    def generate_barcode(self):
+        if self.barcode:
             return
-        ean13 = self._generate_ean13_value(self)
-        if not ean13:
+        barcode = self._generate_barcode_value()
+        if not barcode:
             return
-        self.write({'ean13': ean13})
+        self.write({'barcode': barcode})
         return True
