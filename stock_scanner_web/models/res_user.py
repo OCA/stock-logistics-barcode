@@ -11,4 +11,4 @@ class ResUser(models.Model):
     _inherit = 'res.users'
 
     scanner_hardware_ids = fields.Many2many(comodel_name='scanner.hardware',
-                                            string='Scanners allowed to use')
+                                            string='Permitted Scanners')
