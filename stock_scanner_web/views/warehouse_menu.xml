@@ -6,19 +6,18 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 
-<openerp>
+<odoo>
+    <record id="stock_web_action" model="ir.actions.act_url">
+        <field name="name">Stock Web</field>
+        <field name="target">self</field>
+        <field name="url">/stock_scanner_web</field>
+    </record>
 
-	<record id="stock_web_action" model="ir.actions.act_url">
-		<field name="name">Stock Web</field>
-		<field name="target">self</field>
-		<field name="url">/scanner_call</field>
-	</record>
+    <menuitem id="stock_picking_web"
+              name="Web Stock Scanner"
+              parent="stock.menu_stock_root"
+              sequence="1"
+              action="stock_web_action"
+    />
 
-	<menuitem id="stock_picking_web"
-			  name="Web Stock Scanner"
-			  parent="stock.menu_stock_root"
-			  sequence="1"
-			  action="stock_web_action"
-			  />
-
-</openerp>
+</odoo>
