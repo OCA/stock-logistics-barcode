@@ -4,7 +4,7 @@
 
 import re
 
-from openerp import models
+from odoo import models
 
 
 class BarcodeNomenclature(models.Model):

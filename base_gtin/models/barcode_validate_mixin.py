@@ -2,8 +2,8 @@
 # Copyright 2016 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import fields, api, models, _
-from openerp.exceptions import ValidationError
+from odoo import fields, api, models, _
+from odoo.exceptions import ValidationError
 
 
 class BarcodeValidateAbstract(models.AbstractModel):

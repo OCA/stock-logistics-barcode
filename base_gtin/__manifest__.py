@@ -5,7 +5,7 @@
 {
     "name": "Base GTIN",
     "summary": "Support GTIN barcode nomenclatures in an abstract way",
-    "version": "9.0.1.0.0",
+    "version": "10.0.1.0.0",
     "author": "LasLabs, "
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
