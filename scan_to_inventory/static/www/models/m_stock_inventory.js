@@ -14,11 +14,7 @@ angular.module('scan_to_inventory').factory(
             });
         },
         CreateInventory: function(name) {
-            return jsonRpc.call(
-                    'stock.inventory', 'create_by_scan',
-                    [name]).then(function (res) {
-                return res;
-            });
+            return jsonRpc.call('stock.inventory', 'create_by_scan', [name])
         },
         LoadInventory: function(orderId) {
             return jsonRpc.searchRead(
