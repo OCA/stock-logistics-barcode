@@ -19,4 +19,4 @@
 #
 ###############################################################################
 
-from . import product_barcode_mass_assignment_wizz
+from . import product_barcode_mass_assignment_wizard

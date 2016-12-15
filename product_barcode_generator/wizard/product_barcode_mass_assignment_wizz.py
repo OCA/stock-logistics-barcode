@@ -1,30 +1,14 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Factor Libre, soluciones tecnologicas
-#    Copyright (C) 2016-TODAY Janire Olagibel <janire.olagibel@factorlibre.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# Copyright 2016-TODAY Janire Olagibel <janire.olagibel@factorlibre.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
 from openerp import api, fields, models
 
 
-class ProductBarcodeMassAssignmentWizz(models.TransientModel):
+class ProductBarcodeMassAssignmentWizard(models.TransientModel):
     """ wizard for barcode """
 
-    _name = "product.barcode.mass.assignment.wizz"
+    _name = "product.barcode.mass.assignment.wizard"
     _description = "Barcode Wizard for mass assignment"
 
     ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence',
@@ -35,7 +19,7 @@ class ProductBarcodeMassAssignmentWizz(models.TransientModel):
         """
         This function gets default values
         """
-        res = super(ProductBarcodeMassAssignmentWizz, self).default_get(fields)
+        res = super(ProductBarcodeMassAssignmentWizard, self).default_get(fields)
         user = self.env['res.users'].browse(self._uid)
         if user.company_id.ean_sequence_id:
             res.update({'ean_sequence_id': user.company_id.ean_sequence_id.id
