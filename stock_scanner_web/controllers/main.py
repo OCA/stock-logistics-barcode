@@ -20,14 +20,15 @@ class ScannerWeb(http.Controller):
     @http.route([
         '/stock_scanner_web',
         '/stock_scanner_web/<string:terminal_number>',
-        '/stock_scanner_web/<string:terminal_number>/<string:action>',
-        '/stock_scanner_web/<string:terminal_number>/<string:action>/'
-        '<string:message>',
+        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>',
+        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>/<string:action>/',
+        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>/<string:action>/<string:message>/'
     ], type='http', auth='user')
     def scanner_call(self,
                      terminal_number='',
                      action='',
                      message=False,
+                     scenario_step=False,
                      type='http',
                      auth='public',
                      website=True):
@@ -111,11 +112,16 @@ class ScannerWeb(http.Controller):
                 'stock_scanner_web.error_message',
                 values)
 
+        scenario_step = request.env['scanner.hardware'].\
+            search([('code', '=', terminal_number)]).step_id
+        if not scenario_step:
+            scenario_step = 0
         values = {
             'code': code,
             'result': result,
             'value': value,
             'scenario': scenario,
+            'step': int(scenario_step),
             'terminal_number': terminal_number
         }
         if not message and action == 'reset':
