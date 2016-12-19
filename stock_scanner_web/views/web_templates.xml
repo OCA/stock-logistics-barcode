@@ -122,7 +122,7 @@
                                 <t t-foreach="result" t-as="line">
                                     <t t-if="len(line) != 2 and line[0] != '|' and line[0] != '#'">
                                         <a id="btn-go"
-                                           t-attf-href="/stock_scanner_web/{{terminal_number}}/action/{{line}}" class="ui-btn">
+                                           t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/{{line}}" class="ui-btn">
                                             <span t-esc="line"/>
                                         </a>
                                     </t>
@@ -133,7 +133,7 @@
                                     </t>
                                     <t t-if="len(line) == 2 and line[0] != '|'">
                                         <a id="btn-go"
-                                           t-attf-href="/stock_scanner_web/{{terminal_number}}/action?message={{line[0]}}" class="ui-btn">
+                                           t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message={{line[0]}}" class="ui-btn">
                                             <span t-esc="line[1]"/>
                                         </a>
                                     </t>
@@ -153,7 +153,7 @@
                                 <p t-esc="line"/>
                             </t>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/action/0" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0" class="ui-btn">
                                 Go
                             </a>
                         </p>
@@ -165,7 +165,7 @@
                                 <p t-esc="line"/>
                             </t>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/back" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
                                 Back
                             </a>
                         </p>
@@ -177,7 +177,7 @@
                                 <p t-esc="line"/>
                             </t>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/Menu" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
                                 Go to menu
                             </a>
                         </p>
@@ -190,11 +190,11 @@
                                 <p t-esc="line"/>
                             </t>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/action?message=True" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True" class="ui-btn">
                                 Yes
                             </a>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/action?message=False" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False" class="ui-btn">
                                 No
                             </a>
                         </p>
@@ -206,7 +206,7 @@
                                 <p t-esc="line"/>
                             </t>
                             <form method="get" id="my_form"
-                                    t-att-action="'/stock_scanner_web/%s/action' % (terminal_number)" class="search_class form-inline">
+                                    t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
                                         <input type="text" id="numpadButton"
                                                name="message"
                                                class="search-query form-control"
@@ -228,7 +228,7 @@
                             </t>
 
                             <form method="get"
-                                t-att-action="'/stock_scanner_web/%s/action' % (terminal_number)" class="search_class form-inline">
+                                t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
                                 <div class="input-group">
                                     <input type="text" name="message"
                                            class="search-query form-control" autofocus="autofocus"/>
@@ -247,20 +247,20 @@
                                 </t>
                             </h3>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/Menu" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
                                 Go to menu
                             </a>
                         </p>
                         <p t-if="code == 'U'">
                             <h3>Please, contact you administrator</h3>
                             <a id="btn-go"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/back" class="ui-btn">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
                                 Go to menu
                             </a>
                         </p>
                         <p t-if="action is not 'reset'">
                             <a id="btn-home"
-                               t-attf-href="/stock_scanner_web/{{terminal_number}}/?action=reset" class="ui-btn ui-mini">
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="ui-btn ui-mini">
                                 Main Menu
                             </a>
                         </p>
