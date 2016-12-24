@@ -3,20 +3,18 @@
 # * base_gs1_barcode
 # 
 # Translators:
-# Antonio Trueba, 2016
-# Antonio Trueba, 2016
 msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 06:03+0000\n"
-"PO-Revision-Date: 2016-12-23 08:32+0000\n"
+"PO-Revision-Date: 2016-12-22 14:06+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
+"Language-Team: Hungarian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/hu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
+"Language: hu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_gs1_barcode
@@ -27,7 +25,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
 msgid "Additional Product Identification"
-msgstr "Identificación adicional del producto"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
@@ -52,7 +50,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,data_type:0
 msgid "Any character string"
-msgstr "Cualquier cadena de caracteres"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
@@ -210,7 +208,7 @@ msgstr ""
 #, python-format
 msgid ""
 "Could not decode barcode : wrong prefix - the code should start with \"%s\""
-msgstr "No se ha podido decodificar el código de barras: prefijo incorrecto - el código debe comenzar por \"%s\""
+msgstr ""
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:178
@@ -218,14 +216,14 @@ msgstr "No se ha podido decodificar el código de barras: prefijo incorrecto - e
 msgid ""
 "Could not decode barcode: incorrect value for Application Identifer \"%s\" "
 "at position %d"
-msgstr "No se ha podido decodificar el código de barras: valor incorrecto para el identificador de aplicación \"%s\" en la posición %d"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:199
 #, python-format
 msgid ""
 "Could not decode barcode: unknown Application Identifier at position %d"
-msgstr "No se ha podido decodificar el código de barras: identificador de aplicación desconocido en la posición %d"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNT
@@ -235,7 +233,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_ORIGIN
 msgid "Country of Origin (ISO country code)"
-msgstr "País de origen (Código ISO)"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_DISASSEMBLY
@@ -280,12 +278,12 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,create_uid:0
 msgid "Created by"
-msgstr "Creado por"
+msgstr "Készítette"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,create_date:0
 msgid "Created on"
-msgstr "Fecha de creación"
+msgstr "Létrehozás dátuma"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CUSTOMER_PART
@@ -310,7 +308,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,data_type:0
 msgid "Date"
-msgstr "Fecha"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DATE_PRODUCTION
@@ -325,12 +323,12 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,name:0
 msgid "Description"
-msgstr "Descripción"
+msgstr "Leírás"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,display_name:0
 msgid "Display Name"
-msgstr "Nombre mostrado"
+msgstr "Név megjelenítése"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
@@ -340,7 +338,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE
 msgid "Expiration Date"
-msgstr "Fecha de caducidad"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,length_fixed:0
@@ -486,17 +484,17 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,__last_update:0
 msgid "Last Modified on"
-msgstr "Última modificación en"
+msgstr "Utolsó frissítés dátuma"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_uid:0
 msgid "Last Updated by"
-msgstr "Última actualización por"
+msgstr "Utoljára frissítve, által"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,write_date:0
 msgid "Last Updated on"
-msgstr "Última actualización en"
+msgstr "Utoljára frissítve "
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VARIATION
@@ -571,7 +569,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:res.users,gs1_barcode_prefix:0
 msgid "Prefix"
-msgstr "Prefijo"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.PRICE_PER_UOM
@@ -706,17 +704,17 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VARIANT
 msgid "Product Variant"
-msgstr "Variante de producto"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_FT3
 msgid "Product Volume (Cubic Feet)"
-msgstr "Volumen del producto (pies cúbicos)"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_IN3
 msgid "Product Volume (Cubic Inches)"
-msgstr "Volumen del producto (pulgadas cúbicas)"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.VOLUME_YD3
@@ -796,7 +794,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SN
 msgid "Serial Number"
-msgstr "Número de serie"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SSCC
@@ -858,7 +856,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_res_users
 msgid "Users"
-msgstr "Usuarios"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE_AND_TIME
