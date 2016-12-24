@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:42+0000\n"
+"POT-Creation-Date: 2016-12-01 15:24+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: French (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/fr/)\n"
@@ -45,7 +45,7 @@ msgstr ""
 #. module: tr_barcode_on_tracking
 #: field:tr.barcode.settings,tracking_height:0
 msgid "Height"
-msgstr ""
+msgstr "Taille"
 
 #. module: tr_barcode_on_tracking
 #: field:tr.barcode.settings,tracking_barcode_type:0
