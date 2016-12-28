@@ -56,7 +56,7 @@ Try this module on Runbot
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/150/9.0
+   :target: https://runbot.odoo-community.org/runbot/150/10.0
 
 Known issues / Roadmap
 ======================
@@ -91,6 +91,7 @@ Contributors
 ------------
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Dave Lasley <dave@laslabs.com>
 
 Maintainer
 ----------
