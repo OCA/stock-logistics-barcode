@@ -4,9 +4,9 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, fields, api
+from odoo import api, fields, models
 
-from openerp.addons.barcodes_generator_abstract.models.barcode_rule\
+from odoo.addons.barcodes_generator_abstract.models.barcode_rule\
     import _GENERATE_TYPE
 
 
@@ -37,10 +37,7 @@ class ProductTemplate(models.Model):
 
     @api.onchange('barcode_rule_id')
     def onchange_barcode_rule_id(self):
-        if self.barcode_rule_id:
-            self.generate_type = self.barcode_rule_id.generate_type
-        else:
-            self.generate_type = False
+        self.generate_type = self.barcode_rule_id.generate_type
 
     # Overload Section
     @api.model
