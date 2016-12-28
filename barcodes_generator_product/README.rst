@@ -6,10 +6,10 @@
 Generate Barcodes for Products (Templates and Variants)
 =======================================================
 
-This module expends Odoo functionality, allowing user to generate barcode
+This module expands Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for Products.
 
-For exemple, a typical pattern for products is  "20.....{NNNDD}" that means
+For example, a typical pattern for products is  "20.....{NNNDD}" that means
 that:
 * the EAN13 code will begin by '20'
 * followed by 5 digits (named Barcode Base in this module)
@@ -18,7 +18,7 @@ that:
 
 With this module, it is possible to:
 
-* Affect a pattern (barcode.rule) to a product.product
+* Assign a pattern (barcode.rule) to a product.product
 
 * Define a Barcode base: 
     * manually, if the base of the barcode must be set by a user. (typically an
@@ -58,15 +58,15 @@ Try this module on Runbot
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/150/9.0
+   :target: https://runbot.odoo-community.org/runbot/150/10.0
 
 Bug Tracker
 ===========
 
 Bugs are tracked on `GitHub Issues
-<https://github.com/OCA/pos/issues>`_. In case of trouble, please
+<https://github.com/OCA/stock-logistics-barcode/issues>`_. In case of trouble, please
 check there if your issue has already been reported. If you spotted it first,
-help us smashing it by providing a detailed and welcomed feedback.
+help us smash it by providing detailed and welcomed feedback.
 
 Credits
 =======
@@ -76,11 +76,14 @@ Images
 
 * Icon of the module is based on the Oxygen Team work and is under LGPL licence:
   http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org.html
+* Product tag by `Zlatko Najdenovski <https://www.iconfinder.com/zlaten>`_ and is licensed
+  under `CC BY 3.0 <https://creativecommons.org/licenses/by/3.0/>`_.
 
 Contributors
 ------------
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Dave Lasley <dave@laslabs.com>
 
 Maintainer
 ----------
