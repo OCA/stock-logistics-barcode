@@ -7,13 +7,13 @@
 {
     'name': 'Generate Barcodes for Products',
     'summary': 'Generate Barcodes for Products (Templates and Variants)',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Tools',
     'author':
         'GRAP,'
         'La Louve,'
         'Odoo Community Association (OCA)',
-    'website': 'http://www.odoo-community.org',
+    'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
     'depends': [
         'barcodes_generator_abstract',
