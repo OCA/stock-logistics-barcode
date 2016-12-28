@@ -7,13 +7,13 @@
 {
     'name': 'Generate Barcodes (Abstract)',
     'summary': 'Generate Barcodes for Any Models',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Tools',
     'author':
         'GRAP,'
         'La Louve,'
         'Odoo Community Association (OCA)',
-    'website': 'http://www.odoo-community.org',
+    'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
     'depends': [
         'barcodes',
