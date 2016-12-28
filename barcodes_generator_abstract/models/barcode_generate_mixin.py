@@ -6,7 +6,7 @@
 
 import logging
 
-from openerp import models, fields, api, exceptions, _
+from odoo import models, fields, api, exceptions, _
 
 from .barcode_rule import _GENERATE_TYPE
 
