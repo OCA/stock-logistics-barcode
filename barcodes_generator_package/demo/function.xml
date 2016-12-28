@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <function model="product.packaging"
+              name="generate_base"
+              eval="[ref('product_packaging_barcode')]" />
+
+    <function model="product.packaging"
+              name="generate_barcode"
+              eval="[ref('product_packaging_barcode')]" />
+
+</odoo>
