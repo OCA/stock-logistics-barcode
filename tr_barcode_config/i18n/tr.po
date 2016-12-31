@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:42+0000\n"
+"POT-Creation-Date: 2016-12-24 06:28+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/tr/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,barcode_type:0
 msgid "Type"
-msgstr ""
+msgstr "Tipi"
 
 #. module: tr_barcode_config
 #: help:tr.barcode.config,hr_form:0
@@ -35,7 +35,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,res_model:0
 msgid "Object"
-msgstr ""
+msgstr "Nesne"
 
 #. module: tr_barcode_config
 #: model:ir.model,name:tr_barcode_config.model_tr_barcode_config
@@ -45,7 +45,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,height:0
 msgid "Height"
-msgstr ""
+msgstr "Yükseklik"
 
 #. module: tr_barcode_config
 #: model:ir.actions.act_window,name:tr_barcode_config.action_tr_barcode_config_form

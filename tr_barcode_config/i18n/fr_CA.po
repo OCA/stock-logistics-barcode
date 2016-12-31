@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2016-12-24 06:28+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Portuguese (Brazil) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/pt_BR/)\n"
+"Language-Team: French (Canada) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/fr_CA/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: pt_BR\n"
+"Language: fr_CA\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: tr_barcode_config
@@ -25,7 +25,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,barcode_type:0
 msgid "Type"
-msgstr "Tipo"
+msgstr ""
 
 #. module: tr_barcode_config
 #: help:tr.barcode.config,hr_form:0
@@ -35,7 +35,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,res_model:0
 msgid "Object"
-msgstr "Objeto"
+msgstr "Objet"
 
 #. module: tr_barcode_config
 #: model:ir.model,name:tr_barcode_config.model_tr_barcode_config
@@ -56,7 +56,7 @@ msgstr ""
 #. module: tr_barcode_config
 #: field:tr.barcode.config,field:0
 msgid "Field"
-msgstr "Campo"
+msgstr ""
 
 #. module: tr_barcode_config
 #: sql_constraint:tr.barcode.config:0
