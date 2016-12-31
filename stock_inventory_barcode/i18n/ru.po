@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-08-15 23:13+0000\n"
+"POT-Creation-Date: 2016-12-24 06:31+0000\n"
 "PO-Revision-Date: 2016-05-04 05:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Russian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/ru/)\n"
@@ -35,12 +35,12 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,create_uid:0
 msgid "Created by"
-msgstr ""
+msgstr "Создано"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,create_date:0
 msgid "Created on"
-msgstr ""
+msgstr "Создан"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,product_qty:0
@@ -68,7 +68,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_inventory_barcode
 #: model:ir.actions.act_window,name:stock_inventory_barcode.stock_inventory_barcode_action
@@ -84,12 +84,12 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,write_uid:0
 msgid "Last Updated by"
-msgstr ""
+msgstr "Последний раз обновлено"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,write_date:0
 msgid "Last Updated on"
-msgstr ""
+msgstr "Последний раз обновлено"
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:73
