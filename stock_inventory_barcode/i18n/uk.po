@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:53+0000\n"
+"POT-Creation-Date: 2016-12-24 06:31+0000\n"
 "PO-Revision-Date: 2016-05-04 05:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Ukrainian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/uk/)\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
 msgid "Cancel"
-msgstr ""
+msgstr "Скасувати"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,change_qty:0
