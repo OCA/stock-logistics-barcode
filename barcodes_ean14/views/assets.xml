@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <odoo>
-    
+
     <template id="assets_backend"
               name="base_gtin Assets"
               inherit_id="web.assets_backend"
@@ -11,16 +11,16 @@
                     />
         </xpath>
     </template>
-    
+
     <template id="qunit_suite"
               name="base_gtin QUnit Assets"
               inherit_id="web.qunit_suite"
               >
-        <xpath expr="//html/head" position="inside">
+        <xpath expr="//t" position="inside">
             <script type="application/javascript"
                     src="/base_gtin/static/tests/js/barcode_parser.js"
                     />
         </xpath>
     </template>
-    
+
 </odoo>

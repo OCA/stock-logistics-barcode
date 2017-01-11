@@ -2,18 +2,18 @@
    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
    :alt: License: AGPL-3
 
-=========
-Base GTIN
-=========
+================
+Barcodes - EAN14
+================
 
-This module provides core logic for handling of GTIN barcode nomenclatures
+This module provides a barcode nomenclature for EAN-14
 
 Configuration
 =============
 
 To configure this module, you need to:
 
-#. Set a default barcode type in Company => Configuration
+#. Create an EAN14 barcode nomenclature
 
 Usage
 =====
@@ -24,9 +24,6 @@ Usage
 
 Known issues / Roadmap
 ======================
-
-* EAN-11 was half-way implemented in original ``product_gtin``, but it is not implemented
-  here due to lack of documentation corresponding to validations & test samples
 
 Bug Tracker
 ===========
