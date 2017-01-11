@@ -8,6 +8,6 @@ from odoo import models, fields
 class ResCompany(models.Model):
     _inherit = 'res.company'
     default_barcode_type = fields.Selection(
-        lambda s: s.env['barcode.rule']._get_type_selection(),
+        lambda s: s.env['barcode.validate.mixin']._select_barcode_types(),
         default='any',
     )

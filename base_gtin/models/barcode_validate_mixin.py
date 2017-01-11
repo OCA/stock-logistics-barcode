@@ -10,9 +10,21 @@ class BarcodeValidateAbstract(models.AbstractModel):
     _name = 'barcode.validate.abstract'
 
     barcode_type = fields.Selection(
-        selection=lambda s: s.env['barcode.rule']._get_type_selection(),
+        selection=lambda s: s._select_barcode_types(),
         default=lambda s: s.env.user.company_id.default_barcode_type,
     )
+
+    @api.model
+    def _select_barcode_types(self):
+        """ Return the barcode types that are defined.
+
+        This is necessary so that the types remain in-sync with core.
+        """
+        field = self.env['ir.model.fields'].search([
+            ('model', '=', 'barcode.rule'),
+            ('name', '=', 'type'),
+        ])
+        return field._get_type_selection(self.env)
 
     @api.multi
     def _barcode_validate(self, barcode_col):
