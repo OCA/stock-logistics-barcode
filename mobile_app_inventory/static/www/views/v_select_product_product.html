@@ -1,0 +1,43 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Product' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <form ng-submit="submit()">
+            <div class="list">
+
+                <div class="item item-input">
+                    <input type="tel" ng-model="data.ean13" id="input_ean13" placeholder="{{'EAN13 Barcode' | translate}}" autocomplete="off" class="item-input input-required"/>
+                    <button class="button button-positive">
+                        <i class="icon ion-qr-scanner"></i> {{'Scan' | translate}}
+                    </button>
+                </div>
+
+                <label class="item item-input">
+                    <div class="form-label">{{'Name' | translate}}</div>
+                    <span class="form-field">{{inventory.name}}</span>
+                </label>
+
+                <label class="item item-input">
+                    <div class="form-label">{{'Current Location' | translate}}</div>
+                    <span class="form-field">{{data.location_name}}</span>
+                </label>
+
+                <label class="item item-input" ng-show="inventory.inventory_line_qty">
+                    <div class="form-label">{{'Line(s)' | translate}}</div>
+                    <span class="form-field">{{inventory.inventory_line_qty}}</span>
+                </label>
+
+            </div>
+        </form>
+        <audio id="sound_user_error" src="./static/audio/user_error.mp3"></audio>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

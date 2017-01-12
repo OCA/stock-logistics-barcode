@@ -1,0 +1,54 @@
+/*Overloading Default CSS*/
+
+.item-divider{
+    text-align: center;
+}
+
+.button-royal{
+    border: 2px solid;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.item-input{
+    font-size:12px !important;
+}
+
+a.item{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0fa), to(#eeeef6));
+    border-radius: 4px;
+}
+
+/* Custom Classes CSS*/
+
+.input-required, .select-required{
+    background-color: rgb(210, 210, 255) !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+    padding-left: 4px !important;
+}
+.select-required{
+    height: 34px;
+    line-height: 16px;
+}
+
+.form-label, .form-field{
+    font-size:12px !important;
+    padding:2px;
+}
+
+.form-label{
+    font-weight:bold;
+}
+
+.load-quantity{
+    margin-right: 15px;
+}
+
+.secondary-line{
+    font-size: small;
+}
+
+.inventory-line-qty{
+    margin-top: 20px;
+}
