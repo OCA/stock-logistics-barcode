@@ -45,6 +45,7 @@ class BarcodeRule(models.Model):
             ('code128', 'Code 128'),
             ('ean', 'EAN'),
             ('ean13', 'EAN-13'),
+            ('ean14', 'EAN-14'),
             ('ean8', 'EAN-8'),
             ('gs1', 'GS-1'),
             ('gtin', 'GTIN'),
