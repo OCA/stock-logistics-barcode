@@ -4,8 +4,8 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from . import test_scan_to_inventory
+from . import test
 
 fast_suite = [
-    test_scan_to_inventory,
+    test,
 ]

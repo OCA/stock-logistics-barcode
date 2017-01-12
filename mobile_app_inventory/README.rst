@@ -21,7 +21,7 @@ Authentication
 The first screen asks Odoo credentials. The user should be member of the Odoo
 'Warehouse / User' group.
 
-.. image:: /scan_to_inventory/static/src/img/01_phone_authentication.png
+.. image:: /mobile_app_inventory/static/src/img/01_phone_authentication.png
 
 Data Loading
 ------------
@@ -33,7 +33,7 @@ Note: This step can take a while depending on your database product size and
 depending on the product extra-fields you have choosen to display. (see
 Extra fields Section)
 
-.. image:: /scan_to_inventory/static/src/img/02_phone_data_loading.png
+.. image:: /mobile_app_inventory/static/src/img/02_phone_data_loading.png
 
 Inventory Selection
 -------------------
@@ -41,7 +41,7 @@ Inventory Selection
 Once datas are loaded, user can select an existing draft stock inventory he
 want to complete.
 
-.. image:: /scan_to_inventory/static/src/img/04_phone_select_stock_inventory.png
+.. image:: /mobile_app_inventory/static/src/img/04_phone_select_stock_inventory.png
 
 Alternatively, he can create a new stock inventory, tipping an inventory name.
 
@@ -52,7 +52,7 @@ Location Selection
 Once the inventory created (or selected), user has to select the location where
 he is for the time being.
 
-.. image:: /scan_to_inventory/static/src/img/05_select_stock_location.png
+.. image:: /mobile_app_inventory/static/src/img/05_select_stock_location.png
 
 Product Selection and Quantity Selection
 ----------------------------------------
@@ -60,18 +60,18 @@ Product Selection and Quantity Selection
 Once the stock inventory is created or selected, the user can select a product,
 scanning a barcode.
 
-.. image:: /scan_to_inventory/static/src/img/06_phone_select_product.png
+.. image:: /mobile_app_inventory/static/src/img/06_phone_select_product.png
 
 If the EAN13 barcode is recognized, user has to set a quantity to inventory and
 then validate.
 
-.. image:: /scan_to_inventory/static/src/img/07_phone_select_quantity.png
+.. image:: /mobile_app_inventory/static/src/img/07_phone_select_quantity.png
 
 If a line with the same product (and same location) already exist, an extra
 screen is display to mention wich action to. (sum quantity, or replace the old
 value by the one).
 
-.. image:: /scan_to_inventory/static/src/img/08_phone_duplicate_lines.png
+.. image:: /mobile_app_inventory/static/src/img/08_phone_duplicate_lines.png
 
 Menu
 ----
@@ -79,7 +79,7 @@ Menu
 A menu is available in each screen that allows user to navigate between
 screens.
 
-.. image:: /scan_to_inventory/static/src/img/03_phone_menu.png
+.. image:: /mobile_app_inventory/static/src/img/03_phone_menu.png
 
 
 Extra Fields
@@ -92,9 +92,9 @@ information.
 This feature is interesting to display easily and without custom developpement
 extra fields of the core, or custom extra fields.
 
-.. image:: /scan_to_inventory/static/src/img/res_company_configuration.png
+.. image:: /mobile_app_inventory/static/src/img/res_company_configuration.png
 
-.. image:: /scan_to_inventory/static/src/img/07_phone_select_quantity_extra_data.png
+.. image:: /mobile_app_inventory/static/src/img/07_phone_select_quantity_extra_data.png
 
 
 Technical Informations
@@ -164,7 +164,7 @@ Usage
 
 Once installed, assuming that your Odoo instance is accessible by the URL
 http//localhost:8069/, the web app can be reached at the URL
-http//localhost:8069/scan_to_inventory/static/www/index.html
+http//localhost:8069/mobile_app_inventory/static/www/index.html
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
@@ -189,14 +189,14 @@ Known Issues
 ------------
 
 * Due to bad design of the module 'product_multi_ean' that changes type of
-  code product ean13 field from char to many2one, 'scan_to_inventory will not
+  code product ean13 field from char to many2one, 'mobile_app_inventory will not
   work if 'product_multi_ean' is installed. (Products loading will fail)
   This issue will not occur in V8+, due to refactoring of 'product_multi_ean'
   that fixes this bug.
   `See the bug report on Github <https://github.com/OCA/stock-logistics-barcode/issues/52>`_
 
 * Databases list on login view displays all databases, while only databases
-  with 'scan_to_inventory' module installed should be displayed. But this
+  with 'mobile_app_inventory' module installed should be displayed. But this
   feature could not be implemented, due to current Odoo Core limitations
 
 * **Firefox Ionic Bug** : The first screen allows user to select database,

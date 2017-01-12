@@ -20,7 +20,7 @@ class TestScanToInventory(TransactionCase):
         self.location_obj = self.registry('stock.location')
 
         self.product_id = self.model_data_obj.get_object_reference(
-            cr, uid, 'scan_to_inventory', 'product_chips_paprika')[1]
+            cr, uid, 'mobile_app_inventory', 'product_chips_paprika')[1]
         self.location_id = self.model_data_obj.get_object_reference(
             cr, uid, 'stock', 'stock_location_stock')[1]
 
@@ -43,7 +43,7 @@ class TestScanToInventory(TransactionCase):
             'ean13': self.test_barcode,
         })
         product = self.product_obj.browse(cr, uid, self.product_id)
-        res = self.product_obj.scan_to_inventory_load_product(cr, uid)
+        res = self.product_obj.mobile_app_inventory_load_product(cr, uid)
         self.assertEqual(
             self.test_barcode in res, True,
             "Loading product Datas should return product with barcode")
@@ -64,7 +64,7 @@ class TestScanToInventory(TransactionCase):
 
         # Create Inventory and test
         inventory_id = self.inventory_obj.create_by_scan(
-            cr, uid, 'scan_to_inventory test')
+            cr, uid, 'mobile_app_inventory test')
 
         self.assertNotEqual(
             inventory_id, False,

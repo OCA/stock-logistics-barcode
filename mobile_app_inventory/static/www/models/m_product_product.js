@@ -1,4 +1,4 @@
-angular.module('scan_to_inventory').factory(
+angular.module('mobile_app_inventory').factory(
         'ProductProductModel', [
         '$q', '$rootScope', 'jsonRpc',
         function ($q, $rootScope, jsonRpc) {
@@ -6,7 +6,7 @@ angular.module('scan_to_inventory').factory(
     return {
         LoadProductList: function() {
             return jsonRpc.call(
-                    'product.product', 'scan_to_inventory_load_product', []).then(function (res) {
+                    'product.product', 'mobile_app_inventory_load_product', []).then(function (res) {
                 $rootScope.ProductListByEan13 = res;
                 var quantity = 0;
                 return Object.keys(res).length;

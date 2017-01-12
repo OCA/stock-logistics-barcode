@@ -1,4 +1,4 @@
-angular.module('scan_to_inventory').controller(
+angular.module('mobile_app_inventory').controller(
         'SelectStockLocationCtrl', [
         '$scope', '$rootScope', 'jsonRpc', '$state', 'StockInventoryModel',
         function ($scope, $rootScope, jsonRpc, $state, StockInventoryModel) {

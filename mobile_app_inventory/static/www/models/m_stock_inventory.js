@@ -1,4 +1,4 @@
-angular.module('scan_to_inventory').factory(
+angular.module('mobile_app_inventory').factory(
         'StockInventoryModel', [
         '$q', '$rootScope', 'jsonRpc',
         function ($q, $rootScope, jsonRpc) {

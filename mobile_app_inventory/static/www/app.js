@@ -4,7 +4,7 @@
 // 'scan_to_purchase' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module(
-        'scan_to_inventory', [
+        'mobile_app_inventory', [
         'ionic', 'ui.router', 'odoo', 'pascalprecht.translate'])
 
 .run(function($ionicPlatform) {
