@@ -20,6 +20,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     <field name="generate_type"/>
                     <field name="padding" attrs="{'invisible': [('generate_type', '=', 'no')]}"/>
                     <field name="generate_model" attrs="{'invisible': [('generate_type', '=', 'no')]}"/>
+                    <field name="generate_encoding" />
                     <vbnewline />
                     <button name="generate_sequence" type="object" string="Generate Sequence" colspan="2"
                         attrs="{'invisible': [('generate_type', '!=', 'sequence')]}"/>

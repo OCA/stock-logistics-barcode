@@ -39,6 +39,29 @@ class BarcodeRule(models.Model):
     sequence_id = fields.Many2one(
         string='Sequence', comodel_name='ir.sequence')
 
+    generate_encoding = fields.Selection(
+        selection=[
+            ('code39', 'Code 39'),
+            ('code128', 'Code 128'),
+            ('ean', 'EAN'),
+            ('ean13', 'EAN-13'),
+            ('ean8', 'EAN-8'),
+            ('gs1', 'GS-1'),
+            ('gtin', 'GTIN'),
+            ('isbn', 'ISBN'),
+            ('isbn10', 'ISBN-10'),
+            ('isbn13', 'ISBN-13'),
+            ('issn', 'ISSN'),
+            ('jan', 'Jan'),
+            ('pzn', 'PZN'),
+            ('upc', 'UPC'),
+            ('upca', 'UPC-A'),
+        ],
+        compute='_compute_generate_encoding',
+        inverse='_inverse_generate_encoding',
+    )
+    generate_encoding_stored = fields.Char()
+
     # Compute Section
     @api.depends('pattern')
     @api.multi
@@ -65,6 +88,26 @@ class BarcodeRule(models.Model):
                     " is set to 'Base managed by Sequence'"))
             sequence = sequence_obj.create(self._prepare_sequence(rule))
             rule.sequence_id = sequence.id
+
+    @api.multi
+    def _compute_generate_encoding(self):
+        for record in self:
+            if record.generate_encoding_stored:
+                record.generate_encoding = record.generate_encoding_stored
+            else:
+                record.generate_encoding = record.encoding
+
+    @api.multi
+    def _inverse_generate_encoding(self):
+        for record in self:
+            record.generate_encoding_stored = record.generate_encoding
+
+    @api.onchange('encoding')
+    def _onchange_encoding(self):
+        try:
+            self.generate_encoding = self.encoding
+        except ValueError:
+            self.generate_encoding = False
 
     # Custom Section
     @api.model
