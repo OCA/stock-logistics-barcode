@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:53+0000\n"
+"POT-Creation-Date: 2017-01-07 07:37+0000\n"
 "PO-Revision-Date: 2016-04-28 13:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Galician (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/gl/)\n"
@@ -74,7 +74,7 @@ msgstr ""
 #. module: product_multi_ean
 #: field:product.ean13,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Secuencia"
 
 #. module: product_multi_ean
 #: code:addons/product_multi_ean/models/product_product.py:40

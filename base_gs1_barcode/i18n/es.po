@@ -5,13 +5,14 @@
 # Translators:
 # Antonio Trueba, 2016
 # Antonio Trueba, 2016
+# Roberto Lizana <robertolizana@trey.es>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-17 06:03+0000\n"
-"PO-Revision-Date: 2016-12-23 08:32+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
+"POT-Creation-Date: 2017-01-07 07:37+0000\n"
+"PO-Revision-Date: 2017-01-13 09:20+0000\n"
+"Last-Translator: Roberto Lizana <robertolizana@trey.es>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,7 +23,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ACTIVE_POTENCY
 msgid "Active Potency"
-msgstr ""
+msgstr "Potencia Activa"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
@@ -32,12 +33,12 @@ msgstr "Identificación adicional del producto"
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
 msgid "Amount payable (local currency)"
-msgstr ""
+msgstr "Importe a pagar (moneda local)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
 msgid "Amount payable (with ISO currency code)"
-msgstr ""
+msgstr "Importe a pagar (con código de moneda ISO)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM
@@ -58,7 +59,7 @@ msgstr "Cualquier cadena de caracteres"
 #: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
 #: field:gs1_barcode,ai:0
 msgid "Application Identifier"
-msgstr ""
+msgstr "Identificador de aplicación"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.LOT
