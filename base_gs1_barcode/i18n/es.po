@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-01 15:24+0000\n"
+"POT-Creation-Date: 2017-01-12 18:07+0000\n"
 "PO-Revision-Date: 2015-09-03 12:45+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/es/)\n"
@@ -40,7 +40,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: view:gs1_barcode:0
 msgid "Application Identifier"
-msgstr ""
+msgstr "Identificador de aplicación"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.NET_VOLUME
@@ -300,7 +300,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
 msgid "Amount payable (local currency)"
-msgstr ""
+msgstr "Importe a pagar (moneda local)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_7
@@ -484,7 +484,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ACTIVE_POTENCY
 msgid "Active Potency"
-msgstr ""
+msgstr "Potencia Activa"
 
 #. module: base_gs1_barcode
 #: view:gs1_barcode:0
@@ -552,7 +552,7 @@ msgstr "Fecha"
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
 msgid "Amount payable (with ISO currency code)"
-msgstr ""
+msgstr "Importe a pagar (con código de moneda ISO)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_YD

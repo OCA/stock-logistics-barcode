@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-12-24 06:28+0000\n"
+"POT-Creation-Date: 2017-01-12 18:07+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Turkish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/tr/)\n"
@@ -40,7 +40,7 @@ msgstr ""
 #. module: tr_barcode_on_picking
 #: model:ir.model,name:tr_barcode_on_picking.model_stock_picking
 msgid "Picking List"
-msgstr ""
+msgstr "Toplama Listesi"
 
 #. module: tr_barcode_on_picking
 #: help:tr.barcode.settings,picking_height:0

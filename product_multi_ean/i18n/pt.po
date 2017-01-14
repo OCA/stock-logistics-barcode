@@ -42,4 +42,4 @@ msgstr ""
 #. module: product_multi_ean
 #: field:product.ean13,sequence:0
 msgid "Sequence"
-msgstr ""
+msgstr "Sequência"
