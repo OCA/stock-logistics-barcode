@@ -21,12 +21,8 @@ env:
   matrix:
   - LINT_CHECK="1"
   - TRANSIFEX="1"
-  - TESTS="1" ODOO_REPO="OCA/OCB" EXCLUDE="scan_to_inventory,product_multi_ean"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="scan_to_inventory,product_multi_ean"
-  - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="scan_to_inventory"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="scan_to_inventory"
-  - TESTS="1" ODOO_REPO="OCA/OCB" INCLUDE="product_multi_ean"
-  - TESTS="1" ODOO_REPO="odoo/odoo" EXCLUDE="product_multi_ean"
+  - TESTS="1" ODOO_REPO="OCA/OCB"
+  - TESTS="1" ODOO_REPO="odoo/odoo"
 
 virtualenv:
   system_site_packages: true
