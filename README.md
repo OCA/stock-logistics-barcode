@@ -38,7 +38,6 @@ addon | version | summary
 --- | --- | ---
 [barcode_link](barcode_link/) | 1.0 (unported) | Barcode link Module
 [base_gs1_barcode](base_gs1_barcode/) | 1.0 (unported) | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
-[product_barcode_generator](product_barcode_generator/) | 8.0.1.0.0 (unported) | Product barcode generator
 [product_multi_ean](product_multi_ean/) | 1.2 (unported) | Multiple EAN13 on products
 [tr_barcode](tr_barcode/) | 1.1.4 (unported) | TR Barcode
 [tr_barcode_config](tr_barcode_config/) | 1.1.1 (unported) | Barcode configuration Module
