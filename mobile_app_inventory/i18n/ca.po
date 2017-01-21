@@ -3,14 +3,15 @@
 # * mobile_app_inventory
 # 
 # Translators:
-# Eric Antones <eantones@users.noreply.github.com>, 2017
+# OCA Transbot <transbot@odoo-community.org>, 2017
+# Carles Antoli <carlesantoli@hotmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-12 18:07+0000\n"
-"PO-Revision-Date: 2017-01-12 18:07+0000\n"
-"Last-Translator: Eric Antones <eantones@users.noreply.github.com>, 2017\n"
+"POT-Creation-Date: 2017-01-17 08:00+0000\n"
+"PO-Revision-Date: 2017-01-17 08:00+0000\n"
+"Last-Translator: Carles Antoli <carlesantoli@hotmail.com>, 2017\n"
 "Language-Team: Catalan (https://www.transifex.com/oca/teams/23907/ca/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -41,7 +42,7 @@ msgstr ""
 #. module: mobile_app_inventory
 #: model:ir.model,name:mobile_app_inventory.model_res_users
 msgid "Users"
-msgstr ""
+msgstr "Usuaris"
 
 #. module: mobile_app_inventory
 #: field:stock.location,parent_complete_name:0
