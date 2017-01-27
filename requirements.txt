@@ -1,1 +1,2 @@
+# viivakoodi is a fork of pyBarcode
 viivakoodi
