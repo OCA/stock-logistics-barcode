@@ -15,7 +15,7 @@ class Tests(TransactionCase):
         self.template_obj = self.env['product.template']
         self.product_obj = self.env['product.product']
         self.barcode_rule_obj = self.env['barcode.rule']
-        
+
         self.attribute = self.env['product.attribute'].create({
             'name': 'Test Attribute',
         })
