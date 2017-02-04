@@ -10,8 +10,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-07 07:37+0000\n"
-"PO-Revision-Date: 2017-01-13 09:20+0000\n"
+"POT-Creation-Date: 2017-01-21 07:43+0000\n"
+"PO-Revision-Date: 2017-01-30 09:34+0000\n"
 "Last-Translator: Roberto Lizana <robertolizana@trey.es>\n"
 "Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
 "MIME-Version: 1.0\n"
@@ -336,7 +336,7 @@ msgstr "Nombre mostrado"
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
-msgstr ""
+msgstr "Fecha vencimiento"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE
