@@ -31,10 +31,11 @@ With this module, it is possible to:
 Installation
 ============
 
-This module use an extra python library named 'pyBarcode' you should install
-to make barcode generation works properly.
+This module use an extra python library named 'viivakoodi' you should install
+to make barcode generation works properly. 'viivakoodi' is a more active for of
+'pyBarcode'.
 
-``sudo pip install pyBarcode``
+``sudo pip install viivakoodi``
 
 Configuration
 =============
