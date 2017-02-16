@@ -23,6 +23,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
+[barcodes_generator_abstract](barcodes_generator_abstract/) | 10.0.1.0.0 | Generate Barcodes for Any Models
 [stock_scanner](stock_scanner/) | 10.0.1.0.0 | Allows managing barcode readers with simple scenarios
 
 Unported addons
