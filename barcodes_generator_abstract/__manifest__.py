@@ -10,8 +10,9 @@
     'version': '10.0.1.0.0',
     'category': 'Tools',
     'author':
-        'GRAP,'
-        'La Louve,'
+        'GRAP, '
+        'La Louve, '
+        'LasLabs, '
         'Odoo Community Association (OCA)',
     'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
