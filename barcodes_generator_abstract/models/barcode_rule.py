@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
+# Copyright 2017 LasLabs Inc.
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, exceptions, fields, models, tools
 
 _GENERATE_TYPE = [
     ('no', 'No generation'),
@@ -29,7 +30,7 @@ class BarcodeRule(models.Model):
 
     generate_model = fields.Selection(
         string='Generate Model', selection=[],
-        help="if 'Generate Type' is set, mention the model related to this"
+        help="If 'Generate Type' is set, mention the model related to this"
         " rule.")
 
     padding = fields.Integer(
@@ -38,6 +39,12 @@ class BarcodeRule(models.Model):
 
     sequence_id = fields.Many2one(
         string='Sequence', comodel_name='ir.sequence')
+
+    generate_automate = fields.Boolean(
+        string='Automatic Generation',
+        help='Check this to automatically generate a barcode upon creation of '
+             'a new record in the mixed model.',
+    )
 
     # Compute Section
     @api.depends('pattern')
@@ -53,6 +60,40 @@ class BarcodeRule(models.Model):
         for rule in self:
             if rule.generate_type == 'no':
                 rule.generate_model = False
+
+    # Constrains Section
+    @api.multi
+    @api.constrains('generate_model', 'generate_automate')
+    def _check_generate_model_automate(self):
+        """ It should not allow two automated barcode generators per model.
+
+        It also clears the cache of automated rules if necessary.
+        """
+        for record in self:
+            if not record.generate_automate:
+                continue
+            # This query is duplicated, but necessary because the other
+            # method is cached & we need a completely current result.
+            domain = [
+                ('generate_model', '=', record.generate_model),
+                ('generate_automate', '=', True),
+            ]
+            if len(self.search(domain)) > 1:
+                raise exceptions.ValidationError(_(
+                    'Only one rule per model can be used for automatic '
+                    'barcode generation.'
+                ))
+
+    # CRUD
+    @api.model
+    def create(self, vals):
+        self._clear_cache(vals)
+        return super(BarcodeRule, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self._clear_cache(vals)
+        return super(BarcodeRule, self).write(vals)
 
     # View Section
     @api.multi
@@ -73,3 +114,27 @@ class BarcodeRule(models.Model):
             'name': _('Sequence - %s') % rule.name,
             'padding': rule.padding,
         }
+
+    @api.model
+    @tools.ormcache('model')
+    def get_automatic_rule(self, model):
+        """ It provides a cached indicator for barcode automation.
+
+        Note that this cache needs to be explicitly cleared when
+        `generate_automate` is changed on an associated `barcode.rule`.
+
+        Args:
+            model (str): Name of model to search for.
+        Returns:
+            BarcodeRule: Recordset of automated barcode rules for model.
+        """
+        return self.search([
+            ('generate_model', '=', model),
+            ('generate_automate', '=', True),
+        ])
+
+    @api.model_cr_context
+    def _clear_cache(self, vals):
+        """ It clears the caches if certain vals are updated. """
+        if any(k in vals for k in ('generate_model', 'generate_automate')):
+            self.clear_caches()
