@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="stock_picking_barcode" model="stock.picking">
+        <field name="name">Picking with Generated Barcode</field>
+        <field name="picking_type_id" ref="stock.picking_type_out" />
+        <field name="origin">outgoing shipment w/ barcode</field>
+        <field name="partner_id" ref="base.res_partner_1" />
+        <field name="location_id" ref="stock.stock_location_stock" />
+        <field name="location_dest_id" ref="stock.stock_location_customers" />
+        <field name="barcode_rule_id" ref="stock_picking_generated_barcode" />
+    </record>
+
+</odoo>
