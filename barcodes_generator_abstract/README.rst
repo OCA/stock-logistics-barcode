@@ -9,7 +9,7 @@ Generate Barcodes for any Models (Abstract)
 This module expends Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for any Model.
 
-For exemple, a typical pattern for products is  "20.....{NNNDD}" that means
+For example, a typical pattern for products is  "20.....{NNNDD}" that means
 that:
 * the EAN13 code will begin by '20'
 * followed by 5 digits (named Barcode Base in this module)
@@ -109,7 +109,9 @@ Known issues / Roadmap
 ======================
 
 1. On barcode.rule model, constraint and domain system could be set between
-'type' and 'generate_model' fields.
+   'type' and 'generate_model' fields.
+1. Cache is being cleared in a constraint in `barcode.rule`. Mutating in a
+   constraint is bad practice & should be moved somewhere.
 
 Bug Tracker
 ===========
