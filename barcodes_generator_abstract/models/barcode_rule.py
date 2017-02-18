@@ -69,7 +69,6 @@ class BarcodeRule(models.Model):
 
         It also clears the cache of automated rules if necessary.
         """
-        should_clear = False
         for record in self:
             if not record.generate_automate:
                 continue
@@ -84,9 +83,17 @@ class BarcodeRule(models.Model):
                     'Only one rule per model can be used for automatic '
                     'barcode generation.'
                 ))
-            should_clear = True
-        if should_clear:
-            self.clear_caches()
+
+    # CRUD
+    @api.model
+    def create(self, vals):
+        self._clear_cache(vals)
+        return super(BarcodeRule, self).create(vals)
+
+    @api.multi
+    def write(self, vals):
+        self._clear_cache(vals)
+        return super(BarcodeRule, self).write(vals)
 
     # View Section
     @api.multi
@@ -125,3 +132,9 @@ class BarcodeRule(models.Model):
             ('generate_model', '=', model),
             ('generate_automate', '=', True),
         ])
+
+    @api.model_cr_context
+    def _clear_cache(self, vals):
+        """ It clears the caches if certain vals are updated. """
+        if any(k in vals for k in ('generate_model', 'generate_automate')):
+            self.clear_caches()
