@@ -252,7 +252,9 @@ odoo.define('web_stock.picking', function(require) {
         },
     
         start: function() {
+            console.log('Starting barcode interface');
             var self = this;
+            this._super.apply(this, arguments);
             // Compat w/ multi-barcodes update
             this.el = this.$target[0];
             this.actionMap = {
@@ -260,7 +262,7 @@ odoo.define('web_stock.picking', function(require) {
                 'error': this.throwError,
                 'lot': this.handleLotScan,
             };
-            if(!this.barcodeParser) {
+            if (!this.barcodeParser) {
                 var nomenclatureId = $('#barcodeNomenclatureId').val();
                 if (!nomenclatureId) {
                     return;
@@ -277,6 +279,7 @@ odoo.define('web_stock.picking', function(require) {
         },
         
         on_barcode_scanned: function(barcode) {
+            console.log(barcode);
             var self = this;
             // Call hook method possibly implemented by subclass
             this.preOnchangeHook(barcode).then(function(proceed) {

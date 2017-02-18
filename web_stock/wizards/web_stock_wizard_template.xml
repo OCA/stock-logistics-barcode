@@ -63,7 +63,7 @@
 	</template>
 
 	<template id="picking_search" name="Picking Search">
-		<t t-call="web_stock.layout">
+		<t t-call="web_stock.webclient_warehouse">
 			<div id="wrap">
 				<div class="container">
 					<t t-call="web_stock.picking_search_header" />
@@ -87,9 +87,9 @@
 	</template>
 
 	<template id="picking_detail" name="Picking Detail">
-		<t t-call="web_stock.layout">
+		<t t-call="web_stock.webclient_warehouse">
 			<div id="wrap">
-				<div class="container js_picking_form_barcode">
+				<div class="container">
 					<form method="PATCH"
 						  t-attf-action="/web/stock/pickings/{{ picking.id }}"
 						  class="js_picking_form container-fluid mt32 mb32"
@@ -224,10 +224,6 @@
 										</div>
 									</t>
 									-->
-								</div>
-								<div class="row">
-									<!--<input type="text" class="js_picking_form_barcode" barcode_events="true" placeholder="Barcode" />-->
-									<input class="hidden" id="barcodeNomenclatureId" t-att-value="picking.picking_type_id.barcode_nomenclature_id.id" />
 								</div>
 							</div>
 						</div>

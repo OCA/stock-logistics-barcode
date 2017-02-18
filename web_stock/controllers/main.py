@@ -77,6 +77,7 @@ class WebStock(http.Controller):
     def get_picking(self, picking_id, **kwargs):
         tpl_vals = self.__get_tpl_defaults(**kwargs)
         picking_id = request.env['stock.picking'].browse(picking_id)
+        nomenclature = picking_id.picking_type_id.barcode_nomenclature_id
         if not picking_id:
             return self.get_pickings(
                 errors=['No picking was found']
@@ -85,6 +86,8 @@ class WebStock(http.Controller):
             'picking': picking_id,
             'warehouse': picking_id.picking_type_id.warehouse_id,
         })
+        if nomenclature:
+            tpl_vals['barcode_nomenclature'] = nomenclature
         _logger.info(tpl_vals)
         return request.render(
             "web_stock.picking_detail",
@@ -217,4 +220,7 @@ class WebStock(http.Controller):
             'errors': [],
             'error_fields': kwargs.get('error_fields', []),
             'db_info': json.dumps(db_info()),
+            'barcode_nomenclature': request.env.ref(
+                'barcodes.default_barcode_nomenclature',
+            )
         }
