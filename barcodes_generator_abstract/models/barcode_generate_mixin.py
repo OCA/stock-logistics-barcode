@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
-# Copyright (C) 2014-Today GRAP (http://www.grap.coop)
-# Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
+# Copyright (C) 2014-TODAY GRAP (http://www.grap.coop)
+# Copyright (C) 2016-TODAY La Louve (http://www.lalouve.net)
+# Copyright 2017 LasLabs Inc.
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import logging
 
-from odoo import models, fields, api, exceptions, _
+from odoo import _, api, exceptions, fields, models
 
 from .barcode_rule import _GENERATE_TYPE
 
@@ -15,7 +16,7 @@ _logger = logging.getLogger(__name__)
 try:
     import barcode
 except ImportError:
-    _logger.debug("Cannot import 'barcode' python library.")
+    _logger.debug("Cannot import 'viivakoodi' python library.")
     barcode = None
 
 
@@ -31,6 +32,20 @@ class BarcodeGenerateMixin(models.AbstractModel):
     generate_type = fields.Selection(
         string='Generate Type', selection=_GENERATE_TYPE, readonly=True,
         related='barcode_rule_id.generate_type')
+
+    @api.model
+    def create(self, vals):
+        """ It creates a new barcode if automation is active. """
+        barcode_rule = self.env['barcode.rule'].get_automatic_rule(self._name)
+        if barcode_rule.exists():
+            vals.update({
+                'barcode_rule_id': barcode_rule.id,
+            })
+        record = super(BarcodeGenerateMixin, self).create(vals)
+        if barcode_rule:
+            record.generate_base()
+            record.generate_barcode()
+        return record
 
     # View Section
     @api.multi
@@ -66,7 +81,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
             instead that replace 'N' and 'D' char.
         """
         if not item.barcode_rule_id:
-                return False
+            return False
 
         # Define barcode
         custom_code = item.barcode_rule_id.pattern
