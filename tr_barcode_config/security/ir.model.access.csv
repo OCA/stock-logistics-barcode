@@ -1,5 +1,0 @@
-id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-access_tr_barcode_config_user,tr.barcode.config,model_tr_barcode_config,base.group_user,1,0,0,0
-access_tr_barcode_config_sale_manager,tr.barcode.config,model_tr_barcode_config,base.group_sale_manager,1,1,1,1
-access_tr_barcode_config_partner_manager,tr.barcode.config,model_tr_barcode_config,base.group_partner_manager,1,1,1,1
-access_tr_barcode_config_stock_manager,tr.barcode.config,model_tr_barcode_config,stock.group_stock_manager,1,1,1,1
