@@ -8,7 +8,7 @@
     "version": "8.0.1.0.0",
     "category": "Warehouse",
     "website": "https://odoo-community.org/",
-    "author": "Eficent",
+    "author": "Eficent, Odoo Community Association (OCA)",
     "application": False,
     "installable": True,
     "license": "AGPL-3",
