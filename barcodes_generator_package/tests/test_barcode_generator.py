@@ -10,8 +10,7 @@ class TestBarcodeGenerator(TransactionCase):
     def setUp(self):
         super(TestBarcodeGenerator, self).setUp()
         self.record = self.env.ref(
-            'barcodes_generator_product_packaging'
-            '.product_packaging_barcode'
+            'barcodes_generator_package.product_packaging_barcode',
         )
         self.record.generate_barcode()
 
@@ -25,5 +24,5 @@ class TestBarcodeGenerator(TransactionCase):
         """ It should generate the correct sequence for the barcode. """
         self.assertEqual(
             self.record.barcode,
-            "1230000000013",
+            "1230000000017",
         )
