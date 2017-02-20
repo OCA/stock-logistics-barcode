@@ -8,13 +8,9 @@ from odoo.tests.common import TransactionCase
 class TestBarcodeGenerator(TransactionCase):
 
     def setUp(self):
-        super(Tests, self).setUp()
-        self.Model = self.env['stock.production.lot']
-        self.record = self.partner_obj.browse(
-            self.ref(
-                'barcodes_generator_stock_production_lot'
-                '.stock_production_lot_barcode'
-            ),
+        super(TestBarcodeGenerator, self).setUp()
+        self.record = self.env.ref(
+            'barcodes_generator_lot.stock_production_lot_barcode',
         )
         self.record.generate_barcode()
 
