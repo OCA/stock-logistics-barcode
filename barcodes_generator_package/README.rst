@@ -6,10 +6,10 @@
 Generate Barcodes for Packaging
 ===============================
 
-This module expends Odoo functionality, allowing user to generate barcode
+This module expands Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for Product Packaging.
 
-For exemple, a typical pattern for partners is  "042........." that means
+For example, a typical pattern for partners is  "042........." that means
 that:
 * the EAN13 code will begin by '042'
 * followed by 0 digits (named Barcode Base in this module)
@@ -22,7 +22,7 @@ With this module, it is possible to:
 * Define a Barcode base: 
     * manually, if the base of the barcode must be set by a user. (typically an
       internal code defined in your company)
-    * automaticaly by a sequence, if you want to let Odoo to increment a
+    * automatically by a sequence, if you want to let Odoo to increment a
       sequence. (typical case of a customer number incrementation)
 
 * Generate a barcode, based on the defined pattern and the barcode base
@@ -77,6 +77,7 @@ Images
 
 * Icon of the module is based on the Oxygen Team work and is under LGPL licence:
   http://www.iconarchive.com/show/oxygen-icons-by-oxygen-icons.org.html
+* Package image in icon is licensed under GPL & provided by Gnome Web Icons.
 
 Contributors
 ------------

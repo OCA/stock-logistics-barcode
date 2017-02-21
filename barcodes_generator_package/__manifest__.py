@@ -13,7 +13,6 @@
     "license": "AGPL-3",
     "depends": [
         "barcodes_generator_abstract",
-        "product",
         "stock",
     ],
     "data": [
