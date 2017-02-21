@@ -8,7 +8,7 @@
     "version": "9.0.1.0.0",
     "category": "Warehouse",
     "website": "https://laslabs.com/",
-    "author": "LasLabs",
+    "author": "LasLabs, Odoo Community Association (OCA)",
     "license": "LGPL-3",
     "installable": True,
     "depends": [

@@ -24,9 +24,20 @@
 					odoo.db_info = <t t-raw="db_info"/>;
 				</script>
 				<t t-call-assets="web.assets_backend"/>
+
 				<script type="application/javascript"
-                        src="/web_stock/static/src/js/web_stock_picking.js"
+                        src="/web_stock/static/src/js/mixins.js"
 						/>
+				<script type="application/javascript"
+                        src="/web_stock/static/src/js/barcode.js"
+						/>
+				<script type="application/javascript"
+                        src="/web_stock/static/src/js/picking.js"
+						/>
+				<script type="application/javascript"
+                        src="/web_stock/static/src/js/search.js"
+						/>
+
 				&lt;!--[if lte IE 9]&gt; <link rel="stylesheet" href="/web/static/src/css/ie.css"/> &lt;![endif]--&gt;
 				<script type="text/javascript">
 					$(function() {
