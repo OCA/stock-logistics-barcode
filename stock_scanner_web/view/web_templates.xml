@@ -59,7 +59,7 @@
         </template>
 
 
-        <template id="hardware_select" name="header" page="True">
+        <template id="hardware_select" name="header">
             <t t-call="stock_scanner_web.layout">
                 <div id="wrap" class="oe_structure oe_empty" data-role="page">
                     <div data-role="main" class="ui-content">
@@ -94,7 +94,7 @@
         </template>
 
 
-        <template id="error_message" name="header" page="True">
+        <template id="error_message" name="header">
             <t t-call="stock_scanner_web.layout">
                 <div id="wrap" class="oe_structure oe_empty" data-role="page">
                     <div data-role="main" class="ui-content">
@@ -113,7 +113,7 @@
             </t>
         </template>
 
-        <template id="scanner_call" name="header" page="True">
+        <template id="scanner_call" name="header">
             <t t-call="stock_scanner_web.layout">
                 <div id="wrap" class="oe_structure oe_empty" data-role="page">
                     <div data-role="main" class="ui-content">
