@@ -25,5 +25,5 @@ class TestBarcodeGenerator(TransactionCase):
         """ It should generate the correct sequence for the barcode. """
         self.assertEqual(
             self.record.barcode,
-            "1230000000013",
+            "1230000000017",
         )
