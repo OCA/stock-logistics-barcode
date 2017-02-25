@@ -3,37 +3,34 @@
 # * product_barcode_generator
 # 
 # Translators:
-# Antonio Trueba, 2016
-# Antonio Trueba, 2016
-# Fernando Lara <gennesis45@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-19 03:46+0000\n"
-"PO-Revision-Date: 2017-02-19 19:42+0000\n"
-"Last-Translator: Fernando Lara <gennesis45@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
+"PO-Revision-Date: 2015-10-19 07:59+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Basque (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/eu/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
+"Language: eu\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: product_barcode_generator
 #: field:ir.sequence,barcode_sequence:0
 msgid "Barcode Sequence"
-msgstr "Secuencia de Códigos de Barras"
+msgstr ""
 
 #. module: product_barcode_generator
 #: model:ir.model,name:product_barcode_generator.model_res_company
 msgid "Companies"
-msgstr "Compañías"
+msgstr "Enpresak"
 
 #. module: product_barcode_generator
 #: view:res.company:product_barcode_generator.view_company_ean_form
 msgid "Configuration"
-msgstr "Configuración"
+msgstr "Konfigurazioa"
 
 #. module: product_barcode_generator
 #: code:addons/product_barcode_generator/models/product.py:60
@@ -42,30 +39,30 @@ msgid ""
 "Configuration Error!The next sequence is longer than 12 characters. It is "
 "not valid for an EAN13 needing 12 characters, the 13 being used as a control"
 " digitYou will have to redefine the sequence or create a new one"
-msgstr "¡Error de configuración! La secuencia siguiente es mayor de 12 caracteres. No se permite que un código EAN13 alcance los 12 caracteres (el 13º se usa como dígito de control). Debe redefinir la secuencia o crear una nueva"
+msgstr ""
 
 #. module: product_barcode_generator
 #: view:res.company:product_barcode_generator.view_company_ean_form
 msgid "Ean Company code"
-msgstr "Código de la Empresa Ean"
+msgstr ""
 
 #. module: product_barcode_generator
 #: field:product.category,ean_sequence_id:0
 #: field:product.product,ean_sequence_id:0 field:res.company,ean_sequence_id:0
 msgid "Ean sequence"
-msgstr "Secuencia de Ean"
+msgstr ""
 
 #. module: product_barcode_generator
 #: view:product.product:product_barcode_generator.view_product_simple_ean_form
 msgid "Generate the EAN13"
-msgstr "Generar EAN13"
+msgstr ""
 
 #. module: product_barcode_generator
 #: model:ir.model,name:product_barcode_generator.model_product_product
 msgid "Product"
-msgstr "Producto"
+msgstr "Produktua"
 
 #. module: product_barcode_generator
 #: model:ir.model,name:product_barcode_generator.model_product_category
 msgid "Product Category"
-msgstr "Categoría de producto"
+msgstr ""
