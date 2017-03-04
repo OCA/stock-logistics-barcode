@@ -3,37 +3,37 @@
 # * barcodes_generator_partner
 # 
 # Translators:
-# OCA Transbot <transbot@odoo-community.org>, 2017
+# Fernando Lara <gennesis45@gmail.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-03-02 03:38+0000\n"
 "PO-Revision-Date: 2017-03-02 03:38+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
-"Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
+"Last-Translator: Fernando Lara <gennesis45@gmail.com>, 2017\n"
+"Language-Team: Spanish (Spain) (https://www.transifex.com/oca/teams/23907/es_ES/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fr\n"
-"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"Language: es_ES\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: barcodes_generator_partner
 #: model:ir.ui.view,arch_db:barcodes_generator_partner.view_res_partner_form
 msgid "Generate Barcode (Using Barcode Rule)"
-msgstr "Générer un code barre (via règle de codes barre)"
+msgstr ""
 
 #. module: barcodes_generator_partner
 #: model:ir.ui.view,arch_db:barcodes_generator_partner.view_res_partner_form
 msgid "Generate Base (Using Sequence)"
-msgstr "Générer une base (via une séquence)"
+msgstr ""
 
 #. module: barcodes_generator_partner
 #: model:ir.model,name:barcodes_generator_partner.model_res_partner
 msgid "Partner"
-msgstr "Partenaire"
+msgstr ""
 
 #. module: barcodes_generator_partner
 #: model:ir.model,name:barcodes_generator_partner.model_barcode_rule
 msgid "barcode.rule"
-msgstr "barcode.rule"
+msgstr "regla.barra de codigos"
