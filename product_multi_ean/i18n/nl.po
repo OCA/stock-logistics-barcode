@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-07 07:37+0000\n"
+"POT-Creation-Date: 2017-03-28 08:23+0000\n"
 "PO-Revision-Date: 2016-04-28 13:01+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Dutch (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/nl/)\n"
@@ -69,7 +69,7 @@ msgstr ""
 #: model:ir.model,name:product_multi_ean.model_product_product
 #: field:product.ean13,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Product"
 
 #. module: product_multi_ean
 #: field:product.ean13,sequence:0
@@ -85,7 +85,7 @@ msgstr ""
 #. module: product_multi_ean
 #: view:product.product:product_multi_ean.product_normal_form_view_multi_ean13
 msgid "True"
-msgstr ""
+msgstr "Waar"
 
 #. module: product_multi_ean
 #: code:addons/product_multi_ean/models/product_product.py:29
