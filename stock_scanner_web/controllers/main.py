@@ -21,8 +21,10 @@ class ScannerWeb(http.Controller):
         '/stock_scanner_web',
         '/stock_scanner_web/<string:terminal_number>',
         '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>',
-        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>/<string:action>/',
-        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>/<string:action>/<string:message>/'
+        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>'
+        '/<string:action>/',
+        '/stock_scanner_web/<string:terminal_number>/<string:scenario_step>/'
+        '<string:action>/<string:message>/'
     ], type='http', auth='user')
     def scanner_call(self,
                      terminal_number='',
