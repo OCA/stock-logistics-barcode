@@ -124,7 +124,8 @@ class ScannerWeb(http.Controller):
             'value': value,
             'scenario': scenario,
             'step': int(scenario_step),
-            'terminal_number': terminal_number
+            'terminal_number': terminal_number,
+            'number_method': scanner_hardware.number_method
         }
         if not message and action == 'reset':
             values['action'] = 'reset'

@@ -212,9 +212,11 @@
                                                class="search-query form-control"
                                                autofocus="autofocus"/>
                             </form>
-                            <button id="numpadButton-btn"
-                                    class="ui-btn ui-icon-grid ui-alt-icon ui-nodisc-icon ui-btn-icon-left">Add manually
-                            </button>
+                            <p t-if="number_method == u'numpad'">
+                                <button id="numpadButton-btn"
+                                        class="ui-btn ui-icon-grid ui-alt-icon ui-nodisc-icon ui-btn-icon-left">Add manually
+                                </button>
+                            </p>
                             <button class="ui-btn ui-icon-carat-r ui-alt-icon ui-btn-icon-left ui-nodisc-icon"
                                     form="my_form">Submit
                             </button>
