@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-01-14 08:35+0000\n"
-"PO-Revision-Date: 2017-01-17 18:52+0000\n"
+"POT-Creation-Date: 2017-03-11 08:39+0000\n"
+"PO-Revision-Date: 2017-03-14 18:27+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
 "Language-Team: Catalan (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/ca/)\n"
 "MIME-Version: 1.0\n"
@@ -323,7 +323,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,name:0
 msgid "Description"
-msgstr ""
+msgstr "Descripció"
 
 #. module: base_gs1_barcode
 #: field:gs1_barcode,display_name:0
