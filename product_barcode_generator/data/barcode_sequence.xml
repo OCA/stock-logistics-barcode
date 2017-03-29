@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+    
+        <!-- Product Sequences -->
+        <record id="seq_barcode_sequence" model="ir.sequence">
+            <field name="name">Barcode code</field>
+            <field name="code">product.barcode.code</field>
+            <field name="prefix">000000</field>
+            <field name="padding">6</field>
+            <field name="number_next">1</field>
+            <field name="barcode_sequence" eval="True"/>
+        </record>
+
+    </data>
+</odoo>

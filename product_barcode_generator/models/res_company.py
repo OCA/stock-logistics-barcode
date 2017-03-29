@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 ###############################################################################
 #
-#    OpenERP, Open Source Management Solution
+#    odoo, Open Source Management Solution
 #    Copyright (C) 2013 Julius Network Solutions SARL <contact@julius.fr>
 #
 #    This program is free software: you can redistribute it and/or modify
@@ -19,10 +19,10 @@
 #
 ###############################################################################
 
-from openerp import models, fields
+from odoo import models, fields
 
 
 class ResCompany(models.Model):
     _inherit = 'res.company'
 
-    ean_sequence_id = fields.Many2one('ir.sequence', string='Ean sequence')
+    barcode_sequence_id = fields.Many2one('ir.sequence', string='Barcode sequence')

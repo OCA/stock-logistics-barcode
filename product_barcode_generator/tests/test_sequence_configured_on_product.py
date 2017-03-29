@@ -19,7 +19,7 @@
 #
 ##############################################################################
 
-from openerp.tests import common
+from odoo.tests import common
 
 
 class TestEanOnProduct(common.TransactionCase):
@@ -27,7 +27,7 @@ class TestEanOnProduct(common.TransactionCase):
     def setUp(self):
         super(TestEanOnProduct, self).setUp()
         self.sequence1 = self.env.ref(
-            'product_barcode_generator.seq_ean13_sequence')
+            'product_barcode_generator.seq_barcode_sequence')
         if not self.sequence1.barcode_sequence:
             self.sequence1.barcode_sequence = True
 
@@ -35,12 +35,12 @@ class TestEanOnProduct(common.TransactionCase):
         self.product_obj = self.env['product.product']
 
     def test_generate_ean_sequence_on_product_no_sequence(self):
-        self.product_demo.write({'ean13': False})
-        self.product_demo.generate_ean13()
-        self.assertFalse(bool(self.product_demo.ean13))
+        self.product_demo.write({'barcode': False})
+        self.product_demo.generate_barcode()
+        self.assertFalse(bool(self.product_demo.barcode))
 
     def test_generate_ean_sequence_on_product_with_sequence(self):
-        self.product_demo.write({'ean13': False,
+        self.product_demo.write({'barcode': False,
                                  'ean_sequence_id': self.sequence1.id})
-        self.product_demo.generate_ean13()
-        self.assertTrue(bool(self.product_demo.ean13))
+        self.product_demo.generate_barcode()
+        self.assertTrue(bool(self.product_demo.barcode))
