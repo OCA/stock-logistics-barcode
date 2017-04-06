@@ -12,7 +12,7 @@ depending on a given barcode rule for Stock Production Lots.
 The barcode will be used as the ``name`` of the lot, which effectively allows
 this module to create automatic serialization rules for production lots.
 
-For example, a typical pattern for partners is  "042........." that means
+For example, a typical pattern for production lots is  "042........." that means
 that:
 * the EAN13 code will begin by '042'
 * followed by 0 digits (named Barcode Base in this module)
