@@ -9,9 +9,6 @@ Generate Barcodes for Stock Locations
 This module expands Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for Stock Locations.
 
-The barcode will be used as the ``name`` of the lot, which effectively allows
-this module to create automatic serialization rules for production lots.
-
 For example, a typical pattern for partners is  "042........." that means
 that:
 * the EAN13 code will begin by '042'
@@ -41,7 +38,7 @@ Usage
 
 To use this module, you need to:
 
-* Go to a Picking form:
+* Go to a Stock Location form
 
 1 for manual generation
     * Set a Barcode Rule
