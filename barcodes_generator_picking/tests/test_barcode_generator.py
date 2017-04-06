@@ -10,7 +10,7 @@ class TestBarcodeGenerator(TransactionCase):
     def setUp(self):
         super(TestBarcodeGenerator, self).setUp()
         self.record = self.env.ref(
-            'barcodes_generator_stock_picking'
+            'barcodes_generator_picking'
             '.stock_picking_barcode'
         )
         self.record.generate_barcode()
