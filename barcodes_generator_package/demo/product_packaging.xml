@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="product_packaging_barcode" model="product.packaging">
+        <field name="name">Packaging with Generated Barcode</field>
+        <field name="barcode_rule_id" ref="product_packaging_generated_barcode" />
+    </record>
+
+</odoo>
