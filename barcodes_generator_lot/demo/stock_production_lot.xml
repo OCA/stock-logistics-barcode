@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="stock_production_lot_barcode" model="stock.production.lot">
+        <field name="name">Lot with Generated Barcode</field>
+        <field name="product_id" ref="product.product_product_3" />
+        <field name="barcode_rule_id" ref="stock_production_lot_generated_barcode" />
+    </record>
+
+</odoo>
