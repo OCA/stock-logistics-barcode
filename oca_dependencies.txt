@@ -1,0 +1,1 @@
+pos_with_barcodes https://github.com/grap/pos.git 8.0_BACKPORT_barcodes
