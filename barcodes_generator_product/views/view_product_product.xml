@@ -6,13 +6,13 @@ Copyright (C) 2016-Today GRAP (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<odoo>
+<openerp><data>
 
     <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view"/>
         <field name="arch" type="xml">
-            <field name="barcode" position="before">
+            <field name="ean13" position="before">
                 <field name="barcode_rule_id"
                     domain="[('generate_model', '=', 'product.product')]"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
@@ -27,11 +27,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
             </field>
 
-            <field name="barcode" position="attributes">
+            <field name="ean13" position="attributes">
                 <attribute name="attrs">{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
             </field>
 
-            <field name="barcode" position="after">
+            <field name="ean13" position="after">
                 <button name="generate_barcode" type="object" string="Generate Barcode (Using Barcode Rule)"
                     attrs="{'invisible': ['|',
                             ('barcode_rule_id', '=', False),
@@ -41,4 +41,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </field>
     </record>
 
-</odoo>
+</data></openerp>

@@ -6,10 +6,10 @@ Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<odoo>
+<openerp><data>
 
     <record id="generate_barcode" model="res.groups">
         <field name="name">Generate Barcodes</field>
     </record>
 
-</odoo>
+</data></openerp>

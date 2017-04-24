@@ -10,3 +10,5 @@ from openerp import models
 class ProductProduct(models.Model):
     _name = 'product.product'
     _inherit = ['product.product', 'barcode.generate.mixin']
+
+    _barcode_field_name = 'ean13'

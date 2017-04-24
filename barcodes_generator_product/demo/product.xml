@@ -6,7 +6,7 @@ Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<odoo>
+<openerp><data>
 
     <record id="product_template_mono_variant" model="product.template">
         <field name="name">Template with Generated Barcode (Mono Variant)</field>
@@ -40,4 +40,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="name">Template with Generated Barcode (Multi Variant)</field>
     </record>
 
-</odoo>
+</data></openerp>

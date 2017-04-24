@@ -22,6 +22,8 @@ except ImportError:
 class BarcodeGenerateMixin(models.AbstractModel):
     _name = 'barcode.generate.mixin'
 
+    _barcode_field_name = 'barcode'
+
     # Column Section
     barcode_rule_id = fields.Many2one(
         string='Barcode Rule', comodel_name='barcode.rule')
@@ -54,7 +56,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
                 custom_code = custom_code.replace('.' * padding, str_base)
                 barcode_class = barcode.get_barcode_class(
                     item.barcode_rule_id.encoding)
-                item.barcode = barcode_class(custom_code)
+                setattr(
+                    item, self._barcode_field_name, barcode_class(custom_code))
 
     # Custom Section
     @api.model

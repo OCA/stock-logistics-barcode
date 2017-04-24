@@ -7,7 +7,7 @@
 {
     'name': 'Generate Barcodes (Abstract)',
     'summary': 'Generate Barcodes for Any Models',
-    'version': '9.0.1.0.0',
+    'version': '8.0.1.0.0',
     'category': 'Tools',
     'author':
         'GRAP,'
