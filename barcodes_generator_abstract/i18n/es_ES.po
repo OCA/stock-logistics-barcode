@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-03-02 03:38+0000\n"
-"PO-Revision-Date: 2017-03-02 03:38+0000\n"
+"POT-Creation-Date: 2017-04-12 02:40+0000\n"
+"PO-Revision-Date: 2017-04-12 02:40+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Spanish (Spain) (https://www.transifex.com/oca/teams/23907/es_ES/)\n"
 "MIME-Version: 1.0\n"
@@ -21,7 +21,11 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin_generate_type
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_rule_generate_type
+#: model:ir.model.fields,help:barcodes_generator_abstract.field_product_packaging_generate_type
+#: model:ir.model.fields,help:barcodes_generator_abstract.field_product_product_generate_type
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_res_partner_generate_type
+#: model:ir.model.fields,help:barcodes_generator_abstract.field_stock_location_generate_type
+#: model:ir.model.fields,help:barcodes_generator_abstract.field_stock_production_lot_generate_type
 msgid ""
 "Allow to generate barcode, including a number  (a base) in the final barcode.\n"
 " 'Base Set Manually' : User should set manually the value of the barcode base\n"
@@ -38,7 +42,11 @@ msgstr ""
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_packaging_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_barcode_base
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_location_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_barcode_base
 msgid "Barcode Base"
 msgstr "Base de código de barras"
 
@@ -54,7 +62,11 @@ msgstr "Nomenclaturas del código de barras"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin_barcode_rule_id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_packaging_barcode_rule_id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_barcode_rule_id
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_barcode_rule_id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_location_barcode_rule_id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_barcode_rule_id
 msgid "Barcode Rule"
 msgstr "Regla del codigo de barras"
 
@@ -118,7 +130,11 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin_generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_packaging_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_location_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_generate_type
 msgid "Generate Type"
 msgstr "Generar Tipo"
 
@@ -159,6 +175,16 @@ msgid "Partners"
 msgstr ""
 
 #. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Product Packaging"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Products"
+msgstr ""
+
+#. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule_sequence_id
 msgid "Sequence"
 msgstr "Secuencia"
@@ -168,6 +194,16 @@ msgstr "Secuencia"
 #, python-format
 msgid "Sequence - %s"
 msgstr "Secuencia - %s"
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Production Lot"
+msgstr ""
 
 #. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin

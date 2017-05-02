@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * barcodes_generator_package
+# * barcodes_generator_location
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
@@ -18,27 +18,27 @@ msgstr ""
 "Language: fr\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#. module: barcodes_generator_package
-#: model:ir.model.fields,field_description:barcodes_generator_package.field_product_packaging_barcode
-msgid "Barcode"
+#. module: barcodes_generator_location
+#: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
+msgid "Generate Barcode"
 msgstr ""
 
-#. module: barcodes_generator_package
-#: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
-msgid "Generate Barcode (Using Barcode Rule)"
-msgstr "Générer un code barre (via règle de codes barre)"
-
-#. module: barcodes_generator_package
-#: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
+#. module: barcodes_generator_location
+#: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
 msgid "Generate Base (Using Sequence)"
 msgstr "Générer une base (via une séquence)"
 
-#. module: barcodes_generator_package
-#: model:ir.model,name:barcodes_generator_package.model_product_packaging
-msgid "Product Packaging"
+#. module: barcodes_generator_location
+#: model:stock.location,name:barcodes_generator_location.stock_location_barcode
+msgid "Location with Generated Barcode"
 msgstr ""
 
-#. module: barcodes_generator_package
-#: model:ir.model,name:barcodes_generator_package.model_barcode_rule
+#. module: barcodes_generator_location
+#: model:ir.model,name:barcodes_generator_location.model_stock_location
+msgid "Stock Location"
+msgstr ""
+
+#. module: barcodes_generator_location
+#: model:ir.model,name:barcodes_generator_location.model_barcode_rule
 msgid "barcode.rule"
 msgstr "barcode.rule"
