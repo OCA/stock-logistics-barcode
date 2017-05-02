@@ -21,7 +21,7 @@ msgstr ""
 #: field:product.ean13,name:0 view:product.product:0
 #: field:product.product,ean13_ids:0
 msgid "EAN13"
-msgstr ""
+msgstr "EAN13"
 
 #. module: product_multi_ean
 #: model:ir.model,name:product_multi_ean.model_product_product
@@ -37,7 +37,7 @@ msgstr ""
 #. module: product_multi_ean
 #: model:ir.model,name:product_multi_ean.model_product_ean13
 msgid "List of EAN13 for a product."
-msgstr ""
+msgstr "EAN13-Liste eines Produkts"
 
 #. module: product_multi_ean
 #: field:product.ean13,sequence:0

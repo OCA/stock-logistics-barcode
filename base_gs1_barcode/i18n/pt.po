@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2017-03-18 08:27+0000\n"
 "PO-Revision-Date: 2015-09-03 12:45+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Danish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/da/)\n"
+"Language-Team: Portuguese (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/pt/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: da\n"
+"Language: pt\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_gs1_barcode
@@ -129,7 +129,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
 msgid "Due Date"
-msgstr "Forfaldsdato"
+msgstr "Data da Dívida"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.GLOBAL_INDIVIDUAL_ASSET_ID
@@ -547,7 +547,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,type:0
 msgid "Date"
-msgstr ""
+msgstr "Data"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
@@ -704,7 +704,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: field:gs1_barcode,name:0
 msgid "Description"
-msgstr "Beskrivelse"
+msgstr "Descrição"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.WIDTH_IN
@@ -796,7 +796,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_res_users
 msgid "Users"
-msgstr "Brugere"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.SECONDARY_DATA_FIELDS

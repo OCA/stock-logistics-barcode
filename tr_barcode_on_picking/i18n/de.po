@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:42+0000\n"
+"POT-Creation-Date: 2017-03-18 08:27+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/de/)\n"
@@ -62,7 +62,7 @@ msgstr "Menschenlesbar"
 #. module: tr_barcode_on_picking
 #: view:tr.barcode.settings:0
 msgid "Picking"
-msgstr ""
+msgstr "Kommissionierung"
 
 #. module: tr_barcode_on_picking
 #: field:tr.barcode.settings,picking_height:0
