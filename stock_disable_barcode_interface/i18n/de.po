@@ -1,0 +1,35 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_disable_barcode_interface
+# 
+# Translators:
+# Rudolf Schnapka <rs@techno-flex.de>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-03-28 08:23+0000\n"
+"PO-Revision-Date: 2017-03-28 08:23+0000\n"
+"Last-Translator: Rudolf Schnapka <rs@techno-flex.de>, 2017\n"
+"Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: de\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_disable_barcode_interface
+#: model:res.groups,name:stock_disable_barcode_interface.group_enable_barcode
+msgid "Enable Barcode Interface"
+msgstr "Barcode-Schnittstelle aktivieren"
+
+#. module: stock_disable_barcode_interface
+#: field:stock.config.settings,group_barcode_interface:0
+msgid "Enable barcode interface"
+msgstr "Barcode-Schnittstelle aktivieren"
+
+#. module: stock_disable_barcode_interface
+#: view:stock.picking:stock_disable_barcode_interface.view_stock_picking_form
+#: view:stock.picking.type:stock_disable_barcode_interface.view_stock_picking_type_kanban
+msgid "stock_disable_barcode_interface.group_enable_barcode"
+msgstr "stock_disable_barcode_interface.group_enable_barcode"
