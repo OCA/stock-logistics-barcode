@@ -57,3 +57,14 @@ class ProductTemplate(models.Model):
             if related_vals:
                 template.write(related_vals)
         return template
+
+    @api.multi
+    def write(self, vals):
+        """Propagate barcode rule to all variants"""
+        if 'barcode_rule_id' in vals:
+            for template in self.filtered(
+                    lambda x: x.product_variant_count > 1):
+                template.product_variant_ids.write({
+                    'barcode_rule_id': vals['barcode_rule_id'],
+                })
+        return super(ProductTemplate, self).write(vals)

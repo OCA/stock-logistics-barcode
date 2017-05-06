@@ -36,8 +36,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="attribute_value_ids" eval="[(6,0,[ref('product.product_attribute_value_4')])]"/>
     </record>
 
-    <record id="product_template_multi_variant" model="product.template">
-        <field name="name">Template with Generated Barcode (Multi Variant)</field>
-    </record>
-
 </odoo>
