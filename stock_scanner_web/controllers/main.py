@@ -17,6 +17,7 @@ def allowed_hardware(user, t_num):
 
 
 class ScannerWeb(http.Controller):
+
     @http.route([
         '/stock_scanner_web',
         '/stock_scanner_web/<string:terminal_number>',
@@ -33,10 +34,13 @@ class ScannerWeb(http.Controller):
                      scenario_step=False,
                      type='http',
                      auth='public',
-                     website=True):
+                     website=True,
+                     **kwargs):
         values = {}  # Reset the values.
         if message == 'False':
             message = False
+        if not message and kwargs:
+            message = kwargs
         # Determine the correct hardware:
         scanner_hardware = False
         user = request.env.user
@@ -85,7 +89,6 @@ class ScannerWeb(http.Controller):
             return http.request.render(
                 'stock_scanner_web.hardware_select',
                 values)
-
         if not message and action == 'reset':
             scanner_hardware.empty_scanner_values()
         try:
@@ -116,16 +119,42 @@ class ScannerWeb(http.Controller):
 
         scenario_step = request.env['scanner.hardware'].\
             search([('code', '=', terminal_number)]).step_id
-        if not scenario_step:
-            scenario_step = 0
+        step = scenario_step and int(scenario_step) or 0
+        if code == 'L':
+            header = ''
+            lines = []
+            for line in result:
+                if len(line) != 2 and line[0] != '|' and line[0] != '#':
+                    lines.append({
+                        'href': '/stock_scanner_web/%s/%s/action/%s' % (
+                            terminal_number, step, line),
+                        'label': line})
+                elif len(line) != 2 and line[0] == '|':
+                    header = line[1:]
+                elif len(line) == 2 and line[0] != '|':
+                    lines.append({
+                        'href': '/stock_scanner_web/%s/%s/action?message=%s' %
+                        (terminal_number, step, line[0]),
+                        'label': line[1]})
+                elif len(line) != 2 and line[0] == '#':
+                    lines.append({
+                        'href': False,
+                        'label': line[1:]})
+            result = {
+                'header': header or message or _('Main Menu'),
+                'lines': lines}
+        elif code in ['M', 'E', 'F', 'C', 'N', 'Q', 'T']:
+            lines = result
+            result = {
+                'header': lines[0],
+                'lines': lines[1:]}
         values = {
             'code': code,
             'result': result,
             'value': value,
             'scenario': scenario,
-            'step': int(scenario_step),
-            'terminal_number': terminal_number,
-            'number_method': scanner_hardware.number_method
+            'step': step,
+            'terminal_number': terminal_number
         }
         if not message and action == 'reset':
             values['action'] = 'reset'
