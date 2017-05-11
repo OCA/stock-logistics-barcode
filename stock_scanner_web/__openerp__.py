@@ -20,6 +20,5 @@
         "views/web_templates.xml",
         "views/warehouse_menu.xml",
         "views/res_user_view.xml",
-        "views/scanner_hardware.xml"
     ],
 }
