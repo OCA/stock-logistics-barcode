@@ -6,7 +6,7 @@ import logging
 
 from psycopg2 import errorcodes
 
-from openerp import api, fields, models
+from openerp import models, api
 from openerp import _
 
 
@@ -32,12 +32,6 @@ MAX_TRIES_ON_CONCURRENCY_FAILURE = 5
 
 class ScannerHardware(models.Model):
     _inherit = 'scanner.hardware'
-
-    number_method = fields.Selection(
-        string="Number insertion method",
-        selection=[('numpad', 'You can pop a screen-displayed number keypad.'),
-                   ('normal', 'Just normal insertion allowed.')],
-        default='normal')
 
     @api.model
     def _scenario_list(self, parent_id=False):
