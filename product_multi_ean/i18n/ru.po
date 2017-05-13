@@ -27,7 +27,7 @@ msgstr ""
 #: model:ir.model,name:product_multi_ean.model_product_product
 #: field:product.ean13,product_id:0
 msgid "Product"
-msgstr ""
+msgstr "Товар/Услуга"
 
 #. module: product_multi_ean
 #: constraint:product.ean13:0 constraint:product.product:0
