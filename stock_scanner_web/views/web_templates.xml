@@ -6,31 +6,42 @@
 -->
 <odoo>
 
-    <template id="hardware_select" name="header">
+    <template id="scanner_layout" name="header">
         <t t-call="web.layout">
+            <t t-set="head">
+                <meta name="viewport" content="width=device-width"/>
+                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
+                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
+                <link rel="stylesheet" href="/stock_scanner_web/static/lib/css/responsive.css"/>
+                <script src="/web/static/lib/jquery/jquery.js" type="text/javascript"/>
+            </t>
+            <t t-raw="0"/>
+        </t>
+    </template>
+
+    <template id="hardware_select" name="header">
+        <t t-call="stock_scanner_web.scanner_layout">
             <div id="wrap" class="oe_structure oe_empty" data-role="page">
-                <div data-role="main" class="ui-content">
-                    <div class="col-xs-12 text-center">
-                        <p t-if="code == 'L'">
-                            <center>
-                                <h3>Please, Select your hardware:</h3>
-                            </center>
+                <div data-role="main" class="container">
+                    <div class="col-xs-12">
+                        <div t-if="code == 'L'">
+                            <h3 class="text-center">Please, Select your hardware:</h3>
                             <div data-role="controlgroup" data-type="vertical">
                                 <t t-foreach="result" t-as="line">
-                                    <a id="btn-go" t-attf-href="/stock_scanner_web/{{line}}" class="ui-btn">
+                                    <a id="btn-go" t-attf-href="/stock_scanner_web/{{line}}" class="btn btn-primary">
                                         <span t-esc="line"/>
                                     </a>
                                 </t>
                             </div>
-                        </p>
-                        <p t-if="code == 'N'">
-                            <h3>
+                        </div>
+                        <div t-if="code == 'N'">
+                            <h3 class="text-center">
                                 <span t-esc="result"/>
                             </h3>
-                            <a id="btn-back" href="#" data-rel="back" class="ui-btn ui-btn-b">
+                            <a id="btn-back" href="#" data-rel="back" class="btn btn-default">
                                 Back to Odoo
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -38,18 +49,18 @@
     </template>
 
     <template id="error_message" name="header">
-        <t t-call="web.layout">
+        <t t-call="stock_scanner_web.scanner_layout">
             <div id="wrap" class="oe_structure oe_empty" data-role="page">
-                <div data-role="main" class="ui-content">
-                    <div class="col-xs-12 text-center">
+                <div data-role="main" class="container">
+                    <div class="row text-center">
                         <h3>
                             <span t-esc="result"/>
                         </h3>
-                        <p t-if="code == 'E'">
-                            <a id="btn-go" t-attf-href="/stock_scanner_web/" class="ui-btn">
+                        <div t-if="code == 'E'" class="col-xs-12">
+                            <a id="btn-go" t-attf-href="/stock_scanner_web/" class="btn btn-default">
                                 Back
                             </a>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -57,111 +68,125 @@
     </template>
 
     <template id="scanner_call" name="header">
-        <head>
-            <link rel='stylesheet' href='/web/static/lib/bootstrap/css/bootstrap.css'/>
-        </head>
-        <t t-call="web.layout">
+        <t t-call="stock_scanner_web.scanner_layout">
             <div id="wrap">
                 <div class="container">
+                  <div t-if="action is not 'reset'">
+                      <a id="btn-home" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="btn btn-info">
+                          <i class="fa fa-bars"></i> <span class="hidden-xs">Main Menu</span>
+                      </a>
+                  </div>
                   <t t-if="result.get('header')">
-                      <center>
-                          <h2 t-esc="result.get('header')"/>
-                      </center>
+                      <h2 class="text-center" t-esc="result.get('header')"/>
                   </t>
-                    <p t-if="code == 'L'">
+                    <t t-if="code == 'L'">
                         <div class="row">
                             <t t-foreach="result.get('lines')" t-as="line">
-                                <div class="col-sm-12 col-md-6 col-lg-4">
-                                    <a class="btn btn-info" role="button" t-attf-href="{{line.get('href')}}">
-                                        <span t-esc="line.get('label')"/>
+                                <div class="col-xs-12 col-sm-4 col-md-3">
+                                  <div class="list-group">
+                                    <a class="list-group-item list-group-item-info text-center" role="button" t-attf-href="{{line.get('href')}}">
+                                        <h4 class="list-group-item-heading" t-esc="line.get('label')"/>
+                                        <!-- <p class="list-group-item-text">You can put text here</p> -->
                                     </a>
+                                  </div>
                                 </div>
                             </t>
                         </div>
-                    </p>
-                    <p t-if="code == 'M'">
+                    </t>
+                    <div t-if="code == 'M'" class="row">
+                      <div class="col-xs-12">
                         <t t-foreach="result.get('lines')" t-as="line">
                             <p t-esc="line"/>
                         </t>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0" class="btn btn-default pull-right">
                             Go
                         </a>
-                    </p>
-                    <p t-if="code == 'E'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'E'" class="row">
+                      <div class="col-xs-12">
                         <t t-foreach="result.get('lines')" t-as="line">
                             <p t-esc="line"/>
                         </t>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="btn btn-default">
                             Back
                         </a>
-                    </p>
-                    <p t-if="code == 'F'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'F'" class="row">
+                      <div class="col-xs-12">
                         <t t-foreach="result.get('lines')" t-as="line">
                             <p t-esc="line"/>
                         </t>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="btn btn-default">
                             Go to menu
                         </a>
-                    </p>
-                    <p t-if="code == 'C'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'C'" class="row">
+                      <div class="col-xs-12">
                         <t t-foreach="result.get('lines')" t-as="line">
                             <p t-esc="line"/>
                         </t>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True" class="btn btn-default pull-right">
                             Yes
                         </a>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False" class="btn btn-default">
                             No
                         </a>
-                    </p>
-                    <p t-if="code in ['N','Q']">
+                      </div>
+                    </div>
+                    <div t-if="code in ['N','Q']" class="row">
+                      <div class="col-xs-12">
                         <t t-foreach="result.get('lines')" t-as="line">
                             <p t-esc="line"/>
                         </t>
-                        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)">
+                        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="input-group col-md-6 col-xs-12">
                             <input type="text" name="message" class="search-query form-control" autofocus="autofocus"/>
-                        </form>
-                        <button class="ui-btn ui-icon-carat-r ui-alt-icon ui-btn-icon-left ui-nodisc-icon" form="my_form">Submit
-                        </button>
-                    </p>
-                    <p t-if="code == 'T'">
-                        <t t-foreach="result.get('lines')" t-as="line">
-                            <p t-esc="line"/>
-                        </t>
-
-                        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
-                            <div class="input-group">
-                                <input type="text" name="message" class="search-query form-control" autofocus="autofocus"/>
-                                <span class="input-group-btn">
-                                    <button type="submit" class="ui-btn-b"><i class="fa fa-go"/>Submit</button>
-                                </span>
+                            <div class="input-group-btn">
+                              <button class="btn btn-primary" type="submit">Submit</button>
                             </div>
                         </form>
-                    </p>
-                    <p t-if="code == 'R'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'T'" class="row">
+                      <div class="col-xs-12">
+                        <t t-foreach="result.get('lines')" t-as="line">
+                            <p t-esc="line"/>
+                        </t>
+                        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="input-group col-md-6 col-xs-12">
+                            <input type="text" name="message" class="search-query form-control" autofocus="autofocus"/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary"><i class="fa fa-go"/>Submit</button>
+                            </span>
+                        </form>
+                      </div>
+                    </div>
+                    <div t-if="code == 'R'" class="row">
+                      <div class="col-xs-12">
                         <h3>
                             <t t-foreach="result" t-as="line">
                                 <span t-esc="line"/>
                             </t>
                         </h3>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="btn btn-default">
                             Go to menu
                         </a>
-                    </p>
-                    <p t-if="code == 'U'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'U'" class="row">
+                      <div class="col-xs-12">
                         <h3>Please, contact you administrator</h3>
-                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="ui-btn">
+                        <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="btn btn-default">
                             Go to menu
                         </a>
-                    </p>
-                    <p t-if="code == 'W'">
+                      </div>
+                    </div>
+                    <div t-if="code == 'W'" class="row">
+                      <div class="col-xs-12">
                         <t t-call="{{result}}"/>
-                    </p>
-                    <p t-if="action is not 'reset'">
-                        <a id="btn-home" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="ui-btn ui-mini">
-                            Main Menu
-                        </a>
-                    </p>
+                      </div>
+                    </div>
                 </div>
             </div>
         </t>
