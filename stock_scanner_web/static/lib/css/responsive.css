@@ -1,0 +1,47 @@
+.container {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+@media (min-width: 480px) and (max-width: 767px) {
+  body {
+    font-size: 18px;
+  }
+  .container {
+    width: 460px;
+  }
+  .btn {
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+  }
+  .col-xs-12 + .col-xs-12 {
+    margin-top: 5px;
+  }
+  .form-control {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+  }
+}
+@media (max-width: 479px) {
+  body {
+    font-size: 18px;
+  }
+  .btn {
+    display: inline-block;
+    width: 100%;
+    padding: 10px 16px;
+    font-size: 18px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+  }
+  .btn + .btn {
+    margin-top: 5px;
+  }
+  .form-control {
+    height: 46px;
+    padding: 10px 16px;
+    font-size: 18px;
+  }
+}
