@@ -90,7 +90,8 @@ warehouse_obj = Object(cnx, 'stock.warehouse')
 user_obj = Object(cnx, 'res.users')
 group_obj = Object(cnx, 'res.groups')
 scen_read = scenario_obj.read(
-    int(opts.scenario_id), [], {'active_test': False})
+    int(opts.scenario_id), [], '_classic_read', {'active_test': False})
+scen_read = scen_read and scen_read[0]
 if not scen_read:
     logger.error('Scenario ID %s not found' % opts.scenario_id)
     sys.exit(1)
@@ -116,7 +117,7 @@ for field in scen_read:
     if field == 'model_id':
         if scen_read[field]:
             node.text = model_obj.read(
-                scen_read.get('model_id', [0])[0], ['model']).get('model')
+                scen_read.get('model_id', [0])[0], ['model'])[0].get('model')
     elif field == 'company_id':
         if scen_read[field]:
             node.text = scen_read.get('company_id', [0])[1]
@@ -159,7 +160,7 @@ step_ids = step_obj.search([
     ('scenario_id', '=', int(opts.scenario_id)),
 ], 0, None, 'name')
 for step_id in step_ids:
-    step = step_obj.read(step_id, [])
+    step = step_obj.read(step_id, [])[0]
     # delete unuse key
     del step['in_transition_ids']
     del step['out_transition_ids']
@@ -202,7 +203,7 @@ transition_ids = transition_obj.search([
     ('from_id.scenario_id', '=', int(opts.scenario_id)),
 ], 0, None, 'name')
 for transition_id in transition_ids:
-    transition = transition_obj.read(transition_id, [])
+    transition = transition_obj.read(transition_id, [])[0]
     del transition['scenario_id']
     for field in field_to_remove:
         del transition[field]
