@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright 2017 LasLabs Inc.
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="barcode_search_view_form" model="ir.ui.view">
+        <field name="model">barcode.search</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="barcode" />
+                        <field name="nomenclature_id" />
+                    </group>
+                </sheet>
+                <footer>
+                    <button name="search"
+                            type="object"
+                            string="Search" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <act_window id="barcode_search_action"
+                name="Search Barcode"
+                res_model="barcode.search"
+                src_model="barcode.nomenclature"
+                key2="client_action_multi"
+                view_mode="form"
+                target="new"
+                view_type="form"
+                />
+
+</odoo>
