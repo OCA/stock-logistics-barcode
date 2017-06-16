@@ -5,7 +5,7 @@
 
 
 def post_init_hook(cr, registry):
-    self.env.cr.execute("""
+    cr.execute("""
     INSERT INTO product_ean13
     (product_id, name, sequence)
     SELECT id, ean13, 0

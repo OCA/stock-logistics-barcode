@@ -9,7 +9,7 @@ from ..hooks import post_init_hook
 class TestProductMultiEan(common.TransactionCase):
     def setUp(self):
         super(TestProductMultiEan, self).setUp()
-        self.product = self.env['product.product'].sudo().create({
+        self.product = self.env['product.product'].create({
             'name': 'Test product',
         })
         self.valid_ean = '1234567890128'
