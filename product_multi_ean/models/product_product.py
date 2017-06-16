@@ -25,7 +25,7 @@ class ProductEan13(models.Model):
     def _check_name(self):
         for record in self:
             if record.name and not self.env['barcode.nomenclature'].check_ean(
-                                    record.name):
+                    record.name):
                 raise UserError(
                     _('You provided an invalid "EAN13 Barcode" reference. You '
                       'may use the "Internal Reference" field instead.'))
