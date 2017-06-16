@@ -11,6 +11,7 @@
     'author': "Camptocamp, "
               "Trey, "
               "Tecnativa, "
+              "Portcities, "
               "Odoo Community Association (OCA)",
     'category': 'Product Management',
     'depends': ['product'],
