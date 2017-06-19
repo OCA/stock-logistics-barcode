@@ -2,10 +2,10 @@
 # © 2012-2014 Guewen Baconnier (Camptocamp SA)
 # © 2015 Roberto Lizana (Trey)
 # © 2016 Pedro M. Baeza
-# © 2017 Portcities
+# © 2017 Dionisius M. (Portcities)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api, _
+from odoo import _, api, fields, models
 from odoo.exceptions import Warning as UserError
 
 
@@ -54,7 +54,7 @@ class ProductProduct(models.Model):
     barcode = fields.Char(
         'Barcode', copy=False, oldname='ean13', compute='_compute_barcode',
         help="International Article Number used for product identification.",
-        readonly=False)
+        store=True, readonly=False)
 
     @api.multi
     @api.depends('ean13_ids')
