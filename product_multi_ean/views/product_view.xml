@@ -6,20 +6,19 @@
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_normal_form_view" />
             <field name="arch" type="xml">
-                <field name="barcode" position="replace">
+                <xpath expr="//field[@name='barcode']" position="after">
                     <field name="ean13"/>
-                </field>
-                <field name="ean13" position="after">
+                </xpath>
+                <xpath expr="//field[@name='ean13']" position="after">
                     <field name="ean13_ids">
                         <tree string="EAN13" editable="bottom">
                             <field name="sequence" widget="handle"/>
                             <field name="name"/>
                         </tree>
                     </field>
-                </field>
+                </xpath>
             </field>
         </record>
-
 
         <record id="product_search_form_view_multi_ean13" model="ir.ui.view">
             <field name="name">product.product.search.multi.ean13</field>
@@ -31,7 +30,5 @@
                 </field>
             </field>
         </record>
-
-
     </data>
 </odoo>
