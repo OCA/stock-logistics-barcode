@@ -20,11 +20,6 @@ If a product has no variants, the product main barcode will automatically set to
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/150/10.0
 
-Known issues
-============
-
-* The module unittest is carried over from version 8.0 and doesn't run successfully if the sales or stock modules are installed beforehand.
-
 Bug Tracker
 ===========
 
