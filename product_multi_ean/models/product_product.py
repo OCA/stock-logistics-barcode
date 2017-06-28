@@ -72,14 +72,3 @@ class ProductProduct(models.Model):
             'product_id': self.id,
             'name': self.ean13,
         }
-
-    @api.model
-    def search(self, domain, *args, **kwargs):
-        if filter(lambda x: x[0] == 'ean13', domain):
-            ean_operator = filter(lambda x: x[0] == 'ean13', domain)[0][1]
-            ean_value = filter(lambda x: x[0] == 'ean13', domain)[0][2]
-            eans = self.env['product.ean13'].search(
-                [('name', ean_operator, ean_value)])
-            domain = filter(lambda x: x[0] != 'ean13', domain)
-            domain += [('ean13_ids', 'in', eans.ids)]
-        return super(ProductProduct, self).search(domain, *args, **kwargs)
