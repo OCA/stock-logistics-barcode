@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-02-19 03:46+0000\n"
+"POT-Creation-Date: 2017-06-03 09:45+0000\n"
 "PO-Revision-Date: 2016-05-04 05:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Dutch (Netherlands) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/nl_NL/)\n"
@@ -50,7 +50,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,display_name:0
 msgid "Display Name"
-msgstr ""
+msgstr "Weergavenaam"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,product_code:0
@@ -68,7 +68,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,id:0
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_inventory_barcode
 #: model:ir.actions.act_window,name:stock_inventory_barcode.stock_inventory_barcode_action
@@ -79,7 +79,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,__last_update:0
 msgid "Last Modified on"
-msgstr ""
+msgstr "Laatst gewijzigd op"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,write_uid:0
