@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
+<odoo>
     <data>
         <!-- views for the configuration of barcode decoding -->
         <record id="gs1_barcode_tree_view" model="ir.ui.view">
@@ -41,6 +41,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode" parent="product.prod_config_main" />
+        <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode"/>
     </data>
-</openerp>
+</odoo>
