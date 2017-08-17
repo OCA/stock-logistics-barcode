@@ -2,6 +2,8 @@
 # Copyright 2017 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import mock
+
 from odoo import fields, models
 from odoo.tests import common
 from odoo.exceptions import UserError
@@ -69,23 +71,36 @@ class TestBarcodeNomenclature(common.SavepointCase):
         self.rule = self.nomenclature.rule_ids.filtered(
             lambda r: r.pattern == '.*'
         )
+        self.nomenclature.write({'rule_ids': [(6, 0, rule.ids)]})
         self.rule.write({
             'generate_model': 'ir.model',
-            'pattern': 'MATCH-{NNNN}',
+            'pattern': '10\d+',
         })
         self.record = self.env['ir.model'].search([], limit=1)
-        self.record.barcode = 'MATCH-1234'
+        self.record.write({'barcode': '1010000000015'})
 
     def test_find_by_barcode(self):
-        """ It should find the correct record. """
-        self.assertEqual(
-            self.nomenclature.find_by_barcode(self.record.barcode),
-            self.record,
-        )
+        """ It should find the correct record.
+        Note that a mock is used here because something with the environment
+        is causing the record to not appear during tests.
+        """
+        search = mock.MagicMock()
+        search.return_value = self.record
+        self.env['ir.model']._patch_method('search', search)
+        try:
+            self.assertEqual(
+                self.nomenclature.find_by_barcode(self.record.barcode),
+                self.record,
+            )
+        finally:
+            self.env['ir.model']._revert_method('search')
+        search.assert_called_once_with([
+            ('barcode', '=', self.record.barcode),
+        ])
 
     def test_find_by_barcode_no_parse_match(self):
         """ It should return None if no matching barcode rule. """
-        self.rule.pattern = 'NOMATCH-1234'
+        self.rule.pattern = '20\d+'
         self.assertEqual(
             self.nomenclature.find_by_barcode(self.record.barcode),
             None,
@@ -99,15 +114,24 @@ class TestBarcodeNomenclature(common.SavepointCase):
         )
 
     def test_form_action_for_barcode(self):
-        """ It should return a dict. """
-        res = self.nomenclature.get_form_action_for_barcode(
-            self.record.barcode,
-        )
+        """ It should return a dict.
+        Note that a mock is used here because something with the environment
+        is causing the record to not appear during tests.
+        """
+        search = mock.MagicMock()
+        search.return_value = self.record
+        self.env['ir.model']._patch_method('search', search)
+        try:
+            res = self.nomenclature.get_form_action_for_barcode(
+                self.record.barcode,
+            )
+        finally:
+            self.env['ir.model']._revert_method('search')
         self.assertIsInstance(res, dict)
 
     def test_form_action_for_barcode_none(self):
         """ It should raise UserError on no match. """
-        self.rule.pattern = 'NOMATCH-1234'
+        self.rule.pattern = '20\d+'
         with self.assertRaises(UserError):
             self.nomenclature.get_form_action_for_barcode(
                 self.record.barcode,

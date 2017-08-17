@@ -26,7 +26,7 @@ class BarcodeSearch(models.TransientModel):
         return self.env.context.get('active_id')
 
     @api.multi
-    def search(self):
+    def action_search(self):
         self.ensure_one()
         return self.nomenclature_id.get_form_action_for_barcode(
             self.barcode,

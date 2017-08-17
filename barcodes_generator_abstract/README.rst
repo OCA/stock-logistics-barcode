@@ -76,7 +76,46 @@ model.
 Alternatively, you can develop a custom module for a custom model. See
 'Inheritance' parts.
 
-Try this module on Runbot
+Search By Barcode
+-----------------
+
+A wizard is available in the Barcode Nomenclature's action menu that allows for
+you to search for records using a barcode.
+
+For developers, there are two handy methods in `barcode.nomenclature` as well:
+
+.. code-block:: python
+
+    @api.multi
+    def find_by_barcode(self, barcode):
+        """Return the record associated with the barcode.
+
+        Args:
+            barcode (str): Barcode string to search for.
+
+        Returns:
+            BaseModel: A record matching the barcode, if existing.
+            None: No match.
+        """
+
+.. code-block:: python
+
+    @api.multi
+    def get_form_action_for_barcode(self, barcode):
+        """Return the form action for the record related to barcode.
+
+        Args:
+            barcode (str): Barcode string to search for.
+
+        Returns:
+            dict: Default form action dictionary for the barcode.
+
+        Raises:
+            UserError: If no match was found for the barcode.
+        """
+
+Try On Runbot
+-------------
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
