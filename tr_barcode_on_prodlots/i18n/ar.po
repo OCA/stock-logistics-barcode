@@ -10,12 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2017-07-29 09:54+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Catalan (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/ca/)\n"
+"Language-Team: Arabic (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ca\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: tr_barcode_on_prodlots
 #: model:ir.model,name:tr_barcode_on_prodlots.model_tr_barcode_settings
@@ -46,7 +46,7 @@ msgstr ""
 #: field:tr.barcode.settings,prodlot_barcode_type:0
 #: field:tr.barcode.settings,prodlot_field_id:0
 msgid "Field"
-msgstr "Camp"
+msgstr ""
 
 #. module: tr_barcode_on_prodlots
 #: model:ir.model,name:tr_barcode_on_prodlots.model_stock_production_lot
@@ -66,7 +66,7 @@ msgstr ""
 #. module: tr_barcode_on_prodlots
 #: field:tr.barcode.settings,prodlot_model_id:0
 msgid "Model"
-msgstr "Model"
+msgstr "النموذج"
 
 #. module: tr_barcode_on_prodlots
 #: help:tr.barcode.settings,prodlot_height:0

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: stock-logistics-barcode (7.0)\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:42+0000\n"
+"POT-Creation-Date: 2017-07-29 09:54+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: Arabic (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/ar/)\n"
@@ -47,7 +47,7 @@ msgstr "النوع"
 #. module: tr_barcode
 #: field:tr.barcode,res_model:0
 msgid "Model"
-msgstr ""
+msgstr "النموذج"
 
 #. module: tr_barcode
 #: field:ir.model,barcode_model:0

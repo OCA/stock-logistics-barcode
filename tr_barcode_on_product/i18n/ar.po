@@ -10,17 +10,17 @@ msgstr ""
 "POT-Creation-Date: 2017-07-29 09:54+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Dutch (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/nl/)\n"
+"Language-Team: Arabic (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/ar/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: nl\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Language: ar\n"
+"Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 && n%100<=99 ? 4 : 5;\n"
 
 #. module: tr_barcode_on_product
 #: model:ir.model,name:tr_barcode_on_product.model_product_product
 msgid "Product"
-msgstr "Product"
+msgstr ""
 
 #. module: tr_barcode_on_product
 #: model:ir.model,name:tr_barcode_on_product.model_tr_barcode_settings
@@ -66,7 +66,7 @@ msgstr ""
 #. module: tr_barcode_on_product
 #: field:tr.barcode.settings,product_model_id:0
 msgid "Model"
-msgstr "Model"
+msgstr "النموذج"
 
 #. module: tr_barcode_on_product
 #: help:tr.barcode.settings,product_height:0

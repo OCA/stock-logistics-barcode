@@ -10,11 +10,11 @@ msgstr ""
 "POT-Creation-Date: 2017-07-29 09:54+0000\n"
 "PO-Revision-Date: 2015-09-03 12:46+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Catalan (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/ca/)\n"
+"Language-Team: Dutch (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/nl/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: ca\n"
+"Language: nl\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: tr_barcode_on_picking
@@ -52,7 +52,7 @@ msgstr ""
 #: field:tr.barcode.settings,picking_barcode_type:0
 #: field:tr.barcode.settings,picking_field_id:0
 msgid "Field"
-msgstr "Camp"
+msgstr ""
 
 #. module: tr_barcode_on_picking
 #: field:tr.barcode.settings,picking_hr_form:0
