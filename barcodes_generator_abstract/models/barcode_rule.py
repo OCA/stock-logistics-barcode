@@ -148,5 +148,6 @@ class BarcodeRule(models.Model):
     @api.model_cr_context
     def _clear_cache(self, vals):
         """ It clears the caches if certain vals are updated. """
-        if any(k in vals for k in ('generate_model', 'generate_automate')):
-            self.clear_caches()
+        fields = ('generate_model', 'generate_automate')
+        if any(k in vals for k in fields):
+            self.invalidate_cache(fields)
