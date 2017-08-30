@@ -29,6 +29,8 @@ With this module, it is possible to:
 
 * Generate a barcode, based on the defined pattern and the barcode base
 
+* Generate an image of the barcode via a wizard
+
 Installation
 ============
 

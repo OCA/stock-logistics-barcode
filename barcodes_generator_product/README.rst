@@ -28,6 +28,8 @@ With this module, it is possible to:
 
 * Generate a barcode, based on the defined pattern and the barcode base
 
+* Generate an image of the barcode via a wizard
+
 Configuration
 =============
 
@@ -53,6 +55,7 @@ To use this module, you need to:
     * click on the button 'Generate Base (Using Sequence)'
     * click on the button 'Generate Barcode (Using Barcode Rule)'
 
+If you want to generate an image of the barcode, click on *Action > Generate Barcode Image* and follow the wizard.
 
 Try this module on Runbot
 

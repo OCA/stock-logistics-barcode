@@ -23,6 +23,7 @@
         'security/res_groups.xml',
         'views/view_barcode_rule.xml',
         'views/menu.xml',
+        'wizard/barcode_image_generate_view.xml',
     ],
     'demo': [
         'demo/res_users.xml',

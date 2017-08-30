@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  © 2017 Akretion (Alexis de Lattre <alexis.delattre@akretion.com>)
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+
+<odoo>
+
+<record id="barcode_image_generate_form" model="ir.ui.view">
+    <field name="name">barcode.image.generate.form</field>
+    <field name="model">barcode.image.generate</field>
+    <field name="arch" type="xml">
+        <form string="Generate Barcode Image">
+            <group name="main">
+                <field name="state" invisible="1"/>
+                <field name="filename" invisible="1"/>
+                <field name="barcode"/>
+                <field name="barcode_format" attrs="{'readonly': [('state', '=', 'download')]}"/>
+            </group>
+            <group name="config" states="config" string="Image Configuration">
+                <field name="image_format"/>
+                <field name="dpi"/>
+                <field name="module_height"/>
+                <field name="module_width"/>
+                <field name="quiet_zone"/>
+                <field name="write_text"/>
+                <field name="text_distance" attrs="{'invisible': [('write_text', '=', False)]}"/>
+                <field name="font_size" attrs="{'invisible': [('write_text', '=', False)]}"/>
+            </group>
+            <group name="image" states="download" string="Image" col="1">
+                <field name="image" filename="filename" widget="image" nolabel="1"/>
+            </group>
+            <group name="download" states="download" string="Download" col="1">
+                <field name="image2" filename="filename" nolabel="1"/>
+            </group>
+            <footer>
+                <button name="generate" type="object" string="Generate Image" class="btn-primary" states="config"/>
+                <button special="cancel" string="Cancel" class="oe_link" states="config"/>
+                <button special="cancel" string="Close" class="btn-primary" states="download"/>
+                <button name="back2config" type="object" string="Back to Configuration" states="download"/>
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="barcode_image_generate_action" model="ir.actions.act_window">
+    <field name="name">Generate Barcode Image</field>
+    <field name="res_model">barcode.image.generate</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+</odoo>

@@ -43,4 +43,15 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </field>
     </record>
 
+    <act_window id="product_product_barcode_image_generate"
+        key2="client_action_multi"
+        name="Generate Barcode Image"
+        res_model="barcode.image.generate"
+        src_model="product.product"
+        view_mode="form"
+        target="new"
+        groups="barcodes_generator_abstract.generate_barcode"
+        context="{'default_barcode': barcode}"/>
+
+
 </odoo>
