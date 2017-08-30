@@ -6,34 +6,35 @@
 Generate Barcodes for any Models (Abstract)
 ===========================================
 
-This module expends Odoo functionality, allowing user to generate barcode
+This module extends Odoo functionality, allowing users to generate barcodes
 depending on a given barcode rule for any Model.
 
 For example, a typical pattern for products is  "20.....{NNNDD}" that means
 that:
-* the EAN13 code will begin by '20'
+
+* the EAN13 code will begin by *20*
 * followed by 5 digits (named Barcode Base in this module)
 * and after 5 others digits to define the variable price
-* a 13 digit control
+* a 13th control digit (checksum)
 
 With this module, it is possible to:
 
 * Affect a pattern (barcode.rule) to a model
 
-* Define a Barcode base: 
-    * manually, if the base of the barcode must be set by a user. (typically an
-      internal code defined in your company)
+* Define a Barcode base:
+    * manually, if the base of the barcode must be set by a user (typically an
+      internal code defined in your company).
     * automaticaly by a sequence, if you want to let Odoo to increment a
-      sequence. (typical case of a customer number incrementation)
+      sequence (typical case of a customer number incrementation).
 
 * Generate a barcode, based on the defined pattern and the barcode base
 
 Installation
 ============
 
-This module use an extra python library named 'viivakoodi' you should install
-to make barcode generation works properly. 'viivakoodi' is a more active for of
-'pyBarcode'.
+This module use an extra python library named *viivakoodi* you should install
+to make barcode generation works properly. *viivakoodi* is a more active fork of
+*pyBarcode*.
 
 ``sudo pip install viivakoodi``
 
@@ -69,12 +70,16 @@ Usage
 
 This module is an abstract module. You can configure Barcode Rule, but to
 enable this feature, you need to install an extra module for a given model.
-This repository provide 'barcodes_generator_product' and
-'barcodes_generator_partner' module to generate barcode for product or partner
-model.
+This repository provides several such modules:
+
+* *barcodes_generator_product* for Products,
+* *barcodes_generator_partner* for Partners,
+* *barcodes_generator_location* for Stock Locations,
+* *barcodes_generator_lot* for Production Lots/Serial Numbers,
+* *barcodes_generator_package* for Packages.
 
 Alternatively, you can develop a custom module for a custom model. See
-'Inheritance' parts.
+*Inheritance* parts.
 
 Try this module on Runbot
 
@@ -86,7 +91,7 @@ Inheritance
 ===========
 
 If you want to generate barcode for another model, you can create a custom
-module that inherits on 'barcodes_generator_abstract' and inherit your model
+module that inherits *barcodes_generator_abstract* and inherit your model
 like that:
 
 class MyModel(models.Model):
@@ -98,7 +103,7 @@ class barcode_rule(models.Model):
 
     generate_model = fields.Selection(selection_add=[('my.model', 'My Model')])
 
-Finally, you should inherit your model view adding buttons and fields.
+Finally, you should inherit your model view to add buttons and fields.
 
 Note
 ----
