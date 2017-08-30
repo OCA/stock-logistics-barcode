@@ -21,21 +21,23 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     'invisible': [('barcode_rule_id', '=', False)],
                     'readonly': [('generate_type', '!=', 'manual')]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
-                <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',
+                <button name="generate_base" type="object"
+                    string="Generate Barcode Base"
+                    help="Generate Barcode Base from the sequence configured on the Barcode Rule"
+                    attrs="{'invisible': ['|',
                     ('generate_type', '!=', 'sequence'),
                     ('barcode_base', '!=', 0)]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
             </field>
 
-            <field name="barcode" position="attributes">
-                <attribute name="attrs">{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
-            </field>
-
             <field name="barcode" position="after">
-                <button name="generate_barcode" type="object" string="Generate Barcode (Using Barcode Rule)"
-                    attrs="{'invisible': ['|',
+                <button name="generate_barcode" type="object"
+                    string="Generate Barcode"
+                    help="Generate a barcode using the selected Barcode Rule and the value of the Barcode Base"
+                    attrs="{'invisible': ['|', '|',
                             ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0)]}"
+                            ('barcode_base', '=', 0),
+                            ('barcode', '!=', False)]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
             </field>
         </field>
