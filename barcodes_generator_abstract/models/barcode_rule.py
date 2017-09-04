@@ -116,8 +116,19 @@ class BarcodeRule(models.Model):
         }
 
     @api.model
-    @tools.ormcache('model')
     def get_automatic_rule(self, model):
+        """ It provides a cached indicator for barcode automation.
+
+        Args:
+            model (str): Name of model to search for.
+        Returns:
+            BarcodeRule: Recordset of automated barcode rules for model.
+        """
+        return self.browse(self.get_automatic_rule_ids(model))
+
+    @api.model
+    @tools.ormcache('model')
+    def get_automatic_rule_ids(self, model):
         """ It provides a cached indicator for barcode automation.
 
         Note that this cache needs to be explicitly cleared when
@@ -126,15 +137,17 @@ class BarcodeRule(models.Model):
         Args:
             model (str): Name of model to search for.
         Returns:
-            BarcodeRule: Recordset of automated barcode rules for model.
+            list of int: IDs of the automated barcode rules for model.
         """
-        return self.search([
+        record = self.search([
             ('generate_model', '=', model),
             ('generate_automate', '=', True),
         ])
+        return record.ids
 
     @api.model_cr_context
     def _clear_cache(self, vals):
         """ It clears the caches if certain vals are updated. """
-        if any(k in vals for k in ('generate_model', 'generate_automate')):
-            self.clear_caches()
+        fields = ('generate_model', 'generate_automate')
+        if any(k in vals for k in fields):
+            self.invalidate_cache(fields)
