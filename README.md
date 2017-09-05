@@ -24,7 +24,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[barcodes_generator_abstract](barcodes_generator_abstract/) | 10.0.1.0.0 | Generate Barcodes for Any Models
+[barcodes_generator_abstract](barcodes_generator_abstract/) | 10.0.1.0.1 | Generate Barcodes for Any Models
 [barcodes_generator_location](barcodes_generator_location/) | 10.0.1.0.0 | Generate Barcodes for Stock Locations
 [barcodes_generator_lot](barcodes_generator_lot/) | 10.0.1.0.0 | Generate Barcodes for Stock Production Lots
 [barcodes_generator_package](barcodes_generator_package/) | 10.0.1.0.0 | Generate Barcodes for Product Packaging
