@@ -15,9 +15,9 @@ def convert_barcode_sequences(env):
         return
     rule_obj = env['barcode.rule']
     env.cr.execute("""
-        SELECT id, name, barcode_sequence
+        SELECT id, name, COALESCE(prefix, '')
         FROM ir_sequence
-        WHERE barcode_sequence IS NOT NULL
+        WHERE barcode_sequence
         """)
     for row in env.cr.fetchall():
         rule_obj.create({
