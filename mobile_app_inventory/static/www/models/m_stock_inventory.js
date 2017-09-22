@@ -7,7 +7,7 @@ angular.module('mobile_app_inventory').factory(
         LoadDraftInventoryList: function() {
             console.log('on charge draft inventory list');
             return jsonRpc.searchRead(
-                    'stock.inventory', [/*['state', '=', 'draft']/*, ['scan_ok', '=', false]*/], [
+                    'stock.inventory', [['state', '=', 'confirm']/*, ['scan_ok', '=', false]*/], [
                     'id', 'name', 'date', 'inventory_line_qty',
                     ]).then(function (res) {
                 $rootScope.DraftInventoryList = res.records;
