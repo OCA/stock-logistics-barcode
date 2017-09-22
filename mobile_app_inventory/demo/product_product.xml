@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="product_chips_paprika" model="product.product">
+        <field name="name">Organic Chips (Paprika)</field>
+        <field name="type">product</field>
+        <field name="default_code">ORG-CHIPS-PAP</field>
+        <field name="list_price">1.95</field>
+        <field name="weight_net">0.125</field>
+        <field name="sale_ok" eval="True" />
+        <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="ean13">5400313040109</field>
+    </record>
+
+    <record id="product_beer_gluten_free" model="product.product">
+        <field name="name">Organic Beer (Gluten Free)</field>
+        <field name="type">product</field>
+        <field name="default_code">ORG-BEER</field>
+        <field name="list_price">2.10</field>
+        <field name="volume">0.33</field>
+        <field name="sale_ok" eval="True" />
+        <field name="uom_id" ref="product.product_uom_unit" />
+        <field name="ean13">4260108510016</field>
+    </record>
+
+</data></openerp>

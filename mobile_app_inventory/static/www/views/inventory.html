@@ -1,0 +1,50 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title"></ion-icon>{{'Inventories' | translate}}</h1>
+        <span class="top-right-icon icon ion-clipboard"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <form ng-submit="submit()">
+
+            <div class="list list-insert">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" id="search" placeholder="Search or inventory name" ng-model="data.inventory_filter" required="">
+                </label>
+            </div>
+
+            <div class="list">
+
+                <ion-list>
+                    <ion-item ng-repeat="inventory in data.inventory_list | filter: data.inventory_filter">
+                        <a class="item" href="#" ng-click="select_inventory(inventory.id)">
+                            <h2>{{inventory.name}}</h2>
+                            <p>
+                                <span class="secondary-line" ng-show="inventory.date">{{inventory.date}}</span>
+                            </p>
+                        </a>
+                    </ion-item>
+
+                    <ion-item ng-show="data.mobile_inventory_create">
+                        <label class="item item-input">
+                            <div class="form-label col-50">{{'Inventory Name' | translate}}</div>
+                            <span class="form-input col-50">
+                                {{ data.inventory_filter }}
+                            </span>
+                        </label>
+                        <label class="form-input" ng-hide="data.inventory_filter.length" for="search">
+                            {{ 'Enter a name in the field above' | translate }}
+                        </label>
+                    </label>
+                    <label class="item">
+                        <button class="button button-full button-royal" ng-disabled="!data.inventory_filter.length">
+                        {{'Create New Inventory' | translate}}</button>
+                    </label>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+</ion-view>
