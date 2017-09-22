@@ -1,0 +1,34 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon icon ion-navicon"></button>
+        <h1 class="title" translate="Authentication"></h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <form ng-submit="submit()">
+            <div class="list">
+                <label class="item item-input input-select"> 
+                    <div class="form-label" for="db">{{'Database Name' | translate}}</div>
+                    <select name="db" ng-options="value for value in data.db_list" ng-model="data.db" class="item-input select-required"></select>
+                </label>
+                <label class="item item-input">
+                    <div class="form-label">{{'Login' | translate}}</div>
+                    <input type="text" ng-model="data.login" id="input_login" name="input_login" autocomplete="off" class="item-input input-required"/>
+                </label>
+                <label class="item item-input">
+                    <div class="form-label">{{'Password' | translate}}</div>
+                    <input type="password" ng-model="data.password" id="input_password" name="input_password" class="item-input input-required"/>
+                </label>
+                <label class="item">
+                    <button class="button button-full button-royal" translate="Log In" />
+                </label>
+            </div>
+        </form>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+        <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>
