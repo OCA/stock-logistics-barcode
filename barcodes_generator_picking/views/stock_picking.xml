@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Copyright 2016-2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='extra']" position="inside">
+                <group name="barcode">
+                    <field name="barcode"
+                           attrs="{'readonly': [('generate_type', '=', 'sequence')]}" />
+                    <field name="barcode_rule_id"
+                           domain="[('generate_model', '=', 'stock.picking')]"
+                           groups="barcodes_generator_abstract.generate_barcode"
+                           colspan="2" />
+                    <field name="generate_type" invisible="1" />
+                    <field name="barcode_base"
+                           attrs="{
+                               'invisible': [('barcode_rule_id', '=', False)],
+                               'readonly': [('generate_type', '!=', 'manual')],
+                           }"
+                           groups="barcodes_generator_abstract.generate_barcode"
+                           colspan="2" />
+                    <button name="generate_base"
+                            type="object"
+                            string="Generate Base (Using Sequence)"
+                            attrs="{'invisible': ['|',
+                                                  ('generate_type', '!=', 'sequence'),
+                                                  ('barcode_base', '!=', 0)],
+                                   }"
+                            groups="barcodes_generator_abstract.generate_barcode"
+                            colspan="2" />
+                    <button name="generate_barcode"
+                        type="object"
+                        string="Generate Barcode (Using Barcode Rule)"
+                        attrs="{'invisible': ['|',
+                                ('barcode_rule_id', '=', False),
+                                ('barcode_base', '=', 0)],
+                               }"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        colspan="2" />
+                </group>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
