@@ -20,19 +20,21 @@ angular.module('mobile_app_inventory').controller(
             $scope.loadingMessage = $translate.instant("Pending Loading ...");
             $scope.doneMessage = "";
             $scope.errorMessage = "";
+            window.products = ProductProductModel;
 
             $q.all([
                 ProductProductModel.LoadProductList().then( qty => {
                     $scope.data.product_load_state = true;
                     $scope.data.product_qty = qty;
                 }),
-                StockLocationModel.LoadLocationList().then(qty => {
+                StockLocationModel.get_list().then(locations => {
+                    console.log('dans refresh stock location', locations);
                     $scope.data.location_load_state = true;
-                    $scope.data.location_qty = qty;
+                    $scope.data.location_qty = locations.length;
                 }),
-                StockInventoryModel.LoadDraftInventoryList().then(qty => {
+                StockInventoryModel.get_list().then(inventories => {
                     $scope.data.inventory_load_state = true;
-                    $scope.data.inventory_qty = qty;
+                    $scope.data.inventory_qty = inventories.length;
                 })
             ]).then(
                 () => {

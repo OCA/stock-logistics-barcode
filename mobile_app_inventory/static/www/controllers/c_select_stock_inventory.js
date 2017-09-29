@@ -5,20 +5,18 @@ angular.module('mobile_app_inventory').controller(
         function ($scope, $rootScope, jsonRpc, $state, StockInventoryModel, $translate) {
 
     $scope.data = {
-        'inventory_qty': 0,
-        'inventory_list': false,
+        'inventories': [],
     };
     console.log('on init DraftInventoryList')
-    $rootScope.DraftInventoryList = [];
+    StockInventoryModel.get_list().then(function (inventories) {
+        $scope.data.inventories = inventories;
+    });
 
     $scope.$on(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'select_stock_inventory') {
-            console.log('ici ?');
             $scope.data.inventory_name = '';
-            $scope.data.inventory_list = $rootScope.DraftInventoryList;
-            $scope.data.inventory_qty = $rootScope.DraftInventoryList.length;
         }
     });
 
@@ -33,9 +31,8 @@ angular.module('mobile_app_inventory').controller(
                 $rootScope.currentInventoryId = inventory_id;
                 $state.go('select_stock_location');
             });
-        }else{
+        } else {
             $scope.errorMessage = $translate.instant("Inventory Name Required");
         }
     };
-
 }]);
