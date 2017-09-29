@@ -2,7 +2,7 @@
 
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
-        <h1 class="title">{{'Inventories' | translate}} ({{data.inventory_qty }})</h1>
+        <h1 class="title">{{'Inventories' | translate}}</h1>
     </ion-header-bar>
 
     <ion-content class="has-header" data-ng-init="init()">
@@ -19,7 +19,7 @@
                     {{'Select Existing Inventory' | translate}}
                  </div>
                 <ion-list>
-                    <ion-item ng-repeat="inventory in data.inventory_list">
+                    <ion-item ng-repeat="inventory in data.inventories">
                         <a class="item" href="#" ng-click="selectInventory({{inventory.id}})">
                             <h2>{{inventory.name}}</h2>
                             <p>
@@ -34,5 +34,4 @@
             </div>
         </form>
     </ion-content>
-
 </ion-view>
