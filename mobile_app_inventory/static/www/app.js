@@ -28,7 +28,8 @@ angular.module(
         '$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$translateProvider',
         function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
 
-    $stateProvider.state(
+    $stateProvider
+    .state(
         'login', {
             url: '/login',
             templateUrl: 'views/v_login.html',
@@ -49,23 +50,23 @@ angular.module(
             templateUrl: 'views/v_load.html',
             controller: 'LoadCtrl'
     }).state(
-        'select_stock_inventory', {
-            url: '/select_stock_inventory',
+        'inventory', {
+            url: '/inventory/',
             templateUrl: 'views/v_select_stock_inventory.html',
             controller: 'SelectStockInventoryCtrl'
     }).state(
-        'select_stock_location', {
-            url: '/select_stock_location',
+        'location', {
+            url: '/inventory/{inventory_id:int}/',
             templateUrl: 'views/v_select_stock_location.html',
             controller: 'SelectStockLocationCtrl'
     }).state(
-        'select_product_product', {
-            url: '/select_product_product',
+        'product', {
+            url: '/inventory/{inventory_id:int}/location/{location_id:int}/',
             templateUrl: 'views/v_select_product_product.html',
             controller: 'SelectProductProductCtrl'
     }).state(
-        'select_quantity', {
-            url: '/select_quantity/:ean13',
+        'product-ean13', {
+            url: '/inventory/{inventory_id:int}/location/{location_id:int}/product/:ean13',
             templateUrl: 'views/v_select_quantity.html',
             controller: 'SelectQuantityCtrl'
     }).state(
@@ -74,9 +75,7 @@ angular.module(
             templateUrl: 'views/v_confirm_quantity.html',
             controller: 'ConfirmQuantityCtrl'
     });
-
     $urlRouterProvider.otherwise('login');
-
     $translateProvider.useStaticFilesLoader({
         prefix: 'i18n/',
         suffix: '.json'
@@ -92,10 +91,13 @@ angular.module(
 .controller('AppCtrl', [
     '$scope', '$state', '$rootScope',
     function($scope, $state, $rootScope) {
+        $rootScope.$on("$stateChangeError", console.log.bind(console));
+    
         $scope.$on(
             '$stateChangeSuccess',
             function(evt, toState, toParams, fromState, fromParams) {
                 $rootScope.currentState = toState.name;
+                console.log('app ctrl stateChangeSuccess', evt, toState)
             }
         );
     }

@@ -41,7 +41,7 @@ angular.module('mobile_app_inventory').controller(
                     // Display OK message, when all data are loaded and go to the next page
                     $scope.doneMessage = $translate.instant('Loading Done');
                     setTimeout(function(){
-                        $state.go('select_stock_inventory');
+                        $state.go('inventory');
                     }, 1000);
                 }, () => {
                     $scope.loadingMessage = "";

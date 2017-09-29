@@ -34,6 +34,18 @@ angular.module('mobile_app_inventory').factory(
                 return res;
             });
         },
-
+        get_inventory: function(id) {
+            return this.get_list().then(function (invs) {
+                var found = false;
+                invs.some(function(i)  {
+                    if (i.id != id)
+                        return false;
+                    found = i;
+                    return;
+                });
+                console.log('found :' , found)
+                return found || $q.reject('Inventory not found');
+            });
+        }
     };
 }]);
