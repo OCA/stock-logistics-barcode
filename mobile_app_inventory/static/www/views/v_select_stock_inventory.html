@@ -20,7 +20,7 @@
                  </div>
                 <ion-list>
                     <ion-item ng-repeat="inventory in data.inventories">
-                        <a class="item" href="#" ng-click="selectInventory({{inventory.id}})">
+                        <a class="item" href="#" ng-click="selectInventory(inventory.id)">
                             <h2>{{inventory.name}}</h2>
                             <p>
                                 <span class="secondary-line" ng-show="inventory.date">{{inventory.date}}</span>

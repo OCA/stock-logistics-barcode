@@ -3,7 +3,7 @@
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
         <h1 class="title">{{'Quantity' | translate}}</h1>
-        <a class="button icon ion-android-cancel" href="#/select_product_product"></a>
+        <a class="button icon ion-android-cancel" ui-sref="product({inventory_id: data.inventory.id, location_id: data.location.id})"></a>
     </ion-header-bar>
 
     <ion-content class="has-header">
@@ -18,7 +18,7 @@
 
                 <label class="item item-input">
                     <div class="form-label">{{'Name' | translate}}</div>
-                    <span class="form-field">{{product.name}}</span>
+                    <span class="form-field">{{data.product.name}}</span>
                 </label>
 
                 <div ng-repeat="extra_field in product">
