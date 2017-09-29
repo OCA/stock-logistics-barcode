@@ -1,9 +1,9 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectProductProductCtrl', [
-        '$scope', '$rootScope', 'jsonRpc', '$state', '$translate',
+        '$scope', '$rootScope', '$state', '$translate',
         'StockInventoryModel', 'ProductProductModel',
-        function ($scope, $rootScope, jsonRpc, $state, $translate,
+        function ($scope, $rootScope, $state, $translate,
             StockInventoryModel, ProductProductModel) {
 
     $scope.data = {
