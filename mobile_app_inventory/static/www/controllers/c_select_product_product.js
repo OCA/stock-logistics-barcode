@@ -1,8 +1,10 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectProductProductCtrl', [
-        '$scope', '$rootScope', 'jsonRpc', '$state', '$translate', 'StockInventoryModel',
-        function ($scope, $rootScope, jsonRpc, $state, $translate, StockInventoryModel) {
+        '$scope', '$rootScope', 'jsonRpc', '$state', '$translate',
+        'StockInventoryModel', 'ProductProductModel',
+        function ($scope, $rootScope, jsonRpc, $state, $translate,
+            StockInventoryModel, ProductProductModel) {
 
     $scope.data = {
         'ean13': '',
@@ -30,18 +32,13 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.submit = function () {
         console.log('submit !');
-        console.log($rootScope.ProductListByEan13);
         $scope.errorMessage = "";
-        var has_product = $rootScope.ProductListByEan13.records.some(
-            function (x) {
-            return x.ean13 == $scope.data.ean13;
-        });
-        if (has_product)
+        return ProductProductModel.get_product($scope.data.ean13).then(function success() {
             $state.go('select_quantity', {ean13: $scope.data.ean13});
-        else{
+        }, function error(msg) {
             $scope.errorMessage = $translate.instant("Unknown EAN13 Barcode");
             angular.element(document.querySelector('#sound_user_error'))[0].play();
-        }
+        });
     };
 
 }]);
