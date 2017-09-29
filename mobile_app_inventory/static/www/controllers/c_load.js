@@ -1,3 +1,4 @@
+"use strict";
 angular.module('mobile_app_inventory').controller(
         'LoadCtrl', [
         '$q', '$scope', '$rootScope', 'jsonRpc', '$state', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
