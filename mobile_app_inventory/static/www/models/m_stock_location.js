@@ -16,6 +16,18 @@ angular.module('mobile_app_inventory').factory(
                 return res.records;
             });
             return locations;
+        },
+        get_location: function(id) {
+            return this.get_list().then(function (locs) {
+                var found = false;
+                locs.some(function(l)  {
+                    if (l.id != id)
+                        return false;
+                    found = l;
+                    return;
+                });
+                return found || $q.reject('Location not found');
+            });
         }
     };
 }]);

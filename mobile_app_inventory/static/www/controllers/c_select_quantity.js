@@ -1,28 +1,33 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectQuantityCtrl',
-        ['$scope', '$rootScope', 'jsonRpc', '$state','$translate',
-         'StockInventoryModel', 'ProductProductModel',
-        function ($scope, $rootScope, jsonRpc, $state, $translate
-            StockInventoryModel, ProductProductModel) {
+        ['$scope', '$rootScope', '$state', '$translate',
+         'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
+        function ($scope, $rootScope, $state, $translate,
+            StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
         'qty': '',
+        'product': '',
+        'location': '',
     };
 
     $scope.$on(
-            '$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams){
-        if ($state.current.name === 'select_quantity') {
-            // Set Focus
-            angular.element(document.querySelector('#input_quantity'))[0].focus();
-            $scope.data.qty = '';
-            // Get Product Data
-            $scope.product = null;
-            return ProductProductModel.get_product(toParams).then(function (product) {
-                $scope.product = product;
-            });
-        }
+        '$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams){
+        StockLocationModel.get_location(toParams.location_id).then(function (location) {
+            $scope.data.location = location;
+        })
+        StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
+            $scope.data.inventory = inventory;
+        });
+        ProductProductModel.get_product(toParams.ean13).then(function(product) {
+            $scope.data.product = product;
+        });
+        angular.element(document.querySelector('#input_quantity'))[0].focus();
+        $scope.data.qty = '';
+        console.log($scope);
+        // Get Product Data
     });
 
     $scope.submit = function () {

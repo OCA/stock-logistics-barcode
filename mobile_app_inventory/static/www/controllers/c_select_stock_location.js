@@ -1,12 +1,12 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectStockLocationCtrl', [
-        '$scope', '$rootScope', '$state',
-        'StockInventoryModel', 'StockLocationModel',
-        function ($scope, $rootScope, $state, StockInventoryModel, StockLocationModel) {
-
+        '$scope', '$rootScope', '$state', '$stateParams',
+        'StockLocationModel',
+        function ($scope, $rootScope, $state, $stateParams, StockLocationModel) {
+    console.log('dans stock location ctrl')
     $scope.data = {
-        'location_list': false,
+        'locations': [],
     };
 
     console.log('load locations')
@@ -16,23 +16,25 @@ angular.module('mobile_app_inventory').controller(
     });
 
     $scope.$on(
-            '$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
-        if ($state.current.name === 'select_stock_location') {
+        '$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
+            console.log('on est dans sotck location', toParams);
             // Skip this screen if there is only one internal location
             if ($scope.data.locations.length === 1) {
+                console.log('state.go direct!')
                 $scope.selectLocation(
-                    $scope.data.locations[0].id,
-                    $scope.data.locations[0].name
+                    $scope.data.locations[0]
                 );
             }
         }
-    });
+    );
 
-    $scope.selectLocation = function (location_id, location_name) {
-        $rootScope.currentLocationId = location_id;
-        $rootScope.currentLocationName = location_name;
-        $state.go('select_product_product');
+    $scope.selectLocation = function (location) {
+        console.log('dans selectLocation')
+        $state.go('product', {
+            'location_id': location.id,
+            'inventory_id': $stateParams.inventory_id
+        });
     };
 
 }]);

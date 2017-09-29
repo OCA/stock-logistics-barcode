@@ -10,7 +10,7 @@
             <div class="list">
                 <ion-list>
                     <ion-item ng-repeat="location in data.locations">
-                        <a class="item" href="#" ng-click="selectLocation(location.id, location.name)">
+                        <a class="item" href="#" ng-click="selectLocation(location)">
                             <h2>{{location.name}}</h2>
                             <p>
                                 <span class="secondary-line">({{location.parent_complete_name}})</span>

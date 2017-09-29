@@ -2,39 +2,46 @@
 angular.module('mobile_app_inventory').controller(
         'SelectProductProductCtrl', [
         '$scope', '$rootScope', '$state', '$translate',
-        'StockInventoryModel', 'ProductProductModel',
+        'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
         function ($scope, $rootScope, $state, $translate,
-            StockInventoryModel, ProductProductModel) {
+            StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
         'ean13': '',
-        'location_name': '',
+        'location': null,
         'parent_complete_name': '',
     };
 
     $scope.$on(
-            '$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams){
-        if ($state.current.name === 'select_product_product') {
-            // Set Focus
-            angular.element(document.querySelector('#input_ean13'))[0].focus();
-            $scope.data.ean13 = '';
-            $scope.data.location_name = $rootScope.currentLocationName;
-            $scope.data.parent_complete_name = $rootScope.currentLocationParentCompleteName;
+        '$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams){
+        // Set Focus
+        angular.element(document.querySelector('#input_ean13'))[0].focus();
+        $scope.data.ean13 = '';
+        StockLocationModel.get_location(toParams.location_id).then(function (location) {
+            $scope.data.location = location;
+        })
+        StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
+            $scope.data.inventory = inventory;
+        });
 
-            // Load current Stock Inventories
-            StockInventoryModel.LoadInventory(
-                    $rootScope.currentInventoryId).then(function (res){
-                $scope.inventory = res;
-            });
-        }
+        // Load current Stock Inventories
+        StockInventoryModel.LoadInventory(
+            $rootScope.currentInventoryId).then(function (res){
+            $scope.inventory = res;
+        }); // pourqoui ?
     });
 
     $scope.submit = function () {
         console.log('submit !');
         $scope.errorMessage = "";
         return ProductProductModel.get_product($scope.data.ean13).then(function success() {
-            $state.go('select_quantity', {ean13: $scope.data.ean13});
+            console.log('on y va');
+            var ret = $state.go('product-ean13', {
+                inventory_id: $scope.data.inventory.id,
+                location_id: $scope.data.location.id,
+                ean13: $scope.data.ean13});
+            console.log(ret);
         }, function error(msg) {
             $scope.errorMessage = $translate.instant("Unknown EAN13 Barcode");
             angular.element(document.querySelector('#sound_user_error'))[0].play();
