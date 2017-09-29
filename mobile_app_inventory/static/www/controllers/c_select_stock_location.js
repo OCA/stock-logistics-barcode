@@ -1,9 +1,9 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectStockLocationCtrl', [
-        '$scope', '$rootScope', 'jsonRpc', '$state',
+        '$scope', '$rootScope', '$state',
         'StockInventoryModel', 'StockLocationModel',
-        function ($scope, $rootScope, jsonRpc, $state, StockInventoryModel, StockLocationModel) {
+        function ($scope, $rootScope, $state, StockInventoryModel, StockLocationModel) {
 
     $scope.data = {
         'location_list': false,
