@@ -96,8 +96,7 @@ class StockInventory(Model):
             self.inventory_line_id = new_iline
         return {'state': 'write_ok'}
 
-        import pdb
-        pdb.set_trace()
+
         qty = float(qty)
         product_obj = self.env['product.product']
         line_obj = self.env['stock.inventory.line']
