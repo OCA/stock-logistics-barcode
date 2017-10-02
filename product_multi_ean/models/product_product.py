@@ -2,6 +2,7 @@
 # © 2012-2014 Guewen Baconnier (Camptocamp SA)
 # © 2015 Roberto Lizana (Trey)
 # © 2016 Pedro M. Baeza
+# © 2017 Kiko Peiro (Factor Libre)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from openerp import models, fields, api, _
@@ -72,3 +73,15 @@ class ProductProduct(models.Model):
             'product_id': self.id,
             'name': self.ean13,
         }
+
+    @api.model
+    def search(self, domain, *args, **kwargs):
+        if filter(lambda x: x[0] == 'ean13', domain):
+            ean_operator = filter(lambda x: x[0] == 'ean13', domain)[0][1]
+            ean_value = filter(lambda x: x[0] == 'ean13', domain)[0][2]
+            eans = self.env['product.ean13'].search(
+                [('name', ean_operator, ean_value)])
+            for pos in range(len(domain)):
+                if domain[pos][0] == 'ean13':
+                    domain[pos] = ('ean13_ids', 'in', eans.ids)
+        return super(ProductProduct, self).search(domain, *args, **kwargs)
