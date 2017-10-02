@@ -21,8 +21,9 @@ env:
   matrix:
   - LINT_CHECK="1"
   - TRANSIFEX="1"
-  - TESTS="1" ODOO_REPO="OCA/OCB"
-  - TESTS="1" ODOO_REPO="odoo/odoo"
+  # 3 error log lines are generated during tests of the stock_scanner module, this is expected
+  - TESTS="1" SERVER_EXPECTED_ERRORS="3" ODOO_REPO="odoo/odoo"
+  - TESTS="1" SERVER_EXPECTED_ERRORS="3" ODOO_REPO="OCA/OCB"
 
 
 install:
