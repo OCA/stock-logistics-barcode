@@ -83,11 +83,12 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
         elif node.tag == 'user_ids':
             if 'user_ids' not in scenario_values:
                 scenario_values['user_ids'] = []
-                user_ids = user_obj.search([
-                    ('login', '=', node.text),
-                ])
-                if user_ids:
-                    scenario_values['user_ids'].append((4, user_ids[0].id))
+
+            user_ids = user_obj.search([
+                ('login', '=', node.text),
+            ])
+            if user_ids:
+                scenario_values['user_ids'].append((4, user_ids[0].id))
         elif node.tag in ('active', 'shared_custom'):
             scenario_values[node.tag] = safe_eval(node.text) or False
         else:
@@ -118,10 +119,12 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
                 module,
                 scenario_values['parent_id']
             )
-        scenario_values['parent_id'] = env.ref(scenario_values['parent_id']).id
-        if not scenario_values['parent_id']:
+        parent_scenario = env.ref(
+            scenario_values['parent_id'], raise_if_not_found=False)
+        if not parent_scenario:
             logger.error('Parent not found')
             return
+        scenario_values['parent_id'] = parent_scenario.id
 
     # Create or update the scenario
     ir_model_data_obj._update(

@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <id>scanner_scenario_test</id>
+  <name>Test</name>
+  <parent_id>Wrong Parent ID</parent_id>
+  <parent_id>Wrong.ParentID</parent_id>
+  <model_id/>
+  <warehouse_ids>MyCompany</warehouse_ids>
+  <warehouse_ids>YourCompany</warehouse_ids>
+  <group_ids>base.group_user</group_ids>
+  <group_ids>Sentinel: technical users</group_ids>
+  <user_ids>base.user_main</user_ids>
+  <user_ids>demo</user_ids>
+  <active>False</active>
+</scenario>
