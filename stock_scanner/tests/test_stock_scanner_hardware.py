@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 SYLEAM Info Services
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -35,7 +34,7 @@ class TestStockScannerHardware(common.TransactionCase):
         """ Should not write the date when trying to login sith a wrong password
         """
         uid = self.hardware.check_credentials('wrong login', 'wrong password')
-        self.assertEqual([False], uid)
+        self.assertEqual(False, uid)
 
     def test_wrong_login(self):
         """ Should not write the date when trying to login sith a wrong password
@@ -63,7 +62,7 @@ class TestStockScannerHardware(common.TransactionCase):
         self.assertEqual(self.hardware.scenario_id, scenario_step_types)
         scenario_step_introduction = self.env.ref(
             'stock_scanner.scanner_scenario_step_step_types_introduction')
-        self.assertEquals(self.hardware.step_id, scenario_step_introduction)
+        self.assertEqual(self.hardware.step_id, scenario_step_introduction)
 
         # Go to the next step
         scanner_hardware.scanner_call(self.hardware.code, action='action')
@@ -71,7 +70,7 @@ class TestStockScannerHardware(common.TransactionCase):
         # Check new linked step
         scenario_step_message = self.env.ref(
             'stock_scanner.scanner_scenario_step_step_types_message')
-        self.assertEquals(self.hardware.step_id, scenario_step_message)
+        self.assertEqual(self.hardware.step_id, scenario_step_message)
 
         # Define the current step as no_back
         scenario_step_message.no_back = True
@@ -80,7 +79,7 @@ class TestStockScannerHardware(common.TransactionCase):
         scanner_hardware.scanner_call(self.hardware.code, action='back')
 
         # The linked step shouldn't have been changed
-        self.assertEquals(self.hardware.step_id, scenario_step_message)
+        self.assertEqual(self.hardware.step_id, scenario_step_message)
 
     def test_step_back_on_the_first_step(self):
         """ Should restart the first step on back action """
@@ -101,7 +100,7 @@ class TestStockScannerHardware(common.TransactionCase):
         self.assertEqual(self.hardware.scenario_id, scenario_step_types)
         scenario_step_introduction = self.env.ref(
             'stock_scanner.scanner_scenario_step_step_types_introduction')
-        self.assertEquals(self.hardware.step_id, scenario_step_introduction)
+        self.assertEqual(self.hardware.step_id, scenario_step_introduction)
 
         # Call the back action
         scanner_hardware.scanner_call(self.hardware.code, action='back')
@@ -131,7 +130,7 @@ class TestStockScannerHardware(common.TransactionCase):
 
         # The scenario should have been restarted
         self.assertEqual(ret, ('R', [
-            'Please contact', 'your', 'administrator', 'A001',
+            'No start step found on the scenario',
         ], 0))
 
     def test_no_transition(self):
@@ -275,7 +274,7 @@ class TestStockScannerHardware(common.TransactionCase):
         ret = scanner_hardware.scanner_call(
             self.hardware.code, action='action')
         # We should be on the next next step
-        self.assertEquals(ret, ('M', [], 0))
+        self.assertEqual(ret, ('M', [], 0))
 
     def test_log_tracer(self):
         """ Should write a line in the log when the transition has a tracer
@@ -307,7 +306,7 @@ class TestStockScannerHardware(common.TransactionCase):
         ret = scanner_hardware.scanner_call(
             self.hardware.code, action='action')
         # We should be on the next next step
-        self.assertEquals(ret, ('M', [
+        self.assertEqual(ret, ('M', [
             '|Message step',
             '',
             'A step designed to display some information, '
