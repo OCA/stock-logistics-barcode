@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import sys
-import compiler
 import traceback
 from odoo import models, api, fields, exceptions
 from odoo import _
@@ -64,7 +62,6 @@ class ScannerScenarioStep(models.Model):
         default=PYTHON_CODE_DEFAULT,
         help='Python code to execute.')
 
-    @api.multi
     @api.constrains('python_code')
     def _check_python_code_syntax(self):
         """
@@ -72,12 +69,12 @@ class ScannerScenarioStep(models.Model):
         """
         for step in self:
             try:
-                compiler.parse(step.python_code)
-            except SyntaxError, exception:
+                compile(step.python_code, '<string>', 'exec')
+            except SyntaxError as exception:
                 logger.error(''.join(traceback.format_exception(
-                    sys.exc_type,
-                    sys.exc_value,
-                    sys.exc_traceback,
+                    sys.exc_info()[0],
+                    sys.exc_info()[1],
+                    sys.exc_info()[2],
                 )))
                 raise exceptions.ValidationError(
                     _('Error in python code for step "%s"'
