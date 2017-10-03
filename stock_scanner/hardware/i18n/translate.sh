@@ -4,6 +4,7 @@ function display_usage() {
     echo 'Usage :'
     echo 'translate.sh extract'
     echo 'translate.sh init [LANG]'
+    echo 'translate.sh update [LANG]'
     echo 'translate.sh compile [LANG]'
     exit 1
 }

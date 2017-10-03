@@ -1,73 +1,77 @@
-# -*- coding: utf-8 -*-
+#! /usr/bin/env python3
 # © 2011 Christophe CHAUVET <christophe.chauvet@syleam.fr>
 # © 2011 Jean-Sébastien SUZANNE <jean-sebastien.suzanne@syleam.fr>
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-import re
-from oobjlib.connection import Connection
-from oobjlib.component import Object
-from oobjlib.common import GetParser
-from optparse import OptionGroup
-from lxml.etree import Element, SubElement
-from lxml.etree import tostring
-import os
-
+import argparse
 import logging
+import re
+import odoorpc
+import os
 import sys
 
-parser = GetParser('Export scenario', '0.1')
-group = OptionGroup(parser, "Object arguments",
-                    "Application Options")
-group.add_option('-v', '--verbose', dest='verbose',
-                 action='store_true',
-                 default=False,
-                 help='Add verbose mode')
-group.add_option('', '--header', dest='header',
-                 action='store_true',
-                 default=True,
-                 help='Add XML and OpenObject Header')
-group.add_option('', '--indent', dest='indent',
-                 action='store_true',
-                 default=True,
-                 help='Indent the XML output')
-group.add_option('', '--id', dest='scenario_id',
-                 default=False,
-                 help='id of the scenario to extract')
-group.add_option('', '--name', dest='name',
-                 default='',
-                 help='Name of the scenario (default : last directory name)')
-group.add_option('', '--directory', dest='directory',
-                 default='.',
-                 help='directory where the script will write the scenario '
-                 'files')
-parser.add_option_group(group)
-opts, args = parser.parse_args()
+from lxml.etree import Element, ElementTree, SubElement
 
-logger = logging.getLogger("check_parent_store")
-ch = logging.StreamHandler()
-if opts.verbose:
+parser = argparse.ArgumentParser(
+    description='Scenarios export script for Odoo\'s stock_scanner module',
+    formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+
+connection_group = parser.add_argument_group('Connection')
+connection_group.add_argument(
+    '--host', dest='host', default='localhost',
+    help='Address of the Odoo server.')
+connection_group.add_argument(
+    '-p', '--port', dest='port', default='8069',
+    help='Port of the Odoo server.')
+connection_group.add_argument(
+    '-d', '--database', dest='database', default='demo',
+    help='Database in which the scenario to export is created.')
+connection_group.add_argument(
+    '-u', '--user', dest='user', default='admin',
+    help='User to export the scenario.')
+connection_group.add_argument(
+    '-w', '--password', dest='password', default='admin',
+    help='Password of the user.')
+
+export_group = parser.add_argument_group('Export')
+export_group.add_argument(
+    '-v', '--verbose', dest='verbose', default=False, action='store_true',
+    help='Run in verbose mode.')
+export_group.add_argument(
+    '-i', '--id', dest='scenario_id', required=True, type=int,
+    help='ID of the scenario to export.')
+export_group.add_argument(
+    '-n', '--name', dest='name',
+    help='Name of the scenario to export.')
+export_group.add_argument(
+    '--directory', dest='directory', default='.',
+    help='Directory where to write the exported scenario.')
+
+options = parser.parse_args(sys.argv[1:])
+
+logger = logging.getLogger("Export scenario")
+log_channel = logging.StreamHandler()
+if options.verbose:
     logger.setLevel(logging.DEBUG)
-    ch.setLevel(logging.DEBUG)
+    log_channel.setLevel(logging.DEBUG)
 else:
     logger.setLevel(logging.INFO)
-    ch.setLevel(logging.INFO)
+    log_channel.setLevel(logging.INFO)
 
 formatter = logging.Formatter(
     "%(asctime)s - %(name)s - %(levelname)s - %(message)s")
-ch.setFormatter(formatter)
-logger.addHandler(ch)
+log_channel.setFormatter(formatter)
+logger.addHandler(log_channel)
 
 try:
-    logger.info('Open connection to "%s:%s" on "%s" with user "%s" ',
-                opts.server, opts.port, opts.dbname, opts.user)
-    cnx = Connection(
-        server=opts.server,
-        dbname=opts.dbname,
-        login=opts.user,
-        password=opts.passwd,
-        port=opts.port)
-except Exception, e:
+    logger.info(
+        'Open connection to "%s:%s" on "%s" with user "%s" ',
+        options.host, options.port, options.database, options.user)
+    connection = odoorpc.ODOO(options.host, port=options.port)
+    connection.login(
+        options.database, login=options.user, password=options.password)
+except Exception as e:
     logger.error('Fail to connect to the server')
     logger.error('%s' % str(e))
     sys.exit(1)
@@ -80,104 +84,76 @@ def normalize_name(name):
     return re.sub(r'[^\w\d]', '_', name).lower()
 
 
-resid = {}
-opts.directory = os.path.expanduser(opts.directory)
+def new_node(name, value):
+    node = SubElement(root, name)
+    node.text = value
+    return node
 
-# extract scenario
-scenario_obj = Object(cnx, 'scanner.scenario')
-model_obj = Object(cnx, 'ir.model')
-warehouse_obj = Object(cnx, 'stock.warehouse')
-user_obj = Object(cnx, 'res.users')
-group_obj = Object(cnx, 'res.groups')
-scen_read = scenario_obj.read(
-    int(opts.scenario_id), [], '_classic_read', {'active_test': False})
-scen_read = scen_read and scen_read[0]
-if not scen_read:
-    logger.error('Scenario ID %s not found' % opts.scenario_id)
-    sys.exit(1)
-del scen_read['step_ids']
 
-field_to_remove = ['create_uid', 'create_date',
-                   'write_uid', 'write_date',
-                   '__last_update', 'display_name']
-for field in field_to_remove:
-    del scen_read[field]
+step_xml_ids = {}
+options.directory = os.path.expanduser(options.directory)
 
-scenario_xml_id = scenario_obj.get_metadata(opts.scenario_id)[0]['xmlid']
+# Extract scenario
+scenario_obj = connection.env['scanner.scenario']
+scenario = scenario_obj.browse(options.scenario_id).with_context(
+    # Force the en_US language to export translateable values
+    active_test=False, lang='en_US')
+
+scenario_xml_id = scenario.get_metadata()[0]['xmlid']
 if not scenario_xml_id:
-    scenario_xml_id = 'scanner_scenario_%s' % (
-        normalize_name(scen_read['name']),
-    )
-resid['scenario'] = scenario_xml_id
+    scenario_xml_id = 'scanner_scenario_%s' % normalize_name(scenario.name)
 
-# create node and attributs
+# Add the scenario values in the XML structure
 root = Element('scenario')
-for field in scen_read:
-    node = SubElement(root, field)
-    if field == 'model_id':
-        if scen_read[field]:
-            node.text = model_obj.read(
-                scen_read.get('model_id', [0])[0], ['model'])[0].get('model')
-    elif field == 'company_id':
-        if scen_read[field]:
-            node.text = scen_read.get('company_id', [0])[1]
-    elif field == 'parent_id':
-        if scen_read[field]:
-            parent_id, parent_name = scen_read['parent_id']
-            node.text = scenario_obj.get_metadata(parent_id)[0]['xmlid']
-            if not node.text:
-                node.text = 'scanner_scenario_%s' % normalize_name(
-                    parent_name,
-                )
-    elif field in ['name', 'notes', 'title']:
-        if scen_read[field]:
-            node.text = unicode(scen_read[field])
-    elif field == 'id':
-        node.text = scenario_xml_id
-    elif field == 'warehouse_ids':
-        root.remove(node)
-        for warehouse in warehouse_obj.read(scen_read[field], ['name']):
-            node = SubElement(root, 'warehouse_ids')
-            node.text = unicode(warehouse.get('name'))
-    elif field == 'group_ids':
-        root.remove(node)
-        for group_id in scen_read[field]:
-            group_xml_id = group_obj.get_metadata(group_id)[0]['xmlid']
-            if group_xml_id:
-                node = SubElement(root, 'group_ids')
-                node.text = group_xml_id
-    elif field == 'user_ids':
-        root.remove(node)
-        for user in user_obj.read(scen_read[field], ['login']):
-            node = SubElement(root, 'user_ids')
-            node.text = unicode(user.get('login'))
-    else:
-        node.text = unicode(scen_read[field])
+new_node('id', scenario_xml_id),
+new_node('active', str(scenario.active)),
+new_node('sequence', str(scenario.sequence)),
+new_node('name', scenario.name),
+new_node('type', scenario.type),
+new_node('notes', scenario.notes or ''),
 
-# add step
-step_obj = Object(cnx, 'scanner.scenario.step')
-step_ids = step_obj.search([
-    ('scenario_id', '=', int(opts.scenario_id)),
-], 0, None, 'name')
-for step_id in step_ids:
-    step = step_obj.read(step_id, [])[0]
-    # delete unuse key
-    del step['in_transition_ids']
-    del step['out_transition_ids']
-    del step['scenario_id']
-    for field in field_to_remove:
-        del step[field]
+if scenario.model_id:
+    new_node('model_id', scenario.model_id.model),
 
-    # get res_id
-    step_xml_id = step_obj.get_metadata(step_id)[0]['xmlid']
-    if not step_xml_id:
-        step_xml_id = 'scanner_scenario_step_%s_%s' % (
-            normalize_name(scen_read['name']),
-            normalize_name(step['name']),
+if scenario.company_id:
+    new_node('company_id', scenario.company_id.name),
+
+if scenario.parent_id:
+    parent_value = scenario.parent_id.get_metadata()[0]['xmlid']
+    if not parent_value:
+        parent_value = 'scanner_scenario_{parent_name)'.format(
+            parent_name=normalize_name(scenario.parent_id.name),
         )
-    step['id'] = step_xml_id
+    new_node('parent_id', parent_value)
 
-    resid[step_id] = step_xml_id
+for warehouse in scenario.warehouse_ids:
+    warehouse_value = warehouse.get_metadata()[0]['xmlid']
+    if not warehouse_value:
+        warehouse_value = warehouse.name
+
+    new_node('warehouse_ids', warehouse_value)
+
+for user in scenario.user_ids:
+    new_node('user_ids', user.login)
+
+for group in scenario.group_ids:
+    group_value = group.get_metadata()[0]['xmlid']
+    if group_value:
+        new_node('group_ids', group_value)
+
+# Export steps
+transitions = set()
+sorted_steps = sorted(scenario.step_ids, key=lambda record: record.name)
+for step in sorted_steps:
+    # Retrieve the step's xml ID
+    step_xml_id = step.get_metadata()[0]['xmlid']
+    if not step_xml_id:
+        step_xml_id = 'scanner_scenario_step_{scenario}_{step}'.format(
+            scenario=normalize_name(scenario.name),
+            step=normalize_name(step.name),
+        )
+
+    step_xml_ids[step.id] = step_xml_id
 
     # Do not add the scenario name on the python filename
     # if this step is defined in the same module as the scenario
@@ -187,54 +163,51 @@ for step_id in step_ids:
         if scenario_module == step_module:
             python_filename = step_xml_id.split('.')[1]
 
-    # save code
-    src_file = open('%s/%s.py' % (opts.directory, step_xml_id), 'w')
-    src_file.write(step['python_code'].encode('utf-8'))
-    src_file.close()
-    del step['python_code']
-    # use unicode
-    for key, item in step.items():
-        step[key] = unicode(item)
-    node = SubElement(root, 'Step', attrib=step)
+    # Save the code of the step in a python file
+    with open('%s/%s.py' % (options.directory, step_xml_id), 'w') as step_file:
+        step_file.write(step.python_code)
 
-# add transition
-transition_obj = Object(cnx, 'scanner.scenario.transition')
-transition_ids = transition_obj.search([
-    ('from_id.scenario_id', '=', int(opts.scenario_id)),
-], 0, None, 'name')
-for transition_id in transition_ids:
-    transition = transition_obj.read(transition_id, [])[0]
-    del transition['scenario_id']
-    for field in field_to_remove:
-        del transition[field]
+    step_attributes = {'id': step_xml_id}
+    for field in ['name', 'step_start', 'step_stop', 'step_back', 'no_back']:
+        step_attributes[field] = str(step[field])
 
-    # get res id
-    transition_xml_id = transition_obj.get_metadata(transition_id)[0]['xmlid']
-    transition['id'] = transition_xml_id
+    SubElement(root, 'Step', attrib=step_attributes)
+
+    # Store the transitions of this step
+    transitions.update(step.out_transition_ids)
+
+# Export transitions
+sorted_transitions = sorted(transitions, key=lambda record: record.name)
+for transition in sorted_transitions:
+    # Retrieve the transition's xml ID
+    transition_xml_id = transition.get_metadata()[0]['xmlid']
     if not transition_xml_id:
-        transition['id'] = 'scanner_scenario_%s_%s' % (
-            normalize_name(scen_read['name']),
-            normalize_name(transition['name']),
+        transition_xml_id = 'scanner_scenario_{scenario}_{transition}'.format(
+            scenario=normalize_name(scenario.name),
+            transition=normalize_name(transition.name),
         )
 
-    # not write False in attribute tracer
-    if not transition['tracer']:
-        transition['tracer'] = ''
-    # get res id for step
-    transition['to_id'] = resid[transition['to_id'][0]]
-    transition['from_id'] = resid[transition['from_id'][0]]
-    # use unicode
-    for key, item in transition.items():
-        transition[key] = unicode(item)
-    node = SubElement(root, 'Transition', attrib=transition)
+    transition_attributes = {
+        'id': transition_xml_id,
+        'name': transition.name,
+        'sequence': str(transition.sequence),
+        'to_id': step_xml_ids[transition.to_id.id],
+        'from_id': step_xml_ids[transition.from_id.id],
+        'condition': transition.condition,
+        'transition_type': transition.transition_type,
+        # Don't write False in the "tracer" attribute
+        'tracer': transition.tracer or '',
+    }
+    SubElement(root, 'Transition', attrib=transition_attributes)
 
-scenario_name = opts.name
+scenario_name = options.name
 if not scenario_name:
-    scenario_name = os.path.split(opts.directory.strip('/'))[1]
+    scenario_name = os.path.split(options.directory.strip('/'))[1]
 
-xml_file = open('%s/%s.scenario' % (opts.directory, scenario_name), 'w')
-scenario_xml = tostring(
-    root, encoding='UTF-8', xml_declaration=opts.header,
-    pretty_print=opts.indent)
-xml_file.write(scenario_xml)
-xml_file.close()
+xml_filename = os.path.join(
+    options.directory,
+    '{scenario}.scenario'.format(scenario=scenario_name),
+)
+with open(xml_filename, 'wb') as xml_file:
+    ElementTree(root).write(
+        xml_file, encoding='UTF-8', xml_declaration=True, pretty_print=True)
