@@ -1,6 +1,6 @@
 # SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
+# This file is distributed under the same license as the sentinel package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
 #, fuzzy
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: sentinel 1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 16:30+0100\n"
+"POT-Creation-Date: 2017-12-15 17:20+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,45 +17,50 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../sentinel.py:143
+#: ../sentinel.py:65
+#, python-brace-format
+msgid "Profile \"{options.profile}\" not found in file {options.config_file}!"
+msgstr ""
+
+#: ../sentinel.py:105
 msgid ""
 "Autoconfiguration failed !\n"
 "Please enter terminal code"
 msgstr ""
 
-#: ../sentinel.py:458
+#: ../sentinel.py:411
 msgid "No value available"
 msgstr ""
 
-#: ../sentinel.py:512
+#: ../sentinel.py:465
 msgid ""
 "An error occured\n"
 "\n"
 "Please contact your administrator"
 msgstr ""
 
-#: ../sentinel.py:546
+#: ../sentinel.py:518
 msgid "No scenario available !"
 msgstr ""
 
-#: ../sentinel.py:549
+#: ../sentinel.py:521
 msgid "Scenarios"
 msgstr ""
 
-#: ../sentinel.py:574
+#: ../sentinel.py:546
 msgid "Yes"
 msgstr ""
 
-#: ../sentinel.py:577
+#: ../sentinel.py:549
 msgid "No"
 msgstr ""
 
-#: ../sentinel.py:680
+#: ../sentinel.py:669
 #, python-format
 msgid "Selected : %s"
 msgstr ""
 
-#: ../sentinel.py:859
+#: ../sentinel.py:857
 #, python-format
 msgid "Selected : %d"
 msgstr ""

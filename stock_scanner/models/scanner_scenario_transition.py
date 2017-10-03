@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import sys
-import compiler
 import traceback
 from odoo import models, api, fields, exceptions
 from odoo import _
@@ -15,7 +13,6 @@ logger = logging.getLogger('stock_scanner')
 class ScannerScenarioTransition(models.Model):
     _name = 'scanner.scenario.transition'
     _description = 'Transition for scenario'
-
     _order = 'sequence'
 
     @api.model
@@ -75,17 +72,15 @@ class ScannerScenarioTransition(models.Model):
         ondelete='cascade',
         readonly=True)
 
-    @api.one
     @api.constrains('from_id', 'to_id')
     def _check_scenario(self):
         if self.from_id.scenario_id.id != self.to_id.scenario_id.id:
-            raise exceptions.Warning(
+            raise exceptions.UserError(
                 _('Error ! You can not create recursive scenarios.'),
             )
 
         return True
 
-    @api.multi
     @api.constrains('condition')
     def _check_condition_syntax(self):
         """
@@ -93,12 +88,12 @@ class ScannerScenarioTransition(models.Model):
         """
         for transition in self:
             try:
-                compiler.parse(transition.condition)
-            except SyntaxError, exception:
+                compile(transition.condition, '<string>', 'eval')
+            except SyntaxError as exception:
                 logger.error(''.join(traceback.format_exception(
-                    sys.exc_type,
-                    sys.exc_value,
-                    sys.exc_traceback,
+                    sys.exc_info()[0],
+                    sys.exc_info()[1],
+                    sys.exc_info()[2],
                 )))
                 raise exceptions.ValidationError(
                     _('Error in condition for transition "%s"'

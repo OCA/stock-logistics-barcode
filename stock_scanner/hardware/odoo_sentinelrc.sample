@@ -1,6 +1,0 @@
-[openerp]
-host=localhost
-database=demo
-user=admin
-password=admin
-port=8069

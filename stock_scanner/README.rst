@@ -23,14 +23,9 @@ This application is a separate client, and can be run on any device.
 
 For mobile devices, like Windows Mobile or Android smart barcode scanners, we usually install it on a server, accessed through SSH.
 
-If you plan to use the specific "sentinel.py", you will need the "openobject-library" Python module, available from pip:
+If you plan to use the specific "sentinel.py", you will need the "odoorpc" Python module, available from pip:
 
-    $ sudo pip install "openobject-library<2"
-
-.. note::
-
-   You must use openobject-library earlier than 2.0 with Odoo.
-   The version 2.0 of openobject-library only implements the Net-RPC protocol, which was removed from v7.
+    $ sudo pip install "odoorpc"
 
 To test the module, some modules provide scenario.
 
@@ -75,20 +70,13 @@ settings. "Settings > Warehouse"
 For the sentinel.py client
 --------------------------
 
-The sentinel.py client needs a config file in the standard `ini` format, which is not automatically created.
-This file can be named `.oerp_sentinelrc`, `.openerp_sentinelrc` or `.odoo_sentinelrc`, and can be located in the current working directory, or in the user's home directory.
+The sentinel.py client uses an OdooRPC profile to connect to Odoo.
+The default configuration file is `~/.odoorpcrc`, but this can be customized, using the `-c`/`--config` argument.
+See the `hardware/odoorpcrc.sample` file for an example.
 
-The user put in the configuration file is used by the sentinel.py client to connect to Odoo.
-It can be overriden by hardware by setting the `User` field, to execute steps with the defined user, without having to create a configuration file per used that will need to connect.
+If the `-p`/`--profile` argument is not given on the command line, a profile named `sentinel` will be used.
 
-This file simply contains information for server connection (hostname, port, username, password and database).
-
-    [openerp]
-    host = localhost
-    password = admin
-    database = demo
-
-See the `hardware/odoo_sentinelrc.sample` file for an example.
+The file used to log errors can be defined by using the `-l`/`--log-file` argument, which defaults to `~/sentinel.log`.
 
 **Note** : If you want to copy the application outside this git repository, you will need to copy the i18n folder too.
 
@@ -118,7 +106,6 @@ In the python code of each step, some variables are available :
     - pool : Pooler to the database
     - env : Environment used to execute the scenario (new API)
     - model : Pooler on the model configured on the scenario
-    - custom : Pooler on the custom values model
     - term : Recordset on the current scenario
     - context : Context used on the step
     - m or message : Last message sent by the hardware
@@ -179,7 +166,7 @@ Using a test file
 When developing scenarios, you will often have the same steps to run.
 The sentinel.py client allows you to supply a file, which contains the keys pressed during the scenario.
 
-You can define the file to use in the configuration file, on the "test_file" key.
+You can define the file to use in the `-t`/`--test-file` argument.
 This file will be read instead of calling the curses methods when the scenario is waiting for a user input (including line feed characters).
 When the file has been fully read, the client exits.
 
@@ -208,7 +195,7 @@ Unlike the standard Odoo Workflow, each step needs to find a valid transition, b
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/154/8.0
+   :target: https://runbot.odoo-community.org/runbot/154/11.0
 
 A client for the Datalogic PowerScan scanners was developped for a very early version or this module.
 The files have been removed, but are still available in the `git repository history

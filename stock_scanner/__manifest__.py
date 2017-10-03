@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # © 2011-2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Stock Scanner',
     'summary': 'Allows managing barcode readers with simple scenarios',
-    'version': '10.0.1.0.2',
+    'version': '11.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
     'author': 'SYLEAM,'
@@ -26,12 +25,11 @@
         'data/ir_cron.xml',
         'data/scenarios/Login/Login.scenario',
         'data/scenarios/Logout/Logout.scenario',
-        'wizard/stock_scanner_config_wizard_view.xml',
+        'wizard/res_config_settings.xml',
         'views/menu.xml',
         'views/scanner_scenario.xml',
         'views/scanner_scenario_step.xml',
         'views/scanner_scenario_transition.xml',
-        'views/scanner_scenario_custom.xml',
         'views/scanner_hardware.xml',
     ],
     'demo': [
