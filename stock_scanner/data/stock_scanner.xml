@@ -1,4 +1,7 @@
 <?xml version="1.0" ?>
+<!--
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
 <odoo noupdate="1">
     <record id="hardware_scanner_session_timeout_sec" model="ir.config_parameter">
         <field name="key">hardware_scanner_session_timeout</field>

@@ -1,10 +1,8 @@
-# -*- coding: utf-8 -*-
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import os
-from lxml.etree import parse
-from StringIO import StringIO
+from lxml import etree
 
 import odoo
 from odoo import exceptions
@@ -37,7 +35,7 @@ def get_xml_id(element, module, values):
     return xml_id
 
 
-def import_scenario(env, module, scenario_xml, mode, directory, filename):
+def import_scenario(env, module, xml_file, mode, directory, filename):
     model_obj = env['ir.model']
     company_obj = env['res.company']
     warehouse_obj = env['stock.warehouse']
@@ -45,8 +43,7 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
     group_obj = env['res.groups']
     ir_model_data_obj = env['ir.model.data']
 
-    xml_doc = StringIO(scenario_xml)
-    root = parse(xml_doc).getroot()
+    root = etree.parse(xml_file).getroot()
 
     steps = []
     transitions = []
@@ -89,7 +86,7 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
             ])
             if user_ids:
                 scenario_values['user_ids'].append((4, user_ids[0].id))
-        elif node.tag in ('active', 'shared_custom'):
+        elif node.tag == 'active':
             scenario_values[node.tag] = safe_eval(node.text) or False
         else:
             scenario_values[node.tag] = node.text or False
@@ -217,14 +214,13 @@ def scenario_convert_file(cr, module, filename, idref,
     directory, filename = os.path.split(pathname)
     extension = os.path.splitext(filename)[1].lower()
     if extension == '.scenario':
-        fp = misc.file_open(pathname)
+        fp = misc.file_open(pathname, 'rb')
         try:
             with odoo.api.Environment.manage():
                 uid = odoo.SUPERUSER_ID
                 env = odoo.api.Environment(cr, uid, {'active_test': False})
 
-                import_scenario(env, module, fp.read(),
-                                mode, directory, filename)
+                import_scenario(env, module, fp, mode, directory, filename)
         finally:
             fp.close()
     else:

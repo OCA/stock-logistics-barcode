@@ -5,7 +5,6 @@
   <sequence>9999</sequence>
   <notes/>
   <parent_id/>
-  <shared_custom>False</shared_custom>
   <active>False</active>
   <model_id>scanner.hardware</model_id>
   <type>scenario</type>

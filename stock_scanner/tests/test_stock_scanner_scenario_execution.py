@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2017 SYLEAM Info Services
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -30,7 +29,7 @@ class TestStockScannerScenarioExecution(common.TransactionCase):
         ret = scanner_hardware.scanner_call(
             self.hardware.code, action='action', message=menu.name)
         self.assertEqual(
-            ret, ('R', ['Scenario', 'not found'], 0))
+            ret, ('R', ['Scenario not found'], 0))
 
     def test_unknown_action_without_scenario(self):
         # Call to the scanner are done on the model using the scanner code
@@ -57,7 +56,7 @@ class TestStockScannerScenarioExecution(common.TransactionCase):
         # Call an action without any scenario running
         ret = scanner_hardware.scanner_call(
             self.hardware.code, action='unknown')
-        self.assertEqual(ret, ('R', ['Unknown', 'action'], 0))
+        self.assertEqual(ret, ('R', ['Unknown action'], 0))
 
     def test_display_restart_from_main_menu(self):
         # Call to the scanner are done on the model using the scanner code

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -12,9 +11,7 @@ logger = logging.getLogger('stock_scanner')
 class ScannerScenario(models.Model):
     _name = 'scanner.scenario'
     _description = 'Scenario for scanner'
-
     _order = 'sequence'
-
     _parent_name = 'parent_id'
 
     @api.model
@@ -64,11 +61,6 @@ class ScannerScenario(models.Model):
     notes = fields.Text(
         string='Notes',
         help='Store different notes, date and title for modification, etc...')
-    shared_custom = fields.Boolean(
-        string='Shared Custom',
-        default=False,
-        help='Allows to share the custom values with a shared scanner in the '
-             'same warehouse.')
     parent_id = fields.Many2one(
         comodel_name='scanner.scenario',
         string='Parent',
@@ -102,10 +94,9 @@ class ScannerScenario(models.Model):
         column2='user_id',
         string='Allowed Users')
 
-    @api.one
     @api.constrains('parent_id')
     def _check_recursion(self):
         if not super(ScannerScenario, self)._check_recursion():
-            raise exceptions.Warning(
+            raise exceptions.UserError(
                 _('Error ! You can not create recursive scenarios.'),
             )
