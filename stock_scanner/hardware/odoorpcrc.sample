@@ -1,0 +1,9 @@
+[sentinel]
+type = ODOO
+timeout = 120.0
+protocol = jsonrpc
+host = localhost
+database = demo
+port = 8069
+user = admin
+passwd = admin

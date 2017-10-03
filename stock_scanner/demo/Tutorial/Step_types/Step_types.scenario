@@ -6,7 +6,6 @@
   <notes/>
   <sequence>10</sequence>
   <parent_id>scanner_scenario_tutorial</parent_id>
-  <shared_custom>False</shared_custom>
   <warehouse_ids>Odoo S.A.</warehouse_ids>
   <warehouse_ids>Shop 1</warehouse_ids>
   <warehouse_ids>Shop 2</warehouse_ids>

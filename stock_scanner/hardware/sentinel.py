@@ -1,21 +1,18 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
+#!/usr/bin/env python3
 # © 2011-2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import argparse
+import curses.ascii
+import gettext
+import math
+import odoorpc
 import os
 import sys
-import math
-import types
-import gettext
 import textwrap
 import traceback
-import ConfigParser
-import curses.ascii
-import unicodedata
+
 from datetime import datetime
-from oobjlib.connection import Connection
-from oobjlib.component import Object
 from functools import reduce
 
 # Translation configuration
@@ -28,15 +25,6 @@ NULL_CHAR = '\0'
 
 # _ will be initialized by gettext.install but declared to prevent pep8 issues
 _ = None
-
-# Default configuration
-DEFAULT_CONFIG = {
-    'host': 'localhost',
-    'user': 'admin',
-    'password': 'admin',
-    'port': '8069',
-    'test_file': None,
-}
 
 # Names of the ncurses colors
 COLOR_NAMES = {
@@ -65,44 +53,26 @@ class Sentinel(object):
     Manages scanner terminals
     """
 
-    def __init__(self, stdscr):
+    def __init__(self, stdscr, options):
         """
         Initialize the sentinel program
         """
-        # Read user configuration
-        config = ConfigParser.SafeConfigParser(DEFAULT_CONFIG)
-        self.datadir = os.path.expanduser("~/")
-        config.read([
-            '.oerp_sentinelrc',
-            '.openerp_sentinelrc',
-            '.odoo_sentinelrc',
-            os.path.join(self.datadir, '.oerp_sentinelrc'),
-            os.path.join(self.datadir, '.openerp_sentinelrc'),
-            os.path.join(self.datadir, '.odoo_sentinelrc'),
-        ])
+        if options.profile in odoorpc.ODOO.list(rc_file=options.config_file):
+            # Try to autodetect an OdooRPC configuration
+            self.connection = odoorpc.ODOO.load(options.profile)
+        else:
+            raise Exception(_(
+                'Profile "{options.profile}" not found in file '
+                '{options.config_file}!'
+            ).format(options=options))
 
-        # No configfile found, exit
-        if 'openerp' not in config.sections():
-            raise Exception('Config Error', 'Config file not found !')
-
-        # Connection to the OpenERP Server
-        self.connection = Connection(
-            server=config.get('openerp', 'host'),
-            dbname=config.get('openerp', 'database'),
-            login=config.get('openerp', 'user'),
-            password=config.get('openerp', 'password'),
-            port=config.get('openerp', 'port'),
-        )
-
-        # Open the test file, if any
-        test_file_name = config.get('openerp', 'test_file')
+        self.log_file = os.path.expanduser(options.log_file)
         self.test_file = None
-        if test_file_name:
-            self.test_file = open(test_file_name, 'r')
+        if options.test_file:
+            self.test_file = open(os.path.expanduser(options.test_file), 'r')
 
         # Initialize translations
-        self.context = Object(self.connection, 'res.users').context_get()
-        lang = self.context.get('lang', I18N_DEFAULT)
+        lang = self.connection.env.context.get('lang', I18N_DEFAULT)
         gettext.install(I18N_DOMAIN)
         try:
             language = gettext.translation(
@@ -115,10 +85,6 @@ class Sentinel(object):
         # The install method of gettext doesn't replace the function if exists
         global _
         _ = language.gettext
-
-        # Initialize hardware
-        self.hardware_obj = Object(self.connection, 'scanner.hardware')
-        self.scenario_obj = Object(self.connection, 'scanner.scenario')
 
         # Initialize window
         self.screen = stdscr
@@ -148,15 +114,15 @@ class Sentinel(object):
 
         # Reinitialize to the main menu when using a test file (useful when
         # the last run has crashed before end)
-        if test_file_name:
+        if self.test_file:
             self.oerp_call('end')
 
         # Load the sentinel
         self.main_loop()
 
     def scanner_check(self):
-        self.scenario_id = self.hardware_obj.scanner_check(
-            self.hardware_code, self.context)
+        self.scenario_id = self.connection.env[
+            'scanner.hardware'].scanner_check(self.hardware_code)
         if isinstance(self.scenario_id, list):
             self.scenario_id, self.scenario_name = self.scenario_id
 
@@ -255,16 +221,6 @@ class Sentinel(object):
         if bgcolor:
             self.screen.bkgd(0, color)
 
-        # Normalize the text, because ncurses doesn't know UTF-8 with
-        # python 2.x
-        if isinstance(text, str):
-            text = text.decode('utf-8')
-        text = unicodedata.normalize(
-            'NFKD', unicode(text)).encode('ascii', 'ignore')
-        text = ''.join(
-            [char not in ('\r', '\n') and
-             curses.ascii.unctrl(char) or char for char in text])
-
         # Display the text
         if not scroll:
             self.screen.addstr(y, x, text, color)
@@ -352,7 +308,7 @@ class Sentinel(object):
                         # Search for a step title
                         title = None
                         title_key = '|'
-                        if isinstance(result, (types.NoneType, bool)):
+                        if isinstance(result, (type(None), bool)):
                             pass
                         elif (isinstance(result, dict) and
                               result.get(title_key, None)):
@@ -361,7 +317,7 @@ class Sentinel(object):
                         elif (isinstance(result[0], (tuple, list)) and
                               result[0][0] == title_key):
                             title = result.pop(0)[1]
-                        elif (isinstance(result[0], basestring) and
+                        elif (isinstance(result[0], str) and
                               result[0].startswith(title_key)):
                             title = result.pop(0)[len(title_key):]
 
@@ -489,9 +445,8 @@ class Sentinel(object):
                                 sys.exc_info()[2])))
 
                     # Writes traceback in log file
-                    logfile = open(self.datadir + 'oerp_sentinel.log', 'a')
-                    logfile.write(log_contents)
-                    logfile.close()
+                    with open(self.log_file, 'a') as log_file:
+                        log_file.write(log_contents)
 
                     # Display error message
                     (code, result, value) = (
@@ -536,8 +491,8 @@ class Sentinel(object):
         """
         Calls a method from Odoo Server
         """
-        return self.hardware_obj.scanner_call(
-            self.hardware_code, action, message, 'keyboard', self.context)
+        return self.connection.env['scanner.hardware'].scanner_call(
+            self.hardware_code, action, message, 'keyboard')
 
     def _select_scenario(self):
         """
@@ -750,7 +705,7 @@ class Sentinel(object):
         if isinstance(entries, dict):
             keys, entries = entries.items()
         elif isinstance(entries[0], (tuple, list)):
-            keys, entries = map(list, zip(*entries))[:2]
+            keys, entries = list(zip(*entries))[:2]
 
         # Highlighted entry
         highlighted = 0
@@ -905,4 +860,19 @@ class SentinelBackException (SentinelException):
 
 
 if __name__ == '__main__':
-    curses.wrapper(Sentinel)
+    parser = argparse.ArgumentParser(
+        formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument(
+        '-p', '--profile', dest='profile', default='sentinel',
+        help='OdooRPC profile to use.')
+    parser.add_argument(
+        '-c', '--config', dest='config_file', default='~/.odoorpcrc',
+        help='OdooRPC configuration file to use.')
+    parser.add_argument(
+        '-l', '--log-file', dest='log_file', default='~/sentinel.log',
+        help='OdooRPC profile to use.')
+    parser.add_argument(
+        '-t', '--test-file', dest='test_file', help='Test file to execute.')
+    args = parser.parse_args(sys.argv[1:])
+
+    curses.wrapper(Sentinel, args)
