@@ -73,7 +73,7 @@
                 <notebook colspan="4">
                     <page string="Code">
                         <separator string="Enter the python code here" colspan="4"/>
-                        <field name="python_code" colspan="4" nolabel="1"/>
+                        <field name="python_code" colspan="4" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
                     </page>
                     <page string="Transition">
                         <separator string="Outgoing transitions" colspan="4"/>
