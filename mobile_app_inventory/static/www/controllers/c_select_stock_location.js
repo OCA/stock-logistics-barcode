@@ -1,12 +1,13 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectStockLocationCtrl', [
-        '$scope', '$rootScope', '$state', '$stateParams',
+        '$scope', '$filter', '$state', '$stateParams',
         'StockLocationModel',
-        function ($scope, $rootScope, $state, $stateParams, StockLocationModel) {
+        function ($scope, $filter, $state, $stateParams, StockLocationModel) {
     console.log('dans stock location ctrl')
     $scope.data = {
         'locations': [],
+        'locFilter': null,
     };
 
     console.log('load locations')
@@ -35,6 +36,14 @@ angular.module('mobile_app_inventory').controller(
             'location_id': location.id,
             'inventory_id': $stateParams.inventory_id
         });
+    };
+
+    $scope.goToLoc = function (location) {
+        //if location search returns only one result, go to this location directly
+        //(called on submit, so a barcode reader will trigger)
+        var result = $filter('filter')($scope.data.locations, $scope.data.locFilter);
+        if (result.length == 1)
+            return $scope.selectLocation(result[0]);
     };
 
 }]);
