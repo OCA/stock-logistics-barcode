@@ -13,6 +13,11 @@ class StockLocation(models.Model):
     parent_complete_name = fields.Char(
         compute='_compute_parent_complete_name', string='Parent Complete Name')
 
+    mobile_available = fields.Boolean(
+        string='Available for Mobile', default=True,
+        help="Check this box if you want to make this location visible"
+        " in the Mobile App")
+
     # Compute Section
     @api.depends('name', 'location_id')
     def _compute_parent_complete_name(self):
@@ -20,3 +25,8 @@ class StockLocation(models.Model):
             location.parent_complete_name =\
                 location.location_id and\
                 location.location_id.complete_name or ''
+
+    # Onchange Section
+    @api.onchange('usage')
+    def onchange_location_type(self):
+        self.mobile_available = self.usage == 'internal'
