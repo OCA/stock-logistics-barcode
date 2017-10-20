@@ -5,12 +5,11 @@
 
 {
     'name': 'Scan To Inventory',
-    'version': '7.0.1.0.0',
+    'version': '8.0.1.0.0',
     'category': 'Stock',
-    'author': 'GRAP,Odoo Community Association (OCA)',
-    'website': 'http://www.grap.coop',
+    'author': 'GRAP,Akretion,Odoo Community Association (OCA)',
+    'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
-    'description': "See README.rst file",
     'depends': [
         'stock',
     ],
@@ -19,8 +18,8 @@
    #     'views/view_res_company.xml',
     ],
     'demo': [
-    #    'demo/res_users.xml',
-    #    'demo/res_company.xml',
-    #    'demo/product_product.xml',
+#        'demo/res_users.xml',
+#        'demo/res_company.xml',
+#        'demo/product_product.xml',
     ],
 }
