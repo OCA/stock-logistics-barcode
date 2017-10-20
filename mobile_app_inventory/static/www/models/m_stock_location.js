@@ -4,19 +4,24 @@ angular.module('mobile_app_inventory').factory(
         '$q', '$rootScope', 'jsonRpc',
         function ($q, $rootScope, jsonRpc) {
 
-    var locations = null;
+    var location_list = null;
+
     return {
-        get_list: function() {
-            locations = locations || jsonRpc.searchRead(
-                    'stock.location', [['usage', '=', 'internal']], [
+        get_list: function(force=false) {
+            if (force){
+                location_list = null;
+            }
+            location_list = location_list || jsonRpc.searchRead(
+                    'stock.location', [['usage', '=', 'internal'], ['mobile_available', '=', true]], [
                     'id', 'name', 'parent_complete_name',
                     ]).then(function (res) {
                 //$rootScope.LocationList = res.records;
                 //return res.records.length;
                 return res.records;
             });
-            return locations;
+            return location_list;
         },
+
         get_location: function(id) {
             return this.get_list().then(function (locs) {
                 var found = false;
@@ -28,6 +33,7 @@ angular.module('mobile_app_inventory').factory(
                 });
                 return found || $q.reject('Location not found');
             });
-        }
+        },
+
     };
 }]);
