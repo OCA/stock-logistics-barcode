@@ -45,18 +45,20 @@ angular.module('mobile_app_inventory').controller(
         }
 
         StockInventoryModel.AddInventoryLine(
-                $rootScope.currentInventoryId,
-                $rootScope.currentLocationId, $scope.product.id,
+                $scope.data.inventory.id,
+                $scope.data.location.id,
+                $scope.data.product.id,
                 parsed_qty, 'ask').then(function (res){
             if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
-                setTimeout(function(){
-                    $state.go('select_product_product');
-                }, 300);
+                $state.go('product', {
+                        'inventory_id': $scope.data.inventory.id,
+                        'location_id': $scope.data.location.id
+                });
             }else {
                 if (res.state == 'duplicate'){
                     $state.go('confirm_quantity', {
-                        product_id: $scope.product.id,
+                        product_id: $scope.data.product.id,
                         current_qty: res.qty,
                         new_qty: parsed_qty});
                 } else {
