@@ -8,18 +8,19 @@ angular.module('mobile_app_inventory').factory(
 
     return {
         get_list: function() {
-            console.log('on charge draft inventory list');
             inventory_list = inventory_list || jsonRpc.searchRead(
-                    'stock.inventory', [['state', '=', 'confirm']/*, ['scan_ok', '=', false]*/], [
+                    'stock.inventory', [['state', '=', 'confirm'], ['mobile_available', '=', true]], [
                     'id', 'name', 'date', 'inventory_line_qty',
                     ]).then(function (res) {
                 return res.records;
             });
             return inventory_list;
         },
+
         CreateInventory: function(name) {
-            return jsonRpc.call('stock.inventory', 'create_by_scan', [name])
+            return jsonRpc.call('stock.inventory', 'mobile_create', [name]);
         },
+
         LoadInventory: function(orderId) {
             return jsonRpc.searchRead(
                     'stock.inventory', [['id', '=', orderId]], [
@@ -27,6 +28,7 @@ angular.module('mobile_app_inventory').factory(
                 return res.records[0];
             });
         },
+
         AddInventoryLine: function(inventoryId, locationId, productId, quantity, mode) {
             return jsonRpc.call(
                     'stock.inventory', 'add_inventory_line_by_scan',
@@ -43,7 +45,6 @@ angular.module('mobile_app_inventory').factory(
                     found = i;
                     return;
                 });
-                console.log('found :' , found)
                 return found || $q.reject('Inventory not found');
             });
         }
