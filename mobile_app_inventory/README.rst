@@ -210,6 +210,15 @@ Known Issues
   of the user raises security issues.
   `See the bug on Chromium website <https://bugs.chromium.org/p/chromium/issues/detail?id=178297>`_
 
+TEMPORARY TODO LIST
+===================
+
+* stock_inventory rename scan_ok into mobile_inventory_available.
+* stock_inventory ask raphael why add_inventory_line_by_scan changed.
+* product_product : fix : mobile_inventory_load_product
+* web : pourquoi ça marche plus !!!
+
+
 Bug Tracker
 ===========
 

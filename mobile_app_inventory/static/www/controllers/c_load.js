@@ -28,7 +28,6 @@ angular.module('mobile_app_inventory').controller(
                     $scope.data.product_qty = qty;
                 }),
                 StockLocationModel.get_list().then(locations => {
-                    console.log('dans refresh stock location', locations);
                     $scope.data.location_load_state = true;
                     $scope.data.location_qty = locations.length;
                 }),

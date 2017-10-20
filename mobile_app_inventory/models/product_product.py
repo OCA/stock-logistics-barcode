@@ -3,64 +3,66 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.osv.orm import Model
+from openerp import api, models
 
 
-class ProductProduct(Model):
+class ProductProduct(models.Model):
     _inherit = 'product.product'
 
-    _mobile_app_inventory_MANDATORY_FIELDS = ['id', 'name', 'ean13']
+    _MOBILE_INVENTORY_MANDATORY_FIELDS = ['id', 'name', 'ean13']
 
-    def _mobile_app_inventory_product_field_ids(self, cr, uid, context=None):
-        user_obj = self.pool['res.users']
-        company = user_obj.browse(cr, uid, uid, context=context).company_id
-        return [x.name for x in company.scan_inventory_product_field_ids]
-
-    def mobile_app_inventory_load_product(self, cr, uid, context=None):
-        def _get_field_name(pool, cr, uid, field, model=False):
-            translation_obj = self.pool['ir.translation']
-            # Determine model name
-            if not model:
-                if field in pool.pool['product.product']._columns:
-                    model = 'product.product'
-                else:
-                    model = 'product.template'
-            # Get translation if defined
-            translation_ids = translation_obj.search(cr, uid, [
-                ('lang', '=', context.get('lang', False)),
-                ('type', '=', 'field'),
-                ('name', '=', '%s,%s' % (model, field))],
-                context=context)
-            if translation_ids:
-                return translation_obj.browse(
-                    cr, uid, translation_ids[0], context=context).value
-            else:
-                return pool.pool[model]._columns[field].string
-
-        context = context and context or {}
-        product_fields = self._mobile_app_inventory_product_field_ids(
-            cr, uid, context=context)
+    # API Section
+    @api.model
+    def mobile_inventory_load_product(self):
+        # def _get_field_name(pool, cr, uid, field, model=False):
+        #    translation_obj = self.pool['ir.translation']
+        #    # Determine model name
+        #    if not model:
+        #        if field in pool.pool['product.product']._columns:
+        #            model = 'product.product'
+        #        else:
+        #            model = 'product.template'
+        #    # Get translation if defined
+        #    translation_ids = translation_obj.search(cr, uid, [
+        #        ('lang', '=', context.get('lang', False)),
+        #        ('type', '=', 'field'),
+        #        ('name', '=', '%s,%s' % (model, field))],
+        #        context=context)
+        #    if translation_ids:
+        #        return translation_obj.browse(
+        #            cr, uid, translation_ids[0], context=context).value
+        #    else:
+        #        return pool.pool[model]._columns[field].string
 
         res = {}
-        product_ids = self.search(
-            cr, uid, [('ean13', '!=', False)], context=context)
-        products = self.browse(cr, uid, product_ids, context=context)
+        # TODO Add location in args
+        product_ids = self.search([('ean13', '!=', False)])
+        products = self.browse(product_ids)
+
+        # Get custom fields
+        company = self.env.user.company_id
+        return [
+            x.name for x in company.mobile_inventory_product_field_ids]
+
         for product in products:
             res[product.ean13] = {}
-            # Add product fields
-            for field in self._mobile_app_inventory_MANDATORY_FIELDS:
+            # Add Mandatory product fields
+            for field in self._MOBILE_INVENTORY_MANDATORY_FIELDS():
                 res[product.ean13][field] = getattr(product, field)
 
-            for field in product_fields:
+            # Add Custom product fields
+            for field in self._mobile_inventory_product_field_ids():
                 if field[-3:] == '_id':
                     res[product.ean13][field] = {
                         'id': getattr(product, field).id,
                         'value': getattr(product, field).name,
-                        'field_name': _get_field_name(self, cr, uid, field),
+                        'field_name': "FIXME"
+                        # _get_field_name(self, cr, uid, field),
                     }
                 else:
                     res[product.ean13][field] = {
                         'value': getattr(product, field),
-                        'field_name': _get_field_name(self, cr, uid, field),
+                        'field_name': "FIXME"
+                        # _get_field_name(self, cr, uid, field),
                     }
         return res

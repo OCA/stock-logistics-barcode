@@ -26,8 +26,6 @@ angular.module('mobile_app_inventory').controller(
         });
         angular.element(document.querySelector('#input_quantity'))[0].focus();
         $scope.data.qty = '';
-        console.log($scope);
-        // Get Product Data
     });
 
     $scope.submit = function () {
