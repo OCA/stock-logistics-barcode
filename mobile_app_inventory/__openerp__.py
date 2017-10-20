@@ -4,7 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Scan To Inventory',
+    'name': 'Inventory Mobile App',
     'version': '8.0.1.0.0',
     'category': 'Stock',
     'author': 'GRAP,Akretion,Odoo Community Association (OCA)',
@@ -14,12 +14,12 @@
         'stock',
     ],
     'data': [
-   #     'views/view_stock_inventory.xml',
-   #     'views/view_res_company.xml',
+        'views/view_stock_inventory.xml',
+        'views/view_res_company.xml',
     ],
     'demo': [
-#        'demo/res_users.xml',
-#        'demo/res_company.xml',
-#        'demo/product_product.xml',
+        'demo/res_users.xml',
+        'demo/res_company.xml',
+        'demo/product_product.xml',
     ],
 }

@@ -63,7 +63,7 @@ class TestScanToInventory(TransactionCase):
         cr, uid = self.cr, self.uid
 
         # Create Inventory and test
-        inventory_id = self.inventory_obj.create_by_scan(
+        inventory_id = self.inventory_obj.mobile_create(
             cr, uid, 'mobile_app_inventory test')
 
         self.assertNotEqual(

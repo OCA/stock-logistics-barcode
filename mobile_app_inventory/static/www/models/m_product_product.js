@@ -6,7 +6,6 @@ angular.module('mobile_app_inventory').factory(
 
     var products = {};
 
-
     return {
         LoadProductList: function() {
 //            return jsonRpc.call(
@@ -27,7 +26,6 @@ angular.module('mobile_app_inventory').factory(
                     [['ean13','=', ean13]], ['name', 'ean13'],
                     {'limit': 1}
                 ).then(function (res) {
-                    console.log('res', res);
                     if (res.length == 0)
                         return error('Product ' + ean13 + ' not found');
                     products[ean13] = res.records[0]; //set cache

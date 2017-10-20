@@ -3,50 +3,43 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.osv import fields
-from openerp.osv.orm import Model
-from openerp.tools.translate import _
-from openerp import api
+from openerp import _, api, fields, models
 
-class StockInventory(Model):
+
+class StockInventory(models.Model):
     _inherit = 'stock.inventory'
 
-    @api.multi
-    def compute_inventory_line_qty(self, ids):
-        import pdb
-        res = {}
-        for inventory in self:
-            res[inventory.id] = len(inventory.line_ids)
-        return res
-            # Compute Section
-    #def compute_inventory_line_qty(
-    #        self, cr, uid, ids, name, args, context=None):
-    #    res = {}
-    #    for inventory in self.browse(cr, uid, ids, context=context):
-    #        import pdb
-    #        pdb.set_trace()
-    #        res[inventory.id] = len(inventory.inventory_line_id)
-    #    return res
-
     # Columns Section
-    _columns = {
-        'inventory_line_qty': fields.function(
-            compute_inventory_line_qty, string='Lines Qty', type='integer'),
-        'scan_ok': fields.boolean(string='Scan Finished'),
-    }
+    inventory_line_qty = fields.Integer(
+        compute='_compute_inventory_line_qty', string='Lines Qty', store=True)
 
-    def create_by_scan(
-            self, cr, uid, name, context=None):
-        vals = self.default_get(
-            cr, uid, self._defaults.keys(), context=context)
-        vals.update({'name': _('%s (Barcode Reader)') % (name)})
-        return super(StockInventory, self).create(
-            cr, uid, vals, context=context)
+    mobile_available = fields.Boolean(
+        string='Available on Mobile', default=True,
+        help="Check this box if you want that a user making an inventory"
+        " by the Mobile App can work on this inventory.")
+
+    @api.depends('line_ids')
+    def _compute_inventory_line_qty(self):
+        for inventory in self:
+            inventory.inventory_line_qty = len(inventory.line_ids)
+
+    @api.model
+    def mobile_create(self, name):
+        vals = self.default_get(self._defaults.keys())
+        vals.update({
+            'name': _('%s (Mobile App)') % (name),
+            'filter': 'partial',
+        })
+        inventory = super(StockInventory, self).create(vals)
+        inventory.prepare_inventory()
+        res = {'inventory_line_qty': 0}
+        for field in ['id', 'name', 'date']:
+            res[field] = getattr(inventory, field)
+        return res
 
     @api.multi
     def add_inventory_line_by_scan(
-            self, location_id, product_id, qty, mode,
-            ):
+            self, location_id, product_id, qty, mode):
         """
         Add a new line in the current inventory
         @param id: the inventory id;
@@ -96,12 +89,13 @@ class StockInventory(Model):
             self.inventory_line_id = new_iline
         return {'state': 'write_ok'}
 
+        # TODO FIXME
+        # EUH ??? C'est en cours de refactoring ce machin.
 
         qty = float(qty)
         product_obj = self.env['product.product']
         line_obj = self.env['stock.inventory.line']
         product = product_obj.browse(product_id)
-
 
         # Check if there is existing line with the product
         line_ids = line_obj.search([

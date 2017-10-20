@@ -12,7 +12,7 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
         <field name="inherit_id" ref="stock.view_inventory_tree" />
         <field name="arch" type="xml">
             <field name="state" position="before">
-                <field name="scan_ok" />
+                <field name="mobile_available" />
             </field>
         </field>
     </record>
@@ -21,8 +21,8 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
         <field name="model">stock.inventory</field>
         <field name="inherit_id" ref="stock.view_inventory_form" />
         <field name="arch" type="xml">
-            <field name="name" position="after">
-                <field name="scan_ok" />
+            <field name="location_id" position="after">
+                <field name="mobile_available" />
             </field>
         </field>
     </record>
