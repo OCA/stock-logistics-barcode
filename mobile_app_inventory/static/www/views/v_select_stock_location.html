@@ -6,10 +6,17 @@
     </ion-header-bar>
 
     <ion-content class="has-header" data-ng-init="init()">
-        <form ng-submit="submit()">
+       <form  ng-submit="goToLoc()">
+           <div class="list list-insert">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search" ng-model="data.locFilter">
+                </label>
+            </div>
+
             <div class="list">
                 <ion-list>
-                    <ion-item ng-repeat="location in data.locations">
+                    <ion-item ng-repeat="location in data.locations | filter: data.locFilter ">
                         <a class="item" href="#" ng-click="selectLocation(location)">
                             <h2>{{location.name}}</h2>
                             <p>
