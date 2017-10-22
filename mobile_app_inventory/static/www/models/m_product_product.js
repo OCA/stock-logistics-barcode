@@ -13,6 +13,9 @@ angular.module('mobile_app_inventory').factory(
             }
             product_list = product_list || jsonRpc.call(
                     'product.product', 'mobile_inventory_load_product', [inventory_id]).then(function (res) {
+                    console.log("ProductProductModel::get_list::success");
+                    console.log(res);
+                    console.log(res.length);
                 return res;
             });
             return product_list;

@@ -36,22 +36,23 @@ class ProductProduct(models.Model):
 
         res = {}
         # TODO Add location in args
-        product_ids = self.search([('ean13', '!=', False)])
-        products = self.browse(product_ids)
+        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>"
+        products = self.search([('ean13', '!=', False)])
+        print products
 
         # Get custom fields
         company = self.env.user.company_id
-        return [
+        mobile_inventory_custom_fields = [
             x.name for x in company.mobile_inventory_product_field_ids]
 
         for product in products:
             res[product.ean13] = {}
             # Add Mandatory product fields
-            for field in self._MOBILE_INVENTORY_MANDATORY_FIELDS():
+            for field in self._MOBILE_INVENTORY_MANDATORY_FIELDS:
                 res[product.ean13][field] = getattr(product, field)
 
             # Add Custom product fields
-            for field in self._mobile_inventory_product_field_ids():
+            for field in mobile_inventory_custom_fields:
                 if field[-3:] == '_id':
                     res[product.ean13][field] = {
                         'id': getattr(product, field).id,
@@ -65,4 +66,5 @@ class ProductProduct(models.Model):
                         'field_name': "FIXME"
                         # _get_field_name(self, cr, uid, field),
                     }
+        print res
         return res
