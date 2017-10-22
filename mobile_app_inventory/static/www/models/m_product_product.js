@@ -1,38 +1,38 @@
 "use strict";
 angular.module('mobile_app_inventory').factory(
         'ProductProductModel', [
-        '$q', '$rootScope', 'jsonRpc',
-        function ($q, $rootScope, jsonRpc) {
+        '$q', 'jsonRpc',
+        function ($q, jsonRpc) {
 
-    var products = {};
+    var product_list = null;
 
     return {
-        LoadProductList: function() {
-//            return jsonRpc.call(
-//                    'product.product', 'mobile_app_inventory_load_product', []).then(function (res) {
-             return jsonRpc.searchRead(
-                     'product.product', [], ['name', 'ean13']).then(function (res) {
-                $rootScope.ProductListByEan13 = res;
-                var quantity = 0;
-                return Object.keys(res).length;
+        get_list: function(force, inventory_id) {
+            if (force){
+                product_list = null;
+            }
+            product_list = product_list || jsonRpc.call(
+                    'product.product', 'mobile_inventory_load_product', [inventory_id]).then(function (res) {
+                return res;
             });
+            return product_list;
         },
-        get_product: function(ean13) {
-            return $q(function (success, error) {
-                if (products[ean13]) //search in cache
-                    return success(products[ean13]);
-                return jsonRpc.searchRead(
-                    'product.product',
-                    [['ean13','=', ean13]], ['name', 'ean13'],
-                    {'limit': 1}
-                ).then(function (res) {
-                    if (res.length == 0)
-                        return error('Product ' + ean13 + ' not found');
-                    products[ean13] = res.records[0]; //set cache
-                    return success(products[ean13]);
-                });
-            });
-        }
+//        get_product: function(ean13) {
+//            return $q(function (success, error) {
+//                if (product_list[ean13]) //search in cache
+//                    return success(product_list[ean13]);
+//                return jsonRpc.searchRead(
+//                    'product.product',
+//                    [['ean13','=', ean13]], ['name', 'ean13'],
+//                    {'limit': 1}
+//                ).then(function (res) {
+//                    if (res.length == 0)
+//                        return error('Product ' + ean13 + ' not found');
+//                    product_list[ean13] = res.records[0]; //set cache
+//                    return success(product_list[ean13]);
+//                });
+//            });
+//        }
     };
 }]);
  

@@ -218,6 +218,12 @@ TEMPORARY TODO LIST
 * product_product : fix : mobile_inventory_load_product
 * web : pourquoi ça marche plus !!!
 
+* rechecker delete lorsqu'on quitte l'application. (logout)
+
+
+A valider avec Raph
+-------------------
+* m_stock_inventory. obliger d'utiliesr $$state, pour accéder à la liste, est-ce normal ?
 
 Bug Tracker
 ===========

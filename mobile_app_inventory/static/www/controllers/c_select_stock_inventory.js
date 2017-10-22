@@ -1,40 +1,49 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectStockInventoryCtrl', [
-        '$scope', '$rootScope', '$state', 'StockInventoryModel', '$translate',
-        function ($scope, $rootScope, $state, StockInventoryModel, $translate) {
+        '$scope', '$rootScope', '$state', 'ResCompanyModel', 'StockInventoryModel', '$translate',
+        function ($scope, $rootScope, $state, ResCompanyModel, StockInventoryModel, $translate) {
 
     $scope.data = {
         'inventories': [],
+        'mobile_inventory_create': false,
     };
 
     $scope.$on(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'inventory') {
-            StockInventoryModel.get_list().then(function (inventories) {
+            $scope.data.inventory_name = '';
+            StockInventoryModel.get_list(false).then(function (inventories) {
                 $scope.data.inventories = inventories;
             });
-            $scope.data.inventory_name = '';
+            ResCompanyModel.get_setting('mobile_inventory_create').then(function (setting) {
+                $scope.data.mobile_inventory_create = setting;
+            });
         }
     });
 
-    $scope.select_inventory = function (inventory_id) {
-        console.log("selectInventory", inventory_id);
-        $state.go('location', {
-            inventory_id: inventory_id
-        });
-    };
-
     $scope.submit = function () {
         if ($scope.data.inventory_name !== '') {
-            StockInventoryModel.CreateInventory($scope.data.inventory_name).then(function(inventory){
-                console.log("RESULT CREATE");
-                console.log(inventory);
-                $scope.select_inventory(inventory.id)
+            StockInventoryModel.create_inventory($scope.data.inventory_name).then(function(inventory){
+                $scope.select_inventory(inventory.id);
             });
         } else {
             $scope.errorMessage = $translate.instant("Inventory Name Required");
         }
     };
+
+    $scope.select_inventory = function (inventory_id) {
+        ResCompanyModel.get_setting('mobile_product_cache').then(function (setting) {
+            if (setting == 'inventory'){
+                // Cache products of the inventory lines
+                $state.go('location', {inventory_id: inventory_id});
+            }
+            else {
+                $state.go('location', {inventory_id: inventory_id});
+            }
+        });
+
+    };
+
 }]);

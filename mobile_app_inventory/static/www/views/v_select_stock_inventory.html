@@ -8,11 +8,11 @@
     <ion-content class="has-header" data-ng-init="init()">
         <form ng-submit="submit()">
             <div class="list">
-                <label class="item item-input input-select"> 
+                <label class="item item-input input-select" ng-show="data.mobile_inventory_create">
                     <div class="form-label" for="input_inventory_name">{{'Inventory Name' | translate}}</div>
                     <input type="text" ng-model="data.inventory_name" id="input_inventory_name" autocomplete="off" class="item-input input-required"/>
                 </label>
-                <label class="item">
+                <label class="item"  ng-show="data.mobile_inventory_create">
                     <button class="button button-full button-royal">{{'Create New Inventory' | translate}}</button>
                 </label>
                 <div class="item item-divider">
