@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'LoginCtrl', [
-        '$scope','$rootScope', 'jsonRpc', '$state', '$translate',
-        function ($scope, $rootScope, jsonRpc, $state, $translate) {
+        '$scope', 'jsonRpc', '$state', '$translate',
+        function ($scope, jsonRpc, $state, $translate) {
 
     $scope.data = {
         'db': '',

@@ -23,9 +23,14 @@ angular.module('mobile_app_inventory').controller(
             window.products = ProductProductModel;
 
             $q.all([
-                ProductProductModel.get_list(true).then(products => {
+                // TODO  call product get_list, only if 
+//                ResCompanyModel.get_setting('mobile_product_cache').then(function (setting) {
+//                    $scope.data.mobile_inventory_create = setting;
+//                });
+
+                ProductProductModel.get_list(true, false).then(products => {
                     $scope.data.product_load_state = true;
-                    $scope.data.product_qty = products.length;
+                    $scope.data.product_qty = Object.keys(products).length;
                 }),
                 StockLocationModel.get_list(true).then(locations => {
                     $scope.data.location_load_state = true;
