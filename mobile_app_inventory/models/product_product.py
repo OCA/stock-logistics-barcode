@@ -13,7 +13,7 @@ class ProductProduct(models.Model):
 
     # API Section
     @api.model
-    def mobile_inventory_load_product(self):
+    def mobile_inventory_load_product(self, inventory_id):
         # def _get_field_name(pool, cr, uid, field, model=False):
         #    translation_obj = self.pool['ir.translation']
         #    # Determine model name

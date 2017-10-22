@@ -9,7 +9,8 @@ angular.module('mobile_app_inventory').controller(
         'locFilter': null,
     };
 
-    StockLocationModel.get_list().then(function(location_list) {
+    // TODO Move into stateChangeSuccess
+    StockLocationModel.get_list(false).then(function(location_list) {
         $scope.data.location_list = location_list;
     });
 
