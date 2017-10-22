@@ -1,13 +1,13 @@
 "use strict";
 angular.module('mobile_app_inventory').factory(
         'StockInventoryModel', [
-        '$q', '$rootScope', 'jsonRpc',
-        function ($q, $rootScope, jsonRpc) {
+        '$q', 'jsonRpc',
+        function ($q, jsonRpc) {
 
     var inventory_list = null;
 
     return {
-        get_list: function(force=false) {
+        get_list: function(force) {
             if (force){
                 inventory_list = null;
             }
@@ -15,28 +15,29 @@ angular.module('mobile_app_inventory').factory(
                     'stock.inventory', [['state', '=', 'confirm'], ['mobile_available', '=', true]], [
                     'id', 'name', 'date', 'inventory_line_qty',
                     ]).then(function (res) {
-                console.log(res);
                 return res.records;
             });
             return inventory_list;
         },
 
         get_inventory: function(id) {
-            return this.get_list().then(function (invs) {
+            return this.get_list(false).then(function (inventories) {
                 var found = false;
-                invs.some(function(i)  {
-                    if (i.id != id)
+                inventories.some(function(inventory) {
+                    if (inventory.id != id)
                         return false;
-                    found = i;
+                    found = inventory;
                     return;
                 });
                 return found || $q.reject('Inventory not found');
             });
         },
 
-        CreateInventory: function(name) {
-            //TODO Add the return value to the inventory_list
-            return jsonRpc.call('stock.inventory', 'mobile_create', [name]);
+        create_inventory: function(name) {
+            return jsonRpc.call('stock.inventory', 'mobile_create', [name]).then(function(inventory){
+                inventory_list.$$state.value.push(inventory);
+                return inventory;
+            });
         },
 
         AddInventoryLine: function(inventoryId, locationId, productId, quantity, mode) {
