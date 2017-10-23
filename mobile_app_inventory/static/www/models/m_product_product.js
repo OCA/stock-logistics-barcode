@@ -13,7 +13,6 @@ angular.module('mobile_app_inventory').factory(
             }
             product_list = product_list || jsonRpc.call(
                     'product.product', 'mobile_inventory_load_products', [inventory_id]).then(function (res) {
-                    console.log("ProductProductModel::get_list::success");
                 return res;
             });
             return product_list;
@@ -23,14 +22,12 @@ angular.module('mobile_app_inventory').factory(
             return this.get_list(false, false).then(function (products) {
                 //Search In the Cache
                 if (products[ean13] !== undefined){
-                    console.log("trouvé in cache");
                     // products has been found in cache
                     return products[ean13];
                 }
-                // Call BackOffice
+                // TODO Call BackOffice
                 
-                // Return Error
-                console.log("PAS TROUVE");
+                // TODO, if not found Return Error
 //                var found = false;
 //                locations.some(function(location) {
 //                    if (location.id != id)
@@ -44,10 +41,8 @@ angular.module('mobile_app_inventory').factory(
 
 
 //        get_product: function(ean13) {
-//            console.log("get_product", ean13);
 //            return $q(function (success, error) {
 //                if (product_list[ean13]) //search in cache
-//                    console.log("In CACHE");
 //                    return success(product_list[ean13]);
 ////                return jsonRpc.searchRead(
 ////                    'product.product',
