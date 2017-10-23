@@ -5,7 +5,7 @@ angular.module('mobile_app_inventory').controller(
         function ($scope, $state, ResCompanyModel, StockInventoryModel, ProductProductModel, $translate) {
 
     $scope.data = {
-        'inventories': [],
+        'inventory_list': [],
         'mobile_inventory_create': false,
     };
 
@@ -14,8 +14,8 @@ angular.module('mobile_app_inventory').controller(
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'inventory') {
             $scope.data.inventory_name = '';
-            StockInventoryModel.get_list(false).then(function (inventories) {
-                $scope.data.inventories = inventories;
+            StockInventoryModel.get_list(false).then(function (inventory_list) {
+                $scope.data.inventory_list = inventory_list;
             });
             ResCompanyModel.get_setting('mobile_inventory_create').then(function (setting) {
                 $scope.data.mobile_inventory_create = setting;

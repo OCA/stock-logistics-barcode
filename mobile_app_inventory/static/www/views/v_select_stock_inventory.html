@@ -19,7 +19,7 @@
                     {{'Select Existing Inventory' | translate}}
                  </div>
                 <ion-list>
-                    <ion-item ng-repeat="inventory in data.inventories">
+                    <ion-item ng-repeat="inventory in data.inventory_list">
                         <a class="item" href="#" ng-click="select_inventory(inventory.id)">
                             <h2>{{inventory.name}}</h2>
                             <p>
