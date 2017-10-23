@@ -11,23 +11,7 @@ class ProductProduct(models.Model):
 
     _MOBILE_INVENTORY_MANDATORY_FIELDS = ['id', 'name', 'ean13']
 
-
     # API Section
-    @api.model
-    def mobile_inventory_load_product(self, barcode):
-        # Try to search exact product with the given barcode
-        product = self.search([('ean13', '=', barcode)])
-        qty = 0
-        if not product:
-            product, qty = self._mobile_inventory_guess_product_qty(barcode)
-        if not product:
-            return False
-        res = product[0]._mobile_inventory_load_product()
-        if qty:
-            res[0]['barcode_qty'] = qty
-        return res
-
-
     @api.model
     def mobile_inventory_load_products(self, inventory_id):
         """API that will return a dictionnary for each products.
@@ -36,14 +20,37 @@ class ProductProduct(models.Model):
         the inventory lines of the given inventory.
         If not, all products with barcodes will be returned.
         """
+        print ">>>>>>>>>>>>>>>>>>"
+        print "mobile_inventory_load_products"
         inventory_obj = self.env['stock.inventory']
         if not inventory_id:
             products = self.search([('ean13', '!=', False)])
         else:
             inventory = inventory_obj.browse(inventory_id)
             products = inventory.mapped('line_ids.product_id')
-        return products._mobile_inventory_load_product()
+        print products
+        res = products._mobile_inventory_load_product()
+        print res
+        return res
 
+    @api.model
+    def mobile_inventory_load_product(self, barcode):
+        """API that will return the same dictionnary as
+        mobile_inventory_load_product but for one product (given a barcode)
+        the extra feature of this function, is to have the possibility
+        to return a product that has a different EAN13 than the parameter
+        This function is usefull for Priced / Weighted barcode.
+        If that case, an extra key 'barcode_qty' will be returned too."""
+        # Try to search exact product with the given barcode
+        product = self.search([('ean13', '=', barcode)])
+        qty = 0
+        if not product:
+            product, qty = self._mobile_inventory_guess_product_qty(barcode)
+        if not product:
+            return False
+        res = product[0]._mobile_inventory_load_product()
+        res[0]['barcode_qty'] = qty
+        return res
 
     # Private Section
     @api.model
@@ -57,25 +64,22 @@ class ProductProduct(models.Model):
 
     @api.multi
     def _mobile_inventory_load_product(self):
-        # def _get_field_name(pool, cr, uid, field, model=False):
-        #    translation_obj = self.pool['ir.translation']
-        #    # Determine model name
-        #    if not model:
-        #        if field in pool.pool['product.product']._columns:
-        #            model = 'product.product'
-        #        else:
-        #            model = 'product.template'
-        #    # Get translation if defined
-        #    translation_ids = translation_obj.search(cr, uid, [
-        #        ('lang', '=', context.get('lang', False)),
-        #        ('type', '=', 'field'),
-        #        ('name', '=', '%s,%s' % (model, field))],
-        #        context=context)
-        #    if translation_ids:
-        #        return translation_obj.browse(
-        #            cr, uid, translation_ids[0], context=context).value
-        #    else:
-        #        return pool.pool[model]._columns[field].string
+        def _get_field_name(product_obj, field):
+            translation_obj = product_obj.env['ir.translation']
+            # Determine model name
+            if field in product_obj.env['product.product']._columns:
+                model = 'product.product'
+            else:
+                model = 'product.template'
+            # Get translation if defined
+            translation_ids = translation_obj.search([
+                ('lang', '=', product_obj.env.context.get('lang', False)),
+                ('type', '=', 'field'),
+                ('name', '=', '%s,%s' % (model, field))])
+            if translation_ids:
+                return translation_ids[0].value
+            else:
+                return product_obj.env[model]._columns[field].string
 
         res = {}
 
@@ -84,7 +88,7 @@ class ProductProduct(models.Model):
         mobile_inventory_custom_fields = [
             x.name for x in company.mobile_inventory_product_field_ids]
 
-        for product in products:
+        for product in self:
             res[product.ean13] = {}
             # Add Mandatory product fields
             for field in self._MOBILE_INVENTORY_MANDATORY_FIELDS:
@@ -92,18 +96,15 @@ class ProductProduct(models.Model):
 
             # Add Custom product fields
             for field in mobile_inventory_custom_fields:
+                field_name = _get_field_name(self, field)
                 if field[-3:] == '_id':
-                    res[product.ean13][field] = {
-                        'id': getattr(product, field).id,
-                        'value': getattr(product, field).name,
-                        'field_name': "FIXME"
-                        # _get_field_name(self, cr, uid, field),
-                    }
+                    value = getattr(product, field).name
                 else:
-                    res[product.ean13][field] = {
-                        'value': getattr(product, field),
-                        'field_name': "FIXME"
-                        # _get_field_name(self, cr, uid, field),
-                    }
+                    value = getattr(product, field)
+                res[product.ean13][field] = {
+                    'value': value,
+                    'field_name': field_name,
+                }
+                res[product.ean13]['barcode_qty'] = 5
         print res
         return res

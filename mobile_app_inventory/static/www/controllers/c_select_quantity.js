@@ -5,21 +5,32 @@ angular.module('mobile_app_inventory').controller(
         function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
+        'fixed_qty': false,
         'qty': '',
         'product': '',
         'location': '',
     };
 
     $scope.$on(
-        '$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
+            '$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+        $scope.data.fixed_qty = false;
+        // TODO remove location loading (useless now. (just for back button))
         StockLocationModel.get_location(toParams.location_id).then(function (location) {
             $scope.data.location = location;
         })
+        // TODO remove inventory loading (useless now).
         StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
             $scope.data.inventory = inventory;
         });
         ProductProductModel.get_product(toParams.ean13).then(function(product) {
+            if (product['barcode_qty'] !== undefined) {
+                console.log("barcode qty");
+                $scope.data.fixed_qty = true;
+                $scope.data.qty = parseFloat(product['barcode_qty']);
+            }
+            console.log(">>>>>>>>>>>>>>>>>>>>>");
+            console.log(product);
             $scope.data.product = product;
         });
         angular.element(document.querySelector('#input_quantity'))[0].focus();
