@@ -40,10 +40,10 @@ angular.module('mobile_app_inventory').factory(
             });
         },
 
-        AddInventoryLine: function(inventoryId, locationId, productId, quantity, mode) {
+        add_inventory_line: function(inventory_id, location_id, product_id, quantity, mode) {
             return jsonRpc.call(
-                    'stock.inventory', 'add_inventory_line_by_scan',
-                    [inventoryId, locationId, productId, quantity, mode]).then(function (res) {
+                    'stock.inventory', 'mobile_add_inventory_line',
+                    [inventory_id, location_id, product_id, quantity, mode]).then(function (res) {
                 return res;
             });
         },

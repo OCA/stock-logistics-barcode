@@ -37,7 +37,6 @@ angular.module('mobile_app_inventory').controller(
         ResCompanyModel.get_setting('mobile_product_cache').then(function (setting) {
             if (setting == 'inventory'){
                 // Cache products of the inventory lines
-                console.log("loading by inventory");
                 ProductProductModel.get_list(true, inventory_id).then(function(product_list) {
                     $state.go('location', {inventory_id: inventory_id});
                 });

@@ -20,18 +20,13 @@ class ProductProduct(models.Model):
         the inventory lines of the given inventory.
         If not, all products with barcodes will be returned.
         """
-        print ">>>>>>>>>>>>>>>>>>"
-        print "mobile_inventory_load_products"
         inventory_obj = self.env['stock.inventory']
         if not inventory_id:
             products = self.search([('ean13', '!=', False)])
         else:
             inventory = inventory_obj.browse(inventory_id)
             products = inventory.mapped('line_ids.product_id')
-        print products
-        res = products._mobile_inventory_load_product()
-        print res
-        return res
+        return products._mobile_inventory_load_product()
 
     @api.model
     def mobile_inventory_load_product(self, barcode):
@@ -64,6 +59,7 @@ class ProductProduct(models.Model):
 
     @api.multi
     def _mobile_inventory_load_product(self):
+
         def _get_field_name(product_obj, field):
             translation_obj = product_obj.env['ir.translation']
             # Determine model name
@@ -82,7 +78,6 @@ class ProductProduct(models.Model):
                 return product_obj.env[model]._columns[field].string
 
         res = {}
-
         # Get custom fields
         company = self.env.user.company_id
         mobile_inventory_custom_fields = [
@@ -105,6 +100,4 @@ class ProductProduct(models.Model):
                     'value': value,
                     'field_name': field_name,
                 }
-                res[product.ean13]['barcode_qty'] = 5
-        print res
         return res
