@@ -25,9 +25,8 @@ angular.module('mobile_app_inventory').controller(
 
     $scope._set_quantity = function(mode) {
         StockInventoryModel.AddInventoryLine(
-                $rootScope.currentInventoryId,
-                $rootScope.currentLocationId, $scope.data.product_id,
-                $scope.data.new_qty, mode).then(function (res){
+                 parseInt(toParams.inventory_id, 10), parseInt(toParams.location_id, 10),
+                $scope.data.product_id, $scope.data.new_qty, mode).then(function (res){
             if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                 setTimeout(function(){

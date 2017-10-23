@@ -11,9 +11,52 @@ class ProductProduct(models.Model):
 
     _MOBILE_INVENTORY_MANDATORY_FIELDS = ['id', 'name', 'ean13']
 
+
     # API Section
     @api.model
-    def mobile_inventory_load_product(self, inventory_id):
+    def mobile_inventory_load_product(self, barcode):
+        # Try to search exact product with the given barcode
+        product = self.search([('ean13', '=', barcode)])
+        qty = 0
+        if not product:
+            product, qty = self._mobile_inventory_guess_product_qty(barcode)
+        if not product:
+            return False
+        res = product[0]._mobile_inventory_load_product()
+        if qty:
+            res[0]['barcode_qty'] = qty
+        return res
+
+
+    @api.model
+    def mobile_inventory_load_products(self, inventory_id):
+        """API that will return a dictionnary for each products.
+        {'ean1': vals1, 'ean2': vals2}
+        If inventory_id is set, the products will be the products in
+        the inventory lines of the given inventory.
+        If not, all products with barcodes will be returned.
+        """
+        inventory_obj = self.env['stock.inventory']
+        if not inventory_id:
+            products = self.search([('ean13', '!=', False)])
+        else:
+            inventory = inventory_obj.browse(inventory_id)
+            products = inventory.mapped('line_ids.product_id')
+        return products._mobile_inventory_load_product()
+
+
+    # Private Section
+    @api.model
+    def _mobile_inventory_guess_product_qty(self, barcode):
+        """Overload Me. Some barcodes contains in the part of it,
+        the quantity of the product. directly like Weight Barcode, or
+        indirectly like price barcode.
+        This function should return a tuple (product, qty) if found, or
+        False otherwise."""
+        return False
+
+    @api.multi
+    def _mobile_inventory_load_product(self):
         # def _get_field_name(pool, cr, uid, field, model=False):
         #    translation_obj = self.pool['ir.translation']
         #    # Determine model name
@@ -35,10 +78,6 @@ class ProductProduct(models.Model):
         #        return pool.pool[model]._columns[field].string
 
         res = {}
-        # TODO Add location in args
-        print ">>>>>>>>>>>>>>>>>>>>>>>>>>>>"
-        products = self.search([('ean13', '!=', False)])
-        print products
 
         # Get custom fields
         company = self.env.user.company_id
