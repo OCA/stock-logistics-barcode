@@ -5,25 +5,20 @@ angular.module('mobile_app_inventory').controller(
         function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
+        'inventory_id': false,
+        'location_id': false,
         'fixed_qty': false,
         'qty': '',
         'product': '',
-        'location': '',
     };
 
     $scope.$on(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'product_ean13') {
+            $scope.data.inventory_id = parseInt(toParams.inventory_id, 10);
+            $scope.data.location_id = parseInt(toParams.location_id, 10);
             $scope.data.fixed_qty = false;
-            // TODO remove location loading (useless now. (just for back button))
-            StockLocationModel.get_location(toParams.location_id).then(function (location) {
-                $scope.data.location = location;
-            })
-            // TODO remove inventory loading (useless now).
-            StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
-                $scope.data.inventory = inventory;
-            });
             ProductProductModel.get_product(toParams.ean13).then(function(product) {
                 if (product['barcode_qty'] !== undefined) {
                     $scope.data.fixed_qty = true;
@@ -51,19 +46,19 @@ angular.module('mobile_app_inventory').controller(
         }
 
         StockInventoryModel.add_inventory_line(
-                $scope.data.inventory.id, $scope.data.location.id,
+                $scope.data.inventory_id, $scope.data.location_id,
                 $scope.data.product.id, parsed_qty, 'ask').then(function (res){
             if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                 $state.go('product', {
-                        'inventory_id': $scope.data.inventory.id,
-                        'location_id': $scope.data.location.id
+                        'inventory_id': $scope.data.inventory_id,
+                        'location_id': $scope.data.location_id
                 });
             }else {
                 if (res.state == 'duplicate'){
                     $state.go('confirm_quantity', {
-                        inventory_id: $scope.data.inventory.id,
-                        location_id: $scope.data.location.id,
+                        inventory_id: $scope.data.inventory_id,
+                        location_id: $scope.data.location_id,
                         product_id: $scope.data.product.id,
                         current_qty: res.qty,
                         new_qty: parsed_qty});

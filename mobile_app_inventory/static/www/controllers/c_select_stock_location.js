@@ -9,20 +9,19 @@ angular.module('mobile_app_inventory').controller(
         'location_filter': null,
     };
 
-    // TODO Move into stateChangeSuccess
-    StockLocationModel.get_list(false).then(function(location_list) {
-        $scope.data.location_list = location_list;
-    });
-
     $scope.$on(
-        '$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams) {
-            // Skip this screen if there is only one internal location
-            if ($scope.data.location_list.length === 1) {
-                $scope.select_location($scope.data.location_list[0]);
-            }
+            '$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams) {
+        if ($state.current.name === 'location') {
+            StockLocationModel.get_list(false).then(function(location_list) {
+                $scope.data.location_list = location_list;
+                // Skip this screen if there is only one internal location
+                if ($scope.data.location_list.length === 1) {
+                    $scope.select_location($scope.data.location_list[0]);
+                }
+            });
         }
-    );
+    });
 
     $scope.select_location = function (location) {
         $state.go('product', {
