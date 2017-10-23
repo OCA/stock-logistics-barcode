@@ -1,10 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectQuantityCtrl',
-        ['$scope', '$rootScope', '$state', '$translate',
-         'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
-        function ($scope, $rootScope, $state, $translate,
-            StockInventoryModel, StockLocationModel, ProductProductModel) {
+        ['$scope', '$state', '$translate', 'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
+        function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
         'qty': '',
