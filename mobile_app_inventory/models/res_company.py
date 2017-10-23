@@ -25,7 +25,7 @@ class ResCompany(models.Model):
         " create and prepare the inventory in the back-office")
 
     mobile_product_cache = fields.Selection(
-        string='Load Product via Mobile App',
+        string='Load Product via Mobile App', required=True,
         selection=_SELECTION_MOBILE_PRODUCT_LOAD, default='all',
         help="Select the type of cache that will be used for the mobile app"
         " regarding the products. This selection will depend on the size"

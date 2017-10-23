@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'LoadCtrl', [
-        '$q', '$scope', '$rootScope', '$state', 'ResCompanyModel', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
-        function ($q, $scope, $rootScope, $state, ResCompanyModel, ProductProductModel, StockLocationModel, StockInventoryModel, $translate) {
+        '$q', '$scope', '$state', 'ResCompanyModel', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
+        function ($q, $scope, $state, ResCompanyModel, ProductProductModel, StockLocationModel, StockInventoryModel, $translate) {
 
     $scope.data = {};
 
