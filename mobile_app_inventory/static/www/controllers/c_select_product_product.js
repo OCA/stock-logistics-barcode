@@ -11,17 +11,20 @@ angular.module('mobile_app_inventory').controller(
     };
 
     $scope.$on(
-        '$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
-        // Set Focus
-        angular.element(document.querySelector('#input_ean13'))[0].focus();
-        $scope.data.ean13 = '';
-        StockLocationModel.get_location(toParams.location_id).then(function (location) {
-            $scope.data.location = location;
-        })
-        StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
-            $scope.data.inventory = inventory;
-        });
+            '$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+        if ($state.current.name === 'product') {
+            // Set Focus
+            angular.element(document.querySelector('#input_ean13'))[0].focus();
+            $scope.data.ean13 = '';
+            StockLocationModel.get_location(parseInt(toParams.location_id, 10)).then(function (location) {
+                console.log(location);
+                $scope.data.location = location;
+            })
+            StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
+                $scope.data.inventory = inventory;
+            });
+        }
     });
 
     $scope.submit = function () {
