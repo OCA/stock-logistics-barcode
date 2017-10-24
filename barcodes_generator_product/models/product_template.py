@@ -35,6 +35,10 @@ class ProductTemplate(models.Model):
     def generate_barcode(self):
         self.product_variant_ids.generate_barcode()
 
+    @api.multi
+    def clear_barcode(self):
+        self.product_variant_ids.clear_barcode()
+
     @api.onchange('barcode_rule_id')
     def onchange_barcode_rule_id(self):
         self.generate_type = self.barcode_rule_id.generate_type

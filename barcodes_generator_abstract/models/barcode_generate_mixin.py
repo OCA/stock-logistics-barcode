@@ -71,6 +71,12 @@ class BarcodeGenerateMixin(models.AbstractModel):
                     item.barcode_rule_id.encoding)
                 item.barcode = barcode_class(custom_code)
 
+    @api.multi
+    def clear_barcode(self):
+        for item in self:
+            if item.barcode:
+                item.barcode = False
+
     # Custom Section
     @api.model
     def _get_custom_barcode(self, item):
