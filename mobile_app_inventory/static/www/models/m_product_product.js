@@ -4,14 +4,14 @@ angular.module('mobile_app_inventory').factory(
         '$q', 'jsonRpc',
         function ($q, jsonRpc) {
 
-    var product_list = null;
+    var product_list = $q.when([]);
 
     return {
         get_list: function(force, inventory_id) {
-            if (force){
+            /*if (force){
                 product_list = null;
             }
-            /*product_list = product_list || jsonRpc.call(
+            product_list = product_list || jsonRpc.call(
                     'product.product', 'mobile_inventory_load_products', [inventory_id]).then(function (res) {
                 return res;
             });*/
