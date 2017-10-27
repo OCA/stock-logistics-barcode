@@ -7,14 +7,20 @@
     </ion-header-bar>
 
     <ion-content class="has-header">
-        <form ng-submit="submit()">
+        <form ng-submit="submit(data.qty)">
             <div class="list">
                 <div class="item item-input">
-                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off" class="item-input input-required" ng-readonly="data.fixed_qty"/>
+                    <input type="tel" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off" class="item-input input-required" ng-readonly="data.fixed_qty"/>
                     <button class="button button-positive">
                         <i class="icon ion-plus-circled"></i> {{'Add' | translate}}
                     </button>
                 </div>
+
+
+                <label class="item item-input">
+                    <div class="form-label">{{'Current Location' | translate}}</div>
+                    <span class="form-field">{{data.location.name}}</span>
+                </label>
 
                 <label class="item item-input">
                     <div class="form-label">{{'Name' | translate}}</div>

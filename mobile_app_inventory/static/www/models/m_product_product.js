@@ -30,7 +30,7 @@ angular.module('mobile_app_inventory').factory(
                     {'limit': 1}
                 ).then(function (res) {
                     if (res.length == 0)
-                        return error('Product ' + ean13 + ' not found');
+                        res.records[0] = {'name': 'unkown', ean13: null}; //error('Product ' + ean13 + ' not found');
                     product_list[ean13] = res.records[0]; //set cache
                     return success(product_list[ean13]);
                 });

@@ -28,26 +28,26 @@ angular.module('mobile_app_inventory').controller(
 //                    $scope.data.mobile_inventory_create = setting;
 //                });
 
-                ProductProductModel.get_list(true, false).then(products => {
+                ProductProductModel.get_list(true, false).then(function (products) {
                     $scope.data.product_load_state = true;
                     $scope.data.product_qty = Object.keys(products).length;
                 }),
-                StockLocationModel.get_list(true).then(locations => {
+                StockLocationModel.get_list(true).then(function (locations) {
                     $scope.data.location_load_state = true;
                     $scope.data.location_qty = locations.length;
                 }),
-                StockInventoryModel.get_list(true).then(inventories => {
+                StockInventoryModel.get_list(true).then(function (inventories) {
                     $scope.data.inventory_load_state = true;
                     $scope.data.inventory_qty = inventories.length;
                 })
             ]).then(
-                () => {
+                function () {
                     // Display OK message, when all data are loaded and go to the next page
                     $scope.doneMessage = $translate.instant('Loading Done');
                     setTimeout(function(){
                         $state.go('inventory');
                     }, 1000);
-                }, () => {
+                }, function() {
                     $scope.loadingMessage = "";
                     $scope.doneMessage = "";
                     $scope.errorMessage = $translate.instant("Loading Failed");
