@@ -5,6 +5,7 @@ angular.module('mobile_app_inventory').factory(
         function ($q, jsonRpc) {
 
     var location_list = null;
+    var locations = []
 
     return {
         get_list: function(force) {
@@ -13,8 +14,9 @@ angular.module('mobile_app_inventory').factory(
             }
             location_list = location_list || jsonRpc.searchRead(
                     'stock.location', [['usage', '=', 'internal'], ['mobile_available', '=', true]], [
-                    'id', 'name', 'parent_complete_name',
+                    'id', 'name', 'parent_complete_name', 'loc_barcode',
                     ]).then(function (res) {
+                locations = res.records;
                 return res.records;
             });
             return location_list;
@@ -31,6 +33,18 @@ angular.module('mobile_app_inventory').factory(
                 });
                 return found || $q.reject('Location not found');
             });
+        },
+
+        search_location: function(barcode) {
+            var found = false;
+
+            locations.some(function(location) {
+                if (location.loc_barcode != barcode)
+                    return false;
+                found = location;
+                return;
+            });
+            return found;
         },
 
     };
