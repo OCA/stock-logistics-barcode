@@ -1,33 +1,37 @@
 "use strict";
 angular.module('mobile_app_inventory').factory(
         'StockLocationModel', [
-        '$q', '$rootScope', 'jsonRpc',
-        function ($q, $rootScope, jsonRpc) {
+        '$q', 'jsonRpc',
+        function ($q, jsonRpc) {
 
-    var locations = null;
+    var location_list = null;
+
     return {
-        get_list: function() {
-            locations = locations || jsonRpc.searchRead(
-                    'stock.location', [['usage', '=', 'internal']], [
+        get_list: function(force) {
+            if (force){
+                location_list = null;
+            }
+            location_list = location_list || jsonRpc.searchRead(
+                    'stock.location', [['usage', '=', 'internal'], ['mobile_available', '=', true]], [
                     'id', 'name', 'parent_complete_name',
                     ]).then(function (res) {
-                //$rootScope.LocationList = res.records;
-                //return res.records.length;
                 return res.records;
             });
-            return locations;
+            return location_list;
         },
+
         get_location: function(id) {
-            return this.get_list().then(function (locs) {
+            return this.get_list(false).then(function (locations) {
                 var found = false;
-                locs.some(function(l)  {
-                    if (l.id != id)
+                locations.some(function(location) {
+                    if (location.id != id)
                         return false;
-                    found = l;
+                    found = location;
                     return;
                 });
                 return found || $q.reject('Location not found');
             });
-        }
+        },
+
     };
 }]);

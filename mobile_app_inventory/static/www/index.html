@@ -46,6 +46,7 @@
         <link href="static/css/css.css" rel="stylesheet">
 
         <!-- Import Models -->
+        <script src="models/m_res_company.js"></script>
         <script src="models/m_stock_location.js"></script>
         <script src="models/m_stock_inventory.js"></script>
         <script src="models/m_product_product.js"></script>
@@ -79,19 +80,23 @@
                             <i class="icon ion-log-in"></i>{{'Log In' | translate}}
                         </ion-item>
                         <ion-item menu-close class="item-icon-left" href="#/load"
-                                ng-show="['select_stock_inventory', 'select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                                ng-show="['inventory', 'location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-refresh"></i>{{'Refresh' | translate}}
                         </ion-item>
-                        <ion-item menu-close class="item-icon-left" href="#/select_stock_inventory"
-                                ng-show="['select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                        <ion-item menu-close class="item-icon-left" href="#/inventory/"
+                                ng-show="['location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-clipboard"></i>{{'Inventories' | translate}}
                         </ion-item>
-                        <ion-item menu-close class="item-icon-left" href="#/select_stock_location"
-                                ng-show="['select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                        <!-- TODO FIXME broken. Need to href inventory/{inventory_id}/location instead
+                        - don't know where to set the ng-click
+                        - don't know if it could work. (ng-click and ion-item seems incompatible
+                        -->
+                        <ion-item menu-close class="item-icon-left" href="#/location/"
+                                ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-home"></i>{{'Locations' | translate}}
                         </ion-item>
                         <ion-item menu-close class="item-icon-left" href="#/logout"
-                                ng-show="['load', 'select_stock_inventory', 'select_stock_location', 'select_product_product', 'select_quantity', 'confirm_quantity'].indexOf(currentState) != -1">
+                                ng-show="['load', 'inventory', 'location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-log-out"></i>{{'Log Out' | translate}}
                         </ion-item>
                     </ion-list>

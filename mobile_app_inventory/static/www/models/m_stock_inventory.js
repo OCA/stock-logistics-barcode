@@ -1,51 +1,52 @@
 "use strict";
 angular.module('mobile_app_inventory').factory(
         'StockInventoryModel', [
-        '$q', '$rootScope', 'jsonRpc',
-        function ($q, $rootScope, jsonRpc) {
+        '$q', 'jsonRpc',
+        function ($q, jsonRpc) {
 
     var inventory_list = null;
 
     return {
-        get_list: function() {
-            console.log('on charge draft inventory list');
+        get_list: function(force) {
+            if (force){
+                inventory_list = null;
+            }
             inventory_list = inventory_list || jsonRpc.searchRead(
-                    'stock.inventory', [['state', '=', 'confirm']/*, ['scan_ok', '=', false]*/], [
+                    'stock.inventory', [['state', '=', 'confirm'], ['mobile_available', '=', true]], [
                     'id', 'name', 'date', 'inventory_line_qty',
                     ]).then(function (res) {
                 return res.records;
             });
             return inventory_list;
         },
-        CreateInventory: function(name) {
-            return jsonRpc.call('stock.inventory', 'create_by_scan', [name])
-        },
-        LoadInventory: function(orderId) {
-            return jsonRpc.searchRead(
-                    'stock.inventory', [['id', '=', orderId]], [
-                    'id', 'name', 'date', 'inventory_line_qty']).then(function (res) {
-                return res.records[0];
+
+        get_inventory: function(id) {
+            return this.get_list(false).then(function (inventories) {
+                var found = false;
+                inventories.some(function(inventory) {
+                    if (inventory.id != id)
+                        return false;
+                    found = inventory;
+                    return;
+                });
+                return found || $q.reject('Inventory not found');
             });
         },
-        AddInventoryLine: function(inventoryId, locationId, productId, quantity, mode) {
+
+        create_inventory: function(name) {
+            return jsonRpc.call('stock.inventory', 'mobile_create', [name]).then(function(inventory){
+                inventory_list.$$state.value.push(inventory);
+                return inventory;
+            });
+        },
+
+        add_inventory_line: function(inventory_id, location_id, product_id, quantity, mode) {
             return jsonRpc.call(
-                    'stock.inventory', 'add_inventory_line_by_scan',
-                    [inventoryId, locationId, productId, quantity, mode]).then(function (res) {
+                    'stock.inventory', 'mobile_add_inventory_line',
+                    [inventory_id, location_id, product_id, quantity, mode]).then(function (res) {
                 return res;
             });
         },
-        get_inventory: function(id) {
-            return this.get_list().then(function (invs) {
-                var found = false;
-                invs.some(function(i)  {
-                    if (i.id != id)
-                        return false;
-                    found = i;
-                    return;
-                });
-                console.log('found :' , found)
-                return found || $q.reject('Inventory not found');
-            });
-        }
+
     };
 }]);

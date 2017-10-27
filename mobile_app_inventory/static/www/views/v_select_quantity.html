@@ -3,14 +3,14 @@
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
         <h1 class="title">{{'Quantity' | translate}}</h1>
-        <a class="button icon ion-android-cancel" ui-sref="product({inventory_id: data.inventory.id, location_id: data.location.id})"></a>
+        <a class="button icon ion-android-cancel" ui-sref="product({inventory_id: data.inventory_id, location_id: data.location_id})"></a>
     </ion-header-bar>
 
     <ion-content class="has-header">
         <form ng-submit="submit()">
             <div class="list">
                 <div class="item item-input">
-                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off" class="item-input input-required"/>
+                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}" autocomplete="off" class="item-input input-required" ng-readonly="data.fixed_qty"/>
                     <button class="button button-positive">
                         <i class="icon ion-plus-circled"></i> {{'Add' | translate}}
                     </button>
@@ -21,7 +21,7 @@
                     <span class="form-field">{{data.product.name}}</span>
                 </label>
 
-                <div ng-repeat="extra_field in product">
+                <div ng-repeat="extra_field in data.product">
                     <label class="item item-input" ng-if="extra_field.field_name">
                         <div class="form-label">{{extra_field.field_name}}</div>
                         <span class="form-field">{{extra_field.value}}</span>

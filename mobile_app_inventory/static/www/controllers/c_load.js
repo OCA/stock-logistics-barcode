@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'LoadCtrl', [
-        '$q', '$scope', '$rootScope', '$state', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
-        function ($q, $scope, $rootScope, $state, ProductProductModel, StockLocationModel, StockInventoryModel, $translate) {
+        '$q', '$scope', '$state', 'ResCompanyModel', 'ProductProductModel', 'StockLocationModel', 'StockInventoryModel', '$translate',
+        function ($q, $scope, $state, ResCompanyModel, ProductProductModel, StockLocationModel, StockInventoryModel, $translate) {
 
     $scope.data = {};
 
@@ -23,16 +23,20 @@ angular.module('mobile_app_inventory').controller(
             window.products = ProductProductModel;
 
             $q.all([
-                ProductProductModel.LoadProductList().then( qty => {
+                // TODO  call product get_list, only if 
+//                ResCompanyModel.get_setting('mobile_product_cache').then(function (setting) {
+//                    $scope.data.mobile_inventory_create = setting;
+//                });
+
+                ProductProductModel.get_list(true, false).then(products => {
                     $scope.data.product_load_state = true;
-                    $scope.data.product_qty = qty;
+                    $scope.data.product_qty = Object.keys(products).length;
                 }),
-                StockLocationModel.get_list().then(locations => {
-                    console.log('dans refresh stock location', locations);
+                StockLocationModel.get_list(true).then(locations => {
                     $scope.data.location_load_state = true;
                     $scope.data.location_qty = locations.length;
                 }),
-                StockInventoryModel.get_list().then(inventories => {
+                StockInventoryModel.get_list(true).then(inventories => {
                     $scope.data.inventory_load_state = true;
                     $scope.data.inventory_qty = inventories.length;
                 })

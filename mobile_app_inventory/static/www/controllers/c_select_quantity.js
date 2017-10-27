@@ -1,33 +1,34 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectQuantityCtrl',
-        ['$scope', '$rootScope', '$state', '$translate',
-         'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
-        function ($scope, $rootScope, $state, $translate,
-            StockInventoryModel, StockLocationModel, ProductProductModel) {
+        ['$scope', '$state', '$translate', 'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
+        function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
 
     $scope.data = {
+        'inventory_id': false,
+        'location_id': false,
+        'fixed_qty': false,
         'qty': '',
         'product': '',
-        'location': '',
     };
 
     $scope.$on(
-        '$stateChangeSuccess',
-        function(event, toState, toParams, fromState, fromParams){
-        StockLocationModel.get_location(toParams.location_id).then(function (location) {
-            $scope.data.location = location;
-        })
-        StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
-            $scope.data.inventory = inventory;
-        });
-        ProductProductModel.get_product(toParams.ean13).then(function(product) {
-            $scope.data.product = product;
-        });
-        angular.element(document.querySelector('#input_quantity'))[0].focus();
-        $scope.data.qty = '';
-        console.log($scope);
-        // Get Product Data
+            '$stateChangeSuccess',
+            function(event, toState, toParams, fromState, fromParams){
+        if ($state.current.name === 'product_ean13') {
+            $scope.data.inventory_id = parseInt(toParams.inventory_id, 10);
+            $scope.data.location_id = parseInt(toParams.location_id, 10);
+            $scope.data.fixed_qty = false;
+            ProductProductModel.get_product(toParams.ean13).then(function(product) {
+                if (product['barcode_qty'] !== undefined) {
+                    $scope.data.fixed_qty = true;
+                    $scope.data.qty = parseFloat(product['barcode_qty']);
+                }
+                $scope.data.product = product;
+            });
+            angular.element(document.querySelector('#input_quantity'))[0].focus();
+            $scope.data.qty = '';
+        }
     });
 
     $scope.submit = function () {
@@ -44,20 +45,20 @@ angular.module('mobile_app_inventory').controller(
             return;
         }
 
-        StockInventoryModel.AddInventoryLine(
-                $scope.data.inventory.id,
-                $scope.data.location.id,
-                $scope.data.product.id,
-                parsed_qty, 'ask').then(function (res){
+        StockInventoryModel.add_inventory_line(
+                $scope.data.inventory_id, $scope.data.location_id,
+                $scope.data.product.id, parsed_qty, 'ask').then(function (res){
             if (res.state == 'write_ok'){
                 angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
                 $state.go('product', {
-                        'inventory_id': $scope.data.inventory.id,
-                        'location_id': $scope.data.location.id
+                        'inventory_id': $scope.data.inventory_id,
+                        'location_id': $scope.data.location_id
                 });
             }else {
                 if (res.state == 'duplicate'){
                     $state.go('confirm_quantity', {
+                        inventory_id: $scope.data.inventory_id,
+                        location_id: $scope.data.location_id,
                         product_id: $scope.data.product.id,
                         current_qty: res.qty,
                         new_qty: parsed_qty});

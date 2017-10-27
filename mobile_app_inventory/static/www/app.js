@@ -1,6 +1,6 @@
 "use strict";
 // angular.module is a global place for creating, registering and retrieving Angular modules
-// 'scan_to_purchase' is the name of this angular module example (also set in a <body> attribute in index.html)
+// 'mobile_app_inventory' is the name of this angular module example (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module(
         'mobile_app_inventory', [
@@ -65,13 +65,13 @@ angular.module(
             templateUrl: 'views/v_select_product_product.html',
             controller: 'SelectProductProductCtrl'
     }).state(
-        'product-ean13', {
+        'product_ean13', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/product/:ean13',
             templateUrl: 'views/v_select_quantity.html',
             controller: 'SelectQuantityCtrl'
     }).state(
         'confirm_quantity', {
-            url: '/confirm_quantity/:product_id:current_qty:new_qty',
+            url: '/inventory/{inventory_id:int}/location/{location_id:int}/product/:product_id/confirm_quantity/:current_qty/:new_qty',
             templateUrl: 'views/v_confirm_quantity.html',
             controller: 'ConfirmQuantityCtrl'
     });
@@ -97,7 +97,6 @@ angular.module(
             '$stateChangeSuccess',
             function(evt, toState, toParams, fromState, fromParams) {
                 $rootScope.currentState = toState.name;
-                console.log('app ctrl stateChangeSuccess', evt, toState)
             }
         );
     }

@@ -3,27 +3,30 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.osv import fields
-from openerp.osv.orm import Model
+from openerp import api, fields, models
 
 
-class StockLocation(Model):
+class StockLocation(models.Model):
     _inherit = 'stock.location'
 
-    # Compute Section
-    def compute_parent_complete_name(
-            self, cr, uid, ids, name, args, context=None):
-        res = {}
-        for location in self.browse(cr, uid, ids, context=context):
-            if location.location_id:
-                res[location.id] = location.location_id.complete_name
-            else:
-                res[location.id] = ''
-        return res
-
     # Columns Section
-    _columns = {
-        'parent_complete_name': fields.function(
-            compute_parent_complete_name, string='Parent Complete Name',
-            type='char'),
-    }
+    parent_complete_name = fields.Char(
+        compute='_compute_parent_complete_name', string='Parent Complete Name')
+
+    mobile_available = fields.Boolean(
+        string='Available for Mobile', default=True,
+        help="Check this box if you want to make this location visible"
+        " in the Mobile App")
+
+    # Compute Section
+    @api.depends('name', 'location_id')
+    def _compute_parent_complete_name(self):
+        for location in self:
+            location.parent_complete_name =\
+                location.location_id and\
+                location.location_id.complete_name or ''
+
+    # Onchange Section
+    @api.onchange('usage')
+    def onchange_location_type(self):
+        self.mobile_available = self.usage == 'internal'
