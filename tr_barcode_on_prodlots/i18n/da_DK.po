@@ -1,0 +1,75 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# * tr_barcode_on_prodlots
+# 
+# Translators:
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-barcode (7.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-09-02 14:27+0000\n"
+"PO-Revision-Date: 2015-09-03 12:46+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: Danish (Denmark) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-7-0/language/da_DK/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: da_DK\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: tr_barcode_on_prodlots
+#: model:ir.model,name:tr_barcode_on_prodlots.model_tr_barcode_settings
+msgid "tr.barcode.settings"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_width:0
+msgid "Width"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: help:tr.barcode.settings,prodlot_hr_form:0
+msgid "To generate Barcode In Human readable form"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_config_id:0
+msgid "Production lot Config"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_height:0
+msgid "Height"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_barcode_type:0
+#: field:tr.barcode.settings,prodlot_field_id:0
+msgid "Field"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: model:ir.model,name:tr_barcode_on_prodlots.model_stock_production_lot
+msgid "Serial Number"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_hr_form:0
+msgid "Human Readable"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: view:tr.barcode.settings:0
+msgid "Production lots"
+msgstr ""
+
+#. module: tr_barcode_on_prodlots
+#: field:tr.barcode.settings,prodlot_model_id:0
+msgid "Model"
+msgstr "Model"
+
+#. module: tr_barcode_on_prodlots
+#: help:tr.barcode.settings,prodlot_height:0
+#: help:tr.barcode.settings,prodlot_width:0
+msgid "Leave Blank or 0(ZERO) for default size"
+msgstr ""
