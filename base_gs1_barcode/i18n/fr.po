@@ -4,13 +4,14 @@
 # 
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
+# guillaume bauer <guillaume.bauer@syentys.com>, 2017
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-07-07 15:18+0000\n"
 "PO-Revision-Date: 2017-07-07 15:18+0000\n"
-"Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
+"Last-Translator: guillaume bauer <guillaume.bauer@syentys.com>, 2017\n"
 "Language-Team: French (https://www.transifex.com/oca/teams/23907/fr/)\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -26,32 +27,32 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
 msgid "Additional Product Identification"
-msgstr ""
+msgstr "Identifiant supplémentaire du produit"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
 msgid "Amount payable (local currency)"
-msgstr ""
+msgstr "Montant payable (Monnaie locale)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
 msgid "Amount payable (with ISO currency code)"
-msgstr ""
+msgstr "Montant payable (avec code ISO de devise)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM
 msgid "Amount payable per single item (local currency)"
-msgstr ""
+msgstr "Montant payable au détail (monnaie locale)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM_CURRENCY
 msgid "Amount payable per single item (with ISO currency code)"
-msgstr ""
+msgstr "Montant payable au détail (avec code ISO de devise)"
 
 #. module: base_gs1_barcode
 #: selection:gs1_barcode,type:0
 msgid "Any character string"
-msgstr ""
+msgstr "Toute chaîne de caractère"
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_ai
@@ -66,62 +67,62 @@ msgstr "Identifiant d'Application"
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.LOT
 msgid "Batch/Lot Number"
-msgstr ""
+msgstr "Numéro de Lot/Ensemble"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.INVOICE_LOCATION
 msgid "Bill To/Invoice Location Code (Global Location Number)"
-msgstr ""
+msgstr "Facturer/Code lieu de facturation (Numéro global d'emplacement)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.BILL_OF_LADING
 msgid "Bill of Lading number"
-msgstr ""
+msgstr "Bon de chargement"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONSIGNMENT
 msgid "Consignment Number"
-msgstr ""
+msgstr "Numéro de consignation"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_FT2
 msgid "Container Area (Square Feet)"
-msgstr ""
+msgstr "Surface du conteneur (Pieds carré)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_IN2
 msgid "Container Area (Square Inches)"
-msgstr ""
+msgstr "Surface du conteneur (Pouces carré)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA
 msgid "Container Area (Square Meters)"
-msgstr ""
+msgstr "Surface du conteneur (Mètre carré)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_SQUARE_YD
 msgid "Container Area (Square Yards)"
-msgstr ""
+msgstr "Surface du conteneur (Yard carré)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH
 msgid "Container Depth/Thickness/3rd Dimension (Meters)"
-msgstr ""
+msgstr "Conteneur Profondeur/Epaisseur/ Tridimensionnel (Mètres)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_FT
 msgid "Container Depth/Thickness/Height/3rd Dimension, in feet"
-msgstr ""
+msgstr "Conteneur Profondeur/Epaisseur/ Tridimensionnel (Pieds)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_IN
 msgid "Container Depth/Thickness/Height/3rd Dimension, in inches"
-msgstr ""
+msgstr "Conteneur Profondeur/Epaisseur/ Tridimensionnel (Pouces)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_YD
 msgid "Container Depth/Thickness/Height/3rd Dimension, in yards"
-msgstr ""
+msgstr "Conteneur Profondeur/Epaisseur/ Tridimensionnel (Yard)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_FT3
