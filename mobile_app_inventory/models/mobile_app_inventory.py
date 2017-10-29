@@ -32,39 +32,63 @@ class MobileAppInventory(models.Model):
             self._export_inventory(inventory) for inventory in inventories]
 
     @api.model
-    def get_locations(self, args):
+    def get_locations(self, params):
         """ Return locations of a given inventory, or all locations available
         to realize an inventory, if inventory is not defined.
-        :param args: {'inventory': inventory_vals}
+        :param params: {'inventory': inventory_1_vals}
         :return: [location_1_vals, location_2_vals, ...]
         .. seealso::
             _export_inventory() for inventory vals details
             _export_location() for location vals details
         """
         location_obj = self.env['stock.location']
-        inventory_id = self._get_arg(args, 'inventory_id')
+        inventory_id = self._extract_param(params, 'inventory.id')
         locations = location_obj.search(
             self._get_location_domain(inventory_id))
         return [
             self._export_location(location) for location in locations]
 
     @api.model
-    def get_products(self, args):
+    def get_inventory_lines(self, params):
         """ Return products of a given inventory. (products defined in all
         inventory lines of an inventory
-        :param args: {'inventory': inventory_vals}
+        :param params: {'inventory': inventory_vals}
         :return: [product_1_vals, product_2_vals, ...]
         .. seealso::
             _export_inventory() for inventory vals details
             _export_product() for product vals details
         """
         inventory_obj = self.env['stock.inventory']
-        inventory_id = self._get_arg(args, 'inventory')
+        inventory_id = self._extract_param(params, 'inventory.id')
         inventories = inventory_obj.browse(inventory_id)
         products = inventories.mapped('line_ids.product_id')
         # TODO : expected_qty, custom_fields
         return [
             self._export_product(product) for product in products]
+
+    @api.model
+    def search_barcode(self, params):
+        """Realize a product, if found, given a barcode.
+        :param params: {'barcode': string, 'location': location_vals}
+        :return: product_1_vals
+        .. seealso::
+            _export_location() for location vals details
+            _export_product() for product vals details
+        """
+        product_obj = self.env['product.product']
+        product = self.search([('ean13', '=', barcode)])
+        barcode_qty = 0
+        if not product:
+            product, barcode_qty = self.guess_product_qty(barcode)
+#        if not product:
+#            return False
+#        res = product[0]._mobile_inventory_load_product()
+#        res[0]['barcode_qty'] = qty
+#        return res
+
+
+
+
 
     # Domain Section
     @api.model
@@ -72,7 +96,7 @@ class MobileAppInventory(models.Model):
         return [('state', '=', 'confirm'), ('mobile_available', '=', True)]
 
     @api.model
-    def _get_location_domain(self, inventory_id):
+    def _get_location_domain(self, inventory_id=False):
         inventory_obj = self.env['stock.inventory']
         domain = [('usage', '=', 'internal'), ('mobile_available', '=', True)]
         if inventory_id:
@@ -114,10 +138,10 @@ class MobileAppInventory(models.Model):
 
     # Custom Section
     @api.model
-    def _get_arg(self, args, obj_name):
-        if not type(args) is dict:
+    def _extract_param(self, params, value_path):
+        if not type(params) is dict:
             return False
-        obj = args.get(obj_name, False)
+        obj = params.get(obj_name, False)
         if not obj:
             return False
         return obj.get('id', False)
