@@ -35,7 +35,7 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.submit = function () {
         jsonRpc.login($scope.data.db, $scope.data.login, $scope.data.password).then(function (user) {
-            jsonRpc.call('res.users', 'check_group', ['stock.group_stock_user']).then(function (res) {
+            jsonRpc.call('mobile.app.inventory', 'check_group', ['stock.group_stock_user']).then(function (res) {
                 if (res){
                     $scope.errorMessage = "";
                     $state.go('inventory');

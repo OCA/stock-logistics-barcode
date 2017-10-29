@@ -35,10 +35,10 @@ class ResCompany(models.Model):
         " inventory will be loaded\n"
         " * All : Will cache after logging, all the products with barcodes\n")
 
-    @api.model
-    def mobile_get_settings(self):
-        company = self.env.user.company_id
-        return {
-            'mobile_inventory_create': company.mobile_inventory_create,
-            'mobile_product_cache': company.mobile_product_cache,
-        }
+#    @api.model
+#    def mobile_get_settings(self):
+#        company = self.env.user.company_id
+#        return {
+#            'mobile_inventory_create': company.mobile_inventory_create,
+#            'mobile_product_cache': company.mobile_product_cache,
+#        }
