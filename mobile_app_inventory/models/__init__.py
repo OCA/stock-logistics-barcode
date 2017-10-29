@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # To remove at the end of the refactoring
-from . import res_users
+#from . import res_users
 from . import stock_inventory
 from . import stock_location
 from . import product_product

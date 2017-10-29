@@ -4,8 +4,4 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from . import test
-
-fast_suite = [
-    test,
-]
+from . import test_mobile_app_inventory

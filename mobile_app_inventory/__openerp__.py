@@ -14,6 +14,7 @@
         'stock',
     ],
     'data': [
+        'security/ir.model.access.csv',
         'views/view_stock_inventory.xml',
         'views/view_stock_location.xml',
         'views/view_res_company.xml',

@@ -32,16 +32,23 @@ angular.module('mobile_app_inventory').factory(
         },
 
         create_inventory: function(name) {
-            return jsonRpc.call('stock.inventory', 'mobile_create', [name]).then(function(inventory){
+            var vals = {'inventory': {'name': name}}
+            return jsonRpc.call('mobile.app.inventory', 'create_inventory', [vals]).then(function(inventory){
                 inventory_list.$$state.value.push(inventory);
                 return inventory;
             });
         },
 
         add_inventory_line: function(inventory_id, location_id, product_id, quantity, mode) {
+            var vals = {
+                'inventory': {'id': inventory_id},
+                'location': {'id': location_id},
+                'product': {'id': product_id},
+                'qty': quantity,
+                'mode': mode,
+            }
             return jsonRpc.call(
-                    'stock.inventory', 'mobile_add_inventory_line',
-                    [inventory_id, location_id, product_id, quantity, mode]).then(function (res) {
+                    'mobile.app.inventory', 'add_inventory_line', [vals]).then(function (res) {
                 return res;
             });
         },
