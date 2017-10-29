@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'ConfirmQuantityCtrl',
-        ['$scope', '$state', 'StockInventoryModel', '$translate',
-        function ($scope, $state, StockInventoryModel, $translate) {
+        ['$scope', '$state', 'InventoryModel', '$translate',
+        function ($scope, $state, InventoryModel, $translate) {
 
     $scope.data = {
         'inventory_id': false,
@@ -28,7 +28,7 @@ angular.module('mobile_app_inventory').controller(
     });
 
     $scope._set_quantity = function(mode) {
-        StockInventoryModel.add_inventory_line(
+        InventoryModel.add_inventory_line(
                  $scope.data.inventory_id, $scope.data.location_id,
                 $scope.data.product_id, $scope.data.new_qty, mode).then(function (res){
             if (res.state == 'write_ok'){

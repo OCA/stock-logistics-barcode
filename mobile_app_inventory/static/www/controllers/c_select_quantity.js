@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectQuantityCtrl',
-        ['$scope', '$state', '$translate', 'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
-        function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
+        ['$scope', '$state', '$translate', 'InventoryModel', 'LocationModel', 'ProductProductModel',
+        function ($scope, $state, $translate, InventoryModel, LocationModel, ProductProductModel) {
 
     $scope.data = {
         'inventory': false,
@@ -16,10 +16,10 @@ angular.module('mobile_app_inventory').controller(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'product_ean13') {
-            StockInventoryModel.get_inventory(parseInt(toParams.inventory_id, 10)).then(function (inventory) {
+            InventoryModel.get_inventory(parseInt(toParams.inventory_id, 10)).then(function (inventory) {
                 $scope.data.inventory = inventory;
             });
-            StockLocationModel.get_location(parseInt(toParams.location_id, 10)).then(function (location) {
+            LocationModel.get_location(parseInt(toParams.location_id, 10)).then(function (location) {
                 $scope.data.location = location;
             });
             $scope.data.fixed_qty = false;
@@ -49,7 +49,7 @@ angular.module('mobile_app_inventory').controller(
             return;
         }
 
-        StockInventoryModel.add_inventory_line(
+        InventoryModel.add_inventory_line(
                 $scope.data.inventory.id, $scope.data.location.id,
                 $scope.data.product.id, parsed_qty, 'ask').then(function (res){
             if (res.state == 'write_ok'){

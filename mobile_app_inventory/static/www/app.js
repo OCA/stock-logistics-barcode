@@ -32,28 +32,28 @@ angular.module(
     .state(
         'login', {
             url: '/login',
-            templateUrl: 'views/v_login.html',
+            templateUrl: 'views/login.html',
             controller: 'LoginCtrl'
     }).state(
         'logout', {
             url: '/logout',
-            templateUrl: 'views/v_login.html',
+            templateUrl: 'views/login.html',
             controller: 'LoginCtrl'
     }).state(
         'credit', {
             url: '/credit',
-            templateUrl: 'views/v_credit.html',
+            templateUrl: 'views/credit.html',
             controller: 'CreditCtrl'
     }).state(
         'inventory', {
             url: '/inventory/',
-            templateUrl: 'views/v_select_stock_inventory.html',
-            controller: 'SelectStockInventoryCtrl'
+            templateUrl: 'views/select_inventory.html',
+            controller: 'SelectInventoryCtrl'
     }).state(
         'location', {
             url: '/inventory/{inventory_id:int}/',
-            templateUrl: 'views/v_select_stock_location.html',
-            controller: 'SelectStockLocationCtrl'
+            templateUrl: 'views/select_location.html',
+            controller: 'SelectLocationCtrl'
     }).state(
         'product', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/',

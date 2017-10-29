@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
-        'SelectStockInventoryCtrl', [
-        '$scope', '$state', 'SettingModel', 'StockInventoryModel', 'ProductProductModel', '$translate',
-        function ($scope, $state, SettingModel, StockInventoryModel, ProductProductModel, $translate) {
+        'SelectInventoryCtrl', [
+        '$scope', '$state', 'SettingModel', 'InventoryModel', 'ProductProductModel', '$translate',
+        function ($scope, $state, SettingModel, InventoryModel, ProductProductModel, $translate) {
 
     $scope.data = {
         'inventory_list': [],
@@ -14,7 +14,7 @@ angular.module('mobile_app_inventory').controller(
             function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'inventory') {
             $scope.data.inventory_name = '';
-            StockInventoryModel.get_list(false).then(function (inventory_list) {
+            InventoryModel.get_list(false).then(function (inventory_list) {
                 $scope.data.inventory_list = inventory_list;
             });
             SettingModel.get_setting('inventory_create').then(function (setting) {
@@ -25,7 +25,7 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.submit = function () {
         if ($scope.data.inventory_name !== '') {
-            StockInventoryModel.create_inventory($scope.data.inventory_name).then(function(inventory){
+            InventoryModel.create_inventory($scope.data.inventory_name).then(function(inventory){
                 $scope.select_inventory(inventory.id);
             });
         } else {
