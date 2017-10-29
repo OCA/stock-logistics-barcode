@@ -11,11 +11,9 @@ angular.module('mobile_app_inventory').factory(
             if (force){
                 inventory_list = null;
             }
-            inventory_list = inventory_list || jsonRpc.searchRead(
-                    'stock.inventory', [['state', '=', 'confirm'], ['mobile_available', '=', true]], [
-                    'id', 'name', 'date', 'inventory_line_qty',
-                    ]).then(function (res) {
-                return res.records;
+            inventory_list = inventory_list || jsonRpc.call(
+                    'mobile.app.inventory', 'get_inventories', []).then(function (res) {
+                return res;
             });
             return inventory_list;
         },

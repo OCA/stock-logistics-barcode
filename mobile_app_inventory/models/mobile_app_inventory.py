@@ -86,10 +86,6 @@ class MobileAppInventory(models.Model):
 #        res[0]['barcode_qty'] = qty
 #        return res
 
-
-
-
-
     # Domain Section
     @api.model
     def _get_inventory_domain(self):
@@ -109,6 +105,7 @@ class MobileAppInventory(models.Model):
     def _export_inventory(self, inventory):
         return {
             'id': inventory.id,
+            'date': inventory.date,
             'name': inventory.name,
             'location': self._export_location(inventory.location_id),
         }
