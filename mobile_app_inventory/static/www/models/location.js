@@ -8,12 +8,13 @@ angular.module('mobile_app_inventory').factory(
     var locations = []
 
     return {
-        get_list: function(inventory, force) {
+        get_list: function(force) {
             if (force){
                 location_list = null;
             }
+            var vals = {'inventory': false};
             location_list = location_list || jsonRpc.call(
-                    'mobile.app.inventory', 'get_locations', [inventory]).then(function (res) {
+                    'mobile.app.inventory', 'get_locations', [vals]).then(function (res) {
                 return res;
             });
             return location_list;
