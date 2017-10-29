@@ -38,7 +38,7 @@ angular.module('mobile_app_inventory').controller(
             jsonRpc.call('res.users', 'check_group', ['stock.group_stock_user']).then(function (res) {
                 if (res){
                     $scope.errorMessage = "";
-                    $state.go('load');
+                    $state.go('inventory');
                 }
                 else{
                     $scope.errorMessage = $translate.instant("Insufficient Acces Right: you should be member of 'Warehouse / user' group.");

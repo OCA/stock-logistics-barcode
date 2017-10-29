@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectStockInventoryCtrl', [
-        '$scope', '$state', 'ResCompanyModel', 'StockInventoryModel', 'ProductProductModel', '$translate',
-        function ($scope, $state, ResCompanyModel, StockInventoryModel, ProductProductModel, $translate) {
+        '$scope', '$state', 'SettingModel', 'StockInventoryModel', 'ProductProductModel', '$translate',
+        function ($scope, $state, SettingModel, StockInventoryModel, ProductProductModel, $translate) {
 
     $scope.data = {
         'inventory_list': [],
@@ -17,7 +17,7 @@ angular.module('mobile_app_inventory').controller(
             StockInventoryModel.get_list(false).then(function (inventory_list) {
                 $scope.data.inventory_list = inventory_list;
             });
-            ResCompanyModel.get_setting('mobile_inventory_create').then(function (setting) {
+            SettingModel.get_setting('inventory_create').then(function (setting) {
                 $scope.data.mobile_inventory_create = setting;
             });
         }
@@ -34,7 +34,7 @@ angular.module('mobile_app_inventory').controller(
     };
 
     $scope.select_inventory = function (inventory_id) {
-        ResCompanyModel.get_setting('mobile_product_cache').then(function (setting) {
+        SettingModel.get_setting('mobile_product_cache').then(function (setting) {
             if (setting == 'inventory'){
                 // Cache products of the inventory lines
                 ProductProductModel.get_list(true, inventory_id).then(function(product_list) {

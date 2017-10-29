@@ -1,6 +1,7 @@
+
 "use strict";
 angular.module('mobile_app_inventory').factory(
-        'ResCompanyModel', [
+        'SettingModel', [
         '$q', 'jsonRpc',
         function ($q, jsonRpc) {
 
@@ -12,7 +13,7 @@ angular.module('mobile_app_inventory').factory(
                 setting_list = null;
             }
             setting_list = setting_list || jsonRpc.call(
-                    'res.company', 'mobile_get_settings', []).then(function (res) {
+                    'mobile.app.inventory', 'get_settings', []).then(function (res) {
                 return res;
             });
             return setting_list;
