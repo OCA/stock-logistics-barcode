@@ -1,10 +1,10 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'SelectProductProductCtrl', [
-        '$scope', '$state', '$translate', 'StockInventoryModel', 'StockLocationModel', 'ProductProductModel',
-        function ($scope, $state, $translate, StockInventoryModel, StockLocationModel, ProductProductModel) {
+        '$scope', '$state', '$translate', 'InventoryModel', 'LocationModel', 'ProductProductModel',
+        function ($scope, $state, $translate, InventoryModel, LocationModel, ProductProductModel) {
 
-    fsm.set_service(StockInventoryModel);
+    fsm.set_service(InventoryModel);
     $scope.data = fsm.get_data();
     $scope.input = {};
 
@@ -15,12 +15,12 @@ angular.module('mobile_app_inventory').controller(
             // Set Focus
             angular.element(document.querySelector('#input_ean13'))[0].focus();
             $scope.data.ean13 = '';
-            StockLocationModel.get_location(parseInt(toParams.location_id, 10)).then(function (location) {
+            LocationModel.get_location(parseInt(toParams.location_id, 10)).then(function (location) {
                 console.log(location);
                 $scope.data.location = location;
                 fsm.set_location(location);
             })
-            StockInventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
+            InventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
                 $scope.data.inventory = inventory;
                 fsm.set_inventory(inventory);
             });
@@ -37,7 +37,7 @@ angular.module('mobile_app_inventory').controller(
 
         function get_location(input) {
             console.log('get location', input);
-            return StockLocationModel.search_location(input);
+            return LocationModel.search_location(input);
         }
         function get_product(input) {
             console.log('get product', input);
@@ -67,7 +67,7 @@ angular.module('mobile_app_inventory').controller(
         console.log(fsm.get_data());
         $scope.input = {};
         return;
-        return StockLocationModel.search_location($scope.data.ean13).then(
+        return LocationModel.search_location($scope.data.ean13).then(
             function (location) {
                 console.log('on a scanné un emplacement !');
                 $scope.data.location = location;

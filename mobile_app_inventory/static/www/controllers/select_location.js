@@ -1,9 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
-        'SelectStockLocationCtrl', [
-        '$scope', '$filter', '$state', '$stateParams',
-        'StockLocationModel',
-        function ($scope, $filter, $state, $stateParams, StockLocationModel) {
+        'SelectLocationCtrl', [
+        '$scope', '$filter', '$state', '$stateParams','LocationModel',
+        function ($scope, $filter, $state, $stateParams, LocationModel) {
     $scope.data = {
         'location_list': [],
         'location_filter': null,
@@ -13,7 +12,7 @@ angular.module('mobile_app_inventory').controller(
             '$stateChangeSuccess',
             function(event, toState, toParams, fromState, fromParams) {
         if ($state.current.name === 'location') {
-            StockLocationModel.get_list(false).then(function(location_list) {
+            LocationModel.get_list(false).then(function(location_list) {
                 $scope.data.location_list = location_list;
                 // Skip this screen if there is only one internal location
                 if ($scope.data.location_list.length === 1) {

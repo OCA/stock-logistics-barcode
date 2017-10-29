@@ -1,6 +1,6 @@
 "use strict";
 angular.module('mobile_app_inventory').factory(
-        'StockLocationModel', [
+        'LocationModel', [
         '$q', 'jsonRpc',
         function ($q, jsonRpc) {
 
