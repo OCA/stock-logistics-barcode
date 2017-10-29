@@ -45,11 +45,6 @@ angular.module(
             templateUrl: 'views/v_credit.html',
             controller: 'CreditCtrl'
     }).state(
-        'load', {
-            url: '/load',
-            templateUrl: 'views/v_load.html',
-            controller: 'LoadCtrl'
-    }).state(
         'inventory', {
             url: '/inventory/',
             templateUrl: 'views/v_select_stock_inventory.html',
