@@ -4,7 +4,6 @@ angular.module('mobile_app_inventory').controller(
     '$scope', '$state', '$q', '$timeout', '$translate','scan_state', 'InventoryModel', 'LocationModel', 'ProductModel',
     function ($scope, $state, $q, $timeout, $translate, scan_state, InventoryModel, LocationModel, ProductModel) {
 
-    $scope.placeholder = "Barcode of product or location"
     scan_state.set_callback(function (data) {
         //called when a product has been sent 
         return InventoryModel.add_inventory_line(
