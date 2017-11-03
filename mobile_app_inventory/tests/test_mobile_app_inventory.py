@@ -11,7 +11,6 @@ class TestMobileAppInventory(common.TransactionCase):
 
     def setUp(self):
         super(TestMobileAppInventory, self).setUp()
-        cr, uid = self.cr, self.uid
         self.chips_barcode = '5400313040109'
 
         self.app_obj = self.env['mobile.app.inventory']

@@ -15,7 +15,6 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
                 <page string="Inventory Mobile App">
                     <group string="General Settings">
                         <field name="mobile_inventory_create"/>
-                        <field name="mobile_product_cache"/>
                     </group>
                     <group string="Display Fields">
                         <field name="mobile_inventory_product_field_ids" colspan="4" nolabel="1"/>
