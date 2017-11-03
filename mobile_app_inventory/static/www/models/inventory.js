@@ -4,22 +4,17 @@ angular.module('mobile_app_inventory').factory(
         '$q', 'jsonRpc',
         function ($q, jsonRpc) {
 
-    var inventory_list = null;
-
     return {
-        get_list: function(force) {
-            if (force){
-                inventory_list = null;
-            }
-            inventory_list = inventory_list || jsonRpc.call(
+        get_list: function() {
+            //always a fresh list
+            return jsonRpc.call(
                     'mobile.app.inventory', 'get_inventories', []).then(function (res) {
                 return res;
             });
-            return inventory_list;
         },
 
         get_inventory: function(id) {
-            return this.get_list(false).then(function (inventories) {
+            return this.get_list().then(function (inventories) {
                 var found = false;
                 inventories.some(function(inventory) {
                     if (inventory.id != id)
@@ -34,16 +29,15 @@ angular.module('mobile_app_inventory').factory(
         create_inventory: function(name) {
             var vals = {'inventory': {'name': name}}
             return jsonRpc.call('mobile.app.inventory', 'create_inventory', [vals]).then(function(inventory){
-                inventory_list.$$state.value.push(inventory);
                 return inventory;
             });
         },
 
-        add_inventory_line: function(inventory_id, location_id, product_id, quantity, mode) {
+        add_inventory_line: function(inventory, location, product, quantity, mode) {
             var vals = {
-                'inventory': {'id': inventory_id},
-                'location': {'id': location_id},
-                'product': {'id': product_id},
+                'inventory': {'id': inventory.id},
+                'location': {'id': location.id},
+                'product': {'id': product.id, 'barcode': product.barcode},
                 'qty': quantity,
                 'mode': mode,
             }

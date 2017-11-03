@@ -136,3 +136,43 @@ class TestMobileAppInventory(common.TransactionCase):
         self.assertEqual(
             line.product_qty, 100,
             "Quantity for duplicate lines should be added in add mode")
+
+    def test_04_get_inventories_after_creation(self):
+        """It should return updated list of available inventories"""
+
+        data_1 = self.app_obj.get_inventories()
+        self.app_obj.create_inventory(
+            {'inventory': {'name': 'Test'}})
+        data_2 = self.app_obj.get_inventories()
+        self.assertEqual(
+            len(data_1), len(data_2) - 1,
+            "created inventories should be available")
+
+    def test_05_child_of_location(self):
+        """It should only return child of location."""
+        inventory = self.app_obj.create_inventory(
+            {'inventory': {'name': 'Test'}})
+
+        list_full = self.app_obj.get_locations({})
+        list_sub = self.app_obj.get_locations(
+            {'inventory': {'id': inventory['id']}})
+        self.assertTrue(len(list_full) > len(list_sub))
+
+    def test_06_unkown_products(self):
+        """It should accept unkown products (without id)."""
+        inventory = self.app_obj.create_inventory(
+            {'inventory': {'name': 'Test'}})
+
+        # Create new inventory Line
+        try:
+            self.app_obj.add_inventory_line({
+                'inventory': {'id': inventory['id']},
+                'location': {'id': self.stock_location.id},
+                'product': {'id': None, 'barcode': '0012345678905'},
+                'qty': 3,
+                'mode': 'ask',
+            })
+            self.assertTrue(True)
+        except Exception:
+            self.assertTrue(False)
+        # it should not raise exception

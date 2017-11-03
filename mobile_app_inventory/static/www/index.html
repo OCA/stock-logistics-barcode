@@ -49,17 +49,16 @@
         <script src="models/setting.js"></script>
         <script src="models/location.js"></script>
         <script src="models/inventory.js"></script>
-        <script src="models/m_product_product.js"></script>
+        <script src="models/products.js"></script>
+        <script src="models/scan_state.js"></script>
 
         <!-- Import Controllers -->
         <script src="controllers/login.js"></script>
         <script src="controllers/credit.js"></script>
-        <script src="controllers/select_inventory.js"></script>
-        <script src="controllers/select_location.js"></script>
-        <script src="controllers/c_select_product_product.js"></script>
-        <script src="controllers/c_select_quantity.js"></script>
-        <script src="controllers/c_confirm_quantity.js"></script>
-        <script src="models/fsm.js"></script>
+        <script src="controllers/inventory.js"></script>
+        <script src="controllers/location.js"></script>
+        <script src="controllers/main_scan.js"></script>
+        <script src="controllers/confirm_quantity.js"></script>
     </head>
 
     <body ng-app="mobile_app_inventory">
@@ -79,18 +78,17 @@
                                 ng-show="['credit'].indexOf(currentState) != -1">
                             <i class="icon ion-log-in"></i>{{'Log In' | translate}}
                         </ion-item>
+
+                        <ion-item menu-close class="item-icon-left" ui-sref="location({inventory_id:params.inventory_id})"
+                                ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-home"></i>{{'Locations' | translate}}
+                        </ion-item>
+
                         <ion-item menu-close class="item-icon-left" href="#/inventory/"
                                 ng-show="['location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-clipboard"></i>{{'Inventories' | translate}}
                         </ion-item>
-                        <!-- TODO FIXME broken. Need to href inventory/{inventory_id}/location instead
-                        - don't know where to set the ng-click
-                        - don't know if it could work. (ng-click and ion-item seems incompatible
-                        -->
-                        <ion-item menu-close class="item-icon-left" href="#/location/"
-                                ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
-                            <i class="icon ion-home"></i>{{'Locations' | translate}}
-                        </ion-item>
+     
                         <ion-item menu-close class="item-icon-left" href="#/logout"
                                 ng-show="['inventory', 'location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-log-out"></i>{{'Log Out' | translate}}

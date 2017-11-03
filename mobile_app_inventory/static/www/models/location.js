@@ -4,24 +4,31 @@ angular.module('mobile_app_inventory').factory(
         '$q', 'jsonRpc',
         function ($q, jsonRpc) {
 
-    var location_list = null;
-    var locations = []
+    function reset() {
+        data.locations = [];
+        data.location_promise = null;
+    }
+    var data = {}
+    reset();
 
-    return {
-        get_list: function(force) {
-            if (force){
-                location_list = null;
-            }
-            var vals = {'inventory': false};
-            location_list = location_list || jsonRpc.call(
-                    'mobile.app.inventory', 'get_locations', [vals]).then(function (res) {
-                return res;
-            });
-            return location_list;
+    return {        
+        get_list: function(inventory) {
+            if (inventory)
+                reset();
+
+            data.location_promise = data.location_promise || jsonRpc.call(
+                'mobile.app.inventory', 'get_locations', [{'inventory': inventory}]
+                ).then(function (res) {
+                    data.locations = res;
+                    return res;
+                }
+            );
+            return data.location_promise;
         },
 
         get_location: function(id) {
-            return this.get_list(false).then(function (locations) {
+            //search from an location id
+            return this.get_list().then(function (locations) {
                 var found = false;
                 locations.some(function(location) {
                     if (location.id != id)
@@ -34,14 +41,16 @@ angular.module('mobile_app_inventory').factory(
         },
 
         search_location: function(barcode) {
+            //search from a barcode
             var found = false;
-
-            locations.some(function(location) {
-                if (location.loc_barcode != barcode)
+            data.locations.some(function(location) {
+                console.log(location.barcode, barcode)
+                if (location.barcode != barcode)
                     return false;
                 found = location;
                 return;
             });
+            console.log('on a trouvé la loc ?', found)
             return found;
         },
 

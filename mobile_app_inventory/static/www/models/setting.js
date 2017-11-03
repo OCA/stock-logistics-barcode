@@ -1,9 +1,9 @@
 
 "use strict";
 angular.module('mobile_app_inventory').factory(
-        'SettingModel', [
-        '$q', 'jsonRpc',
-        function ($q, jsonRpc) {
+    'SettingModel', [
+    '$q', 'jsonRpc',
+    function ($q, jsonRpc) {
 
     var setting_list = null;
 
@@ -13,9 +13,7 @@ angular.module('mobile_app_inventory').factory(
                 setting_list = null;
             }
             setting_list = setting_list || jsonRpc.call(
-                    'mobile.app.inventory', 'get_settings', []).then(function (res) {
-                return res;
-            });
+                'mobile.app.inventory', 'get_settings', []);
             return setting_list;
         },
 
@@ -24,6 +22,5 @@ angular.module('mobile_app_inventory').factory(
                 return settings[name];
             });
         },
-
     };
 }]);

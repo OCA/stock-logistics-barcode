@@ -2,7 +2,7 @@
 
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
-        <h1 class="title">{{'Product' | translate}}</h1>
+        <h1 class="title">{{'Inventory' | translate}} {{data.inventory.name}}</h1>
     </ion-header-bar>
 
     <ion-content class="has-header">
@@ -10,29 +10,24 @@
             <div class="list">
 
                 <div class="item item-input">
-                    <input type="number" ng-model="input.barcode" id="input_ean13" placeholder="{{'EAN13 Barcode' | translate}}" autocomplete="off" class="item-input input-required"/>
+                    <input type="tel" ng-model="input.barcode" id="input_ean13" placeholder="{{ 'Barcode or quantity' | translate}}" autocomplete="off" class="item-input input-required"/>
                     <button class="button button-positive">
-                        <i class="icon ion-qr-scanner"></i> {{'Scan' | translate}}
+                        <i class="icon ion-qr-scanner"></i> {{'Validate' | translate}}
                     </button>
                 </div>
 
-                <label class="item item-input">
+                <label class="item item-input" toggle-anim="data.location">
                     <div class="form-label">{{'Current Location' | translate}}</div>
                     <span class="form-field">{{data.location.name}}</span>
                 </label>
-                <label class="item item-input">
+                <label class="item item-input" toggle-anim="data.product">
                     <div class="form-label">{{'Name' | translate}}</div>
                     <span class="form-field">{{data.product.name}}</span>
                 </label>
 
-                <label class="item item-input">
+                <label class="item item-input" toggle-anim="data.qty">
                     <div class="form-label">{{'Quantity' | translate}}</div>
                     <span class="form-field">{{data.qty}}</span>
-                </label>
-
-                <label class="item item-input">
-                    <div class="form-label">{{'Name' | translate}}</div>
-                    <span class="form-field">{{data.inventory.name}}</span>
                 </label>
 
             </div>
@@ -42,6 +37,9 @@
 
     <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
       <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar-positive" ng-show="successMessage">
+        <h1 class="title">{{ successMessage }}</h1>
     </ion-footer-bar>
 
 </ion-view>
