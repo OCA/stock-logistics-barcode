@@ -12,7 +12,7 @@ angular.module('mobile_app_inventory').controller(
         '$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
         if ($state.current.name === 'location') {
-
+            $scope.data.location_filter = null;
             LocationModel.get_list({id: $stateParams.inventory_id}).then(function(location_list) {
                 $scope.data.location_list = location_list;
                 // Skip this screen if there is only one internal location
