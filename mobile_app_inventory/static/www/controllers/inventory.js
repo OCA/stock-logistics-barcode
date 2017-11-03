@@ -14,6 +14,7 @@ angular.module('mobile_app_inventory').controller(
         '$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams){
         if ($state.current.name === 'inventory') {
+            $scope.data.inventory_filter = null;
             InventoryModel.get_list().then(function (inventory_list) {
                 $scope.data.inventory_list = inventory_list;
             });
