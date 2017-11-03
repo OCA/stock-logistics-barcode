@@ -21,6 +21,9 @@ class TestMobileAppInventory(common.TransactionCase):
             'mobile_app_inventory.product_chips_paprika')
         self.stock_location = self.env.ref('stock.stock_location_stock')
 
+        self.shelf_2_inventory = self.env.ref(
+            'mobile_app_inventory.shelf_2_inventory')
+
     def _get_inventory_single_line(self, inventory_id):
         """Private function that return the first line of an inventory
             or raise an error, if not found.
@@ -150,29 +153,26 @@ class TestMobileAppInventory(common.TransactionCase):
 
     def test_05_child_of_location(self):
         """It should only return child of location."""
-        inventory = self.app_obj.create_inventory(
-            {'inventory': {'name': 'Test'}})
-
         list_full = self.app_obj.get_locations({})
         list_sub = self.app_obj.get_locations(
-            {'inventory': {'id': inventory['id']}})
-        self.assertTrue(len(list_full) > len(list_sub))
+            {'inventory': {'id': self.shelf_2_inventory.id}})
+        self.assertGreater(
+            len(list_full), len(list_sub),
+            "Getting available locations of an inventory should"
+            " return only sub locations of the main location of the inventory")
 
     def test_06_unkown_products(self):
-        """It should accept unkown products (without id)."""
+        """Test adding inventory line via barcode product"""
         inventory = self.app_obj.create_inventory(
             {'inventory': {'name': 'Test'}})
 
-        # Create new inventory Line
-        try:
-            self.app_obj.add_inventory_line({
-                'inventory': {'id': inventory['id']},
-                'location': {'id': self.stock_location.id},
-                'product': {'id': None, 'barcode': '0012345678905'},
-                'qty': 3,
-                'mode': 'ask',
-            })
-            self.assertTrue(True)
-        except Exception:
-            self.assertTrue(False)
-        # it should not raise exception
+        res = self.app_obj.add_inventory_line({
+            'inventory': {'id': inventory['id']},
+            'location': {'id': self.stock_location.id},
+            'product': {'barcode': '5400313040109'},
+            'qty': 3,
+            'mode': 'ask',
+        })
+        self.assertEqual(
+            type(res) == dict and res.get('state', False) or False, 'write_ok',
+            "Adding inventory line via barcode should works")
