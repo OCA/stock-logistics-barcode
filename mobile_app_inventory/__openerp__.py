@@ -23,6 +23,7 @@
         'demo/res_users.xml',
         'demo/res_company.xml',
         'demo/stock_location.xml',
+        'demo/stock_inventory.xml',
         'demo/product_product.xml',
     ],
 }
