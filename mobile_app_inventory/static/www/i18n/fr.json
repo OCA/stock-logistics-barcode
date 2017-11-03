@@ -28,16 +28,19 @@
     "Create New Inventory": "Créer un nouvel inventaire",
     "Select Existing Inventory": "Choisir un inventaire existant",
     "Line(s)": "Ligne(s)",
+    "Inventory not found": "Inventaire introuvable",
 
     "Product": "Produit",
     "Scan": "Scan",
     "Name": "Nom",
     "Current Location": "Emplacement courant",
+    "Location not found": "Emplacement introuvable",
 
     "EAN13 Barcode": "Code barre EAN13",
     "Barcode or quantity": "Code barre ou quantité" ,
     "Analyze EAN13 Barcode": "Analyser le Code barre EAN13",
     "Unknown EAN13 Barcode": "Code barre EAN13 inconnu",
+    "Wrong barcode or quantity": "Code barre ou quantité incorrecte",
 
     "Quantity": "Quantité",
     "Add": "Ajouter",

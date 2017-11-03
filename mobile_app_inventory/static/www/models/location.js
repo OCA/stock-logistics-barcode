@@ -13,6 +13,8 @@ angular.module('mobile_app_inventory').factory(
 
     return {        
         get_list: function(inventory) {
+            //get locations for a given inventory
+            //retrun a promise
             if (inventory)
                 reset();
 
@@ -28,6 +30,7 @@ angular.module('mobile_app_inventory').factory(
 
         get_location: function(id) {
             //search from an location id
+            //return a promise
             return this.get_list().then(function (locations) {
                 var found = false;
                 locations.some(function(location) {
@@ -42,6 +45,7 @@ angular.module('mobile_app_inventory').factory(
 
         search_location: function(barcode) {
             //search from a barcode
+            //search in cache, no promise
             var found = false;
             data.locations.some(function(location) {
                 console.log(location.barcode, barcode)
@@ -50,7 +54,6 @@ angular.module('mobile_app_inventory').factory(
                 found = location;
                 return;
             });
-            console.log('on a trouvé la loc ?', found)
             return found;
         },
 
