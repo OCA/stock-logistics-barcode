@@ -48,7 +48,6 @@ angular.module('mobile_app_inventory').factory(
             //search in cache, no promise
             var found = false;
             data.locations.some(function(location) {
-                console.log(location.barcode, barcode)
                 if (location.barcode != barcode)
                     return false;
                 found = location;
