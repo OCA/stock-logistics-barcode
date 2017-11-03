@@ -79,16 +79,16 @@
                             <i class="icon ion-log-in"></i>{{'Log In' | translate}}
                         </ion-item>
 
-                        <ion-item menu-close class="item-icon-left" ui-sref="location({inventory_id:params.inventory_id})"
-                                ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
-                            <i class="icon ion-home"></i>{{'Locations' | translate}}
-                        </ion-item>
-
                         <ion-item menu-close class="item-icon-left" href="#/inventory/"
                                 ng-show="['location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-clipboard"></i>{{'Inventories' | translate}}
                         </ion-item>
-     
+
+                        <ion-item menu-close class="item-icon-left" ui-sref="location({inventory_id:params.inventory_id})"
+                                ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
+                            <i class="icon ion-location"></i>{{'Locations' | translate}}
+                        </ion-item>
+
                         <ion-item menu-close class="item-icon-left" href="#/logout"
                                 ng-show="['inventory', 'location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-log-out"></i>{{'Log Out' | translate}}
