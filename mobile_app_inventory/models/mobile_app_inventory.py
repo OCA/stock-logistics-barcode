@@ -51,6 +51,7 @@ class MobileAppInventory(models.Model):
             'filter': 'partial',
         })
         inventory = inventory_obj.create(vals)
+        inventory.prepare_inventory()
         return self._export_inventory(inventory)
 
     @api.model
