@@ -1,18 +1,19 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
-        'SelectLocationCtrl', [
-        '$scope', '$filter', '$state', '$stateParams','LocationModel',
-        function ($scope, $filter, $state, $stateParams, LocationModel) {
+    'LocationCtrl', [
+    '$scope', '$filter', '$state', '$stateParams','LocationModel',
+    function ($scope, $filter, $state, $stateParams, LocationModel) {
     $scope.data = {
         'location_list': [],
         'location_filter': null,
     };
 
     $scope.$on(
-            '$stateChangeSuccess',
-            function(event, toState, toParams, fromState, fromParams) {
+        '$stateChangeSuccess',
+        function(event, toState, toParams, fromState, fromParams) {
         if ($state.current.name === 'location') {
-            LocationModel.get_list(false).then(function(location_list) {
+
+            LocationModel.get_list({id: $stateParams.inventory_id}).then(function(location_list) {
                 $scope.data.location_list = location_list;
                 // Skip this screen if there is only one internal location
                 if ($scope.data.location_list.length === 1) {
@@ -24,12 +25,12 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.select_location = function (location) {
         $state.go('product', {
-            'location_id': location.id,
             'inventory_id': $stateParams.inventory_id,
+            'location_id': location.id,
         });
     };
 
-    $scope.search_location = function (location) {
+    $scope.search_location = function () {
         //if location search returns only one result, go to this location directly
         //(called on submit, so a barcode reader will trigger)
         var result = $filter('filter')($scope.data.location_list, $scope.data.location_filter);

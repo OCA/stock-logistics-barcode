@@ -9,6 +9,11 @@
     <ion-content class="has-header">
         <div class="list">
             <label class="item item-input">
+                <div class="form-label">{{'Product' | translate}}</div>
+                <span class="form-field">{{data.product.name }}</span>
+            </label>
+
+            <label class="item item-input">
                 <div class="form-label">{{'Existing Quantity' | translate}}</div>
                 <span class="form-field">{{data.current_qty}}</span>
             </label>

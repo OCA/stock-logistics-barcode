@@ -52,3 +52,16 @@ a.item{
 .inventory-line-qty{
     margin-top: 20px;
 }
+
+
+.toggleAnim.ng-enter {
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+.toggleAnim.ng-leave {
+    opacity: 0.30;
+    transition: opacity 1s linear;
+}
+.toggleAnim.ng-change {
+    color: gray;
+}

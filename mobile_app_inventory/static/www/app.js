@@ -47,30 +47,26 @@ angular.module(
     }).state(
         'inventory', {
             url: '/inventory/',
-            templateUrl: 'views/select_inventory.html',
-            controller: 'SelectInventoryCtrl'
+            templateUrl: 'views/inventory.html',
+            controller: 'InventoryCtrl'
     }).state(
         'location', {
             url: '/inventory/{inventory_id:int}/',
-            templateUrl: 'views/select_location.html',
-            controller: 'SelectLocationCtrl'
+            templateUrl: 'views/location.html',
+            controller: 'LocationCtrl'
     }).state(
         'product', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/',
-            templateUrl: 'views/v_select_product_product.html',
-            controller: 'SelectProductProductCtrl'
-    }).state(
-        'product_ean13', {
-            url: '/inventory/{inventory_id:int}/location/{location_id:int}/product/:ean13',
-            templateUrl: 'views/v_select_quantity.html',
-            controller: 'SelectQuantityCtrl'
+            templateUrl: 'views/main_scan.html',
+            controller: 'MainScanCtrl'
     }).state(
         'confirm_quantity', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/product/:product_id/confirm_quantity/:current_qty/:new_qty',
-            templateUrl: 'views/v_confirm_quantity.html',
+            templateUrl: 'views/confirm_quantity.html',
             controller: 'ConfirmQuantityCtrl'
     });
-    $urlRouterProvider.otherwise('login');
+
+    $urlRouterProvider.otherwise('/inventory/');
     $translateProvider.useStaticFilesLoader({
         prefix: 'i18n/',
         suffix: '.json'
@@ -84,14 +80,14 @@ angular.module(
     .useSanitizeValueStrategy('escapeParameters');
 }])
 .controller('AppCtrl', [
-    '$scope', '$state', '$rootScope',
-    function($scope, $state, $rootScope) {
+    '$scope', '$state', '$stateParams', '$rootScope',
+    function($scope, $state, $stateParams, $rootScope) {
         $rootScope.$on("$stateChangeError", console.log.bind(console));
-    
-        $scope.$on(
-            '$stateChangeSuccess',
+        $scope.$on('$stateChangeSuccess',
             function(evt, toState, toParams, fromState, fromParams) {
+                //for side menu
                 $rootScope.currentState = toState.name;
+                $rootScope.params = toParams;
             }
         );
     }
