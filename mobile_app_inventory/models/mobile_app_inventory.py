@@ -138,11 +138,12 @@ class MobileAppInventory(models.Model):
         qty = self._extract_param(params, 'qty')
         mode = self._extract_param(params, 'mode')
         inventory = inventory_obj.browse(inventory_id)
+        product = False
         if product_id:
             product = product_obj.browse(product_id)
         elif barcode:
             (product, barcode_qty) = self._search_barcode(barcode)
-        else:
+        if not product:
             # TODO What we have to return here ?
             return False
 
