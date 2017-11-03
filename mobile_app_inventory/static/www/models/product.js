@@ -14,8 +14,6 @@ angular.module('mobile_app_inventory').factory(
                 'mobile.app.inventory', 'get_inventory_lines', 
                 [{inventory: inventory}]).then(function (lines) {
                     lines.forEach(function(line) {
-                        if (!line.product.barcode)
-                            return; //can't lookup products without barcode
                         products[line.product.barcode] = line.product;
                         //expected qty
                         if (!prod_inv[line.product.barcode])

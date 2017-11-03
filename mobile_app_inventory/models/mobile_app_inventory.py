@@ -83,7 +83,8 @@ class MobileAppInventory(models.Model):
         inventory_obj = self.env['stock.inventory']
         inventory_id = self._extract_param(params, 'inventory.id')
         inventories = inventory_obj.browse(inventory_id)
-        lines = inventories.line_ids
+        lines = inventories.line_ids.filtered(
+            lambda line: line.product_id.ean13)
         custom_fields = self._get_custom_fields()
         return [
             self._export_inventory_line(line, custom_fields) for line in lines]
