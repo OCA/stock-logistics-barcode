@@ -66,18 +66,22 @@ angular.module(
             controller: 'ConfirmQuantityCtrl'
     });
 
+    $ionicConfigProvider.views.transition('none');
+
     $urlRouterProvider.otherwise('/inventory/');
+
     $translateProvider.useStaticFilesLoader({
-        prefix: 'i18n/',
-        suffix: '.json'
-    }).registerAvailableLanguageKeys(['en', 'fr'], {
-        'en' : 'en', 'en_GB': 'en', 'en_US': 'en',
-        'fr' : 'fr',
-    })
-    .preferredLanguage('en')
-    .fallbackLanguage('en')
-    .determinePreferredLanguage()
-    .useSanitizeValueStrategy('escapeParameters');
+            prefix: 'i18n/',
+            suffix: '.json'
+        }).registerAvailableLanguageKeys(['en', 'fr'], {
+            'en' : 'en', 'en_GB': 'en', 'en_US': 'en',
+            'fr' : 'fr',
+        })
+        .preferredLanguage('en')
+        .fallbackLanguage('en')
+        .determinePreferredLanguage()
+        .useSanitizeValueStrategy('escapeParameters');
+
 }])
 .controller('AppCtrl', [
     '$scope', '$state', '$stateParams', '$rootScope',
