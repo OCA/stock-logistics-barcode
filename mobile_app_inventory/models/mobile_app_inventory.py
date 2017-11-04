@@ -138,16 +138,22 @@ class MobileAppInventory(models.Model):
         qty = self._extract_param(params, 'qty')
         mode = self._extract_param(params, 'mode')
         inventory = inventory_obj.browse(inventory_id)
+        qty = qty and float(qty) or 0.0
         product = False
         if product_id:
             product = product_obj.browse(product_id)
         elif barcode:
             (product, barcode_qty) = self._search_barcode(barcode)
         if not product:
-            # TODO What we have to return here ?
-            return False
-
-        qty = qty and float(qty) or 0.0
+            if barcode:
+                inventory_vals = {'unknown_line_ids': [[0, False, {
+                    'barcode': barcode,
+                    'quantity': qty,
+                }]]}
+                inventory.write(inventory_vals)
+                return {'state': 'unknown_barcode_added'}
+            else:
+                return {'state': 'no_barcode'}
 
         # Check if there is existing line with the product
         lines = line_obj.search([

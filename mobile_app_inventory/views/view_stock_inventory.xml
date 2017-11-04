@@ -23,7 +23,18 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
         <field name="arch" type="xml">
             <field name="location_id" position="after">
                 <field name="mobile_available" />
+                <field name="unknown_line_qty" />
             </field>
+            <notebook position="inside">
+                <page name="unknown_barcode" string="Unknown Barcodes" attrs="{'invisible': [('unknown_line_qty', '=', 0)]}">
+                    <field name="unknown_line_ids" nolabel="1">
+                        <tree>
+                            <field name="barcode" />
+                            <field name="quantity" />
+                        </tree>
+                    </field>
+                </page>
+            </notebook>
         </field>
     </record>
 
