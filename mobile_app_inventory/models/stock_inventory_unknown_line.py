@@ -10,7 +10,8 @@ class StockInventoryUnknownLine(models.Model):
     _name = 'stock.inventory.unknown.line'
 
     inventory_id = fields.Many2one(
-        comodel_name='stock.inventory', required=True, ondelete='cascade')
+        comodel_name='stock.inventory', required=True, ondelete='cascade',
+        string='Inventory')
 
     barcode = fields.Char(string='Barcode', required=True, readonly=True)
 

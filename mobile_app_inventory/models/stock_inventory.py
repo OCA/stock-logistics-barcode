@@ -11,8 +11,8 @@ class StockInventory(models.Model):
 
     mobile_available = fields.Boolean(
         string='Available on Mobile', default=True,
-        help="Check this box if you want that a user making an inventory"
-        " by the Mobile App can work on this inventory.")
+        help="Check this box if you want to make this inventory visible"
+        " on the Mobile App")
 
     unknown_line_ids = fields.One2many(
         comodel_name='stock.inventory.unknown.line',
