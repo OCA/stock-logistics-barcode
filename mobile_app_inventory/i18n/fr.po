@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 8.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-04 00:10+0000\n"
-"PO-Revision-Date: 2017-11-04 00:10+0000\n"
+"POT-Creation-Date: 2017-11-04 00:17+0000\n"
+"PO-Revision-Date: 2017-11-04 00:17+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -22,8 +22,8 @@ msgid "%s (Mobile App)"
 msgstr "%s (Application Mobile)"
 
 #. module: mobile_app_inventory
-#: field:stock.location,mobile_available:0
 #: field:stock.inventory,mobile_available:0
+#: field:stock.location,mobile_available:0
 msgid "Available on Mobile"
 msgstr "Disponible sur mobile"
 
@@ -93,6 +93,7 @@ msgstr "ID"
 
 #. module: mobile_app_inventory
 #: model:ir.model,name:mobile_app_inventory.model_stock_inventory
+#: field:stock.inventory.unknown.line,inventory_id:0
 msgid "Inventory"
 msgstr "Inventaire"
 
