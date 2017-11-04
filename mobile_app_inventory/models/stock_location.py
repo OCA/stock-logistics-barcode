@@ -10,9 +10,9 @@ class StockLocation(models.Model):
     _inherit = 'stock.location'
 
     mobile_available = fields.Boolean(
-        string='Available for Mobile', default=True,
+        string='Available on Mobile', default=True,
         help="Check this box if you want to make this location visible"
-        " in the Mobile App")
+        " on the Mobile App")
 
     # Onchange Section
     @api.onchange('usage')
