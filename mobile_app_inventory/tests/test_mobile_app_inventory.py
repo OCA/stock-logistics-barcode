@@ -71,17 +71,17 @@ class TestMobileAppInventory(common.TransactionCase):
     def test_03_create_inventory(self):
         """Test if inventory and lines are created correctly"""
         # Create Inventory
-        inventory_data = self.app_obj.create_inventory(
+        json_inventory = self.app_obj.create_inventory(
             {'inventory': {'name': 'Test'}})
 
         self.assertNotEqual(
-            type(inventory_data) is dict and inventory_data.get('id') or False,
+            type(json_inventory) is dict and json_inventory.get('id') or False,
             False, "Inventory creation failed by Mobile App")
 
-        inventory_id = inventory_data['id']
+        inventory_id = json_inventory['id']
         # Create new inventory Line
         self.app_obj.add_inventory_line({
-            'inventory': {'id': inventory_data['id']},
+            'inventory': {'id': json_inventory['id']},
             'location': {'id': self.stock_location.id},
             'product': {'id': self.product_chips.id},
             'qty': 10,
@@ -100,7 +100,7 @@ class TestMobileAppInventory(common.TransactionCase):
 
         # Add same product (ask mode) and test
         self.app_obj.add_inventory_line({
-            'inventory': {'id': inventory_data['id']},
+            'inventory': {'id': json_inventory['id']},
             'location': {'id': self.stock_location.id},
             'product': {'id': self.product_chips.id},
             'qty': 11,
@@ -113,7 +113,7 @@ class TestMobileAppInventory(common.TransactionCase):
 
         # Add same product (replace mode) and test
         self.app_obj.add_inventory_line({
-            'inventory': {'id': inventory_data['id']},
+            'inventory': {'id': json_inventory['id']},
             'location': {'id': self.stock_location.id},
             'product': {'id': self.product_chips.id},
             'qty': 30,
@@ -127,7 +127,7 @@ class TestMobileAppInventory(common.TransactionCase):
 
         # Add same product (add mode) and test
         self.app_obj.add_inventory_line({
-            'inventory': {'id': inventory_data['id']},
+            'inventory': {'id': json_inventory['id']},
             'location': {'id': self.stock_location.id},
             'product': {'id': self.product_chips.id},
             'qty': 70,
@@ -160,13 +160,13 @@ class TestMobileAppInventory(common.TransactionCase):
             "Getting available locations of an inventory should"
             " return only sub locations of the main location of the inventory")
 
-    def test_06_unkown_products(self):
+    def test_06_unkown_product_id(self):
         """Test adding inventory line via barcode product"""
-        inventory = self.app_obj.create_inventory(
+        json_inventory = self.app_obj.create_inventory(
             {'inventory': {'name': 'Test'}})
 
         res = self.app_obj.add_inventory_line({
-            'inventory': {'id': inventory['id']},
+            'inventory': {'id': json_inventory['id']},
             'location': {'id': self.stock_location.id},
             'product': {'barcode': '5400313040109'},
             'qty': 3,
@@ -175,3 +175,30 @@ class TestMobileAppInventory(common.TransactionCase):
         self.assertEqual(
             type(res) == dict and res.get('state', False) or False, 'write_ok',
             "Adding inventory line via barcode should works")
+
+    def test_07_unkown_barcode(self):
+        """Test adding unknown inventory line via unknown barcode"""
+        json_inventory = self.app_obj.create_inventory(
+            {'inventory': {'name': 'Test'}})
+
+        self.app_obj.add_inventory_line({
+            'inventory': {'id': json_inventory['id']},
+            'location': {'id': self.stock_location.id},
+            'product': {'barcode': '1234567890123'},
+            'qty': 10,
+            'mode': 'ask',
+        })
+        inventory = self.inventory_obj.browse(json_inventory['id'])
+        self.assertEqual(
+            inventory.unknown_line_qty, 1,
+            "Scanning unknown barcode should create a new unknown line")
+
+        self.assertEqual(
+            inventory.unknown_line_ids[0].barcode, '1234567890123',
+            "Scanning unknown barcode should create a new unknown line"
+            " with the according barcode")
+
+        self.assertEqual(
+            inventory.unknown_line_ids[0].quantity, 10,
+            "Scanning unknown barcode should create a new unknown line"
+            " with the according quantity")
