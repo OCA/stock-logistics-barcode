@@ -4,6 +4,25 @@ angular.module('mobile_app_inventory').controller(
     '$scope', '$state', '$q', '$timeout', '$translate','scan_state', 'InventoryModel', 'LocationModel', 'ProductModel',
     function ($scope, $state, $q, $timeout, $translate, scan_state, InventoryModel, LocationModel, ProductModel) {
 
+    function display_error(msg) {
+        $scope.errorMessage = msg;
+        angular.element(document.querySelector('#sound_user_error'))[0].play();
+        var before = scan_state.get_data();
+        $timeout(function() {
+            $scope.errorMessage = '';
+            if (before == scan_state.get_data())
+                scan_state.reset(); //reset if user didn't change a thing
+        }, 3000);
+    }
+    function display_success(msg) {
+        $scope.successMessage = msg;
+        angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
+          $timeout(function () {
+            $scope.successMessage = "";
+        }, 2000);
+    }
+
+
     scan_state.set_callback(function (data) {
         //called when a product has been sent 
         return InventoryModel.add_inventory_line(
@@ -19,18 +38,12 @@ angular.module('mobile_app_inventory').controller(
                     current_qty: ret.qty,
                     new_qty: data.qty
                 });
-            } else if (ret.state == 'write_ok') {
-                $scope.successMessage = $translate.instant("Saved");
-                $timeout(function () {
-                    $scope.successMessage = "";
-                }, 2000);
+            } else if (ret.state == 'write_ok' || ret.state == 'unknown_barcode_added') {
+                display_success($translate.instant("Saved"));
             }
             return ret;
         }).then(null, function error(err) {
-            $scope.errorMessage = $translate.instant(err.fullTrace.data.message);
-            $timeout(function() {
-                scan_state.reset(); //reset after few seconds
-            }, 3000);
+            display_error($translate.instant(err.fullTrace.data.message));
             return $q.reject(err);
         });
     });
@@ -66,8 +79,10 @@ angular.module('mobile_app_inventory').controller(
         function is_barcode(input) {
             return ('' + input).length > 5;
         }
-
-        if (is_barcode(input)) {
+        if (!input) {
+            //may the user want to force the submission now ? 
+            scan_state.add_inventory_line();
+        } else if (is_barcode(input)) {
             //try with location first
             //because it's always in cache and the lookup is quick
             var barcode = '' + input; //force cast to preseve trailling 0
@@ -88,8 +103,8 @@ angular.module('mobile_app_inventory').controller(
             } else {
                 scan_state.set_qty(qty).then(function (a) {
                     //TODO display warning if != expected quantity ?
-                }).then(function (msg) {
-                    $scope.errorMessage = $translate.instant(msg);
+                }).then(null, function (msg) {
+                    display_error($translate.instant(msg));
                 });
             }
         }

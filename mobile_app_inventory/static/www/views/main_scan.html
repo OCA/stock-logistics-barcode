@@ -31,9 +31,13 @@
                     <span class="form-field">{{data.qty}}</span>
                 </label>
 
+                <label class="item item-input" ng-repeat="custom_val in data.custom_vals">
+                    <div class="form-label">{{ custom_val.$key }}</div>
+                    <span class="form-field">{{ custom_val.value }}</span>
+                </label>
+
             </div>
         </form>
-        <audio id="sound_user_error" src="./static/audio/user_error.mp3"></audio>
     </ion-content>
 
     <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
