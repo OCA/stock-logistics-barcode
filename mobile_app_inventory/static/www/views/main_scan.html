@@ -18,22 +18,21 @@
                 </div>
 
                 <label class="item item-input" toggle-anim="data.location">
-                    <div class="form-label">{{'Current Location' | translate}}</div>
-                    <span class="form-field">{{data.location.name}}</span>
+                    <div class="form-field">{{'Current Location' | translate}}</div>
+                    <span class="form-label">{{data.location.name}}</span>
                 </label>
                 <label class="item item-input" toggle-anim="data.product">
-                    <div class="form-label">{{'Name' | translate}}</div>
-                    <span class="form-field">{{data.product.name}}</span>
+                    <div class="form-field">{{'Name' | translate}}</div>
+                    <span class="form-label">{{data.product.name}}</span>
                 </label>
 
                 <label class="item item-input" toggle-anim="data.qty">
-                    <div class="form-label">{{'Quantity' | translate}}</div>
-                    <span class="form-field">{{data.qty}}</span>
+                    <div class="form-field">{{'Quantity' | translate}}</div>
+                    <span class="form-label">{{data.qty}}</span>
                 </label>
-
-                <label class="item item-input" ng-repeat="custom_val in data.custom_vals">
-                    <div class="form-label">{{ custom_val.$key }}</div>
-                    <span class="form-field">{{ custom_val.value }}</span>
+                <label class="item item-input" ng-repeat="(key, value) in data.product.custom_vals">
+                    <div class="form-field">{{ key }}</div>
+                    <span class="form-label">{{ value }}</span>
                 </label>
 
             </div>
