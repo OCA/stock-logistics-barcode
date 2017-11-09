@@ -25,6 +25,8 @@
     "Name": "Nom",
     "Current Location": "Emplacement courant",
     "Location not found": "Emplacement introuvable",
+    "No product set": "Pas de produit selectionné",
+    "No quantity set": "Quantité non saisie",
 
     "Barcode or quantity": "Code barre ou quantité" ,
     "Wrong barcode or quantity": "Code barre ou quantité incorrecte",
