@@ -15,10 +15,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <xpath expr="//group[1]" position="after">
                 <separator string="Scanner Web Configuration" colspan="4"/>
                 <group colspan="4" col="4">
-                    <field name="number_method" colspan="2"/>
+                    <field name="show_numpad" colspan="2"/>
                 </group>
             </xpath>
         </field>
     </record>
-
 </odoo>
