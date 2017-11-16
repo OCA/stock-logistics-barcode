@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="step_web_template" name="step_web_template">
+        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
+            <h3>
+                Web Step Example
+            </h3>
+            <div>
+                <a class="reference external image-reference" href="https://odoo-community.org"><img alt="Odoo Community Association" src="https://odoo-community.org/logo.png"/></a>
+                <p>OCA, or the Odoo Community Association, is a nonprofit organization whose mission is to support the collaborative development of Odoo features and promote its widespread use.</p>
+                <p>To contribute to this module, please visit
+                    <a class="reference external" href="https://odoo-community.org">https://odoo-community.org</a>.</p>
+            </div>
+            <div class="form-group">
+                <input type="text" name="location_name" class="search-query form-control" autofocus="autofocus"/>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </form>
+    </template>
+</odoo>
