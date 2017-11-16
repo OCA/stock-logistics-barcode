@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<scenario>
+  <id>scanner_scenario_web_type</id>
+  <model_id>scanner.hardware</model_id>
+  <name>Stock Scanner Web Type</name>
+  <sequence>200</sequence>
+  <parent_id>stock_scanner.scanner_scenario_tutorial</parent_id>
+  <active>True</active>
+  <type>scenario</type>
+  <Step id="scanner_scenario_web_step_web" name="Web Step" step_back="False" step_stop="True" step_start="True"/>
+</scenario>

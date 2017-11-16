@@ -10,5 +10,9 @@ from openerp import models, fields
 class ResUser(models.Model):
     _inherit = 'res.users'
 
-    scanner_hardware_ids = fields.Many2many(comodel_name='scanner.hardware',
-                                            string='Permitted Scanners')
+    scanner_hardware_ids = fields.Many2many(
+        comodel_name='scanner.hardware',
+        relation='scanner_hardware_users_rel',
+        column1='user_id',
+        column2='hardware_id',
+        string='Permitted Scanners')
