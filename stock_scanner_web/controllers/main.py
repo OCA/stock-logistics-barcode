@@ -37,9 +37,12 @@ class ScannerWeb(http.Controller):
                      website=True,
                      **kwargs):
         values = {}  # Reset the values.
+        parameters = kwargs.copy()
+        if 'debug' in parameters:
+            parameters.pop('debug')
         if message == 'False':
             message = False
-        if not message and kwargs:
+        if not message and parameters:
             message = kwargs
         # Determine the correct hardware:
         scanner_hardware = False
@@ -120,6 +123,8 @@ class ScannerWeb(http.Controller):
         scenario_step = request.env['scanner.hardware'].\
             search([('code', '=', terminal_number)]).step_id
         step = scenario_step and int(scenario_step) or 0
+        header = False
+        lines = False
         if code == 'L':
             header = ''
             lines = []
@@ -140,21 +145,31 @@ class ScannerWeb(http.Controller):
                     lines.append({
                         'href': False,
                         'label': line[1:]})
-            result = {
-                'header': header or message or _('Main Menu'),
-                'lines': lines}
+            header = header or message or _('Main Menu')
+            lines = lines
         elif code in ['M', 'E', 'F', 'C', 'N', 'Q', 'T']:
+            header = result[0]
+            lines = result[1:]
+        elif code == 'R':
+            header = ''
             lines = result
+        if code != 'W':
+            if header and header[0] == '|':
+                header = header[1:]
             result = {
-                'header': lines[0],
-                'lines': lines[1:]}
+                'header': header,
+                'lines': lines
+            }
+        lang = request.env['res.lang'].search([('code', '=', user.lang)])
         values = {
             'code': code,
             'result': result,
             'value': value,
             'scenario': scenario,
             'step': step,
-            'terminal_number': terminal_number
+            'terminal_number': terminal_number,
+            'show_numpad': scanner_hardware.show_numpad,
+            'decimal_point': lang and lang.decimal_point or 'E'
         }
         if not message and action == 'reset':
             values['action'] = 'reset'
