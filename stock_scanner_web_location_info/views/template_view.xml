@@ -5,12 +5,10 @@
             <h3>
                 Enter a location name
             </h3>
-            <div class="input-group">
+            <div class="form-group">
                 <input type="text" name="location_name" class="search-query form-control" autofocus="autofocus"/>
-                <span class="input-group-btn">
-                    <button type="submit" class="ui-btn-b"><i class="fa fa-go"/>Submit</button>
-                </span>
             </div>
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
         </form>
     </template>
 
