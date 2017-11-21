@@ -139,9 +139,6 @@ class Sentinel(object):
                 _('Autoconfiguration failed !\nPlease enter terminal code'))
             self.scanner_check()
 
-        # Resize window to terminal screen size
-        self._resize()
-
         # Reinit colors with values configured in OpenERP
         self._reinit_colors()
 
@@ -162,14 +159,6 @@ class Sentinel(object):
             self.hardware_code, self.context)
         if isinstance(self.scenario_id, list):
             self.scenario_id, self.scenario_name = self.scenario_id
-
-    def _resize(self):
-        """
-        Resizes the window
-        """
-        # Asks for the hardware screen size
-        (width, height) = self.oerp_call('screen_size')[1]
-        self._set_screen_size(width, height)
 
     def _init_colors(self):
         """
@@ -194,10 +183,9 @@ class Sentinel(object):
         COLOR_PAIRS['error'] = (3, colors['error'][0], colors['error'][1])
         self._init_colors()
 
-    def _set_screen_size(self, width=18, height=6):
-        self.window_width = width
-        self.window_height = height
-        self.screen.resize(height, width)
+    def _set_screen_size(self):
+        self.window_height, self.window_width = self.screen.getmaxyx()
+        self.screen.resize(self.window_height, self.window_width)
 
     def _get_color(self, name):
         """
@@ -418,7 +406,7 @@ class Sentinel(object):
                         elif code == 'U':
                             # Unknown action : message with return back to the
                             # last state
-                            self._display(
+                            self._display_message(
                                 '\n'.join(result), clear=True, scroll=True,
                                 title=title)
                             (code, result, value) = self.oerp_call('back')
@@ -436,7 +424,7 @@ class Sentinel(object):
                                     'back')
                         elif code == 'M':
                             # Simple message
-                            self._display(
+                            self._display_message(
                                 '\n'.join(result), clear=True, scroll=True,
                                 title=title)
                             # Execute transition
@@ -464,8 +452,9 @@ class Sentinel(object):
                             # End of scenario
                             self.scenario_id = False
                             self.scenario_name = False
-                            self._display('\n'.join(result), clear=True,
-                                          scroll=True, title=title)
+                            self._display_message(
+                                '\n'.join(result), clear=True, scroll=True,
+                                title=title)
                         else:
                             # Default call
                             (code, result, value) = self.oerp_call('restart')
@@ -514,13 +503,32 @@ class Sentinel(object):
                 # Restore normal background colors
                 self.screen.bkgd(0, self._get_color('base'))
 
+    def _display_message(
+            self, text='', x=0, y=0, clear=False, color='base', bgcolor=False,
+            modifier=curses.A_NORMAL, cursor=None, height=None, scroll=False,
+            title=None):
+        """
+        Displays a simple message
+        """
+        key = 'KEY_RESIZE'
+        while key == 'KEY_RESIZE':
+            key = self._display(
+                text=text, x=x, y=y, clear=clear, color=color, bgcolor=bgcolor,
+                modifier=modifier, cursor=cursor, height=height, scroll=scroll,
+                title=title)
+
+            self._set_screen_size()
+
+        return key
+
     def _display_error(self, error_message, title=None):
         """
         Displays an error message, changing the background to red
         """
         # Display error message
-        self._display(error_message, color='error', bgcolor=True, clear=True,
-                      scroll=True, title=title)
+        self._display_message(
+            error_message, color='error', bgcolor=True, clear=True,
+            scroll=True, title=title)
         # Restore normal background colors
         self.screen.bkgd(0, self._get_color('base'))
 
@@ -590,8 +598,9 @@ class Sentinel(object):
                           color='info', modifier=no_modifier)
 
             # Display the confirmation message
-            key = self._display(message, scroll=True,
-                                height=self.window_height - 1, title=title)
+            key = self._display(
+                message, scroll=True, height=self.window_height - 1,
+                title=title)
 
             if key == '\n':
                 # Return key : Validate the choice
@@ -618,6 +627,8 @@ class Sentinel(object):
                 # If we double clicked, auto-validate
                 if mouse_info[4] & curses.BUTTON1_DOUBLE_CLICKED:
                     return confirm
+            elif key == 'KEY_RESIZE':
+                self._set_screen_size()
 
     def _input_text(self, message, default='', size=None, title=None):
         """
@@ -665,6 +676,9 @@ class Sentinel(object):
             # Backspace or del, remove the last character
             elif key == 'KEY_BACKSPACE' or key == 'KEY_DC':
                 value = value[:-1]
+            elif key == 'KEY_RESIZE':
+                self._set_screen_size()
+                line = self.window_height - 1
 
             # Move cursor at end of the displayed value
             if key == '\n' or (size is not None and len(value) >= size):
@@ -721,6 +735,8 @@ class Sentinel(object):
             elif key == 'KEY_UP' or key == 'KEY_RIGHT':
                 # Up key : Increase
                 quantity = '%g' % (float(quantity) + 1)
+            elif key == 'KEY_RESIZE':
+                self._set_screen_size()
 
             if not quantity:
                 quantity = '0'
@@ -824,6 +840,8 @@ class Sentinel(object):
                 # If we double clicked, auto-validate
                 if mouse_info[4] & curses.BUTTON1_DOUBLE_CLICKED:
                     return keys[highlighted]
+            elif key == 'KEY_RESIZE':
+                self._set_screen_size()
 
             # Avoid going out of the list
             highlighted %= len(entries)
