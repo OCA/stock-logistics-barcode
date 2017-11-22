@@ -23,6 +23,8 @@ I18N_DIR = '%s/i18n/' % os.path.dirname(os.path.realpath(__file__))
 I18N_DOMAIN = 'sentinel'
 I18N_DEFAULT = 'en_US'
 
+NULL_CHAR = '\0'
+
 
 # _ will be initialized by gettext.install but declared to prevent pep8 issues
 _ = None
@@ -634,8 +636,11 @@ class Sentinel(object):
             self._display(clear=True)
 
             # Display the current value if echoing is needed
-            display_value = ''.join(
-                [curses.ascii.unctrl(char) for char in value])
+            display_value = ''.join([
+                curses.ascii.unctrl(char)
+                for char in value
+                if char != NULL_CHAR
+            ])
             display_start = max(0, len(display_value) - self.window_width + 1)
             display_value = display_value[display_start:]
             self._display(' ' * (self.window_width - 1), 0, line)
@@ -647,7 +652,15 @@ class Sentinel(object):
                 title=title)
 
             # Printable character : store in value
-            if len(key) == 1 and (curses.ascii.isprint(key) or ord(key) < 32):
+            add_key = (
+                len(key) == 1 and
+                key != NULL_CHAR and
+                (
+                    curses.ascii.isprint(key) or
+                    ord(key) < 32
+                )
+            )
+            if add_key:
                 value += key
             # Backspace or del, remove the last character
             elif key == 'KEY_BACKSPACE' or key == 'KEY_DC':
