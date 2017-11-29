@@ -39,9 +39,6 @@
         'demo/Tutorial/Step_types/Step_types.scenario',
         'demo/Tutorial/Sentinel/Sentinel.scenario',
         'tests/data/Test.scenario',
-        'tests/data/TestWrongModel.scenario',
-        'tests/data/TestWrongCompany.scenario',
-        'tests/data/TestWrongParent.scenario',
     ],
     'images': [
         'images/scanner_hardware.png',
