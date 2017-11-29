@@ -3,7 +3,6 @@
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
         <h1 class="title">{{'Inventory' | translate}} {{data.inventory.name}}</h1>
-        <span class="button icon ion-ios-barcode"></span>
     </ion-header-bar>
 
     <ion-content class="has-header">
@@ -34,6 +33,10 @@
                     <div class="form-field">{{ key }}</div>
                     <span class="form-label">{{ value }}</span>
                 </label>
+
+                <button class="button button-assertive" type="reset" ng-click="reset()" ng-show="data.product" >
+                    <i class="icon ion-close-round"></i> {{'Reset' | translate}}
+                </button>
 
             </div>
         </form>
