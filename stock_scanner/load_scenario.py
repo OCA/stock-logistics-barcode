@@ -102,16 +102,16 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
             ('model', '=', scenario_values['model_id']),
         ]).id or False
         if not scenario_values['model_id']:
-            logger.error('Model not found')
-            return
+            raise ValueError(
+                'Model not found: %s' % scenario_values['model_id'])
 
     if scenario_values.get('company_id'):
         scenario_values['company_id'] = company_obj.search([
             ('name', '=', scenario_values['company_id']),
         ]).id or False
         if not scenario_values['company_id']:
-            logger.error('Company not found')
-            return
+            raise ValueError(
+                'Company not found: %s' % scenario_values['company_id'])
 
     if scenario_values.get('parent_id'):
         if '.' not in scenario_values['parent_id']:
@@ -122,8 +122,9 @@ def import_scenario(env, module, scenario_xml, mode, directory, filename):
         parent_scenario = env.ref(
             scenario_values['parent_id'], raise_if_not_found=False)
         if not parent_scenario:
-            logger.error('Parent not found')
-            return
+            raise ValueError(
+                'Parent scenario not found: %s' % scenario_values['parent_id'])
+
         scenario_values['parent_id'] = parent_scenario.id
 
     # Create or update the scenario
