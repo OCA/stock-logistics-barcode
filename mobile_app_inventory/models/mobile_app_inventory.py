@@ -160,7 +160,7 @@ class MobileAppInventory(models.Model):
             ('inventory_id', '=', inventory.id),
             ('location_id', '=', location_id),
             ('product_id', '=', product.id)])
-        if not lines:
+        if not lines or lines[0].product_qty == 0:
             line_vals = {
                 'location_id': location_id,
                 'product_id': product.id,
