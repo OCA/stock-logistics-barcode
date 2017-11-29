@@ -110,6 +110,10 @@ angular.module('mobile_app_inventory').controller(
         }
         $scope.input = {}; //reset field
     };
+
+    $scope.reset = function () {
+        scan_state.reset();
+    }
 }]).directive('toggleAnim', ['$timeout', function($timeout) {
     return {
         scope: { 'toggleAnim':'='},
