@@ -4,6 +4,7 @@
 
 from odoo import exceptions
 from odoo.tests import common
+from odoo.tools.convert import convert_file
 from ..load_scenario import get_xml_id
 
 
@@ -44,3 +45,27 @@ class TestStockScannerScenarioLoading(common.TransactionCase):
         """ Check the 'id' argument in get_xml_id """
         with self.assertRaises(exceptions.UserError):
             get_xml_id('element', 'stock_scanner', {})
+
+    def test_wrong_model(self):
+        """ Should raise if the model is not found """
+        with self.assertRaises(ValueError):
+            convert_file(
+                self.env.cr, 'stock_scanner',
+                'tests/data/TestWrongModel.scenario', {},
+            )
+
+    def test_wrong_company(self):
+        """ Should raise if the company is not found """
+        with self.assertRaises(ValueError):
+            convert_file(
+                self.env.cr, 'stock_scanner',
+                'tests/data/TestWrongCompany.scenario', {},
+            )
+
+    def test_wrong_parent_scenario(self):
+        """ Should raise if the parent scenario is not found """
+        with self.assertRaises(ValueError):
+            convert_file(
+                self.env.cr, 'stock_scanner',
+                'tests/data/TestWrongParent.scenario', {},
+            )
