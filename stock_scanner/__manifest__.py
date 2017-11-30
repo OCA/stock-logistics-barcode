@@ -38,6 +38,7 @@
         'demo/Tutorial/Tutorial.scenario',
         'demo/Tutorial/Step_types/Step_types.scenario',
         'demo/Tutorial/Sentinel/Sentinel.scenario',
+        'tests/data/Test.scenario',
     ],
     'images': [
         'images/scanner_hardware.png',
