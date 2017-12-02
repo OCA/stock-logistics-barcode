@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-13 10:03+0000\n"
-"PO-Revision-Date: 2017-06-13 10:03+0000\n"
+"POT-Creation-Date: 2017-12-02 01:48+0000\n"
+"PO-Revision-Date: 2017-12-02 01:48+0000\n"
 "Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:486
+#: code:addons/stock_scanner/models/scanner_hardware.py:476
 #, python-format
 msgid "A001"
 msgstr "A001"
@@ -159,7 +159,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:507
+#: code:addons/stock_scanner/hardware/sentinel.py:509
 #, python-format
 msgid ""
 "An error occured\n"
@@ -173,7 +173,7 @@ msgid "Appear on barcode reader screen."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:137
+#: code:addons/stock_scanner/hardware/sentinel.py:139
 #, python-format
 msgid ""
 "Autoconfiguration failed !\n"
@@ -782,7 +782,7 @@ msgid "Name of the transition."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:572
+#: code:addons/stock_scanner/hardware/sentinel.py:574
 #, python-format
 msgid "No"
 msgstr "Nee"
@@ -793,13 +793,13 @@ msgid "No back"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:541
+#: code:addons/stock_scanner/hardware/sentinel.py:543
 #, python-format
 msgid "No scenario available !"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:453
+#: code:addons/stock_scanner/hardware/sentinel.py:455
 #, python-format
 msgid "No value available"
 msgstr ""
@@ -833,8 +833,8 @@ msgid "Parent scenario, used to create menus."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:483
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:473
+#: code:addons/stock_scanner/models/scanner_hardware.py:545
 #, python-format
 msgid "Please contact"
 msgstr ""
@@ -911,7 +911,7 @@ msgid "Scanner status"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:497
+#: code:addons/stock_scanner/models/scanner_hardware.py:487
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
@@ -962,7 +962,7 @@ msgid "Scenario used for this hardware."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:544
+#: code:addons/stock_scanner/hardware/sentinel.py:546
 #, python-format
 msgid "Scenarios"
 msgstr ""
@@ -999,13 +999,13 @@ msgid "Security"
 msgstr "Beveiliging"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:855
+#: code:addons/stock_scanner/hardware/sentinel.py:868
 #, python-format
 msgid "Selected : %d"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:675
+#: code:addons/stock_scanner/hardware/sentinel.py:688
 #, python-format
 msgid "Selected : %s"
 msgstr ""
@@ -1190,6 +1190,11 @@ msgid "Temporary values"
 msgstr ""
 
 #. module: stock_scanner
+#: model:scanner.scenario,name:stock_scanner.scanner_scenario_test
+msgid "Test"
+msgstr ""
+
+#. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_text_val
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
 msgid "Text"
@@ -1232,7 +1237,7 @@ msgid "This client is specific to the stock_scanner module."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:304
+#: code:addons/stock_scanner/models/scanner_hardware.py:302
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "This scenario"
@@ -1421,7 +1426,7 @@ msgid "Yellow"
 msgstr "Geel"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:569
+#: code:addons/stock_scanner/hardware/sentinel.py:571
 #, python-format
 msgid "Yes"
 msgstr "Ja"
@@ -1451,34 +1456,34 @@ msgid "You will also use this step for barcode scanning."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:485
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:475
+#: code:addons/stock_scanner/models/scanner_hardware.py:545
 #, python-format
 msgid "administrator"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:304
+#: code:addons/stock_scanner/models/scanner_hardware.py:302
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "is finished"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:497
+#: code:addons/stock_scanner/models/scanner_hardware.py:487
 #, python-format
 msgid "not found"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:97
+#: code:addons/stock_scanner/load_scenario.py:98
 #, python-format
 msgid "scenario"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:150
-#: code:addons/stock_scanner/load_scenario.py:192
+#: code:addons/stock_scanner/load_scenario.py:154
+#: code:addons/stock_scanner/load_scenario.py:196
 #, python-format
 msgid "step"
 msgstr "Stap"
@@ -1489,14 +1494,14 @@ msgid "stock.config.settings"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:201
+#: code:addons/stock_scanner/load_scenario.py:205
 #, python-format
 msgid "transition"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:484
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:474
+#: code:addons/stock_scanner/models/scanner_hardware.py:545
 #, python-format
 msgid "your"
 msgstr "uw"
