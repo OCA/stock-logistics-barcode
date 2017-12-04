@@ -313,3 +313,33 @@ class TestStockScannerHardware(common.TransactionCase):
             'A step designed to display some information, '
             'without waiting for any user input.',
         ], 0))
+
+    def test_data_serialization(self):
+        """ Check that json properties write the right value in tmp fields """
+        self.hardware.json_tmp_val1 = ''
+        self.assertEqual(self.hardware.tmp_val1, '""')
+        self.hardware.json_tmp_val2 = {'a': 'b'}
+        self.assertEqual(self.hardware.tmp_val2, '{"a": "b"}')
+        self.hardware.json_tmp_val3 = list(range(5))
+        self.assertEqual(self.hardware.tmp_val3, '[0, 1, 2, 3, 4]')
+        self.hardware.json_tmp_val4 = 'text value'
+        self.assertEqual(self.hardware.tmp_val4, '"text value"')
+        self.hardware.json_tmp_val5 = 13.5
+        self.assertEqual(self.hardware.tmp_val5, '13.5')
+
+    def test_data_deserialization(self):
+        """ Check that json properties write the right value in tmp fields """
+        self.hardware.tmp_val1 = '""'
+        self.assertEqual(self.hardware.json_tmp_val1, '')
+        self.hardware.tmp_val2 = '{"a": "b", "c": "d"}'
+        self.assertEqual(self.hardware.json_tmp_val2, {'a': 'b', 'c': 'd'})
+        self.hardware.tmp_val3 = '[0, 1, 2, 3, 4]'
+        self.assertEqual(self.hardware.json_tmp_val3, list(range(5)))
+        self.hardware.tmp_val4 = '"text value"'
+        self.assertEqual(self.hardware.json_tmp_val4, 'text value')
+        self.hardware.tmp_val5 = '13.5'
+        self.assertEqual(self.hardware.json_tmp_val5, 13.5)
+
+    def test_read_unitialized_json_value(self):
+        """ Reading an uninitialized json value should return None """
+        self.assertEqual(self.hardware.json_tmp_val1, None)
