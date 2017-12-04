@@ -2,6 +2,7 @@
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import json
 import logging
 import random
 import time
@@ -171,6 +172,61 @@ class ScannerHardware(models.Model):
         required=True,
         default='red',
         help='Color for the error background.')
+
+    @property
+    @api.multi
+    def json_tmp_val1(self):
+        self.ensure_one()
+        return json.loads(self.tmp_val1 or 'null')
+
+    @json_tmp_val1.setter
+    def json_tmp_val1(self, value):
+        self.ensure_one()
+        self.tmp_val1 = json.dumps(value)
+
+    @property
+    @api.multi
+    def json_tmp_val2(self):
+        self.ensure_one()
+        return json.loads(self.tmp_val2 or 'null')
+
+    @json_tmp_val2.setter
+    def json_tmp_val2(self, value):
+        self.ensure_one()
+        self.tmp_val2 = json.dumps(value)
+
+    @property
+    @api.multi
+    def json_tmp_val3(self):
+        self.ensure_one()
+        return json.loads(self.tmp_val3 or 'null')
+
+    @json_tmp_val3.setter
+    def json_tmp_val3(self, value):
+        self.ensure_one()
+        self.tmp_val3 = json.dumps(value)
+
+    @property
+    @api.multi
+    def json_tmp_val4(self):
+        self.ensure_one()
+        return json.loads(self.tmp_val4 or 'null')
+
+    @json_tmp_val4.setter
+    def json_tmp_val4(self, value):
+        self.ensure_one()
+        self.tmp_val4 = json.dumps(value)
+
+    @property
+    @api.multi
+    def json_tmp_val5(self):
+        self.ensure_one()
+        return json.loads(self.tmp_val5 or 'null')
+
+    @json_tmp_val5.setter
+    def json_tmp_val5(self, value):
+        self.ensure_one()
+        self.tmp_val5 = json.dumps(value)
 
     @api.model
     def timeout_session(self):
