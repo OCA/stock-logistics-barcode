@@ -15,6 +15,10 @@
                         <i class="icon ion-qr-scanner"></i> {{'Validate' | translate}}
                     </button>
                 </div>
+                <label class="item item-input" toggle-anim="data.product">
+                    <div class="form-field">{{'Last scan' | translate}}</div>
+                    <span class="form-label">{{data.product.barcode}}</span>
+                </label>
 
                 <label class="item item-input" toggle-anim="data.location">
                     <div class="form-field">{{'Current Location' | translate}}</div>
