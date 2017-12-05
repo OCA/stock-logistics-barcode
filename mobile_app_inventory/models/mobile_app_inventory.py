@@ -231,6 +231,9 @@ class MobileAppInventory(models.Model):
         for field_name, field_display in custom_fields.iteritems():
             if field_name[-3:] == '_id':
                 value = getattr(product, field_name).name
+            elif field_name[-4:] == '_ids':
+                value = ", ".join(
+                    [attr.name for attr in getattr(product, field_name)])
             else:
                 value = getattr(product, field_name)
             custom_vals[field_display] = value
@@ -270,7 +273,9 @@ class MobileAppInventory(models.Model):
     @api.model
     def _get_custom_fields(self):
         """Return a list of (field_name, field_display) for each custom
-        product fields that should be displayed during the inventory"""
+        product fields that should be displayed during the inventory.
+
+        Don't work yet with computed fields (like display_name)"""
 
         def _get_field_display(obj, field_name):
             translation_obj = obj.env['ir.translation']
