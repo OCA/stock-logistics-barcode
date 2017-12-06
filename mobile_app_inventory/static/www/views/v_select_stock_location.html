@@ -1,0 +1,32 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Locations' | translate}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+       <form  ng-submit="search_location()">
+           <div class="list list-insert">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" placeholder="Search" ng-model="data.location_filter">
+                </label>
+            </div>
+
+            <div class="list">
+                <ion-list>
+                    <ion-item ng-repeat="location in data.location_list | filter: data.location_filter ">
+                        <a class="item" href="#" ng-click="select_location(location)">
+                            <h2>{{location.name}}</h2>
+                            <p>
+                                <span class="secondary-line">({{location.parent_complete_name}})</span>
+                            </p>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-view>
