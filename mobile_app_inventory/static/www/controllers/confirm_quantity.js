@@ -50,5 +50,11 @@ angular.module('mobile_app_inventory').controller(
     $scope.replace_quantity = function () {
         $scope._set_quantity('replace');
     };
+    $scope.reset = function() {
+        $state.go('product', {
+            inventory_id: $scope.data.inventory_id,
+            location_id: $scope.data.location_id,
+        });
+    };
 
 }]);

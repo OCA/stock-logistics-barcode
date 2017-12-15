@@ -49,6 +49,10 @@
         </form>
         <audio id="sound_quantity_selected" src="./static/audio/quantity_selected.mp3"></audio>
         <audio id="sound_user_error" src="./static/audio/user_error.mp3"></audio>
+
+        <button class="button button-assertive" type="reset" ng-click="reset()">
+            <i class="icon ion-close-round"></i> {{'Cancel' | translate}}
+        </button>
     </ion-content>
 
     <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
