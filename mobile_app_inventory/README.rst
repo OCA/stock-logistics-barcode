@@ -168,7 +168,7 @@ http//localhost:8069/mobile_app_inventory/static/www/index.html
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/150/7.0
+   :target: https://runbot.odoo-community.org/runbot/150/10.0
 
 If you're testing this module with demo data installed, you can test scanning
 (or copying values) with the following two barcodes :

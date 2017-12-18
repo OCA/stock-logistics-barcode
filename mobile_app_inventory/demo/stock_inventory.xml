@@ -5,11 +5,11 @@ Copyright (C) 2017-Today: GRAP (http://www.grap.coop)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <record id="shelf_2_inventory" model="stock.inventory">
         <field name="name">Empty inventory of Shelf 2</field>
         <field name="location_id" ref="stock.stock_location_14" />
     </record>
 
-</data></openerp>
+</odoo>

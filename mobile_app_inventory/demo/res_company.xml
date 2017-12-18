@@ -5,7 +5,7 @@ Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 
-<openerp><data>
+<odoo>
 
     <record id="base.main_company" model="res.company">
         <field name="mobile_inventory_product_field_ids" eval="[(6, 0, [
@@ -13,6 +13,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             ref('product.field_product_product_categ_id')])]"/>
     </record>
 
-</data></openerp>
-
-
+</odoo>
