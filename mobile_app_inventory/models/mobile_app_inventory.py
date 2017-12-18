@@ -3,7 +3,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import _, api, models
+from odoo import _, api, models
 
 
 class MobileAppInventory(models.Model):
@@ -84,7 +84,7 @@ class MobileAppInventory(models.Model):
         inventory_id = self._extract_param(params, 'inventory.id')
         inventories = inventory_obj.browse(inventory_id)
         lines = inventories.line_ids.filtered(
-            lambda line: line.product_id.ean13)
+            lambda line: line.product_id.barcode)
         custom_fields = self._get_custom_fields()
         return [
             self._export_inventory_line(line, custom_fields) for line in lines]
@@ -241,7 +241,7 @@ class MobileAppInventory(models.Model):
         return {
             'id': product.id,
             'name': product.name,
-            'barcode': product.ean13,
+            'barcode': product.barcode,
             'barcode_qty': barcode_qty,
             'custom_vals': custom_vals,
         }
@@ -309,7 +309,7 @@ class MobileAppInventory(models.Model):
     @api.model
     def _search_barcode(self, barcode):
         product_obj = self.env['product.product']
-        products = product_obj.search([('ean13', '=', barcode)])
+        products = product_obj.search([('barcode', '=', barcode)])
         barcode_qty = 0
         if not products:
             product, barcode_qty = self._guess_product_qty(barcode)

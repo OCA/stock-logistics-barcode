@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2016-Today GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_stock_config_settings" model="ir.ui.view">
+        <field name="model">stock.config.settings</field>
+        <field name="inherit_id" ref="stock.view_stock_config_settings" />
+        <field name="arch" type="xml">
+            <group name="shipping" position="after">
+                <group string="Inventory Mobile App" name="mobile_inventory_app">
+                    <field name="company_id" invisible="1"/>
+                    <field name="mobile_inventory_create"/>
+                    <field name="mobile_inventory_product_field_ids"/>
+                </group>
+            </group>
+        </field>
+    </record>
+
+</odoo>

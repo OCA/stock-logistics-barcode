@@ -5,8 +5,10 @@
 
 {
     'name': 'Inventory Mobile App',
-    'version': '8.0.1.0.0',
-    'category': 'Stock',
+    'version': '10.0.1.0.0',
+    'summary': 'Perform a full inventory from a mobile device with '
+               'barcode reader',
+    'category': 'Inventory, Logistics, Warehousing',
     'author': 'GRAP,Akretion,Odoo Community Association (OCA)',
     'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
@@ -17,7 +19,7 @@
         'security/ir.model.access.csv',
         'views/view_stock_inventory.xml',
         'views/view_stock_location.xml',
-        'views/view_res_company.xml',
+        'views/view_stock_config_settings.xml',
     ],
     'demo': [
         'demo/res_users.xml',
