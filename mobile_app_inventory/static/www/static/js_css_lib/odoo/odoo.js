@@ -1,5 +1,5 @@
 'use strict';
-angular.module('odoo', ['ngCookies']);
+angular.module('odoo', []);
 
 'use strict';
 angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
@@ -7,26 +7,17 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 	this.odooRpc = {
 		odoo_server: "",
 		uniq_id_counter: 0,
+		odooVersion: '',
 		context: {'lang': 'fr_FR'},
-		shouldManageSessionId: false, //try without first
+		shouldManageSessionId: false, //try without first for v7
 		errorInterceptors: []
 	};
 
 	var preflightPromise = null;
 
-	this.$get = ["$http", "$cookies", "$q", "$timeout", function($http, $cookies, $q, $timeout) {
+	this.$get = function($http, $q, $timeout) {
 
 		var odooRpc = this.odooRpc;
-
-		/**
-		* get_database_list
-		*		Return availables database list
-		*/
-		odooRpc.get_database_list = function() {
-			return odooRpc.sendRequest('/web/database/get_list', {}).then(function(result) {
-				return result;
-			});
-		};
 
 		/**
 		* login
@@ -45,15 +36,15 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 
 			return odooRpc.sendRequest('/web/session/authenticate', params).then(function(result) {
 				if (!result.uid) {
-					delete $cookies.session_id;
+					cookies.delete_sessionId();
 					return $q.reject({ 
 						title: 'wrong_login',
-						message:'Credentials incorrect',
+						message:"Username and password don't match",
 						fullTrace: result
 					});
 				}
 				odooRpc.context = result.user_context;
-				$cookies.session_id = result.session_id;
+				cookies.set_sessionId(result.session_id);
 				return result;
 			});
 		};
@@ -68,9 +59,10 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 		*/
 		odooRpc.isLoggedIn = function (force) {
 			if (!force)
-				return $cookies.session_id && $cookies.session_id.length > 10;
+				return cookies.get_sessionId().length > 0;
 
 			return odooRpc.getSessionInfo().then(function (result) {
+				cookies.set_sessionId(result.session_id);
 				return !!(result.uid); 
 			});
 		};
@@ -82,19 +74,20 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 		* @return null || promise 
 		*/
 		odooRpc.logout = function (force) {
-			delete $cookies.session_id;
+			cookies.delete_sessionId();
 			if (force)
-				odooRpc.getSessionInfo().then(function (r) { //get db from sessionInfo
-          if (r.db)
-					  odooRpc.login(r.db, '', '');
+				return odooRpc.getSessionInfo().then(function (r) { //get db from sessionInfo
+					if (r.db)
+						return odooRpc.login(r.db, '', '');
 				});
+			return $q.when();
 		};
 
 		odooRpc.searchRead = function(model, domain, fields) {
 			var params = {
 				model: model,
 				domain: domain,
-				fields: fields,
+				fields: fields
 			}
 			return odooRpc.sendRequest('/web/dataset/search_read', params);
 		};
@@ -107,22 +100,27 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 			return odooRpc.sendRequest('/web/webclient/version_info', {});
 		};
 
-		odooRpc.syncDataImport = function(model, func_key, domain, limit, object) {
+		odooRpc.getDbList = function() {
+			if (odooRpc.odooVersion[0] == "7" || odooRpc.odooVersion[0] == "8")
+				return odooRpc.sendRequest('/web/database/get_list', {});
+			return odooRpc.callJson('db', 'list', {});
+		};
+		odooRpc.syncDataImport = function(model, func_key, base_domain, filter_domain, limit, object) {
 			return odooRpc.call(model, 'get_sync_data', [
-				func_key, object.timekey, domain, limit
+				func_key, object.timekey, base_domain, filter_domain, limit
 			], {}).then(function(result) {
-					if (object.timekey === result.timekey)
-						return; //no change since last run
+					//if (object.timekey === result.timekey) TODO: add mutlidomain before uncomment
+					// return; //no change since last run
 					object.timekey = result.timekey; 
 					
-					angular.extend(object.data, result.data);
-					
-					angular.forEach(object.remove_ids, function(id) {
-							delete object.data[id];
+					angular.forEach(result.remove_ids, function(id) {
+						delete object.data[id];
 					});
 
-					if (result.data.length)
-						odooRpc.syncDataImport(model, func_key, domain, limit, object);
+					if (Object.keys(result.data).length) {
+						angular.merge(object.data, result.data); ///merge deeply old with new
+						return odooRpc.syncDataImport(model, func_key, base_domain, filter_domain, limit, object);
+					}
 			});
 		};
 
@@ -133,6 +131,26 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 					domain: [],
 					limit: 50,
 					interval: 5000,
+					}
+
+			 When an error happens, the sync cycle is interrupted.
+
+			 An optional parameter 'onErrorRetry' can be specified. If its value is
+			 true, then the sync cycle will continue on the next interval even when
+			 errors occur. For a more fine-grained control over the retries,
+			 'onErrorRetry' could also be a function, taking the error as argument.
+			 It should call 'nextSync()' on the synchronized object's API to delay
+			 the next sync iteration.
+
+			 Example:
+
+				params = {
+					...
+					onErrorRetry: function(sync, err) {
+						if(shouldRetry(err)) {
+							sync.nextSync();
+						}
+					}
 					}
 
 			 return a synchronized object where you can access
@@ -148,24 +166,41 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 				},
 				watch: function(fun) {
 					watchers.push(fun);
-				}
+				},
+				nextSync: nextSync
 			};
+
+			function nextSync(interval) {
+				if(!stop) {
+					$timeout(sync, interval || params.interval);
+				}
+			}
+
+			function runWatchers(data) {
+				watchers.forEach(function (fun) {
+					fun(object);
+				});
+			}
+
+			var errorCallback = null;
+			if(angular.isFunction(params.onErrorRetry)) {
+				errorCallback = function(err) { params.onErrorRetry(object, err); };
+			} else if(params.onErrorRetry) {
+				errorCallback = function(err) { nextSync(); };
+			}
 
 			function sync() {
 
 				odooRpc.syncDataImport(
 					params.model,
 					params.func_key,
-					params.domain,
+					params.base_domain,
+					params.filter_domain,
 					params.limit,
-					object).then(function () { 
-						if (!stop)
-							$timeout(sync, params.interval);
-				}).then(function(data) {
-					watchers.forEach(function (fun) {
-						fun(object);
-					});
-				});
+					object)
+				.then(nextSync)
+				.then(runWatchers)
+				.catch(errorCallback);
 			}
 			sync();
 
@@ -184,10 +219,17 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 				args: args,
 				kwargs: kwargs,
 			};
-
 			return odooRpc.sendRequest('/web/dataset/call_kw', params);
 		};
 
+		odooRpc.callJson = function(service, method, args) {
+			var params = {
+				service: service,
+				method: method,
+				args: args,
+			};
+			return odooRpc.sendRequest('/jsonrpc', params);
+		}
 
 		/**
 		* base function
@@ -201,20 +243,22 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 			function buildRequest(url, params) {
 				odooRpc.uniq_id_counter += 1;
 				if (odooRpc.shouldManageSessionId)
-					params.session_id = $cookies.session_id
+					params.session_id = cookies.get_sessionId();
 
 				var json_data = {
 					jsonrpc: '2.0',
 					method: 'call',
 					params: params, //payload
 				};
+				var headers = {
+					'Content-Type': 'application/json',
+					'X-Openerp-Session-Id': cookies.get_sessionId()
+				}
 				return {
 					'method' : 'POST',
 					'url' : odooRpc.odoo_server + url,
 					'data' : JSON.stringify(json_data),
-					'headers': {
-						'Content-Type' : 'application/json'
-					},
+					'headers': headers,
 					'id': ("r" + odooRpc.uniq_id_counter),
 				};
 			}
@@ -245,7 +289,13 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 							(error.code === 300 && error.message === "OpenERP WebClient Error" && error.data.debug.match("SessionExpiredException")) //v7
 						) {
 							errorObj.title ='session_expired';
-							delete $cookies.session_id;
+							cookies.delete_sessionId();
+				} else if ( (error.message === "Odoo Server Error" && /FATAL:  database "(.+)" does not exist/.test(error.data.message))) {
+					errorObj.title = "database_not_found";
+					errorObj.message = error.data.message;
+				} else if ( (error.data.name === "openerp.exceptions.AccessError")) {
+					errorObj.title = 'AccessError';
+					errorObj.message = error.data.message;
 				} else {
 					var split = ("" + error.data.fault_code).split('\n')[0].split(' -- ');
 					if (split.length > 1) {
@@ -304,7 +354,8 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 			function preflight() {
 				//preflightPromise is a kind of cache and is set only if the request succeed
 				return preflightPromise || http('/web/webclient/version_info', {}).then(function (reason) {
-					odooRpc.shouldManageSessionId = (reason.result.server_serie < "8"); //server_serie is string like "7.01"
+					odooRpc.odooVersion = reason.result.server_serie;
+					odooRpc.shouldManageSessionId = (odooRpc.odooVersion[0] == "7"); //server_serie is string like "7.01"
 					preflightPromise = $q.when(); //runonce
 				});
 			}
@@ -312,9 +363,9 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 			return preflight().then(function () {
 				return http(url, params).then(function(response) {
 					var subRequests = [];
-					if (response.type === "ir.actions.act_proxy") {
-						angular.forEach(response.action_list, function(action) {
-							subRequests.push(http(action['url'], action['params']));
+					if (response.result.type === "ir.actions.act_proxy") {
+						angular.forEach(response.result.action_list, function(action) {
+							subRequests.push($http.post(action['url'], action['params']));
 						});
 						return $q.all(subRequests);
 					} else
@@ -324,6 +375,26 @@ angular.module('odoo').provider('jsonRpc', function jsonRpcProvider() {
 		};
 
 		return odooRpc;
-	}];
+	};
+
+	var cookies = (function() {
+		var session_id; //cookies doesn't work with Android Default Browser / Ionic
+		return {
+			delete_sessionId: function() {
+				session_id = null;
+				document.cookie  = 'session_id=; expires=Thu, 01 Jan 1970 00:00:00 GMT';
+			},
+			get_sessionId: function () {
+				return document.cookie.split('; ')
+				.filter(function (x) { return x.indexOf('session_id') === 0; })
+				.map(function (x) { return x.split('=')[1]; })
+				.pop() || session_id || "";
+			},
+			set_sessionId: function (val) {
+				document.cookie = 'session_id=' + val;
+				session_id = val;
+			}
+		};
+	}());
 });
 
