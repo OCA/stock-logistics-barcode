@@ -18,14 +18,13 @@ Installation
 ============
 
 
-The "sentinel.py" specific ncurses client is available in the "hardware" directory.
+The `odoo-sentinel` specific client can be installed from pip:
+
+    $ pip install odoo-sentinel
+
 This application is a separate client, and can be run on any device.
 
 For mobile devices, like Windows Mobile or Android smart barcode scanners, we usually install it on a server, accessed through SSH.
-
-If you plan to use the specific "sentinel.py", you will need the "odoorpc" Python module, available from pip:
-
-    $ sudo pip install "odoorpc"
 
 To test the module, some modules provide scenario.
 
@@ -42,15 +41,15 @@ You have to declare some hardware scanners in Odoo.
 
 Go to "Inventory > Configuration > Scanner Configuration > Scanner Hardware" and create a new record.
 
-The "step type code" sent by the "sentinel.py" client at start-up is the IP address of the hardware, if connected through SSH.
+The "step type code" sent by the "odoo-sentinel" client at start-up is the IP address of the hardware, if connected through SSH.
 
 If needed enable Login/Logout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The module come with 2 predifined scenarii for Login and Logout. The functionality is disabled by default and the user to use in
-Odoo must be specified in the .oerp_sentinelrc file used by sentinel and can be overriden on the Scanner Hardware definition
+Odoo must be specified in the `.odoorpcrc` file used by odoo-sentinel and can be overriden on the Scanner Hardware definition
 in Odoo. 
 
-If the Login/logout functionality is enabled, when a user start a session with sentinel, only the Login scenario is displayed on the
+If the Login/logout functionality is enabled, when a user start a session with odoo-sentinel, only the Login scenario is displayed on the
 screen. The scenario will prompt the user for its login and pwd. If the authentication succeed, each interaction with Odoo will be done
 using the uid of the connected user. Once connected, a Logout scenario is displayed in the list of available scenarii and the Login
 scenario no more appear. 
@@ -60,17 +59,17 @@ The Login/logout functionality enable you to specify on the scenario a list of u
 To enable the Login/logout functionality:
     * Go to "Settings > Warehouse" and check the checkbox Login/logout scenarii enabled.
     * Create a *Technical User* 'sentinel' **without roles in Human Resources** and with 'Sentinel: technical users' checked.
-    * Use this user to launch your sentinel session.
+    * Use this user to launch your odoo-sentinel session.
 
 Be careful, the role *Sentinel: technical users* is a technical role and should only be used by sentinel.
 
 The timeout of sessions is managed by a dedicated cron that reset the inactive sessions. The timeout can be configured on 
 settings. "Settings > Warehouse"
 
-For the sentinel.py client
---------------------------
+For the odoo-sentinel client
+----------------------------
 
-The sentinel.py client uses an OdooRPC profile to connect to Odoo.
+The odoo-sentinel client uses an OdooRPC profile to connect to Odoo.
 The default configuration file is `~/.odoorpcrc`, but this can be customized, using the `-c`/`--config` argument.
 See the `hardware/odoorpcrc.sample` file for an example.
 
@@ -83,8 +82,8 @@ The file used to log errors can be defined by using the `-l`/`--log-file` argume
 Autoconfiguration feature
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The `sentinel.py` client has an autoconfiguration feature, used to automatically recognize the hardware being connected.
-During initialization, the `sentinel.py` client tries to detect an SSH connection, and sends the terminal's IP address as terminal code.
+The `odoo-sentinel` client has an autoconfiguration feature, used to automatically recognize the hardware being connected.
+During initialization, the `odoo-sentinel` client tries to detect an SSH connection, and sends the terminal's IP address as terminal code.
 If the IP address is found on the `code` field on a configured hardware in the database, this hardware configuration will automatically be used.
 If the IP address is not found, the client will ask the user to type (or scan) a code.
 
@@ -164,7 +163,7 @@ Using a test file
 ^^^^^^^^^^^^^^^^^
 
 When developing scenarios, you will often have the same steps to run.
-The sentinel.py client allows you to supply a file, which contains the keys pressed during the scenario.
+The odoo-sentinel client allows you to supply a file, which contains the keys pressed during the scenario.
 
 You can define the file to use in the `-t`/`--test-file` argument.
 This file will be read instead of calling the curses methods when the scenario is waiting for a user input (including line feed characters).
