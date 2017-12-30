@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-02 01:48+0000\n"
-"PO-Revision-Date: 2017-12-02 01:48+0000\n"
+"POT-Creation-Date: 2017-12-15 01:54+0000\n"
+"PO-Revision-Date: 2017-12-15 01:54+0000\n"
 "Last-Translator: Peter Hageman <hageman.p@gmail.com>, 2017\n"
 "Language-Team: Dutch (Netherlands) (https://www.transifex.com/oca/teams/23907/nl_NL/)\n"
 "MIME-Version: 1.0\n"
@@ -86,7 +86,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:476
+#: code:addons/stock_scanner/models/scanner_hardware.py:532
 #, python-format
 msgid "A001"
 msgstr "A001"
@@ -191,13 +191,13 @@ msgid "Base - Text Color"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:22
+#: code:addons/stock_scanner/models/scanner_hardware.py:23
 #, python-format
 msgid "Black"
 msgstr "Zwart"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:23
+#: code:addons/stock_scanner/models/scanner_hardware.py:24
 #, python-format
 msgid "Blue"
 msgstr "Blauw"
@@ -358,7 +358,7 @@ msgid "Current step for this hardware."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:24
+#: code:addons/stock_scanner/models/scanner_hardware.py:25
 #, python-format
 msgid "Cyan"
 msgstr "Cyaan"
@@ -509,7 +509,7 @@ msgid "Going back"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:25
+#: code:addons/stock_scanner/models/scanner_hardware.py:26
 #, python-format
 msgid "Green"
 msgstr "Groen"
@@ -722,7 +722,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:26
+#: code:addons/stock_scanner/models/scanner_hardware.py:27
 #, python-format
 msgid "Magenta"
 msgstr "Magenta"
@@ -833,8 +833,8 @@ msgid "Parent scenario, used to create menus."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:473
-#: code:addons/stock_scanner/models/scanner_hardware.py:545
+#: code:addons/stock_scanner/models/scanner_hardware.py:529
+#: code:addons/stock_scanner/models/scanner_hardware.py:601
 #, python-format
 msgid "Please contact"
 msgstr ""
@@ -856,7 +856,7 @@ msgid "Python code to execute."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:27
+#: code:addons/stock_scanner/models/scanner_hardware.py:28
 #, python-format
 msgid "Red"
 msgstr "Rood"
@@ -911,7 +911,7 @@ msgid "Scanner status"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:487
+#: code:addons/stock_scanner/models/scanner_hardware.py:543
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
@@ -1237,7 +1237,7 @@ msgid "This client is specific to the stock_scanner module."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:302
+#: code:addons/stock_scanner/models/scanner_hardware.py:358
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "This scenario"
@@ -1403,7 +1403,7 @@ msgid "Welcome on the stock_scanner module."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:28
+#: code:addons/stock_scanner/models/scanner_hardware.py:29
 #, python-format
 msgid "White"
 msgstr "Wit"
@@ -1420,7 +1420,7 @@ msgid "Wrong login/password"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:29
+#: code:addons/stock_scanner/models/scanner_hardware.py:30
 #, python-format
 msgid "Yellow"
 msgstr "Geel"
@@ -1456,21 +1456,21 @@ msgid "You will also use this step for barcode scanning."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:475
-#: code:addons/stock_scanner/models/scanner_hardware.py:545
+#: code:addons/stock_scanner/models/scanner_hardware.py:531
+#: code:addons/stock_scanner/models/scanner_hardware.py:601
 #, python-format
 msgid "administrator"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:302
+#: code:addons/stock_scanner/models/scanner_hardware.py:358
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "is finished"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:487
+#: code:addons/stock_scanner/models/scanner_hardware.py:543
 #, python-format
 msgid "not found"
 msgstr ""
@@ -1500,8 +1500,8 @@ msgid "transition"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:474
-#: code:addons/stock_scanner/models/scanner_hardware.py:545
+#: code:addons/stock_scanner/models/scanner_hardware.py:530
+#: code:addons/stock_scanner/models/scanner_hardware.py:601
 #, python-format
 msgid "your"
 msgstr "uw"
