@@ -23,7 +23,7 @@ angular.module('mobile_app_inventory').controller(
         angular.element(document.querySelector('#input_login'))[0].focus();
 
         // Load available databases
-        jsonRpc.get_database_list().then(function(db_list){
+        jsonRpc.getDbList().then(function(db_list){
             $scope.data.db_list = db_list;
             if (db_list.length >= 1) {
                 $scope.data.db = db_list[0];
