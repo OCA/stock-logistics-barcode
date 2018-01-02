@@ -45,11 +45,10 @@ class MobileAppInventory(models.Model):
         """
         inventory_obj = self.env['stock.inventory']
         inventory_name = self._extract_param(params, 'inventory.name')
-        vals = inventory_obj.default_get(self._defaults.keys())
-        vals.update({
+        vals = {
             'name': _('%s (Mobile App)') % (inventory_name),
             'filter': 'partial',
-        })
+        }
         inventory = inventory_obj.create(vals)
         inventory.prepare_inventory()
         return self._export_inventory(inventory)
@@ -127,7 +126,6 @@ class MobileAppInventory(models.Model):
             {'state': 'duplicate', qty: xxx}:
                 There is a duplicate. Qty is the current quantity
         """
-
         inventory_obj = self.env['stock.inventory']
         line_obj = self.env['stock.inventory.line']
         product_obj = self.env['product.product']
@@ -212,7 +210,7 @@ class MobileAppInventory(models.Model):
             'parent_complete_name': (
                 location.location_id and
                 location.location_id.display_name or False),
-            'barcode': location.loc_barcode,
+            'barcode': location.barcode,
         }
 
     @api.model
@@ -280,7 +278,7 @@ class MobileAppInventory(models.Model):
         def _get_field_display(obj, field_name):
             translation_obj = obj.env['ir.translation']
             # Determine model name
-            if field_name in obj.env['product.product']._columns:
+            if field_name in obj.env['product.product']._fields:
                 model = 'product.product'
             else:
                 model = 'product.template'
@@ -292,7 +290,7 @@ class MobileAppInventory(models.Model):
             if translation_ids:
                 return translation_ids[0].value
             else:
-                return obj.env[model]._columns[field_name].string
+                return obj.env[model]._fields[field_name].string
 
         # Get custom fields
         res = {}
