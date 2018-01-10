@@ -185,6 +185,10 @@ Roadmap / Current Limits
   be great to have a generic 'web_ionic' module that have all tools to avoid
   to duplicate files
 
+* Doesn't support production lots
+
+* Only support product quantities as integer (not float)
+
 Known Issues
 ------------
 
@@ -197,7 +201,9 @@ Known Issues
 
 * Databases list on login view displays all databases, while only databases
   with 'mobile_app_inventory' module installed should be displayed. But this
-  feature could not be implemented, due to current Odoo Core limitations
+  feature could not be implemented, due to current Odoo Core limitations.
+  Also it doesn't take into account the parameter *dbfilter* of Odoo server
+  configuration file.
 
 * **Firefox Ionic Bug** : The first screen allows user to select database,
   in a multi database context. This module use ionic select component, that
