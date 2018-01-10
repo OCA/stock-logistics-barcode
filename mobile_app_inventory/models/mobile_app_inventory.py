@@ -4,6 +4,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, models
+from odoo.tools import float_is_zero
 
 
 class MobileAppInventory(models.Model):
@@ -129,6 +130,8 @@ class MobileAppInventory(models.Model):
         inventory_obj = self.env['stock.inventory']
         line_obj = self.env['stock.inventory.line']
         product_obj = self.env['product.product']
+        prec = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
         inventory_id = self._extract_param(params, 'inventory.id')
         location_id = self._extract_param(params, 'location.id')
         product_id = self._extract_param(params, 'product.id')
@@ -138,6 +141,8 @@ class MobileAppInventory(models.Model):
         inventory = inventory_obj.browse(inventory_id)
         qty = qty and float(qty) or 0.0
         product = False
+        if inventory.state != 'confirm':
+            return {'state': 'no_barcode'}  # TODO return a proper error
         if product_id:
             product = product_obj.browse(product_id)
         elif barcode:
@@ -158,22 +163,26 @@ class MobileAppInventory(models.Model):
             ('inventory_id', '=', inventory.id),
             ('location_id', '=', location_id),
             ('product_id', '=', product.id)])
-        if not lines or lines[0].product_qty == 0:
+        if not lines:
             line_vals = {
                 'location_id': location_id,
                 'product_id': product.id,
                 'product_uom_id': product.uom_id.id,
                 'product_qty': qty,
+                'inventory_id': inventory.id,
             }
-            inventory_vals = {'line_ids': [[0, False, line_vals]]}
-            inventory.write(inventory_vals)
+            line_obj.create(line_vals)
             return {'state': 'write_ok'}
         elif len(lines) == 1:
-            if mode == 'ask':
+            if (
+                    not float_is_zero(
+                    lines[0].product_qty, precision_digits=prec) and
+                    mode == 'ask'):
                 return {'state': 'duplicate', 'qty': lines[0].product_qty}
             elif mode == 'add':
-                qty += lines[0].product_qty
-            lines[0].write({'product_qty': qty})
+                lines[0].product_qty += qty
+            else:
+                lines[0].product_qty = qty
             return {'state': 'write_ok'}
         else:
             return {'state': 'many_duplicate_lines'}
@@ -308,6 +317,9 @@ class MobileAppInventory(models.Model):
     def _search_barcode(self, barcode):
         product_obj = self.env['product.product']
         products = product_obj.search([('barcode', '=', barcode)])
+        if not products:
+            products = product_obj.search(
+                [('default_code', '=ilike', barcode)])
         barcode_qty = 0
         if not products:
             product, barcode_qty = self._guess_product_qty(barcode)
