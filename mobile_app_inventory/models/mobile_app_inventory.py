@@ -5,6 +5,7 @@
 
 from odoo import _, api, models
 from odoo.tools import float_is_zero
+from odoo.exceptions import UserError
 
 
 class MobileAppInventory(models.Model):
@@ -142,7 +143,7 @@ class MobileAppInventory(models.Model):
         qty = qty and float(qty) or 0.0
         product = False
         if inventory.state != 'confirm':
-            return {'state': 'no_barcode'}  # TODO return a proper error
+            raise UserError(_("Inventory not in progress"))
         if product_id:
             product = product_obj.browse(product_id)
         elif barcode:
@@ -177,6 +178,7 @@ class MobileAppInventory(models.Model):
             if (
                     not float_is_zero(
                     lines[0].product_qty, precision_digits=prec) and
+                    not float_is_zero(qty, precision_digits=prec) and
                     mode == 'ask'):
                 return {'state': 'duplicate', 'qty': lines[0].product_qty}
             elif mode == 'add':
@@ -317,9 +319,6 @@ class MobileAppInventory(models.Model):
     def _search_barcode(self, barcode):
         product_obj = self.env['product.product']
         products = product_obj.search([('barcode', '=', barcode)])
-        if not products:
-            products = product_obj.search(
-                [('default_code', '=ilike', barcode)])
         barcode_qty = 0
         if not products:
             product, barcode_qty = self._guess_product_qty(barcode)

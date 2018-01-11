@@ -77,7 +77,7 @@ angular.module('mobile_app_inventory').controller(
         $scope.successMessage = "";
         
         function is_barcode(input) {
-            return ('' + input).length > 5;  // TODO: problem: it can also be a small default_code
+            return ('' + input).length > 5;
         }
         if (!input) {
             //may the user want to force the submission now ? 
