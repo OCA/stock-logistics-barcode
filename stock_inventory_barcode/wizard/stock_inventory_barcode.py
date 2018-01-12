@@ -1,28 +1,13 @@
 # -*- coding: utf-8 -*-
-##############################################################################
-#
-#    Stock Inventory Barcode module for Odoo
-#    Copyright (C) 2015 Akretion (http://www.akretion.com)
-#    @author Alexis de Lattre <alexis.delattre@akretion.com>
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
+# © 2015-2018 Akretion (http://www.akretion.com)
+# @author Alexis de Lattre <alexis.delattre@akretion.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import models, fields, api, _
-import openerp.addons.decimal_precision as dp
-from openerp.exceptions import Warning as UserError
+
+from odoo import api, fields, models, _
+import odoo.addons.decimal_precision as dp
+from odoo.exceptions import UserError
+from odoo.tools import float_compare, float_is_zero
 
 
 class StockInventoryBarcode(models.TransientModel):
@@ -30,7 +15,7 @@ class StockInventoryBarcode(models.TransientModel):
     _description = 'Stock Inventory Barcode Wizard'
 
     product_code = fields.Char(
-        string='EAN13 or Internal Reference',
+        string='Barcode or Internal Reference',
         help="This field is designed to be filled with a barcode reader")
     product_id = fields.Many2one(
         'product.product', string='Product', required=True)
@@ -53,7 +38,7 @@ class StockInventoryBarcode(models.TransientModel):
         if self.product_code:
             products = self.env['product.product'].search([
                 '|',
-                ('ean13', '=', self.product_code),
+                ('barcode', '=', self.product_code),
                 ('default_code', '=ilike', self.product_code)])
             if len(products) == 1:
                 self.product_id = products[0]
@@ -62,17 +47,17 @@ class StockInventoryBarcode(models.TransientModel):
                     'title': _('Error'),
                     'message': _(
                         'Several products have been found '
-                        'with this code as EAN13 or Internal Reference:\n %s'
+                        'with this code as Barcode or Internal Reference:\n %s'
                         '\nYou should select the right product manually.'
                         ) % '\n'.join([
-                            product.name_get()[0][1] for product in products
+                            product.display_name for product in products
                             ])}}
             else:
                 return {'warning': {
                     'title': _('Error'),
                     'message': _(
                         'No product found with this code as '
-                        'EAN13 nor Internal Reference. You should select '
+                        'Barcode nor Internal Reference. You should select '
                         'the right product manually.')}}
 
     @api.onchange('product_id')
@@ -112,14 +97,16 @@ class StockInventoryBarcode(models.TransientModel):
                     })
                 self.inventory_line_id = new_iline
 
-    @api.multi
     def save(self):
         self.ensure_one()
         if not self.inventory_line_id:
             raise UserError(_('No related inventory line'))
-        if self.add_qty:
+        prec = self.env['decimal.precision'].precision_get(
+            'Product Unit of Measure')
+        if not float_is_zero(self.add_qty, precision_digits=prec):
             self.inventory_line_id.product_qty += self.add_qty
-        elif self.change_qty != self.product_qty:
+        elif float_compare(
+                self.change_qty, self.product_qty, precision_digits=prec):
             self.inventory_line_id.product_qty = self.change_qty
         action = {
             'name': _('Stock Inventory Barcode Wizard'),
