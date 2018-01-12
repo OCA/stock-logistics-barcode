@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 # Copyright 2017 LasLabs Inc.
@@ -11,10 +10,12 @@ _GENERATE_TYPE = [
     ('no', 'No generation'),
     ('manual', 'Base set Manually'),
     ('sequence', 'Base managed by Sequence'),
+
 ]
 
 
 class BarcodeRule(models.Model):
+
     _inherit = 'barcode.rule'
 
     # Column Section
@@ -65,8 +66,7 @@ class BarcodeRule(models.Model):
     @api.multi
     @api.constrains('generate_model', 'generate_automate')
     def _check_generate_model_automate(self):
-        """ It should not allow two automated barcode generators per model.
-
+        """It should not allow two automated barcode generators per model.
         It also clears the cache of automated rules if necessary.
         """
         for record in self:
@@ -117,19 +117,20 @@ class BarcodeRule(models.Model):
 
     @api.model
     def get_automatic_rule(self, model):
-        """ It provides a cached indicator for barcode automation.
+        """It provides a cached indicator for barcode automation.
 
         Args:
             model (str): Name of model to search for.
         Returns:
             BarcodeRule: Recordset of automated barcode rules for model.
+
         """
         return self.browse(self.get_automatic_rule_ids(model))
 
     @api.model
     @tools.ormcache('model')
     def get_automatic_rule_ids(self, model):
-        """ It provides a cached indicator for barcode automation.
+        """It provides a cached indicator for barcode automation.
 
         Note that this cache needs to be explicitly cleared when
         `generate_automate` is changed on an associated `barcode.rule`.
@@ -138,6 +139,7 @@ class BarcodeRule(models.Model):
             model (str): Name of model to search for.
         Returns:
             list of int: IDs of the automated barcode rules for model.
+
         """
         record = self.search([
             ('generate_model', '=', model),
@@ -147,7 +149,7 @@ class BarcodeRule(models.Model):
 
     @api.model_cr_context
     def _clear_cache(self, vals):
-        """ It clears the caches if certain vals are updated. """
+        """It clears the caches if certain vals are updated."""
         fields = ('generate_model', 'generate_automate')
         if any(k in vals for k in fields):
             self.invalidate_cache(fields)

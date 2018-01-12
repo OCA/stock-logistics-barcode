@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-TODAY GRAP (http://www.grap.coop)
 # Copyright (C) 2016-TODAY La Louve (http://www.lalouve.net)
 # Copyright 2017 LasLabs Inc.
@@ -21,6 +20,7 @@ except ImportError:
 
 
 class BarcodeGenerateMixin(models.AbstractModel):
+
     _name = 'barcode.generate.mixin'
 
     # Column Section
@@ -35,7 +35,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
 
     @api.model
     def create(self, vals):
-        """ It creates a new barcode if automation is active. """
+        """It creates a new barcode if automation is active."""
         barcode_rule = self.env['barcode.rule'].get_automatic_rule(self._name)
         if barcode_rule.exists():
             vals.update({
@@ -75,10 +75,10 @@ class BarcodeGenerateMixin(models.AbstractModel):
     @api.model
     def _get_custom_barcode(self, item):
         """
-            if the pattern is '23.....{NNNDD}'
-            this function will return '23.....00000'
-            Note : Overload _get_replacement_char to have another char
-            instead that replace 'N' and 'D' char.
+        If the pattern is '23.....{NNNDD}'
+        this function will return '23.....00000'
+        Note : Overload _get_replacement_char to have another char
+        instead that replace 'N' and 'D' char.
         """
         if not item.barcode_rule_id:
             return False
