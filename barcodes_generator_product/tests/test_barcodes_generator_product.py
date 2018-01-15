@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2016-Today GRAP (http://www.grap.coop)
 # Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
