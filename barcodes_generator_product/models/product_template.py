@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -33,6 +32,7 @@ class ProductTemplate(models.Model):
 
     @api.multi
     def generate_barcode(self):
+        self.ensure_one()
         self.product_variant_ids.generate_barcode()
 
     @api.onchange('barcode_rule_id')
