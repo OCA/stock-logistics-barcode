@@ -9,8 +9,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-09-02 14:27+0000\n"
-"PO-Revision-Date: 2017-09-02 14:27+0000\n"
+"POT-Creation-Date: 2017-12-02 13:36+0000\n"
+"PO-Revision-Date: 2017-12-02 13:36+0000\n"
 "Last-Translator: Jan Prokop <jprokop@creativehome.sk>, 2017\n"
 "Language-Team: Slovak (https://www.transifex.com/oca/teams/23907/sk/)\n"
 "MIME-Version: 1.0\n"
@@ -52,7 +52,7 @@ msgstr ""
 #. module: mobile_app_inventory
 #: view:res.company:0
 msgid "Settings"
-msgstr ""
+msgstr "Nastavenia"
 
 #. module: mobile_app_inventory
 #: code:addons/mobile_app_inventory/models/stock_inventory.py:33
