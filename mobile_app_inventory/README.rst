@@ -6,7 +6,7 @@
 Provide light Web app to scan products Barcode and generate Stock Inventories
 =============================================================================
 
-This module was written to extend the functionality of odoo Stock module.
+This module was written to extend the functionality of Odoo Stock module.
 
 This module provides a web app designed to work on a Mobile. The app allows
 user to scan products and select a quantity to inventory. A draft inventory
@@ -26,8 +26,8 @@ The first screen asks Odoo credentials. The user should be member of the Odoo
 Data Loading
 ------------
 
-Once authenticated, some datas are cached : Active Products, Stock locations
-and draft inventories.
+Once authenticated, some datas are cached: active products, stock locations
+and inventories in progress.
 
 Note: This step can take a while depending on your database product size and
 depending on the product extra-fields you have choosen to display. (see
@@ -62,7 +62,7 @@ scanning a barcode.
 
 .. image:: /mobile_app_inventory/static/src/img/06_phone_select_product.png
 
-If the EAN13 barcode is recognized, user has to set a quantity to inventory and
+If a product barcode is recognized, user has to set a quantity to inventory and
 then validate.
 
 .. image:: /mobile_app_inventory/static/src/img/07_phone_select_quantity.png
@@ -127,7 +127,7 @@ This module uses extra JS / CSS components.
 
 * `Angular Odoo <https://github.com/hparfr/angular-odoo>`_, light Javascript
   library developped by `Akretion <http://www.akretion.com/>`_
-  and `Camp To Camp <http://www.camptocamp.org/>`_
+  and `Camptocamp <http://www.camptocamp.com/>`_
 
 Available languages
 -------------------
@@ -183,7 +183,7 @@ Roadmap / Current Limits
 
 * JS and CSS lib are hard included. So if many apps are developped, it could
   be great to have a generic 'web_ionic' module that have all tools to avoid
-  to duplicate files
+  file duplication.
 
 * Doesn't support production lots
 
@@ -205,31 +205,11 @@ Known Issues
   Also it doesn't take into account the parameter *dbfilter* of Odoo server
   configuration file.
 
-* **Firefox Ionic Bug** : The first screen allows user to select database,
-  in a multi database context. This module use ionic select component, that
-  doesn't not works On Firefox Mobile.
-  `See the bug on Ionic Github <https://github.com/driftyco/ionic/issues/4767>`_
-
 * **Chrome Mobile limitation** : This module plays mp3 sounds when actions is,
   done. This feature is not available for Chrome Mobile for the time being,
   cause Chrome consider that allowing to play a sound without explicit action
   of the user raises security issues.
   `See the bug on Chromium website <https://bugs.chromium.org/p/chromium/issues/detail?id=178297>`_
-
-TEMPORARY TODO LIST
-===================
-
-* stock_inventory rename scan_ok into mobile_inventory_available.
-* stock_inventory ask raphael why add_inventory_line_by_scan changed.
-* product_product : fix : mobile_inventory_load_product
-* web : pourquoi ça marche plus !!!
-
-* rechecker delete lorsqu'on quitte l'application. (logout)
-
-
-A valider avec Raph
--------------------
-* m_stock_inventory. obliger d'utiliesr $$state, pour accéder à la liste, est-ce normal ?
 
 Bug Tracker
 ===========
@@ -253,6 +233,7 @@ Contributors
 ------------
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
+* Raphaël Reverdy <raphael.reverdy@akretion.com>
 
 Maintainer
 ----------

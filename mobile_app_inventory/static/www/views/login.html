@@ -7,7 +7,7 @@
 
     <ion-content class="has-header" data-ng-init="init()">
         <form ng-submit="submit()">
-            <div class="list">
+            <div class="list" data-tap-disabled="true">  <!-- Hacky solution found on cf https://forum.ionicframework.com/t/select-not-working-on-windows-phone-with-ionic/45078/3 to solve https://forum.ionicframework.com/t/select-not-working-on-windows-phone-with-ionic/45078/3 : it makes database selection work on both Firefox mobile and Chrome for Android  -->
                 <label class="item item-input input-select"> 
                     <div class="form-label" for="db">{{'Database Name' | translate}}</div>
                     <select name="db" ng-options="value for value in data.db_list" ng-model="data.db" class="item-input select-required"></select>
