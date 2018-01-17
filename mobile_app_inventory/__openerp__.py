@@ -26,4 +26,5 @@
         'demo/stock_inventory.xml',
         'demo/product_product.xml',
     ],
+    'post_init_hook': 'set_mobile_available_on_stock_location',
 }
