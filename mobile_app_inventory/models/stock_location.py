@@ -10,7 +10,7 @@ class StockLocation(models.Model):
     _inherit = 'stock.location'
 
     mobile_available = fields.Boolean(
-        string='Available on Mobile', default=True,
+        string='Available on Mobile',
         help="Check this box if you want to make this location visible"
         " on the Mobile App")
 
