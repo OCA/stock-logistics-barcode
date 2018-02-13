@@ -343,3 +343,57 @@ class TestStockScannerHardware(common.TransactionCase):
     def test_read_unitialized_json_value(self):
         """ Reading an uninitialized json value should return None """
         self.assertEqual(self.hardware.json_tmp_val1, None)
+
+    def test_tmp_values_simple_value(self):
+        hardware = self.hardware
+        hardware.set_tmp_value('tmp_val_1', '')
+        self.assertEqual(hardware.get_tmp_value('tmp_val_1'), '')
+
+        hardware.set_tmp_value('tmp_float', 13.5)
+        self.assertEqual(hardware.get_tmp_value('tmp_float'), 13.5)
+
+        tmp_val_1 = 'test 1'
+        tmp_val_2 = list(range(5))
+        hardware.update_tmp_values({
+            'tmp_val_1': 'test 1',
+            'tmp_val_2': tmp_val_2,
+        })
+        self.assertEqual(hardware.get_tmp_value('tmp_val_1'), tmp_val_1)
+        self.assertEqual(hardware.get_tmp_value('tmp_val_2'), tmp_val_2)
+
+    def test_tmp_values_dict_value(self):
+        hardware = self.hardware
+
+        tmp_val_1 = 'test 1'
+        tmp_val_2 = list(range(5))
+
+        hardware.set_tmp_value('tmp_dict', {
+            'extra_1': tmp_val_1,
+            'extra_2': tmp_val_2,
+        })
+        self.assertEqual(hardware.get_tmp_value('tmp_dict'), {
+            'extra_1': tmp_val_1,
+            'extra_2': tmp_val_2,
+        })
+        self.assertEqual(
+            hardware.get_tmp_value('tmp_dict').get('extra_1'),
+            tmp_val_1)
+
+    def test_tmp_values_clean_values(self):
+        hardware = self.hardware
+        hardware.tmp_values = {'a': 1, 'b': 2}
+        self.assertNotEqual(hardware.tmp_values, {})
+
+        hardware.clean_tmp_values(['a'])
+        self.assertEqual(hardware.tmp_values, {'b': 2})
+
+        self.assertTrue(bool(hardware.tmp_values))
+        hardware.empty_scanner_values()
+        self.assertFalse(bool(hardware.tmp_values))
+
+    def test_unexisting_tmp_values(self):
+        hardware = self.hardware
+        hardware.empty_scanner_values()
+        self.assertFalse(hardware.get_tmp_value('none'), None)
+        self.assertFalse(
+            hardware.get_tmp_value('false', default=False), False)

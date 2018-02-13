@@ -172,6 +172,9 @@ class ScannerHardware(models.Model):
         required=True,
         default='red',
         help='Color for the error background.')
+    tmp_values = fields.Serialized(
+        readonly=True
+    )
 
     @property
     @api.multi
@@ -227,6 +230,33 @@ class ScannerHardware(models.Model):
     def json_tmp_val5(self, value):
         self.ensure_one()
         self.tmp_val5 = json.dumps(value)
+
+    @api.multi
+    def update_tmp_values(self, values):
+        self.ensure_one()
+        tmp_values = self.tmp_values
+        tmp_values.update(values)
+        self.write({'tmp_values': tmp_values})
+
+    @api.multi
+    def get_tmp_value(self, key_name, default=None):
+        self.ensure_one()
+        return self.tmp_values.get(key_name, default)
+
+    @api.multi
+    def set_tmp_value(self, key_name, value):
+        self.ensure_one()
+        self.update_tmp_values({
+            key_name: value,
+        })
+
+    @api.multi
+    def clean_tmp_values(self, items):
+        self.ensure_one()
+        values = self.tmp_values
+        for item in items:
+            values.pop(item, None)
+        self.update_tmp_values(values)
 
     @api.model
     def timeout_session(self):
@@ -408,6 +438,7 @@ class ScannerHardware(models.Model):
             'tmp_val3': '',
             'tmp_val4': '',
             'tmp_val5': '',
+            'tmp_values': {},
         })
         return True
 

@@ -15,6 +15,7 @@
     'application': True,
     'installable': True,
     'depends': [
+        'base_sparse_field',
         'product',
         'stock',
     ],
