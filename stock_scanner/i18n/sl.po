@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 10.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-12-15 01:54+0000\n"
-"PO-Revision-Date: 2017-12-15 01:54+0000\n"
+"POT-Creation-Date: 2018-02-15 02:01+0000\n"
+"PO-Revision-Date: 2018-02-15 02:01+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Slovenian (https://www.transifex.com/oca/teams/23907/sl/)\n"
 "MIME-Version: 1.0\n"
@@ -98,7 +98,7 @@ msgstr ""
 " vnos."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:532
+#: code:addons/stock_scanner/models/scanner_hardware.py:563
 #, python-format
 msgid "A001"
 msgstr "A001"
@@ -876,8 +876,8 @@ msgid "Parent scenario, used to create menus."
 msgstr "Nadrejeni scenarij za ustvarjanje menijev."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:529
-#: code:addons/stock_scanner/models/scanner_hardware.py:601
+#: code:addons/stock_scanner/models/scanner_hardware.py:560
+#: code:addons/stock_scanner/models/scanner_hardware.py:632
 #, python-format
 msgid "Please contact"
 msgstr "Kontaktirajte"
@@ -954,7 +954,7 @@ msgid "Scanner status"
 msgstr "Status čitalnika"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:543
+#: code:addons/stock_scanner/models/scanner_hardware.py:574
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
@@ -1280,7 +1280,7 @@ msgid "This client is specific to the stock_scanner module."
 msgstr "Odjemalec je specifičen za modul stock_scanner."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:358
+#: code:addons/stock_scanner/models/scanner_hardware.py:388
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "This scenario"
@@ -1332,6 +1332,11 @@ msgstr ""
 #, python-format
 msgid "This step waits for a confirmation from the user."
 msgstr "Ta korak čaka na potrditev s strani uporabnika."
+
+#. module: stock_scanner
+#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_values
+msgid "Tmp values"
+msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_to_id
@@ -1502,21 +1507,21 @@ msgid "You will also use this step for barcode scanning."
 msgstr "Ta korak boste uporabljali tudi za čitanje črtne kode."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:531
-#: code:addons/stock_scanner/models/scanner_hardware.py:601
+#: code:addons/stock_scanner/models/scanner_hardware.py:562
+#: code:addons/stock_scanner/models/scanner_hardware.py:632
 #, python-format
 msgid "administrator"
 msgstr "administrator"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:358
+#: code:addons/stock_scanner/models/scanner_hardware.py:388
 #: code:addons/stock_scanner/tests/test_stock_scanner.py:140
 #, python-format
 msgid "is finished"
 msgstr "je dokončano"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:543
+#: code:addons/stock_scanner/models/scanner_hardware.py:574
 #, python-format
 msgid "not found"
 msgstr "ni najdeno"
@@ -1546,8 +1551,8 @@ msgid "transition"
 msgstr "tranzicija"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:530
-#: code:addons/stock_scanner/models/scanner_hardware.py:601
+#: code:addons/stock_scanner/models/scanner_hardware.py:561
+#: code:addons/stock_scanner/models/scanner_hardware.py:632
 #, python-format
 msgid "your"
 msgstr "vaš"
