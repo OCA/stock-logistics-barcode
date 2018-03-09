@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
     'InventoryCtrl', [
-    '$scope', '$state', 'SettingModel', 'InventoryModel', 'ProductModel', '$translate',
-    function ($scope, $state, SettingModel, InventoryModel, ProductModel, $translate) {
+        '$scope', '$state', 'scan_state', 'SettingModel', 'InventoryModel', 'ProductModel', '$translate',
+        function ($scope, $state, scan_state, SettingModel, InventoryModel, ProductModel, $translate) {
 
     $scope.data = {
         'inventory_list': [],
@@ -26,6 +26,7 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.submit = function () {
         InventoryModel.create_inventory($scope.data.inventory_filter).then(function(inventory){
+            scan_state.set_inventory(inventory);
             $scope.select_inventory(inventory.id);
         });
     };
