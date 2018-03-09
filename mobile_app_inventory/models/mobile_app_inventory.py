@@ -52,7 +52,7 @@ class MobileAppInventory(models.Model):
             'filter': 'partial',
         }
         inventory = inventory_obj.create(vals)
-        inventory.prepare_inventory()
+        # inventory.prepare_inventory()
         return self._export_inventory(inventory)
 
     @api.model
@@ -67,8 +67,12 @@ class MobileAppInventory(models.Model):
         """
         location_obj = self.env['stock.location']
         inventory_id = self._extract_param(params, 'inventory.id')
+        inventory = self.env['stock.inventory'].browse(inventory_id)
+        location_inventory = False
+        if inventory.state == 'confirm':
+            location_inventory = inventory_id
         locations = location_obj.search(
-            self._get_location_domain(inventory_id))
+            self._get_location_domain(location_inventory))
         return [
             self._export_location(location) for location in locations]
 
@@ -142,6 +146,8 @@ class MobileAppInventory(models.Model):
         inventory = inventory_obj.browse(inventory_id)
         qty = qty and float(qty) or 0.0
         product = False
+        if inventory.state == 'draft':
+            inventory.prepare_inventory()
         if inventory.state != 'confirm':
             raise UserError(_("Inventory not in progress"))
         if product_id:
