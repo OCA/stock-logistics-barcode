@@ -148,7 +148,7 @@ Import
 ^^^^^^
 
 Scenarios are automatically imported on a module update, like any other data.
-You just have to add the path to your `Scenario_Name.scenario` files in the `data` or `demo` sections in the `__openerp__.py` file.
+You just have to add the path to your `Scenario_Name.scenario` files in the `data` or `demo` sections in the `__manifest__.py` file.
 
 Export
 ^^^^^^
