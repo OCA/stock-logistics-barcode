@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+<record id="view_inventory_form" model="ir.ui.view">
+    <field name="name">stock.inventory.barcode.inventory.form</field>
+    <field name="model">stock.inventory</field>
+    <field name="inherit_id" ref="stock.view_inventory_form"/>
+    <field name="arch" type="xml">
+        <button name="prepare_inventory" position="after">
+            <button name="%(stock_inventory_barcode_action)d" type="action"
+                string="Start Barcode Interface" states="confirm"/>
+        </button>
+    </field>
+</record>
+
+</odoo>
