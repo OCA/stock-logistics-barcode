@@ -27,5 +27,5 @@
     'demo': [
         'demo/res_users.xml',
     ],
-    'external_dependencies': {'python': ['barcode']},
+    'external_dependencies': {'python': ['viivakoodi']},
 }
