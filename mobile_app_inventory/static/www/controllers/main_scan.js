@@ -56,11 +56,14 @@ angular.module('mobile_app_inventory').controller(
         if ($state.current.name === 'main_scan') {
             // Set Focus
             angular.element(document.querySelector('#input_ean13'))[0].focus();
-            LocationModel.get_location(toParams.location_id).then(function (location) {
-                scan_state.set_location(location);
-            });
+
             InventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
                 scan_state.set_inventory(inventory);
+            }).then(function () {
+                //load location after inventory
+                LocationModel.get_location(toParams.location_id).then(function (location) {
+                    scan_state.set_location(location);
+                });
             });
         }
     });
