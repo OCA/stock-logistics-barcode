@@ -5,9 +5,9 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-terminal.login(terminal.tmp_val1, message)
+terminal.login(terminal.get_tmp_value('login'), message)
 
 act = 'F'
 res = [
-    _('You are now authenticated as %s !') % terminal.tmp_val1,
+    _('You are now authenticated as %s !') % terminal.get_tmp_value('login'),
 ]
