@@ -55,13 +55,9 @@
                         <button string="Reset Scenario" colspan="2" type="object" icon="fa-retweet" name="empty_scanner_values"/>
                     </group>
                     <group colspan="4">
-                        <separator string="Temporary values" colspan="2"/>
-                        <field name="tmp_val1"/>
-                        <field name="tmp_val2"/>
-                        <field name="tmp_val3"/>
-                        <field name="tmp_val4"/>
-                        <field name="tmp_val5"/>
-                    </group>
+                      <separator string="Temporary values" colspan="2"/>
+                      <field name="tmp_values_display" nolabel='1'/>
+                   </group>
                     <group colspan="4">
                         <separator string="Current Steps History" colspan="4"/>
                         <field name="step_history_ids" colspan="4" nolabel="1">
