@@ -1,7 +1,6 @@
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-import json
 import logging
 import random
 import time
@@ -11,7 +10,7 @@ from psycopg2 import OperationalError, errorcodes
 
 from odoo import models, api, fields, exceptions
 from odoo import _
-from odoo.tools.misc import ustr
+from odoo.tools.misc import ustr, html_escape
 from odoo.tools.safe_eval import safe_eval
 
 
@@ -114,26 +113,6 @@ class ScannerHardware(models.Model):
         required=False,
         readonly=True,
         help='ID of the reference document.')
-    tmp_val1 = fields.Char(
-        string='Temp value 1',
-        readonly=True,
-        help='Temporary value.')
-    tmp_val2 = fields.Char(
-        string='Temp value 2',
-        readonly=True,
-        help='Temporary value.')
-    tmp_val3 = fields.Char(
-        string='Temp value 3',
-        readonly=True,
-        help='Temporary value.')
-    tmp_val4 = fields.Char(
-        string='Temp value 4',
-        readonly=True,
-        help='Temporary value.')
-    tmp_val5 = fields.Char(
-        string='Temp value 5',
-        readonly=True,
-        help='Temporary value.')
     base_fg_color = fields.Selection(
         selection='_colors_get',
         string='Base - Text Color',
@@ -173,61 +152,86 @@ class ScannerHardware(models.Model):
     tmp_values = fields.Serialized(
         readonly=True
     )
+    tmp_values_display = fields.Html(
+        compute='_compute_tmp_values_display',
+        help="Debug tmp values",
+    )
 
+    @api.depends('tmp_values')
+    def _compute_tmp_values_display(self):
+        for rec in self:
+            txt = [
+                '<table><tr>',
+                '<th>' + html_escape(_('Key')) + '</th>',
+                '<th>' + html_escape(_('Value')) + '</th></tr>',
+            ]
+            for key in sorted(rec.tmp_values.keys()):
+                val = rec.tmp_values[key]
+                txt.append(
+                    '<tr><td>%s</td><td>%s</td></tr>' %
+                    (html_escape(key), html_escape(val))
+                )
+            txt.append('</table>')
+            rec.tmp_values_display = ''.join(txt)
+
+    # The json_tmp_valN properties are kept as a compatibility layer to
+    # help scenario migration. You should use the tmp_values field
+    # instead. These will be removed when the module is migrated to
+    # Odoo 12.0
     @property
     @api.multi
     def json_tmp_val1(self):
         self.ensure_one()
-        return json.loads(self.tmp_val1 or 'null')
+        return self.get_tmp_value('val1')
 
     @json_tmp_val1.setter
     def json_tmp_val1(self, value):
         self.ensure_one()
-        self.tmp_val1 = json.dumps(value)
+        self.update_tmp_values({'val1': value})
 
     @property
     @api.multi
     def json_tmp_val2(self):
         self.ensure_one()
-        return json.loads(self.tmp_val2 or 'null')
+        return self.get_tmp_value('val2')
 
     @json_tmp_val2.setter
     def json_tmp_val2(self, value):
         self.ensure_one()
-        self.tmp_val2 = json.dumps(value)
+        self.update_tmp_values({'val2': value})
 
     @property
     @api.multi
     def json_tmp_val3(self):
         self.ensure_one()
-        return json.loads(self.tmp_val3 or 'null')
+        return self.get_tmp_value('val3')
 
     @json_tmp_val3.setter
     def json_tmp_val3(self, value):
         self.ensure_one()
-        self.tmp_val3 = json.dumps(value)
+        self.update_tmp_values({'val3': value})
 
     @property
     @api.multi
     def json_tmp_val4(self):
         self.ensure_one()
-        return json.loads(self.tmp_val4 or 'null')
+        return self.get_tmp_value('val4')
 
     @json_tmp_val4.setter
     def json_tmp_val4(self, value):
         self.ensure_one()
-        self.tmp_val4 = json.dumps(value)
+        self.update_tmp_values({'val4'})
 
     @property
     @api.multi
     def json_tmp_val5(self):
         self.ensure_one()
-        return json.loads(self.tmp_val5 or 'null')
+        return self.get_tmp_value('val5')
 
     @json_tmp_val5.setter
     def json_tmp_val5(self, value):
         self.ensure_one()
-        self.tmp_val5 = json.dumps(value)
+        self.update_tmp_values({'val5': value})
 
     @api.multi
     def update_tmp_values(self, values):
@@ -420,11 +424,6 @@ class ScannerHardware(models.Model):
                 (2, history.id) for history in self.step_history_ids
             ],
             'reference_document': 0,
-            'tmp_val1': '',
-            'tmp_val2': '',
-            'tmp_val3': '',
-            'tmp_val4': '',
-            'tmp_val5': '',
             'tmp_values': {},
         })
         return True

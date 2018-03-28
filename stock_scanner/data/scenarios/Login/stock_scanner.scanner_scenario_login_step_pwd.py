@@ -5,7 +5,7 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-terminal.write({'tmp_val1': message})
+terminal.update_tmp_values({'login': message})
 
 act = 'T'
 res = [
