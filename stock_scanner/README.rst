@@ -52,7 +52,7 @@ in Odoo.
 If the Login/logout functionality is enabled, when a user starts a session with odoo-sentinel, only the Login scenario is displayed on the
 screen. The scenario will prompt the user for its login and pwd. If the authentication succeeds, each interaction with Odoo will be done
 using the uid of the connected user. Once connected, a Logout scenario is displayed in the list of available scenarii and the Login
-scenario no longer appear. 
+scenario no longer appears. 
 
 The Login/logout functionality enables you to specify on the scenario a list of users and/or a list of groups with access to the scenario.
 
