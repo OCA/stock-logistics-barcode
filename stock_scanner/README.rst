@@ -8,7 +8,7 @@ Stock Scanner : WorkFlow engine for scanner hardware
 
 This module allows managing barcode readers with simple scenarios:
 
-- You can define a workfow for each object (stock picking, inventory, sale, etc)
+- You can define a workflow for each object (stock picking, inventory, sale, etc)
 - Works with all scanner hardware model (just SSH client required)
 
 Some demo/tutorial scenarios are available in the "demo" directory of the module.
@@ -45,16 +45,16 @@ The "step type code" sent by the "odoo-sentinel" client at start-up is the IP ad
 
 If needed enable Login/Logout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-The module come with 2 predifined scenarii for Login and Logout. The functionality is disabled by default and the user to use in
+The module comes with 2 predefined scenarii for Login and Logout. The functionality is disabled by default and the user to use in
 Odoo must be specified in the `.odoorpcrc` file used by odoo-sentinel and can be overriden on the Scanner Hardware definition
 in Odoo. 
 
-If the Login/logout functionality is enabled, when a user start a session with odoo-sentinel, only the Login scenario is displayed on the
-screen. The scenario will prompt the user for its login and pwd. If the authentication succeed, each interaction with Odoo will be done
+If the Login/logout functionality is enabled, when a user starts a session with odoo-sentinel, only the Login scenario is displayed on the
+screen. The scenario will prompt the user for its login and pwd. If the authentication succeeds, each interaction with Odoo will be done
 using the uid of the connected user. Once connected, a Logout scenario is displayed in the list of available scenarii and the Login
-scenario no more appear. 
+scenario no longer appear. 
 
-The Login/logout functionality enable you to specify on the scenario a list of users and/or a list of groups with access to the scenario.
+The Login/logout functionality enables you to specify on the scenario a list of users and/or a list of groups with access to the scenario.
 
 To enable the Login/logout functionality:
     * Go to "Settings > Warehouse" and check the checkbox Login/logout scenarii enabled.
@@ -63,7 +63,7 @@ To enable the Login/logout functionality:
 
 Be careful, the role *Sentinel: technical users* is a technical role and should only be used by sentinel.
 
-The timeout of sessions is managed by a dedicated cron that reset the inactive sessions. The timeout can be configured on 
+The timeout of sessions is managed by a dedicated cron that resets the inactive sessions. The timeout can be configured on 
 settings. "Settings > Warehouse"
 
 For the odoo-sentinel client
