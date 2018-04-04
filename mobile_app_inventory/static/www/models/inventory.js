@@ -25,9 +25,18 @@ angular.module('mobile_app_inventory').factory(
                 return found || $q.reject('Inventory not found');
             });
         },
-
-        create_inventory: function(name) {
-            var vals = {'inventory': {'name': name}}
+        create_inventory: function(
+            name,
+            location
+        ) {
+            var vals = {
+                'inventory': {
+                    'name': name
+                },
+                'location': {
+                    'id': location
+                }
+            };
             return jsonRpc.call('mobile.app.inventory', 'create_inventory', [vals]).then(function(inventory){
                 return inventory;
             });

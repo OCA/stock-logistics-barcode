@@ -47,9 +47,11 @@ class MobileAppInventory(models.Model):
         """
         inventory_obj = self.env['stock.inventory']
         inventory_name = self._extract_param(params, 'inventory.name')
+        location_id = self._extract_param(params, 'location.id')
         vals = {
             'name': _('%s (Mobile App)') % (inventory_name),
             'filter': 'partial',
+            'location_id': location_id,
         }
         inventory = inventory_obj.create(vals)
         # inventory.prepare_inventory()
@@ -69,7 +71,8 @@ class MobileAppInventory(models.Model):
         inventory_id = self._extract_param(params, 'inventory.id')
         inventory = self.env['stock.inventory'].browse(inventory_id)
         location_inventory = False
-        if inventory.state == 'confirm':
+        # if inventory.state == 'confirm':
+        if inventory_id:
             location_inventory = inventory_id
         locations = location_obj.search(
             self._get_location_domain(location_inventory))

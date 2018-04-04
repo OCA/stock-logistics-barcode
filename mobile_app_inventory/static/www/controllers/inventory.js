@@ -25,10 +25,17 @@ angular.module('mobile_app_inventory').controller(
     });
 
     $scope.submit = function () {
+        debugger;
+        // get name ?
+        var name = $scope.data.inventory_filter;
+        $state.go('select_location', {inventory_name: name});
+
+        /*
         InventoryModel.create_inventory($scope.data.inventory_filter).then(function(inventory){
             scan_state.set_inventory(inventory);
             $scope.select_inventory(inventory.id);
         });
+         */
     };
 
     $scope.select_inventory = function (inventory_id) {
