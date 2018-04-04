@@ -55,6 +55,11 @@ angular.module(
             templateUrl: 'views/location.html',
             controller: 'LocationCtrl'
     }).state(
+        'select_location', {
+            url: '/inventory/:inventory_name/location',
+            templateUrl: 'views/location.html',
+            controller: 'LocationCtrl'
+    }).state(
         'product', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/',
             templateUrl: 'views/main_scan.html',
