@@ -84,7 +84,7 @@
                             <i class="icon ion-clipboard"></i>{{'Inventories' | translate}}
                         </ion-item>
 
-                        <ion-item menu-close class="item-icon-left" ui-sref="location({inventory_id:params.inventory_id})"
+                        <ion-item menu-close class="item-icon-left" ui-sref="change_location({inventory_id:params.inventory_id,location_id:params.location_id})"
                                 ng-show="['product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-location"></i>{{'Locations' | translate}}
                         </ion-item>

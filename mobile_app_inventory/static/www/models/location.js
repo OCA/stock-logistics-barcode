@@ -12,14 +12,18 @@ angular.module('mobile_app_inventory').factory(
     reset();
 
     return {        
-        get_list: function(inventory) {
+        get_list: function(inventory, get_all) {
             //get locations for a given inventory
             //retrun a promise
             if (inventory)
                 reset();
 
+            var vals = {
+                'inventory': inventory,
+                'get_all': get_all
+            };
             data.location_promise = data.location_promise || jsonRpc.call(
-                'mobile.app.inventory', 'get_locations', [{'inventory': inventory}]
+                'mobile.app.inventory', 'get_locations', [vals]
                 ).then(function (res) {
                     data.locations = res;
                     return res;

@@ -27,11 +27,22 @@ angular.module('mobile_app_inventory').controller(
     $scope.$on(
         '$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams) {
-            if (['location', 'select_location'].indexOf(
+            // FIXME: call different functions depending on the action
+            if ([
+                'location',
+                'select_location',
+                'change_location'
+            ].indexOf(
                 $state.current.name
             ) !== -1) {
-            $scope.data.location_filter = null;
-            LocationModel.get_list({id: $stateParams.inventory_id}).then(function(location_list) {
+                var get_all = $state.current.name === 'change_location';
+                $scope.data.location_filter = null;
+                LocationModel.get_list(
+                    {
+                        id: $stateParams.inventory_id
+                    },
+                    get_all
+                ).then(function(location_list) {
                 $scope.data.location_list = location_list;
                 // Skip this screen if there is only one internal location
                 if ($scope.data.location_list.length === 1) {
@@ -40,26 +51,37 @@ angular.module('mobile_app_inventory').controller(
             });
         }
     });
+    $scope.start_inventory = function(inventory) {
+        scan_state.set_inventory(inventory);
+        // FIXME: it calls inventory function to call back this function with an inventory_id. There should be a cleaner way.
+        $scope.select_inventory(inventory.id);
+    };
 
     $scope.select_location = function (location) {
         var inventory_name = $stateParams.inventory_name;
         var inventory_id = $stateParams.inventory_id;
+        var location_id = $stateParams.location_id;
         if (!inventory_id && inventory_name) {
             InventoryModel.create_inventory(
                 inventory_name,
                 location.id,
             ).then(
-                function(inventory){
-                    scan_state.set_inventory(inventory);
-                    // FIXME: it calls inventory function to call back this function with an inventory_id. There should be a cleaner way.
-                    $scope.select_inventory(inventory.id);
-                }
+                $scope.start_inventory
             );
         } else {
-            $state.go('product', {
-                'inventory_id': $stateParams.inventory_id,
-                'location_id': location.id
-            });
+            if (location_id && location_id !== location.id) {
+                InventoryModel.update_inventory(
+                    inventory_id,
+                    location.id,
+                ).then(
+                    $scope.start_inventory
+                );
+            } else {
+                $state.go('product', {
+                    'inventory_id': inventory_id,
+                    'location_id': location.id
+                });
+            }
         }
     };
 
