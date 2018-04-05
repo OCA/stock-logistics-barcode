@@ -12,7 +12,6 @@ angular.module('mobile_app_inventory').factory(
                 return res;
             });
         },
-
         get_inventory: function(id) {
             return this.get_list().then(function (inventories) {
                 var found = false;
@@ -25,19 +24,30 @@ angular.module('mobile_app_inventory').factory(
                 return found || $q.reject('Inventory not found');
             });
         },
-        create_inventory: function(
-            name,
+        update_inventory: function(
+            inventory_id,
             location
+        ) {
+            return this.create_inventory(
+                inventory_id,
+                location,
+                'update_inventory'
+            );
+        },
+        create_inventory: function(
+            inventory_value,
+            location,
+            action='create_inventory'
         ) {
             var vals = {
                 'inventory': {
-                    'name': name
+                    'name': inventory_value
                 },
                 'location': {
                     'id': location
                 }
             };
-            return jsonRpc.call('mobile.app.inventory', 'create_inventory', [vals]).then(function(inventory){
+            return jsonRpc.call('mobile.app.inventory', action, [vals]).then(function(inventory){
                 return inventory;
             });
         },

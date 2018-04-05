@@ -40,7 +40,7 @@ class MobileAppInventory(models.Model):
     @api.model
     def create_inventory(self, params):
         """Create a new inventory, and set it to 'In Progress' State.
-        :param params: {'inventory': inventory_vals}
+        :param params: {'inventory': inventory_vals, 'location': {'id': int}}
         :return: inventory_vals
         .. seealso::
             _export_inventory() for inventory vals details
@@ -58,6 +58,20 @@ class MobileAppInventory(models.Model):
         return self._export_inventory(inventory)
 
     @api.model
+    def update_inventory(self, params):
+        """update inventory's location if possible
+        """
+        inventory_obj = self.env['stock.inventory']
+        # FIXME: using inventory.name as we reuse JS's RPC call
+        inventory_id = self._extract_param(params, 'inventory.name')
+        location_id = self._extract_param(params, 'location.id')
+        inventory = inventory_obj.browse(inventory_id)
+        # inventory.prepare_inventory()
+        if inventory.state != 'confirm':
+            inventory.location_id = location_id
+        return self._export_inventory(inventory)
+
+    @api.model
     def get_locations(self, params):
         """ Return locations of a given inventory, or all locations available
         to realize an inventory, if inventory is not defined.
@@ -71,9 +85,10 @@ class MobileAppInventory(models.Model):
         inventory_id = self._extract_param(params, 'inventory.id')
         inventory = self.env['stock.inventory'].browse(inventory_id)
         location_inventory = False
-        # if inventory.state == 'confirm':
         if inventory_id:
-            location_inventory = inventory_id
+            get_all = self._extract_param(params, 'get_all')
+            if not get_all or inventory.state == 'confirm':
+                location_inventory = inventory_id
         locations = location_obj.search(
             self._get_location_domain(location_inventory))
         return [
