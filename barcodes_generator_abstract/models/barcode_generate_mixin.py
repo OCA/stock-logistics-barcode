@@ -48,6 +48,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
 
     @api.multi
     def generate_barcode(self):
+        if not barcode:
+            return
         for item in self:
             padding = item.barcode_rule_id.padding
             str_base = str(item.barcode_base).rjust(padding, '0')
