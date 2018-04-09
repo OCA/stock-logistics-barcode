@@ -37,14 +37,15 @@ class BarcodeGenerateMixin(models.AbstractModel):
     # View Section
     @api.multi
     def generate_base(self):
+        sequence_obj = self.env['ir.sequence']
         for item in self:
             if item.generate_type != 'sequence':
                 raise exceptions.UserError(_(
                     "Generate Base can be used only with barcode rule with"
                     " 'Generate Type' set to 'Base managed by Sequence'"))
             else:
-                item.barcode_base =\
-                    item.barcode_rule_id.sequence_id.next_by_id()
+                item.barcode_base = sequence_obj .next_by_id(
+                    item.barcode_rule_id.sequence_id.id)
 
     @api.multi
     def generate_barcode(self):
