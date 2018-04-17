@@ -45,7 +45,7 @@
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <form string="Scanner Hardware">
-                <group colspan="4" col="4">
+                <group col="4">
                     <field name="code"/>
                     <field name="name"/>
                     <field name="warehouse_id"/>
@@ -54,12 +54,12 @@
                     <field name="last_call_dt"/>
                     <newline/>
                 </group>
-                <group colspan="4">
+                <group>
                     <separator string="Screen size" colspan="2"/>
                     <field name="screen_width"/>
                     <field name="screen_height"/>
                 </group>
-                <group colspan="4" col="6">
+                <group col="6">
                     <separator string="Screen colors" colspan="6"/>
                     <field name="base_fg_color"/>
                     <field name="info_fg_color"/>
@@ -68,24 +68,24 @@
                     <field name="info_bg_color"/>
                     <field name="error_bg_color"/>
                 </group>
-                <group colspan="4">
-                    <separator string="Scanner status" colspan="4"/>
+                <group>
+                    <separator string="Scanner status" colspan="2"/>
                     <field name="scenario_id"/>
                     <field name="step_id"/>
                     <field name="reference_document"/>
-                    <button string="Reset Scenario" colspan="4" type="object" icon="fa-retweet" name="empty_scanner_values"/>
+                    <button string="Reset Scenario" colspan="2" type="object" icon="fa-retweet" name="empty_scanner_values"/>
                 </group>
-                <group colspan="4">
-                    <separator string="Temporary values" colspan="4"/>
+                <group>
+                    <separator string="Temporary values" colspan="2"/>
                     <field name="tmp_val1"/>
                     <field name="tmp_val2"/>
                     <field name="tmp_val3"/>
                     <field name="tmp_val4"/>
                     <field name="tmp_val5"/>
                 </group>
-                <group colspan="4">
-                    <separator string="Current Steps History" colspan="4"/>
-                    <field name="step_history_ids" colspan="4" nolabel="1">
+                <group>
+                    <separator string="Current Steps History" colspan="2"/>
+                    <field name="step_history_ids" colspan="2" nolabel="1">
                         <tree>
                             <field name="step_id"/>
                             <field name="transition_id"/>
