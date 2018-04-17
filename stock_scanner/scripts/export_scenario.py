@@ -2,6 +2,7 @@
 # © 2011 Christophe CHAUVET <christophe.chauvet@syleam.fr>
 # © 2011 Jean-Sébastien SUZANNE <jean-sebastien.suzanne@syleam.fr>
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
+# © 2018 Chris Tribbeck <chris.tribbeck@subteno-it.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import re
@@ -34,9 +35,6 @@ group.add_option('', '--indent', dest='indent',
 group.add_option('', '--id', dest='scenario_id',
                  default=False,
                  help='id of the scenario to extract')
-group.add_option('', '--module', dest='default_module_name',
-                 default=False,
-                 help='The default name of the module (if there is no XML ID)')
 group.add_option('', '--name', dest='name',
                  default='',
                  help='Name of the scenario (default : last directory name)')
@@ -183,8 +181,9 @@ for step_id in step_ids:
         step_xmlid_counters[step_xml_id] += 1
         step_xml_id += '_%d' % (step_xmlid_counters[step_xml_id])
         step_xmlid_counters[step_xml_id] = 1
-        # This prevents problems with 2 steps named 'test' [generating 'test' and 'test_2']
-        # and a third step named 'test_2' [with this code, it will generate 'test_2_2']
+        # This prevents problems with 2 steps named 'test' [generating 'test'
+        # and 'test_2'] and a third step named 'test_2' [with this code, it
+        # will generate 'test_2_2']
     else:
         step_xmlid_counters[step_xml_id] = 1
     step['id'] = step_xml_id
@@ -231,10 +230,12 @@ for transition_id in transition_ids:
         )
     if transition_xml_id in transition_xmlid_counters:
         transition_xmlid_counters[transition_xml_id] += 1
-        transition_xml_id += '_%d' % (transition_xmlid_counters[transition_xml_id])
+        transition_xml_id += '_%d' %\
+            (transition_xmlid_counters[transition_xml_id])
         transition_xmlid_counters[transition_xml_id] = 1
-        # This prevents problems with 2 transitions named 'test' [generating 'test' and 'test_2']
-        # and a third transition named 'test_2' [with this code, it will generate 'test_2_2']
+        # This prevents problems with 2 transitions named 'test' [generating
+        # 'test' and 'test_2'] and a third transition named 'test_2' [with
+        # this code, it will generate 'test_2_2']
     else:
         transition_xmlid_counters[transition_xml_id] = 1
     transition['id'] = transition_xml_id
