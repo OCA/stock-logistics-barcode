@@ -2,6 +2,7 @@
 # © 2011 Christophe CHAUVET <christophe.chauvet@syleam.fr>
 # © 2011 Jean-Sébastien SUZANNE <jean-sebastien.suzanne@syleam.fr>
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
+# © 2018 Chris Tribbeck <chris.tribbeck@subteno-it.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import argparse
@@ -144,6 +145,7 @@ for group in scenario.group_ids:
 # Export steps
 transitions = set()
 sorted_steps = sorted(scenario.step_ids, key=lambda record: record.name)
+step_xmlid_counters = {}
 for step in sorted_steps:
     # Retrieve the step's xml ID
     step_xml_id = step.get_metadata()[0]['xmlid']
@@ -153,10 +155,20 @@ for step in sorted_steps:
             step=normalize_name(step.name),
         )
 
+    if step_xml_id in step_xmlid_counters:
+        step_xmlid_counters[step_xml_id] += 1
+        step_xml_id += '_%d' % (step_xmlid_counters[step_xml_id])
+        step_xmlid_counters[step_xml_id] = 1
+        # This prevents problems with 2 steps named 'test' [generating 'test' and 'test_2']
+        # and a third step named 'test_2' [with this code, it will generate 'test_2_2']
+    else:
+        step_xmlid_counters[step_xml_id] = 1
+
     step_xml_ids[step.id] = step_xml_id
 
     # Do not add the scenario name on the python filename
     # if this step is defined in the same module as the scenario
+    python_filename = step_xml_id
     if '.' in scenario_xml_id and '.' in step_xml_id:
         scenario_module = scenario_xml_id.split('.')[0]
         step_module = step_xml_id.split('.')[0]
@@ -164,7 +176,7 @@ for step in sorted_steps:
             python_filename = step_xml_id.split('.')[1]
 
     # Save the code of the step in a python file
-    with open('%s/%s.py' % (options.directory, step_xml_id), 'w') as step_file:
+    with open('%s/%s.py' % (options.directory, python_filename), 'w') as step_file:
         step_file.write(step.python_code)
 
     step_attributes = {'id': step_xml_id}
@@ -177,6 +189,7 @@ for step in sorted_steps:
     transitions.update(step.out_transition_ids)
 
 # Export transitions
+transition_xmlid_counters = {}
 sorted_transitions = sorted(transitions, key=lambda record: record.name)
 for transition in sorted_transitions:
     # Retrieve the transition's xml ID
@@ -186,6 +199,15 @@ for transition in sorted_transitions:
             scenario=normalize_name(scenario.name),
             transition=normalize_name(transition.name),
         )
+
+    if transition_xml_id in transition_xmlid_counters:
+        transition_xmlid_counters[transition_xml_id] += 1
+        transition_xml_id += '_%d' % (transition_xmlid_counters[transition_xml_id])
+        transition_xmlid_counters[transition_xml_id] = 1
+        # This prevents problems with 2 transitions named 'test' [generating 'test' and 'test_2']
+        # and a third transition named 'test_2' [with this code, it will generate 'test_2_2']
+    else:
+        transition_xmlid_counters[transition_xml_id] = 1
 
     transition_attributes = {
         'id': transition_xml_id,
