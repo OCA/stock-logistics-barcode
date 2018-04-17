@@ -159,8 +159,9 @@ for step in sorted_steps:
         step_xmlid_counters[step_xml_id] += 1
         step_xml_id += '_%d' % (step_xmlid_counters[step_xml_id])
         step_xmlid_counters[step_xml_id] = 1
-        # This prevents problems with 2 steps named 'test' [generating 'test' and 'test_2']
-        # and a third step named 'test_2' [with this code, it will generate 'test_2_2']
+        # This prevents problems with 2 steps named 'test' [generating 'test'
+        # and 'test_2'] and a third step named 'test_2' [with this code, it
+        # will generate 'test_2_2']
     else:
         step_xmlid_counters[step_xml_id] = 1
 
@@ -176,7 +177,8 @@ for step in sorted_steps:
             python_filename = step_xml_id.split('.')[1]
 
     # Save the code of the step in a python file
-    with open('%s/%s.py' % (options.directory, python_filename), 'w') as step_file:
+    with open('%s/%s.py' % (options.directory, python_filename), 'w') as\
+            step_file:
         step_file.write(step.python_code)
 
     step_attributes = {'id': step_xml_id}
@@ -202,10 +204,12 @@ for transition in sorted_transitions:
 
     if transition_xml_id in transition_xmlid_counters:
         transition_xmlid_counters[transition_xml_id] += 1
-        transition_xml_id += '_%d' % (transition_xmlid_counters[transition_xml_id])
+        transition_xml_id += '_%d' %\
+            (transition_xmlid_counters[transition_xml_id])
         transition_xmlid_counters[transition_xml_id] = 1
-        # This prevents problems with 2 transitions named 'test' [generating 'test' and 'test_2']
-        # and a third transition named 'test_2' [with this code, it will generate 'test_2_2']
+        # This prevents problems with 2 transitions named 'test' [generating
+        # 'test' and 'test_2'] and a third transition named 'test_2' [with
+        # this code, it will generate 'test_2_2']
     else:
         transition_xmlid_counters[transition_xml_id] = 1
 
