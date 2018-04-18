@@ -2,6 +2,7 @@
 # © 2011 Christophe CHAUVET <christophe.chauvet@syleam.fr>
 # © 2011 Jean-Sébastien SUZANNE <jean-sebastien.suzanne@syleam.fr>
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
+# © 2018 Chris Tribbeck <chris.tribbeck@subteno-it.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import re
@@ -159,6 +160,7 @@ step_obj = Object(cnx, 'scanner.scenario.step')
 step_ids = step_obj.search([
     ('scenario_id', '=', int(opts.scenario_id)),
 ], 0, None, 'name')
+step_xmlid_counters = {}
 for step_id in step_ids:
     step = step_obj.read(step_id, [])[0]
     # delete unuse key
@@ -175,12 +177,22 @@ for step_id in step_ids:
             normalize_name(scen_read['name']),
             normalize_name(step['name']),
         )
+    if step_xml_id in step_xmlid_counters:
+        step_xmlid_counters[step_xml_id] += 1
+        step_xml_id += '_%d' % (step_xmlid_counters[step_xml_id])
+        step_xmlid_counters[step_xml_id] = 1
+        # This prevents problems with 2 steps named 'test' [generating 'test'
+        # and 'test_2'] and a third step named 'test_2' [with this code, it
+        # will generate 'test_2_2']
+    else:
+        step_xmlid_counters[step_xml_id] = 1
     step['id'] = step_xml_id
 
     resid[step_id] = step_xml_id
 
     # Do not add the scenario name on the python filename
     # if this step is defined in the same module as the scenario
+    python_filename = step_xml_id
     if '.' in scenario_xml_id and '.' in step_xml_id:
         scenario_module = scenario_xml_id.split('.')[0]
         step_module = step_xml_id.split('.')[0]
@@ -188,7 +200,7 @@ for step_id in step_ids:
             python_filename = step_xml_id.split('.')[1]
 
     # save code
-    src_file = open('%s/%s.py' % (opts.directory, step_xml_id), 'w')
+    src_file = open('%s/%s.py' % (opts.directory, python_filename), 'w')
     src_file.write(step['python_code'].encode('utf-8'))
     src_file.close()
     del step['python_code']
@@ -202,6 +214,7 @@ transition_obj = Object(cnx, 'scanner.scenario.transition')
 transition_ids = transition_obj.search([
     ('from_id.scenario_id', '=', int(opts.scenario_id)),
 ], 0, None, 'name')
+transition_xmlid_counters = {}
 for transition_id in transition_ids:
     transition = transition_obj.read(transition_id, [])[0]
     del transition['scenario_id']
@@ -210,12 +223,22 @@ for transition_id in transition_ids:
 
     # get res id
     transition_xml_id = transition_obj.get_metadata(transition_id)[0]['xmlid']
-    transition['id'] = transition_xml_id
     if not transition_xml_id:
-        transition['id'] = 'scanner_scenario_%s_%s' % (
+        transition_xml_id = 'scanner_scenario_%s_%s' % (
             normalize_name(scen_read['name']),
             normalize_name(transition['name']),
         )
+    if transition_xml_id in transition_xmlid_counters:
+        transition_xmlid_counters[transition_xml_id] += 1
+        transition_xml_id += '_%d' %\
+            (transition_xmlid_counters[transition_xml_id])
+        transition_xmlid_counters[transition_xml_id] = 1
+        # This prevents problems with 2 transitions named 'test' [generating
+        # 'test' and 'test_2'] and a third transition named 'test_2' [with
+        # this code, it will generate 'test_2_2']
+    else:
+        transition_xmlid_counters[transition_xml_id] = 1
+    transition['id'] = transition_xml_id
 
     # not write False in attribute tracer
     if not transition['tracer']:
