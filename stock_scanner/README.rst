@@ -220,6 +220,7 @@ Images
 Contributors
 ------------
 * Alexandre Fayolle <afayolle.ml@free.fr>
+* Artem Kostyuk <a.kostyuk@mobilunity.com>
 * Christophe CHAUVET <christophe.chauvet@syleam.fr>
 * Damien Crier <damien@crier.me>
 * Laetitia Gangloff <laetitia.gangloff@acsone.eu>
