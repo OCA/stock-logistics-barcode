@@ -72,6 +72,12 @@ class ScannerScenarioTransition(models.Model):
         ondelete='cascade',
         readonly=True)
 
+    _sql_constraints = [
+        ('name_scenario_id_unique_check',
+         'UNIQUE (scenario_id, name)',
+         'Transition names should be unique within the same scenario.'),
+    ]
+
     @api.constrains('from_id', 'to_id')
     def _check_scenario(self):
         if self.from_id.scenario_id.id != self.to_id.scenario_id.id:
