@@ -15,7 +15,7 @@ class TestGs1Barcode(common.TransactionCase):
         PREFIX = ''
         # AI 01 (GTIN, fixed length)
         gtin = '03400933816759'
-        # AI 17 (expiry date) - day 0 will be replaced with day 1
+        # AI 17 (expiry date) - day 0 will be replaced by last day of month
         expiry = '140500'
         # AI 10 (lot number, variable length)
         lot = 'B04059A'
@@ -29,7 +29,7 @@ class TestGs1Barcode(common.TransactionCase):
         self.assertEqual(len(result), 4, "The barcode should decode to 4 AIs")
         self.assertEqual(result.get('01'), gtin,
                          "The GTIN should be %s" % gtin)
-        self.assertEqual(result.get('17'), '2014-05-01',
+        self.assertEqual(result.get('17'), '2014-05-31',
                          "The expiry date should be %s" % expiry)
         self.assertEqual(result.get('10'), lot, "The lot should be %s" % lot)
         self.assertEqual(result.get('310'), 0.06385,

@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 # Copyright 2012 Numérigraphe SARL. All Rights Reserved.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License GPL-3.0 or later (http://www.gnu.org/licenses/gpl).
 
 # Make it easier to divide integers and get floating point results
 from __future__ import division
 
 import re
-import time
+from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
-from odoo import api, fields, models
-from odoo.tools.translate import _
-from odoo.exceptions import ValidationError
+from odoo import api, fields, models, _
+from odoo.exceptions import UserError
 
 
 class GS1Barcode(models.Model):
@@ -97,9 +97,9 @@ class GS1Barcode(models.Model):
         separator = self.env.user.gs1_barcode_separator or '\x1D'
 
         if not barcode_string.startswith(prefix):
-            raise ValidationError(_('Could not decode barcode : '
-                                    'wrong prefix - the code should '
-                                    'start with "%s"') % prefix)
+            raise UserError(_('Could not decode barcode : '
+                              'wrong prefix - the code should '
+                              'start with "%s"') % prefix)
 
         # We are going to use lots of regular expressions to decode the string,
         # and they all boil down to the following templates:
@@ -156,7 +156,7 @@ class GS1Barcode(models.Model):
                         groups = value_regexps[ai].match(
                             barcode_string, position).groupdict()
                     except AttributeError:
-                        raise ValidationError(_(
+                        raise UserError(_(
                             'Could not decode barcode: '
                             'incorrect value for Application '
                             'Identifer "%s" at position %d') % (ai, position))
@@ -172,21 +172,26 @@ class GS1Barcode(models.Model):
                             position += len(groups['decimal'])
                     if types[ai] == 'date':
                         # Format the date
-                        # Some barcodes are edited with a day of 0 - change it
-                        # to 1 to make it a valid date
-                        if results[ai].endswith('00'):
-                            results[ai] = results[ai][:5] + '1'
-                        results[ai] = time.strftime('%Y-%m-%d',
-                                                    time.strptime(results[ai],
-                                                                  '%y%m%d'))
+                        gs1_date_str = results[ai]
+                        # Some barcodes are edited with a day of 0
+                        # GS1 specs say we have to interpret it as last day
+                        # of month
+                        if gs1_date_str.endswith('00'):
+                            gs1_date_str = gs1_date_str[:5] + '1'
+                            date_dt = datetime.strptime(
+                                gs1_date_str, '%y%m%d') +\
+                                relativedelta(days=31)
+                        else:
+                            date_dt = datetime.strptime(gs1_date_str, '%y%m%d')
+                        results[ai] = fields.Date.to_string(date_dt)
 
                     # We know we won't match another AI for now, move on
                     break
             else:
                 # We couldn't find another valid AI in the rest of the code,
                 # give up
-                raise ValidationError(_('Could not decode barcode: '
-                                        'unknown Application Identifier '
-                                        'at position %d') % position)
+                raise UserError(_('Could not decode barcode: '
+                                  'unknown Application Identifier '
+                                  'at position %d') % position)
 
         return results

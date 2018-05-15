@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright 2012 Numérigraphe SARL. All Rights Reserved.
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+# License GPL-3.0 or later (http://www.gnu.org/licenses/gpl).
 
 {
     'name': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
@@ -45,5 +45,5 @@ let you configure how to map <GS>, which may help improve compatibility.
         "security/ir.model.access.csv",
     ],
     'installable': True,
-    'license': 'AGPL-3',
+    'license': 'GPL-3',
 }
