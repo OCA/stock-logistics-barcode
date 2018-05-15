@@ -180,7 +180,7 @@ class GS1Barcode(models.Model):
                             gs1_date_str = gs1_date_str[:5] + '1'
                             date_dt = datetime.strptime(
                                 gs1_date_str, '%y%m%d') +\
-                                relativedelta(days=31)
+                                relativedelta(months=1, days=-1)
                         else:
                             date_dt = datetime.strptime(gs1_date_str, '%y%m%d')
                         results[ai] = fields.Date.to_string(date_dt)
