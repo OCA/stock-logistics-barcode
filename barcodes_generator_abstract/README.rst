@@ -108,10 +108,10 @@ Your model should have a field 'barcode' defined.
 Known issues / Roadmap
 ======================
 
-1. On barcode.rule model, constraint and domain system could be set between
-   'type' and 'generate_model' fields.
-1. Cache is being cleared in a constraint in `barcode.rule`. Mutating in a
-   constraint is bad practice & should be moved somewhere.
+* On barcode.rule model, constraint and domain system could be set between
+  'type' and 'generate_model' fields.
+* Cache is being cleared in a constraint in `barcode.rule`. Mutating in a
+  constraint is bad practice & should be moved somewhere.
 
 Bug Tracker
 ===========
