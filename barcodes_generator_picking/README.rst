@@ -19,7 +19,7 @@ With this module, it is possible to:
 
 * Assign a pattern (barcode.rule) to a stock.picking
 
-* Define a Barcode base: 
+* Define a Barcode base:
     * manually, if the base of the barcode must be set by a user. (typically an
       internal code defined in your company)
     * automatically by a sequence, if you want to let Odoo to increment a
