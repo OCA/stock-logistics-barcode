@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (C) 2014-Today GRAP (http://www.grap.coop)
 # Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
@@ -7,7 +6,7 @@
 {
     'name': 'Generate Barcodes for Partners',
     'summary': 'Generate Barcodes for Partners',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Tools',
     'author':
         'GRAP,'
