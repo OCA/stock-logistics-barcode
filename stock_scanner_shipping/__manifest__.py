@@ -4,7 +4,7 @@
 
 {
     'name': 'Stock Scanner Shipping',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
     'author': 'SYLEAM,'
