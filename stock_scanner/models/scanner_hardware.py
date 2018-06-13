@@ -760,7 +760,11 @@ class ScannerHardware(models.Model):
             ['|',
              ('warehouse_ids', '=', False),
              ('warehouse_ids', 'in', [self.warehouse_id.id]),
-             ('parent_id', '=', parent_id)])
+             ('parent_id', '=', parent_id),
+             '|',
+             ('child_ids','not in',[]),
+             ('step_ids','not in',[])
+             ])
         return scanner_scenario_ids.mapped('name')
 
     @api.multi
