@@ -67,6 +67,10 @@ class ScannerScenario(models.Model):
         required=False,
         ondelete='restrict',
         help='Parent scenario, used to create menus.')
+    child_ids = fields.One2many(
+        comodel_name ='scanner.scenario',
+        inverse_name='parent_id',
+        string='Subordinates')
     type = fields.Selection(
         selection='_type_get',
         string='Type',

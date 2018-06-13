@@ -644,6 +644,7 @@ class ScannerHardware(models.Model):
         if tracer:
             terminal.log('Tracer : %s' % repr(tracer))
 
+
         exec(step.python_code, ld)
         if step.step_stop:
             terminal.empty_scanner_values()
@@ -737,12 +738,18 @@ class ScannerHardware(models.Model):
         """
 
         scanner_scenario_obj = self.env['scanner.scenario']
+
         scanner_scenario_ids = scanner_scenario_obj.search([
             '|',
             ('warehouse_ids', '=', False),
             ('warehouse_ids', 'in', [self.warehouse_id.id]),
+
             ('parent_id', '=', parent_id),
+            '|',
+            ('child_ids','!=',False),
+            ('step_ids','!=',False)
         ])
+
         return scanner_scenario_ids.mapped('name')
 
     @api.multi
