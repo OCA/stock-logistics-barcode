@@ -13,7 +13,6 @@
         'GRAP, '
         'La Louve, '
         'LasLabs, '
-        'Komit, '
         'Odoo Community Association (OCA)',
     'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
