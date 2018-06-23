@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * base_gs1_barcode
-# 
+#
 # Translators:
 # Antonio Trueba, 2016
 # Antonio Trueba, 2016
@@ -14,11 +14,12 @@ msgstr ""
 "POT-Creation-Date: 2017-02-19 03:46+0000\n"
 "PO-Revision-Date: 2017-02-20 12:40+0000\n"
 "Last-Translator: Fernando Lara <gennesis45@gmail.com>\n"
-"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/es/)\n"
+"Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: es\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: base_gs1_barcode
@@ -70,7 +71,8 @@ msgstr "Número de Grupo/ Lote"
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.INVOICE_LOCATION
 msgid "Bill To/Invoice Location Code (Global Location Number)"
-msgstr "Facturar a / Código de Ubicación a Facturar (Número de Ubicación Global)"
+msgstr ""
+"Facturar a / Código de Ubicación a Facturar (Número de Ubicación Global)"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.BILL_OF_LADING
@@ -212,7 +214,9 @@ msgstr ""
 #, python-format
 msgid ""
 "Could not decode barcode : wrong prefix - the code should start with \"%s\""
-msgstr "No se ha podido decodificar el código de barras: prefijo incorrecto - el código debe comenzar por \"%s\""
+msgstr ""
+"No se ha podido decodificar el código de barras: prefijo incorrecto - el "
+"código debe comenzar por \"%s\""
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:178
@@ -220,14 +224,17 @@ msgstr "No se ha podido decodificar el código de barras: prefijo incorrecto - e
 msgid ""
 "Could not decode barcode: incorrect value for Application Identifer \"%s\" "
 "at position %d"
-msgstr "No se ha podido decodificar el código de barras: valor incorrecto para el identificador de aplicación \"%s\" en la posición %d"
+msgstr ""
+"No se ha podido decodificar el código de barras: valor incorrecto para el "
+"identificador de aplicación \"%s\" en la posición %d"
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:199
 #, python-format
-msgid ""
-"Could not decode barcode: unknown Application Identifier at position %d"
-msgstr "No se ha podido decodificar el código de barras: identificador de aplicación desconocido en la posición %d"
+msgid "Could not decode barcode: unknown Application Identifier at position %d"
+msgstr ""
+"No se ha podido decodificar el código de barras: identificador de aplicación "
+"desconocido en la posición %d"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.COUNT
@@ -843,8 +850,8 @@ msgstr ""
 #. module: base_gs1_barcode
 #: help:res.users,gs1_barcode_prefix:0
 msgid ""
-"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix"
-" codes are scanned. No prefix is expected if this fields is left empty"
+"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix "
+"codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode

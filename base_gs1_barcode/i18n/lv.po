@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * base_gs1_barcode
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -10,12 +10,14 @@ msgstr ""
 "POT-Creation-Date: 2017-03-28 08:23+0000\n"
 "PO-Revision-Date: 2017-03-23 20:09+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>\n"
-"Language-Team: Latvian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/lv/)\n"
+"Language-Team: Latvian (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/lv/)\n"
+"Language: lv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: lv\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n != 0 ? 1 : "
+"2);\n"
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.ACTIVE_POTENCY
@@ -221,8 +223,7 @@ msgstr ""
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:199
 #, python-format
-msgid ""
-"Could not decode barcode: unknown Application Identifier at position %d"
+msgid "Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -839,8 +840,8 @@ msgstr ""
 #. module: base_gs1_barcode
 #: help:res.users,gs1_barcode_prefix:0
 msgid ""
-"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix"
-" codes are scanned. No prefix is expected if this fields is left empty"
+"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix "
+"codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode
