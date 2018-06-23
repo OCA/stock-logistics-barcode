@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * product_barcode_generator
-# 
+#
 # Translators:
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
 msgid ""
@@ -11,12 +11,14 @@ msgstr ""
 "POT-Creation-Date: 2015-10-20 19:06+0000\n"
 "PO-Revision-Date: 2015-10-22 11:10+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: product_barcode_generator
 #: field:ir.sequence,barcode_sequence:0
@@ -38,9 +40,12 @@ msgstr "Nastavitve"
 #, python-format
 msgid ""
 "Configuration Error!The next sequence is longer than 12 characters. It is "
-"not valid for an EAN13 needing 12 characters, the 13 being used as a control"
-" digitYou will have to redefine the sequence or create a new one"
-msgstr "Napaka v nastavitvah! Zaporedje je daljše od 12 znakov. EAN13 potrebuje 12 znakov, 13. znak se uporablja kot kontrolni znak. Ponovno definirajte zaporedje ali ustvarite novega"
+"not valid for an EAN13 needing 12 characters, the 13 being used as a control "
+"digitYou will have to redefine the sequence or create a new one"
+msgstr ""
+"Napaka v nastavitvah! Zaporedje je daljše od 12 znakov. EAN13 potrebuje 12 "
+"znakov, 13. znak se uporablja kot kontrolni znak. Ponovno definirajte "
+"zaporedje ali ustvarite novega"
 
 #. module: product_barcode_generator
 #: view:res.company:product_barcode_generator.view_company_ean_form

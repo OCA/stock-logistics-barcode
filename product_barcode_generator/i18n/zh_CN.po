@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * product_barcode_generator
-# 
+#
 # Translators:
 msgid ""
 msgstr ""
@@ -10,11 +10,12 @@ msgstr ""
 "POT-Creation-Date: 2017-02-19 03:46+0000\n"
 "PO-Revision-Date: 2015-10-19 07:59+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-stock-"
+"logistics-barcode-8-0/language/zh_CN/)\n"
+"Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: zh_CN\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
 #. module: product_barcode_generator
@@ -37,8 +38,8 @@ msgstr ""
 #, python-format
 msgid ""
 "Configuration Error!The next sequence is longer than 12 characters. It is "
-"not valid for an EAN13 needing 12 characters, the 13 being used as a control"
-" digitYou will have to redefine the sequence or create a new one"
+"not valid for an EAN13 needing 12 characters, the 13 being used as a control "
+"digitYou will have to redefine the sequence or create a new one"
 msgstr ""
 
 #. module: product_barcode_generator
