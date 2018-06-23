@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * stock_inventory_barcode
-# 
+#
 # Translators:
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2016
 msgid ""
@@ -11,12 +11,14 @@ msgstr ""
 "POT-Creation-Date: 2016-05-05 02:43+0000\n"
 "PO-Revision-Date: 2016-05-04 10:17+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,add_qty:0
@@ -98,7 +100,9 @@ msgstr "Zadnjič posodobljeno"
 msgid ""
 "No product found with this code as EAN13 nor Internal Reference. You should "
 "select the right product manually."
-msgstr "Noben proizvod s to EAN kodo ali tem notranjim sklicem ni najden. Ročno izberite pravi proizvod."
+msgstr ""
+"Noben proizvod s to EAN kodo ali tem notranjim sklicem ni najden. Ročno "
+"izberite pravi proizvod."
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:119
@@ -125,16 +129,24 @@ msgid ""
 "locations in the stock location of this inventory and this product is "
 "present in several sub-locations, or by the fact that you track Serial "
 "Numbers for this product."
-msgstr "Obstaja več postavk inventarja za ta proizvod. Taka situacija trenutno ni podprta. Morda jo povzroča dejstvo, da imate pod-lokacije na lokaciji zaloge tega inventarja in je ta proizvod prisoten v več pod-lokacijah, ali pa zato, ker sledite serijski številki tega proizvoda."
+msgstr ""
+"Obstaja več postavk inventarja za ta proizvod. Taka situacija trenutno ni "
+"podprta. Morda jo povzroča dejstvo, da imate pod-lokacije na lokaciji zaloge "
+"tega inventarja in je ta proizvod prisoten v več pod-lokacijah, ali pa zato, "
+"ker sledite serijski številki tega proizvoda."
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:63
 #, python-format
 msgid ""
-"Several products have been found with this code as EAN13 or Internal Reference:\n"
+"Several products have been found with this code as EAN13 or Internal "
+"Reference:\n"
 " %s\n"
 "You should select the right product manually."
-msgstr "S to EAN13 kodo ali internim sklicem je najdenih več proizvodov:\n %s\nPravi proizvod izberite ročno."
+msgstr ""
+"S to EAN13 kodo ali internim sklicem je najdenih več proizvodov:\n"
+" %s\n"
+"Pravi proizvod izberite ročno."
 
 #. module: stock_inventory_barcode
 #: view:stock.inventory:stock_inventory_barcode.view_inventory_form

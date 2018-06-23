@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * stock_inventory_barcode
-# 
+#
 # Translators:
 # Rudolf Schnapka <rs@techno-flex.de>, 2017
 msgid ""
@@ -11,11 +11,12 @@ msgstr ""
 "POT-Creation-Date: 2017-03-28 08:23+0000\n"
 "PO-Revision-Date: 2017-04-04 14:26+0000\n"
 "Last-Translator: Rudolf Schnapka <rs@techno-flex.de>\n"
-"Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/de/)\n"
+"Language-Team: German (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/de/)\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: stock_inventory_barcode
@@ -98,7 +99,9 @@ msgstr "Zuletzt aktualisiert am"
 msgid ""
 "No product found with this code as EAN13 nor Internal Reference. You should "
 "select the right product manually."
-msgstr "Kein Produkt mit dieser EAN13 oder internen Referenz gefunden. Sie müssen das Produkt manuell auswählen."
+msgstr ""
+"Kein Produkt mit dieser EAN13 oder internen Referenz gefunden. Sie müssen "
+"das Produkt manuell auswählen."
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:119
@@ -125,16 +128,25 @@ msgid ""
 "locations in the stock location of this inventory and this product is "
 "present in several sub-locations, or by the fact that you track Serial "
 "Numbers for this product."
-msgstr "Es bestehen mehrere Positionen zu diesem Produkt. Diese Situation ist derzeit nicht unterstützt. Es mag durch mehrere Teilbestände in Teillagern entstanden sein, oder die Tatsache, dass Sie für dieses Produkt Seriennummern aktiviert haben."
+msgstr ""
+"Es bestehen mehrere Positionen zu diesem Produkt. Diese Situation ist "
+"derzeit nicht unterstützt. Es mag durch mehrere Teilbestände in Teillagern "
+"entstanden sein, oder die Tatsache, dass Sie für dieses Produkt "
+"Seriennummern aktiviert haben."
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:63
 #, python-format
 msgid ""
-"Several products have been found with this code as EAN13 or Internal Reference:\n"
+"Several products have been found with this code as EAN13 or Internal "
+"Reference:\n"
 " %s\n"
 "You should select the right product manually."
-msgstr "Es wurden mehrere Produkte mit diesem Code als EAN13 oder interne Referenz gefunden:\n%s\nSie müssen das richtige Produkt manuell bestimmen."
+msgstr ""
+"Es wurden mehrere Produkte mit diesem Code als EAN13 oder interne Referenz "
+"gefunden:\n"
+"%s\n"
+"Sie müssen das richtige Produkt manuell bestimmen."
 
 #. module: stock_inventory_barcode
 #: view:stock.inventory:stock_inventory_barcode.view_inventory_form
