@@ -735,9 +735,7 @@ class ScannerHardware(models.Model):
         """
         Retrieve the scenario list for this warehouse
         """
-
         scanner_scenario_obj = self.env['scanner.scenario']
-
         scanner_scenario_ids = scanner_scenario_obj.search([
             '|',
             ('warehouse_ids', '=', False),
