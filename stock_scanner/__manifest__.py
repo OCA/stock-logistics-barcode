@@ -25,6 +25,7 @@
         'data/ir_cron.xml',
         'data/scenarios/Login/Login.scenario',
         'data/scenarios/Logout/Logout.scenario',
+        'data/scenarios/Stock/Stock.scenario',
         'wizard/stock_scanner_config_wizard_view.xml',
         'views/menu.xml',
         'views/scanner_scenario.xml',
