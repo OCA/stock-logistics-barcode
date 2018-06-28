@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * stock_scanner
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2016
 msgid ""
@@ -12,10 +12,10 @@ msgstr ""
 "PO-Revision-Date: 2016-11-25 08:41+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2016\n"
 "Language-Team: Finnish (https://www.transifex.com/oca/teams/23907/fi/)\n"
+"Language: fi\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: fi\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: stock_scanner
@@ -55,8 +55,8 @@ msgstr ""
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_return_values.py:25
 #, python-format
 msgid ""
-"- A single value (all step types). The type of the value depends on the type"
-" of step (float, integer, boolean...)."
+"- A single value (all step types). The type of the value depends on the type "
+"of step (float, integer, boolean...)."
 msgstr ""
 
 #. module: stock_scanner
@@ -83,12 +83,6 @@ msgstr ""
 msgid ""
 "A step designed to display some information, without waiting for any user "
 "input."
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:486
-#, python-format
-msgid "A001"
 msgstr ""
 
 #. module: stock_scanner
@@ -152,32 +146,8 @@ msgid "Allowed Users Groups"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_shared_custom
-msgid ""
-"Allows to share the custom values with a shared scanner in the same "
-"warehouse."
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:507
-#, python-format
-msgid ""
-"An error occured\n"
-"\n"
-"Please contact your administrator"
-msgstr ""
-
-#. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_name
 msgid "Appear on barcode reader screen."
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:137
-#, python-format
-msgid ""
-"Autoconfiguration failed !\n"
-"Please enter terminal code"
 msgstr ""
 
 #. module: stock_scanner
@@ -191,13 +161,13 @@ msgid "Base - Text Color"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:22
+#: code:addons/stock_scanner/models/scanner_hardware.py:20
 #, python-format
 msgid "Black"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:23
+#: code:addons/stock_scanner/models/scanner_hardware.py:21
 #, python-format
 msgid "Blue"
 msgstr ""
@@ -218,36 +188,6 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
 msgid "Can contain scenarios or submenus"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
-msgid "Char"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val1
-msgid "Char Value 1"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val2
-msgid "Char Value 2"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val3
-msgid "Char Value 3"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val4
-msgid "Char Value 4"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_char_val5
-msgid "Char Value 5"
 msgstr ""
 
 #. module: stock_scanner
@@ -318,7 +258,7 @@ msgid "Condition"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.ui.view,arch_db:stock_scanner.stock_config_setting_view_form_inherit_stock_scanner
+#: model:ir.ui.view,arch_db:stock_scanner.res_config_settings_view_form
 msgid "Configure scanner module"
 msgstr ""
 
@@ -326,7 +266,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_create_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_create_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_create_uid
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_create_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_create_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_create_uid
 msgid "Created by"
@@ -336,7 +275,6 @@ msgstr "Luonut"
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_create_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_create_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_create_date
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_create_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_create_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_create_date
 msgid "Created on"
@@ -358,7 +296,7 @@ msgid "Current step for this hardware."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:24
+#: code:addons/stock_scanner/models/scanner_hardware.py:22
 #, python-format
 msgid "Cyan"
 msgstr ""
@@ -366,6 +304,11 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_last_call_dt
 msgid "Date and time of the last call to the system done by the scanner."
+msgstr ""
+
+#. module: stock_scanner
+#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_values_display
+msgid "Debug tmp values"
 msgstr ""
 
 #. module: stock_scanner
@@ -391,7 +334,6 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_display_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_display_name
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_display_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_display_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_display_name
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_display_name
@@ -410,14 +352,19 @@ msgid "Enable logging messages from scenarios."
 msgstr ""
 
 #. module: stock_scanner
+#: model:ir.ui.view,arch_db:stock_scanner.res_config_settings_view_form
+msgid "Enable the login and logout scenarii"
+msgstr ""
+
+#. module: stock_scanner
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_form
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_step_form
 msgid "Enter the python code here"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_scenario.py:110
-#: code:addons/stock_scanner/models/scanner_scenario_transition.py:83
+#: code:addons/stock_scanner/models/scanner_scenario.py:105
+#: code:addons/stock_scanner/models/scanner_scenario_transition.py:79
 #, python-format
 msgid "Error ! You can not create recursive scenarios."
 msgstr ""
@@ -433,7 +380,7 @@ msgid "Error - Text Color"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_scenario_transition.py:104
+#: code:addons/stock_scanner/models/scanner_scenario_transition.py:99
 #, python-format
 msgid ""
 "Error in condition for transition \"%s\" at line %d, offset %d:\n"
@@ -441,7 +388,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_scenario_step.py:83
+#: code:addons/stock_scanner/models/scanner_scenario_step.py:80
 #, python-format
 msgid ""
 "Error in python code for step \"%s\" at line %d, offset %d:\n"
@@ -453,36 +400,6 @@ msgstr ""
 #, python-format
 msgid ""
 "Except the list steps, the user can scroll using the up/down arrow keys."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
-msgid "Float"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_float_val1
-msgid "Float Value 1"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_float_val2
-msgid "Float Value 2"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_float_val3
-msgid "Float Value 3"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_float_val4
-msgid "Float Value 4"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_float_val5
-msgid "Float Value 5"
 msgstr ""
 
 #. module: stock_scanner
@@ -509,7 +426,7 @@ msgid "Going back"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:25
+#: code:addons/stock_scanner/models/scanner_hardware.py:23
 #, python-format
 msgid "Green"
 msgstr ""
@@ -543,17 +460,11 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_id
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_id
 msgid "ID"
 msgstr "ID"
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_res_id
-msgid "ID of the model source."
-msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_reference_document
@@ -583,46 +494,21 @@ msgid "Info - Text Color"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_int_val1
-msgid "Int Value 1"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_int_val2
-msgid "Int Value 2"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_int_val3
-msgid "Int Value 3"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_int_val4
-msgid "Int Value 4"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_int_val5
-msgid "Int Value 5"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
-msgid "Integer"
-msgstr ""
-
-#. module: stock_scanner
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_introduction.py:10
 #, python-format
 msgid "Introduction"
 msgstr ""
 
 #. module: stock_scanner
+#: code:addons/stock_scanner/models/scanner_hardware.py:165
+#, python-format
+msgid "Key"
+msgstr ""
+
+#. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware___last_update
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history___last_update
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario___last_update
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom___last_update
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step___last_update
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition___last_update
 msgid "Last Modified on"
@@ -631,7 +517,6 @@ msgstr "Viimeksi muokattu"
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_write_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_write_uid
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_write_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_write_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_write_uid
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_write_uid
@@ -641,7 +526,6 @@ msgstr "Viimeksi päivittänyt"
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_step_history_write_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_write_date
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_write_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_write_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_write_date
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_write_date
@@ -682,7 +566,7 @@ msgid "Login ?"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_stock_config_settings_is_login_enabled
+#: model:ir.model.fields,field_description:stock_scanner.field_res_config_settings_is_login_enabled
 msgid "Login/logout scenarii enabled"
 msgstr ""
 
@@ -709,20 +593,20 @@ msgstr ""
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_scrolling.py:16
 #, python-format
 msgid ""
-"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nibh lorem,"
-" volutpat sit amet faucibus ut, adipiscing vitae lacus. Vestibulum "
-"hendrerit, sapien a porta posuere, augue ipsum mattis neque, sit amet "
-"sagittis felis lectus ut risus. Sed aliquam felis ut orci adipiscing auctor."
-" Donec malesuada lorem eu nunc vestibulum elementum. Quisque orci quam, "
-"lobortis at mattis sit amet, gravida semper quam. Curabitur lobortis, eros "
-"ut porttitor rutrum, erat sem tincidunt augue, sed accumsan felis magna at "
-"purus. Sed laoreet consectetur viverra. Aliquam a odio sapien. Suspendisse "
-"potenti. Donec dignissim sagittis lacus, a auctor leo ultricies vel. "
-"Pellentesque eleifend porta nulla elementum faucibus."
+"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam nibh lorem, "
+"volutpat sit amet faucibus ut, adipiscing vitae lacus. Vestibulum hendrerit, "
+"sapien a porta posuere, augue ipsum mattis neque, sit amet sagittis felis "
+"lectus ut risus. Sed aliquam felis ut orci adipiscing auctor. Donec "
+"malesuada lorem eu nunc vestibulum elementum. Quisque orci quam, lobortis at "
+"mattis sit amet, gravida semper quam. Curabitur lobortis, eros ut porttitor "
+"rutrum, erat sem tincidunt augue, sed accumsan felis magna at purus. Sed "
+"laoreet consectetur viverra. Aliquam a odio sapien. Suspendisse potenti. "
+"Donec dignissim sagittis lacus, a auctor leo ultricies vel. Pellentesque "
+"eleifend porta nulla elementum faucibus."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:26
+#: code:addons/stock_scanner/models/scanner_hardware.py:24
 #, python-format
 msgid "Magenta"
 msgstr ""
@@ -743,14 +627,8 @@ msgid "Message sent during execution of the step."
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_model
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_model_id
 msgid "Model"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_model
-msgid "Model used for these data."
 msgstr ""
 
 #. module: stock_scanner
@@ -782,26 +660,14 @@ msgid "Name of the transition."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:572
-#, python-format
-msgid "No"
-msgstr ""
-
-#. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_no_back
 msgid "No back"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:541
+#: code:addons/stock_scanner/models/scanner_hardware.py:544
 #, python-format
-msgid "No scenario available !"
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:453
-#, python-format
-msgid "No value available"
+msgid "No start step found on the scenario"
 msgstr ""
 
 #. module: stock_scanner
@@ -833,8 +699,7 @@ msgid "Parent scenario, used to create menus."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:483
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:614
 #, python-format
 msgid "Please contact"
 msgstr ""
@@ -856,7 +721,7 @@ msgid "Python code to execute."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:27
+#: code:addons/stock_scanner/models/scanner_hardware.py:25
 #, python-format
 msgid "Red"
 msgstr ""
@@ -864,6 +729,13 @@ msgstr ""
 #. module: stock_scanner
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_reference_document
 msgid "Reference"
+msgstr ""
+
+#. module: stock_scanner
+#: model:ir.actions.server,name:stock_scanner.hardware_reset_user_id_on_timeout_ir_actions_server
+#: model:ir.cron,cron_name:stock_scanner.hardware_reset_user_id_on_timeout
+#: model:ir.cron,name:stock_scanner.hardware_reset_user_id_on_timeout
+msgid "Remove the current user_id and scenario values on session timeout"
 msgstr ""
 
 #. module: stock_scanner
@@ -875,11 +747,6 @@ msgstr ""
 #: code:addons/stock_scanner/demo/Tutorial/Sentinel/scanner_scenario_step_sentinel_return_values.py:10
 #, python-format
 msgid "Return values of a step"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scanner_id
-msgid "Scanner"
 msgstr ""
 
 #. module: stock_scanner
@@ -911,23 +778,12 @@ msgid "Scanner status"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:497
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_transition_scenario_id
 #: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_search
-#, python-format
 msgid "Scenario"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.actions.act_window,name:stock_scanner.act_open_scanner_scenario_custom_view
-#: model:ir.ui.menu,name:stock_scanner.menu_scanner_scenario_custom
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_tree
-msgid "Scenario Custom Values"
 msgstr ""
 
 #. module: stock_scanner
@@ -957,14 +813,14 @@ msgid "Scenario for this step."
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_scenario_id
-msgid "Scenario used for this hardware."
+#: code:addons/stock_scanner/models/scanner_hardware.py:556
+#, python-format
+msgid "Scenario not found"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:544
-#, python-format
-msgid "Scenarios"
+#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_scenario_id
+msgid "Scenario used for this hardware."
 msgstr ""
 
 #. module: stock_scanner
@@ -999,18 +855,6 @@ msgid "Security"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:854
-#, python-format
-msgid "Selected : %d"
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:675
-#, python-format
-msgid "Selected : %s"
-msgstr ""
-
-#. module: stock_scanner
 #: model:scanner.scenario,name:stock_scanner.scanner_scenario_sentinel
 msgid "Sentinel"
 msgstr ""
@@ -1033,13 +877,8 @@ msgid "Sequence order."
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_stock_config_settings_session_timeout_delay
+#: model:ir.model.fields,field_description:stock_scanner.field_res_config_settings_session_timeout_delay
 msgid "Session validity in seconds"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_shared_custom
-msgid "Shared Custom"
 msgstr ""
 
 #. module: stock_scanner
@@ -1109,79 +948,18 @@ msgid "Steps History of Scanner Hardware"
 msgstr ""
 
 #. module: stock_scanner
+#: model:scanner.scenario,name:stock_scanner.scanner_scenario_stock
+msgid "Stock"
+msgstr ""
+
+#. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_notes
 msgid "Store different notes, date and title for modification, etc..."
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_val1
-msgid "Temp value 1"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_val2
-msgid "Temp value 2"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_val3
-msgid "Temp value 3"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_val4
-msgid "Temp value 4"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_val5
-msgid "Temp value 5"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_char_val1
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_char_val2
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_char_val3
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_char_val4
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_char_val5
-msgid "Temporary char value."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_float_val1
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_float_val2
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_float_val3
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_float_val4
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_float_val5
-msgid "Temporary float value."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_int_val1
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_int_val2
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_int_val3
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_int_val4
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_int_val5
-msgid "Temporary int value."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_text_val
-msgid "Temporary text value."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model,name:stock_scanner.model_scanner_scenario_custom
-msgid "Temporary value for scenario"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_val1
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_val2
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_val3
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_val4
-#: model:ir.model.fields,help:stock_scanner.field_scanner_hardware_tmp_val5
-msgid "Temporary value."
+#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_child_ids
+msgid "Subordinates"
 msgstr ""
 
 #. module: stock_scanner
@@ -1190,9 +968,8 @@ msgid "Temporary values"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_text_val
-#: model:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_custom_form
-msgid "Text"
+#: model:scanner.scenario,name:stock_scanner.scanner_scenario_test
+msgid "Test"
 msgstr ""
 
 #. module: stock_scanner
@@ -1214,15 +991,14 @@ msgid "The 'val' variable can contain multiple values :"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:28
+#: code:addons/stock_scanner/load_scenario.py:26
 #, python-format
 msgid "The id of a %s cannot be empty!"
 msgstr ""
 
 #. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_transition_condition
-msgid ""
-"The transition is followed only if this condition is evaluated as True."
+msgid "The transition is followed only if this condition is evaluated as True."
 msgstr ""
 
 #. module: stock_scanner
@@ -1232,8 +1008,8 @@ msgid "This client is specific to the stock_scanner module."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:304
-#: code:addons/stock_scanner/tests/test_stock_scanner.py:140
+#: code:addons/stock_scanner/models/scanner_hardware.py:386
+#: code:addons/stock_scanner/tests/test_stock_scanner.py:132
 #, python-format
 msgid "This scenario"
 msgstr ""
@@ -1281,6 +1057,16 @@ msgstr ""
 #: code:addons/stock_scanner/demo/Tutorial/Step_types/scanner_scenario_step_step_types_confirm.py:12
 #, python-format
 msgid "This step waits for a confirmation from the user."
+msgstr ""
+
+#. module: stock_scanner
+#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_values
+msgid "Tmp Values"
+msgstr ""
+
+#. module: stock_scanner
+#: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_tmp_values_display
+msgid "Tmp Values Display"
 msgstr ""
 
 #. module: stock_scanner
@@ -1356,18 +1142,9 @@ msgid "User"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_res_id
-msgid "Values id"
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_scanner_id
-msgid "Values used for this scanner."
-msgstr ""
-
-#. module: stock_scanner
-#: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_custom_scenario_id
-msgid "Values used for this scenario."
+#: code:addons/stock_scanner/models/scanner_hardware.py:166
+#, python-format
+msgid "Value"
 msgstr ""
 
 #. module: stock_scanner
@@ -1398,7 +1175,7 @@ msgid "Welcome on the stock_scanner module."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:28
+#: code:addons/stock_scanner/models/scanner_hardware.py:26
 #, python-format
 msgid "White"
 msgstr ""
@@ -1415,15 +1192,9 @@ msgid "Wrong login/password"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:29
+#: code:addons/stock_scanner/models/scanner_hardware.py:27
 #, python-format
 msgid "Yellow"
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/hardware/sentinel.py:569
-#, python-format
-msgid "Yes"
 msgstr ""
 
 #. module: stock_scanner
@@ -1451,52 +1222,44 @@ msgid "You will also use this step for barcode scanning."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:485
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:616
 #, python-format
 msgid "administrator"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:304
-#: code:addons/stock_scanner/tests/test_stock_scanner.py:140
+#: code:addons/stock_scanner/models/scanner_hardware.py:386
+#: code:addons/stock_scanner/tests/test_stock_scanner.py:133
 #, python-format
 msgid "is finished"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:497
-#, python-format
-msgid "not found"
+#: model:ir.model,name:stock_scanner.model_res_config_settings
+msgid "res.config.settings"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:97
+#: code:addons/stock_scanner/load_scenario.py:95
 #, python-format
 msgid "scenario"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:150
-#: code:addons/stock_scanner/load_scenario.py:192
+#: code:addons/stock_scanner/load_scenario.py:151
+#: code:addons/stock_scanner/load_scenario.py:193
 #, python-format
 msgid "step"
 msgstr ""
 
 #. module: stock_scanner
-#: model:ir.model,name:stock_scanner.model_stock_config_settings
-msgid "stock.config.settings"
-msgstr ""
-
-#. module: stock_scanner
-#: code:addons/stock_scanner/load_scenario.py:201
+#: code:addons/stock_scanner/load_scenario.py:202
 #, python-format
 msgid "transition"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:484
-#: code:addons/stock_scanner/models/scanner_hardware.py:555
+#: code:addons/stock_scanner/models/scanner_hardware.py:615
 #, python-format
 msgid "your"
 msgstr ""
