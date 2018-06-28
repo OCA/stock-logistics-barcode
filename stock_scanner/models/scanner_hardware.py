@@ -735,14 +735,18 @@ class ScannerHardware(models.Model):
         """
         Retrieve the scenario list for this warehouse
         """
-
         scanner_scenario_obj = self.env['scanner.scenario']
         scanner_scenario_ids = scanner_scenario_obj.search([
             '|',
             ('warehouse_ids', '=', False),
             ('warehouse_ids', 'in', [self.warehouse_id.id]),
+
             ('parent_id', '=', parent_id),
+            '|',
+            ('child_ids', '!=', False),
+            ('step_ids', '!=', False)
         ])
+
         return scanner_scenario_ids.mapped('name')
 
     @api.multi
