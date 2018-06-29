@@ -26,11 +26,11 @@ the following settings
   should have to be created and prepared via the warehouse backoffice.
 
 * `Inventory Mode`: Define the kind of UI you want to display in the
-  mobile application. Two options are available:
-    * `Automate`: A basic UI will be available with one page by step.
-      scan product -> set quantity -> etc...
-    * `One Page`: A unique page will be displayed with an input where you can
-      scan a location barcode, a product barcode and set the quantity.
+   mobile application. Two options are available:
+     * `Automate`: A basic UI will be available with one page by step.
+       scan product -> set quantity -> etc...
+     * `One Page`: A unique page will be displayed with an input where you can
+       scan a location barcode, a product barcode and set the quantity.
 
 * `Allow Unknown Barcodes`: If checked, users will have the possibility to
   scan an unknown barcode and set a quantity. Unknown barcodes will be added
@@ -61,6 +61,7 @@ Localization settings
 * In the mobile application, language is displayed depending on the languages
   provided by the browser. If you want to manually change it,
   you can to do so on firefox:
+
     * go to `about:config`
     * Change the value of the key `intl.accept_languages`
 
