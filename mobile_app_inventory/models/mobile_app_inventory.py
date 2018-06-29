@@ -46,12 +46,19 @@ class MobileAppInventory(models.Model):
             _export_inventory() for inventory vals details
         """
         inventory_obj = self.env['stock.inventory']
+        warehouse_obj = self.env['stock.warehouse']
         inventory_name = self._extract_param(params, 'inventory.name')
         vals = inventory_obj.default_get(self._defaults.keys())
         vals.update({
             'name': _('%s (Mobile App)') % (inventory_name),
             'filter': 'partial',
         })
+        # if location is not set in the default get function,
+        # We select the main stock location of the first warehouse
+        if not vals.get('location_id', False):
+            warehouses = warehouse_obj.search([])
+            if warehouses:
+                vals['location_id'] = warehouses[0].lot_stock_id.id
         inventory = inventory_obj.create(vals)
         inventory.prepare_inventory()
         return self._export_inventory(inventory)
