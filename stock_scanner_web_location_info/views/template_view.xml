@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="location_selection" name="location_selection">
+        <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="search_class form-inline">
+            <h3>
+                Enter a location name
+            </h3>
+            <div class="form-group">
+                <input type="text" name="location_name" class="search-query form-control" autofocus="autofocus"/>
+            </div>
+            <button type="submit" class="btn btn-primary pull-right">Submit</button>
+        </form>
+    </template>
+
+    <template id="location_show" name="location_show">
+        <h3>
+            Found stock for location
+            <span t-esc="value.get('location_name')"/>
+        </h3>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                <t t-foreach="value.get('items')" t-as="item">
+                    <tr>
+                        <td><span t-esc="item.get('product')"/></td>
+                        <td><span t-esc="item.get('product_qty')"/>
+                            <span t-esc="item.get('product_uom')"/></td>
+                    </tr>
+                </t>
+            </tbody>
+        </table>
+    </template>
+</odoo>
