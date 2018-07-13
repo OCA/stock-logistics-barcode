@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2017-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<openerp><data>
+
+    <record id="shelf_2_inventory" model="stock.inventory">
+        <field name="name">Empty inventory of Shelf 2</field>
+        <field name="location_id" ref="stock.stock_location_14" />
+    </record>
+
+</data></openerp>

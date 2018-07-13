@@ -1,0 +1,60 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Duplicate Lines' | translate}}</h1>
+        <span class="top-right-icon icon ion-alert"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <div class="list">
+            <label class="item item-input">
+                <span class="form-field col-100">{{data.product.name }}</span>
+            </label>
+
+            <label class="item item-input">
+                <div class="form-label col-50">{{'Existing Qty' | translate}}</div>
+                <span class="form-field col-50">{{data.current_qty}}</span>
+            </label>
+            <label class="item item-input">
+                <div class="form-label col-50">{{'Filled Qty' | translate}}</div>
+                <span class="form-field col-50">{{data.new_qty}}</span>
+            </label>
+        </div>
+        <div class="item item-divider">
+            {{'Available Actions' | translate}}
+         </div>
+        <form ng-submit="add_quantity()">
+            <div class="list">
+                <label class="item item-input">
+                    <div class="form-label col-25">{{'Quantity' | translate}}</div>
+                    <span class="form-field col-25">{{data.sum_qty}}</span>
+                    <label class="col-50">
+                        <button class="button button-full button-royal" translate="Add" />
+                    </label>
+                </label>
+            </div>
+        </form>
+        <form ng-submit="replace_quantity()">
+            <div class="list">
+                <label class="item item-input">
+                    <div class="form-label col-25">{{'Quantity' | translate}}</div>
+                    <span class="form-field col-25">{{data.new_qty}}</span>
+                    <label class="col-50">
+                        <button class="button button-full button-royal" translate="Replace" />
+                    </label>
+                </label>
+            </div>
+        </form>
+        <label class="item">
+            <button class="button button-full button-energized" type="reset" ng-click="reset()">
+                <i class="icon ion-close-round"></i> {{'Cancel' | translate}}
+            </button>
+        </label>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

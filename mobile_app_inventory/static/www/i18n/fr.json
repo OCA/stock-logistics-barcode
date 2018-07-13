@@ -1,0 +1,59 @@
+{
+
+    "Scan To Inventory": "Scan -> Inventaire",
+
+    "Credits": "Crédits",
+    "Log In": "Se connecter",
+    "Log Out": "Se déconnecter",
+
+    "Authentication": "Authentification",
+    "Database": "Base",
+    "Login": "Identifiant",
+    "Password": "Mot de passe",
+    "Bad Login / Password": "Identifiants incorrects",
+    "Insufficient Acces Right: you should be member of 'Purchase / user' group." : "Droits d'accès insuffisants : Vous devez être membre du groupe 'Achat / Utilisateur'.",
+
+    "Locations": "Emplacements",
+    "Search": "Recherche",
+    "Inventories": "Inventaires",
+    "Inventory": "Inventaire",
+    "Inventory Name": "Nom de l'inventaire",
+    "Create New Inventory": "Créer un nouvel inventaire",
+    "Enter a name in the field above": "Entrer un nom dans le champs du haut",
+    "Inventory not found": "Inventaire introuvable",
+
+    "Product": "Produit",
+    "Name": "Nom",
+    "Location": "Emplacement",
+    "Current Location": "Emplacement courant",
+    "Location not found": "Emplacement introuvable",
+    "No product set": "Pas de produit selectionné",
+    "No quantity set": "Quantité non saisie",
+
+    "Barcode : Required field": "Champ 'Code Barre' obligatoire",
+    "Add": "Ajouter",
+    "Barcode": "Code Barre",
+    "Too Big Quantity": "Quantité trop grande",
+    "Lines": "Lignes",
+    "Unknown barcodes": "Codes inconnus",
+
+    "Barcode or quantity": "Code barre ou quantité" ,
+    "Wrong barcode or quantity": "Code barre ou quantité incorrecte",
+    "Validate": "Valider",
+    "Last scan": "Dernier scan",
+    "Quantity": "Quantité",
+    "Cancel": "Annuler",
+    "Reset": "Annuler",
+    "Too Many Duplicate Lines": "Trop de lignes en doublon",
+
+    "Something Wrong Happened": "Quelquechose ne s'est pas passé comme prévu",
+
+    "Duplicate Lines": "Lignes en doublons",
+    "Existing Qty": "Qté actuelle",
+    "Filled Qty": "Qté renseignée",
+    "Available Actions": "Actions Disponibles",
+    "New Qty": "Nouvelle Qté",
+    "Replace": "Remplacer",
+
+    "": ""
+}

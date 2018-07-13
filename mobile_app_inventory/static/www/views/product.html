@@ -1,0 +1,48 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Product' | translate}}</h1>
+        <span class="top-right-icon icon ion-ios-barcode"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <form ng-submit="submit()">
+            <div class="list">
+                <div class="item item-input">
+                    <input type="tel" ng-model="data.ean13" id="input_ean13" placeholder="{{'Barcode' | translate}}" autocomplete="off"
+                        class="item-input input-required col-67"/>
+                    <button class="button button-royal col-33">
+                        <i class="icon ion-qr-scanner"></i> {{'Scan' | translate}}
+                    </button>
+                </div>
+
+                <label class="item item-input">
+                    <div class="form-label col-50">{{'Inventory' | translate}}</div>
+                    <span class="form-field col-50">{{inventory.name}}</span>
+                </label>
+
+                <label class="item item-input">
+                    <div class="form-label col-50">{{'Location' | translate}}</div>
+                    <span class="form-field col-50">{{location.name}} ({{ location.parent_complete_name }})</span>
+                </label>
+
+                <label class="item item-input" ng-show="inventory.line_qty">
+                    <div class="form-label col-50">{{'Lines' | translate}}</div>
+                    <span class="form-field col-50">{{inventory.line_qty}}</span>
+                </label>
+
+                <label class="item item-input" ng-show="inventory.unknown_line_qty">
+                    <div class="form-label col-50">{{'Unknown barcodes' | translate}}</div>
+                    <span class="form-field col-50">{{inventory.unknown_line_qty}}</span>
+                </label>
+
+            </div>
+        </form>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,58 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Inventory' | translate}} {{data.inventory.name}}</h1>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <form ng-submit="submit(input.barcode)">
+            <div class="list">
+
+                <div class="item item-input">
+                    <input type="tel" ng-model="input.barcode" id="input_ean13" placeholder="{{ 'Barcode or quantity' | translate}}" autocomplete="off" class="item-input input-required"/>
+                    <button class="button button-positive">
+                        <i class="icon ion-qr-scanner"></i> {{'Validate' | translate}}
+                    </button>
+                </div>
+                <label class="item item-input" toggle-anim="data.product">
+                    <div class="form-field">{{'Last scan' | translate}}</div>
+                    <span class="form-label">{{data.product.barcode}}</span>
+                </label>
+
+                <label class="item item-input" toggle-anim="data.location">
+                    <div class="form-field">{{'Current Location' | translate}}</div>
+                    <span class="form-label">{{data.location.name}} ({{data.location.parent_complete_name}})</span>
+                </label>
+                <label class="item item-input" toggle-anim="data.product" for="input_ean13">
+                    <div class="form-field">{{'Name' | translate}}</div>
+                    <span class="form-label">{{data.product.name}}</span>
+                </label>
+
+                <label class="item item-input" toggle-anim="data.qty" for="input_ean13">
+                    <div class="form-field">{{'Quantity' | translate}}</div>
+                    <span class="form-label">{{data.qty}}</span>
+                </label>
+                <label class="item item-input" ng-repeat="(key, value) in data.product.custom_vals">
+                    <div class="form-field">{{ key }}</div>
+                    <span class="form-label">{{ value }}</span>
+                </label>
+
+                <label class="item">
+                    <button class="button button-full button-energized" type="reset" ng-click="reset()" ng-show="data.product">
+                        <i class="icon ion-close-round"></i> {{'Reset' | translate}}
+                    </button>
+                </label>
+
+            </div>
+        </form>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+      <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+    <ion-footer-bar class="bar-positive" ng-show="successMessage">
+        <h1 class="title">{{ successMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

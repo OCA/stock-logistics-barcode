@@ -1,0 +1,44 @@
+<ion-view title="{{'Scan To Inventory' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Quantity' | translate}}{{data.inventory_id}}</h1>
+        <a class="top-right-icon icon ion-help"></a>
+    </ion-header-bar>
+
+    <ion-content class="has-header">
+        <form ng-submit="submit()">
+            <div class="list">
+                <div class="item item-input">
+                    <input type="number" ng-model="data.qty" id="input_quantity" placeholder="{{'Quantity' | translate}}"
+                            autocomplete="off" ng-readonly="!product || product.barcode_qty"
+                            class="item-input input-required col-50" step="any" min="0"/>
+                    <button class="button button-royal col-50">
+                        <i class="icon ion-plus-circled"></i> {{'Add' | translate}}
+                    </button>
+                </div>
+                <label class="item item-input">
+                    <span class="form-field col-100">{{product.name}}</span>
+                </label>
+                <label class="item item-input">
+                    <div class="form-label col-50">{{'Barcode' | translate}}</div>
+                    <span class="form-field col-50">{{product.barcode}}</span>
+                </label>
+                <label class="item item-input" ng-repeat="(key, value) in product.custom_vals">
+                    <div class="form-label col-50">{{ key }}</div>
+                    <span class="form-field col-50">{{ value }}</span>
+                </label>
+            </div>
+        </form>
+        <label class="item">
+            <button class="button button-full button-energized" type="reset" ng-click="reset()">
+                <i class="icon ion-close-round"></i> {{'Cancel' | translate}}
+            </button>
+        </label>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="errorMessage">
+        <h1 class="title">{{ errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>
