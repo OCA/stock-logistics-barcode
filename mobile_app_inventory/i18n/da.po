@@ -1,7 +1,7 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
 # * mobile_app_inventory
-# 
+#
 # Translators:
 # OCA Transbot <transbot@odoo-community.org>, 2017
 msgid ""
@@ -12,56 +12,66 @@ msgstr ""
 "PO-Revision-Date: 2017-01-12 18:07+0000\n"
 "Last-Translator: OCA Transbot <transbot@odoo-community.org>, 2017\n"
 "Language-Team: Danish (https://www.transifex.com/oca/teams/23907/da/)\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: da\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: mobile_app_inventory
-#: model:ir.model,name:mobile_app_inventory.model_stock_location
-msgid "Location"
-msgstr "Postnr/by "
-
-#. module: mobile_app_inventory
-#: model:ir.model,name:mobile_app_inventory.model_product_product
-msgid "Product"
-msgstr ""
-
-#. module: mobile_app_inventory
-#: view:res.company:0
-msgid "Scan To Inventory"
-msgstr ""
-
-#. module: mobile_app_inventory
-#: field:stock.inventory,inventory_line_qty:0
-msgid "Lines Qty"
-msgstr ""
-
-#. module: mobile_app_inventory
-#: model:ir.model,name:mobile_app_inventory.model_res_users
-msgid "Users"
-msgstr "Brugere"
-
-#. module: mobile_app_inventory
-#: field:stock.location,parent_complete_name:0
-msgid "Parent Complete Name"
-msgstr ""
-
-#. module: mobile_app_inventory
-#: view:res.company:0
-msgid "Settings"
-msgstr ""
-
-#. module: mobile_app_inventory
-#: code:addons/mobile_app_inventory/models/stock_inventory.py:33
+#: code:addons/mobile_app_inventory/models/mobile_app_inventory.py:53
 #, python-format
-msgid "%s (Barcode Reader)"
+msgid "%s (Mobile App)"
 msgstr ""
 
 #. module: mobile_app_inventory
-#: field:stock.inventory,scan_ok:0
-msgid "Scan Finished"
+#: field:res.company,mobile_inventory_allow_unknown:0
+msgid "Allown Unknown Barcodes"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: selection:res.company,mobile_inventory_mode:0
+msgid "Automate"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:stock.inventory,mobile_available:0
+#: field:stock.location,mobile_available:0
+msgid "Available on Mobile"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:stock.inventory.unknown.line,barcode:0
+msgid "Barcode"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: help:res.company,mobile_inventory_create:0
+msgid ""
+"By checking this box, users will have the possibility to create an inventory "
+"by the Mobile App. Otherwise, you should create and prepare the inventory in "
+"the back-office"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: help:res.company,mobile_inventory_allow_unknown:0
+msgid ""
+"By checking this box, users will have the possibility to scan unknown "
+"barcodes. The quantities and the barcodes will be displayed in an extra "
+"tabs, in the inventory view. If unchecked, an error message will be "
+"displayed to the user if he scans unknown barcode"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: help:stock.inventory,mobile_available:0
+msgid ""
+"Check this box if you want to make this inventory visible on the Mobile App"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: help:stock.location,mobile_available:0
+msgid ""
+"Check this box if you want to make this location visible on the Mobile App"
 msgstr ""
 
 #. module: mobile_app_inventory
@@ -70,8 +80,95 @@ msgid "Companies"
 msgstr "Virksomheder"
 
 #. module: mobile_app_inventory
-#: field:res.company,scan_inventory_product_field_ids:0
-msgid "Product Fields"
+#: field:res.company,mobile_inventory_create:0
+msgid "Create Inventories"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,create_uid:0
+#: field:stock.inventory.unknown.line,create_uid:0
+msgid "Created by"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,create_date:0
+#: field:stock.inventory.unknown.line,create_date:0
+msgid "Created on"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: view:res.company:mobile_app_inventory.view_res_company_form
+msgid "Display Fields"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,display_name:0
+#: field:stock.inventory.unknown.line,display_name:0
+msgid "Display Name"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: view:res.company:mobile_app_inventory.view_res_company_form
+msgid "General Settings"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,id:0 field:stock.inventory.unknown.line,id:0
+msgid "ID"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: model:ir.model,name:mobile_app_inventory.model_stock_inventory
+#: field:stock.inventory.unknown.line,inventory_id:0
+msgid "Inventory"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: model:ir.model,name:mobile_app_inventory.model_stock_location
+msgid "Inventory Locations"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: view:res.company:mobile_app_inventory.view_res_company_form
+msgid "Inventory Mobile App"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,__last_update:0
+#: field:stock.inventory.unknown.line,__last_update:0
+msgid "Last Modified on"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,write_uid:0
+#: field:stock.inventory.unknown.line,write_uid:0
+msgid "Last Updated by"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:mobile.app.inventory,write_date:0
+#: field:stock.inventory.unknown.line,write_date:0
+msgid "Last Updated on"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:res.company,mobile_inventory_mode:0
+msgid "Mobile App Inventory Mode"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: help:res.company,mobile_inventory_mode:0
+msgid ""
+"Mode of the Mobile App UI:\n"
+" * 'Automate': The UI will display one screen per action. (select a product, "
+"set a quantity, etc...\n"
+" * 'One page': A single page will let the user scan a product or a location "
+"or set a quantity in a single input field"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: selection:res.company,mobile_inventory_mode:0
+msgid "One Page"
 msgstr ""
 
 #. module: mobile_app_inventory
@@ -85,6 +182,32 @@ msgid "Organic Chips (Paprika)"
 msgstr ""
 
 #. module: mobile_app_inventory
-#: model:ir.model,name:mobile_app_inventory.model_stock_inventory
-msgid "Inventory"
+#: field:res.company,mobile_inventory_product_field_ids:0
+msgid "Product Fields"
 msgstr ""
+
+#. module: mobile_app_inventory
+#: field:stock.inventory.unknown.line,quantity:0
+msgid "Quantity"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:stock.inventory,unknown_line_ids:0
+msgid "Unknown Barcode Lines"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: field:stock.inventory,unknown_line_qty:0
+msgid "Unknown Barcode Lines Quantity"
+msgstr ""
+
+#. module: mobile_app_inventory
+#: view:stock.inventory:mobile_app_inventory.view_stock_inventory_form
+msgid "Unknown Barcodes"
+msgstr ""
+
+#~ msgid "Location"
+#~ msgstr "Postnr/by "
+
+#~ msgid "Users"
+#~ msgstr "Brugere"
