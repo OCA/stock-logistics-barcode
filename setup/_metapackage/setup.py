@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo8-addon-base_gs1_barcode',
+        'odoo8-addon-mobile_app_inventory',
         'odoo8-addon-product_barcode_generator',
         'odoo8-addon-product_multi_ean',
         'odoo8-addon-stock_disable_barcode_interface',
