@@ -15,7 +15,9 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
                 <group string="Inventory Mobile App" name="mobile_inventory_app">
                     <field name="company_id" invisible="1"/>
                     <field name="mobile_inventory_create"/>
-                    <field name="mobile_inventory_product_field_ids"/>
+                    <field name="mobile_inventory_mode"/>
+                    <field name="mobile_inventory_allow_unknown"/>
+                    <field name="mobile_inventory_product_field_ids" />
                 </group>
             </group>
         </field>

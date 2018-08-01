@@ -11,7 +11,7 @@ angular.module('mobile_app_inventory').factory(
     var data = {}
     reset();
 
-    return {        
+    return {
         get_list: function(inventory) {
             //get locations for a given inventory
             //retrun a promise

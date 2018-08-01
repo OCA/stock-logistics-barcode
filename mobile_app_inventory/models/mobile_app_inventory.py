@@ -24,6 +24,8 @@ class MobileAppInventory(models.Model):
         company = self.env.user.company_id
         return {
             'inventory_create': company.mobile_inventory_create,
+            'inventory_mode': company.mobile_inventory_mode,
+            'inventory_allow_unknown': company.mobile_inventory_allow_unknown,
         }
 
     @api.model

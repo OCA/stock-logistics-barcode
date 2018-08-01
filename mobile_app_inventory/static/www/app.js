@@ -56,6 +56,16 @@ angular.module(
             controller: 'LocationCtrl'
     }).state(
         'product', {
+            url: '/automate/inventory/{inventory_id:int}/location/{location_id:int}/',
+            templateUrl: 'views/product.html',
+            controller: 'ProductCtrl'
+    }).state(
+        'quantity', {
+            url: '/automate/inventory/{inventory_id:int}/location/{location_id:int}/:ean13',
+            templateUrl: 'views/quantity.html',
+            controller: 'QuantityCtrl'
+    }).state(
+        'main_scan', {
             url: '/inventory/{inventory_id:int}/location/{location_id:int}/',
             templateUrl: 'views/main_scan.html',
             controller: 'MainScanCtrl'

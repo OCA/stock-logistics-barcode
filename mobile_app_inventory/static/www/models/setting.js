@@ -8,17 +8,18 @@ angular.module('mobile_app_inventory').factory(
     var setting_list = null;
 
     return {
-        get_list: function(force) {
-            if (force){
-                setting_list = null;
-            }
+        reset_list: function() {
+            setting_list = null;
+        },
+
+        get_list: function() {
             setting_list = setting_list || jsonRpc.call(
                 'mobile.app.inventory', 'get_settings', []);
             return setting_list;
         },
 
         get_setting: function(name) {
-            return this.get_list(false).then(function (settings) {
+            return this.get_list().then(function (settings) {
                 return settings[name];
             });
         },

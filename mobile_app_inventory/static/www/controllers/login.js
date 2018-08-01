@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'LoginCtrl', [
-        '$scope', 'jsonRpc', '$state', '$translate',
-        function ($scope, jsonRpc, $state, $translate) {
+        '$scope', 'jsonRpc', '$state', '$translate', 'SettingModel', 'ProductModel',
+        function ($scope, jsonRpc, $state, $translate, SettingModel, ProductModel) {
 
     $scope.data = {
         'db': '',
@@ -14,6 +14,8 @@ angular.module('mobile_app_inventory').controller(
 
     $scope.$on('$ionicView.beforeEnter', function() {
         if ($state.current.name === 'logout') {
+            SettingModel.reset_list();
+            ProductModel.reset_list();
             jsonRpc.logout(true);
         }
     });
