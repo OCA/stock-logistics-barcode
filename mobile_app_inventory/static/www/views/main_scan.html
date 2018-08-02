@@ -22,7 +22,7 @@
 
                 <label class="item item-input" toggle-anim="data.location">
                     <div class="form-field">{{'Current Location' | translate}}</div>
-                    <span class="form-label">{{data.location.name}}</span>
+                     <span class="form-label">{{data.location.name}} ({{data.location.parent_complete_name}})</span>
                 </label>
                 <label class="item item-input" toggle-anim="data.product" for="input_ean13">
                     <div class="form-field">{{'Name' | translate}}</div>
@@ -38,9 +38,11 @@
                     <span class="form-label">{{ value }}</span>
                 </label>
 
-                <button class="button button-assertive" type="reset" ng-click="reset()" ng-show="data.product" >
-                    <i class="icon ion-close-round"></i> {{'Reset' | translate}}
-                </button>
+                <label class="item">
+                    <button class="button button-full button-energized" type="reset" ng-click="reset()" ng-show="data.product">
+                        <i class="icon ion-close-round"></i> {{'Reset' | translate}}
+                    </button>
+                </label>
 
             </div>
         </form>

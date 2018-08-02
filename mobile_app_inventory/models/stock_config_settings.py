@@ -13,3 +13,7 @@ class StockConfigSettings(models.TransientModel):
         related='company_id.mobile_inventory_product_field_ids')
     mobile_inventory_create = fields.Boolean(
         related='company_id.mobile_inventory_create')
+    mobile_inventory_allow_unknown = fields.Boolean(
+        related='company_id.mobile_inventory_allow_unknown')
+    mobile_inventory_mode = fields.Selection(
+        related='company_id.mobile_inventory_mode')

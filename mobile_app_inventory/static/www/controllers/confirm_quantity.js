@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
         'ConfirmQuantityCtrl',
-        ['$scope', '$state', 'InventoryModel', 'ProductModel', '$translate',
-        function ($scope, $state, InventoryModel, ProductModel, $translate) {
+        ['$scope', '$state', 'InventoryModel', 'ProductModel', 'tools', '$translate',
+        function ($scope, $state, InventoryModel, ProductModel, tools, $translate) {
 
     $scope.data = { }
 
@@ -29,14 +29,11 @@ angular.module('mobile_app_inventory').controller(
             $scope.data.new_qty, mode
         ).then(function (res){
             if (res.state == 'write_ok'){
-                angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
-                $state.go('product', {
-                    inventory_id: $scope.data.inventory_id,
-                    location_id: $scope.data.location_id,
-                });
+                angular.element(document.querySelector('#sound_ok'))[0].play();
+                tools.go_to_scan_page($scope.data.inventory_id, $scope.data.location_id);
             } else {
                 $scope.errorMessage = $translate.instant("Too Many Duplicate Lines");
-                angular.element(document.querySelector('#sound_user_error'))[0].play();
+                angular.element(document.querySelector('#sound_error'))[0].play();
             }
         }, function(reason) {
             $scope.errorMessage = $translate.instant("Something Wrong Happened");
@@ -50,11 +47,9 @@ angular.module('mobile_app_inventory').controller(
     $scope.replace_quantity = function () {
         $scope._set_quantity('replace');
     };
+
     $scope.reset = function() {
-        $state.go('product', {
-            inventory_id: $scope.data.inventory_id,
-            location_id: $scope.data.location_id,
-        });
+        tools.go_to_scan_page($scope.data.inventory_id, $scope.data.location_id);
     };
 
 }]);

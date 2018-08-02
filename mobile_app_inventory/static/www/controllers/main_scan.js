@@ -6,7 +6,7 @@ angular.module('mobile_app_inventory').controller(
 
     function display_error(msg) {
         $scope.errorMessage = msg;
-        angular.element(document.querySelector('#sound_user_error'))[0].play();
+        angular.element(document.querySelector('#sound_error'))[0].play();
         var before = scan_state.get_data();
         $timeout(function() {
             $scope.errorMessage = '';
@@ -16,7 +16,7 @@ angular.module('mobile_app_inventory').controller(
     }
     function display_success(msg) {
         $scope.successMessage = msg;
-        angular.element(document.querySelector('#sound_quantity_selected'))[0].play();
+        angular.element(document.querySelector('#sound_ok'))[0].play();
           $timeout(function () {
             $scope.successMessage = "";
         }, 2000);
@@ -53,15 +53,17 @@ angular.module('mobile_app_inventory').controller(
     $scope.$on(
         '$stateChangeSuccess',
         function(event, toState, toParams, fromState, fromParams){
-        if ($state.current.name === 'product') {
+        if ($state.current.name === 'main_scan') {
             // Set Focus
             angular.element(document.querySelector('#input_ean13'))[0].focus();
             
-            LocationModel.get_location(toParams.location_id).then(function (location) {
-                scan_state.set_location(location);
-            });
             InventoryModel.get_inventory(toParams.inventory_id).then(function(inventory) {
                 scan_state.set_inventory(inventory);
+            }).then(function () {
+                //load location after inventory
+                LocationModel.get_location(toParams.location_id).then(function (location) {
+                    scan_state.set_location(location);
+                });
             });
         }
     });

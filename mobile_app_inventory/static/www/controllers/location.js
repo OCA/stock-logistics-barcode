@@ -1,8 +1,8 @@
 "use strict";
 angular.module('mobile_app_inventory').controller(
     'LocationCtrl', [
-    '$scope', '$filter', '$state', '$stateParams','LocationModel',
-    function ($scope, $filter, $state, $stateParams, LocationModel) {
+    '$scope', '$filter', '$state', '$stateParams','LocationModel', 'tools',
+    function ($scope, $filter, $state, $stateParams, LocationModel, tools) {
     $scope.data = {
         'location_list': [],
         'location_filter': null,
@@ -24,10 +24,7 @@ angular.module('mobile_app_inventory').controller(
     });
 
     $scope.select_location = function (location) {
-        $state.go('product', {
-            'inventory_id': $stateParams.inventory_id,
-            'location_id': location.id,
-        });
+        tools.go_to_scan_page($stateParams.inventory_id, location.id);
     };
 
     $scope.search_location = function () {

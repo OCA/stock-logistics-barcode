@@ -3,7 +3,7 @@
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
         <h1 class="title"></ion-icon>{{'Inventories' | translate}}</h1>
-        <span class="button icon ion-clipboard"></span>
+        <span class="top-right-icon icon ion-clipboard"></span>
     </ion-header-bar>
 
     <ion-content class="has-header" data-ng-init="init()">
@@ -29,13 +29,13 @@
                     </ion-item>
 
                     <ion-item ng-show="data.mobile_inventory_create">
-                        <label class="item item-input input-select" >
-                        <div class="form-label">{{'Inventory Name' | translate}}</div>
-                        <span class="form-input">
-                            {{ data.inventory_filter }}
-                        </span>
-                        <label class="form-input" ng-hide="data.inventory_filter.length"
-                        for="search">
+                        <label class="item item-input">
+                            <div class="form-label col-50">{{'Inventory Name' | translate}}</div>
+                            <span class="form-input col-50">
+                                {{ data.inventory_filter }}
+                            </span>
+                        </label>
+                        <label class="form-input" ng-hide="data.inventory_filter.length" for="search">
                             {{ 'Enter a name in the field above' | translate }}
                         </label>
                     </label>

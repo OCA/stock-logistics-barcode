@@ -16,6 +16,7 @@
     "Locations": "Emplacements",
     "Search": "Recherche",
     "Inventories": "Inventaires",
+    "Inventory": "Inventaire",
     "Inventory Name": "Nom de l'inventaire",
     "Create New Inventory": "Créer un nouvel inventaire",
     "Enter a name in the field above": "Entrer un nom dans le champs du haut",
@@ -23,10 +24,18 @@
 
     "Product": "Produit",
     "Name": "Nom",
+    "Location": "Emplacement",
     "Current Location": "Emplacement courant",
     "Location not found": "Emplacement introuvable",
     "No product set": "Pas de produit selectionné",
     "No quantity set": "Quantité non saisie",
+
+    "Barcode : Required field": "Champ 'Code Barre' obligatoire",
+    "Add": "Ajouter",
+    "Barcode": "Code Barre",
+    "Too Big Quantity": "Quantité trop grande",
+    "Lines": "Lignes",
+    "Unknown barcodes": "Codes inconnus",
 
     "Barcode or quantity": "Code barre ou quantité" ,
     "Wrong barcode or quantity": "Code barre ou quantité incorrecte",
@@ -47,6 +56,11 @@
     "Add To the Current Quantity": "Ajouter à la quantité actuelle",
     "Substitution": "Remplacement",
     "Replace by the Filled Quantity": "Remplacer par la quantité renseignée",
-
+    "Duplicate Lines": "Lignes en doublons",
+    "Existing Qty": "Qté actuelle",
+    "Filled Qty": "Qté renseignée",
+    "Available Actions": "Actions Disponibles",
+    "New Qty": "Nouvelle Qté",
+    "Replace": "Remplacer",
     "": ""
 }
