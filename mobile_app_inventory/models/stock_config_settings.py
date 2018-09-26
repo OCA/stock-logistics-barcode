@@ -6,8 +6,8 @@
 from odoo import fields, models
 
 
-class StockConfigSettings(models.TransientModel):
-    _inherit = 'stock.config.settings'
+class ResConfigSettings(models.TransientModel):
+    _inherit = 'res.config.settings'
 
     mobile_inventory_product_field_ids = fields.Many2many(
         related='company_id.mobile_inventory_product_field_ids')
