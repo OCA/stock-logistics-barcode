@@ -165,7 +165,7 @@ class MobileAppInventory(models.Model):
         qty = qty and float(qty) or 0.0
         product = False
         if inventory.state == 'draft':
-            inventory.prepare_inventory()
+            inventory.action_start()
         if inventory.state != 'confirm':
             raise UserError(_("Inventory not in progress"))
         if product_id:
@@ -261,7 +261,7 @@ class MobileAppInventory(models.Model):
     def _export_product(self, product, custom_fields, barcode_qty=0):
         # Custom product fields
         custom_vals = {}
-        for field_name, field_display in custom_fields.iteritems():
+        for field_name, field_display in custom_fields.items():
             if field_name[-3:] == '_id':
                 value = getattr(product, field_name).name
             elif field_name[-4:] == '_ids':
