@@ -2,7 +2,6 @@
 <scenario>
   <id>scanner_scenario_test</id>
   <name>Test</name>
-  <company_id>YourCompany</company_id>
   <model_id/>
   <warehouse_ids>MyCompany</warehouse_ids>
   <warehouse_ids>YourCompany</warehouse_ids>
