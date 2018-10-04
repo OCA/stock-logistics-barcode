@@ -153,6 +153,7 @@ class MobileAppInventory(models.Model):
         inventory_obj = self.env['stock.inventory']
         line_obj = self.env['stock.inventory.line']
         product_obj = self.env['product.product']
+        # FIXME: use product's uom'precision
         prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
         inventory_id = self._extract_param(params, 'inventory.id')
@@ -188,6 +189,7 @@ class MobileAppInventory(models.Model):
             ('inventory_id', '=', inventory.id),
             ('location_id', '=', location_id),
             ('product_id', '=', product.id)])
+        prec = product.uom_id.rounding
         if not lines:
             line_vals = {
                 'location_id': location_id,
@@ -274,6 +276,7 @@ class MobileAppInventory(models.Model):
         return {
             'id': product.id,
             'name': product.name,
+            'uom': product.uom_id.name,
             'barcode': product.barcode,
             'barcode_qty': barcode_qty,
             'custom_vals': custom_vals,
