@@ -25,6 +25,7 @@ angular.module('mobile_app_inventory').controller(
 
     scan_state.set_callback(function (data) {
         //called when a product has been sent 
+        debugger;
         return InventoryModel.add_inventory_line(
             data.inventory, data.location,
             data.product, data.qty,
@@ -90,6 +91,7 @@ angular.module('mobile_app_inventory').controller(
             if (location) {
                 scan_state.set_location(location);
             } else {
+                debugger;
                 //it's a product known or unkown
                 ProductModel.search_product(barcode).then(function (product) {
                     scan_state.set_product(product);

@@ -6,8 +6,10 @@
 {
     'name': 'Inventory Mobile App',
     'version': '10.0.1.0.0',
-    'summary': 'Perform a full inventory from a mobile device with '
-               'barcode reader',
+    'summary': """
+    Perform a full inventory from a mobile device with
+    barcode reader
+    """,
     'category': 'Inventory, Logistics, Warehousing',
     'author': 'GRAP,Akretion,Odoo Community Association (OCA)',
     'website': 'https://www.odoo-community.org',

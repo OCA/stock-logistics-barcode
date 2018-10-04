@@ -38,4 +38,17 @@ Copyright (C) 2016-Today GRAP (http://www.grap.coop)
         </field>
     </record>
 
+    <record id="open_app_inventory_menu" model="ir.actions.act_url">
+      <field name="name">Mobile Inventory</field>
+      <field name="type">ir.actions.act_url</field>
+      <field name="target">self</field>
+      <field name="url">/mobile_app_inventory/static/www/index.html#/inventory/</field>
+    </record>
+  
+    <menuitem
+      name="Mobile Inventory"
+      id="mobile_inventory"
+      parent="stock.menu_stock_warehouse_mgmt"
+      action="open_app_inventory_menu"
+      />
 </odoo>

@@ -37,6 +37,7 @@ angular.module('mobile_app_inventory').factory(
             //will increment his qty unless another product is set
             //will call callback if needed
             //return a promise
+            debugger;
             if (!data.product) { //first set
                 data.qty = 1;
                 data.product = product;
