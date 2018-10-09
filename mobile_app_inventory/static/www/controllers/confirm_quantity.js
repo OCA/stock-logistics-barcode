@@ -14,8 +14,8 @@ angular.module('mobile_app_inventory').controller(
             $scope.data.inventory_id = parseInt(toParams.inventory_id, 10);
             $scope.data.location_id = parseInt(toParams.location_id, 10);
             $scope.data.product_id = parseInt(toParams.product_id, 10);
-            $scope.data.current_qty = parseInt(toParams.current_qty, 10);
-            $scope.data.new_qty = parseInt(toParams.new_qty, 10);
+            $scope.data.current_qty = parseFloat(toParams.current_qty, 10);
+            $scope.data.new_qty = parseFloat(toParams.new_qty, 10);
             $scope.data.sum_qty = $scope.data.current_qty + $scope.data.new_qty;
             $scope.data.product = ProductModel.get_product($scope.data.product_id);
         }
