@@ -7,7 +7,7 @@
     'version': '11.0.1.1.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
-    'author': 'SYLEAM,'
+    'author': 'SUBTENO-IT,'
               'ACSONE SA/NV,'
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
