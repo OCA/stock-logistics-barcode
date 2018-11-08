@@ -20,6 +20,7 @@ if tracer == 'loop':
         'product_id': move.product_id.id,
         'product_uom_id': move.product_uom.id,
         'product_qty': quantity,
+        'qty_done': quantity,
         'location_id': picking.location_id.id,
         'location_dest_id': location.id,
         'pack_lot_ids': pack_lot_ids,
