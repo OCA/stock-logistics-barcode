@@ -5,22 +5,22 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-from openerp import fields
+from odoo import fields
 
 # No current inventory, create a new one
-if not terminal.tmp_val1:
+if not terminal.get_tmp_value('tmp_val1'):
     stock_inventory_obj = env['stock.inventory']
     stock_inventory_id = stock_inventory_obj.create({
         'name': '%s : %s' % (terminal.code, fields.Datetime.now()),
     })
-    terminal.write({'tmp_val1': stock_inventory_id.id})
-elif tracer == 'location' and terminal.tmp_val2:
+    terminal.set_tmp_value('tmp_val1', stock_inventory_id.id)
+elif tracer == 'location' and terminal.get_tmp_value('tmp_val2'):
     stock_location_obj = env['stock.location']
     stock_inventory_line_obj = env['stock.inventory.line']
 
-    stock_inventory_id = int(terminal.tmp_val1)
-    default_code = terminal.tmp_val2
-    quantity = float(terminal.tmp_val3)
+    stock_inventory_id = int(terminal.get_tmp_value('tmp_val1'))
+    default_code = terminal.get_tmp_value('tmp_val2')
+    quantity = float(terminal.get_tmp_value('tmp_val3'))
     location = stock_location_obj.search([('name', '=', message)])[0]
 
     product = model.search([('default_code', '=', default_code)])[0]
@@ -32,8 +32,9 @@ elif tracer == 'location' and terminal.tmp_val2:
         'product_qty': quantity,
         'location_id': location.id,
     })
+    terminal.set_tmp_value('tmp_val2','')
+    terminal.set_tmp_value('tmp_val3','')
 
-    terminal.write({'tmp_val2': '', 'tmp_val3': ''})
 
 act = 'T'
 res = [

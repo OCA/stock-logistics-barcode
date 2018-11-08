@@ -5,7 +5,7 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-terminal.write({'tmp_val2': message})
+terminal.set_tmp_value('tmp_val2', message)
 
 product = model.search([('default_code', '=', message)])
 
