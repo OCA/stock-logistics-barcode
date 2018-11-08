@@ -22,7 +22,7 @@ With this module, it is possible to:
 
 * Assign a pattern (barcode.rule) to a stock.production.lot
 
-* Define a Barcode base: 
+* Define a Barcode base:
     * manually, if the base of the barcode must be set by a user. (typically an
       internal code defined in your company)
     * automatically by a sequence, if you want to let Odoo to increment a
@@ -59,7 +59,7 @@ Try this module on Runbot
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/150/10.0
+   :target: https://runbot.odoo-community.org/runbot/150/11.0
 
 Known issues / Roadmap
 ======================
