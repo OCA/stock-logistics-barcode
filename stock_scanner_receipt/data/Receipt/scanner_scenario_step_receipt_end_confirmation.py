@@ -11,6 +11,8 @@ act = 'C'
 res = [
     _('Do you really want to terminate this receipt?'),
 ]
-if not any(picking.move_lines.mapped(lambda move: not move.linked_move_operation_ids)):
+
+if not any(picking.move_line_ids.filtered(lambda x: not x.move_id)):
+
     act = 'A'
     val = True

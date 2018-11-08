@@ -6,7 +6,7 @@
 'Put the returned value in <val>, as an integer'
 
 prodlot_name = message
-move = env['stock.move'].browse(int(terminal.tmp_val1))
+move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
 
 prodlot = env['stock.production.lot'].search([('name', '=', prodlot_name)])
 if not prodlot:
@@ -15,9 +15,9 @@ if not prodlot:
         'product_id': move.product_id.id,
     })
 
-quantity = float(terminal.tmp_val2)
+quantity = float(terminal.get_tmp_value('tmp_val2'))
 
-terminal.tmp_val3 = prodlot.id
+terminal.set_tmp_value('tmp_val3', prodlot.id)
 
 act = 'T'
 res = [

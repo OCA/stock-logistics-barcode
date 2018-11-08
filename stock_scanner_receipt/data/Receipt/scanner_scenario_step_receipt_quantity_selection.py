@@ -7,7 +7,7 @@
 
 move = env['stock.move'].browse(int(message))
 
-terminal.tmp_val1 = move.id
+terminal.set_tmp_value('tmp_val1', move.id)
 
 act = 'Q'
 res = [

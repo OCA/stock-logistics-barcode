@@ -5,10 +5,10 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-move = env['stock.move'].browse(int(terminal.tmp_val1))
+move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
 quantity = float(message)
 
-terminal.tmp_val2 = quantity
+terminal.set_tmp_value('tmp_val2',quantity)
 
 act = 'T'
 res = [

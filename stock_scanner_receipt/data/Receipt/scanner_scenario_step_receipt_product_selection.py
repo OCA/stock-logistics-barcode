@@ -7,36 +7,38 @@
 
 if tracer == 'loop':
     picking = env['stock.picking'].browse(terminal.reference_document)
-    move = env['stock.move'].browse(int(terminal.tmp_val1))
-    quantity = float(terminal.tmp_val2)
+    move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
+    quantity = float(terminal.get_tmp_value('tmp_val2'))
     location = env['stock.location'].search([('name', '=', message)])
 
-    if terminal.tmp_val3:
-        pack_lot_ids = [
-            (0, 0, {'lot_id': int(terminal.tmp_val3), 'qty': quantity}),
-        ]
-    env['stock.pack.operation'].create({
+    s_m_l = {
         'picking_id': picking.id,
         'product_id': move.product_id.id,
-        'product_uom_id': move.product_uom.id,
-        'product_qty': quantity,
+        'move_id': move.id,
+        'product_uom_id' :  move.product_uom.id,
         'location_id': picking.location_id.id,
         'location_dest_id': location.id,
-        'pack_lot_ids': pack_lot_ids,
-        'linked_move_operation_ids': [(0, 0, {
-            'move_id': move.id,
-            'qty': quantity,
-        })],
-    })
+        'qty_done': quantity,
+    }
+
+    if terminal.get_tmp_value('tmp_val3'):
+        s_m_l['lot_id'] =  int(terminal.get_tmp_value('tmp_val3'))
+
+
+
+    env['stock.move.line'].create(s_m_l)
+
+
 elif tracer == 'picking':
     picking = env['stock.picking'].search([('name', '=', message)])
-    picking.pack_operation_ids.unlink()
+    picking.move_lines.move_line_ids.unlink()
     terminal.reference_document = picking.id
 else:
     picking = env['stock.picking'].browse(terminal.reference_document)
 
 act = 'L'
-res = [(move.id, '%g %s, %s' % (move.product_qty, move.product_uom.name, move.product_id.name)) for move in picking.move_lines if not move.linked_move_operation_ids]
+res = [(move.id, '%g %s, %s' % (move.product_uom_qty - move.quantity_done, move.product_uom.name, move.product_id.name)) for move in picking.move_lines ]
+
 if not res:
     act = 'A'
     val = ''
