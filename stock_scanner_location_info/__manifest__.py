@@ -4,7 +4,7 @@
 
 {
     'name': 'Stock Scanner Location Info',
-    'version': '9.0.1.0.0',
+    'version': '10.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
     'author': 'SYLEAM,'
@@ -15,7 +15,6 @@
         'stock_scanner',
     ],
     'data': [
-        'data/Stock.scenario',
         'data/Location_informations/Location_informations.scenario',
     ],
 }
