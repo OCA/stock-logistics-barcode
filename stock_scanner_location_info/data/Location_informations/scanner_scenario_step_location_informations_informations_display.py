@@ -14,12 +14,12 @@ res = [
 
 for location_info in env['stock.quant'].read_group(
     [('location_id.name', '=', message), ('location_id.usage', '=', 'internal')],
-    ['location_id', 'lot_id', 'qty', 'product_id'],
+    ['location_id', 'lot_id', 'quantity', 'product_id'],
     ['product_id'],
 ):
     product = env['product.product'].browse(location_info['product_id'][0])
     res.extend([
         '',
         _('Product : %s') % location_info['product_id'][1],
-        _('Quantity : %g %s') % (location_info['qty'], product.uom_id.name),
+        _('Quantity : %g %s') % (location_info['quantity'], product.uom_id.name),
     ])

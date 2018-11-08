@@ -1,10 +1,9 @@
-# -*- coding: utf-8 -*-
 # © 2011-2015 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
     'name': 'Stock Scanner Location Info',
-    'version': '9.0.1.0.0',
+    'version': '11.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
     'author': 'SYLEAM,'
@@ -15,7 +14,6 @@
         'stock_scanner',
     ],
     'data': [
-        'data/Stock.scenario',
         'data/Location_informations/Location_informations.scenario',
     ],
 }
