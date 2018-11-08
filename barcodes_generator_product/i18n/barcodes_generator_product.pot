@@ -58,16 +58,21 @@ msgid "Product Template"
 msgstr ""
 
 #. module: barcodes_generator_product
-#: model:product.template,name:barcodes_generator_product.product_template_mono_variant
-msgid "Template with Generated Barcode (Mono Variant)"
-msgstr ""
-
-#. module: barcodes_generator_product
 #: model:product.product,name:barcodes_generator_product.product_product_variant_1
 #: model:product.product,name:barcodes_generator_product.product_product_variant_2
 #: model:product.template,name:barcodes_generator_product.product_product_variant_1_product_template
 #: model:product.template,name:barcodes_generator_product.product_product_variant_2_product_template
 #: model:product.template,name:barcodes_generator_product.product_template_multi_variant
+msgid "Product with Generated Barcode (Variant 2 - Black)"
+msgstr ""
+
+#. module: barcodes_generator_product
+#: model:product.template,name:barcodes_generator_product.product_template_mono_variant
+msgid "Template with Generated Barcode (Mono Variant)"
+msgstr ""
+
+#. module: barcodes_generator_product
+#: model:product.template,name:barcodes_generator_product.product_template_multi_variant_2
 msgid "Template with Generated Barcode (Multi Variant)"
 msgstr ""
 
