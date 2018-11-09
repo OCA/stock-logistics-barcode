@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo11-addon-barcodes_generator_product',
         'odoo11-addon-product_multi_ean',
         'odoo11-addon-stock_scanner',
+        'odoo11-addon-stock_scanner_receipt',
     ],
     classifiers=[
         'Programming Language :: Python',
