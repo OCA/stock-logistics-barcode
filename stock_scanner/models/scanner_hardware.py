@@ -451,6 +451,8 @@ class ScannerHardware(models.Model):
 
     @api.one
     def check_credentials(self, login, password):
+        if not password:
+            return False
         res_users = self.env['res.users']
         try:
             uid = False
