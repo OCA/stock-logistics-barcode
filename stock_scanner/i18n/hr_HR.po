@@ -420,7 +420,7 @@ msgid "Enter the python code here"
 msgstr "Ovdje unesite python kod"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_scenario.py:110
+#: code:addons/stock_scanner/models/scanner_scenario.py:114
 #: code:addons/stock_scanner/models/scanner_scenario_transition.py:83
 #, python-format
 msgid "Error ! You can not create recursive scenarios."
@@ -1113,8 +1113,18 @@ msgid "Steps History of Scanner Hardware"
 msgstr ""
 
 #. module: stock_scanner
+#: model:scanner.scenario,name:stock_scanner.scanner_scenario_stock
+msgid "Stock"
+msgstr ""
+
+#. module: stock_scanner
 #: model:ir.model.fields,help:stock_scanner.field_scanner_scenario_notes
 msgid "Store different notes, date and title for modification, etc..."
+msgstr ""
+
+#. module: stock_scanner
+#: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_child_ids
+msgid "Subordinates"
 msgstr ""
 
 #. module: stock_scanner
