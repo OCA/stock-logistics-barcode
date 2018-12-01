@@ -99,7 +99,7 @@ msgstr ""
 "vnos."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:563
+#: code:addons/stock_scanner/models/scanner_hardware.py:565
 #, python-format
 msgid "A001"
 msgstr "A001"
@@ -877,8 +877,8 @@ msgid "Parent scenario, used to create menus."
 msgstr "Nadrejeni scenarij za ustvarjanje menijev."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:560
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:562
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "Please contact"
 msgstr "Kontaktirajte"
@@ -955,7 +955,7 @@ msgid "Scanner status"
 msgstr "Status čitalnika"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:574
+#: code:addons/stock_scanner/models/scanner_hardware.py:576
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
@@ -1517,8 +1517,8 @@ msgid "You will also use this step for barcode scanning."
 msgstr "Ta korak boste uporabljali tudi za čitanje črtne kode."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:562
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:564
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "administrator"
 msgstr "administrator"
@@ -1531,7 +1531,7 @@ msgid "is finished"
 msgstr "je dokončano"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:574
+#: code:addons/stock_scanner/models/scanner_hardware.py:576
 #, python-format
 msgid "not found"
 msgstr "ni najdeno"
@@ -1561,8 +1561,8 @@ msgid "transition"
 msgstr "tranzicija"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:561
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:563
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "your"
 msgstr "vaš"

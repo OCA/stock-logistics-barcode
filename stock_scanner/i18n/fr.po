@@ -102,7 +102,7 @@ msgstr ""
 "utilisateur."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:563
+#: code:addons/stock_scanner/models/scanner_hardware.py:565
 #, python-format
 msgid "A001"
 msgstr "A001"
@@ -888,8 +888,8 @@ msgid "Parent scenario, used to create menus."
 msgstr "Scénario parent, utilisé pour créer des menus."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:560
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:562
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "Please contact"
 msgstr "Merci de contacter"
@@ -966,7 +966,7 @@ msgid "Scanner status"
 msgstr "Statut du scanner"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:574
+#: code:addons/stock_scanner/models/scanner_hardware.py:576
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_hardware_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_custom_scenario_id
 #: model:ir.model.fields,field_description:stock_scanner.field_scanner_scenario_step_ids
@@ -1531,8 +1531,8 @@ msgid "You will also use this step for barcode scanning."
 msgstr "Vous utiliserez aussi cette étape pour scanner des codes barre."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:562
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:564
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "administrator"
 msgstr "administrateur"
@@ -1545,7 +1545,7 @@ msgid "is finished"
 msgstr "est terminé"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:574
+#: code:addons/stock_scanner/models/scanner_hardware.py:576
 #, python-format
 msgid "not found"
 msgstr "introuvable"
@@ -1575,8 +1575,8 @@ msgid "transition"
 msgstr "transition"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/models/scanner_hardware.py:561
-#: code:addons/stock_scanner/models/scanner_hardware.py:632
+#: code:addons/stock_scanner/models/scanner_hardware.py:563
+#: code:addons/stock_scanner/models/scanner_hardware.py:634
 #, python-format
 msgid "your"
 msgstr "votre"
