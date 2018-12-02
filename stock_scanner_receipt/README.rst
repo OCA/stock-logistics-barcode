@@ -38,7 +38,7 @@ When the user enters an empty value for the product's name, this ends the loop, 
 
 If the user confirms, the picking is validated, otherwise, the scenario returns to the product name input step.
 
-.. image:: images/scenario.png
+.. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/stock_scanner_receipt/images/scenario.png
 
 **Table of contents**
 
