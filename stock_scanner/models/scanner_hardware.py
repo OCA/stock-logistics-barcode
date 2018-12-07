@@ -220,7 +220,7 @@ class ScannerHardware(models.Model):
     @json_tmp_val4.setter
     def json_tmp_val4(self, value):
         self.ensure_one()
-        self.update_tmp_values({'val4'})
+        self.update_tmp_values({'val4': value})
 
     @property
     @api.multi
