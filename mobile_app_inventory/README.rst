@@ -205,8 +205,8 @@ Usage
 =====
 
 Once installed, assuming that your Odoo instance is accessible by the URL
-http//localhost:8069/, the web app can be reached at the URL
-http//localhost:8069/mobile_app_inventory/static/www/index.html
+`http://localhost:8069/ <http://localhost:8069/>`_ , the web app can be reached at the URL
+`http://localhost:8069/mobile_app_inventory/static/www/index.html <http://localhost:8069/mobile_app_inventory/static/www/index.html>`_
 
 If you're testing this module with demo data installed, you can test scanning
 (or copying values) with the following two barcodes :
