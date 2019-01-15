@@ -275,7 +275,7 @@ class MobileAppInventory(models.Model):
 
         return {
             'id': product.id,
-            'name': product.name,
+            'name': product.display_name,
             'uom': product.uom_id.name,
             'barcode': product.barcode,
             'barcode_qty': barcode_qty,
