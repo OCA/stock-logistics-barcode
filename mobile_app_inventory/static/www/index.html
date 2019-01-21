@@ -93,6 +93,12 @@
                                 ng-show="['inventory', 'location', 'product', 'product_ean13', 'confirm_quantity'].indexOf(currentState) != -1">
                             <i class="icon ion-log-out"></i>{{'Log Out' | translate}}
                         </ion-item>
+                        <ion-item menu-close
+                                  class="item-icon-left"
+                                  ng-click="quit()"
+                                  >
+                            <i class="icon ion-log-out"></i>{{'Quit to Odoo' | translate}}
+                        </ion-item>
                     </ion-list>
                 </ion-content>
             </ion-side-menu>
