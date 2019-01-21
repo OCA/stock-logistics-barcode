@@ -23,6 +23,23 @@ angular.module(
     $rootScope.logout = function() {
         $state.go('logout');
     };
+    $rootScope.quit = function(){
+        var vals = [
+            [
+                ['name', '=', 'stock_picking_type_action']
+            ],
+        ];
+        return jsonRpc.call(
+            'ir.model.data',
+            'search_read',
+            [vals],
+            {
+                fields: ['res_id']
+            }
+        ).then(function (res) {
+            window.location = '/web#action=' + res[0].res_id;
+        });
+    };
 }])
 .config([
         '$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$translateProvider',
