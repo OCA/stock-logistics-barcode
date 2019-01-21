@@ -32,7 +32,7 @@ angular.module(
         return jsonRpc.call(
             'ir.model.data',
             'search_read',
-            [vals],
+            vals,
             {
                 fields: ['res_id']
             }
