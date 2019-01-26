@@ -20,11 +20,6 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: barcodes_generator_package
-#: model:ir.model.fields,field_description:barcodes_generator_package.field_product_packaging_barcode
-msgid "Barcode"
-msgstr "Barkod"
-
-#. module: barcodes_generator_package
 #: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
 msgid "Generate Barcode (Using Barcode Rule)"
 msgstr "Generiraj barkod (koristi pravilo)"
@@ -43,3 +38,6 @@ msgstr "Pakiranje proizvoda"
 #: model:ir.model,name:barcodes_generator_package.model_barcode_rule
 msgid "barcode.rule"
 msgstr "barcode.rule"
+
+#~ msgid "Barcode"
+#~ msgstr "Barkod"
