@@ -1,0 +1,1 @@
+This module introduces a barcode field in Product Packagings

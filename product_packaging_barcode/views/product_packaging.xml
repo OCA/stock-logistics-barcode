@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 ACSONE SA/NV
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+
+<odoo>
+
+    <record model="ir.ui.view" id="product_packaging_form_view">
+        <field name="name">product.packaging.form (in product_packaging_barcode)</field>
+        <field name="model">product.packaging</field>
+        <field name="inherit_id" ref="product.product_packaging_form_view"/>
+        <field name="arch" type="xml">
+            <field name="qty" position="after">
+                <field name="barcode"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>
