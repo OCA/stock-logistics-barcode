@@ -19,11 +19,6 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: barcodes_generator_package
-#: model:ir.model.fields,field_description:barcodes_generator_package.field_product_packaging_barcode
-msgid "Barcode"
-msgstr ""
-
-#. module: barcodes_generator_package
 #: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
 msgid "Generate Barcode (Using Barcode Rule)"
 msgstr "Générer un code barre (via règle de codes barre)"
