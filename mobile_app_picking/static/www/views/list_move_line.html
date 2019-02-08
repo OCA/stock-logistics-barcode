@@ -1,0 +1,69 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title loading_item">{{'Move lines' | translate}}</h1>
+        <span class="top-right-icon icon ion-clipboard"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-balanced col-80" translate="Scanner"
+                    ui-sref="main_scan({
+                        picking_type_id: params.picking_type_id,
+                        picking_id: params.picking_id,
+                        move_line_id: 0})"
+              />
+            <div class = "col col-10"></div>
+          </div>
+          <label class="item item-input">
+              <div class="form-label col-50">{{'Picking' | translate}}</div>
+              <span class="form-field col-50">{{data.picking.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-50">{{'Partner' | translate}}</div>
+              <span class="form-field col-50">{{data.picking.partner.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-50">{{'State' | translate}}</div>
+              <span class="form-field col-50">{{data.picking.state}}</span>
+          </label>
+
+        </div>
+
+        <div class="row header">
+
+          <div class="col col-40">Product</div>
+          <div class="col col-40">Quantity</div>
+          <div class="col col-20">&nbsp;</div>
+
+        </div>
+        <div ng-repeat="moveLine in data.moveLines" class="row" >
+            <div class="col col-40 action-click" ng-click="see_move_line(moveLine)">{{moveLine.product.name}}
+            </div>
+            <div class="col col-40 action-click state-{{moveLine.state}}" ng-click="see_move_line(moveLine)">
+              {{moveLine.qty_done}} / {{moveLine.qty_expected}} <br/>
+              {{moveLine.uom.name}}
+            </div>
+            <div class="col col-20 col-button">
+                <button class="button button-assertive button-col-small" ng-click="reset_qty(moveLine)"/>
+                    <i class="icon ion-close"></i>
+                </button>
+            </div>
+        </div>
+<br />
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-royal col-80"
+              ng-click="confirm_picking()" translate="Finish Picking" />
+            <div class = "col col-10"></div>
+          </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

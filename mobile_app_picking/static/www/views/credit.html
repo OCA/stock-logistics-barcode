@@ -1,0 +1,25 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+  <ion-header-bar class="bar bar-header bar-stable">
+    <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+    <h1 class="title" translate="Credits"></h1>
+  </ion-header-bar>
+
+  <ion-content class="has-header" data-ng-init="init()">
+    <form ng-submit="submit()">
+      <div class="list">
+        <a class="item item-avatar" href="https://www.odoo-community.org/" target="_blank">
+          <img src="/mobile_app_angular/static/src/img/credits/logo-oca.png"/>
+          <h2>OCA</h2>
+          <p>Odoo Community Association</p>
+        </a>
+        <a class="item item-avatar" href="http://www.grap.coop/" target="_blank">
+          <img src="/mobile_app_angular/static/src/img/credits/logo-grap.png"/>
+          <h2>GRAP</h2>
+          <p>Groupement Régional <br />Alimentaire de Proximité</p>
+        </a>
+      </div>
+    </form>
+  </ion-content>
+
+</ion-view>
