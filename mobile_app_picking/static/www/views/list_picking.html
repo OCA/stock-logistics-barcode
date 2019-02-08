@@ -1,0 +1,34 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Pickings' | translate}}</h1>
+        <span class="top-right-icon icon ion-cube"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+       <form>
+           <div class="list list-insert">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" id="input_search" placeholder="{{'Search' | translate }}" ng-model="data.filter" class="item-input input-optional with_focus">
+                </label>
+            </div>
+
+            <div class="list">
+                <ion-list>
+                    <ion-item ng-repeat="picking in data.pickings | filter: data.filter ">
+                        <a class="item" ui-sref="list_move_line({
+                                picking_type_id: params.picking_type_id,
+                                picking_id: picking.id})">
+                            <h2>{{picking.name}}</h2>
+                            <h3 ng-show="picking.partner.name">{{picking.partner.name}}</h3>
+                            <div class="secondary-line" ng-show="picking.backorder.name">(backorder of {{picking.backorder.name}})</div>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+
+</ion-view>

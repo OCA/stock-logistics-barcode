@@ -54,3 +54,6 @@ docs/_build/
 # Backup files
 *~
 *.swp
+
+# mobile_app_angular
+!mobile_app_angular/static/src/lib/

@@ -1,0 +1,53 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title loading_item">{{'Scan Mode' | translate}}</h1>
+        <span class="top-right-icon icon ion-qr-scanner"></span>
+    </ion-header-bar>
+
+
+    <ion-content class="has-header" data-ng-init="init()">
+
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-balanced col-80" translate="Move Lines"
+                    ui-sref="list_move_line({
+                        picking_type_id: params.picking_type_id,
+                        picking_id: params.picking_id})"
+              />
+            <div class = "col col-10"></div>
+          </div>
+        </div>
+
+        <form ng-submit="submit()">
+            <div class="list">
+                <div class="item item-input">
+                    <input type="tel" ng-model="data.inputData" id="input_data" placeholder="{{'Barcode or Quantity' | translate}}" autocomplete="off"
+                        class="item-input input-required col-67 with_focus"/>
+                    <button class="button button-royal col-33" ng-disabled="!data.inputData">
+                        <i class="icon ion-qr-scanner"></i> {{'OK' | translate}}
+                    </button>
+                </div>
+
+                <label class="item item-input" ng-show="data.currentMoveLine">
+                    <div class="form-label col-50">{{'Product' | translate}}</div>
+                    <span class="form-field col-50">{{data.currentMoveLine.product.name}}</span>
+                </label>
+
+                <label class="item item-input" ng-show="data.currentMoveLine">
+                    <div class="form-label col-50">{{'Quantity' | translate}}</div>
+                    <span class="form-field col-50 state-{{data.currentMoveLine.state}}">{{data.currentMoveLine.qty_done}} / {{data.currentMoveLine.qty_expected}}
+                    &nbsp;{{data.currentMoveLine.uom.name}}</span>
+                </label>
+
+            </div>
+        </form>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="data.errorMessage">
+      <h1 class="title">{{ data.errorMessage }}</h1>
+    </ion-footer-bar>
+
+</ion-view>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="product.product_product_5b_product_template" model="product.template">
+        <field name="barcode">9782330075989</field>
+    </record>
+
+    <record id="product.product_product_16_product_template" model="product.template">
+        <field name="barcode">9782020896320</field>
+    </record>
+
+</odoo>
