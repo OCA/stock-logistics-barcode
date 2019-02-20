@@ -2,7 +2,7 @@
 
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
-        <h1 class="title loading_item">{{'Scan Mode' | translate}}</h1>
+        <h1 class="title loading_item">{{'Scanner' | translate}}</h1>
         <span class="top-right-icon icon ion-qr-scanner"></span>
     </ion-header-bar>
 
@@ -27,7 +27,7 @@
                     <input type="tel" ng-model="data.inputData" id="input_data" placeholder="{{'Barcode or Quantity' | translate}}" autocomplete="off"
                         class="item-input input-required col-67 with_focus"/>
                     <button class="button button-royal col-33" ng-disabled="!data.inputData">
-                        <i class="icon ion-qr-scanner"></i> {{'OK' | translate}}
+                        {{'OK' | translate}}
                     </button>
                 </div>
 
@@ -42,12 +42,17 @@
                     &nbsp;{{data.currentMoveLine.uom.name}}</span>
                 </label>
 
+                <label class="item item-input" ng-repeat="(key, value) in data.currentMoveLine.product.custom_vals">
+                    <div class="form-label col-50">{{ key }}</div>
+                    <span class="form-field col-50">{{ value }}</span>
+                </label>
+
             </div>
         </form>
     </ion-content>
 
     <ion-footer-bar class="bar-assertive" ng-show="data.errorMessage">
       <h1 class="title">{{ data.errorMessage }}</h1>
-    </ion-footer-bar>
+    </ion-footer-bar>9782020896320
 
 </ion-view>

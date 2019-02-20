@@ -2,7 +2,7 @@
 
     <ion-header-bar class="bar bar-header bar-stable">
         <button menu-toggle="right" class="button button-icon ion-navicon"></button>
-        <h1 class="title loading_item">{{'Move lines' | translate}}</h1>
+        <h1 class="title loading_item">{{'Move Lines' | translate}}</h1>
         <span class="top-right-icon icon ion-clipboard"></span>
     </ion-header-bar>
 
@@ -20,24 +20,32 @@
             <div class = "col col-10"></div>
           </div>
           <label class="item item-input">
-              <div class="form-label col-50">{{'Picking' | translate}}</div>
-              <span class="form-field col-50">{{data.picking.name}}</span>
+              <div class="form-label col-33">{{'Picking' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.name}}</span>
           </label>
           <label class="item item-input">
-              <div class="form-label col-50">{{'Partner' | translate}}</div>
-              <span class="form-field col-50">{{data.picking.partner.name}}</span>
+              <div class="form-label col-33">{{'Partner' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.partner.name}}</span>
           </label>
           <label class="item item-input">
-              <div class="form-label col-50">{{'State' | translate}}</div>
-              <span class="form-field col-50">{{data.picking.state}}</span>
+              <div class="form-label col-33">{{'State' | translate}}</div>
+              <span class="form-field col-66">
+                <span ng-show="data.picking.state == 'draft'">{{'Draft' | translate}}</span>
+                <span ng-show="data.picking.state == 'waiting'">{{'Awaiting other operation' | translate}}</span>
+                <span ng-show="data.picking.state == 'confirmed'">{{'Confirmed' | translate}}</span>
+                <span ng-show="data.picking.state == 'assigned'">{{'Ready' | translate}}</span>
+                <span ng-show="data.picking.state == 'done'">{{'Done' | translate}}</span>
+                <span ng-show="data.picking.state == 'cancel'">{{'Cancelled' | translate}}</span>
+
+              </span>
           </label>
 
         </div>
 
         <div class="row header">
 
-          <div class="col col-40">Product</div>
-          <div class="col col-40">Quantity</div>
+          <div class="col col-40">{{'Product' | translate}}</div>
+          <div class="col col-40">{{'Quantity' | translate}}</div>
           <div class="col col-20">&nbsp;</div>
 
         </div>
@@ -59,7 +67,7 @@
           <div class="item item-input">
             <div class = "col col-10"></div>
               <button class="button button-royal col-80"
-              ng-click="confirm_picking()" translate="Finish Picking" />
+              ng-click="confirm_picking()" translate="Validate" />
             <div class = "col col-10"></div>
           </div>
         </div>

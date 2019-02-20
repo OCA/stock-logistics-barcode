@@ -3,7 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Picking Mobile App',
+    'name': 'Mobile App - Picking',
     'version': '11.0.1.0.0',
     'category': 'Stock',
     'author': 'GRAP,Odoo Community Association (OCA)',
@@ -20,4 +20,6 @@
         'demo/stock_picking_type.xml',
         'demo/stock_picking.xml',
     ],
+    'application': True,
+    'installable': True,
 }

@@ -49,9 +49,8 @@ angular.module('mobile_app_picking').controller(
         ).then(function () {
           tools.display_loading_end()
           $state.go('list_picking', {
-           picking_type_id: $stateParams.picking_type_id
+            picking_type_id: $stateParams.picking_type_id
           })
         })
       }
-
     }])

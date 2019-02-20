@@ -63,13 +63,13 @@ angular.module('mobile_app_picking').factory(
 
         get_by_barcode_product: function (pickingId, barcode) {
           return this.get_list({ 'id': pickingId }).then(function (moveLines) {
-            var foundMoveLine = false
+            var foundMoveLines = []
             moveLines.forEach(function (moveLine) {
               if (moveLine.product.barcode === barcode.toString()) {
-                foundMoveLine = moveLine
+                foundMoveLines.push(moveLine)
               }
             })
-            return foundMoveLine
+            return foundMoveLines
           })
         },
 

@@ -25,5 +25,4 @@ angular.module('mobile_app_picking').controller(
             })
           }
         })
-
     }])
