@@ -14,6 +14,10 @@ class StockPickingType(models.Model):
         " on the Mobile App")
 
     mobile_backorder_create = fields.Boolean(
-        string='Mobile - Create Backorder', default=True,
+        string='Create Backorder', default=True,
         help="Check this box if you want that confirming a picking on mobile"
         " app generate a backorder by default.")
+
+    mobile_product_field_ids = fields.Many2many(
+        string='Product Fields', comodel_name='ir.model.fields',
+        domain=[('model', 'in', ['product.product'])])

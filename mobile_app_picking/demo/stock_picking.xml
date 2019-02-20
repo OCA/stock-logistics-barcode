@@ -9,28 +9,11 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <record id="picking_in_A" model="stock.picking">
         <field name="picking_type_id" ref="stock.picking_type_in"/>
+        <field name="partner_id" ref="base.res_partner_4"/>
         <field name="location_id" ref="stock.stock_location_suppliers"/>
         <field name="location_dest_id" ref="stock.stock_location_stock"/>
         <field name="origin">Mobile App Demo</field>
     </record>
-
-<!--     <record id="move_line_A_1" model="stock.move.line">
-        <field name="picking_id" ref="picking_in_A"/>
-        <field name="product_id" ref="product.product_product_16"/>
-        <field name="location_id" ref="stock.stock_location_suppliers"/>
-        <field name="location_dest_id" ref="stock.stock_location_stock"/>
-        <field name="product_uom_id" ref="product.product_uom_unit"/>
-        <field name="product_uom_qty">20</field>
-    </record>
-
-    <record id="move_line_A_2" model="stock.move.line">
-        <field name="picking_id" ref="picking_in_A"/>
-        <field name="product_id" ref="product.product_product_5b"/>
-        <field name="location_id" ref="stock.stock_location_suppliers"/>
-        <field name="location_dest_id" ref="stock.stock_location_stock"/>
-        <field name="product_uom_id" ref="product.product_uom_unit"/>
-        <field name="product_uom_qty">50</field>
-    </record> -->
 
     <record id="move_A_1" model="stock.move">
         <field name="name">Demo Computer Case</field>

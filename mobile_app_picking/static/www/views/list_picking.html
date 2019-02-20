@@ -23,7 +23,7 @@
                                 picking_id: picking.id})">
                             <h2>{{picking.name}}</h2>
                             <h3 ng-show="picking.partner.name">{{picking.partner.name}}</h3>
-                            <div class="secondary-line" ng-show="picking.backorder.name">(backorder of {{picking.backorder.name}})</div>
+                            <div class="secondary-line" ng-show="picking.backorder.name">({{'Backorder of' | translate}} {{picking.backorder.name}})</div>
                         </a>
                     </ion-item>
                 </ion-list>

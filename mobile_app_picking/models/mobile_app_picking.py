@@ -10,17 +10,16 @@ class MobileAppPicking(models.Model):
     _name = 'mobile.app.picking'
     _inherit = ['mobile.app.mxin']
 
-    # Public API Section
+    # Overload Section
     @api.model
-    def get_settings(self):
-        """Return Mobile App Settings
-        :return: {'key_1': value_1, 'key_2': value_2}
-        """
-        # company = self.env.user.company_id
-        return {
-            # 'inventory_create': company.mobile_inventory_create,
-            # 'inventory_mode': company.mobile_inventory_mode,
-        }
+    def get_custom_fields_list(self):
+        picking_id = self.env.context.get('picking_id', False)
+        StockPicking = self.env['stock.picking']
+        if picking_id:
+            picking = StockPicking.browse(picking_id)
+            return [
+                x.name
+                for x in picking.picking_type_id.mobile_product_field_ids]
 
     @api.model
     def get_picking_types(self):
@@ -63,8 +62,10 @@ class MobileAppPicking(models.Model):
         StockMoveLine = self.env['stock.move.line']
         picking_id = self._extract_param(params, 'picking.id')
         lines = StockMoveLine.search([('picking_id', '=', picking_id)])
+        custom_fields = self.with_context(
+            picking_id=picking_id)._get_custom_fields_dict()
         return [
-            self._export_move_line(line, {})
+            self._export_move_line(line, custom_fields)
             for line in lines]
 
     @api.model

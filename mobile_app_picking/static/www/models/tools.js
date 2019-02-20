@@ -30,6 +30,15 @@ angular.module('mobile_app_picking').factory(
 
       is_barcode: function (input) {
         return ('' + input).length >= 8
+      },
+
+      is_quantity_correct: function (input) {
+        if (isNaN(parseFloat(input, 10))) {
+          return false
+        } else if (parseFloat(input, 10) < 0) {
+          return false
+        }
+        return true
       }
 
     }

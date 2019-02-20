@@ -3,8 +3,8 @@
 'use strict'
 angular.module('mobile_app_picking').controller(
   'MainScanCtrl', [
-    '$scope', '$filter', '$state', '$stateParams', 'MoveLineModel', 'tools',
-    function ($scope, $filter, $state, $stateParams, MoveLineModel, tools) {
+    '$scope', '$filter', '$state', '$translate', '$stateParams', 'MoveLineModel', 'tools',
+    function ($scope, $filter, $state, $translate, $stateParams, MoveLineModel, tools) {
       $scope.data = {
         'inputData': null,
         'currentMoveLine': null,
@@ -34,15 +34,21 @@ angular.module('mobile_app_picking').controller(
       $scope.submit = function () {
         $scope.display_loading_begin()
         var inputValue = $scope.data.inputData
+
+        // It's a barcode of a product
         if (tools.is_barcode(inputValue)) {
-          // It is a barcode of a product
           MoveLineModel.get_by_barcode_product(
             $stateParams.picking_id,
-            inputValue).then(function (moveLine) {
-            if (!moveLine) {
-              $scope.display_loading_end('Unable to found the barcode ' + inputValue)
+            inputValue).then(function (moveLines) {
+            if (moveLines.length === 0) {
+              $scope.display_loading_end($translate.instant(
+                'Barcode not found in the picking'))
+            } else if (moveLines.length > 1) {
+              $scope.display_loading_end($translate.instant(
+                'Many operations found'))
             } else {
-              // The barcode has been found
+              // The exact line has been found
+              moveLine = moveLines[0]
               var newQty = moveLine.qty_done + 1
               MoveLineModel.set_quantity(moveLine, newQty).then(function () {
                 $scope.data.currentMoveLine = moveLine
@@ -50,27 +56,23 @@ angular.module('mobile_app_picking').controller(
               })
             }
           })
-        } else if (!isNaN(parseFloat(inputValue, 10))) {
-          // It is a quantity
+
+        // It's a quantity
+        } else if (tools.is_quantity_correct(inputValue)) {
           if (!$scope.data.currentMoveLine) {
-            $scope.display_loading_end('Please scan a product before setting quantity')
+            $scope.display_loading_end($translate.instant(
+              'Please first scan a product'))
           } else {
             var moveLine = $scope.data.currentMoveLine
             MoveLineModel.set_quantity(moveLine, inputValue).then(function () {
               $scope.display_loading_end()
             })
           }
-        } else {
-          $scope.display_loading_end('Incorrect value')
-        }
-      }
 
-      $scope.go_to_move_line_list = function () {
-        tools.focus()
-        $state.go('move_line', {
-          picking_type_id: $stateParams.picking_type_id,
-          picking_id: $stateParams.picking_id
-        })
+        // It's an error
+        } else {
+          $scope.display_loading_end($translate.instant('Incorrect quantity'))
+        }
       }
 
       $scope.display_loading_begin = function () {
