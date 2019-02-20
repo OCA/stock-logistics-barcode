@@ -1,0 +1,37 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#   * mobile_app_abstract
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-02-20 09:34+0000\n"
+"PO-Revision-Date: 2019-02-20 09:34+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: mobile_app_abstract
+#: model:ir.model.fields,field_description:mobile_app_abstract.field_mobile_app_mxin_display_name
+msgid "Display Name"
+msgstr "Nom à afficher"
+
+#. module: mobile_app_abstract
+#: model:ir.model.fields,field_description:mobile_app_abstract.field_mobile_app_mxin_id
+msgid "ID"
+msgstr "ID"
+
+#. module: mobile_app_abstract
+#: model:ir.model.fields,field_description:mobile_app_abstract.field_mobile_app_mxin___last_update
+msgid "Last Modified on"
+msgstr "Dernière modification le"
+
+#. module: mobile_app_abstract
+#: model:ir.model,name:mobile_app_abstract.model_mobile_app_mxin
+msgid "mobile.app.mxin"
+msgstr "mobile.app.mxin"
+
