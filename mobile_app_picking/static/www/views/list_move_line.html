@@ -36,9 +36,16 @@
                 <span ng-show="data.picking.state == 'assigned'">{{'Ready' | translate}}</span>
                 <span ng-show="data.picking.state == 'done'">{{'Done' | translate}}</span>
                 <span ng-show="data.picking.state == 'cancel'">{{'Cancelled' | translate}}</span>
-
               </span>
           </label>
+
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Display All' | translate}}</div>
+              <span class="form-field col-66">
+                  <ion-checkbox ng-model="data.display_all" ng-click="click_display_all()"></ion-checkbox>
+              </span>
+          </label>
+
 
         </div>
 
@@ -49,8 +56,8 @@
           <div class="col col-20">&nbsp;</div>
 
         </div>
-        <div ng-repeat="moveLine in data.moveLines" class="row" >
-            <div class="col col-40 action-click" ng-click="see_move_line(moveLine)">{{moveLine.product.name}}
+        <div ng-repeat="moveLine in data.moveLines | filter:{display_state: data.filter}" class="row" >
+            <div class="col col-40 action-click" ng-click="see_move_line(moveLine)">{{moveLine.product.display_name}}
             </div>
             <div class="col col-40 action-click state-{{moveLine.state}}" ng-click="see_move_line(moveLine)">
               {{moveLine.qty_done}} / {{moveLine.qty_expected}} <br/>

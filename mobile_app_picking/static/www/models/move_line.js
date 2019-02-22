@@ -40,12 +40,16 @@ angular.module('mobile_app_picking').factory(
         compute_state: function (moveLine) {
           if (moveLine.qty_done === 0) {
             moveLine.state = 'unset'
+            moveLine.display_state = 'display_allways'
           } else if (moveLine.qty_done < moveLine.qty_expected) {
             moveLine.state = 'pending'
+            moveLine.display_state = 'display_allways'
           } else if (moveLine.qty_done === moveLine.qty_expected) {
             moveLine.state = 'done'
+            moveLine.display_state = 'display'
           } else {
             moveLine.state = 'too_much'
+            moveLine.display_state = 'display_allways'
           }
         },
 

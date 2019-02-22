@@ -7,7 +7,9 @@ angular.module('mobile_app_picking').controller(
     function ($scope, $filter, $state, $stateParams, PickingModel, MoveLineModel, tools) {
       $scope.data = {
         'picking': null,
-        'moveLines': []
+        'moveLines': [],
+        'display_all': true,
+        'filter': 'display'
       }
 
       $scope.$on(
@@ -27,6 +29,15 @@ angular.module('mobile_app_picking').controller(
             })
           }
         })
+
+      $scope.click_display_all = function () {
+        if ($scope.data.display_all === true){
+          $scope.data.filter = 'display'
+        }
+        else {
+          $scope.data.filter = 'display_allways'
+        }
+      }
 
       $scope.reset_qty = function (moveLine) {
         MoveLineModel.set_quantity(moveLine, 0).then(function () {

@@ -35,6 +35,18 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="product_uom_qty">80</field>
     </record>
 
+    <record id="move_A_3" model="stock.move">
+        <field name="name">IPad Retina Display</field>
+        <field name="picking_id" ref="picking_in_A"/>
+        <field name="product_id" ref="product.product_product_4"/>
+        <field name="location_id" ref="stock.stock_location_suppliers"/>
+        <field name="location_dest_id" ref="stock.stock_location_stock"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_uom_qty">20</field>
+    </record>
+
+
+
     <function model="stock.picking" name="action_confirm"
         eval="[[ref('picking_in_A')]]"/>
 
