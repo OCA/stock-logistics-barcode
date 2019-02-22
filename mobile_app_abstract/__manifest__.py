@@ -15,6 +15,7 @@
     ],
     'demo': [
         'demo/product_product.xml',
+        'demo/res_groups.xml',
     ],
     'installable': True,
 }

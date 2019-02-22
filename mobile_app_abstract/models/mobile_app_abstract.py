@@ -61,6 +61,7 @@ class MobileAppAbstract(models.AbstractModel):
         return {
             'id': product.id,
             'name': product.name,
+            'display_name': product.display_name,
             'barcode': product.barcode,
             'custom_vals': custom_vals,
         }
