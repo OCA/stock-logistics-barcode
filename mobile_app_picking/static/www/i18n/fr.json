@@ -15,14 +15,18 @@
 
     "Picking Types": "Types d'opérations",
     "Search": "Rechercher",
+    "No Picking Type set": "Aucun Type de transfert paramétré",
 
     "Pickings": "Transferts",
     "Backorder of": "Reliquat de",
+    "No Picking available": "Aucun transfert disponible",
+
 
     "Move Lines": "Opérations",
     "Picking": "Transfert",
     "Partner": "Partenaire",
     "State": "État",
+    "Display All": "Afficher tout",
     "Product": "Article",
     "Quantity": "Quantité",
     "Validate": "Valider",
@@ -35,6 +39,7 @@
 
     "Scanner": "Scanner",
     "Barcode or Quantity": "Code Barre / Quantité",
+    "Back to picking": "Revenir au transfert",
     "OK": "OK",
     "Incorrect quantity": "Quantité incorrecte",
     "Barcode not found in the picking": "Code Barre non lié à ce transfert",

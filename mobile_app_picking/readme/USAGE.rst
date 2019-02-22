@@ -1,5 +1,8 @@
 Enter the url http://MY-ODOO-INSTANCE/mobile_app_picking/static/www/index.html
 
+You can also enter the url http://MY-ODOO-INSTANCE/mobile_app_picking
+if all your odoo databases have ``mobile_app_picking`` installed.
+
 +----------------------------------------------+------------------------------+
 | Description                                  | Screenshot                   |
 +==============================================+==============================+

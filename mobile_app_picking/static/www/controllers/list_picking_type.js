@@ -20,7 +20,8 @@ angular.module('mobile_app_picking').controller(
               $scope.data.pickingTypes = pickingTypes
               // Skip this screen if there is only one picking type
               if ($scope.data.pickingTypes.length === 1) {
-                $scope.select_picking_type($scope.data.pickingTypes[0])
+                $state.go('list_picking', {
+                  picking_type_id: $scope.data.pickingTypes[0].id})
               }
             })
           }
