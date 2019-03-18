@@ -2,8 +2,8 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import api, models
-from odoo.tools.float_utils import float_is_zero
+from openerp import _, api, models
+from odoo.exceptions import UserError
 
 
 class MobileAppPicking(models.Model):
@@ -82,32 +82,57 @@ class MobileAppPicking(models.Model):
         return True
 
     @api.model
-    def confirm_picking(self, params):
-        """ Confirm a given picking
+    def try_validate_picking(self, params):
+        """ simulate the click on "Validate" button, to know if
+        backorder is possible, etc.
         :param params: {'picking': picking_vals}
         """
         StockPicking = self.env['stock.picking']
-        WizardBackorder = self.env['stock.backorder.confirmation']
+        picking_id = self._extract_param(params, 'picking.id')
+        picking = StockPicking.search([('id', '=', picking_id)])
+
+        res = picking.with_context(
+            skip_overprocessed_check=True).button_validate()
+        if not res:
+            return "picking_validated"
+        model = res.get('res_model', False)
+        if model == 'stock.immediate.transfer':
+            return 'immediate_transfer'
+        elif model == 'stock.backorder.confirmation':
+            return 'backorder_confirmation'
+        else:
+            raise UserError(_(
+                "incorrect value for model %s" % (model)))
+
+    @api.model
+    def confirm_picking(self, params):
+        """ Confirm a given picking
+        :param params: {
+            'picking': picking_vals,
+            'action': string,
+        }
+        action can :
+        - 'immediate_transfer' if no quantity has been set
+        - 'with_backorder', to create a backorder
+        - 'without_backorder', to cancel the backorder
+        """
+
+        StockPicking = self.env['stock.picking']
         WizardImmediate = self.env['stock.immediate.transfer']
-        DecimalPrecision = self.env['decimal.precision']
+        WizardBackorder = self.env['stock.backorder.confirmation']
 
         picking_id = self._extract_param(params, 'picking.id')
-        precision_digits = DecimalPrecision.precision_get(
-            'Product Unit of Measure')
-
+        action = self._extract_param(params, 'action')
         picking = StockPicking.search([('id', '=', picking_id)])
-        no_quantities_done = all(float_is_zero(
-            move_line.qty_done, precision_digits=precision_digits)
-            for move_line in picking.move_line_ids)
 
-        if no_quantities_done:
+        if action == 'immediate_transfer':
             wizard = WizardImmediate.create(
                 {'pick_ids': [(6, 0, picking.ids)]})
             wizard.process()
         else:
             wizard = WizardBackorder.create(
                 {'pick_ids': [(6, 0, picking.ids)]})
-            if picking.picking_type_id.mobile_backorder_create:
+            if action == 'with_backorder':
                 wizard.process()
             else:
                 wizard.process_cancel_backorder()

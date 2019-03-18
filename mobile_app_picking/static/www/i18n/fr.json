@@ -46,5 +46,10 @@
     "Please first scan a product": "Veuillez d'abord scanner un article",
     "Many operations found": "Plusieurs opérations trouvées",
 
+    "Validate Picking": "Valider l'opération",
+    "Do not Validate": "Ne pas valider",
+    "Full Validate": "Valider toutes les lignes",
+    "Validate with Backorder": "Valider avec reliquat",
+    "Validate without Backorder": "Valider sans reliquat",
     "": ""
 }

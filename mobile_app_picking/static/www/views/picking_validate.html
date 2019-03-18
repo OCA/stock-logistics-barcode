@@ -1,0 +1,78 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title loading_item">{{'Validate Picking' | translate}}</h1>
+        <span class="top-right-icon icon ion-clipboard"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-balanced col-80" translate="Back to picking"
+                    ui-sref="list_move_line({
+                        picking_type_id: params.picking_type_id,
+                        picking_id: params.picking_id})"
+              />
+            <div class = "col col-10"></div>
+          </div>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Picking' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Partner' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.partner.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'State' | translate}}</div>
+              <span class="form-field col-66">
+                <span ng-show="data.picking.state == 'draft'">{{'Draft' | translate}}</span>
+                <span ng-show="data.picking.state == 'waiting'">{{'Awaiting other operation' | translate}}</span>
+                <span ng-show="data.picking.state == 'confirmed'">{{'Confirmed' | translate}}</span>
+                <span ng-show="data.picking.state == 'assigned'">{{'Ready' | translate}}</span>
+                <span ng-show="data.picking.state == 'done'">{{'Done' | translate}}</span>
+                <span ng-show="data.picking.state == 'cancel'">{{'Cancelled' | translate}}</span>
+              </span>
+          </label>
+
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-royal col-80"
+              ng-show="data.validation_state == 'immediate_transfer'"
+              ng-click="confirm_picking('immediate_transfer')"
+              translate="Full Validate" />
+            <div class = "col col-10"></div>
+          </div>
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-royal col-80"
+              ng-show="data.validation_state == 'backorder_confirmation'"
+              ng-click="confirm_picking('with_backorder')"
+              translate="Validate with Backorder" />
+            <div class = "col col-10"></div>
+          </div>
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-royal col-80"
+                  ng-show="data.validation_state == 'backorder_confirmation'"
+                  ng-click="confirm_picking('without_backorder')"
+                  translate="Validate without Backorder" />
+            <div class = "col col-10"></div>
+          </div>
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-royal col-80"
+                  translate="Do not Validate"
+                  ui-sref="list_picking({
+                        picking_type_id: params.picking_type_id})"/>
+            <div class = "col col-10"></div>
+          </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>
