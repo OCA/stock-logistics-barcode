@@ -28,4 +28,40 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         ]"/>
     </record>
 
+    <record id="stock.group_stock_multi_warehouses" model="res.groups">
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_demo')),
+        ]"/>
+    </record>
+
+    <record id="stock.group_tracking_lot" model="res.groups">
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_demo')),
+        ]"/>
+    </record>
+
+    <record id="product.group_stock_packaging" model="res.groups">
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_demo')),
+        ]"/>
+    </record>
+
+    <record id="product.group_uom" model="res.groups">
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_demo')),
+        ]"/>
+    </record>
+
+    <record id="stock.group_production_lot" model="res.groups">
+        <field name="users" eval="[
+            (4, ref('base.user_root')),
+            (4, ref('base.user_demo')),
+        ]"/>
+    </record>
+
+
 </odoo>

@@ -60,6 +60,12 @@ angular.module(
             templateUrl: 'views/main_scan.html',
             controller: 'MainScanCtrl'
           })
+        .state(
+          'picking_validate', {
+            url: '/picking_type/{picking_type_id:int}/picking/{picking_id:int}/picking_validate/',
+            templateUrl: 'views/picking_validate.html',
+            controller: 'PickingValidateCtrl'
+          })
 
       $ionicConfigProvider.views.transition('none')
 

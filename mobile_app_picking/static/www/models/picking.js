@@ -39,9 +39,20 @@ angular.module('mobile_app_picking').factory(
           })
         },
 
-        confirm: function (picking) {
+        try_validate_picking: function (pickingId) {
           return jsonRpc.call(
-            'mobile.app.picking', 'confirm_picking', [{ 'picking': picking }]
+            'mobile.app.picking', 'try_validate_picking', [{
+              'picking': { 'id': pickingId } }]
+          ).then(function (res) {
+            return res
+          })
+        },
+
+        confirm_picking: function (pickingId, action) {
+          return jsonRpc.call(
+            'mobile.app.picking', 'confirm_picking', [{
+              'picking': { 'id': pickingId },
+              'action': action }]
           ).then(function (res) {
             return res
           })

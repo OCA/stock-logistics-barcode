@@ -31,10 +31,9 @@ angular.module('mobile_app_picking').controller(
         })
 
       $scope.click_display_all = function () {
-        if ($scope.data.display_all === true){
+        if ($scope.data.display_all === true) {
           $scope.data.filter = 'display'
-        }
-        else {
+        } else {
           $scope.data.filter = 'display_allways'
         }
       }
@@ -50,18 +49,6 @@ angular.module('mobile_app_picking').controller(
           picking_type_id: $stateParams.picking_type_id,
           picking_id: $stateParams.picking_id,
           move_line_id: moveLine.id
-        })
-      }
-
-      $scope.confirm_picking = function () {
-        tools.display_loading_begin()
-        PickingModel.confirm(
-          { 'id': $stateParams.picking_id }
-        ).then(function () {
-          tools.display_loading_end()
-          $state.go('list_picking', {
-            picking_type_id: $stateParams.picking_type_id
-          })
         })
       }
     }])
