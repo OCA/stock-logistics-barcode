@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
--->
 <odoo>
     <record id="view_scanner_scenario_tree" model="ir.ui.view">
         <field name="name">scanner.scenario.tree</field>
@@ -22,9 +19,13 @@
         <field name="arch" type="xml">
             <form string="Scanner Scenario" version="8.0">
                 <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
+                        </button>
+                    </div>
                     <group colspan="4" col="4">
                         <field name="name"/>
-                        <field name="active"/>
                         <field name="type"/>
                         <field name="sequence"/>
                         <field name="parent_id"/>
@@ -48,7 +49,7 @@
                                         <field name="step_stop"/>
                                         <field name="step_back"/>
                                         <field name="no_back"/>
-                                        <field name="scenario_id" invisible="True" />
+                                        <field name="scenario_id" invisible="True"/>
                                     </group>
                                     <notebook colspan="4">
                                         <page string="Transition">
@@ -99,7 +100,7 @@
                                         </page>
                                         <page string="Code">
                                             <separator string="Enter the python code here" colspan="4"/>
-                                            <field name="python_code" colspan="4" nolabel="1"/>
+                                            <field name="python_code" colspan="4" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
                                         </page>
                                     </notebook>
                                     <newline/>
@@ -119,7 +120,7 @@
                         </page>
                         <page string="Note">
                             <separator string="Add note, modification date, etc." colspan="4"/>
-                            <field name="notes" colspan="4" nolabel="1"/>
+                            <field name="notes" colspan="4" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
                         </page>
                     </notebook>
                 </sheet>
@@ -132,14 +133,16 @@
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <search string="Scanner Scenario">
-                <filter icon="gtk-indent" string="Menu" separator="1" domain="[('type','=','menu')]" help="Can contain scenarios or submenus"/>
-                <filter icon="gtk-media-play" string="Scenario" separator="1" domain="[('type','=','scenario')]" help="Directly launch a scenario"/>
                 <field name="name"/>
                 <field name="parent_id"/>
                 <field name="model_id"/>
+                <filter string="Menu" name="menu" domain="[('type','=','menu')]" help="Can contain scenarios or submenus"/>
+                <filter string="Scenario" name="scenario" domain="[('type','=','scenario')]" help="Directly launch a scenario"/>
+                <newline/>
+                <filter string="Archived" name="archived" domain="[('active','=',False)]"/>
                 <newline/>
                 <group expand="0" string="Group By...">
-                    <filter string="Parent" icon="gtk-open" domain="[]" help="Parent" context="{'group_by':'parent_id'}" />
+                    <filter string="Parent" name="group_by_parent_id" domain="[]" help="Parent" context="{'group_by':'parent_id'}"/>
                 </group>
             </search>
         </field>

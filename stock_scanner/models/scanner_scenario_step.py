@@ -61,6 +61,7 @@ class ScannerScenarioStep(models.Model):
         string='Python code',
         default=PYTHON_CODE_DEFAULT,
         help='Python code to execute.')
+    scenario_notes = fields.Text(related='scenario_id.notes', readonly=False)
 
     @api.constrains('python_code')
     def _check_python_code_syntax(self):
