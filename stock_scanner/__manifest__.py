@@ -4,10 +4,10 @@
 {
     'name': 'Stock Scanner',
     'summary': 'Allows managing barcode readers with simple scenarios',
-    'version': '11.0.1.1.0',
+    'version': '12.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://odoo-community.org/',
-    'author': 'SYLEAM,'
+    'author': 'Subteno IT,'
               'ACSONE SA/NV,'
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
@@ -23,9 +23,9 @@
         'security/ir.model.access.csv',
         'data/stock_scanner.xml',
         'data/ir_cron.xml',
-        'data/scenarios/Login/Login.scenario',
-        'data/scenarios/Logout/Logout.scenario',
-        'data/scenarios/Stock/Stock.scenario',
+        # 'data/scenarios/Login/Login.scenario',
+        # 'data/scenarios/Logout/Logout.scenario',
+        # 'data/scenarios/Stock/Stock.scenario',
         'wizard/res_config_settings.xml',
         'views/menu.xml',
         'views/scanner_scenario.xml',

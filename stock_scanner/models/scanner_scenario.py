@@ -104,3 +104,11 @@ class ScannerScenario(models.Model):
             raise exceptions.UserError(
                 _('Error ! You can not create recursive scenarios.'),
             )
+
+    def copy(self, default):
+        scenario_new = super(ScannerScenario, self).copy({'name': _('Copy of %s') % record.name})
+        step_news = {}
+        for step in self.step_ids:
+            step_news[step.id] = step.copy({'scenario_id': scenario_new.id}).id
+        for trans in self.env['scanner.scenario.transition'].search([('scenario_id', '=', self.id)]):
+            trans.copy({'from_id': step_news[trans.from_id.id], 'to_id': step_news[trans.to_id.id]})
