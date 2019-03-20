@@ -194,7 +194,7 @@ Unlike the standard Odoo Workflow, each step needs to find a valid transition, b
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/154/11.0
+   :target: https://runbot.odoo-community.org/runbot/154/12.0
 
 A client for the Datalogic PowerScan scanners was developped for a very early version or this module.
 The files have been removed, but are still available in the `git repository history

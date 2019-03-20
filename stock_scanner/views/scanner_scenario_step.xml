@@ -1,7 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
--->
 <odoo>
     <record id="view_scanner_scenario_step_search" model="ir.ui.view">
         <field name="name">scanner.scenario.step.search</field>
@@ -99,6 +96,10 @@
                                     </group>
                                 </form>
                             </field>
+                        </page>
+                        <page string="Scenario Note">
+                            <separator string="Add note, modification date, etc." colspan="4"/>
+                            <field name="scenario_notes" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
                         </page>
                     </notebook>
                 </sheet>
