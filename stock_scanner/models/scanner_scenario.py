@@ -60,7 +60,8 @@ class ScannerScenario(models.Model):
         help='Warehouses for this scenario.')
     notes = fields.Text(
         string='Notes',
-        help='Store different notes, date and title for modification, etc...')
+        help='Store different notes, date and title for modification, etc...',
+        default="Notes\n\n\n")
     parent_id = fields.Many2one(
         comodel_name='scanner.scenario',
         string='Parent',
@@ -104,3 +105,18 @@ class ScannerScenario(models.Model):
             raise exceptions.UserError(
                 _('Error ! You can not create recursive scenarios.'),
             )
+
+    @api.multi
+    def copy(self, default):
+        default = default or {}
+        default['name'] = _('Copy of %s') % self.name
+
+        scenario_new = super(ScannerScenario, self).copy(default)
+        step_news = {}
+        for step in self.step_ids:
+            step_news[step.id] = step.copy(
+                {'scenario_id': scenario_new.id}).id
+        for trans in self.env['scanner.scenario.transition'].search(
+                [('scenario_id', '=', self.id)]):
+            trans.copy({'from_id': step_news[trans.from_id.id],
+                        'to_id': step_news[trans.to_id.id]})
