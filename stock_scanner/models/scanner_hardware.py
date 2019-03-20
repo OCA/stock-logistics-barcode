@@ -14,7 +14,7 @@ from odoo.tools.misc import ustr, html_escape
 from odoo.tools.safe_eval import safe_eval
 
 
-logger = logging.getLogger('stock_scanner')
+_logger = logging.getLogger('stock_scanner')
 
 _CURSES_COLORS = [
     ('black', _('Black')),
@@ -177,7 +177,7 @@ class ScannerHardware(models.Model):
     # The json_tmp_valN properties are kept as a compatibility layer to
     # help scenario migration. You should use the tmp_values field
     # instead. These will be removed when the module is migrated to
-    # Odoo 12.0
+    # Odoo 13.0
     @property
     @api.multi
     def json_tmp_val1(self):
@@ -247,6 +247,9 @@ class ScannerHardware(models.Model):
 
     @api.multi
     def set_tmp_value(self, key_name, value):
+        _logger.warning(
+            "'%s' is deprecated. Please use 'terminal.tmp_values'."
+            % key_name)
         self.ensure_one()
         self.update_tmp_values({
             key_name: value,
@@ -308,13 +311,13 @@ class ScannerHardware(models.Model):
         scanner_scenario_obj = self.env['scanner.scenario']
         # Retrieve the terminal screen size
         if action == 'screen_size':
-            logger.debug('Retrieve screen size')
+            _logger.debug('Retrieve screen size')
             screen_size = self._screen_size()
             return ('M', screen_size, 0)
 
         # Retrieve the terminal screen colors
         if action == 'screen_colors':
-            logger.debug('Retrieve screen colors')
+            _logger.debug('Retrieve screen colors')
             screen_colors = {
                 'base': (self.base_fg_color, self.base_bg_color),
                 'info': (self.info_fg_color, self.info_bg_color),
@@ -338,8 +341,8 @@ class ScannerHardware(models.Model):
                 return self._unknown_action(message)
             # No action to do
             else:
-                logger.info('[%s] Action : %s (no current scenario)',
-                            self.code, message)
+                _logger.info('[%s] Action : %s (no current scenario)',
+                             self.code, message)
                 scenario_ids = scanner_scenario_obj.search([
                     ('name', '=', message),
                     ('type', '=', 'menu'),
@@ -380,7 +383,7 @@ class ScannerHardware(models.Model):
         # End required
         elif action == 'end':
             # Empty the values
-            logger.info('[%s] End scenario request' % self.code)
+            _logger.info('[%s] End scenario request' % self.code)
             self.sudo().empty_scanner_values()
 
             return ('F', [_('This scenario'), _('is finished')], '')
@@ -388,7 +391,7 @@ class ScannerHardware(models.Model):
         # If the terminal is not attached to a scenario, send the menu
         # (scenario list)
         if not self.scenario_id:
-            logger.info('[%s] No running scenario' % self.code)
+            _logger.info('[%s] No running scenario' % self.code)
             scenarios = self._scenario_list(message)
             return ('L', scenarios, 0)
 
@@ -441,7 +444,7 @@ class ScannerHardware(models.Model):
         try:
             user = res_users.search([('login', '=', login)])
             if user:
-                res_users.sudo(user).check_credentials(password)
+                res_users.sudo(user)._check_credentials(password)
             return user.id
         except exceptions.AccessDenied:
             return False
@@ -578,8 +581,8 @@ class ScannerHardware(models.Model):
                 }
                 try:
                     expr = safe_eval(str(transition.condition), ctx)
-                except:
-                    logger.exception(
+                except Exception:
+                    _logger.exception(
                         "Error when evaluating transition condition\n%s",
                         transition.condition)
                     raise
@@ -678,7 +681,7 @@ class ScannerHardware(models.Model):
                 # errors
                 self.env.cr.rollback()
                 if e.pgcode not in PG_CONCURRENCY_ERRORS_TO_RETRY:
-                    logger.warning(
+                    _logger.warning(
                         "[%s] OperationalError",
                         self.code,
                         exc_info=True)
@@ -687,7 +690,7 @@ class ScannerHardware(models.Model):
                     ], 0)
                     break
                 if tries >= MAX_TRIES_ON_CONCURRENCY_FAILURE:
-                    logger.warning(
+                    _logger.warning(
                         "[%s] Concurrent transaction - "
                         "OperationalError %s, maximum number of tries reached",
                         self.code,
@@ -700,7 +703,7 @@ class ScannerHardware(models.Model):
                     break
                 wait_time = random.uniform(0.0, 2 ** tries)
                 tries += 1
-                logger.info(
+                _logger.info(
                     "[%s] Concurrent transaction detected (%s), "
                     "retrying %d/%d in %.04f sec...",
                     self.code,
@@ -713,12 +716,13 @@ class ScannerHardware(models.Model):
                 # ORM exception, display the error message and require the "go
                 # back" action
                 self.env.cr.rollback()
-                logger.warning('[%s] OSV Exception:', self.code, exc_info=True)
+                _logger.warning('[%s] OSV Exception:',
+                                self.code, exc_info=True)
                 result = ('E', [e.name or '', '', e.value or ''], True)
                 break
             except Exception as e:
                 self.env.cr.rollback()
-                logger.error('[%s] Exception: ', self.code, exc_info=True)
+                _logger.error('[%s] Exception: ', self.code, exc_info=True)
                 result = ('R', ['Please contact', 'your', 'administrator'], 0)
                 self.empty_scanner_values()
                 break
@@ -759,4 +763,4 @@ class ScannerHardware(models.Model):
 
     def log(self, log_message):
         if self.log_enabled:
-            logger.info('[%s] %s' % (self.code, ustr(log_message)))
+            _logger.info('[%s] %s' % (self.code, ustr(log_message)))
