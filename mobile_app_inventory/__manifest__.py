@@ -5,7 +5,7 @@
 
 {
     'name': 'Inventory Mobile App',
-    'version': '10.0.1.0.0',
+    'version': '11.0.1.0.0',
     'summary': """
     Perform a full inventory from a mobile device with
     barcode reader
