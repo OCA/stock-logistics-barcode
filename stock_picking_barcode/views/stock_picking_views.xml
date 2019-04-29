@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="view_picking_form" model="ir.ui.view">
+            <field name="name">stock.picking.form</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>
+            <field eval="12" name="priority"/>
+            <field name="arch" type="xml">
+                <div name="button_box" position="inside">
+                    <button name="%(stock_picking_barcode.action_wizard_stock_picking_barcode)d"
+                            type="action"
+                            icon="fa-barcode"
+                            string="Scan"
+                            states="waiting"
+                    />
+                </div>
+            </field>
+        </record>
+
+</odoo>
