@@ -15,6 +15,7 @@
     'data': [
         'security/ir.model.access.csv',
         'views/view_stock_picking_type.xml',
+        'views/view_stock_picking.xml',
     ],
     'demo': [
         'demo/stock_picking_type.xml',
