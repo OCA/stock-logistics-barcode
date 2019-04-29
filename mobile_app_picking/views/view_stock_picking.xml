@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019-Today Coop IT Easy (https://coopiteasy.be)
+@author: Pierrick Brun <pierrick.brun@akretion.com>
+ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_stock_picking_form" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.view_picking_form" />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <field name="mobile_available" invisible="True"/>
+                <button type="object" name="open_mobile_app_url" class="oe_stat_button" icon='fa-barcode' string="Mobile App"
+                             attrs="{'invisible': [('mobile_available','=',False)]}" />
+             </div>
+        </field>
+    </record>
+
+</odoo>
