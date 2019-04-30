@@ -32,10 +32,10 @@
                        invisible="1"/>
                 <footer>
                     <button
-                            name="action_cancel"
-                            string="Close"
-                            class="oe_link"
-                            special="cancel"
+                        name="action_cancel"
+                        string="Close"
+                        class="oe_link"
+                        special="cancel"
                     />
                 </footer>
             </form>

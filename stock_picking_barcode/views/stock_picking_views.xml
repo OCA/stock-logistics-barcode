@@ -12,7 +12,7 @@
                             type="action"
                             icon="fa-barcode"
                             string="Scan"
-                            states="waiting"
+                            states="confirmed"
                     />
                 </div>
             </field>

@@ -25,19 +25,6 @@ class WizardStockPickingBarcode(models.TransientModel):
         'stock.production.lot',
         computed='on_barcode_scanned',
     )
-    processed_lines = fields.Many2many(
-        'stock.production.lot',
-        computed='on_barcode_scanned',
-    )
-
-    def _show_lines(self):
-        show_lines = _("The following lots have been processed from "
-                       "Picking %s:\n") % self.lot_id.name
-        for line in self.processed_lines:
-            show_lines = "%s %s [%s]\n" % (
-                show_lines, line.product_id.name, line.order_id.name)
-        return show_lines + _("Scan the next barcode or press Close to "
-                              "finish scanning.")
 
     def on_barcode_scanned(self, barcode):
         self.lot_id = self.env['stock.production.lot'].search([
@@ -50,7 +37,7 @@ class WizardStockPickingBarcode(models.TransientModel):
             self.status_state = 1
             return
         else:
-            self.status = _("Barcode %s does correspond to a Lot/serial "
+            self.status = _("Barcode %s does correspond to a Lot/Serial "
                             "Number") % barcode
             self.status_state = 0
             move = self.env['stock.move'].search([
