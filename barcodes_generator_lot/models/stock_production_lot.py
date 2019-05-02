@@ -11,4 +11,5 @@ class StockProductionLot(models.Model):
 
     barcode = fields.Char(
         related='name',
+        readonly=False
     )
