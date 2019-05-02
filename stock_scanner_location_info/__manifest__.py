@@ -5,7 +5,7 @@
     'name': 'Stock Scanner Location Info',
     'version': '11.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
-    'website': 'https://odoo-community.org/',
+    'website': 'https://github.com/OCA/stock-logistics-barcode',
     'author': 'SYLEAM,'
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
