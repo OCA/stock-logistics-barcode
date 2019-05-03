@@ -209,3 +209,6 @@ msgstr "barcode.generate.mixin"
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_rule
 msgid "barcode.rule"
 msgstr "barcode.rule"
+
+#~ msgid "Partners"
+#~ msgstr "Partenaire"

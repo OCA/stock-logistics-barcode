@@ -163,11 +163,6 @@ msgid "Partners"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_model:0
-msgid "Products"
-msgstr ""
-
-#. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule_sequence_id
 msgid "Sequence"
 msgstr ""
