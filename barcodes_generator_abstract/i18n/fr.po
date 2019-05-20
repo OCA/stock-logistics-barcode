@@ -26,6 +26,7 @@ msgstr ""
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_product_product_generate_type
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_res_partner_generate_type
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_stock_picking_generate_type
+#: model:ir.model.fields,help:barcodes_generator_abstract.field_stock_production_lot_generate_type
 msgid ""
 "Allow to generate barcode, including a number  (a base) in the final "
 "barcode.\n"
@@ -51,6 +52,7 @@ msgstr "Génération Automatique"
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_barcode_base
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_barcode_base
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_picking_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_barcode_base
 msgid "Barcode Base"
 msgstr "Base du code Barre"
 
@@ -69,6 +71,7 @@ msgstr "Nomenclatures codes barres"
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_barcode_rule_id
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_barcode_rule_id
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_picking_barcode_rule_id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_barcode_rule_id
 msgid "Barcode Rule"
 msgstr "Règle de code barre"
 
@@ -137,6 +140,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_product_product_generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_res_partner_generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_picking_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_stock_production_lot_generate_type
 msgid "Generate Type"
 msgstr "Type de génération"
 
@@ -198,6 +202,11 @@ msgstr "Séquence - %s"
 #. module: barcodes_generator_abstract
 #: selection:barcode.rule,generate_model:0
 msgid "Stock Picking"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Production Lot"
 msgstr ""
 
 #. module: barcodes_generator_abstract
