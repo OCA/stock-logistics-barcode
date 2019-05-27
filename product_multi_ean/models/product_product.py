@@ -93,16 +93,16 @@ class ProductProduct(models.Model):
 
     @api.model
     def search(self, domain, *args, **kwargs):
-        if list(filter(lambda x: x[0] == 'barcode', domain)):
-            ean_operator = list(
-                filter(lambda x: x[0] == 'barcode', domain)
-            )[0][1]
-            ean_value = list(
-                filter(lambda x: x[0] == 'barcode', domain)
-            )[0][2]
-
-            eans = self.env['product.ean13'].search(
-                [('name', ean_operator, ean_value)])
-            domain = list(filter(lambda x: x[0] != 'barcode', domain))
-            domain += [('ean13_ids', 'in', eans.ids)]
+        for sub_domain in list(filter(lambda x: x[0] == 'barcode', domain)):
+            domain = self._get_ean13_domain(sub_domain, domain)
         return super(ProductProduct, self).search(domain, *args, **kwargs)
+
+    def _get_ean13_domain(self, sub_domain, domain):
+        ean_operator = sub_domain[1]
+        ean_value = sub_domain[2]
+        eans = self.env['product.ean13'].search(
+            [('name', ean_operator, ean_value)])
+        domain = [('ean13_ids', 'in', eans.ids)
+                  if x[0] == 'barcode' and x[2] == ean_value
+                  else x for x in domain]
+        return domain
