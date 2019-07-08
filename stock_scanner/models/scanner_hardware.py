@@ -262,10 +262,12 @@ class ScannerHardware(models.Model):
 
     @api.model
     def timeout_session(self):
-        timeout_delay = self.env['ir.config_parameter'].get_param(
-            'hardware_scanner_session_timeout', 1800)  # seconds
+        timeout_delay = int(self.env['ir.config_parameter'].get_param(
+            'hardware_scanner_session_timeout', '1800'))  # seconds
+        if not timeout_delay:
+            return
         expired_dt = datetime.datetime.now() - datetime.timedelta(
-            seconds=int(timeout_delay))
+            seconds=timeout_delay)
         expired_str = fields.Datetime.to_string(expired_dt)
         terminals = self.search([('last_call_dt', '<', expired_str)])
         terminals.logout()
