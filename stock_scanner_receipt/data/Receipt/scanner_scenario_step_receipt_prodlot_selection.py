@@ -5,18 +5,15 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
-quantity = float(message)
+move = env['stock.move'].browse(int(message))
+terminal.set_tmp_value('tmp_val1', move.id)
 
-terminal.set_tmp_value('tmp_val2',quantity)
-
-act = 'T'
 res = [
     _('Product : %s') % move.product_id.name,
-    _('Quantity : %g %s') % (quantity, move.product_uom.name),
-    '',
-    _('Lot ?'),
 ]
 if move.product_id.tracking == 'none':
-    val = ''
     act = 'A'
+    val = ''
+else:
+    act = 'T'
+    res += ['', _('Lot ?')]

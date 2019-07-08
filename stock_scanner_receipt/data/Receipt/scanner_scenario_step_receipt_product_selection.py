@@ -15,19 +15,16 @@ if tracer == 'loop':
         'picking_id': picking.id,
         'product_id': move.product_id.id,
         'move_id': move.id,
-        'product_uom_id' :  move.product_uom.id,
+        'product_uom_id':  move.product_uom.id,
         'location_id': picking.location_id.id,
         'location_dest_id': location.id,
         'qty_done': quantity,
     }
 
     if terminal.get_tmp_value('tmp_val3'):
-        s_m_l['lot_id'] =  int(terminal.get_tmp_value('tmp_val3'))
-
-
+        s_m_l['lot_id'] = int(terminal.get_tmp_value('tmp_val3'))
 
     env['stock.move.line'].create(s_m_l)
-
 
 elif tracer == 'picking':
     picking = env['stock.picking'].search([('name', '=', message)])
@@ -37,7 +34,10 @@ else:
     picking = env['stock.picking'].browse(terminal.reference_document)
 
 act = 'L'
-res = [(move.id, '%g %s, %s' % (move.product_uom_qty - move.quantity_done, move.product_uom.name, move.product_id.name)) for move in picking.move_lines ]
+res = [
+    (move.id, '%g %s, %s' % (move.product_uom_qty - move.quantity_done, move.product_uom.name, move.product_id.name))
+    for move in picking.move_lines
+]
 
 if not res:
     act = 'A'

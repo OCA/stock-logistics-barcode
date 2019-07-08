@@ -5,19 +5,12 @@
 'Put the returned result or message in <res>, as a list of strings.'
 'Put the returned value in <val>, as an integer'
 
-prodlot_name = message
 move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
 
-prodlot = env['stock.production.lot'].search([('name', '=', prodlot_name)])
-if not prodlot:
-    prodlot = env['stock.production.lot'].create({
-        'name': prodlot_name,
-        'product_id': move.product_id.id,
-    })
+quantity = float(message)
+terminal.set_tmp_value('tmp_val2', quantity)
 
-quantity = float(terminal.get_tmp_value('tmp_val2'))
-
-terminal.set_tmp_value('tmp_val3', prodlot.id)
+prodlot = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val3')))
 
 act = 'T'
 res = [
