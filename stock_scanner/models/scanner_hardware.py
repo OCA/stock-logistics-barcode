@@ -420,9 +420,7 @@ class ScannerHardware(models.Model):
         self.write({
             'scenario_id': False,
             'step_id': False,
-            'step_history_ids': [
-                (2, history.id) for history in self.step_history_ids
-            ],
+            'step_history_ids': [(6, False, [])],
             'reference_document': 0,
             'tmp_values': {},
         })
