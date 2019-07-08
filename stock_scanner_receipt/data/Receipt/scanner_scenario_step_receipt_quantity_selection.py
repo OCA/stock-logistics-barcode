@@ -27,8 +27,12 @@ if product_tracking != 'none':
     res.append(
         _('Lot : %s') % (prodlot and prodlot.name or _('None')),
     )
-res += [
-    '',
-    _('Quantity ?'),
-]
-val = max(move.product_uom_qty - move.quantity_done, 0.0)
+if product_tracking == 'serial':
+    act = 'A'
+    val = 1.0
+else:
+    res += [
+        '',
+        _('Quantity ?'),
+    ]
+    val = max(move.product_uom_qty - move.quantity_done, 0.0)
