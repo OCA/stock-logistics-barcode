@@ -11,7 +11,9 @@ class ScannerHardwareStepHistory(models.Model):
 
     hardware_id = fields.Many2one(
         comodel_name='scanner.hardware', string='Hardware',
-        required=True, help='Hardware linked to this history line.')
+        required=True, help='Hardware linked to this history line.',
+        ondelete='cascade',  # useless record without hardware_id
+    )
     step_id = fields.Many2one(
         comodel_name='scanner.scenario.step', string='Step',
         help='Step executed during this history line.')
