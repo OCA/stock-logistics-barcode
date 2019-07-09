@@ -20,4 +20,11 @@
         <field name="screen_height">20</field>
         <field name="warehouse_id" ref="stock.warehouse0"/>
     </record>
+    <record id ="scanner_hardware_2" model="scanner.hardware">
+        <field name="name">Hardware 2</field>
+        <field name="code">hard2</field>
+        <field name="screen_width">40</field>
+        <field name="screen_height">20</field>
+        <field name="warehouse_id" ref="stock.warehouse0"/>
+    </record>
 </odoo>

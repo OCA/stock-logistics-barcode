@@ -293,3 +293,20 @@ class TestStockScanner(common.TransactionCase):
         scanner_hardware_1.timeout_session()
         self.assertFalse(scanner_hardware_1.user_id)
         self.assertFalse(scanner_hardware_1.last_call_dt)
+
+        # ///////////////////////////////////////////////////////////////////
+        # Call timeout session for two scanners from cron
+        scanner_hardware_2 = self.env.ref('stock_scanner.scanner_hardware_2')
+        scanners = scanner_hardware_1 | scanner_hardware_2
+
+        # Login
+        scanner_hardware_1.login(user_demo.login, 'demo')
+        scanner_hardware_2.login(user_demo.login, 'demo')
+
+        # we update the last_call_dt with an older value to simulate
+        # the elapsed time without activity
+        scanners.write({'last_call_dt': timeout_last_call_td})
+
+        # Run cron
+        cron = self.env.ref('stock_scanner.hardware_reset_user_id_on_timeout')
+        cron.method_direct_trigger()
