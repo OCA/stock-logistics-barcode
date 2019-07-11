@@ -3,8 +3,8 @@ This module installs a scenario which allows the user to process an incoming pic
 The scenario starts by calling the "Picking name input" step, then goes to a loop containing these four steps :
 
 * Product name input
-* Quantity input
 * Lot name input (if applicable)
+* Quantity input (if tracking != serial)
 * Location name input
 
 When the user enters an empty value for the product's name, this ends the loop, and goes to the "End confirm" step.
