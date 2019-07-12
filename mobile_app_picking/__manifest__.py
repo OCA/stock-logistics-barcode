@@ -9,6 +9,7 @@
     'author': 'GRAP,Odoo Community Association (OCA)',
     'website': 'https://www.odoo-community.org',
     'license': 'AGPL-3',
+    'development_status': 'Beta',
     'depends': [
         'mobile_app_angular',
     ],

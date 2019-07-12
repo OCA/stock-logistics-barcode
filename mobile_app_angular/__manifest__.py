@@ -10,6 +10,7 @@
     'author': 'GRAP,Akretion,Camptocamp,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/stock-logistics-barcode',
     'license': 'AGPL-3',
+    'development_status': 'Beta',
     'depends': [
         'mobile_app_abstract',
     ],
