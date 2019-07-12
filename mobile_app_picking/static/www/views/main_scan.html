@@ -13,7 +13,7 @@
           <div class="item item-input">
             <div class = "col col-10"></div>
               <button class="button button-balanced col-80" translate="Back to picking"
-                    ui-sref="list_move_line({
+                    ui-sref="list_move({
                         picking_type_id: params.picking_type_id,
                         picking_id: params.picking_id})"
               />
@@ -31,18 +31,18 @@
                     </button>
                 </div>
 
-                <label class="item item-input" ng-show="data.currentMoveLine">
+                <label class="item item-input" ng-show="data.currentMove">
                     <div class="form-label col-50">{{'Product' | translate}}</div>
-                    <span class="form-field col-50">{{data.currentMoveLine.product.display_name}}</span>
+                    <span class="form-field col-50">{{data.currentMove.product.display_name}}</span>
                 </label>
 
-                <label class="item item-input" ng-show="data.currentMoveLine">
+                <label class="item item-input" ng-show="data.currentMove">
                     <div class="form-label col-50">{{'Quantity' | translate}}</div>
-                    <span class="form-field col-50 state-{{data.currentMoveLine.state}}">{{data.currentMoveLine.qty_done}} / {{data.currentMoveLine.qty_expected}}
-                    &nbsp;{{data.currentMoveLine.uom.name}}</span>
+                    <span class="form-field col-50 state-{{data.currentMove.state}}">{{data.currentMove.qty_done}} / {{data.currentMove.qty_expected}}
+                    &nbsp;{{data.currentMove.uom.name}}</span>
                 </label>
 
-                <label class="item item-input" ng-repeat="(key, value) in data.currentMoveLine.product.custom_vals">
+                <label class="item item-input" ng-repeat="(key, value) in data.currentMove.product.custom_vals">
                     <div class="form-label col-50">{{ key }}</div>
                     <span class="form-field col-50">{{ value }}</span>
                 </label>

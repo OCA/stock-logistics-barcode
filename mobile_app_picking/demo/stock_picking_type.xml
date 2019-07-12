@@ -9,14 +9,12 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <record id="stock.picking_type_in" model="stock.picking.type">
         <field name="mobile_available" eval="True"/>
-        <field name="show_operations" eval="True"/>
         <field name="mobile_product_field_ids" eval="[(6, 0, [
             ref('product.field_product_product_categ_id')])]"/>
     </record>
 
     <record id="stock.picking_type_out" model="stock.picking.type">
         <field name="mobile_available" eval="True"/>
-        <field name="show_operations" eval="True"/>
         <field name="mobile_product_field_ids" eval="[(6, 0, [
             ref('product.field_product_product_categ_id')])]"/>
     </record>

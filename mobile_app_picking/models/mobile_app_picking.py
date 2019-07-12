@@ -51,34 +51,34 @@ class MobileAppPicking(models.Model):
             self._export_picking(picking) for picking in pickings]
 
     @api.model
-    def get_move_lines(self, params):
-        """ Return move lines of a given picking.
+    def get_moves(self, params):
+        """ Return moves of a given picking.
         :param params: {'picking': picking_vals}
-        :return: [move_line_1_vals, move_line_2_vals, ...]
+        :return: [move_1_vals, move_2_vals, ...]
         .. seealso::
             _export_picking() for picking vals details
-            _export_move_line() for move line vals details
+            _export_move() for move vals details
         """
-        StockMoveLine = self.env['stock.move.line']
+        StockMove = self.env['stock.move']
         picking_id = self._extract_param(params, 'picking.id')
-        lines = StockMoveLine.search([('picking_id', '=', picking_id)])
+        moves = StockMove.search([('picking_id', '=', picking_id)])
         custom_fields = self.with_context(
             picking_id=picking_id)._get_custom_fields_dict()
         return [
-            self._export_move_line(line, custom_fields)
-            for line in lines]
+            self._export_move(move, custom_fields)
+            for move in moves]
 
     @api.model
     def set_quantity(self, params):
-        """ Return move lines of a given picking.
-        :param params: {'move_line': move_line_vals, 'quantity': integer}
+        """ Set done quantity for a given move.
+        :param params: {'move': move_vals, 'quantity': integer}
         """
-        StockMoveLine = self.env['stock.move.line']
-        move_line_id = self._extract_param(params, 'move_line.id')
+        StockMove = self.env['stock.move']
+        move_id = self._extract_param(params, 'move.id')
         qty_done = self._extract_param(params, 'qty_done', 0)
-        move_line = StockMoveLine.search([('id', '=', move_line_id)])
-        if move_line:
-            move_line.qty_done = qty_done
+        move = StockMove.search([('id', '=', move_id)])
+        if move:
+            move.quantity_done = qty_done
         return True
 
     @api.model
@@ -181,11 +181,11 @@ class MobileAppPicking(models.Model):
         }
 
     @api.model
-    def _export_move_line(self, line, custom_fields):
+    def _export_move(self, move, custom_fields):
         return {
-            'id': line.id,
-            'uom': self._export_uom(line.product_uom_id),
-            'product': self._export_product(line.product_id, custom_fields),
-            'qty_done': line.qty_done,
-            'qty_expected': line.product_uom_qty,
+            'id': move.id,
+            'uom': self._export_uom(move.product_uom),
+            'product': self._export_product(move.product_id, custom_fields),
+            'qty_expected': move.product_uom_qty,
+            'qty_done': move.quantity_done,
         }

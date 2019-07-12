@@ -45,8 +45,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="product_uom_qty">20</field>
     </record>
 
-
-
     <function model="stock.picking" name="action_confirm"
         eval="[[ref('picking_in_A')]]"/>
 

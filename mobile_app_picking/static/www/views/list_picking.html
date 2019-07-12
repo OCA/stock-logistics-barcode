@@ -18,7 +18,7 @@
             <div class="list">
                 <ion-list>
                     <ion-item ng-repeat="picking in data.pickings | filter: data.filter ">
-                        <a class="item" ui-sref="list_move_line({
+                        <a class="item" ui-sref="list_move({
                                 picking_type_id: params.picking_type_id,
                                 picking_id: picking.id})">
                             <h2>{{picking.name}}</h2>

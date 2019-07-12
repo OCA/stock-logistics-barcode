@@ -35,7 +35,7 @@
         <!-- Import Models -->
         <script src="models/picking_type.js"></script>
         <script src="models/picking.js"></script>
-        <script src="models/move_line.js"></script>
+        <script src="models/move.js"></script>
         <script src="models/tools.js"></script>
 
         <!-- Import Controllers -->
@@ -43,7 +43,7 @@
         <script src="controllers/credit.js"></script>
         <script src="controllers/list_picking_type.js"></script>
         <script src="controllers/list_picking.js"></script>
-        <script src="controllers/list_move_line.js"></script>
+        <script src="controllers/list_move.js"></script>
         <script src="controllers/main_scan.js"></script>
         <script src="controllers/picking_validate.js"></script>
     </head>
@@ -69,37 +69,37 @@
                         </ion-item>
                         <ion-item menu-close class="item-icon-left action-click"
                                 ui-sref="list_picking_type({})"
-                                ng-show="['list_picking', 'list_move_line', 'main_scan'].indexOf(currentState) != -1">
+                                ng-show="['list_picking', 'list_move', 'main_scan'].indexOf(currentState) != -1">
                             <i class="icon ion-shuffle"></i>{{'Picking Types' | translate}}
                         </ion-item>
 
                         <ion-item menu-close class="item-icon-left action-click"
                                 ui-sref="list_picking({
                                     picking_type_id:params.picking_type_id})"
-                                ng-show="['list_move_line', 'main_scan'].indexOf(currentState) != -1">
+                                ng-show="['list_move', 'main_scan'].indexOf(currentState) != -1">
                             <i class="icon ion-cube"></i>{{'Pickings' | translate}}
                         </ion-item>
 
                         <ion-item menu-close class="item-icon-left action-click"
-                                ui-sref="list_move_line({
+                                ui-sref="list_move({
                                     picking_type_id:params.picking_type_id,
                                     picking_id:params.picking_id})"
                                 ng-show="['main_scan'].indexOf(currentState) != -1">
-                            <i class="icon ion-clipboard"></i>{{'Move Lines' | translate}}
+                            <i class="icon ion-clipboard"></i>{{'Moves' | translate}}
                         </ion-item>
 
                         <ion-item menu-close class="item-icon-left action-click"
                                 ui-sref="main_scan({
                                     picking_type_id:params.picking_type_id,
                                     picking_id:params.picking_id,
-                                    move_line_id: 0})"
-                                ng-show="['list_move_line'].indexOf(currentState) != -1">
+                                    move_id: 0})"
+                                ng-show="['list_move'].indexOf(currentState) != -1">
                             <i class="icon ion-qr-scanner"></i>{{'Scanner' | translate}}
                         </ion-item>
 
                         <ion-item menu-close class="item-icon-left action-click"
                                 ui-sref="logout({})"
-                                ng-show="['list_picking_type', 'list_picking', 'list_move_line', 'main_scan'].indexOf(currentState) != -1">
+                                ng-show="['list_picking_type', 'list_picking', 'list_move', 'main_scan'].indexOf(currentState) != -1">
                             <i class="icon ion-log-out"></i>{{'Log Out' | translate}}
                         </ion-item>
                     </ion-list>
