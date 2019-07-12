@@ -1,6 +1,5 @@
 /* global angular */
 
-'use strict'
 angular.module('mobile_app_picking').controller(
   'LoginCtrl', [
     '$scope', 'jsonRpc', '$state', '$translate', 'tools',
@@ -9,36 +8,36 @@ angular.module('mobile_app_picking').controller(
         'database': '',
         'databases': [],
         'login': '',
-        'password': ''
-      }
+        'password': '',
+      };
 
       $scope.$on('$ionicView.beforeEnter', function () {
         if ($state.current.name === 'logout') {
-          jsonRpc.logout(true)
+          jsonRpc.logout(true);
         }
-      })
+      });
 
       $scope.init = function () {
-        tools.focus()
+        tools.focus();
 
         // Load available databases
         jsonRpc.getDbList().then(function (databases) {
-          $scope.data.databases = databases
+          $scope.data.databases = databases;
           if (databases.length >= 1) {
-            $scope.data.database = databases[0]
+            $scope.data.database = databases[0];
           }
         }, function (reason) {
-          $scope.errorMessage = $translate.instant('Unreachable Service')
-        })
-      }
+          $scope.errorMessage = $translate.instant('Unreachable Service');
+        });
+      };
 
       $scope.$on(
         '$stateChangeSuccess',
         function (event, toState, toParams, fromState, fromParams) {
           if ($state.current.name === 'login') {
-            tools.focus()
+            tools.focus();
           }
-        })
+        });
 
       $scope.submit = function () {
         jsonRpc.login(
@@ -52,16 +51,16 @@ angular.module('mobile_app_picking').controller(
             ['stock.group_stock_user']
           ).then(function (res) {
             if (res) {
-              $scope.errorMessage = ''
-              $state.go('list_picking_type', {})
+              $scope.errorMessage = '';
+              $state.go('list_picking_type', {});
             } else {
               $scope.errorMessage = $translate.instant(
                 'Insufficient Acces Right: you should be member of' +
-                " 'Warehouse / user' group.")
+                " 'Warehouse / user' group.");
             }
-          })
+          });
         }, function (e) {
-          $scope.errorMessage = $translate.instant('Bad Login / Password')
-        })
-      }
-    }])
+          $scope.errorMessage = $translate.instant('Bad Login / Password');
+        });
+      };
+    }]);

@@ -24,7 +24,7 @@ if all your odoo databases have ``mobile_app_picking`` installed.
 |                                              |                              |
 +----------------------------------------------+------------------------------+
 |                                              |                              |
-| The next screen displays the detail of the   | |list_move_line|             |
+| The next screen displays the detail of the   | |list_move|                  |
 | operations.                                  |                              |
 |                                              |                              |
 | To go the scan screen, click on the          |                              |
@@ -54,12 +54,14 @@ if all your odoo databases have ``mobile_app_picking`` installed.
 |                                              |                              |
 +----------------------------------------------+------------------------------+
 |                                              |                              |
-| You can reset a quantity if you did a bad    | |confirmation|               |
+| You can reset a quantity if you did a bad    | |list_move_change|           |
 | operation, by clicking on the button on the  |                              |
 | end of each line.                            |                              |
 |                                              |                              |
 | When your picking is finished, click on the  |                              |
 | 'Validate' button.                           |                              |
+|                                              |                              |
++----------------------------------------------+------------------------------+
 |                                              |                              |
 | It will create a                             |                              |
 | backorder or not, depending on the           |                              |
@@ -88,13 +90,16 @@ difference between expected and done quantity :
 .. |list_picking| image:: ../static/description/mobile_03_list_picking.png
    :width: 300 px
 
-.. |list_move_line| image:: ../static/description/mobile_04_list_move_line.png
+.. |list_move| image:: ../static/description/mobile_04_list_move.png
    :width: 300 px
 
 .. |scan_mode| image:: ../static/description/mobile_05_scan_mode.png
    :width: 300 px
 
-.. |confirmation| image:: ../static/description/mobile_06_list_move_line_confirmation.png
+.. |list_move_change| image:: ../static/description/mobile_06_list_move_change.png
+   :width: 300 px
+
+.. |confirmation| image:: ../static/description/mobile_07_confirmation.png
    :width: 300 px
 
 

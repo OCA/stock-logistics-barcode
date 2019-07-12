@@ -1,100 +1,109 @@
 /* global angular */
 
-'use strict'
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'mobile_app_picking' is the name of this angular module example (also set in a <body> attribute in index.html)
+// Angular.module is a global place for creating, registering and retrieving
+// Angular modules
+// 'mobile_app_picking' is the name of this angular module example
+// (also set in a <body> attribute in index.html)
 // the 2nd parameter is an array of 'requires'
 angular.module(
   'mobile_app_picking', [
     'ionic', 'ui.router', 'odoo', 'pascalprecht.translate'])
 
-  .run(['jsonRpc', '$state', '$rootScope', function (jsonRpc, $state, $rootScope) {
+  .run(['jsonRpc', '$state', '$rootScope', function (
+    jsonRpc, $state, $rootScope) {
     jsonRpc.errorInterceptors.push(function (a) {
-      if (a.title === 'session_expired') { $state.go('login') }
-    })
+      if (a.title === 'session_expired') {
+        $state.go('login');
+      }
+    });
   }])
 
   .config([
-    '$ionicConfigProvider', '$stateProvider', '$urlRouterProvider', '$translateProvider',
-    function ($ionicConfigProvider, $stateProvider, $urlRouterProvider, $translateProvider) {
+    '$ionicConfigProvider', '$stateProvider', '$urlRouterProvider',
+    '$translateProvider',
+    function ($ionicConfigProvider, $stateProvider, $urlRouterProvider,
+      $translateProvider) {
       $stateProvider
         .state(
           'login', {
             url: '/login',
             templateUrl: 'views/login.html',
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
           })
         .state(
           'logout', {
             url: '/logout',
             templateUrl: 'views/login.html',
-            controller: 'LoginCtrl'
+            controller: 'LoginCtrl',
           })
         .state(
           'credit', {
             url: '/credit',
             templateUrl: 'views/credit.html',
-            controller: 'CreditCtrl'
+            controller: 'CreditCtrl',
           })
         .state(
           'list_picking_type', {
             url: '/list_picking_type',
             templateUrl: 'views/list_picking_type.html',
-            controller: 'ListPickingTypeCtrl'
+            controller: 'ListPickingTypeCtrl',
           })
         .state(
           'list_picking', {
             url: '/picking_type/{picking_type_id:int}/list_picking',
             templateUrl: 'views/list_picking.html',
-            controller: 'ListPickingCtrl'
+            controller: 'ListPickingCtrl',
           })
         .state(
-          'list_move_line', {
-            url: '/picking_type/{picking_type_id:int}/picking/{picking_id:int}/list_move_line',
-            templateUrl: 'views/list_move_line.html',
-            controller: 'ListMoveLineCtrl'
+          'list_move', {
+            url: '/picking_type/{picking_type_id:int}/picking/' +
+            '{picking_id:int}/list_move',
+            templateUrl: 'views/list_move.html',
+            controller: 'ListMoveCtrl',
           })
         .state(
           'main_scan', {
-            url: '/picking_type/{picking_type_id:int}/picking/{picking_id:int}/main_scan/{move_line_id:int}',
+            url: '/picking_type/{picking_type_id:int}/picking/' +
+            '{picking_id:int}/main_scan/{move_id:int}',
             templateUrl: 'views/main_scan.html',
-            controller: 'MainScanCtrl'
+            controller: 'MainScanCtrl',
           })
         .state(
           'picking_validate', {
-            url: '/picking_type/{picking_type_id:int}/picking/{picking_id:int}/picking_validate/',
+            url: '/picking_type/{picking_type_id:int}/picking/' +
+            '{picking_id:int}/picking_validate/',
             templateUrl: 'views/picking_validate.html',
-            controller: 'PickingValidateCtrl'
-          })
+            controller: 'PickingValidateCtrl',
+          });
 
-      $ionicConfigProvider.views.transition('none')
+      $ionicConfigProvider.views.transition('none');
 
-      $urlRouterProvider.otherwise('/login')
+      $urlRouterProvider.otherwise('/login');
 
       $translateProvider.useStaticFilesLoader({
         prefix: 'i18n/',
-        suffix: '.json'
+        suffix: '.json',
       }).registerAvailableLanguageKeys(['en', 'fr'], {
         'en': 'en',
         'en_GB': 'en',
         'en_US': 'en',
-        'fr': 'fr'
+        'fr': 'fr',
       })
         .preferredLanguage('en')
         .fallbackLanguage('en')
         .determinePreferredLanguage()
-        .useSanitizeValueStrategy('escapeParameters')
+        .useSanitizeValueStrategy('escapeParameters');
     }])
   .controller('AppCtrl', [
     '$scope', '$state', '$stateParams', '$rootScope',
     function ($scope, $state, $stateParams, $rootScope) {
-      $rootScope.$on('$stateChangeError', console.log.bind(console))
+      $rootScope.$on('$stateChangeError', console.log.bind(console));
       $scope.$on('$stateChangeSuccess',
         function (evt, toState, toParams, fromState, fromParams) {
-          // for side menu
-          $rootScope.currentState = toState.name
-          $rootScope.params = toParams
+          // For side menu
+          $rootScope.currentState = toState.name;
+          $rootScope.params = toParams;
         }
-      )
-    }
-  ])
+      );
+    },
+  ]);
