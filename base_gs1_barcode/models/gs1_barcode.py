@@ -1,39 +1,16 @@
-# -*- coding: utf-8 -*-
-##############################################################################
-#
-#    This module is copyright (C) 2012-2014 Numérigraphe SARL.
-#
-#    This program is free software: you can redistribute it and/or modify
-#    it under the terms of the GNU Affero General Public License as
-#    published by the Free Software Foundation, either version 3 of the
-#    License, or (at your option) any later version.
-#
-#    This program is distributed in the hope that it will be useful,
-#    but WITHOUT ANY WARRANTY; without even the implied warranty of
-#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-#    GNU Affero General Public License for more details.
-#
-#    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
-#
-##############################################################################
-
+# Copyright 2012-2014 Numérigraphe SARL.
 # Make it easier to divide integers and get floating point results
-from __future__ import division
-
 import re
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-
-from openerp.tools.translate import _
-from openerp import models, fields, api, exceptions
-from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT as DATEFMT
+from odoo import _, api, fields, models, exceptions
 
 
 class GS1Barcode(models.Model):
     """GS1-128/GS1-Datamatrix barcode decoder API and configuration"""
     _name = "gs1_barcode"
     _description = __doc__
+    _order = 'ai'
 
     ai = fields.Char(
         'Application Identifier',
@@ -56,7 +33,6 @@ class GS1Barcode(models.Model):
         help='Minimum length of the data for this Application Identifier.')
     decimal = fields.Boolean(
         'Decimal Indicator',
-        default=False,
         help=('Indicates whether a digit is expected before the data for this '
               'Application Identifier to indicate the position of the decimal '
               'point.'))
@@ -72,7 +48,6 @@ class GS1Barcode(models.Model):
         ('ai_uniq', 'unique (ai)',
          'The Application Identifier must be unique!'),
     ]
-    _order = 'ai'
 
     @api.model
     def decode(self, barcode_string):
@@ -97,15 +72,15 @@ class GS1Barcode(models.Model):
             Convert dates like '151231' as Odoo formatted '2015-12-31'.
             Note that the day can be underspecified as '00'. As per
             https://www.gs1.ch/docs/default-source/gs1-system-document/\
-genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
-            this denotes the end of the month.
+            genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18,
+            section 3.4.2, this denotes the end of the month.
             """
             if datestring.endswith('00'):
                 date = (datetime.strptime(datestring[:4], "%y%m") +
                         relativedelta(months=1) - relativedelta(days=1))
             else:
                 date = datetime.strptime(datestring, '%y%m%d')
-            return date.strftime(DATEFMT)
+            return fields.Date.to_string(date)
 
         # Prefix and Group Separator
         prefix = self.env.user.gs1_barcode_prefix or ''
@@ -163,7 +138,7 @@ genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
         position = len(prefix)
         while position < len(barcode_string):
             # Search for a known Application Identifier
-            for (ai, regexp) in ai_regexps.items():
+            for (ai, regexp) in list(ai_regexps.items()):
                 match = regexp.match(barcode_string, position)
                 if not match:
                     continue
@@ -198,5 +173,4 @@ genspecs/general-specifications_e_-section-3.pdf?sfvrsn=18, section 3.4.2,
                 raise exceptions.ValidationError(
                     _('Could not decode barcode: unknown Application '
                       'Identifier at position %d') % position)
-
         return results

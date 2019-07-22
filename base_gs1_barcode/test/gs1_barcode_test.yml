@@ -12,7 +12,7 @@
     weight = '006385'
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight
-    result = self.decode(cr, uid, barcode, context={})
+    result = self.decode(barcode)
 
     assert len(result)==4, "The barcode should decode to 4 AIs"
     assert result.get('01') == gtin, "The GTIN should be %s" % gtin
@@ -33,7 +33,7 @@
     weight = '006385'
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight
-    result = self.decode(cr, uid, barcode, context={})
+    result = self.decode(barcode)
 
     assert len(result)==4, "The barcode should decode to 4 AIs"
     assert result.get('01') == gtin, "The GTIN should be %s" % gtin
@@ -42,7 +42,7 @@
     assert result.get('310') == 0.06385, "The weight should be %s" % weight
 - Test with bad data
 - !python {model: gs1_barcode}: |
-    from openerp.exceptions import ValidationError
+    from odoo.exceptions import ValidationError
     GS = '\x1D'
     PREFIX = ''
     # AI 01 (GTIN, fixed length)
@@ -56,8 +56,7 @@
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight + '0'
     try:
-        result = self.decode(cr, uid, barcode, context={})
+        result = self.decode(barcode)
         raise AssertionError("should have raised")
     except ValidationError as exc:
-         print exc
-         
+        pass
