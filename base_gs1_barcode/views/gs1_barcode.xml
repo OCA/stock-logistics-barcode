@@ -5,7 +5,6 @@
         <record id="gs1_barcode_tree_view" model="ir.ui.view">
             <field name="name">gs1_barcode.tree</field>
             <field name="model">gs1_barcode</field>
-            <field name="type">tree</field>
             <field name="arch" type="xml">
                 <tree string="GS1-128/GS1-Datamatrix decoding configuration">
                     <field name="ai" />
@@ -16,14 +15,13 @@
         <record id="gs1_barcode_form_view" model="ir.ui.view">
             <field name="name">gs1_barcode.form</field>
             <field name="model">gs1_barcode</field>
-            <field name="type">form</field>
             <field name="arch" type="xml">
                 <form string="GS1-128/GS1-Datamatrix decoding configuration">
                     <separator string="Application Identifier" colspan="4" />
                     <field name="ai" />
                     <field name="name" colspan="4" />
                     <separator string="Data Description" colspan="4" />
-                    <field name="type" />
+                    <field name="data_type" />
                     <newline />
                     <field name="length_fixed" />
                     <newline />
@@ -41,6 +39,6 @@
             <field name="view_type">form</field>
             <field name="view_mode">tree,form</field>
         </record>
-        <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode" parent="product.prod_config_main" />
+        <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode" parent="stock.menu_product_in_config_stock" />
     </data>
 </openerp>

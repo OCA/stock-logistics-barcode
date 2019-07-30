@@ -17,4 +17,22 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from . import models
+{
+    'name': 'GS1 Barcode API',
+    'summary': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
+    'version': '12.0.1.0.0',
+    'author': 'Numérigraphe,Odoo Community Association (OCA),Media Engagers',
+    'website': 'http://numerigraphe.com',
+    'category': 'Generic Modules/Inventory Control',
+    'depends': [
+        'product',
+    ],
+    'data': [
+        'views/gs1_barcode.xml',
+        'views/res_users.xml',
+        'data/gs1_barcode.csv',
+        'security/ir.model.access.csv',
+    ],
+    'installable': True,
+    'license': 'AGPL-3',
+}
