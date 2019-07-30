@@ -12,7 +12,7 @@
     weight = '006385'
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight
-    result = self.decode(cr, uid, barcode, context={})
+    result = self.decode(barcode, context={})
 
     assert len(result)==4, "The barcode should decode to 4 AIs"
     assert result.get('01') == gtin, "The GTIN should be %s" % gtin
@@ -33,7 +33,7 @@
     weight = '006385'
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight
-    result = self.decode(cr, uid, barcode, context={})
+    result = self.decode(barcode, context={})
 
     assert len(result)==4, "The barcode should decode to 4 AIs"
     assert result.get('01') == gtin, "The GTIN should be %s" % gtin
@@ -56,7 +56,7 @@
 
     barcode = PREFIX + '01' + gtin + '17' + expiry + '10' + lot + GS + '3105' + weight + '0'
     try:
-        result = self.decode(cr, uid, barcode, context={})
+        result = self.decode(barcode, context={})
         raise AssertionError("should have raised")
     except ValidationError as exc:
          print exc
