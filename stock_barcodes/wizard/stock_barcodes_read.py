@@ -67,8 +67,15 @@ class WizStockBarcodesRead(models.TransientModel):
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
     def _set_messagge_info(self, type, messagge):
+        """
+        Set message type and message description.
+        For manual entry mode barcode is no set so is not displayed
+        """
         self.message_type = type
-        self.message = '%s (%s)' % (messagge, self.barcode)
+        if self.barcode:
+            self.message = '%s (%s)' % (messagge, self.barcode)
+        else:
+            self.message = '%s' % messagge
 
     def process_barcode(self, barcode):
         self._set_messagge_info('success', _('Barcode read correctly'))

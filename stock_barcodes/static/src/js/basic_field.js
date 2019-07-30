@@ -8,6 +8,12 @@ odoo.define('stock_barcodes.FieldFloatNumericMode', function(require) {
     var field_registry = require('web.field_registry');
 
     var FieldFloatNumericMode = basic_fields.FieldFloat.extend({
+        events: _.extend({}, basic_fields.FieldFloat.prototype.events, {
+            "focusin": "_onFocusIn",
+        }),
+        _onFocusIn: function () {
+            this.$input.select();
+        },
         _prepareInput: function ($input) {
             var $input_numeric = this._super($input);
             $input_numeric.attr({'inputmode': 'numeric'});

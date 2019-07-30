@@ -10,6 +10,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _inherit = 'wiz.stock.barcodes.read'
     _description = 'Wizard to read barcode on inventory'
 
+    # Make location and product required for inventory scan read wizard
+    location_id = fields.Many2one(required=True)
+    product_id = fields.Many2one(required=True)
+
     inventory_id = fields.Many2one(
         comodel_name='stock.inventory',
         string='Inventory',
