@@ -92,6 +92,16 @@ class TestStockBarcodes(TransactionCase):
         self.assertEqual(self.wiz_scan.product_qty, 5.0)
         self.assertEqual(self.wiz_scan.packaging_id,
                          self.product_tracking.packaging_ids)
+
+        # Manual entry data
+        self.wiz_scan.manual_entry = True
+        self.action_barcode_scanned(self.wiz_scan, '5420008510489')
+        self.assertEqual(self.wiz_scan.packaging_qty, 0.0)
+        self.wiz_scan.packaging_qty = 3.0
+        self.wiz_scan.onchange_packaging_qty()
+        self.assertEqual(self.wiz_scan.product_qty, 15.0)
+        self.wiz_scan.manual_entry = False
+
         # Force more than one package with the same lot
         self.product_wo_tracking.packaging_ids.barcode = '5420008510489'
         self.action_barcode_scanned(self.wiz_scan, '5420008510489')
@@ -116,3 +126,20 @@ class TestStockBarcodes(TransactionCase):
 
     def test_wizard_remove_last_scan(self):
         self.assertTrue(self.wiz_scan.action_remove_last_scan())
+
+    def test_wizard_onchange_location(self):
+        self.action_barcode_scanned(self.wiz_scan, '8480000723208')
+        self.assertEqual(self.wiz_scan.product_id, self.product_wo_tracking)
+        self.wiz_scan.location_id = self.location_2
+        self.wiz_scan.onchange_location_id()
+        self.assertFalse(self.wiz_scan.product_id)
+        self.assertFalse(self.wiz_scan.packaging_id)
+
+    def test_wiz_clean_lot(self):
+        self.action_barcode_scanned(self.wiz_scan, '8433281006850')
+        self.action_barcode_scanned(self.wiz_scan, '8411822222568')
+        self.wiz_scan.action_clean_lot()
+        self.assertFalse(self.wiz_scan.lot_id)
+
+    def test_wiz_manual_entry(self):
+        self.assertTrue(self.wiz_scan.action_manual_entry)

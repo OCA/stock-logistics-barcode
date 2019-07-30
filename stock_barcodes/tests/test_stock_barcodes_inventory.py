@@ -52,6 +52,17 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         # Package of 5 product units. Already one unit exists
         self.assertEqual(self.inventory.line_ids[:1].product_qty, 6.0)
 
+    def test_inventory_wizard_scan_product_manual_entry(self):
+        self.wiz_scan_inventory.manual_entry = True
+        self.action_barcode_scanned(self.wiz_scan_inventory, '8480000723208')
+        self.assertEqual(self.wiz_scan_inventory.product_id,
+                         self.product_wo_tracking)
+        self.assertEqual(self.wiz_scan_inventory.product_qty, 0.0)
+        self.wiz_scan_inventory.product_qty = 12
+        self.wiz_scan_inventory.action_manual_entry()
+        self.assertEqual(len(self.inventory.line_ids), 1.0)
+        self.wiz_scan_inventory.inventory_product_qty = 12.0
+
     def test_inventory_wizard_remove_last_scan(self):
         self.action_barcode_scanned(self.wiz_scan_inventory, '8480000723208')
         self.assertEqual(self.wiz_scan_inventory.product_id,

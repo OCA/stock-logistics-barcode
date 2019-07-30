@@ -18,10 +18,6 @@ class WizStockBarcodesNewLot(models.TransientModel):
         required=True,
     )
 
-    def clean_values(self):
-        self.product_id = False
-        self.lot_name = False
-
     def on_barcode_scanned(self, barcode):
         product = self.env['product.product'].search([
             ('barcode', '=', barcode),
