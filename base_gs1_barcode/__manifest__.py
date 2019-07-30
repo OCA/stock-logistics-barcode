@@ -33,6 +33,9 @@
         'data/gs1_barcode.csv',
         'security/ir.model.access.csv',
     ],
+    'test': [
+        'test/gs1_barcode_test.yml'
+    ],
     'installable': True,
     'license': 'AGPL-3',
 }
