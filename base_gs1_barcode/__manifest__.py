@@ -17,7 +17,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-
 {
     'name': 'GS1 Barcode API',
     'summary': 'Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix',
@@ -32,7 +31,7 @@
         'views/gs1_barcode.xml',
         'views/res_users.xml',
         'data/gs1_barcode.csv',
-        "security/ir.model.access.csv",
+        'security/ir.model.access.csv',
     ],
     'installable': True,
     'license': 'AGPL-3',
