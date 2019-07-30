@@ -5,7 +5,7 @@ setuptools.setup(
     odoo_addon={
         'external_dependencies_override': {
             'python': {
-                'barcode': 'viivakoodi',
+                'barcode': 'python-barcode',
             },
         },
     }
