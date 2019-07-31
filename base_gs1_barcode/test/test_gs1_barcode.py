@@ -38,6 +38,11 @@ class GS1Barcode(common.TransactionCase):
         barcode = PREFIX + '01' + gtin + '17'
         barcode += expiry + '10' + lot + GS + '3105' + weight
         result = self.decode(barcode, context={})
+        date_test = self.normalize_date(expiry)
+        expiry_zero_end = '140500'
+        assert len(date_test) == "2015-12-31"
+        date_test = self.normalize_date(expiry_zero_end)
+        assert len(date_test) == "2015-12-31"
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
         expected_res_17 = '2014-05-22', "The expiry date should be 2014-05-22"
