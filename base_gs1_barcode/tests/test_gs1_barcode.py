@@ -7,7 +7,7 @@ from odoo.exceptions import ValidationError
 _logger = logging.getLogger(__name__)
 
 
-class GS1Barcode(common.TransactionCase):
+class TestGS1Barcode(common.TransactionCase):
     def test_decode(self):
         GS = '\x1D'
         PREFIX = ''
@@ -25,11 +25,10 @@ class GS1Barcode(common.TransactionCase):
         barcode += '3105' + weight
         expiry = '140501'
         barcode += '15' + expiry
-        result = self.decode(barcode)
-        assert len(result) == 4, "The barcode should decode to 4 AIs"
+        result = self.env['gs1_barcode'].decode(barcode)
+        assert len(result) == 5, "The barcode should decode to 5 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
-        expected_res_17 = '2014-05-31', "The expiry date should be 2014-05-31"
-        assert result.get('17') == expected_res_17
+        assert result.get('17') == '2014-05-31'
         assert result.get('10') == lot, "The lot should be %s" % lot
         assert result.get('310') == 0.06385, "The weight should be %s" % weight
         # AI 311 (expiry date) - day 0 will be replaced with day 31
@@ -37,15 +36,11 @@ class GS1Barcode(common.TransactionCase):
         # AI 11 (lot number, variable length)
         lot = 'B04059A'
         weight = '006385'
-        barcode = PREFIX + '01' + gtin + '11'
-        barcode += expiry + '11' + lot + GS + '11' + weight
-        barcode += expiry + '6' + lot + GS + '6' + weight
-        result = self.decode(barcode)
-        assert len(result) == 4, "The barcode should decode to 4 AIs"
-        expected_res_17 = '2014-05-31', "The expiry date should be 2014-05-31"
-        assert result.get('11') == expected_res_17
-        assert result.get('10') == lot, "The lot should be %s" % lot
-        assert result.get('310') == 0.06385, "The weight should be %s" % weight
+        barcode = PREFIX + '01' + gtin
+        barcode += '11' + expiry
+        result = self.env['gs1_barcode'].decode(barcode)
+        assert len(result) ==2, "The barcode should decode to 4 AIs"
+        assert result.get('11') == '2014-05-15'
         gtin = '03400933816759'
         # AI 17 (expiry date) - day 0 will be replaced with day 31
         expiry = '140522'
@@ -55,18 +50,18 @@ class GS1Barcode(common.TransactionCase):
         weight = '006385'
         barcode = PREFIX + '01' + gtin + '17'
         barcode += expiry + '10' + lot + GS + '3105' + weight
-        result = self.decode(barcode)
+        result = self.env['gs1_barcode'].decode(barcode)
+        _logger.info(str(result))
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
-        expected_res_17 = '2014-05-22', "The expiry date should be 2014-05-22"
-        assert result.get('17') == expected_res_17
+        assert result.get('17') == '2014-05-22'
         assert result.get('10') == lot, "The lot should be %s" % lot
         assert result.get('310') == 0.06385, "The weight should be %s" % weight
         gtin = '03400933816759'
         barcode = PREFIX + '01' + gtin + '17'
         barcode += expiry + '10' + lot + GS + '3105' + weight + '0'
         try:
-            result = self.decode(barcode)
+            result = self.env['gs1_barcode'].decode(barcode)
             raise AssertionError("should have raised")
         except ValidationError as exc:
             _logger.error(exc)
