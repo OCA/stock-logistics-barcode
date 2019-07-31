@@ -36,7 +36,9 @@
                     <field name="res_id" invisible="1"/>
                     <field name="_barcode_scanned" widget="barcode_handler" invisible="1"/>
                     <group>
-                        <field name="location_id" options="{'no_create': True}" attrs="{'readonly': [('manual_entry', '=', False)]}" force_save="1"/>
+                        <field name="location_id" options="{'no_create': True}"
+                               attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                               force_save="1"/>
                     </group>
                     <group groups="stock.group_production_lot">
                         <group>
@@ -52,7 +54,9 @@
                         </group>
                     </group>
                     <group>
-                        <field name="product_id" options="{'no_create': True}" attrs="{'readonly': [('manual_entry', '=', False)]}" force_save="1"/>
+                        <field name="product_id" options="{'no_create': True}"
+                               attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                               force_save="1"/>
                         <field name="packaging_id" options="{'no_create': True}" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('manual_entry', '=', False)]}" force_save="1" groups="product.group_stock_packaging"/>
                         <field name="packaging_qty" attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}" force_save="1" widget="FieldFloatNumericMode"/>
                         <field name="product_qty"  attrs="{'invisible': [('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}" force_save="1" widget="FieldFloatNumericMode"/>
