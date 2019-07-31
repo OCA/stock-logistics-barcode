@@ -1,12 +1,12 @@
 # © 2019 Wassim Ghannoum <wassim@mediaengagers.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
+import logging
 import datetime
 from odoo import exceptions
 from odoo import _, fields
 from odoo.tests import common
 from odoo.exceptions import UserError, ValidationError
-
+_logger = logging.getLogger(__name__)
 
 class GS1Barcode(common.TransactionCase):
     GS = '\x1D'
@@ -46,4 +46,4 @@ class GS1Barcode(common.TransactionCase):
         result = self.decode(barcode, context={})
         raise AssertionError("should have raised")
     except ValidationError as exc:
-        print(exc)
+        _logger.error(exc)
