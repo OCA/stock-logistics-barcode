@@ -39,7 +39,7 @@ class TestGS1Barcode(common.TransactionCase):
         barcode = PREFIX + '01' + gtin
         barcode += '11' + expiry
         result = self.env['gs1_barcode'].decode(barcode)
-        assert len(result) ==2, "The barcode should decode to 4 AIs"
+        assert len(result) == 2, "The barcode should decode to 4 AIs"
         assert result.get('11') == '2014-05-15'
         gtin = '03400933816759'
         # AI 17 (expiry date) - day 0 will be replaced with day 31
@@ -51,7 +51,6 @@ class TestGS1Barcode(common.TransactionCase):
         barcode = PREFIX + '01' + gtin + '17'
         barcode += expiry + '10' + lot + GS + '3105' + weight
         result = self.env['gs1_barcode'].decode(barcode)
-        _logger.info(str(result))
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
         assert result.get('17') == '2014-05-22'
