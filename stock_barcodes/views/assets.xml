@@ -4,6 +4,8 @@
     <template id="assets_backend" name="stock_barcodes Assets" inherit_id="web.assets_backend">
         <xpath expr="." position="inside">
             <script type="application/javascript"
+                    src="/stock_barcodes/static/src/js/stock_barcodes.js"/>
+            <script type="application/javascript"
                     src="/stock_barcodes/static/src/js/basic_field.js"/>
         </xpath>
     </template>
