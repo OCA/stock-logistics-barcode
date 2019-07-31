@@ -6,14 +6,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-30 10:02+0000\n"
-"PO-Revision-Date: 2019-07-30 10:02+0000\n"
+"POT-Creation-Date: 2019-07-31 07:12+0000\n"
+"PO-Revision-Date: 2019-07-31 07:12+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_scan_log_count
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_scan_log_count
+msgid "# Scan log"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
@@ -42,13 +48,13 @@ msgid "Barcode"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:105
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:134
 #, python-format
 msgid "Barcode not found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:74
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:103
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 #, python-format
@@ -191,7 +197,7 @@ msgid "Manual entry"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:120
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:149
 #, python-format
 msgid "Manual entry OK"
 msgstr ""
@@ -222,13 +228,13 @@ msgid "More than one matches found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:89
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:118
 #, python-format
 msgid "More than one package found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:80
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:109
 #, python-format
 msgid "More than one product found"
 msgstr ""
@@ -319,7 +325,7 @@ msgid "Waiting for input lot"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:117
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:146
 #, python-format
 msgid "Waiting quantities"
 msgstr ""
