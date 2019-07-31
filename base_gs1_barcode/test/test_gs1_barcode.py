@@ -30,12 +30,11 @@ class GS1Barcode(common.TransactionCase):
         assert result.get('310') == 0.06385, "The weight should be %s" % weight
         # AI 311 (expiry date) - day 0 will be replaced with day 31
         expiry = '140515'
-        # AI 311 (lot number, variable length)
+        # AI 11 (lot number, variable length)
         lot = 'B04059A'
-        # AI 311 (Net Dimension in Meters, 5 decimals)
         weight = '006385'
-        barcode = PREFIX + '01' + gtin + '311'
-        barcode += expiry + '10' + lot + GS + '3105' + weight
+        barcode = PREFIX + '01' + gtin + '11'
+        barcode += expiry + '11' + lot + GS + '11' + weight
         result = self.decode(barcode, context={})
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
