@@ -20,7 +20,7 @@ class GS1Barcode(common.TransactionCase):
         # AI 310 (Net Weight in Kg, 5 decimals)
         weight = '006385'
         barcode = PREFIX + '01' + gtin
-        barcode += '17' + expiry 
+        barcode += '17' + expiry
         barcode += '10' + lot + GS
         barcode += '3105' + weight
         expiry = '140501'
