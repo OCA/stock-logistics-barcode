@@ -46,7 +46,7 @@ class TestStockBarcodes(TransactionCase):
             })],
         })
         self.product_tracking = self.Product.create({
-            'name': 'Product test wo lot tracking',
+            'name': 'Product test with lot tracking',
             'type': 'product',
             'tracking': 'lot',
             'barcode': '8433281006850',

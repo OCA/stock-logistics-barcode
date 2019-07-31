@@ -105,7 +105,8 @@ class WizStockBarcodesRead(models.TransientModel):
             ('product_id', '=', self.product_id.id),
         ])
         if lot:
-            self.lot_id = lot
+            self.action_lot_scaned_post(lot)
+            self.action_done()
             return
         location = self.env['stock.location'].search(domain)
         if location:
@@ -150,6 +151,10 @@ class WizStockBarcodesRead(models.TransientModel):
         self.packaging_qty = 0.0 if self.manual_entry else 1.0
         self.product_qty = packaging.qty * self.packaging_qty
 
+    def action_lot_scaned_post(self, lot):
+        self.lot_id = lot
+        self.product_qty = 0.0 if self.manual_entry else 1.0
+
     def action_clean_lot(self):
         self.lot_id = False
 
@@ -175,7 +180,7 @@ class WizStockBarcodesRead(models.TransientModel):
             vals = self._prepare_scan_log_values()
             self.env['stock.barcodes.read.log'].create(vals)
 
-    @api.depends('product_id')
+    @api.depends('product_id', 'lot_id')
     def _compute_scan_log_ids(self):
         logs = self.env['stock.barcodes.read.log'].search([
             ('res_model_id', '=', self.res_model_id.id),
