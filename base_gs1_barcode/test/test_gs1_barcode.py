@@ -19,9 +19,13 @@ class GS1Barcode(common.TransactionCase):
         lot = 'B04059A'
         # AI 310 (Net Weight in Kg, 5 decimals)
         weight = '006385'
-        barcode = PREFIX + '01' + gtin + '17'
-        barcode += expiry + '10' + lot + GS + '3105' + weight
-        result = self.decode(barcode, context={})
+        barcode = PREFIX + '01' + gtin
+        barcode += '17' + expiry 
+        barcode += '10' + lot + GS
+        barcode += '3105' + weight
+        expiry = '140501'
+        barcode += '15' + expiry
+        result = self.decode(barcode)
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
         expected_res_17 = '2014-05-31', "The expiry date should be 2014-05-31"
@@ -35,7 +39,8 @@ class GS1Barcode(common.TransactionCase):
         weight = '006385'
         barcode = PREFIX + '01' + gtin + '11'
         barcode += expiry + '11' + lot + GS + '11' + weight
-        result = self.decode(barcode, context={})
+        barcode += expiry + '6' + lot + GS + '6' + weight
+        result = self.decode(barcode)
         assert len(result) == 4, "The barcode should decode to 4 AIs"
         expected_res_17 = '2014-05-31', "The expiry date should be 2014-05-31"
         assert result.get('11') == expected_res_17
@@ -61,7 +66,7 @@ class GS1Barcode(common.TransactionCase):
         barcode = PREFIX + '01' + gtin + '17'
         barcode += expiry + '10' + lot + GS + '3105' + weight + '0'
         try:
-            result = self.decode(barcode, context={})
+            result = self.decode(barcode)
             raise AssertionError("should have raised")
         except ValidationError as exc:
             _logger.error(exc)
