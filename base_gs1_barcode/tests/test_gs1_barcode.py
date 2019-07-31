@@ -55,12 +55,7 @@ class TestGS1Barcode(common.TransactionCase):
         assert result.get('01') == gtin, "The GTIN should be %s" % gtin
         assert result.get('17') == '2014-05-22'
         assert result.get('10') == lot, "The lot should be %s" % lot
-        assert result.get('310') == 0.06385, "The weight should be %s" % weight
-        gtin = '03400933816759'
-        barcode = PREFIX + '01' + gtin + '17'
-        barcode += expiry + '10' + lot + GS + '3105' + weight + '0'
         try:
             result = self.env['gs1_barcode'].decode(barcode)
-            raise AssertionError("should have raised")
         except ValidationError as exc:
             _logger.error(exc)
