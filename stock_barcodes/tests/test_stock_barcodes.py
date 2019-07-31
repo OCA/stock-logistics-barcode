@@ -125,7 +125,7 @@ class TestStockBarcodes(TransactionCase):
                          'Barcode not found (84118xxx22568)')
 
     def test_wizard_remove_last_scan(self):
-        self.assertTrue(self.wiz_scan.action_remove_last_scan())
+        self.assertTrue(self.wiz_scan.action_undo_last_scan())
 
     def test_wizard_onchange_location(self):
         self.action_barcode_scanned(self.wiz_scan, '8480000723208')

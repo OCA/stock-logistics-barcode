@@ -68,7 +68,7 @@
                     <group/>
                     <group string="Scan log" attrs="{'invisible': [('scan_log_ids', '=', [])]}">
                         <group>
-                            <button name="action_remove_last_scan" type="object" string="Remove last scan" icon="fa-trash"/>
+                            <button name="action_undo_last_scan" type="object" string="Remove last scan" icon="fa-trash"/>
                         </group>
                         <field name="scan_log_ids" options="{'no_open': True}" nolabel="1">
                             <tree string="Scan log">

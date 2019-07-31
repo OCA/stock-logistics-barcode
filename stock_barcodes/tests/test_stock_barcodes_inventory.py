@@ -68,5 +68,5 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.assertEqual(self.wiz_scan_inventory.product_id,
                          self.product_wo_tracking)
         self.assertEqual(len(self.inventory.line_ids), 1.0)
-        self.wiz_scan_inventory.action_remove_last_scan()
+        self.wiz_scan_inventory.action_undo_last_scan()
         self.assertEqual(self.inventory.line_ids.product_qty, 0.0)

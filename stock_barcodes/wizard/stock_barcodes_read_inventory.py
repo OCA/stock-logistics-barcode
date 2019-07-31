@@ -31,14 +31,24 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             'prod_lot_id': self.lot_id.id,
         }
 
+    def _prepare_inventory_line_domain(self, log_scan=False):
+        """
+        Use the same domain for create or update a stock inventory line.
+        Source data is scan log record if undo or wizard model if create or
+        update one
+        """
+        record = log_scan or self
+        return [
+            ('inventory_id', '=', self.inventory_id.id),
+            ('product_id', '=', record.product_id.id),
+            ('location_id', '=', record.location_id.id),
+            ('prod_lot_id', '=', record.lot_id.id),
+        ]
+
     def _add_inventory_line(self):
         StockInventoryLine = self.env['stock.inventory.line']
-        line = first(StockInventoryLine.search([
-            ('inventory_id', '=', self.inventory_id.id),
-            ('product_id', '=', self.product_id.id),
-            ('location_id', '=', self.location_id.id),
-            ('prod_lot_id', '=', self.lot_id.id),
-        ]))
+        line = first(StockInventoryLine.search(
+            self._prepare_inventory_line_domain()))
         if line:
             line.write({
                 'product_qty': line.product_qty + self.product_qty,
@@ -69,19 +79,16 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         super().reset_qty()
         self.inventory_product_qty = 0.0
 
-    def action_remove_last_scan(self):
-        res = super().action_remove_last_scan()
+    def action_undo_last_scan(self):
+        res = super().action_undo_last_scan()
         log_scan = first(self.scan_log_ids.filtered(
             lambda x: x.create_uid == self.env.user))
         if log_scan:
-            inventory_line = self.env['stock.inventory.line'].search([
-                ('inventory_id', '=', self.inventory_id.id),
-                ('product_id', '=', log_scan.product_id.id),
-                ('location_id', '=', log_scan.location_id.id),
-                ('prod_lot_id', '=', log_scan.lot_id.id),
-            ])
+            inventory_line = self.env['stock.inventory.line'].search(
+                self._prepare_inventory_line_domain(log_scan=log_scan))
             if inventory_line:
-                inventory_line.product_qty -= log_scan.product_qty
+                qty = inventory_line.product_qty - log_scan.product_qty
+                inventory_line.product_qty = qty if qty > 0.0 else 0.0
                 self.inventory_product_qty = inventory_line.product_qty
         log_scan.unlink()
         return res

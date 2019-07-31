@@ -44,6 +44,8 @@ class WizStockBarcodesRead(models.TransientModel):
     manual_entry = fields.Boolean(
         string='Manual entry data',
     )
+    # Computed field for display all scan logs from res_model and res_id when
+    # change product_id
     scan_log_ids = fields.Many2many(
         comodel_name='stock.barcodes.read.log',
         compute='_compute_scan_log_ids',
@@ -69,7 +71,7 @@ class WizStockBarcodesRead(models.TransientModel):
     def _set_messagge_info(self, type, messagge):
         """
         Set message type and message description.
-        For manual entry mode barcode is no set so is not displayed
+        For manual entry mode barcode is not set so is not displayed
         """
         self.message_type = type
         if self.barcode:
@@ -173,7 +175,7 @@ class WizStockBarcodesRead(models.TransientModel):
             vals = self._prepare_scan_log_values()
             self.env['stock.barcodes.read.log'].create(vals)
 
-    @api.depends('_barcode_scanned')
+    @api.depends('product_id')
     def _compute_scan_log_ids(self):
         logs = self.env['stock.barcodes.read.log'].search([
             ('res_model_id', '=', self.res_model_id.id),
@@ -187,5 +189,5 @@ class WizStockBarcodesRead(models.TransientModel):
         self.product_qty = 0
         self.packaging_qty = 0
 
-    def action_remove_last_scan(self):
+    def action_undo_last_scan(self):
         return True
