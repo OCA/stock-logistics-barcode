@@ -47,8 +47,8 @@ class WizStockBarcodesReadInventory(models.TransientModel):
 
     def _add_inventory_line(self):
         StockInventoryLine = self.env['stock.inventory.line']
-        line = first(StockInventoryLine.search(
-            self._prepare_inventory_line_domain()))
+        line = StockInventoryLine.search(
+            self._prepare_inventory_line_domain(), limit=1)
         if line:
             line.write({
                 'product_qty': line.product_qty + self.product_qty,
