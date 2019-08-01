@@ -7,16 +7,13 @@
     'website': 'http://numerigraphe.com',
     'category': 'Generic Modules/Inventory Control',
     'depends': [
-        'sale',
+        'base',
     ],
     'data': [
         'views/gs1_barcode.xml',
         'views/res_users.xml',
         'data/gs1_barcode.csv',
         "security/ir.model.access.csv",
-    ],
-    'test': [
-        'test/gs1_barcode_test.yml'
     ],
     'installable': True,
     'license': 'AGPL-3',

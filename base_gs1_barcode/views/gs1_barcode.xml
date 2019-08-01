@@ -46,6 +46,6 @@
         <field name="view_mode">tree,form</field>
     </record>
 
-    <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode" parent="sale.prod_config_main"/>
+    <menuitem action="action_config_gs1_barcode" id="menu_config_gs1_barcode" parent="base.next_id_9"/>
 
 </odoo>
