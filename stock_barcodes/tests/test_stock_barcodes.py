@@ -106,8 +106,9 @@ class TestStockBarcodes(TransactionCase):
         # Force more than one package with the same lot
         self.product_wo_tracking.packaging_ids.barcode = '5420008510489'
         self.action_barcode_scanned(self.wiz_scan, '5420008510489')
-        self.assertEqual(self.wiz_scan.message,
-                         'More than one package found (5420008510489)')
+        self.assertEqual(
+            self.wiz_scan.message,
+            'Barcode: 5420008510489 (More than one package found)')
 
     def test_wizard_scan_lot(self):
         self.action_barcode_scanned(self.wiz_scan, '8411822222568')
@@ -122,8 +123,9 @@ class TestStockBarcodes(TransactionCase):
 
     def test_wizard_scan_not_found(self):
         self.action_barcode_scanned(self.wiz_scan, '84118xxx22568')
-        self.assertEqual(self.wiz_scan.message,
-                         'Barcode not found (84118xxx22568)')
+        self.assertEqual(
+            self.wiz_scan.message,
+            'Barcode: 84118xxx22568 (Barcode not found)')
 
     def test_wizard_remove_last_scan(self):
         self.assertTrue(self.wiz_scan.action_undo_last_scan())

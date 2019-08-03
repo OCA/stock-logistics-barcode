@@ -41,7 +41,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.action_barcode_scanned(self.wiz_scan_inventory, '8433281006850')
         self.assertEqual(len(self.inventory.line_ids), 1.0)
         self.assertEqual(self.wiz_scan_inventory.message,
-                         'Waiting for input lot (8433281006850)')
+                         'Barcode: 8433281006850 (Waiting for input lot)')
         # Scan a lot. Increment quantities if scan product or other lot from
         # this produt
         self.action_barcode_scanned(self.wiz_scan_inventory, '8411822222568')
@@ -52,7 +52,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         inventory_line_lot = self.inventory.line_ids.filtered('prod_lot_id')
         self.assertEqual(inventory_line_lot.product_qty, 3.0)
         self.assertEqual(self.wiz_scan_inventory.message,
-                         'Barcode read correctly (8411822222568)')
+                         'Barcode: 8411822222568 (Barcode read correctly)')
         # Scan a package
         self.action_barcode_scanned(self.wiz_scan_inventory, '5420008510489')
         # Package of 5 product units. Already three unit exists

@@ -75,7 +75,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         self.message_type = type
         if self.barcode:
-            self.message = '%s (%s)' % (messagge, self.barcode)
+            self.message = 'Barcode: %s (%s)' % (self.barcode, messagge)
         else:
             self.message = '%s' % messagge
 
@@ -111,6 +111,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         location = self.env['stock.location'].search(domain)
         if location:
             self.location_id = location
+            self._set_messagge_info('info', _('Waiting product'))
             return
         self._set_messagge_info('not_found', _('Barcode not found'))
 

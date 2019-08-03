@@ -63,7 +63,10 @@
                     </group>
                     <group/>
                     <group>
-                        <button name="action_manual_entry" type="object" string="Manual entry" icon="fa-plus" attrs="{'invisible': [('manual_entry', '=', False)]}"/>
+                        <button name="action_manual_entry" type="object" string="Manual entry" icon="fa-plus"
+                                attrs="{'invisible': [('manual_entry', '=', False)]}"
+                                class="btn-primary"
+                        />
                     </group>
                     <group/>
                     <group string="Scan log" attrs="{'invisible': [('scan_log_ids', '=', [])]}">
@@ -84,7 +87,7 @@
                                 <field name="product_qty"/>
                                 <templates>
                                     <t t-name="kanban-box">
-                                        <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                        <div t-attf-class="oe_kanban_card">
                                             <div class="row">
                                                 <div class="col-xs-8">
                                                     <strong>
@@ -101,7 +104,6 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <hr/>
                                     </t>
                                 </templates>
                             </kanban>

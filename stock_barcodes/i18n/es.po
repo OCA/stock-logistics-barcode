@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-07-31 07:12+0000\n"
-"PO-Revision-Date: 2019-07-31 09:14+0200\n"
+"POT-Creation-Date: 2019-08-03 22:25+0000\n"
+"PO-Revision-Date: 2019-08-04 00:27+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -16,12 +16,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 2.0.6\n"
-
-#. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_scan_log_count
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_scan_log_count
-msgid "# Scan log"
-msgstr "Lecturas"
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
@@ -50,13 +44,13 @@ msgid "Barcode"
 msgstr "Código de barras"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:134
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:116
 #, python-format
 msgid "Barcode not found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:103
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:83
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 #, python-format
@@ -68,6 +62,13 @@ msgstr "Código de barras leído correctamente"
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 msgid "Barcode read with additional info"
 msgstr "Código de barras leído con información adicional"
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
+#, fuzzy, python-format
+#| msgid "Barcodes Read"
+msgid "Barcode reader"
+msgstr "Lector de códigos de barras"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read
@@ -93,7 +94,6 @@ msgstr "Confirmar"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_create_uid
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_create_uid
 msgid "Created by"
 msgstr "Creado por"
@@ -101,7 +101,6 @@ msgstr "Creado por"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_create_date
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_create_date
 msgid "Created on"
 msgstr "Creado el"
@@ -145,7 +144,6 @@ msgstr "Última modificación en"
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_write_uid
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_write_uid
 msgid "Last Updated by"
 msgstr "Última actualización por"
 
@@ -153,7 +151,6 @@ msgstr "Última actualización por"
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_write_date
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_write_date
 msgid "Last Updated on"
 msgstr "Última actualización el"
 
@@ -200,7 +197,7 @@ msgid "Manual entry"
 msgstr "Entrada manual"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:149
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:131
 #, python-format
 msgid "Manual entry OK"
 msgstr "Entrada manual correcta"
@@ -231,13 +228,13 @@ msgid "More than one matches found"
 msgstr "Se ha encontrado más de una coincidencia."
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:118
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:98
 #, python-format
 msgid "More than one package found"
 msgstr "Se ha encontrado más de un empaquetado."
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:109
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:89
 #, python-format
 msgid "More than one product found"
 msgstr "Se ha encontrado más de un producto."
@@ -324,13 +321,19 @@ msgid "Scan log"
 msgstr "Registro de lecturas"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:52
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:68
 #, python-format
 msgid "Waiting for input lot"
 msgstr "A la espera de leer lote"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:146
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:114
+#, python-format
+msgid "Waiting product"
+msgstr "A la espera de producto"
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:128
 #, python-format
 msgid "Waiting quantities"
 msgstr "A la espera de introducir cantidad"
@@ -354,6 +357,9 @@ msgstr "Asistente para leer códigos de barras desde el inventario"
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_name
 msgid "barcode"
 msgstr "código de barras"
+
+#~ msgid "# Scan log"
+#~ msgstr "Lecturas"
 
 #, fuzzy
 #~ msgid "Barcode read successfully"
