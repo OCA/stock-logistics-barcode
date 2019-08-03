@@ -70,7 +70,7 @@
                         <group>
                             <button name="action_undo_last_scan" type="object" string="Remove last scan" icon="fa-trash"/>
                         </group>
-                        <field name="scan_log_ids" options="{'no_open': True}" nolabel="1">
+                        <field name="scan_log_ids" options="{'no_open': True}" nolabel="1" mode="tree,kanban">
                             <tree string="Scan log">
                                 <field name="create_date"/>
                                 <field name="create_uid"/>

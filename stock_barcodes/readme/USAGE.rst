@@ -16,7 +16,8 @@ can scan:
 
 
 Automatic operation mode
-========================
+~~~~~~~~~~~~~~~~~~~~~~~~
+
 This is the default mode, all screen controls are locked to avoid scan into
 fields.
 
@@ -41,17 +42,17 @@ If barcode has not found, when message is displayed you can create this lot
 scanning the product.
 
 Manual entry mode
-=================
+~~~~~~~~~~~~~~~~~
 
 You can change to "manual entry data" to allow to select data without scanner
 hardware, but hardward scanner still active on, so a use case would be when
 user wants set quantities manually instead increment 1.0 unit peer scan action.
 
 Scan logs
-=========
+~~~~~~~~~
 
 All scanned barcodes are saved into model.
 Barcode scan interface display 10 last records linked to model, the goal of
 this log is show to user other reads with the same product and location done
 by other users.
-User can remove the las read scan.
+User can remove the last read scan.

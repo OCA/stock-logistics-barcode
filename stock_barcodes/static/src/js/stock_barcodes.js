@@ -9,8 +9,10 @@ odoo.define('stock_barcodes.FormController', function(require) {
     FormController.include({
         _barcodeScanned: function (barcode, target) {
             var self = this;
-            // Set control focus to package_qty or product_qty directly after
-            // scan a barcode for manual entry mode entries.
+            /*
+            Set control focus to package_qty or product_qty directly after
+            scan a barcode for manual entry mode entries.
+            */
             this._super(barcode, target).then(function(){
                 var manual_entry_mode = self.$("div[name='manual_entry'] input").val();
                 if (manual_entry_mode){
@@ -22,6 +24,19 @@ odoo.define('stock_barcodes.FormController', function(require) {
                     };
                 };
             });
+        },
+        renderButtons: function($node){
+            /*
+            Hide save and discard buttons from wizard, for this form do
+            anything and confuse the user if he wants do a manual entry. All
+            extended models from  wiz.stock.barcodes.read do not have this
+            buttons.
+            */
+            this._super($node);
+            if (this.modelName.includes('wiz.stock.barcodes.read.')){
+                this.$buttons.find('.o_form_buttons_edit')
+                    .css({'display': 'none'});
+            }
         },
     });
 });

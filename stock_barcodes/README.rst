@@ -25,10 +25,13 @@ Stock Barcodes
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-This module makes a barcode reader interface for stock module.
+This module provides a barcode reader interface for stock module.
 
-This module contains a base wizard read barcode that it can be extended by
-other modules. Inside this module the inventory wizard extends it.
+This module contains a base wizard read barcode that can be extended by
+other modules.
+
+This module also makes use of this wizard for providing barcode support for
+doing inventories.
 
 **Table of contents**
 
@@ -38,16 +41,64 @@ other modules. Inside this module the inventory wizard extends it.
 Usage
 =====
 
-To use barcode interface on inventory:
+To use the barcode interface on inventory:
 
-#. Go to a *Inventory > operations > Inventory Adjustments*.
+#. Go to *Inventory > operations > Inventory Adjustments*.
 #. Create new inventory with "Select products manually" option.
 #. Start inventory.
 #. Click to "Scan barcodes" smart button.
 #. Start read barcodes.
 
-You can change to "manual entry data" to allow select data without scanner
-hardware.
+The barcode scanner interface has two operation modes. In both of them user
+can scan:
+
+#. Warehouse locations with barcode.
+#. Product packaging with barcode.
+#. Product with barcode.
+#. Product Lots (The barcode is name field in this case).
+
+
+Automatic operation mode
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+This is the default mode, all screen controls are locked to avoid scan into
+fields.
+
+The user only has to scan barcode in physical warehouse locations with a
+scanner hardward, the interface read the barcode and do operations in this
+order:
+
+#. Try search a product, if found, is assigned to product_id field and creates
+   or update inventory line with 1.0 unit. (If product has tracking by lots
+   the interface wait for a lot to be scanned).
+#. Try search a product packaging, if found, the product_id related is set,
+   product quantities are updated and create or update inventory line with
+   product quantities defined in the product packaging.
+#. Try search a lot (The product is mandatory in this case so you first scan a
+   product and then scann a lot), this lot field is not erased until that
+   product change, so for each product scann the interface add or update a
+   inventory line with this lot.
+#. Try to search a location, if found the field location is set and next scan
+   action will be done with this warehouse location.
+
+If barcode has not found, when message is displayed you can create this lot
+scanning the product.
+
+Manual entry mode
+~~~~~~~~~~~~~~~~~
+
+You can change to "manual entry data" to allow to select data without scanner
+hardware, but hardward scanner still active on, so a use case would be when
+user wants set quantities manually instead increment 1.0 unit peer scan action.
+
+Scan logs
+~~~~~~~~~
+
+All scanned barcodes are saved into model.
+Barcode scan interface display 10 last records linked to model, the goal of
+this log is show to user other reads with the same product and location done
+by other users.
+User can remove the last read scan.
 
 Known issues / Roadmap
 ======================

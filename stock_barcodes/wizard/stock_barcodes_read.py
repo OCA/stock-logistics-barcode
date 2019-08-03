@@ -4,7 +4,7 @@ from odoo import _, api, fields, models
 from odoo.addons import decimal_precision as dp
 
 
-class WizStockBarcodesRead(models.TransientModel):
+class WizStockBarcodesRead(models.AbstractModel):
     _name = 'wiz.stock.barcodes.read'
     _inherit = 'barcodes.barcode_events_mixin'
     _description = 'Wizard to read barcode'
