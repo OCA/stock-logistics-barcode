@@ -21,6 +21,12 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         readonly=True,
     )
 
+    def name_get(self):
+        return [
+            (rec.id, '{} - {} - {}'.format(
+                _('Barcode reader'),
+                rec.inventory_id.name, self.env.user.name)) for rec in self]
+
     def _prepare_inventory_line(self):
         return {
             'inventory_id': self.inventory_id.id,

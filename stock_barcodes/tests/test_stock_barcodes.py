@@ -77,6 +77,7 @@ class TestStockBarcodes(TransactionCase):
         self.assertEqual(self.wiz_scan.scan_log_ids[:1].product_qty, 1.0)
         self.assertFalse(self.wiz_scan.scan_log_ids[:1].manual_entry)
 
+    def test_wizard_scan_product_manual_entry(self):
         # Test manual entry
         self.wiz_scan.manual_entry = True
         self.action_barcode_scanned(self.wiz_scan, '8480000723208')

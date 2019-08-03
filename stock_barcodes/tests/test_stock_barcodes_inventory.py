@@ -28,6 +28,8 @@ class TestStockBarcodesInventory(TestStockBarcodes):
                          self.stock_inventory_model)
         self.assertEqual(self.wiz_scan_inventory.res_id,
                          self.inventory.id)
+        self.assertEqual(self.wiz_scan_inventory.display_name,
+                         'Barcode reader - Test Inventory - Administrator')
 
     def test_inventory_wizard_scan_product(self):
         self.action_barcode_scanned(self.wiz_scan_inventory, '8480000723208')
