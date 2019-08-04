@@ -9,6 +9,13 @@ class TestStockBarcodes(TransactionCase):
     def setUp(self):
         super().setUp()
 
+        # Active group_stock_packaging and group_production_lot for user
+        group_stock_packaging = self.env.ref('product.group_stock_packaging')
+        group_production_lot = self.env.ref('stock.group_production_lot')
+        self.env.user.groups_id = [
+            (4, group_stock_packaging.id),
+            (4, group_production_lot.id),
+        ]
         # models
         self.StockLocation = self.env['stock.location']
         self.StockInventory = self.env['stock.inventory']

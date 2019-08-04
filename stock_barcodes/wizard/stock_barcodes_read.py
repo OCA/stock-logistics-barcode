@@ -23,7 +23,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     lot_id = fields.Many2one(
         comodel_name='stock.production.lot',
-        string='Lot scanned',
+        string='Lot',
     )
     location_id = fields.Many2one(
         comodel_name='stock.location',
@@ -75,7 +75,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         self.message_type = type
         if self.barcode:
-            self.message = 'Barcode: %s (%s)' % (self.barcode, messagge)
+            self.message = _('Barcode: %s (%s)') % (self.barcode, messagge)
         else:
             self.message = '%s' % messagge
 
@@ -91,23 +91,25 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.action_product_scaned_post(product)
             self.action_done()
             return
-        packaging = self.env['product.packaging'].search(domain)
-        if packaging:
-            if len(packaging) > 1:
-                self._set_messagge_info(
-                    'more_match', _('More than one package found'))
+        if self.env.user.has_group('product.group_stock_packaging'):
+            packaging = self.env['product.packaging'].search(domain)
+            if packaging:
+                if len(packaging) > 1:
+                    self._set_messagge_info(
+                        'more_match', _('More than one package found'))
+                    return
+                self.action_packaging_scaned_post(packaging)
+                self.action_done()
                 return
-            self.action_packaging_scaned_post(packaging)
-            self.action_done()
-            return
-        lot = self.env['stock.production.lot'].search([
-            ('name', '=', barcode),
-            ('product_id', '=', self.product_id.id),
-        ])
-        if lot:
-            self.action_lot_scaned_post(lot)
-            self.action_done()
-            return
+        if self.env.user.has_group('stock.group_production_lot'):
+            lot = self.env['stock.production.lot'].search([
+                ('name', '=', barcode),
+                ('product_id', '=', self.product_id.id),
+            ])
+            if lot:
+                self.action_lot_scaned_post(lot)
+                self.action_done()
+                return
         location = self.env['stock.location'].search(domain)
         if location:
             self.location_id = location

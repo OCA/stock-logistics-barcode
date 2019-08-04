@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-03 22:25+0000\n"
-"PO-Revision-Date: 2019-08-04 00:27+0200\n"
+"POT-Creation-Date: 2019-08-04 08:15+0000\n"
+"PO-Revision-Date: 2019-08-04 10:16+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: es\n"
@@ -65,10 +65,15 @@ msgstr "Código de barras leído con información adicional"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
-#, fuzzy, python-format
-#| msgid "Barcodes Read"
+#, python-format
 msgid "Barcode reader"
 msgstr "Lector de códigos de barras"
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:78
+#, python-format
+msgid "Barcode: %s (%s)"
+msgstr "Cód. Barras: %s (%s)"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read
@@ -173,6 +178,8 @@ msgid "Log barcode scanner"
 msgstr "Registro de lecturas"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_lot_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_lot_id
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Lot"
@@ -181,14 +188,12 @@ msgstr "Lote"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_lot_name
 msgid "Lot name"
-msgstr "lote"
+msgstr "Lote"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_lot_id
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_lot_id
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_lot_id
-msgid "Lot scanned"
-msgstr "Lote escaneado"
+msgid "Lot"
+msgstr "Lote"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_manual_entry
@@ -356,7 +361,7 @@ msgstr "Asistente para leer códigos de barras desde el inventario"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_name
 msgid "barcode"
-msgstr "código de barras"
+msgstr "Código de barras"
 
 #~ msgid "# Scan log"
 #~ msgstr "Lecturas"
