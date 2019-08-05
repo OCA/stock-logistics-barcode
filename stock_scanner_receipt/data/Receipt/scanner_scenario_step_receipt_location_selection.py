@@ -10,7 +10,7 @@ move = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val1')))
 quantity = float(message)
 terminal.set_tmp_value('tmp_val2', quantity)
 
-prodlot = env['stock.move'].browse(int(terminal.get_tmp_value('tmp_val3')))
+prodlot = env['stock.production.lot'].browse(int(terminal.get_tmp_value('tmp_val3')))
 
 act = 'T'
 res = [
