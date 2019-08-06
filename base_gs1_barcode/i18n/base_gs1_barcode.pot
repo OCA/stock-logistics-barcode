@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 8.0\n"
+"Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
@@ -49,8 +49,8 @@ msgid "Any character string"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
-#: field:gs1_barcode,ai:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_ai
+#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
 msgid "Application Identifier"
 msgstr ""
 
@@ -200,19 +200,19 @@ msgid "Container Width/Diameter/2nd Dimension, in yards"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:116
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:91
 #, python-format
 msgid "Could not decode barcode : wrong prefix - the code should start with \"%s\""
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:178
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:153
 #, python-format
 msgid "Could not decode barcode: incorrect value for Application Identifer \"%s\" at position %d"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:199
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:174
 #, python-format
 msgid "Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
@@ -268,12 +268,12 @@ msgid "Coupon code ID (North America)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,create_uid:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,create_date:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_create_date
 msgid "Created on"
 msgstr ""
 
@@ -288,12 +288,12 @@ msgid "Customer Purchase Order Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
+#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
 msgid "Data Description"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,data_type:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_data_type
 msgid "Data Type"
 msgstr ""
 
@@ -308,17 +308,17 @@ msgid "Date/time of production"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,decimal:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_decimal
 msgid "Decimal Indicator"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,name:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_name
 msgid "Description"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,display_name:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_display_name
 msgid "Display Name"
 msgstr ""
 
@@ -333,7 +333,7 @@ msgid "Expiration Date"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,length_fixed:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_fixed
 msgid "Fixed-length Data"
 msgstr ""
 
@@ -354,13 +354,13 @@ msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: view:res.users:base_gs1_barcode.view_users_form_gs1_barcode
+#: model:ir.ui.view,arch_db:base_gs1_barcode.view_users_form_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix barcodes"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: view:gs1_barcode:base_gs1_barcode.gs1_barcode_form_view
-#: view:gs1_barcode:base_gs1_barcode.gs1_barcode_tree_view
+#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 
@@ -395,12 +395,12 @@ msgid "Global Trade Item Number (GTIN)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:res.users,gs1_barcode_separator:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users_gs1_barcode_separator
 msgid "Group Separator"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,id:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_id
 msgid "ID"
 msgstr ""
 
@@ -410,12 +410,12 @@ msgid "Identification of a physical location (Global Location Number)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:gs1_barcode,decimal:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_decimal
 msgid "Indicates whether a digit is expected before the data for this Application Identifier to indicate the position of the decimal point."
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:gs1_barcode,length_fixed:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_fixed
 msgid "Indicates whether the length of the data for this Application Identifier is fixed or not."
 msgstr ""
 
@@ -470,17 +470,17 @@ msgid "International Bank Account Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,__last_update:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode___last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,write_uid:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,write_date:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -490,22 +490,22 @@ msgid "Made-to-Order Variation Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,length_max:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_max
 msgid "Maximum Data Length"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:gs1_barcode,length_max:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_max
 msgid "Maximum length of the data for this Application Identifier."
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:gs1_barcode,length_min:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_min
 msgid "Minimum Data Length"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:gs1_barcode,length_min:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_min
 msgid "Minimum length of the data for this Application Identifier."
 msgstr ""
 
@@ -555,7 +555,7 @@ msgid "Payment slip reference number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: field:res.users,gs1_barcode_prefix:0
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users_gs1_barcode_prefix
 msgid "Prefix"
 msgstr ""
 
@@ -815,17 +815,17 @@ msgid "The Application Identifier must be unique!"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:res.users,gs1_barcode_separator:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users_gs1_barcode_separator
 msgid "The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be expected by default if this field is left empty."
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:res.users,gs1_barcode_prefix:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users_gs1_barcode_prefix
 msgid "The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: help:gs1_barcode,ai:0
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_ai
 msgid "The standard Application Identifier (AI)"
 msgstr ""
 
