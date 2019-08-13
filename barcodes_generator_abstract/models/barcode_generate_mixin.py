@@ -20,8 +20,8 @@ except ImportError:
 
 
 class BarcodeGenerateMixin(models.AbstractModel):
-
     _name = 'barcode.generate.mixin'
+    _description = 'Generate Barcode Mixin'
 
     # Column Section
     barcode_rule_id = fields.Many2one(
