@@ -16,12 +16,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <record id="product_template_multi_variant" model="product.template">
         <field name="name">Template with Generated Barcode (Multi Variant)</field>
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
-        <field name="attribute_line_ids" eval="[(6,0,[ref('product.product_attribute_2')])]"/>
     </record>
 
     <record id="product_product_variant_1" model="product.product">
-        <field name="name">Product with Generated Barcode (Variant 1 - White)</field>
         <field name="barcode_rule_id" ref="product_generated_barcode" />
         <field name="barcode_base">10001</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant"/>
@@ -29,15 +26,20 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     </record>
 
     <record id="product_product_variant_2" model="product.product">
-        <field name="name">Product with Generated Barcode (Variant 2 - Black)</field>
         <field name="barcode_rule_id" ref="product_generated_barcode" />
         <field name="barcode_base">10002</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant"/>
         <field name="attribute_value_ids" eval="[(6,0,[ref('product.product_attribute_value_4')])]"/>
     </record>
 
-    <record id="product_template_multi_variant_2" model="product.template">
-        <field name="name">Template with Generated Barcode (Multi Variant)</field>
+    <record id="product_template_multi_variant_attribute_line" model="product.template.attribute.line">
+        <field name="product_tmpl_id" ref="product_template_multi_variant"/>
+        <field name="attribute_id" ref="product.product_attribute_2"/>
+        <field name="value_ids" eval="[(6,0,[ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"/>
+    </record>
+
+    <record id="product_template_multi_variant" model="product.template">
+        <field name="attribute_line_ids" eval="[(6,0,[ref('product_template_multi_variant_attribute_line')])]"/>
     </record>
 
 </odoo>
