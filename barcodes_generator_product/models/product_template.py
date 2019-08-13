@@ -15,11 +15,11 @@ class ProductTemplate(models.Model):
     # Related to display product product information if is_product_variant
     barcode_rule_id = fields.Many2one(
         related='product_variant_ids.barcode_rule_id',
-        string='Barcode Rule', comodel_name='barcode.rule')
+        string='Barcode Rule', readonly=False, comodel_name='barcode.rule')
 
     barcode_base = fields.Integer(
         related='product_variant_ids.barcode_base',
-        string='Barcode Base')
+        readonly=False, string='Barcode Base')
 
     generate_type = fields.Selection(
         string='Generate Type', selection=_GENERATE_TYPE, readonly=True,
