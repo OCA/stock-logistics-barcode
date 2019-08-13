@@ -39,7 +39,7 @@ class BarcodeRule(models.Model):
         store=True)
 
     sequence_id = fields.Many2one(
-        string='Sequence', comodel_name='ir.sequence')
+        string='Sequence Id', comodel_name='ir.sequence')
 
     generate_automate = fields.Boolean(
         string='Automatic Generation',
