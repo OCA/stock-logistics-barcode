@@ -15,7 +15,7 @@ _logger = logging.getLogger(__name__)
 try:
     import barcode
 except ImportError:
-    _logger.debug("Cannot import 'viivakoodi' python library.")
+    _logger.debug("Cannot import 'python-barcode' python library.")
     barcode = None
 
 
