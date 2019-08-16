@@ -8,6 +8,7 @@ setuptools.setup(
     description="Meta package for oca-stock-logistics-barcode Odoo addons",
     version=version,
     install_requires=[
+        'odoo12-addon-barcodes_generator_abstract',
         'odoo12-addon-stock_scanner',
     ],
     classifiers=[
