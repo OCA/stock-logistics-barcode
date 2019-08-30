@@ -1,0 +1,6 @@
+# Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+
+from . import test_stock_barcodes
+from . import test_stock_barcodes_inventory
+from . import test_stock_barcodes_new_lot
