@@ -35,7 +35,7 @@ msgstr "Vis navn"
 
 #. module: product_multi_ean
 #: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_name
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_product_ean13_ids
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_product_barcode_ids
 #: model:ir.ui.view,arch_db:product_multi_ean.product_normal_form_view_multi_ean13
 #: model:ir.ui.view,arch_db:product_multi_ean.product_search_form_view_multi_ean13
 msgid "EAN13"

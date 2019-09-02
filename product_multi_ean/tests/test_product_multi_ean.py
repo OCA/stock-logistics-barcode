@@ -25,18 +25,17 @@ class TestProductMultiEan(TransactionCase):
 
     def test_set_main_ean(self):
         self.product_1.barcode = self.valid_ean_1
-        self.assertEqual(len(self.product_1.ean13_ids), 1)
-        self.assertEqual(self.product_1.ean13_ids.name, self.product_1.barcode)
+        self.assertEqual(len(self.product_1.barcode_ids), 1)
+        self.assertEqual(
+            self.product_1.barcode_ids.name, self.product_1.barcode)
 
     def test_set_incorrect_ean(self):
+        # Insert duplicated barcode
         with self.assertRaises(Exception):
-            self.product_1.barcode = '1234567890123'
-        with self.assertRaises(Exception):
-            self.product_1.ean13_ids = [(0, 0, {'name': '1234567890123'})]
-        self.product_1.barcode = self.valid_ean_1
-        # Insert duplicated EAN13
-        with self.assertRaises(Exception):
-            self.product_1.ean13_ids = [(0, 0, {'name': self.valid_ean_1})]
+            self.product_1.barcode_ids = [
+                (0, 0, {'name': self.valid_ean_1}),
+                (0, 0, {'name': self.valid_ean_1})
+            ]
 
     def test_post_init_hook(self):
         self.env.cr.execute("""
@@ -45,14 +44,14 @@ class TestProductMultiEan(TransactionCase):
             WHERE id = %s""", (self.valid_ean_1, self.product_1.id))
         post_init_hook(self.env.cr, self.registry)
         self.product_1.refresh()
-        self.assertEqual(len(self.product_1.ean13_ids), 1)
-        self.assertEqual(self.product_1.ean13_ids.name, self.valid_ean_1)
+        self.assertEqual(len(self.product_1.barcode_ids), 1)
+        self.assertEqual(self.product_1.barcode_ids.name, self.valid_ean_1)
 
     def test_search(self):
-        self.product_1.ean13_ids = [
+        self.product_1.barcode_ids = [
             (0, 0, {'name': self.valid_ean_1}),
             (0, 0, {'name': self.valid_ean2_1})]
-        self.product_2.ean13_ids = [
+        self.product_2.barcode_ids = [
             (0, 0, {'name': self.valid_ean_2}),
             (0, 0, {'name': self.valid_ean2_2})]
         products = self.product.search([('barcode', '=', self.valid_ean_1)])

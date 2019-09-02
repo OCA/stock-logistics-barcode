@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-02 12:26+0000\n"
+"PO-Revision-Date: 2019-09-02 12:26+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,73 +16,66 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_create_uid
+#: sql_constraint:product.barcode:0
+msgid "A barcode can only be assigned to one product !"
+msgstr ""
+
+#. module: product_multi_ean
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_name
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_product_barcode_ids
+#: model:ir.ui.view,arch_db:product_multi_ean.product_normal_form_view_multi_barcode
+#: model:ir.ui.view,arch_db:product_multi_ean.product_search_form_view_multi_barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: product_multi_ean
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_create_date
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_create_date
 msgid "Created on"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_display_name
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_name
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_product_ean13_ids
-#: model:ir.ui.view,arch_db:product_multi_ean.product_normal_form_view_multi_ean13
-#: model:ir.ui.view,arch_db:product_multi_ean.product_search_form_view_multi_ean13
-msgid "EAN13"
-msgstr ""
-
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_id
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_id
 msgid "ID"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13___last_update
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode___last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_write_uid
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_write_date
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_write_date
 msgid "Last Updated on"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model,name:product_multi_ean.model_product_ean13
-msgid "List of EAN13 for a product."
+#: model:ir.model,name:product_multi_ean.model_product_barcode
+msgid "List of barcodes for a product."
 msgstr ""
 
 #. module: product_multi_ean
 #: model:ir.model,name:product_multi_ean.model_product_product
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_product_id
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_product_id
 msgid "Product"
 msgstr ""
 
 #. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13_sequence
+#: model:ir.model.fields,field_description:product_multi_ean.field_product_barcode_sequence
 msgid "Sequence"
-msgstr ""
-
-#. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:51
-#, python-format
-msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\""
-msgstr ""
-
-#. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:39
-#, python-format
-msgid "You provided an invalid \"EAN13 Barcode\" reference. You may use the \"Internal Reference\" field instead."
 msgstr ""
 
