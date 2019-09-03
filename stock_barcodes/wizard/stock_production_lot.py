@@ -10,7 +10,6 @@ class WizStockBarcodesNewLot(models.TransientModel):
 
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='Product',
         required=True,
     )
     lot_name = fields.Char(
