@@ -19,7 +19,7 @@
      Open wizard in current target option to avoid that the wizard is
      closed after any button click,
     -->
-    <record model="ir.actions.act_window" id="action_stock_barcodes_read_inventory">
+    <record id="action_stock_barcodes_read_inventory" model="ir.actions.act_window">
         <field name="res_model">wiz.stock.barcodes.read.inventory</field>
         <field name="name">Barcodes Read</field>
         <field name="view_type">form</field>
