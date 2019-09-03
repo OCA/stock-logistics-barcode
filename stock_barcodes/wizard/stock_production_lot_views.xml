@@ -5,7 +5,7 @@
         <field name="name">stock.barcodes.new.lot.form</field>
         <field name="model">wiz.stock.barcodes.new.lot</field>
         <field name="arch" type="xml">
-            <form string="Lot">
+            <form>
                 <sheet>
                     <group>
                         <div class="alert alert-info text-center" role="alert">
@@ -27,7 +27,7 @@
         </field>
     </record>
 
-    <record model="ir.actions.act_window" id="action_stock_barcodes_new_lot">
+    <record id="action_stock_barcodes_new_lot" model="ir.actions.act_window">
         <field name="res_model">wiz.stock.barcodes.new.lot</field>
         <field name="name">New Lot</field>
         <field name="view_type">form</field>
