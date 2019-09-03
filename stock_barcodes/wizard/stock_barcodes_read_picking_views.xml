@@ -79,7 +79,7 @@
                 <label for="confirmed_moves">
                     Confirmed moves allowed
                 </label>
-                <field name="confirmed_moves" widget="boolean_toggle"/>
+                <field name="confirmed_moves" widget="barcode_boolean_toggle"/>
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1"/>
