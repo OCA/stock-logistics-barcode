@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <record id="view_stock_barcodes_read_form" model="ir.ui.view">
@@ -8,16 +7,16 @@
             <form string="Barcodes">
                 <sheet>
                     <div class="text-center">
-                        <div class="alert alert-success" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                        <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-info" attrs="{'invisible': [('message_type', '!=', 'info')]}">
+                        <div class="alert alert-info" role="status" attrs="{'invisible': [('message_type', '!=', 'info')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
                             <field name="message"/>
                             <button class="oe_link" name="%(action_stock_barcodes_new_lot)d" type="action" context="{'default_lot_name': barcode}">
                                 <span>New lot</span>
@@ -28,7 +27,7 @@
                         <label for="manual_entry">
                             Manual entry data
                         </label>
-                        <field name="manual_entry" widget="boolean_toggle"/>
+                        <field name="manual_entry" widget="barcode_boolean_toggle"/>
                     </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1"/>
@@ -81,6 +80,7 @@
                                 <field name="name"/>
                                 <field name="product_id"/>
                                 <field name="product_qty"/>
+                                <field name="lot_id"/>
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="create_date"/>
@@ -90,13 +90,13 @@
                                     <t t-name="kanban-box">
                                         <div t-attf-class="oe_kanban_card">
                                             <div class="row">
-                                                <div class="col-xs-8">
+                                                <div class="col-8">
                                                     <strong>
                                                         <span><t t-esc="record.create_date.value"/></span>
                                                         <span><t t-esc="record.create_uid.value"/></span>
                                                     </strong>
                                                 </div>
-                                                <div class="col-xs-4">
+                                                <div class="col-4">
                                                     <strong>
                                                         <span class="pull-right text-right">
                                                             <t t-esc="record.product_qty.value"/>
@@ -119,7 +119,7 @@
      Open wizard in current target option to avoid that the wizard is
      closed after any button click,
     -->
-    <record model="ir.actions.act_window" id="action_stock_barcodes_read">
+    <record id="action_stock_barcodes_read" model="ir.actions.act_window">
         <field name="res_model">wiz.stock.barcodes.read</field>
         <field name="name">Barcodes Read</field>
         <field name="view_type">form</field>
