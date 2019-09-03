@@ -1,7 +1,7 @@
 /* Copyright 2018-2019 Sergio Teruel <sergio.teruel@tecnativa.com>.
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-odoo.define('stock_barcodes.FieldFloatNumericMode', function(require) {
+odoo.define('stock_barcodes.FieldFloatNumericMode', function (require) {
     'use strict';
 
     var basic_fields = require('web.basic_fields');
@@ -23,6 +23,24 @@ odoo.define('stock_barcodes.FieldFloatNumericMode', function(require) {
             return $input_numeric;
         },
     });
+
+    var FieldBarcodeBooleanToggle = basic_fields.BooleanToggle.extend({
+        /*
+            This is needed because, whenever we click the checkbox to enter data manually, the checkbox will be
+            focused causing that when we scan the barcode afterwards, it will not perform the python on_barcode_scanned
+            function.
+        */
+        _onClick: function (event) {
+            this._super.apply(this, arguments);
+            $(this.el).find("input").blur()
+        },
+    });
+
     field_registry.add('FieldFloatNumericMode', FieldFloatNumericMode);
-    return FieldFloatNumericMode;
+    field_registry.add('barcode_boolean_toggle', FieldBarcodeBooleanToggle);
+
+    return {
+        FieldFloatNumericMode: FieldFloatNumericMode,
+        FieldBarcodeBooleanToggle: FieldBarcodeBooleanToggle,
+    }
 });
