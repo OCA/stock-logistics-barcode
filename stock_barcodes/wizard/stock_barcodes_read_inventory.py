@@ -13,7 +13,6 @@ class WizStockBarcodesReadInventory(models.TransientModel):
 
     inventory_id = fields.Many2one(
         comodel_name='stock.inventory',
-        string='Inventory',
         readonly=True,
     )
     inventory_product_qty = fields.Float(

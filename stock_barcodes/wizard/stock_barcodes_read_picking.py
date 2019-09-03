@@ -266,13 +266,13 @@ class WizCandidatePicking(models.TransientModel):
     wiz_picking_id = fields.Many2one(
         comodel_name='stock.picking',
         related='wiz_barcode_id.picking_id',
-        string='Picking',
+        string='Wizard Picking',
         readonly=True,
     )
     name = fields.Char(
         related='picking_id.name',
         readonly=True,
-        string='Picking',
+        string='Candidate Picking',
     )
     partner_id = fields.Many2one(
         comodel_name='res.partner',

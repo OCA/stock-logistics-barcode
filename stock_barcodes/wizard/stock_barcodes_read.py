@@ -19,7 +19,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='Product',
     )
     product_tracking = fields.Selection(
         related='product_id.tracking',
@@ -27,22 +26,18 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     lot_id = fields.Many2one(
         comodel_name='stock.production.lot',
-        string='Lot',
     )
     location_id = fields.Many2one(
         comodel_name='stock.location',
-        string='Location',
     )
     packaging_id = fields.Many2one(
         comodel_name='product.packaging',
-        string='Packaging',
     )
     packaging_qty = fields.Float(
         string='Package Qty',
         digits=dp.get_precision('Product Unit of Measure'),
     )
     product_qty = fields.Float(
-        string='Product Qty',
         digits=dp.get_precision('Product Unit of Measure'),
     )
     manual_entry = fields.Boolean(
@@ -72,16 +67,16 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    def _set_messagge_info(self, type, messagge):
+    def _set_messagge_info(self, message_type, message):
         """
         Set message type and message description.
         For manual entry mode barcode is not set so is not displayed
         """
-        self.message_type = type
+        self.message_type = message_type
         if self.barcode:
-            self.message = _('Barcode: %s (%s)') % (self.barcode, messagge)
+            self.message = _('Barcode: %s (%s)') % (self.barcode, message)
         else:
-            self.message = '%s' % messagge
+            self.message = '%s' % message
 
     def process_barcode(self, barcode):
         self._set_messagge_info('success', _('Barcode read correctly'))
