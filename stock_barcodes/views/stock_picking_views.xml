@@ -25,10 +25,12 @@
         <field name="inherit_id" ref="stock.stock_picking_type_kanban"/>
         <field name="arch" type="xml">
             <xpath expr="//div[hasclass('o_kanban_card_content')]" position="after">
-                <div class="row text-center" t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1">
-                    <button name="action_barcode_scan" type="object" class="btn btn-info">
-                        <i class="fa fa-barcode fa-2x"/>
-                    </button>
+                <div class="container o_kanban_card_content o_visible">
+                    <div class="text-center" t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1">
+                        <button name="action_barcode_scan" type="object" class="btn btn-info">
+                            <i class="fa fa-barcode fa-2x"/>
+                        </button>
+                    </div>
                 </div>
             </xpath>
         </field>

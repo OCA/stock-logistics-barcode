@@ -17,8 +17,8 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.supplier_location = self.env.ref('stock.stock_location_suppliers')
         self.customer_location = self.env.ref('stock.stock_location_customers')
         self.stock_location = self.env.ref('stock.stock_location_stock')
-        self.categ_unit = self.env.ref('product.product_uom_categ_unit')
-        self.categ_kgm = self.env.ref('product.product_uom_categ_kgm')
+        self.categ_unit = self.env.ref('uom.product_uom_categ_unit')
+        self.categ_kgm = self.env.ref('uom.product_uom_categ_kgm')
         self.picking_out_01 = self.env['stock.picking'].with_context(
             planned_picking=True
         ).create({
@@ -94,7 +94,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.assertEqual(self.wiz_scan_picking.res_id,
                          self.picking_in_01.id)
         self.assertEqual(self.wiz_scan_picking.display_name,
-                         'Barcode reader - %s - Administrator' % (
+                         'Barcode reader - %s - OdooBot' % (
                              self.picking_in_01.name))
 
     def test_picking_wizard_scan_product(self):
