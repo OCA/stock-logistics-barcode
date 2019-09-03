@@ -1,23 +1,22 @@
-<?xml version="1.0" encoding="utf-8"?>
 <odoo>
 
     <record id="view_stock_barcodes_read_form" model="ir.ui.view">
         <field name="name">stock.barcodes.read.form</field>
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="arch" type="xml">
-            <form string="Lot">
+            <form>
                 <sheet>
                     <div class="text-center">
-                        <div class="alert alert-success" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                        <div class="alert alert-success" role="status" attrs="{'invisible': [('message_type', '!=', 'success')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-info" attrs="{'invisible': [('message_type', '!=', 'info')]}">
+                        <div class="alert alert-info" role="status" attrs="{'invisible': [('message_type', '!=', 'info')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
                             <field name="message"/>
                         </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
+                        <div class="alert alert-danger" role="status" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
                             <field name="message"/>
                             <button class="oe_link" name="%(action_stock_barcodes_new_lot)d" type="action" context="{'default_lot_name': barcode}">
                                 <span>New lot</span>
@@ -118,7 +117,7 @@
      Open wizard in current target option to avoid that the wizard is
      closed after any button click,
     -->
-    <record model="ir.actions.act_window" id="action_stock_barcodes_read">
+    <record id="action_stock_barcodes_read" model="ir.actions.act_window">
         <field name="res_model">wiz.stock.barcodes.read</field>
         <field name="name">Barcodes Read</field>
         <field name="view_type">form</field>

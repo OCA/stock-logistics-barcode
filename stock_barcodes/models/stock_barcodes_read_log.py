@@ -17,7 +17,6 @@ class StockBarcodesReadLog(models.Model):
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(
         comodel_name='product.product',
-        string='Product',
         index=True,
     )
     lot_id = fields.Many2one(
@@ -26,11 +25,9 @@ class StockBarcodesReadLog(models.Model):
     )
     location_id = fields.Many2one(
         comodel_name='stock.location',
-        string='Location',
     )
     packaging_id = fields.Many2one(
         comodel_name='product.packaging',
-        string='Packaging',
     )
     packaging_qty = fields.Float(
         string='Package Qty',

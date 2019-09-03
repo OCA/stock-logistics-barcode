@@ -1,7 +1,6 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo.addons.stock_barcodes.tests.test_stock_barcodes import\
-    TestStockBarcodes
+from .test_stock_barcodes import TestStockBarcodes
 
 
 class TestStockBarcodesNewLot(TestStockBarcodes):
