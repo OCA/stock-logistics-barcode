@@ -29,10 +29,6 @@ class TestProductMultiEan(TransactionCase):
         self.assertEqual(self.product_1.ean13_ids.name, self.product_1.barcode)
 
     def test_set_incorrect_ean(self):
-        with self.assertRaises(Exception):
-            self.product_1.barcode = '1234567890123'
-        with self.assertRaises(Exception):
-            self.product_1.ean13_ids = [(0, 0, {'name': '1234567890123'})]
         self.product_1.barcode = self.valid_ean_1
         # Insert duplicated EAN13
         with self.assertRaises(Exception):
