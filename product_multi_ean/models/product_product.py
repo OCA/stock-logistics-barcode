@@ -30,18 +30,6 @@ class ProductEan13(models.Model):
 
     @api.multi
     @api.constrains('name')
-    @api.onchange('name')
-    def _check_name(self):
-        barcode_obj = self.env['barcode.nomenclature']
-        for record in self.filtered('name'):
-                if not barcode_obj.check_ean(record.name):
-                    raise UserError(
-                        _('You provided an invalid "EAN13 Barcode" reference. '
-                          'You may use the "Internal Reference" '
-                          'field instead.'))
-
-    @api.multi
-    @api.constrains('name')
     def _check_duplicates(self):
         for record in self:
             eans = self.search(
