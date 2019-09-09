@@ -1,0 +1,8 @@
+.oe_stock_scan_image_btn {
+   /*height : 42px;*/
+}
+.oe_stock_scan_button {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}

@@ -139,6 +139,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         self._add_read_log()
         return True
 
+    def action_cancel(self):
+        return True
+
     def action_product_scaned_post(self, product):
         self.packaging_id = False
         if self.product_id != product:
