@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-09-24 11:03+0000\n"
+"PO-Revision-Date: 2019-09-24 11:03+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -25,6 +27,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_inventory_form
+#: model:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
 msgstr ""
 
@@ -36,6 +39,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_barcode
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_barcode
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_barcode
 msgid "Barcode"
 msgstr ""
 
@@ -49,6 +53,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:83
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
+#: selection:wiz.stock.barcodes.read.picking,message_type:0
 #, python-format
 msgid "Barcode read correctly"
 msgstr ""
@@ -56,11 +61,13 @@ msgstr ""
 #. module: stock_barcodes
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
+#: selection:wiz.stock.barcodes.read.picking,message_type:0
 msgid "Barcode read with additional info"
 msgstr ""
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:41
 #, python-format
 msgid "Barcode reader"
 msgstr ""
@@ -74,12 +81,23 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_inventory
+#: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_picking
 msgid "Barcodes Read"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Cancel"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_candidate_picking_ids
+msgid "Candidate pickings"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_wiz_candidate_picking
+msgid "Candidate pickings for barcode interface"
 msgstr ""
 
 #. module: stock_barcodes
@@ -94,32 +112,60 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_create_uid
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_create_uid
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_create_uid
 msgid "Created by"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_create_date
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_create_date
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_create_date
 msgid "Created on"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_date
+msgid "Creation Date"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking_date
+msgid "Creation Date, usually the time of the order"
+msgstr ""
+
+#. module: stock_barcodes
+#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+msgid "Customers"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_id
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_id_10505
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_id
 msgid "ID"
+msgstr ""
+
+#. module: stock_barcodes
+#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+msgid "Internal"
 msgstr ""
 
 #. module: stock_barcodes
@@ -135,23 +181,29 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log___last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking___last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot___last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read___last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory___last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking___last_update
 msgid "Last Modified on"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_write_uid
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_write_uid
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_write_uid
 msgid "Last Updated by"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_write_date
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_write_date
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_write_date
 msgid "Last Updated on"
 msgstr ""
 
@@ -164,6 +216,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_location_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_location_id
 msgid "Location"
 msgstr ""
 
@@ -175,6 +228,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_lot_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_lot_id
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Lot"
@@ -205,6 +259,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_manual_entry
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_manual_entry
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_manual_entry
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Manual entry data"
 msgstr ""
@@ -212,18 +267,21 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_message
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_message
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_message
 msgid "Message"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_message_type
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_message_type
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_message_type
 msgid "Message Type"
 msgstr ""
 
 #. module: stock_barcodes
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
+#: selection:wiz.stock.barcodes.read.picking,message_type:0
 msgid "More than one matches found"
 msgstr ""
 
@@ -252,6 +310,7 @@ msgstr ""
 #. module: stock_barcodes
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
+#: selection:wiz.stock.barcodes.read.picking,message_type:0
 msgid "No barcode found"
 msgstr ""
 
@@ -259,6 +318,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_packaging_qty
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_packaging_qty
 msgid "Package Qty"
 msgstr ""
 
@@ -266,19 +326,41 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_packaging_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_packaging_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_packaging_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_packaging_id
 msgid "Packaging"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_partner_id
+msgid "Partner"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_picking_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_picking_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_wiz_picking_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_picking_id
+msgid "Picking"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_picking_product_qty
+msgid "Picking quantities"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot_product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_product_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_product_id
 msgid "Product"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_product_qty
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_product_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_product_qty
 msgid "Product Qty"
 msgstr ""
@@ -296,6 +378,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_res_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_res_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_res_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_res_id
 msgid "Res"
 msgstr ""
@@ -303,12 +386,14 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_res_model_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_res_model_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_res_model_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_res_model_id
 msgid "Res Model"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_scan_log_ids
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_scan_log_ids
 msgid "Scan Log"
 msgstr ""
@@ -319,7 +404,56 @@ msgid "Scan log"
 msgstr ""
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:189
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:192
+#, python-format
+msgid "Select one picking"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.ui.view,arch_db:stock_barcodes.view_picking_form
+msgid "Start barcode interface"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_state
+msgid "Status"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_stock_picking_type
+msgid "The operation type determines the picking view"
+msgstr ""
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:161
+#, python-format
+msgid "There are no stock moves to assign this operation"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_stock_picking
+msgid "Transfer"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_picking_type_code
+msgid "Type of Operation"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "Validate"
+msgstr ""
+
+#. module: stock_barcodes
+#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+msgid "Vendors"
+msgstr ""
+
+#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:68
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:185
 #, python-format
 msgid "Waiting for input lot"
 msgstr ""
@@ -337,6 +471,11 @@ msgid "Waiting quantities"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_wiz_barcode_id
+msgid "Wiz Barcode"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_new_lot
 msgid "Wizard to create new lot from barcode scanner"
 msgstr ""
@@ -349,6 +488,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_inventory
 msgid "Wizard to read barcode on inventory"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
+msgid "Wizard to read barcode on picking"
 msgstr ""
 
 #. module: stock_barcodes

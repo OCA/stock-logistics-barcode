@@ -31,7 +31,7 @@ This module contains a base wizard read barcode that can be extended by
 other modules.
 
 This module also makes use of this wizard for providing barcode support for
-doing inventories.
+doing inventories and picking operations.
 
 **Table of contents**
 
@@ -41,11 +41,32 @@ doing inventories.
 Usage
 =====
 
+Barcode interface for inventory operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To use the barcode interface on inventory:
 
 #. Go to *Inventory > operations > Inventory Adjustments*.
 #. Create new inventory with "Select products manually" option.
 #. Start inventory.
+#. Click to "Scan barcodes" smart button.
+#. Start read barcodes.
+
+Barcode interface for picking operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can use the barcode interface in a picking or an operation type, the mainly
+difference is that if you open the barcode interface from a picking, this
+picking is locked and you read product for it.
+
+To use the barcode interface on picking operations:
+
+#. Go to *Inventory*.
+#. Click on scanner button on any operation type.
+#. Start read barcodes.
+
+To use the barcode interface on a picking:
+
+#. Go to *Inventory > Transfers*.
 #. Click to "Scan barcodes" smart button.
 #. Start read barcodes.
 
@@ -103,9 +124,18 @@ User can remove the last read scan.
 Known issues / Roadmap
 ======================
 
-* Barcode interface for reading barcodes on pickings.
 * Excute action_done() method outside onchange environment.
 * Allow create product when a barcode has not been found.
+* Select picking with barcode.
+
+Changelog
+=========
+
+11.0.1.1.0 (2019-09-24)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [ADD] New feature.
+  User can uses barcode interface in picking operations.
 
 Bug Tracker
 ===========
