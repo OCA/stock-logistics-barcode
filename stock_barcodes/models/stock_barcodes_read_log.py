@@ -43,3 +43,7 @@ class StockBarcodesReadLog(models.Model):
     manual_entry = fields.Boolean(
         string='Manual entry',
     )
+    picking_id = fields.Many2one(
+        comodel_name='stock.picking',
+        string='Picking',
+    )
