@@ -1,8 +1,29 @@
+Barcode interface for inventory operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To use the barcode interface on inventory:
 
 #. Go to *Inventory > operations > Inventory Adjustments*.
 #. Create new inventory with "Select products manually" option.
 #. Start inventory.
+#. Click to "Scan barcodes" smart button.
+#. Start read barcodes.
+
+Barcode interface for picking operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can use the barcode interface in a picking or an operation type, the mainly
+difference is that if you open the barcode interface from a picking, this
+picking is locked and you read product for it.
+
+To use the barcode interface on picking operations:
+
+#. Go to *Inventory*.
+#. Click on scanner button on any operation type.
+#. Start read barcodes.
+
+To use the barcode interface on a picking:
+
+#. Go to *Inventory > Transfers*.
 #. Click to "Scan barcodes" smart button.
 #. Start read barcodes.
 

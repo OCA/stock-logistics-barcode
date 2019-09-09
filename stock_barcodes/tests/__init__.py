@@ -2,3 +2,4 @@
 from . import test_stock_barcodes
 from . import test_stock_barcodes_inventory
 from . import test_stock_barcodes_new_lot
+from . import test_stock_barcodes_picking
