@@ -10,3 +10,7 @@ class BarcodeRule(models.Model):
     generate_model = fields.Selection(
         selection_add=[('stock.production.lot', 'Stock Production Lot')],
     )
+
+    encoding = fields.Selection(
+        selection_add=[('custom', 'Custom')]
+    )

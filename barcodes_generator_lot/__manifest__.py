@@ -3,7 +3,7 @@
 
 {
     "name": "Generate Barcodes for Stock Production Lots",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "category": "Tools",
     "author": "LasLabs, "
               "Odoo Community Association (OCA)",
