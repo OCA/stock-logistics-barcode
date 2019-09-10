@@ -13,3 +13,5 @@ class StockProductionLot(models.Model):
         related='name',
         readonly=False
     )
+
+    manual_barcode = fields.Boolean(string='Manual Barcode', default=False)

@@ -21,6 +21,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
     @api.multi
     def generate_base(self):
         for item in self:
+            if item._name == 'stock.production.lot' and item.manual_barcode:
+                return
             if item.barcode_rule_id.encoding != 'custom':
                 super(BarcodeGenerateMixin, self).generate_base()
             else:
@@ -35,6 +37,9 @@ class BarcodeGenerateMixin(models.AbstractModel):
     @api.multi
     def generate_barcode(self):
         for item in self:
+            if item._name == 'stock.production.lot' and item.manual_barcode:
+                return
+
             if item.barcode_rule_id.encoding != 'custom':
                 super(BarcodeGenerateMixin, self).generate_barcode()
             else:
