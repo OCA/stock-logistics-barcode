@@ -9,7 +9,7 @@ class StockBarcodesReadLog(models.Model):
     _description = 'Log barcode scanner'
     _order = 'id DESC'
 
-    name = fields.Char(string='barcode')
+    name = fields.Char(string='Barcode Scanned')
     res_model_id = fields.Many2one(
         comodel_name='ir.model',
         index=True,
