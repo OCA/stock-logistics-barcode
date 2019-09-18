@@ -153,6 +153,11 @@ msgid "Padding"
 msgstr ""
 
 #. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Products"
+msgstr ""
+
+#. module: barcodes_generator_abstract
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:114
 #, python-format
 msgid "Sequence - %s"
