@@ -6,7 +6,7 @@
 # Put the returned value in <val>, as an integer
 
 stock_inventory = env['stock.inventory'].browse(int(terminal.get_tmp_value('tmp_val1')))
-stock_inventory.action_done()
+stock_inventory._action_done()
 
 act = 'F'
 res = [
