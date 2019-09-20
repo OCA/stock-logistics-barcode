@@ -31,7 +31,7 @@ if tracer == 'loop':
 
 elif tracer == 'picking':
     picking = env['stock.picking'].search([('name', '=', message)])
-    picking.move_lines.move_line_ids.unlink()
+    picking.move_lines.mapped('move_line_ids').unlink()
     terminal.reference_document = picking.id
 else:
     picking = env['stock.picking'].browse(terminal.reference_document)
