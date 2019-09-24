@@ -47,3 +47,36 @@ class StockBarcodesReadLog(models.Model):
         comodel_name='stock.picking',
         string='Picking',
     )
+    log_line_ids = fields.One2many(
+        comodel_name='stock.barcodes.read.log.line',
+        inverse_name='read_log_id',
+        string='Scanning log details',
+    )
+
+
+class StockBarcodesReadLogLine(models.Model):
+    """
+    The goal of this model is store detail about scanning log, for example,
+    when user read in pickings the product quantity can be distributed in more
+    than one stock move line.
+    This help to know what records have been affected by a scanning read.
+    """
+    _name = 'stock.barcodes.read.log.line'
+    _description = 'Stock barcodes read log lines'
+
+    read_log_id = fields.Many2one(
+        comodel_name='stock.barcodes.read.log',
+        string='Scanning log',
+        ondelete='cascade',
+        readonly=True,
+    )
+    move_line_id = fields.Many2one(
+        comodel_name='stock.move.line',
+        string='Stock move lines',
+        readonly=True,
+    )
+    product_qty = fields.Float(
+        string='Quantity scanned',
+        digits=dp.get_precision('Product Unit of Measure'),
+        readonly=True,
+    )

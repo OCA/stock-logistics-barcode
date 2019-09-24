@@ -72,7 +72,7 @@ msgstr "Código de barras leído con información adicional"
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:41
 #, python-format
 msgid "Barcode reader"
-msgstr "Lector de códigos de barras"
+msgstr "Escaneador"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:78
@@ -374,8 +374,8 @@ msgstr "Cantidad"
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "Remove last scan"
-msgstr "Eliminar última lectura"
+msgid "Remove last yours"
+msgstr "Eliminar tús últimas lecturas"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_res_id
@@ -398,19 +398,19 @@ msgstr "Modelo"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_scan_log_ids
 msgid "Scan Log"
-msgstr "Registro de lecturas"
+msgstr "Registro de lecturas del producto"
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Scan log"
-msgstr "Registro de lecturas"
+msgstr "Registro de lecturas del producto"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:189
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:192
 #, python-format
-msgid "Select one picking"
-msgstr "Selecciona un albarán"
+msgid "Click on picking pushpin to lock it"
+msgstr "Pinche en la chincheta del albarán para bloquearlo"
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_picking_form

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="generator" content="Docutils 0.14: http://docutils.sourceforge.net/" />
+<meta name="generator" content="Docutils 0.15.2: http://docutils.sourceforge.net/" />
 <title>Stock Barcodes</title>
 <style type="text/css">
 
@@ -408,25 +408,25 @@ doing inventories and picking operations.</p>
 <li>Create new inventory with “Select products manually” option.</li>
 <li>Start inventory.</li>
 <li>Click to “Scan barcodes” smart button.</li>
-<li>Start read barcodes.</li>
+<li>Start reading barcodes.</li>
 </ol>
 </div>
 <div class="section" id="barcode-interface-for-picking-operations">
 <h2><a class="toc-backref" href="#id4">Barcode interface for picking operations</a></h2>
-<p>You can use the barcode interface in a picking or an operation type, the mainly
+<p>You can use the barcode interface in a picking or an operation type, the main
 difference is that if you open the barcode interface from a picking, this
-picking is locked and you read product for it.</p>
+picking is locked and you read products for it.</p>
 <p>To use the barcode interface on picking operations:</p>
 <ol class="arabic simple">
 <li>Go to <em>Inventory</em>.</li>
 <li>Click on scanner button on any operation type.</li>
-<li>Start read barcodes.</li>
+<li>Start reading barcodes.</li>
 </ol>
 <p>To use the barcode interface on a picking:</p>
 <ol class="arabic simple">
 <li>Go to <em>Inventory &gt; Transfers</em>.</li>
 <li>Click to “Scan barcodes” smart button.</li>
-<li>Start read barcodes.</li>
+<li>Start reading barcodes.</li>
 </ol>
 <p>The barcode scanner interface has two operation modes. In both of them user
 can scan:</p>
@@ -470,7 +470,7 @@ user wants set quantities manually instead increment 1.0 unit peer scan action.<
 <div class="section" id="scan-logs">
 <h2><a class="toc-backref" href="#id7">Scan logs</a></h2>
 <p>All scanned barcodes are saved into model.
-Barcode scan interface display 10 last records linked to model, the goal of
+Barcode scanning interface display 10 last records linked to model, the goal of
 this log is show to user other reads with the same product and location done
 by other users.
 User can remove the last read scan.</p>
@@ -481,7 +481,8 @@ User can remove the last read scan.</p>
 <ul class="simple">
 <li>Excute action_done() method outside onchange environment.</li>
 <li>Allow create product when a barcode has not been found.</li>
-<li>Select picking with barcode.</li>
+<li>Allow to select picking reading its barcode.</li>
+<li>Allow to select multiple pickings to process scanned products.</li>
 </ul>
 </div>
 <div class="section" id="changelog">
