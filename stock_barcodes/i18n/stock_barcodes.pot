@@ -372,7 +372,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "Remove last scan"
+msgid "Remove last yours"
 msgstr ""
 
 #. module: stock_barcodes
@@ -395,19 +395,19 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory_scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_scan_log_ids
-msgid "Scan Log"
+msgid "Current product scanning log"
 msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "Scan log"
+msgid "Current product scanning log"
 msgstr ""
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:189
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:192
 #, python-format
-msgid "Select one picking"
+msgid "Click on picking pushpin to lock it"
 msgstr ""
 
 #. module: stock_barcodes
