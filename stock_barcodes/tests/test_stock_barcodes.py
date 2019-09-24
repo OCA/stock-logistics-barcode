@@ -5,7 +5,6 @@ from odoo.tests.common import TransactionCase
 
 
 class TestStockBarcodes(TransactionCase):
-
     def setUp(self):
         super().setUp()
 
@@ -24,6 +23,7 @@ class TestStockBarcodes(TransactionCase):
         self.WizScanRead = self.env['wiz.stock.barcodes.read']
         self.StockProductionLot = self.env['stock.production.lot']
         self.StockPicking = self.env['stock.picking']
+        self.StockQuant = self.env['stock.quant']
 
         # warehouse and locations
         self.warehouse = self.env.ref('stock.warehouse0')
@@ -67,6 +67,12 @@ class TestStockBarcodes(TransactionCase):
         self.lot_1 = self.StockProductionLot.create({
             'name': '8411822222568',
             'product_id': self.product_tracking.id,
+        })
+        self.StockQuant.create({
+            'product_id': self.product_tracking.id,
+            'lot_id': self.lot_1.id,
+            'location_id': self.stock_location.id,
+            'quantity': 100.0,
         })
         self.wiz_scan = self.WizScanRead.new()
 
@@ -120,8 +126,8 @@ class TestStockBarcodes(TransactionCase):
 
     def test_wizard_scan_lot(self):
         self.action_barcode_scanned(self.wiz_scan, '8411822222568')
-        # Lot not found (product has been read before)
-        self.assertFalse(self.wiz_scan.lot_id)
+        # Lot found for one product, so product_id is filled
+        self.assertTrue(self.wiz_scan.product_id)
         self.action_barcode_scanned(self.wiz_scan, '8433281006850')
         self.action_barcode_scanned(self.wiz_scan, '8411822222568')
         self.assertEqual(self.wiz_scan.lot_id, self.lot_1)
