@@ -1,2 +1,3 @@
 "id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
 access_stock_barcodes_read_log,access_stock_barcodes_read_log,model_stock_barcodes_read_log,base.group_user,1,1,1,1
+access_stock_barcodes_read_log_line,access_stock_barcodes_read_log_line,model_stock_barcodes_read_log_line,base.group_user,1,1,1,1
