@@ -15,19 +15,29 @@
                         <field name="state"/>
                         <field name="picking_id"/>
                         <field name="wiz_picking_id"/>
+                        <field name="product_qty_reserved"/>
+                        <field name="product_uom_qty"/>
+                        <field name="product_qty_done"/>
+                        <field name="scan_count"/>
                         <templates>
                             <t t-name="kanban-box">
-                                <div class="oe_kanban_color_alert oe_kanban_global_click">
+                                <div class="oe_kanban_color_alert">
                                     <div>
                                         <a name="action_lock_picking" type="object"
-                                           t-if="record.picking_id.raw_value != record.wiz_picking_id.raw_value"
-                                           class="fa fa-thumb-tack fa-2x pull-right"
-                                           context="{'wiz_read_scan_id': parent.id}"
+                                            t-if="record.picking_id.raw_value != record.wiz_picking_id.raw_value"
+                                            class="fa fa-thumb-tack fa-2x pull-right"
+                                            context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
                                         />
-                                        <a name="action_unlock_picking" type="object"
-                                           class="fa fa-times fa-2x pull-right"
-                                           t-if="record.picking_id.raw_value == record.wiz_picking_id.raw_value"
-                                           context="{'wiz_read_scan_id': parent.id}"/>
+                                        <a name="action_unlock_picking" type="object" class="pull-right"
+                                            t-if="record.picking_id.raw_value == record.wiz_picking_id.raw_value"
+                                            context="{'wiz_barcode_id': parent.id}">
+                                            <span class="fa-stack fa-lg">
+                                                <!-- FIXME: Use fa-thumbtack fa-stack-2x on v13 with FA v5.4 -->
+                                                <i class="fa fa-thumb-tack fa-stack-1x"></i>
+                                                <!-- FIXME: Use fa-slash on v13 with FA v5.4 -->
+                                                <i class="fa fa-ban fa-stack-2x"></i>
+                                            </span>
+                                        </a>
                                     </div>
                                     <div>
                                     </div>
@@ -35,6 +45,7 @@
                                         <div>
                                             <strong>
                                                 <field name="name"/>
+                                                <field name="scan_count" invisible="1" force_save="1"/>
                                             </strong>
                                             <field name="date"/>
                                         </div>
@@ -42,10 +53,20 @@
                                             <field name="partner_id"/>
                                         </div>
                                         <div>
+                                            <label for="product_uom_qty">Demand: </label>
+                                            <field name="product_uom_qty"/>
+                                            <label for="product_qty_reserved">Reserved: </label>
+                                            <field name="product_qty_reserved"/>
+                                            <label for="product_qty_done">Done: </label>
+                                            <field name="product_qty_done"/>
+                                        </div>
+                                        <div>
+                                            <!-- FIXME:  Fix confirm question -->
                                             <a name="action_validate_picking" type="object"
                                                class="pull-right"
                                                attrs="{'invisible': [('state', 'not in', 'assigned')]}"
-                                               context="{'wiz_read_scan_id': parent.id}">Validate</a>
+                                               confirm="Are you sure to validate the picking ?"
+                                               context="{'wiz_barcode_id': parent.id}">Validate</a>
                                         </div>
                                     </div>
                                 </div>
@@ -54,7 +75,14 @@
                     </kanban>
                 </field>
             </xpath>
+            <xpath expr="//field[@name='manual_entry']" position="after">
+                <label for="confirmed_moves">
+                    Confirmed moves allowed
+                </label>
+                <field name="confirmed_moves" widget="boolean_toggle"/>
+            </xpath>
             <field name="location_id" position="before">
+                <field name="picking_type_code" invisible="1" force_save="1"/>
                 <field name="picking_id"/>
             </field>
             <field name="product_qty" position="after">
