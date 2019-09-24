@@ -3,6 +3,7 @@
 from odoo import _, fields, models
 from odoo.fields import first
 from odoo.addons import decimal_precision as dp
+from odoo.exceptions import ValidationError
 
 
 class WizStockBarcodesReadInventory(models.TransientModel):
@@ -40,7 +41,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def _prepare_inventory_line_domain(self, log_scan=False):
         """
         Use the same domain for create or update a stock inventory line.
-        Source data is scan log record if undo or wizard model if create or
+        Source data is scanning log record if undo or wizard model if create or
         update one
         """
         record = log_scan or self
@@ -92,9 +93,14 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         if log_scan:
             inventory_line = self.env['stock.inventory.line'].search(
                 self._prepare_inventory_line_domain(log_scan=log_scan))
+            if inventory_line.inventory_id.state == 'done':
+                raise ValidationError(_(
+                    'You can not remove a scanning log from an inventory '
+                    'validated')
+                )
             if inventory_line:
                 qty = inventory_line.product_qty - log_scan.product_qty
-                inventory_line.product_qty = qty if qty > 0.0 else 0.0
+                inventory_line.product_qty = max(qty, 0.0)
                 self.inventory_product_qty = inventory_line.product_qty
         log_scan.unlink()
         return res

@@ -19,24 +19,3 @@ class StockPicking(models.Model):
             'default_picking_type_code': self.picking_type_code,
         }
         return action
-
-
-class PickingType(models.Model):
-    _inherit = "stock.picking.type"
-
-    def action_barcode_scan(self):
-        action = self.env.ref(
-            'stock_barcodes.action_stock_barcodes_read_picking').read()[0]
-        action['context'] = {
-            'default_res_model_id':
-                self.env.ref('stock.model_stock_picking_type').id,
-            'default_res_id': self.id,
-            'default_picking_type_code': self.code,
-        }
-        if self.code == 'incoming':
-            action['context'][
-                'default_location_id'] = self.default_location_dest_id.id
-        elif self.code in ['outgoing', 'internal']:
-            action['context'][
-                'default_location_id'] = self.default_location_src_id.id
-        return action
