@@ -44,8 +44,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     manual_entry = fields.Boolean(
         string='Manual entry data',
     )
-    # Computed field for display all scan logs from res_model and res_id when
-    # change product_id
+    # Computed field for display all scanning logs from res_model and res_id
+    # when change product_id
     scan_log_ids = fields.Many2many(
         comodel_name='stock.barcodes.read.log',
         compute='_compute_scan_log_ids',
@@ -102,10 +102,12 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.action_done()
                 return
         if self.env.user.has_group('stock.group_production_lot'):
-            lot = self.env['stock.production.lot'].search([
-                ('name', '=', barcode),
-                ('product_id', '=', self.product_id.id),
-            ])
+            lot_domain = [('name', '=', barcode)]
+            if self.product_id:
+                lot_domain.append(('product_id', '=', self.product_id.id))
+            lot = self.env['stock.production.lot'].search(lot_domain)
+            if len(lot) == 1:
+                self.product_id = lot.product_id
             if lot:
                 self.action_lot_scaned_post(lot)
                 self.action_done()
@@ -167,7 +169,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_manual_entry(self):
         return True
 
-    def _prepare_scan_log_values(self):
+    def _prepare_scan_log_values(self, log_detail=False):
         return {
             'name': self.barcode,
             'location_id': self.location_id.id,
@@ -181,9 +183,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             'res_id': self.res_id,
         }
 
-    def _add_read_log(self):
+    def _add_read_log(self, log_detail=False):
         if self.product_qty:
-            vals = self._prepare_scan_log_values()
+            vals = self._prepare_scan_log_values(log_detail)
             self.env['stock.barcodes.read.log'].create(vals)
 
     @api.depends('product_id', 'lot_id')
