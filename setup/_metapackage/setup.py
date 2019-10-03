@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo11-addon-base_gs1_barcode',
         'odoo11-addon-product_multi_ean',
         'odoo11-addon-stock_barcodes',
+        'odoo11-addon-stock_barcodes_gs1',
         'odoo11-addon-stock_scanner',
         'odoo11-addon-stock_scanner_inventory',
         'odoo11-addon-stock_scanner_location_info',
