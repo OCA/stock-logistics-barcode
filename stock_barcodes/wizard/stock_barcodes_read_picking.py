@@ -347,4 +347,7 @@ class WizCandidatePicking(models.TransientModel):
         return wiz.action_cancel()
 
     def action_validate_picking(self):
-        return self.picking_id.button_validate()
+        picking = self.env['stock.picking'].browse(
+            self.env.context.get('picking_id', False)
+        )
+        return picking.button_validate()
