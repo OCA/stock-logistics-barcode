@@ -1,6 +1,7 @@
+# -*- coding: utf-8 -*-
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.fields import first
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
@@ -66,28 +67,28 @@ class WizStockBarcodesReadInventory(models.TransientModel):
 
     def check_done_conditions(self):
         if self.product_id.tracking != 'none' and not self.lot_id:
-            self._set_messagge_info('info', _('Waiting for input lot'))
+            self._set_message_info('info', _('Waiting for input lot'))
             return False
-        return super().check_done_conditions()
+        return super(WizStockBarcodesReadInventory, self).check_done_conditions()
 
     def action_done(self):
-        result = super().action_done()
+        result = super(WizStockBarcodesReadInventory, self).action_done()
         if result:
             self._add_inventory_line()
         return result
 
     def action_manual_entry(self):
-        result = super().action_manual_entry()
+        result = super(WizStockBarcodesReadInventory, self).action_manual_entry()
         if result:
             self.action_done()
         return result
 
     def reset_qty(self):
-        super().reset_qty()
+        super(WizStockBarcodesReadInventory, self).reset_qty()
         self.inventory_product_qty = 0.0
 
     def action_undo_last_scan(self):
-        res = super().action_undo_last_scan()
+        res = super(WizStockBarcodesReadInventory, self).action_undo_last_scan()
         log_scan = first(self.scan_log_ids.filtered(
             lambda x: x.create_uid == self.env.user))
         if log_scan:
@@ -103,4 +104,6 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 inventory_line.product_qty = max(qty, 0.0)
                 self.inventory_product_qty = inventory_line.product_qty
         log_scan.unlink()
+        self.message = False
+        self.manual_entry_message = False
         return res

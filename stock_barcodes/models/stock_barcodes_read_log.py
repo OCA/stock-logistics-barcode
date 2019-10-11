@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import fields, models
@@ -70,9 +71,9 @@ class StockBarcodesReadLogLine(models.Model):
         ondelete='cascade',
         readonly=True,
     )
-    move_line_id = fields.Many2one(
-        comodel_name='stock.move.line',
-        string='Stock move lines',
+    pack_operation_id = fields.Many2one(
+        comodel_name='stock.pack.operation',
+        string='Stock pack operation',
         readonly=True,
     )
     product_qty = fields.Float(

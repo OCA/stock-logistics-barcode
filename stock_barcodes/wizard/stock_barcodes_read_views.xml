@@ -8,27 +8,23 @@
             <form string="Barcodes">
                 <sheet>
                     <div class="text-center">
-                        <div class="alert alert-success" attrs="{'invisible': [('message_type', '!=', 'success')]}">
+                        <div id="alert" attrs="{'invisible': [('message_type', '=', False)]}">
                             <field name="message"/>
-                        </div>
-                        <div class="alert alert-info" attrs="{'invisible': [('message_type', '!=', 'info')]}">
-                            <field name="message"/>
-                        </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'more_match')]}">
-                            <field name="message"/>
-                        </div>
-                        <div class="alert alert-danger" attrs="{'invisible': [('message_type', '!=', 'not_found')]}">
-                            <field name="message"/>
-                            <button class="oe_link" name="%(action_stock_barcodes_new_lot)d" type="action" context="{'default_lot_name': barcode}">
+                            <button class="oe_link" name="%(action_stock_barcodes_new_lot)d" type="action"
+                                    attrs="{'invisible': [('message_type', '!=', 'not_found')]}"
+                                    context="{'default_lot_name': barcode}">
                                 <span>New lot</span>
                             </button>
+                        </div>
+                        <div class="alert alert-success" attrs="{'invisible': [('manual_entry_message', '=', False)]}">
+                            <field name="manual_entry_message"/>
                         </div>
                     </div>
                     <div>
                         <label for="manual_entry">
                             Manual entry data
                         </label>
-                        <field name="manual_entry" widget="boolean_toggle"/>
+                        <field name="manual_entry"/>
                     </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1"/>
@@ -56,7 +52,7 @@
                     </group>
                     <group>
                         <field name="product_id" options="{'no_create': True}"
-                               attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                               attrs="{'required': [('manual_entry', '=', True)]}"
                                force_save="1"/>
                         <field name="packaging_id" options="{'no_create': True}" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('manual_entry', '=', False)]}" force_save="1" groups="product.group_stock_packaging"/>
                         <field name="packaging_qty" attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}" force_save="1" widget="FieldFloatNumericMode"/>
@@ -72,7 +68,7 @@
                     <group/>
                     <group string="Current product scanning log" attrs="{'invisible': [('scan_log_ids', '=', [])]}">
                         <group>
-                            <button name="action_undo_last_scan" type="object" string="Remove last yours" icon="fa-trash"/>
+                            <button name="action_undo_last_scan" class="removeLog" type="object" string="Remove last yours" icon="fa-trash"/>
                         </group>
                         <field name="scan_log_ids" options="{'no_open': True}" nolabel="1" mode="tree,kanban">
                             <tree string="Current product scanning log">

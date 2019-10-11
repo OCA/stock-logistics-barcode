@@ -1,7 +1,9 @@
+# -*- coding: utf-8 -*-
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 from odoo.addons import decimal_precision as dp
+from odoo.exceptions import UserError
 
 
 class WizStockBarcodesRead(models.AbstractModel):
@@ -52,7 +54,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     # when change product_id
     scan_log_ids = fields.Many2many(
         comodel_name='stock.barcodes.read.log',
-        compute='_compute_scan_log_ids',
+        compute='_compute_scan_log_ids'
     )
     message_type = fields.Selection([
         ('info', 'Barcode read with additional info'),
@@ -61,6 +63,16 @@ class WizStockBarcodesRead(models.AbstractModel):
         ('success', 'Barcode read correctly'),
     ], readonly=True)
     message = fields.Char(readonly=True)
+    manual_entry_message = fields.Char(readonly=True)
+
+    @api.onchange('product_id')
+    def onchange_product_id(self):
+        if self.product_id:
+            if not self.barcode or \
+                    (self.barcode and self.product_id.barcode != self.barcode):
+                raise UserError(
+                    _('You need to be in Manual entry data mode to be able '
+                      'to change the product. Please, remove entered product'))
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -72,24 +84,25 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    def _set_messagge_info(self, type, messagge):
+    def _set_message_info(self, msg_type, message):
         """
         Set message type and message description.
         For manual entry mode barcode is not set so is not displayed
         """
-        self.message_type = type
+        self.manual_entry_message = False
+        self.message_type = msg_type
         if self.barcode:
-            self.message = _('Barcode: %s (%s)') % (self.barcode, messagge)
+            self.message = _('Barcode: %s (%s)') % (self.barcode, message)
         else:
-            self.message = '%s' % messagge
+            self.message = '%s' % message
 
     def process_barcode(self, barcode):
-        self._set_messagge_info('success', _('Barcode read correctly'))
+        self._set_message_info('success', _('Barcode read correctly'))
         domain = self._barcode_domain(barcode)
         product = self.env['product.product'].search(domain)
         if product:
             if len(product) > 1:
-                self._set_messagge_info(
+                self._set_message_info(
                     'more_match', _('More than one product found'))
                 return
             self.action_product_scaned_post(product)
@@ -99,7 +112,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             packaging = self.env['product.packaging'].search(domain)
             if packaging:
                 if len(packaging) > 1:
-                    self._set_messagge_info(
+                    self._set_message_info(
                         'more_match', _('More than one package found'))
                     return
                 self.action_packaging_scaned_post(packaging)
@@ -119,9 +132,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         location = self.env['stock.location'].search(domain)
         if location:
             self.location_id = location
-            self._set_messagge_info('info', _('Waiting product'))
+            self._set_message_info('info', _('Waiting product'))
             return
-        self._set_messagge_info('not_found', _('Barcode not found'))
+        self._set_message_info('not_found', _('Barcode not found'))
 
     def _barcode_domain(self, barcode):
         return [('barcode', '=', barcode)]
@@ -133,10 +146,12 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def check_done_conditions(self):
         if not self.product_qty:
-            self._set_messagge_info('info', _('Waiting quantities'))
+            self._set_message_info('info', _('Waiting quantities'))
             return False
         if self.manual_entry:
-            self._set_messagge_info('success', _('Manual entry OK'))
+            self.message = False
+            self.manual_entry_message = _('Barcode: %s (%s)') % (
+                self.barcode, _('Manual entry OK'))
         return True
 
     def action_done(self):
