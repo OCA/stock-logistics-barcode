@@ -66,7 +66,7 @@
                                                class="pull-right"
                                                attrs="{'invisible': [('state', 'not in', 'assigned')]}"
                                                confirm="Are you sure to validate the picking ?"
-                                               context="{'wiz_barcode_id': parent.id}">Validate</a>
+                                               context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}">Validate</a>
                                         </div>
                                     </div>
                                 </div>
