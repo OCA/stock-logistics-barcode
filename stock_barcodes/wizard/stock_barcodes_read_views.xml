@@ -5,7 +5,7 @@
         <field name="name">stock.barcodes.read.form</field>
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="arch" type="xml">
-            <form string="Lot">
+            <form string="Barcodes">
                 <sheet>
                     <div class="text-center">
                         <div class="alert alert-success" attrs="{'invisible': [('message_type', '!=', 'success')]}">
@@ -32,6 +32,7 @@
                     </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1"/>
+                    <field name="product_tracking" invisible="1" force_save="1"/>
                     <field name="res_model_id" invisible="1"/>
                     <field name="res_id" invisible="1"/>
                     <field name="_barcode_scanned" widget="barcode_handler" invisible="1"/>
@@ -40,7 +41,7 @@
                                attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
                                force_save="1"/>
                     </group>
-                    <group groups="stock.group_production_lot">
+                    <group groups="stock.group_production_lot" attrs="{'invisible': [('product_tracking', 'in', [False, 'none'])]}">
                         <group>
                             <field name="lot_id" options="{'no_create': True}"
                                    domain="[('product_id', '=', product_id)]"
@@ -49,8 +50,8 @@
                                    force_save="1"/>
                         </group>
                         <group>
-                            <button class="oe_link" string="Clean lot" name="action_clean_lot" type="object" icon="fa-trash"/>
-                            <button class="oe_link" string="New lot" type="action" name="%(action_stock_barcodes_new_lot)d" icon="fa-plus"/>
+                            <button class="oe_link" string="Clean lot" name="action_clean_lot" type="object" icon="fa-trash" attrs="{'invisible': [('lot_id', '=', False)]}"/>
+                            <button class="oe_link" string="New lot" type="action" name="%(action_stock_barcodes_new_lot)d" icon="fa-plus" context="{'default_product_id': product_id}"/>
                         </group>
                     </group>
                     <group>
@@ -69,12 +70,12 @@
                         />
                     </group>
                     <group/>
-                    <group string="Scan log" attrs="{'invisible': [('scan_log_ids', '=', [])]}">
+                    <group string="Current product scanning log" attrs="{'invisible': [('scan_log_ids', '=', [])]}">
                         <group>
-                            <button name="action_undo_last_scan" type="object" string="Remove last scan" icon="fa-trash"/>
+                            <button name="action_undo_last_scan" type="object" string="Remove last yours" icon="fa-trash"/>
                         </group>
                         <field name="scan_log_ids" options="{'no_open': True}" nolabel="1" mode="tree,kanban">
-                            <tree string="Scan log">
+                            <tree string="Current product scanning log">
                                 <field name="create_date"/>
                                 <field name="create_uid"/>
                                 <field name="name"/>

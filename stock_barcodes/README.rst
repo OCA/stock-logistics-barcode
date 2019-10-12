@@ -31,7 +31,7 @@ This module contains a base wizard read barcode that can be extended by
 other modules.
 
 This module also makes use of this wizard for providing barcode support for
-doing inventories.
+doing inventories and picking operations.
 
 **Table of contents**
 
@@ -41,13 +41,34 @@ doing inventories.
 Usage
 =====
 
+Barcode interface for inventory operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 To use the barcode interface on inventory:
 
 #. Go to *Inventory > operations > Inventory Adjustments*.
 #. Create new inventory with "Select products manually" option.
 #. Start inventory.
 #. Click to "Scan barcodes" smart button.
-#. Start read barcodes.
+#. Start reading barcodes.
+
+Barcode interface for picking operations
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+You can use the barcode interface in a picking or an operation type, the main
+difference is that if you open the barcode interface from a picking, this
+picking is locked and you read products for it.
+
+To use the barcode interface on picking operations:
+
+#. Go to *Inventory*.
+#. Click on scanner button on any operation type.
+#. Start reading barcodes.
+
+To use the barcode interface on a picking:
+
+#. Go to *Inventory > Transfers*.
+#. Click to "Scan barcodes" smart button.
+#. Start reading barcodes.
 
 The barcode scanner interface has two operation modes. In both of them user
 can scan:
@@ -95,7 +116,7 @@ Scan logs
 ~~~~~~~~~
 
 All scanned barcodes are saved into model.
-Barcode scan interface display 10 last records linked to model, the goal of
+Barcode scanning interface display 10 last records linked to model, the goal of
 this log is show to user other reads with the same product and location done
 by other users.
 User can remove the last read scan.
@@ -103,9 +124,19 @@ User can remove the last read scan.
 Known issues / Roadmap
 ======================
 
-* Barcode interface for reading barcodes on pickings.
 * Excute action_done() method outside onchange environment.
 * Allow create product when a barcode has not been found.
+* Allow to select picking reading its barcode.
+* Allow to select multiple pickings to process scanned products.
+
+Changelog
+=========
+
+11.0.1.1.0 (2019-09-24)
+~~~~~~~~~~~~~~~~~~~~~~~
+
+* [ADD] New feature.
+  User can uses barcode interface in picking operations.
 
 Bug Tracker
 ===========
