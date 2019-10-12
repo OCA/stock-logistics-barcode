@@ -21,6 +21,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         comodel_name='product.product',
         string='Product',
     )
+    product_tracking = fields.Selection(
+        related='product_id.tracking',
+        readonly=True,
+    )
     lot_id = fields.Many2one(
         comodel_name='stock.production.lot',
         string='Lot',
