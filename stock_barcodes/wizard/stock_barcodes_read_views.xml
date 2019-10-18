@@ -84,7 +84,8 @@
                                 <field name="product_qty"/>
                                 <templates>
                                     <t t-name="kanban-box">
-                                        <div t-attf-class="oe_kanban_card">
+                                        <div t-attf-class="oe_kanban_card"
+                                             style="background-color:lavender;border: 1px solid transparent;">
                                             <div class="row">
                                                 <div class="col-xs-8">
                                                     <strong>

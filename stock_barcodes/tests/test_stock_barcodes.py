@@ -7,7 +7,7 @@ from odoo.tests.common import TransactionCase
 
 class TestStockBarcodes(TransactionCase):
     def setUp(self):
-        super().setUp()
+        super(TestStockBarcodes, self).setUp()
 
         # Active group_stock_packaging and group_production_lot for user
         group_stock_packaging = self.env.ref('product.group_stock_packaging')
@@ -73,7 +73,7 @@ class TestStockBarcodes(TransactionCase):
             'product_id': self.product_tracking.id,
             'lot_id': self.lot_1.id,
             'location_id': self.stock_location.id,
-            'quantity': 100.0,
+            'qty': 100.0,
         })
         self.wiz_scan = self.WizScanRead.new()
 

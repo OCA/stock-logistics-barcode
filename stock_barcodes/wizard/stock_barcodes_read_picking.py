@@ -98,7 +98,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     @api.onchange('product_id')
     def onchange_product_id(self):
-        res = super(WizStockBarcodesReadPicking, self).onchange_product_id()
         if self.product_id:
             candidate_picking_ids = self.env['stock.pack.operation'].search(
                 [('product_id', '=', self.product_id.id)]).mapped('picking_id')
@@ -106,7 +105,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.picking_id = False
             return {'domain': {'picking_id': [
                 ('id', 'in', candidate_picking_ids.ids)]}}
-        return res
+        return
 
     # def _set_default_picking(self):
     #     picking_id = self.env.context.get('default_picking_id', False)
@@ -332,104 +331,3 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             lambda x: x.create_uid == self.env.user))
         self.remove_scanning_log(log_scan)
         return res
-
-
-class WizCandidatePicking(models.Model):
-    """
-    TODO: explain
-    """
-    _name = 'wiz.candidate.picking'
-    _description = 'Candidate pickings for barcode interface'
-    # To prevent remove the record wizard until 2 days old
-    # _transient_max_hours = 48
-
-    picking_id = fields.Many2one(
-        comodel_name='stock.picking',
-        string='Picking',
-        readonly=True,
-    )
-    name = fields.Char(
-        related='picking_id.name',
-        readonly=True,
-        string='Picking',
-    )
-    partner_id = fields.Many2one(
-        comodel_name='res.partner',
-        related='picking_id.partner_id',
-        readonly=True,
-        string='Partner',
-    )
-    state = fields.Selection(
-        related='picking_id.state',
-        readonly=True,
-    )
-    date = fields.Datetime(
-        related='picking_id.date',
-        readonly=True,
-        string='Creation Date',
-    )
-    product_qty_reserved = fields.Float(
-        'Reserved', compute='_compute_picking_quantity',
-        digits=dp.get_precision('Product Unit of Measure'),
-        readonly=True,
-    )
-    product_uom_qty = fields.Float(
-        'Demand', compute='_compute_picking_quantity',
-        digits=dp.get_precision('Product Unit of Measure'),
-        readonly=True,
-    )
-    product_qty_done = fields.Float(
-        'Done', compute='_compute_picking_quantity',
-        digits=dp.get_precision('Product Unit of Measure'),
-        readonly=True,
-    )
-    # For reload kanban view
-    scan_count = fields.Integer()
-
-    @api.depends('scan_count')
-    def _compute_picking_quantity(self):
-        for candidate in self:
-            qty_reserved = 0
-            qty_demand = 0
-            qty_done = 0
-            candidate.product_qty_reserved = sum(candidate.picking_id.mapped(
-                'move_lines.reserved_availability'))
-            for move in candidate.picking_id.move_lines:
-                qty_reserved += move.reserved_availability
-                qty_demand += move.product_uom_qty
-                qty_done += sum(move.linked_move_operation_ids.mapped(
-                    'operation_id').mapped('qty_done'))
-            candidate.update({
-                'product_qty_reserved': qty_reserved,
-                'product_uom_qty': qty_demand,
-                'product_qty_done': qty_done,
-            })
-
-    def _get_wizard_barcode_read(self):
-        # return self.env['wiz.stock.barcodes.read.picking'].browse(
-        #     self.env.context['wiz_barcode_id'])
-        return self.env['wiz.stock.barcodes.read.picking'].search([], limit=1)
-
-    def action_lock_picking(self):
-        # wiz = self._get_wizard_barcode_read()
-        # picking_id = self.env.context['picking_id']
-        # wiz.picking_id = picking_id
-        # wiz._set_candidate_pickings(wiz.picking_id)
-        # return wiz.action_done()
-        return
-
-    def action_unlock_picking(self):
-        wiz = self._get_wizard_barcode_read()
-        wiz.update({
-            'picking_id': False,
-            'candidate_picking_id': False,
-            'message_type': False,
-            'message': False,
-        })
-        return wiz.action_cancel()
-
-    def action_validate_picking(self):
-        picking = self.env['stock.picking'].browse(
-            self.env.context.get('picking_id', False)
-        )
-        return picking.button_validate()

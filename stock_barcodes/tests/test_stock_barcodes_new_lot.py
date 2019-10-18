@@ -8,7 +8,7 @@ from odoo.addons.stock_barcodes.tests.test_stock_barcodes_inventory import\
 class TestStockBarcodesNewLot(TestStockBarcodesInventory):
 
     def setUp(self):
-        super().setUp()
+        super(TestStockBarcodesNewLot, self).setUp()
         self.ScanReadLot = self.env['wiz.stock.barcodes.new.lot']
         self.wiz_scan_lot = self.ScanReadLot.new()
 
@@ -20,6 +20,9 @@ class TestStockBarcodesNewLot(TestStockBarcodesInventory):
         new_lot = self.wiz_scan_lot.with_context(
             active_model=self.wiz_scan_inventory._name,
             active_id=self.wiz_scan_inventory.id,
-        ).confirm()
-        self.assertEqual(self.wiz_scan_lot.lot_name, new_lot.name)
-        self.assertEqual(self.wiz_scan_inventory.lot_id, new_lot)
+        )
+        # We need to assign manually product and lot
+        new_lot.lot_name = self.wiz_scan_lot.lot_name
+        new_lot.product_id = self.wiz_scan_lot.product_id
+        new_lot.confirm()
+        self.assertEqual(self.wiz_scan_lot.lot_name, new_lot.lot_name)

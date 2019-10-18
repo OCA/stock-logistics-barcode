@@ -8,7 +8,7 @@ from odoo.addons.stock_barcodes.tests.test_stock_barcodes import\
 class TestStockBarcodesInventory(TestStockBarcodes):
 
     def setUp(self):
-        super().setUp()
+        super(TestStockBarcodesInventory, self).setUp()
         self.ScanReadInventory = self.env['wiz.stock.barcodes.read.inventory']
         self.stock_inventory_model = self.env.ref(
             'stock.model_stock_inventory')

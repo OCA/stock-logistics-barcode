@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 from odoo.addons import decimal_precision as dp
-from odoo.exceptions import UserError
 
 
 class WizStockBarcodesRead(models.AbstractModel):
@@ -65,14 +64,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     message = fields.Char(readonly=True)
     manual_entry_message = fields.Char(readonly=True)
 
-    @api.onchange('product_id')
-    def onchange_product_id(self):
-        if self.product_id:
-            if not self.barcode or \
-                    (self.barcode and self.product_id.barcode != self.barcode):
-                raise UserError(
-                    _('You need to be in Manual entry data mode to be able '
-                      'to change the product. Please, remove entered product'))
+    # @api.onchange('product_id')
+    # def onchange_product_id(self):
+    #     if self.product_id:
+    #         if not self.barcode or \
+    #                 (self.barcode and self.product_id.barcode != self.barcode):
+    #             raise UserError(
+    #                 _('You need to be in Manual entry data mode to be able '
+    #                   'to change the product. Please, remove entered product'))
 
     @api.onchange('location_id')
     def onchange_location_id(self):
@@ -104,7 +103,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(product) > 1:
                 self._set_message_info(
                     'more_match', _('More than one product found'))
-                return
+                return {'domain': {'product_id': [('id', 'in', product.ids)]}}
             self.action_product_scaned_post(product)
             self.action_done()
             return
@@ -135,6 +134,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             self._set_message_info('info', _('Waiting product'))
             return
         self._set_message_info('not_found', _('Barcode not found'))
+        return
 
     def _barcode_domain(self, barcode):
         return [('barcode', '=', barcode)]
@@ -172,9 +172,10 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_packaging_scaned_post(self, packaging):
         self.packaging_id = packaging
-        if self.product_id != packaging.product_id:
+        if self.product_id.product_tmpl_id != packaging.product_tmpl_id:
             self.lot_id = False
-        self.product_id = packaging.product_id
+        variant_ids = packaging.product_tmpl_id.product_variant_ids
+        self.product_id = variant_ids[0]
         self.packaging_qty = 0.0 if self.manual_entry else 1.0
         self.product_qty = packaging.qty * self.packaging_qty
 
