@@ -19,7 +19,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,help:barcodes_generator_product.field_product_template_generate_type
+#: model:ir.model.fields,help:barcodes_generator_product.field_product_template__generate_type
 msgid ""
 "Allow to generate barcode, including a number  (a base) in the final "
 "barcode.\n"
@@ -36,31 +36,48 @@ msgstr ""
 "générer une nouvelle base. Cette base sera générée par une séquence"
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template_barcode_base
+#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template__barcode_base
 msgid "Barcode Base"
 msgstr "Base du code Barre"
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template_barcode_rule_id
+#: model:ir.model,name:barcodes_generator_product.model_barcode_rule
+#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template__barcode_rule_id
 msgid "Barcode Rule"
 msgstr "Règle de code barre"
 
 #. module: barcodes_generator_product
-#: model:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
-#: model:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
 msgid "Generate Barcode (Using Barcode Rule)"
 msgstr "Générer un code barre (via règle de codes barre)"
 
 #. module: barcodes_generator_product
-#: model:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
-#: model:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
 msgid "Generate Base (Using Sequence)"
 msgstr "Générer une base (via une séquence)"
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template_generate_type
+#: model:ir.model.fields,field_description:barcodes_generator_product.field_barcode_rule__generate_model
+#, fuzzy
+msgid "Generate Model"
+msgstr "Type de génération"
+
+#. module: barcodes_generator_product
+#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template__generate_type
 msgid "Generate Type"
 msgstr "Type de génération"
+
+#. module: barcodes_generator_product
+#: model:ir.model.fields,help:barcodes_generator_product.field_barcode_rule__generate_model
+msgid "If 'Generate Type' is set, mention the model related to this rule."
+msgstr ""
+
+#. module: barcodes_generator_product
+#: selection:barcode.rule,generate_model:0
+msgid "Partners"
+msgstr ""
 
 #. module: barcodes_generator_product
 #: model:ir.model,name:barcodes_generator_product.model_product_product
@@ -73,15 +90,15 @@ msgid "Product Template"
 msgstr "Modèle d'article"
 
 #. module: barcodes_generator_product
-#: model:product.product,name:barcodes_generator_product.product_product_variant_1
-#: model:product.product,name:barcodes_generator_product.product_product_variant_2
-#: model:product.template,name:barcodes_generator_product.product_product_variant_1_product_template
-#: model:product.template,name:barcodes_generator_product.product_product_variant_2_product_template
-#: model:product.template,name:barcodes_generator_product.product_template_multi_variant
+#: selection:barcode.rule,generate_model:0
 #, fuzzy
-#| msgid "Template with Generated Barcode (Mono Variant)"
-msgid "Product with Generated Barcode (Variant 2 - Black)"
-msgstr "Article avec Code Barre Généré (Mono Variante)"
+msgid "Products"
+msgstr "Article"
+
+#. module: barcodes_generator_product
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
 
 #. module: barcodes_generator_product
 #: model:product.template,name:barcodes_generator_product.product_template_mono_variant
@@ -89,11 +106,32 @@ msgid "Template with Generated Barcode (Mono Variant)"
 msgstr "Article avec Code Barre Généré (Mono Variante)"
 
 #. module: barcodes_generator_product
-#: model:product.template,name:barcodes_generator_product.product_template_multi_variant_2
+#: model:product.product,name:barcodes_generator_product.product_product_variant_1
+#: model:product.product,name:barcodes_generator_product.product_product_variant_2
+#: model:product.template,name:barcodes_generator_product.product_product_variant_1_product_template
 msgid "Template with Generated Barcode (Multi Variant)"
 msgstr "Article avec Code Barre Généré (Multi Variante)"
 
 #. module: barcodes_generator_product
-#: model:ir.model,name:barcodes_generator_product.model_barcode_rule
-msgid "barcode.rule"
-msgstr "barcode.rule"
+#: model:product.product,uom_name:barcodes_generator_product.product_product_variant_1
+#: model:product.product,uom_name:barcodes_generator_product.product_product_variant_2
+#: model:product.template,uom_name:barcodes_generator_product.product_product_variant_1_product_template
+#: model:product.template,uom_name:barcodes_generator_product.product_template_mono_variant
+msgid "Unit(s)"
+msgstr ""
+
+#. module: barcodes_generator_product
+#: model:product.product,weight_uom_name:barcodes_generator_product.product_product_variant_1
+#: model:product.product,weight_uom_name:barcodes_generator_product.product_product_variant_2
+#: model:product.template,weight_uom_name:barcodes_generator_product.product_product_variant_1_product_template
+#: model:product.template,weight_uom_name:barcodes_generator_product.product_template_mono_variant
+msgid "kg"
+msgstr ""
+
+#, fuzzy
+#~| msgid "Template with Generated Barcode (Mono Variant)"
+#~ msgid "Product with Generated Barcode (Variant 2 - Black)"
+#~ msgstr "Article avec Code Barre Généré (Mono Variante)"
+
+#~ msgid "barcode.rule"
+#~ msgstr "barcode.rule"
