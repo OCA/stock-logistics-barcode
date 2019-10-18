@@ -172,6 +172,11 @@ msgstr "Taille"
 
 #. module: barcodes_generator_abstract
 #: selection:barcode.rule,generate_model:0
+msgid "Partners"
+msgstr "Partenaire"
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
 msgid "Products"
 msgstr ""
 
@@ -187,9 +192,6 @@ msgstr "Séquence - %s"
 #| msgid "Sequence"
 msgid "Sequence Id"
 msgstr "Séquence"
-
-#~ msgid "Partners"
-#~ msgstr "Partenaire"
 
 #~ msgid "barcode.generate.mixin"
 #~ msgstr "barcode.generate.mixin"

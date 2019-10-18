@@ -138,6 +138,11 @@ msgstr ""
 
 #. module: barcodes_generator_abstract
 #: selection:barcode.rule,generate_model:0
+msgid "Partners"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
 msgid "Products"
 msgstr ""
 
