@@ -69,6 +69,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         readonly=True,
     )
     scan_count = fields.Integer()
+    pack_operation_ids = fields.Many2many(
+        'stock.pack.operation', string="Operations",
+        readonly=True,
+    )
 
     @api.depends('picking_id', 'scan_count')
     def _compute_picking_quantity(self):
@@ -107,27 +111,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 ('id', 'in', candidate_picking_ids.ids)]}}
         return
 
-    # def _set_default_picking(self):
-    #     picking_id = self.env.context.get('default_picking_id', False)
-    #     if picking_id:
-    #         self._set_candidate_pickings(
-    #             self.env['stock.picking'].browse(picking_id))
-
-    # @api.model
-    # def create(self, vals):
-    #     # When user click any view button the wizard record is create and the
-    #     # picking candidates have been lost, so we need set it.
-    #     wiz = super(WizStockBarcodesReadPicking, self).create(vals)
-    #     if wiz.picking_id:
-    #         wiz._set_candidate_pickings(wiz.picking_id)
-    #     return wiz
-
-    # @api.onchange('picking_id')
-    # def onchange_picking_id(self):
-    #     # Add to candidate pickings the default picking. We are in a wizard
-    #     # view, so for create a candidate picking with the same default picking
-    #     # we need create it in this onchange
-    #     self._set_default_picking()
+    @api.onchange('picking_id')
+    def onchange_picking_id(self):
+        if self.picking_id:
+            self.pack_operation_ids = [
+                (6, 0, self.picking_id.pack_operation_ids.ids)]
+            products_in_picking = self.picking_id.pack_operation_ids.mapped(
+                'product_id')
+            return {'domain': {'product_id': [
+                ('id', 'in', products_in_picking.ids)]}}
 
     def action_done(self):
         if self.check_done_conditions():
@@ -141,6 +133,17 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if result:
             self.action_done()
         return result
+
+    def action_picking_validate(self):
+        if self.product_qty_done != self.product_uom_qty:
+            raise ValidationError(_(
+                "Please complete the picking before validating it"))
+        self.picking_id.do_new_transfer()
+        self.barcode = False
+        self._set_message_info(
+            'success',
+            _('Picking has been validated successfully'))
+        return {'type': 'ir.actions.client', 'tag': 'history_back'}
 
     def _prepare_pack_operation_values(self, candidate_move, available_qty):
         pack_lot_ids = self.env['stock.pack.operation.lot'].search(
@@ -170,34 +173,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.picking_id:
             domain.append(('picking_id', '=', self.picking_id.id))
         return domain
-
-    # def _set_candidate_pickings(self, candidate_pickings):
-    #     # vals = [(5, 0, 0)]
-    #     # vals.extend([(0, 0, {
-    #     #     'picking_id': p.id,
-    #     # }) for p in candidate_pickings])
-    #     # self.candidate_picking_ids = vals
-    #     self.env['wiz.candidate.picking'].search([]).unlink()
-    #     for picking in candidate_pickings:
-    #         self.env['wiz.candidate.picking'].create({
-    #             'picking_id': picking.id,
-    #         })
-
-    # def _search_candidate_pickings(self, operations=False):
-    #     if not operations:
-    #         operations = self.env['stock.pack.operation'].search(
-    #             self._prepare_stock_pack_operation_domain())
-    #     if not self.picking_id:
-    #         candidate_pickings = operations.mapped('picking_id')
-    #         candidate_pickings_count = len(candidate_pickings)
-    #         if candidate_pickings_count > 1:
-    #             self._set_candidate_pickings(candidate_pickings)
-    #             return False
-    #         if candidate_pickings_count == 1:
-    #             self.picking_id = candidate_pickings
-    #             self._set_candidate_pickings(candidate_pickings)
-    #         _logger.info('No picking assigned')
-    #     return True
 
     def _process_stock_move_line(self):
         """
@@ -272,12 +247,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.picking_product_qty = sum(operations.mapped('qty_done'))
         return move_lines_dic
 
-    # def _candidate_picking_selected(self):
-    #     if self.candidate_picking_id:
-    #         return self.candidate_picking_id.picking_id
-    #     else:
-    #         return self.env['stock.picking'].browse()
-
     def check_done_conditions(self):
         res = super(WizStockBarcodesReadPicking, self).check_done_conditions()
         if self.product_id.tracking != 'none' and not self.lot_id:
@@ -287,14 +256,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self._set_message_info(
                 'info', _('Please, select the picking'))
             return False
-            # if not self._search_candidate_pickings():
-            #     self._set_message_info(
-            #         'info', _('Click on picking pushpin to lock it'))
-            #     return False
-        # if self.picking_id != self._candidate_picking_selected():
-        #     self._set_message_info(
-        #         'info', _('Click on picking pushpin to lock it'))
-        #     return False
         return res
 
     def _prepare_scan_log_values(self, log_detail=False):
@@ -330,4 +291,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         log_scan = first(self.scan_log_ids.filtered(
             lambda x: x.create_uid == self.env.user))
         self.remove_scanning_log(log_scan)
+        self.pack_operation_ids = [
+            (6, 0, self.picking_id.pack_operation_ids.ids)]
         return res

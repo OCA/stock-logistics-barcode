@@ -96,23 +96,62 @@
         <field name="model">wiz.stock.barcodes.read.picking</field>
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='manual_entry']" position="after">
-                <label for="confirmed_moves">
-                    Confirmed moves allowed
-                </label>
-                <field name="confirmed_moves" widget="boolean_toggle"/>
-            </xpath>
+<!--            <xpath expr="//field[@name='manual_entry']" position="after">-->
+<!--                <label for="confirmed_moves">-->
+<!--                    Confirmed moves allowed-->
+<!--                </label>-->
+<!--                <field name="confirmed_moves" widget="boolean_toggle"/>-->
+<!--            </xpath>-->
+            <field name="product_qty" position="after">
+                <field name="picking_product_qty"/>
+            </field>
             <field name="location_id" position="after">
                 <field name="picking_type_code" invisible="1" force_save="1"/>
                 <field name="picking_id" widget="selection"/>
                 <field name="product_uom_qty" attrs="{'invisible': [('picking_id', '=', False)]}"/>
                 <field name="product_qty_reserved" attrs="{'invisible': [('picking_id', '=', False)]}"/>
                 <field name="product_qty_done" attrs="{'invisible': [('picking_id', '=', False)]}"/>
-<!--                <field name="candidate_picking_id" attrs="{'invisible': [('candidate_picking_id', '=', False)]}"/>-->
+                <field name="pack_operation_ids" mode="tree,kanban" options="{'no_open': True}"
+                       attrs="{'invisible': [('picking_id', '=', False)]}">
+                    <tree>
+                        <field name="product_id"/>
+                        <field name="product_qty"/>
+                    </tree>
+                    <kanban class="o_kanban_mobile">
+                        <field name="product_id"/>
+                        <field name="product_qty"/>
+                        <templates>
+                            <t t-name="kanban-box">
+                                <div t-attf-class="oe_kanban_card"
+                                     style="background-color:lavender;border: 1px solid transparent;">
+                                    <div class="row">
+                                        <div class="col-xs-8">
+                                            <strong>
+                                                <span><t t-esc="record.product_id.value"/></span>
+                                            </strong>
+                                        </div>
+                                        <div class="col-xs-4">
+                                            <strong>
+                                                <span class="pull-right text-right">
+                                                    <t t-esc="record.product_qty.value"/>
+                                                </span>
+                                            </strong>
+                                        </div>
+                                    </div>
+                                </div>
+                            </t>
+                        </templates>
+                    </kanban>
+                </field>
+                <!--                <field name="candidate_picking_id" attrs="{'invisible': [('candidate_picking_id', '=', False)]}"/>-->
             </field>
-            <field name="product_qty" position="after">
-                <field name="picking_product_qty"/>
-            </field>
+            <xpath expr="//group[@name='manual_entry']" position="after">
+                <group name="validate_picking">
+                    <button name="action_picking_validate" type="object" string="Validate picking"
+                            attrs="{'invisible': [('picking_id', '=', False)]}" icon="fa-check"
+                            class="btn-primary"/>
+                </group>
+            </xpath>
         </field>
     </record>
 

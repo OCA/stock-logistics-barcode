@@ -64,15 +64,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     message = fields.Char(readonly=True)
     manual_entry_message = fields.Char(readonly=True)
 
-    # @api.onchange('product_id')
-    # def onchange_product_id(self):
-    #     if self.product_id:
-    #         if not self.barcode or \
-    #                 (self.barcode and self.product_id.barcode != self.barcode):
-    #             raise UserError(
-    #                 _('You need to be in Manual entry data mode to be able '
-    #                   'to change the product. Please, remove entered product'))
-
     @api.onchange('location_id')
     def onchange_location_id(self):
         self.packaging_id = False
