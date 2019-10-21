@@ -158,7 +158,6 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.assertEqual(self.wiz_scan_picking.picking_product_qty, 0.0)
 
     def test_barcode_from_operation(self):
-        picking_out_3 = self.picking_out_01.copy()
         self.picking_out_01.action_assign()
         self.picking_out_02.action_assign()
 
@@ -174,16 +173,3 @@ class TestStockBarcodesPicking(TestStockBarcodes):
 
         self.wiz_scan_picking.action_manual_entry()
         self.assertEqual(self.picking_out_01.pack_operation_ids.qty_done, 2)
-        # self.wiz_scan_picking.action_manual_entry()
-        # self.assertEqual(self.picking_out_01.pack_operation_ids.qty_done, 4)
-
-        # Picking out 3 is in confirmed state, so until confirmed moves has
-        # not been activated candidate pickings is 2
-        # picking_out_3.action_confirm()
-        # candidate_wiz.action_unlock_picking()
-        # self.wiz_scan_picking.action_manual_entry()
-        # self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 2)
-        # self.wiz_scan_picking.confirmed_moves = True
-        # candidate_wiz.action_unlock_picking()
-        # self.wiz_scan_picking.action_manual_entry()
-        # self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 3)

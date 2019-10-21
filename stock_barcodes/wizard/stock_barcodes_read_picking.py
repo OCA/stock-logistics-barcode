@@ -103,8 +103,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     @api.onchange('product_id')
     def onchange_product_id(self):
         if self.product_id:
-            candidate_picking_ids = self.env['stock.pack.operation'].search(
-                [('product_id', '=', self.product_id.id)]).mapped('picking_id')
+            candidate_picking_ids = self.env['stock.pack.operation'].search([
+                ('product_id', '=', self.product_id.id),
+                ('state', 'in', ['assigned']),
+            ]).mapped('picking_id')
             if self.picking_id not in candidate_picking_ids:
                 self.picking_id = False
             return {'domain': {'picking_id': [
