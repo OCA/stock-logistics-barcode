@@ -2,11 +2,13 @@
 # Copyright 2017 SYLEAM Info Services
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.tools import mute_logger
 from odoo import exceptions
 from odoo.tests import common
 
 
 class TestStockScannerScenario(common.TransactionCase):
+    @mute_logger('odoo.models')
     def test_recursive_scenarios(self):
         """ Should raise if the scenario is recursive """
         parent_scenario = self.env.ref(

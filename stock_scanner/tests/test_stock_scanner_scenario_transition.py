@@ -8,6 +8,7 @@ from odoo.tools.misc import mute_logger
 
 
 class TestStockScannerScenarioTransition(common.TransactionCase):
+    @mute_logger('odoo.models')
     def test_transition_scenarios(self):
         """ Should raise if steps of a transition are on different scenarios
         """
