@@ -120,6 +120,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 (6, 0, self.picking_id.pack_operation_ids.ids)]
             products_in_picking = self.picking_id.pack_operation_ids.mapped(
                 'product_id')
+            if self.picking_id.picking_type_id.code == 'incoming':
+                self.location_id = self.picking_id.location_dest_id
+            elif self.picking_id.picking_type_id.code == 'outgoing':
+                self.location_id = self.picking_id.location_id
             return {'domain': {'product_id': [
                 ('id', 'in', products_in_picking.ids)]}}
 
