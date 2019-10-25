@@ -6,3 +6,10 @@
     background: none !important;
     box-shadow: none !important;
 }
+.overflow_inherit {
+    overflow: inherit !important;
+    overflow-y: scroll !important;
+}
+.breadcrumb_full {
+    width: 100% !important;
+}

@@ -23,6 +23,21 @@ odoo.define('web.FormViewBarcode', function (require) {
                         $(checkbox).blur();
                     });
                 }
+                // This is an ugly fix in order to keep the product when the user removes last scanned log
+                $(".extra_product").css('display', 'none')
+                // Add class that will set overflow: inherit in order to keep responsive view even when button has been clicked
+                if (self.model.includes("wiz.stock.barcodes.read.")) {
+                    $(".o_main").addClass("overflow_inherit");
+                    $(".o_main_content").addClass("overflow_inherit");
+                    $(".breadcrumb").addClass("breadcrumb_full");
+                    $(".o_cp_right").hide();
+                }
+                else {
+                    $(".o_main").removeClass("overflow_inherit");
+                    $(".o_main_content").removeClass("overflow_inherit");
+                    $(".breadcrumb").removeClass("breadcrumb_full");
+                    $(".o_cp_right").show();
+                }
             });
         },
         on_processed_onchange: function (result) {

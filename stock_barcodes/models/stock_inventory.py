@@ -13,10 +13,6 @@ class StockInventory(models.Model):
             'stock_barcodes.action_stock_barcodes_read_inventory').read()[0]
         action['context'] = {
             'default_location_id': self.location_id.id,
-            'default_product_id': self.product_id.id,
-            'default_prod_lot_id': self.lot_id.id,
-            'default_package_id': self.package_id.id,
-            'default_partner_id': self.partner_id.id,
             'default_inventory_id': self.id,
             'default_res_model_id':
                 self.env.ref('stock.model_stock_inventory').id,

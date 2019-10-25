@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.fields import first
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
@@ -22,6 +22,11 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         digits=dp.get_precision('Product Unit of Measure'),
         readonly=True,
     )
+
+    @api.model
+    def default_get(self, fields):
+        res = super(WizStockBarcodesReadInventory, self).default_get(fields)
+        return res
 
     def name_get(self):
         return [
@@ -88,7 +93,9 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         self.inventory_product_qty = 0.0
 
     def action_undo_last_scan(self):
-        res = super(WizStockBarcodesReadInventory, self).action_undo_last_scan()
+        res = super(
+            WizStockBarcodesReadInventory, self).action_undo_last_scan()
+        self.product_id = self.product_id_extra
         log_scan = first(self.scan_log_ids.filtered(
             lambda x: x.create_uid == self.env.user))
         if log_scan:

@@ -294,6 +294,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def action_undo_last_scan(self):
         res = super(WizStockBarcodesReadPicking, self).action_undo_last_scan()
+        self.product_id = self.product_id_extra
         log_scan = first(self.scan_log_ids.filtered(
             lambda x: x.create_uid == self.env.user))
         self.remove_scanning_log(log_scan)
