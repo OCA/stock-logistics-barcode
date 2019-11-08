@@ -140,17 +140,15 @@ class ProductProduct(orm.Model):
         on all ean13 codes of a product when we search an ean13"""
 
         if filter(lambda x: x[0] == 'ean13', args):
-            # get the operator of the search
-            ean_operator = filter(lambda x: x[0] == 'ean13', args)[0][1]
-            # get the value of the search
-            ean_value = filter(lambda x: x[0] == 'ean13', args)[0][2]
+            lst_filter = filter(lambda x: x[0] == 'ean13', args)
+            for elt in lst_filter:
+                elt[0] = 'name'
             # search the ean13
             ean_ids = self.pool.get('product.ean13').search(
-                cr, uid, [('name', ean_operator, ean_value)])
+                cr, uid, lst_filter)
 
             # get the other arguments of the search
-            args = filter(lambda x: x[0] != 'ean13', args)
-            # add the new criterion
-            args += [('ean13_ids', 'in', ean_ids)]
+            for old_ean in filter(lambda x: x[0] == 'ean13', args):
+                old_ean = [('ean13_ids', 'in', ean_ids)]
         return super(ProductProduct, self).search(
             cr, uid, args, offset, limit, order, context=context, count=count)
