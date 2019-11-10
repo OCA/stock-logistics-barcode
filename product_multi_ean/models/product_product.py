@@ -69,7 +69,15 @@ class ProductProduct(models.Model):
         compute_sudo=True,
         inverse_sudo=True,
     )
-
+        
+    add_barcode_on_write = fields.Boolean(
+        string='Add a barcode instead of modifiy',
+        help=''' If a barcode exist, this option will help 
+        to add a new one instead of replacing the existent.
+        ''',
+        default=False
+        )
+        
     @api.multi
     @api.depends('ean13_ids')
     def _compute_barcode(self):
@@ -79,10 +87,10 @@ class ProductProduct(models.Model):
     @api.multi
     def _inverse_barcode(self):
         for product in self:
-            if product.ean13_ids:
+            if product.ean13_ids and not product.add_barcode_on_write:
                 product.ean13_ids[:1].write({'name': product.barcode})
             else:
-                self.env['product.ean13'].create(self._prepare_ean13_vals())
+                self.env['product.ean13'].create(product._prepare_ean13_vals())
 
     @api.multi
     def _prepare_ean13_vals(self):

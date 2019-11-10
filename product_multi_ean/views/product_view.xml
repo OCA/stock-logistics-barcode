@@ -10,6 +10,7 @@
                 <attribute name="readonly">True</attribute>
             </field>
             <field name="barcode" position="after">
+                <field name="add_barcode_on_write"/>
                 <field name="ean13_ids">
                     <tree string="EAN13" editable="bottom">
                         <field name="sequence" widget="handle"/>
