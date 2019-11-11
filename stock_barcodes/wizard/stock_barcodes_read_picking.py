@@ -174,11 +174,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 'picking_id': self.picking_id.id,
             })
             saved_state = self.product_id, self.product_qty, self.lot_id, \
-                self.location_id, self.free_insert, self.picking_type_code
+                self.location_id, self.location_dest_id, self.free_insert, \
+                          self.picking_type_code
             moves_todo._action_confirm(merge=False)
             moves_todo._action_assign()
             self.product_id, self.product_qty, self.lot_id, self.location_id, \
-                self.free_insert, self.picking_type_code = saved_state
+                self.location_dest_id, self.free_insert, \
+                self.picking_type_code = saved_state
         if not self._search_candidate_pickings(moves_todo):
             return False
         lines = moves_todo.mapped('move_line_ids').filtered(
