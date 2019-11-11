@@ -21,4 +21,7 @@ class StockPickingType(models.Model):
         elif self.code in ['outgoing', 'internal']:
             action['context'][
                 'default_location_id'] = self.default_location_src_id.id
+            if self.code == 'internal':
+                action['context']['default_location_dest_id'] = \
+                    self.default_location_dest_id.id
         return action

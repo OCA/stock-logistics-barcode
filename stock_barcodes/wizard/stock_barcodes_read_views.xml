@@ -30,12 +30,6 @@
                         </label>
                         <field name="manual_entry" widget="boolean_toggle"/>
                     </div>
-                    <div>
-                        <label for="free_insert">
-                            Free Insert
-                        </label>
-                        <field name="free_insert" widget="boolean_toggle"/>
-                    </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1"/>
                     <field name="product_tracking" invisible="1" force_save="1"/>

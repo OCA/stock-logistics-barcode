@@ -38,5 +38,14 @@ odoo.define('stock_barcodes.FormController', function(require) {
                     .css({'display': 'none'});
             }
         },
+        canBeDiscarded: function(recordID) {
+            /*
+            This prevents the dialog box telling the user that changes have been made whenever we exit the form view
+            */
+            if (!this.modelName.includes("wiz.stock.barcodes.read.")) {
+                return this._super(recordID);
+            }
+            return $.when(false);
+        },
     });
 });

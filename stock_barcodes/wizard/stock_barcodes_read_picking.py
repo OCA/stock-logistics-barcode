@@ -20,6 +20,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         string='Picking',
         readonly=True,
     )
+    location_dest_id = fields.Many2one(
+        comodel_name='stock.location',
+        string='Destination Location',
+    )
     candidate_picking_ids = fields.One2many(
         comodel_name='wiz.candidate.picking',
         inverse_name='wiz_barcode_id',
@@ -39,6 +43,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     confirmed_moves = fields.Boolean(
         string='Confirmed moves',
     )
+    free_insert = fields.Boolean()
 
     def name_get(self):
         return [
@@ -52,6 +57,17 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if picking_id:
             self._set_candidate_pickings(
                 self.env['stock.picking'].browse(picking_id))
+
+    def _get_locations(self):
+        if self.picking_type_code == 'incoming':
+            location_id = self.picking_id.location_id.id
+            location_dest_id = self.location_id.id
+        elif self.picking_type_code in ['outgoing', 'internal']:
+            location_id = self.location_id.id
+            location_dest_id = self.picking_id.location_dest_id.id
+            if self.picking_type_code == 'internal':
+                location_dest_id = self.location_dest_id.id
+        return location_id, location_dest_id
 
     @api.model
     def create(self, vals):
@@ -83,14 +99,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return result
 
     def _prepare_move_line_values(self, candidate_move, available_qty):
+        location_id, location_dest_id = self._get_locations()
         return {
             'picking_id': self.picking_id.id,
             'move_id': candidate_move.id,
             'qty_done': available_qty,
             'product_uom_id': self.product_id.uom_po_id.id,
             'product_id': self.product_id.id,
-            'location_id': self.picking_id.location_id.id,
-            'location_dest_id': self.location_id.id,
+            'location_id': location_id,
+            'location_dest_id': location_dest_id,
             'lot_id': self.lot_id.id,
             'lot_name': self.lot_id.name,
         }
@@ -156,16 +173,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 'product_uom': self.product_id.uom_po_id.id,
                 'picking_id': self.picking_id.id,
             })
-            product_id = self.product_id
-            product_qty = self.product_qty
-            lot_id = self.lot_id
-            location_id = self.location_id
+            saved_state = self.product_id, self.product_qty, self.lot_id, \
+                self.location_id, self.free_insert, self.picking_type_code
             moves_todo._action_confirm(merge=False)
             moves_todo._action_assign()
-            self.product_id = product_id
-            self.product_qty = product_qty
-            self.lot_id = lot_id
-            self.location_id = location_id
+            self.product_id, self.product_qty, self.lot_id, self.location_id, \
+                self.free_insert, self.picking_type_code = saved_state
         if not self._search_candidate_pickings(moves_todo):
             return False
         lines = moves_todo.mapped('move_line_ids').filtered(
