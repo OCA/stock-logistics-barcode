@@ -88,12 +88,12 @@ class ProductProduct(models.Model):
     def _inverse_barcode(self):
         for product in self:
             if product.ean13_ids :
-                bc_exists = product.ean13_ids.all(lambda bc: bc.name != product.barcode)
-                if not product.add_barcode_on_write and not bc_exists:
+                bc_absent = all(bc.name != product.barcode for bc in product.ean13_ids)
+                if not product.add_barcode_on_write and bc_absent:
                     product.ean13_ids[:1].write({'name': product.barcode})
-                elif product.add_barcode_on_write and bc_exists:
+                elif product.add_barcode_on_write and not bc_absent:
                     return
-                elif product.add_barcode_on_write and not bc_exists: 
+                elif product.add_barcode_on_write and bc_absent: 
                     self.env['product.ean13'].create(product._prepare_ean13_vals())
             else:
                 self.env['product.ean13'].create(product._prepare_ean13_vals())
