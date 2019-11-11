@@ -55,7 +55,7 @@
                     </group>
                     <group>
                         <field name="product_id" options="{'no_create': True}"
-                               attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                               attrs="{'readonly': [('manual_entry', '=', False)]}"
                                force_save="1"/>
                         <field name="packaging_id" options="{'no_create': True}" domain="[('product_id', '=', product_id)]" attrs="{'readonly': [('manual_entry', '=', False)]}" force_save="1" groups="product.group_stock_packaging"/>
                         <field name="packaging_qty" attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}" force_save="1" widget="FieldFloatNumericMode"/>

@@ -11,13 +11,21 @@ class StockPicking(models.Model):
         location = self.location_id if out_picking else self.location_dest_id
         action = self.env.ref(
             'stock_barcodes.action_stock_barcodes_read_picking').read()[0]
+        free_insert = False
+        manual_entry = False
+        if self.state in ['draft', 'waiting', 'confirmed']:
+            free_insert = True
+            manual_entry = True
         action['context'] = {
             'default_location_id': location.id,
+            'default_location_dest_id': self.location_dest_id.id,
             'default_partner_id': self.partner_id.id,
             'default_picking_id': self.id,
+            'default_picking_type_id': self.picking_type_id.id,
             'default_res_model_id':
                 self.env.ref('stock.model_stock_picking').id,
             'default_res_id': self.id,
-            'default_picking_type_code': self.picking_type_code,
+            'default_free_insert': free_insert,
+            'default_manual_entry': manual_entry,
         }
         return action

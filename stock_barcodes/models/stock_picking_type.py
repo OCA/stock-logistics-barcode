@@ -13,7 +13,7 @@ class StockPickingType(models.Model):
             'default_res_model_id':
                 self.env.ref('stock.model_stock_picking_type').id,
             'default_res_id': self.id,
-            'default_picking_type_code': self.code,
+            'default_picking_type_id': self.id,
         }
         if self.code == 'incoming':
             action['context'][
@@ -21,4 +21,7 @@ class StockPickingType(models.Model):
         elif self.code in ['outgoing', 'internal']:
             action['context'][
                 'default_location_id'] = self.default_location_src_id.id
+            if self.code == 'internal':
+                action['context']['default_location_dest_id'] = \
+                    self.default_location_dest_id.id
         return action
