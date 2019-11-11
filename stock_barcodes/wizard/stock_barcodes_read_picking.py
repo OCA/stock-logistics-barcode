@@ -144,6 +144,28 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         StockMove = self.env['stock.move']
         StockMoveLine = self.env['stock.move.line']
         moves_todo = StockMove.search(self._prepare_stock_moves_domain())
+        if self.free_insert and not moves_todo:
+            self.product_qty = 1
+            moves_todo += StockMove.create({
+                'name': _('New Move:') + self.product_id.display_name,
+                'product_id': self.product_id.id,
+                'location_id': self.picking_id.location_id.id,
+                'location_dest_id':
+                    self.picking_id.location_dest_id.id,
+                'product_uom_qty': self.product_qty,
+                'product_uom': self.product_id.uom_po_id.id,
+                'picking_id': self.picking_id.id,
+            })
+            product_id = self.product_id
+            product_qty = self.product_qty
+            lot_id = self.lot_id
+            location_id = self.location_id
+            moves_todo._action_confirm(merge=False)
+            moves_todo._action_assign()
+            self.product_id = product_id
+            self.product_qty = product_qty
+            self.lot_id = lot_id
+            self.location_id = location_id
         if not self._search_candidate_pickings(moves_todo):
             return False
         lines = moves_todo.mapped('move_line_ids').filtered(

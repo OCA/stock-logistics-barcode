@@ -61,6 +61,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         ('success', 'Barcode read correctly'),
     ], readonly=True)
     message = fields.Char(readonly=True)
+    free_insert = fields.Boolean()
 
     @api.onchange('location_id')
     def onchange_location_id(self):
