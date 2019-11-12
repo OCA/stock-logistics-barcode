@@ -13,7 +13,7 @@ class StockPickingType(models.Model):
             'default_res_model_id':
                 self.env.ref('stock.model_stock_picking_type').id,
             'default_res_id': self.id,
-            'default_picking_type_code': self.code,
+            'default_picking_type_id': self.id,
         }
         if self.code == 'incoming':
             action['context'][

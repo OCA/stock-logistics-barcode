@@ -80,14 +80,18 @@
                     Confirmed moves allowed
                 </label>
                 <field name="confirmed_moves" widget="boolean_toggle"/>
-                <label for="free_insert" attrs="{'invisible': [('picking_id', '=', False)]}">
+                <label for="free_insert">
                     Free Insert
                 </label>
-                <field name="free_insert" widget="boolean_toggle"
-                       attrs="{'invisible': [('picking_id', '=', False)]}"/>
+                <field name="free_insert" widget="boolean_toggle"/>
+                <label for="new_picking">
+                    New Picking
+                </label>
+                <field name="new_picking" widget="boolean_toggle"/>
             </xpath>
             <field name="location_id" position="before">
-                <field name="picking_type_code" invisible="1" force_save="1"/>
+                <field name="picking_type_id" invisible="1"/>
+                <field name="picking_type_code" invisible="1"/>
                 <field name="picking_id"/>
             </field>
             <field name="location_id" position="after">
