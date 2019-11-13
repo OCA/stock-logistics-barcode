@@ -49,7 +49,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     manual_entry = fields.Boolean(
         string='Manual entry data',
     )
-    free_insert = fields.Boolean()
     # Computed field for display all scanning logs from res_model and res_id
     # when change product_id
     scan_log_ids = fields.Many2many(
@@ -74,10 +73,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def onchange_location_id(self):
         self.packaging_id = False
         self.product_id = False
-
-    @api.onchange('free_insert')
-    def onchange_free_insert(self):
-        self.manual_entry = self.free_insert
 
     @api.onchange('packaging_qty')
     def onchange_packaging_qty(self):
@@ -108,10 +103,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info(
                     'not_found', _('The product type is not allowed'))
                 return
-            if self.free_insert:
-                self.product_id = product
-                self.product_qty = 1
-                return
             self.action_product_scaned_post(product)
             self.action_done()
             return
@@ -133,10 +124,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(lot) == 1:
                 self.product_id = lot.product_id
             if lot:
-                if self.free_insert:
-                    self.lot_id = lot
-                    self.product_qty = 1
-                    return
                 self.action_lot_scaned_post(lot)
                 self.action_done()
                 return

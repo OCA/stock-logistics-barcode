@@ -114,6 +114,11 @@
                     </field>
                 </group>
             </xpath>
+            <button name="action_manual_entry" position="after">
+                <button name="action_automatic_entry" type="object" string="Automatic entry" icon="fa-plus"
+                        class="btn-primary barcode-automatic-entry" invisible="1"
+                />
+            </button>
         </field>
     </record>
 
