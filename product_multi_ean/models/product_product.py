@@ -87,6 +87,8 @@ class ProductProduct(models.Model):
     @api.multi
     def _inverse_barcode(self):
         for product in self:
+            if not product.barcode or product.barcode is None:
+                return                
             if product.ean13_ids :
                 bc_absent = all(bc.name != product.barcode for bc in product.ean13_ids)
                 if not product.add_barcode_on_write and bc_absent:
