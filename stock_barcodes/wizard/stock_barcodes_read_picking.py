@@ -111,6 +111,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.packaging_qty = 0.0
         return result
 
+    def action_automatic_entry(self):
+        self.action_manual_entry()
+
     def _prepare_move_line_values(self, candidate_move, available_qty):
         location_id, location_dest_id = self._get_locations()
         return {

@@ -63,7 +63,7 @@
                         <field name="product_qty"  attrs="{'invisible': [('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}" force_save="1" widget="FieldFloatNumericMode"/>
                     </group>
                     <group/>
-                    <group>
+                    <group col="1">
                         <button name="action_manual_entry" type="object" string="Manual entry" icon="fa-plus"
                                 attrs="{'invisible': [('manual_entry', '=', False)]}"
                                 class="btn-primary"

@@ -103,6 +103,12 @@
             <field name="product_qty" position="after">
                 <field name="picking_product_qty"/>
             </field>
+            <button name="action_manual_entry" position="after">
+                <button name="action_automatic_entry" type="object" string="Automatic entry" icon="fa-plus"
+                        attrs="{'invisible': ['|', ('manual_entry', '=', True), ('free_insert', '=', False)]}"
+                        class="btn-primary automatic-entry"
+                />
+            </button>
         </field>
     </record>
 
