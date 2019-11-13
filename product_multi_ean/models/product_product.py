@@ -8,6 +8,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError
 
+_logger = logging.getLogger(__name__)
 
 class ProductEan13(models.Model):
     _name = 'product.ean13'
@@ -37,9 +38,9 @@ class ProductEan13(models.Model):
         for record in self.filtered('name'):
                 if not barcode_obj.check_ean(record.name):
                     raise UserError(
-                        _('You provided an invalid "EAN13 Barcode" reference. '
+                        _('You provided an invalid "EAN13 Barcode" reference : %s '
                           'You may use the "Internal Reference" '
-                          'field instead.'))
+                          'field instead.') % (record.name, ))
 
     @api.multi
     @api.constrains('name')
