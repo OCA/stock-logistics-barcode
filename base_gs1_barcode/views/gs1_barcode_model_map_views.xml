@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="gs1_barcode_model_map_tree_view" model="ir.ui.view">
+        <field name="name">gs1_barcode.model.map.tree</field>
+        <field name="model">gs1_barcode.model.map</field>
+        <field name="arch" type="xml">
+            <tree string="GS1-128/GS1-Datamatrix decoding model map">
+                <field name="gs1_barcode_id" />
+                <field name="model_id"/>
+                <field name="field_id"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="gs1_barcode_model_map_form_view" model="ir.ui.view">
+        <field name="name">gs1_barcode.model.map.form</field>
+        <field name="model">gs1_barcode.model.map</field>
+        <field name="arch" type="xml">
+            <form string="GS1-128/GS1-Datamatrix decoding model map">
+                <sheet>
+                    <group name="application_identifier" string="Application Identifier">
+                        <field name="ai"/>
+                        <field name="gs1_barcode_id" colspan="4"/>
+                    </group>
+                    <group name="model_mapping" string="Field">
+                        <field name="model_id"/>
+                        <newline/>
+                        <field name="field_id"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Add a menu entry for the configuration of GSA-128 mapping -->
+    <record id="action_config_gs1_barcode_model_map" model="ir.actions.act_window">
+        <field name="name">GS1-128/GS1-Datamatrix Model Mapping</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gs1_barcode.model.map</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem action="action_config_gs1_barcode_model_map" id="menu_config_gs1_barcode_model_map" parent="base.next_id_9"/>
+
+</odoo>

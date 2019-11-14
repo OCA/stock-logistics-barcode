@@ -13,5 +13,8 @@
         'stock_barcodes',
         'base_gs1_barcode',
     ],
+    "data": [
+        'data/gs1_barcode_model_map_data.xml',
+    ],
     'installable': True,
 }

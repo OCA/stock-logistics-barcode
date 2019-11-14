@@ -31,15 +31,38 @@ class WizStockBarcodesRead(models.AbstractModel):
         """ Only has been implemented AI (01, 02, 10, 37), so is possible that
         scanner reads a barcode ok but this one is not precessed.
         """
+        model_map = self.env['gs1_barcode.model.map'].search([])
         try:
             barcode_decoded = self.env['gs1_barcode'].decode(barcode)
         except Exception:
             return super().process_barcode(barcode)
         processed = False
-        package_barcode = barcode_decoded.get('01', False)
-        product_barcode = barcode_decoded.get('02', False)
-        lot_barcode = barcode_decoded.get('10', False)
-        product_qty = barcode_decoded.get('37', False)
+        model = self.env.ref(
+            'stock_barcodes_gs1.model_wiz_stock_barcodes_read')
+        package_field = self.env.ref(
+            'stock_barcodes.field_wiz_stock_barcodes_read_packaging_id')
+        package_map = model_map.filtered(
+            lambda m: m.model_id == model
+            and m.field_id == package_field)
+        package_barcode = barcode_decoded.get(package_map.ai, False)
+        product_field = self.env.ref(
+            'stock_barcodes.field_wiz_stock_barcodes_read_product_id')
+        product_map = model_map.filtered(
+            lambda m: m.model_id == model
+            and m.field_id == product_field)
+        product_barcode = barcode_decoded.get(product_map.ai, False)
+        lot_field = self.env.ref(
+            'stock_barcodes.field_wiz_stock_barcodes_read_lot_id')
+        lot_map = model_map.filtered(
+            lambda m: m.model_id == model
+            and m.field_id == lot_field)
+        lot_barcode = barcode_decoded.get(lot_map.ai, False)
+        product_qty_field = self.env.ref(
+            'stock_barcodes.field_wiz_stock_barcodes_read_product_qty')
+        lot_map = model_map.filtered(
+            lambda m: m.model_id == model
+            and m.field_id == product_qty_field)
+        product_qty = barcode_decoded.get(lot_map.ai, False)
         if product_barcode:
             product = self.env['product.product'].search(
                 self._barcode_domain(product_barcode))

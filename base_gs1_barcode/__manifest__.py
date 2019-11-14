@@ -10,8 +10,9 @@
         'base',
     ],
     'data': [
-        'views/gs1_barcode.xml',
-        'views/res_users.xml',
+        'views/gs1_barcode_views.xml',
+        'views/gs1_barcode_model_map_views.xml',
+        'views/res_users_views.xml',
         'data/gs1_barcode.csv',
         "security/ir.model.access.csv",
     ],

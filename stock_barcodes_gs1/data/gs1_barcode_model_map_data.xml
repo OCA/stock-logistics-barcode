@@ -1,0 +1,26 @@
+<?xml version="1.0" ?>
+<!--
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+    <record id="GTIN" model="gs1_barcode.model.map">
+        <field name="model_id" ref="stock_barcodes.model_wiz_stock_barcodes_read"/>
+        <field name="field_id" ref="stock_barcodes.field_wiz_stock_barcodes_read_packaging_id"/>
+        <field name="gs1_barcode_id" ref="base_gs1_barcode.GTIN"/>
+    </record>
+    <record id="CONTENT_GTIN" model="gs1_barcode.model.map">
+        <field name="model_id" ref="stock_barcodes.model_wiz_stock_barcodes_read"/>
+        <field name="field_id" ref="stock_barcodes.field_wiz_stock_barcodes_read_product_id"/>
+        <field name="gs1_barcode_id" ref="base_gs1_barcode.CONTENT_GTIN"/>
+    </record>
+    <record id="LOT" model="gs1_barcode.model.map">
+        <field name="model_id" ref="stock_barcodes.model_wiz_stock_barcodes_read"/>
+        <field name="field_id" ref="stock_barcodes.field_wiz_stock_barcodes_read_lot_id"/>
+        <field name="gs1_barcode_id" ref="base_gs1_barcode.LOT"/>
+    </record>
+    <record id="NB_CONTAINED" model="gs1_barcode.model.map">
+        <field name="model_id" ref="stock_barcodes.model_wiz_stock_barcodes_read"/>
+        <field name="field_id" ref="stock_barcodes.field_wiz_stock_barcodes_read_product_qty"/>
+        <field name="gs1_barcode_id" ref="base_gs1_barcode.NB_CONTAINED"/>
+    </record>
+</odoo>
