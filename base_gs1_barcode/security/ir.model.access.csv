@@ -1,5 +1,5 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-"access_gs1_barcode","gs1_barcode","model_gs1_barcode","base.group_user",1,0,0,0
-"access_gs1_barcode_admin","gs1_barcode admin","model_gs1_barcode","base.group_system",1,1,1,1
-"access_gs1_barcode_model_map","gs1_barcode_model_map","model_gs1_barcode_model_map","base.group_user",1,0,0,0
-"access_gs1_barcode_model_map_admin","gs1_barcode_model_map admin","model_gs1_barcode_model_map","base.group_user",1,1,1,1
+"access_gs1_barcode","access_gs1_barcode","model_gs1_barcode","base.group_user",1,0,0,0
+"access_gs1_barcode_admin","access_gs1_barcode admin","model_gs1_barcode","base.group_system",1,1,1,1
+"access_gs1_barcode_model_map","access_gs1_barcode_model_map","model_gs1_barcode_model_map","base.group_user",1,0,0,0
+"access_gs1_barcode_model_map_admin","access_gs1_barcode_model_map admin","model_gs1_barcode_model_map","base.group_user",1,1,1,1
