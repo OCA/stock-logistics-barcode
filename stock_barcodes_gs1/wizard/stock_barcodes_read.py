@@ -38,6 +38,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         processed = False
         package_barcode = barcode_decoded.get('01', False)
         product_barcode = barcode_decoded.get('02', False)
+        if not product_barcode:
+            # Sometimes the product does not yet have a GTIN. In this case
+            # try the AI 240 'Additional product identification assigned
+            # by the manufacturer'.
+            product_barcode = barcode_decoded.get('240', False)
         lot_barcode = barcode_decoded.get('10', False)
         product_qty = barcode_decoded.get('37', False)
         if product_barcode:
