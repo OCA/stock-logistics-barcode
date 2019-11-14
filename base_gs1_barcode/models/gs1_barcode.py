@@ -83,9 +83,15 @@ class GS1Barcode(models.Model):
             return fields.Date.to_string(date)
 
         # Prefix and Group Separator
+        # Search if the barcode contains the \x1D group separator already,
+        # and then use it. Some scanners are able to pass this group separator,
+        # and others are not able. If a user works with both devices,
+        # this is becomes the most effective mechanism to ensure co-existence.
+        if '\x1D' in barcode_string:
+            separator = '\x1D'
+        else:
+            separator = self.env.user.gs1_barcode_separator or '\x1D'
         prefix = self.env.user.gs1_barcode_prefix or ''
-        separator = self.env.user.gs1_barcode_separator or '\x1D'
-
         if not barcode_string.startswith(prefix):
             raise exceptions.ValidationError(
                 _('Could not decode barcode : wrong prefix - the code should '
