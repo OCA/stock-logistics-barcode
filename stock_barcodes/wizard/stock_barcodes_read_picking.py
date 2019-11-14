@@ -46,6 +46,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     confirmed_moves = fields.Boolean(
         string='Confirmed moves',
     )
+    free_insert = fields.Boolean()
     new_picking = fields.Boolean()
 
     def name_get(self):
@@ -96,7 +97,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self._set_default_picking()
 
     def action_done(self):
-        if self.check_done_conditions():
+        if self.check_done_conditions() and \
+                self.env.context.get('manual_entry', False):
             res = self._process_stock_move_line()
             if res:
                 self._add_read_log(res)
@@ -106,13 +108,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_manual_entry(self):
         result = super().action_manual_entry()
         if result:
-            self.action_done()
+            self.with_context(manual_entry=True).action_done()
         self.product_qty = 0.0
         self.packaging_qty = 0.0
         return result
 
     def action_automatic_entry(self):
-        self.action_manual_entry()
+        self._set_messagge_info('success', _('Barcode read correctly'))
+        if self.manual_entry:
+            self.action_manual_entry()
 
     def _prepare_move_line_values(self, candidate_move, available_qty):
         location_id, location_dest_id = self._get_locations()

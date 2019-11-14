@@ -12,6 +12,7 @@
     "depends": [
         'barcodes',
         'stock',
+        'stock_barcodes_automatic_entry'
     ],
     "data": [
         'security/ir.model.access.csv',

@@ -13,7 +13,6 @@ class StockPicking(models.Model):
         manual_entry = False
         if self.state in ['draft', 'waiting', 'confirmed']:
             free_insert = True
-            manual_entry = True
         action['context'] = {
             'default_location_id': self.location_id.id,
             'default_location_dest_id': self.location_dest_id.id,

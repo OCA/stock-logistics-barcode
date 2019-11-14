@@ -53,11 +53,5 @@ odoo.define('stock_barcodes.FormController', function(require) {
             }
             return $.when(false);
         },
-        _barcodeActiveScanned: function (method, barcode, activeBarcode) {
-            var self = this;
-            return this._super.apply(this, arguments).then(function () {
-                $(".automatic-entry").trigger('click')
-            })
-        },
     });
 });

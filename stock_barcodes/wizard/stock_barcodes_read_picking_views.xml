@@ -105,8 +105,7 @@
             </field>
             <button name="action_manual_entry" position="after">
                 <button name="action_automatic_entry" type="object" string="Automatic entry" icon="fa-plus"
-                        attrs="{'invisible': ['|', ('manual_entry', '=', True), ('free_insert', '=', False)]}"
-                        class="btn-primary automatic-entry"
+                        class="btn-primary barcode-automatic-entry" invisible="1"
                 />
             </button>
         </field>

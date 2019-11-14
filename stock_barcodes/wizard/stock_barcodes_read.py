@@ -48,7 +48,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     manual_entry = fields.Boolean(
         string='Manual entry data',
     )
-    free_insert = fields.Boolean()
     # Computed field for display all scanning logs from res_model and res_id
     # when change product_id
     scan_log_ids = fields.Many2many(
@@ -68,25 +67,21 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.packaging_id = False
         self.product_id = False
 
-    @api.onchange('free_insert')
-    def onchange_free_insert(self):
-        self.manual_entry = self.free_insert
-
     @api.onchange('packaging_qty')
     def onchange_packaging_qty(self):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    def _set_messagge_info(self, type, messagge):
+    def _set_messagge_info(self, type, message):
         """
         Set message type and message description.
         For manual entry mode barcode is not set so is not displayed
         """
         self.message_type = type
         if self.barcode:
-            self.message = _('Barcode: %s (%s)') % (self.barcode, messagge)
+            self.message = _('Barcode: %s (%s)') % (self.barcode, message)
         else:
-            self.message = '%s' % messagge
+            self.message = '%s' % message
 
     def process_barcode(self, barcode):
         self._set_messagge_info('success', _('Barcode read correctly'))
@@ -96,10 +91,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(product) > 1:
                 self._set_messagge_info(
                     'more_match', _('More than one product found'))
-                return
-            if self.free_insert:
-                self.product_id = product
-                self.product_qty = 1
                 return
             self.action_product_scaned_post(product)
             self.action_done()
@@ -122,10 +113,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(lot) == 1:
                 self.product_id = lot.product_id
             if lot:
-                if self.free_insert:
-                    self.lot_id = lot
-                    self.product_qty = 1
-                    return
                 self.action_lot_scaned_post(lot)
                 self.action_done()
                 return
