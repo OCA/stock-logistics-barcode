@@ -115,7 +115,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def action_automatic_entry(self):
         self._set_messagge_info('success', _('Barcode read correctly'))
-        if self.manual_entry:
+        if not self.manual_entry:
             self.action_manual_entry()
 
     def _prepare_move_line_values(self, candidate_move, available_qty):
@@ -188,20 +188,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             })
             self._set_default_picking()
         moves_todo = StockMove.search(self._prepare_stock_moves_domain())
-        if self.free_insert and not moves_todo:
-            self.product_qty = 1
-            moves_todo += StockMove.create({
-                'name': _('New Move:') + self.product_id.display_name,
-                'product_id': self.product_id.id,
-                'picking_type_id': self.picking_type_id.id,
-                'location_id': self.picking_id.location_id.id,
-                'location_dest_id':
-                    self.picking_id.location_dest_id.id,
-                'product_uom_qty': self.product_qty,
-                'product_uom': self.product_id.uom_po_id.id,
-                'picking_id': self.picking_id.id,
-            })
-            moves_todo._action_confirm()
+        if self.free_insert:
+            if not moves_todo:
+                # self.product_qty = 1
+                moves_todo += StockMove.create({
+                    'name': _('New Move:') + self.product_id.display_name,
+                    'product_id': self.product_id.id,
+                    'picking_type_id': self.picking_type_id.id,
+                    'location_id': self.picking_id.location_id.id,
+                    'location_dest_id':
+                        self.picking_id.location_dest_id.id,
+                    'product_uom_qty': self.product_qty,
+                    'product_uom': self.product_id.uom_po_id.id,
+                    'picking_id': self.picking_id.id,
+                })
+                moves_todo._action_confirm()
+            else:
+                moves_todo[0].write({
+                    'product_uom_qty': (moves_todo[0].product_uom_qty +
+                                        self.product_qty)
+                })
             moves_todo._action_assign()
 #            self.picking_id.with_context(mail_notrack=True).action_assign()
         if not self._search_candidate_pickings(moves_todo):
