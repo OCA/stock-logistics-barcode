@@ -1,0 +1,140 @@
+/*Overloading Default CSS*/
+.item-divider{
+    text-align: center;
+}
+
+.list{
+    margin-bottom: 10px;
+}
+
+.button-balanced, .button-calm, .button-assertive, .button-royal{
+    border: 2px solid;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.item-input{
+    font-size:12px !important;
+}
+
+a.item{
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#f0f0fa), to(#eeeef6));
+    border-radius: 4px;
+}
+
+.action-click{
+    cursor: pointer;
+}
+
+.header .col  {
+    background-color:lightgrey;
+    text-align: center;
+    font-weight: bold;
+}
+
+.row .col {
+    border: solid 1px grey;
+}
+
+/* Custom Classes CSS*/
+
+.col-button{
+    text-align: center;
+}
+
+.button-col-small{
+    padding: 0;
+    min-width: 40px;
+    min-height: 40px;
+
+}
+
+.loading-active{
+    background-color: yellow;
+}
+
+.top-right-icon {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    bottom: 5px;
+    padding: 4px 8px;
+    font-size: 25px;
+}
+
+.input-optional, .select-optional{
+    background-color: rgb(200, 255, 200) !important;
+}
+
+.input-required, .select-required{
+    background-color: rgb(200, 200, 255) !important;
+}
+
+.input-optional, .select-optional, .input-required, .select-required{
+    border: 2px solid rgb(255, 255, 255) !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+    padding-left: 4px !important;
+}
+
+.input-optional:focus, .select-optional:focus, .input-required:focus, .select-required:focus{
+    border: 2px solid rgb(50, 50, 50) !important;
+    border-radius: 4px !important;
+    margin: 2px !important;
+    padding-left: 4px !important;
+}
+
+.select-required{
+    height: 34px;
+    line-height: 16px;
+}
+
+.form-label, .form-field{
+    font-size:12px !important;
+    padding:2px;
+}
+
+.form-label{
+    font-weight:bold;
+}
+
+.load-quantity{
+    margin-right: 15px;
+}
+
+.secondary-line{
+    font-size: small;
+}
+
+.inventory-line-qty{
+    margin-top: 20px;
+}
+
+
+.toggleAnim.ng-enter {
+    opacity: 1;
+    transition: opacity 1s linear;
+}
+.toggleAnim.ng-leave {
+    opacity: 0.30;
+    transition: opacity 1s linear;
+}
+.toggleAnim.ng-change {
+    color: gray;
+}
+
+.state-unset{
+    background-color: #FFFFFF;
+}
+
+.state-pending{
+    background-color: #FFFF88;
+}
+
+.state-done{
+    background-color: #33FF33;
+}
+
+.state-too_much{
+    background-color: #FF6666;
+}

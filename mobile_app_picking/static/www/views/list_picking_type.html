@@ -1,0 +1,44 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title">{{'Picking Types' | translate}}</h1>
+        <span class="top-right-icon icon ion-shuffle"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+        <form ng-submit="submit()">
+
+            <div class="list list-insert">
+                <label class="item item-input">
+                    <i class="icon ion-search placeholder-icon"></i>
+                    <input type="text" id="input_search" placeholder="{{'Search' | translate }}" ng-model="data.filter"
+                    class="item-input input-optional with_focus">
+                </label>
+            </div>
+
+            <div class="list">
+                <ion-list>
+                    <ion-item ng-repeat="pickingType in data.pickingTypes | filter: data.filter">
+                        <a class="item" ui-sref="list_picking({picking_type_id: pickingType.id})">
+                            <div style="float: left;">
+                                <h2>{{pickingType.name}}</h2>
+                                <p>
+                                    <span class="secondary-line">{{pickingType.warehouse.code}} - {{pickingType.warehouse.name}}</span>
+                                </p>
+                            </div>
+                            <div style="float: right;">
+                                <img src="static/img/{{pickingType.code}}.png"/>
+                            </div>
+                        </a>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </form>
+    </ion-content>
+
+    <ion-footer-bar class="bar-assertive" ng-show="data.pickingTypes.length === 0">
+      <h1 class="title">No Picking Type set</h1>
+    </ion-footer-bar>
+
+</ion-view>

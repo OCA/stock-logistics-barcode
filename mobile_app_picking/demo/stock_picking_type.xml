@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="stock.picking_type_in" model="stock.picking.type">
+        <field name="mobile_available" eval="True"/>
+        <field name="mobile_product_field_ids" eval="[(6, 0, [
+            ref('product.field_product_product_categ_id')])]"/>
+    </record>
+
+    <record id="stock.picking_type_out" model="stock.picking.type">
+        <field name="mobile_available" eval="True"/>
+        <field name="mobile_product_field_ids" eval="[(6, 0, [
+            ref('product.field_product_product_categ_id')])]"/>
+    </record>
+
+</odoo>

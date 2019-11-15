@@ -1,0 +1,97 @@
+<ion-view title="{{'Scan To Picking' | translate}}">
+
+    <ion-header-bar class="bar bar-header bar-stable">
+        <button menu-toggle="right" class="button button-icon ion-navicon"></button>
+        <h1 class="title loading_item">{{'Moves' | translate}}</h1>
+        <span class="top-right-icon icon ion-clipboard"></span>
+    </ion-header-bar>
+
+    <ion-content class="has-header" data-ng-init="init()">
+
+        <div class="list">
+          <div class="item item-input">
+            <div class = "col col-10"></div>
+              <button class="button button-balanced col-80" translate="Scanner"
+                    ui-sref="main_scan({
+                        picking_type_id: params.picking_type_id,
+                        picking_id: params.picking_id,
+                        move_id: 0})"
+              />
+            <div class = "col col-10"></div>
+          </div>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Picking' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Partner' | translate}}</div>
+              <span class="form-field col-66">{{data.picking.partner.name}}</span>
+          </label>
+          <label class="item item-input">
+              <div class="form-label col-33">{{'State' | translate}}</div>
+              <span class="form-field col-66">
+                <span ng-show="data.picking.state == 'draft'">{{'Draft' | translate}}</span>
+                <span ng-show="data.picking.state == 'waiting'">{{'Awaiting other operation' | translate}}</span>
+                <span ng-show="data.picking.state == 'confirmed'">{{'Confirmed' | translate}}</span>
+                <span ng-show="data.picking.state == 'assigned'">{{'Ready' | translate}}</span>
+                <span ng-show="data.picking.state == 'done'">{{'Done' | translate}}</span>
+                <span ng-show="data.picking.state == 'cancel'">{{'Cancelled' | translate}}</span>
+              </span>
+          </label>
+
+          <label class="item item-input">
+              <div class="form-label col-33">{{'Display All' | translate}}</div>
+              <span class="form-field col-66">
+                  <ion-checkbox ng-model="data.display_all" ng-click="click_display_all()"></ion-checkbox>
+              </span>
+          </label>
+
+          <label class="item item-input">
+            <div class="form-label col-33">
+              
+              <button class="button button-royal"
+                  translate="Validate Picking"
+                  ui-sref="picking_validate({
+                      picking_type_id: params.picking_type_id,
+                      picking_id: params.picking_id})"/>
+            </div>
+            <div class="form-label col-33">&nbsp;</div>
+            <div class="form-label col-33">
+              <button class="button button-royal"
+                  translate="Do not Validate"
+                  ui-sref="list_picking({
+                        picking_type_id: params.picking_type_id})"/>
+            </div>
+
+          </label>
+
+        </div>
+
+        <!--                     -->
+        <!-- -List of Moves      -->
+        <!--                     -->
+
+        <div class="row header">
+
+          <div class="col col-40">{{'Product' | translate}}</div>
+          <div class="col col-40">{{'Quantity' | translate}}</div>
+          <div class="col col-20">&nbsp;</div>
+
+        </div>
+        <div ng-repeat="move in data.moves | filter:{display_state: data.filter}" class="row" >
+            <div class="col col-40 action-click" ng-click="see_move(move)">{{move.product.display_name}}
+            </div>
+            <div class="col col-40 action-click state-{{move.state}}" ng-click="see_move(move)">
+              {{move.qty_done}} / {{move.qty_expected}} <br/>
+              {{move.uom.name}}
+            </div>
+            <div class="col col-20 col-button">
+                <button class="button button-assertive button-col-small" ng-click="reset_qty(move)"/>
+                    <i class="icon ion-close"></i>
+                </button>
+            </div>
+        </div>
+
+    </ion-content>
+
+</ion-view>

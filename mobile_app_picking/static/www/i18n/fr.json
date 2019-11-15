@@ -1,0 +1,54 @@
+{
+    "Scan To Picking": "Scan -> Transfert",
+
+    "Credits": "Crédits",
+    "Log In": "Se connecter",
+    "Log Out": "Se déconnecter",
+
+    "Authentication": "Authentification",
+    "Database": "Base",
+    "Login": "Identifiant",
+    "Password": "Mot de passe",
+    "Bad Login / Password": "Identifiants incorrects",
+    "Insufficient Acces Right: you should be member of ''Warehouse / user' group." : "Droits d'accès insuffisants : Vous devez être membre du groupe 'Inventaire / Utilisateur'.",
+    "Unreachable Service": "Service indisponible",
+
+    "Picking Types": "Types d'opérations",
+    "Search": "Rechercher",
+    "No Picking Type set": "Aucun Type de transfert paramétré",
+
+    "Pickings": "Transferts",
+    "Backorder of": "Reliquat de",
+    "No Picking available": "Aucun transfert disponible",
+
+    "Moves": "Mouvements",
+    "Picking": "Transfert",
+    "Partner": "Partenaire",
+    "State": "État",
+    "Display All": "Afficher tout",
+    "Product": "Article",
+    "Quantity": "Quantité",
+    "Validate": "Valider",
+    "Draft": "Brouillon",
+    "Awaiting other operation": "En attente d'une autre opération",
+    "Confirmed": "En attente",
+    "Ready": "Prêt",
+    "Done": "Fait",
+    "Cancelled": "Annulé",
+
+    "Scanner": "Scanner",
+    "Barcode or Quantity": "Code Barre / Quantité",
+    "Back to picking": "Revenir au transfert",
+    "OK": "OK",
+    "Incorrect quantity": "Quantité incorrecte",
+    "Barcode not found in the picking": "Code Barre non lié à ce transfert",
+    "Please first scan a product": "Veuillez d'abord scanner un article",
+    "Many operations found": "Plusieurs opérations trouvées",
+
+    "Validate Picking": "Valider l'opération",
+    "Do not Validate": "Ne pas valider",
+    "Full Validate": "Valider toutes les lignes",
+    "Validate with Backorder": "Valider avec reliquat",
+    "Validate without Backorder": "Valider sans reliquat",
+    "": ""
+}

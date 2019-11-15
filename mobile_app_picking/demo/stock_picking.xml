@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2019-Today: GRAP (http://www.grap.coop)
+@author Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="picking_in_A" model="stock.picking">
+        <field name="picking_type_id" ref="stock.picking_type_in"/>
+        <field name="partner_id" ref="base.res_partner_4"/>
+        <field name="location_id" ref="stock.stock_location_suppliers"/>
+        <field name="location_dest_id" ref="stock.stock_location_stock"/>
+        <field name="origin">Mobile App Demo</field>
+    </record>
+
+    <record id="move_A_1" model="stock.move">
+        <field name="name">Demo Computer Case</field>
+        <field name="picking_id" ref="picking_in_A"/>
+        <field name="product_id" ref="product.product_product_16"/>
+        <field name="location_id" ref="stock.stock_location_suppliers"/>
+        <field name="location_dest_id" ref="stock.stock_location_stock"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_uom_qty">30</field>
+    </record>
+
+    <record id="move_A_2" model="stock.move">
+        <field name="name">Demo Bose Speaker</field>
+        <field name="picking_id" ref="picking_in_A"/>
+        <field name="product_id" ref="product.product_product_5b"/>
+        <field name="location_id" ref="stock.stock_location_suppliers"/>
+        <field name="location_dest_id" ref="stock.stock_location_stock"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_uom_qty">80</field>
+    </record>
+
+    <record id="move_A_3" model="stock.move">
+        <field name="name">IPad Retina Display</field>
+        <field name="picking_id" ref="picking_in_A"/>
+        <field name="product_id" ref="product.product_product_4"/>
+        <field name="location_id" ref="stock.stock_location_suppliers"/>
+        <field name="location_dest_id" ref="stock.stock_location_stock"/>
+        <field name="product_uom" ref="product.product_uom_unit"/>
+        <field name="product_uom_qty">20</field>
+    </record>
+
+    <function model="stock.picking" name="action_confirm"
+        eval="[[ref('picking_in_A')]]"/>
+
+</odoo>
