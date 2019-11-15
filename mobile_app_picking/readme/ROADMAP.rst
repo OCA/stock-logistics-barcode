@@ -11,4 +11,6 @@
   ``stock.group_stock_multi_locations`` or ``stock.group_tracking_owner``
   See the functions ``_compute_show_details_visible`` and
   ``_compute_is_quantity_done_editable`` for more detals.
-  
+
+* Could be interesting to merge the two views ``list_move`` and
+  ``main_scan`` into a single one module.
