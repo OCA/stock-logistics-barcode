@@ -5,8 +5,8 @@ This module was written to extend the functionality of odoo Stock module.
 
 You could be interested by different OCA implementions of such features:
 
-* ``stock_scanner`` approach.
-  `Link <https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_scanner>`_.
+* ``stock_scanner`` approach:
+  https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_scanner
 
-* ``stock_barcodes`` approach.
-  `Link <https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_barcodes>`_.
+* ``stock_barcodes`` approach:
+  https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_barcodes
