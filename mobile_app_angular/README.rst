@@ -13,21 +13,33 @@ Mobile App - Angular Framework
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-legalsylvain%2Fstock--logistic--barcode-lightgray.png?logo=github
-    :target: https://github.com/legalsylvain/stock-logistic-barcode/tree/11.0/mobile_app_angular
-    :alt: legalsylvain/stock-logistic-barcode
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/11.0/mobile_app_angular
+    :alt: OCA/stock-logistics-barcode
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-11-0/stock-logistics-barcode-11-0-mobile_app_angular
+    :alt: Translate me on Weblate
+.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
+    :target: https://runbot.odoo-community.org/runbot/150/11.0
+    :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module is a toolkit module that provides Angular JS 1.1 librairy usefull
 for mobile applications. It does'nt provide any end features by itself.
 
 **Technical Information**
 
-Once installed the following standard librairies are available
+Once installed the following standard librairies are available, and can
+be included in mobile applications provided by odoo by the following path
+
+* ``<script src="/mobile_app_angular/static/src/lib/JS_FILE_PATH"></script>``
+
+* ``<link href="/mobile_app_angular/static/src/lib/CSS_FILE_PATH" rel="stylesheet">``
 
 
-* [Angular JS v1.1](https://angularjs.org/)
+
+* (Angular JS v1.1)[https://angularjs.org/]
 * [Angular Translate](https://angular-translate.github.io/)
 * [Ionic Framework](http://ionicframework.com/)
 * [Ionic Icons](http://ionicons.com/)
@@ -50,10 +62,10 @@ with an odoo instance.
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/legalsylvain/stock-logistic-barcode/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/legalsylvain/stock-logistic-barcode/issues/new?body=module:%20mobile_app_angular%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20mobile_app_angular%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -79,9 +91,16 @@ Contributors
 Maintainers
 ~~~~~~~~~~~
 
+This module is maintained by the OCA.
 
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
 
-This module is part of the `legalsylvain/stock-logistic-barcode <https://github.com/legalsylvain/stock-logistic-barcode/tree/11.0/mobile_app_angular>`_ project on GitHub.
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
 
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/11.0/mobile_app_angular>`_ project on GitHub.
 
-You are welcome to contribute.
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
