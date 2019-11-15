@@ -13,16 +13,30 @@ Mobile App - Picking
 .. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
-.. |badge3| image:: https://img.shields.io/badge/github-legalsylvain%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/legalsylvain/stock-logistics-barcode/tree/11.0_ADD_mobile_app_picking/mobile_app_picking
-    :alt: legalsylvain/stock-logistics-barcode
+.. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/11.0/mobile_app_picking
+    :alt: OCA/stock-logistics-barcode
+.. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-11-0/stock-logistics-barcode-11-0-mobile_app_picking
+    :alt: Translate me on Weblate
+.. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
+    :target: https://runbot.odoo-community.org/runbot/150/11.0
+    :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| 
+|badge1| |badge2| |badge3| |badge4| |badge5| 
 
 This module provides a light Web app to scan products Barcode to handle
 stock pickings with a barcode reader.
 
 This module was written to extend the functionality of odoo Stock module.
+
+You could be interested by different OCA implementions of such features:
+
+* ``stock_scanner`` approach:
+  https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_scanner
+
+* ``stock_barcodes`` approach:
+  https://github.com/OCA/stock-logistics-barcode/tree/11.0/stock_barcodes
 
 **Table of contents**
 
@@ -45,7 +59,7 @@ Optionaly you can put two extra settings:
   on the mobile app.
 
 
-.. figure:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/stock_picking_type_form.png
+.. figure:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/stock_picking_type_form.png
 
 Usage
 =====
@@ -76,7 +90,7 @@ if all your odoo databases have ``mobile_app_picking`` installed.
 |                                              |                              |
 +----------------------------------------------+------------------------------+
 |                                              |                              |
-| The next screen displays the detail of the   | |list_move_line|             |
+| The next screen displays the detail of the   | |list_move|                  |
 | operations.                                  |                              |
 |                                              |                              |
 | To go the scan screen, click on the          |                              |
@@ -106,12 +120,14 @@ if all your odoo databases have ``mobile_app_picking`` installed.
 |                                              |                              |
 +----------------------------------------------+------------------------------+
 |                                              |                              |
-| You can reset a quantity if you did a bad    | |confirmation|               |
+| You can reset a quantity if you did a bad    | |list_move_change|           |
 | operation, by clicking on the button on the  |                              |
 | end of each line.                            |                              |
 |                                              |                              |
 | When your picking is finished, click on the  |                              |
 | 'Validate' button.                           |                              |
+|                                              |                              |
++----------------------------------------------+------------------------------+
 |                                              |                              |
 | It will create a                             |                              |
 | backorder or not, depending on the           |                              |
@@ -131,22 +147,25 @@ difference between expected and done quantity :
 * ``green`` : done quantity corresponds to the expected quantity
 * ``red``: done quantity is over the expected quantity
 
-.. |authentication| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_01_authentication.png
+.. |authentication| image:: ../static/description/mobile_01_authentication.png
    :width: 300 px
 
-.. |list_picking_type| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_02_list_picking_type.png
+.. |list_picking_type| image:: ../static/description/mobile_02_list_picking_type.png
    :width: 300 px
 
-.. |list_picking| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_03_list_picking.png
+.. |list_picking| image:: ../static/description/mobile_03_list_picking.png
    :width: 300 px
 
-.. |list_move_line| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_04_list_move_line.png
+.. |list_move| image:: ../static/description/mobile_04_list_move.png
    :width: 300 px
 
-.. |scan_mode| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_05_scan_mode.png
+.. |scan_mode| image:: ../static/description/mobile_05_scan_mode.png
    :width: 300 px
 
-.. |confirmation| image:: https://raw.githubusercontent.com/legalsylvain/stock-logistics-barcode/11.0_ADD_mobile_app_picking/mobile_app_picking/static/description/mobile_06_list_move_line_confirmation.png
+.. |list_move_change| image:: ../static/description/mobile_06_list_move_change.png
+   :width: 300 px
+
+.. |confirmation| image:: ../static/description/mobile_07_confirmation.png
    :width: 300 px
 
 
@@ -173,13 +192,26 @@ Known issues / Roadmap
 
 * The UI doesn't allow to add an unexpected product on the fly.
 
+* In practice, the mobile app emulate the actions of the user, changing
+  Done quantity of stock moves of a given picking.
+  This action is allowed by odoo under certain conditions, that are
+  defined by the field ``is_quantity_done_editable`` of the ``stock.picking``.
+  Using this module if this field is unchecked could generate problems.
+  This field is disabled (amoung others conditions) if user is member of
+  ``stock.group_stock_multi_locations`` or ``stock.group_tracking_owner``
+  See the functions ``_compute_show_details_visible`` and
+  ``_compute_is_quantity_done_editable`` for more detals.
+
+* Could be interesting to merge the two views ``list_move`` and
+  ``main_scan`` into a single one module.
+
 Bug Tracker
 ===========
 
-Bugs are tracked on `GitHub Issues <https://github.com/legalsylvain/stock-logistics-barcode/issues>`_.
+Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/legalsylvain/stock-logistics-barcode/issues/new?body=module:%20mobile_app_picking%0Aversion:%2011.0_ADD_mobile_app_picking%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20mobile_app_picking%0Aversion:%2011.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -206,9 +238,16 @@ The development of this module has been financially supported by:
 Maintainers
 ~~~~~~~~~~~
 
+This module is maintained by the OCA.
 
+.. image:: https://odoo-community.org/logo.png
+   :alt: Odoo Community Association
+   :target: https://odoo-community.org
 
-This module is part of the `legalsylvain/stock-logistics-barcode <https://github.com/legalsylvain/stock-logistics-barcode/tree/11.0_ADD_mobile_app_picking/mobile_app_picking>`_ project on GitHub.
+OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.
 
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/11.0/mobile_app_picking>`_ project on GitHub.
 
-You are welcome to contribute.
+You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
