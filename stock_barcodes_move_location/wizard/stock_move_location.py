@@ -20,7 +20,7 @@ class StockMoveLocationWizard(models.TransientModel):
             'stock_barcodes_move_location.'
             'action_stock_barcodes_read_stock_move_location').read()[0]
         action['context'] = {
-            'default_location_id': self.destination_location_id.id,
+            'default_location_id': self.origin_location_id.id,
             'default_move_location_id': self.id,
             'default_res_model_id':
                 self.env.ref(

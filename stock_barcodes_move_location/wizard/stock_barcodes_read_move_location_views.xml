@@ -6,8 +6,14 @@
         <field name="model">wiz.stock.barcodes.read.move.location</field>
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form"/>
         <field name="arch" type="xml">
+            <field name="location_id"  position="attributes">
+                <attribute name="string">Origin Location</attribute>
+            </field>
             <field name="location_id" position="before">
                 <field name="move_location_id" invisible="not context.get('default_default_move_location_id', False)"/>
+            </field>
+            <field name="location_id" position="after">
+                <field name="location_dest_id"/>
             </field>
             <field name="product_qty" position="after">
                 <field name="move_location_qty"/>

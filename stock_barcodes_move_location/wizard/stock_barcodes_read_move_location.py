@@ -20,6 +20,11 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         digits=dp.get_precision('Product Unit of Measure'),
         readonly=True,
     )
+    location_dest_id = fields.Many2one(
+        comodel_name='stock.location',
+        string='Destination Location',
+        readonly=True,
+    )
 
     def name_get(self):
         return [
@@ -41,13 +46,13 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         max_quantity = res[0]['quantity']
         # Apply the putaway strategy
         move_location_dest_id = self.move_location_id.destination_location_id
-        location_dest_id = \
+        self.location_dest_id = \
             self.move_location_id.destination_location_id.get_putaway_strategy(
-                self.product_id).id or move_location_dest_id.id
+                self.product_id) or move_location_dest_id
         return {
             'product_id': self.product_id.id,
             'origin_location_id': self.move_location_id.origin_location_id.id,
-            'destination_location_id': location_dest_id,
+            'destination_location_id': self.location_dest_id.id,
             'product_uom_id': self.product_id.uom_id.id,
             'move_quantity': self.product_qty,
             'lot_id': self.lot_id.id,
@@ -67,6 +72,7 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         else:
             line = MoveLocationLine.create(self._prepare_move_location_line())
             self.move_location_id.stock_move_location_line_ids = [(4, line.id)]
+
         self.move_location_qty = line.move_quantity
 
     def check_done_conditions(self):
