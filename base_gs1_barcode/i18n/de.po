@@ -206,7 +206,7 @@ msgid "Container Width/Diameter/2nd Dimension, in yards"
 msgstr "Container Breite/Durchmesser/2. Dimension (Yards)"
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:91
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:97
 #, python-format
 msgid ""
 "Could not decode barcode : wrong prefix - the code should start with \"%s\""
@@ -215,7 +215,7 @@ msgstr ""
 "\"%s\" beginnen"
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:153
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:159
 #, python-format
 msgid ""
 "Could not decode barcode: incorrect value for Application Identifer \"%s\" "
@@ -225,7 +225,7 @@ msgstr ""
 "Position %d"
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:174
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:180
 #, python-format
 msgid "Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
