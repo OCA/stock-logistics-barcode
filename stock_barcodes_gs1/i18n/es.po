@@ -18,31 +18,31 @@ msgstr ""
 "X-Generator: Poedit 2.0.6\n"
 
 #. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:48
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:53
 #, python-format
 msgid "Barcode for product not found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:58
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:63
 #, python-format
 msgid "Barcode for product packaging not found"
 msgstr "Código de barras de empaquetado no encontrado"
 
 #. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:76
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:81
 #, python-format
 msgid "Barcode not found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:74
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:79
 #, python-format
 msgid "Barcode read correctly"
 msgstr "Código de barras leído correctamente"
 
 #. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:63
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:68
 #, python-format
 msgid "More than one package found"
 msgstr "Se ha encontrado más de un empaquetado."
