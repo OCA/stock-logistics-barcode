@@ -6,7 +6,7 @@
 {
     "name": "Generate Barcodes for Partners",
     "summary": "Generate Barcodes for Partners",
-    "version": "11.0.1.0.0",
+    "version": "11.0.1.0.5",
     "category": "Tools",
     "author": "GRAP," "La Louve," "Odoo Community Association (OCA)",
     "website": "https://www.odoo-community.org",
