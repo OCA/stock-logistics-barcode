@@ -16,6 +16,7 @@ msgstr ""
 #. module: stock_barcodes_gs1_expiry
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_new_lot_use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_inventory_use_date
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_move_location_use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_picking_use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_use_date
 msgid "Best before Date"
@@ -25,6 +26,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_new_lot_life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_inventory_life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_life_date
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_move_location_life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_picking_life_date
 msgid "End of Life Date"
 msgstr ""
