@@ -4,7 +4,7 @@
     "name": "Stock Barcodes GS1 Expiry",
     "summary": "It provides read expiry dates from GS1 barcode on "
                "stock operations.",
-    "version": "11.0.1.0.0",
+    "version": "12.0.1.0.0",
     "author": "Tecnativa, "
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
