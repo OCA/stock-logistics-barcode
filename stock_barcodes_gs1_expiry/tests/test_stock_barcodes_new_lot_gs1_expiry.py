@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.addons.stock_barcodes_gs1.tests.test_stock_barcodes_new_lot_gs1\
     import TestStockBarcodesNewLotGS1
+from datetime import datetime
 
 
 class TestStockBarcodesNewLotGS1Expiry(TestStockBarcodesNewLotGS1):
@@ -14,10 +15,10 @@ class TestStockBarcodesNewLotGS1Expiry(TestStockBarcodesNewLotGS1):
     def test_new_lot_gs1_no_lot_expiry(self):
         self.action_barcode_scanned(self.wiz_scan_lot, self.gs1_barcode_01)
         self.action_barcode_scanned(self.wiz_scan_lot, self.gs1_barcode_01)
-        self.assertEqual(self.wiz_scan_lot.life_date, '2014-07-04 00:00:00')
+        self.assertEqual(self.wiz_scan_lot.life_date, datetime(2014, 7, 4, 0, 0))
         self.action_barcode_scanned(
             self.wiz_scan_lot, self.gs1_barcode_01_use_date)
-        self.assertEqual(self.wiz_scan_lot.use_date, '2019-07-04 00:00:00')
+        self.assertEqual(self.wiz_scan_lot.use_date, datetime(2019, 7, 4, 0, 0))
         wiz_scan = self.env['wiz.stock.barcodes.read.inventory'].create({})
         self.wiz_scan_lot.with_context(
             active_model=wiz_scan._name,
@@ -27,5 +28,5 @@ class TestStockBarcodesNewLotGS1Expiry(TestStockBarcodesNewLotGS1):
             ('name', '=', 'AB-123'),
             ('product_id', '=', self.wiz_scan_lot.product_id.id),
         ])
-        self.assertEqual(lot.life_date, '2014-07-04 00:00:00')
-        self.assertEqual(lot.use_date, '2019-07-04 00:00:00')
+        self.assertEqual(lot.life_date, datetime(2014, 7, 4, 0, 0))
+        self.assertEqual(lot.use_date, datetime(2019, 7, 4, 0, 0))
