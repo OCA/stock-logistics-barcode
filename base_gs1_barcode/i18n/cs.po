@@ -54,8 +54,8 @@ msgid "Any character string"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_ai
-#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__ai
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
 msgid "Application Identifier"
 msgstr ""
 
@@ -276,12 +276,12 @@ msgid "Coupon code ID (North America)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_create_uid
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__create_uid
 msgid "Created by"
 msgstr "Vytvořil(a)"
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_create_date
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__create_date
 msgid "Created on"
 msgstr "Vytvořeno"
 
@@ -296,12 +296,12 @@ msgid "Customer Purchase Order Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
 msgid "Data Description"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_data_type
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__data_type
 msgid "Data Type"
 msgstr ""
 
@@ -316,17 +316,17 @@ msgid "Date/time of production"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_decimal
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__decimal
 msgid "Decimal Indicator"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_name
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__name
 msgid "Description"
 msgstr "Popis"
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_display_name
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__display_name
 msgid "Display Name"
 msgstr "Zobrazovaný název"
 
@@ -341,7 +341,7 @@ msgid "Expiration Date"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_fixed
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_fixed
 msgid "Fixed-length Data"
 msgstr ""
 
@@ -362,13 +362,13 @@ msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.ui.view,arch_db:base_gs1_barcode.view_users_form_gs1_barcode
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.view_users_form_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix barcodes"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 
@@ -403,12 +403,12 @@ msgid "Global Trade Item Number (GTIN)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users_gs1_barcode_separator
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__gs1_barcode_separator
 msgid "Group Separator"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_id
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__id
 msgid "ID"
 msgstr "ID"
 
@@ -418,14 +418,14 @@ msgid "Identification of a physical location (Global Location Number)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_decimal
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__decimal
 msgid ""
 "Indicates whether a digit is expected before the data for this Application "
 "Identifier to indicate the position of the decimal point."
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_fixed
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_fixed
 msgid ""
 "Indicates whether the length of the data for this Application Identifier is "
 "fixed or not."
@@ -482,17 +482,17 @@ msgid "International Bank Account Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode___last_update
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode____last_update
 msgid "Last Modified on"
 msgstr "Naposled upraveno"
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_write_uid
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__write_uid
 msgid "Last Updated by"
 msgstr "Naposled upraveno"
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_write_date
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__write_date
 msgid "Last Updated on"
 msgstr "Naposled upraveno"
 
@@ -502,22 +502,22 @@ msgid "Made-to-Order Variation Number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_max
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_max
 msgid "Maximum Data Length"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_max
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_max
 msgid "Maximum length of the data for this Application Identifier."
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode_length_min
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_min
 msgid "Minimum Data Length"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_length_min
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_min
 msgid "Minimum length of the data for this Application Identifier."
 msgstr ""
 
@@ -567,7 +567,7 @@ msgid "Payment slip reference number"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users_gs1_barcode_prefix
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__gs1_barcode_prefix
 msgid "Prefix"
 msgstr ""
 
@@ -828,7 +828,7 @@ msgid "The Application Identifier must be unique!"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_res_users_gs1_barcode_separator
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_separator
 msgid ""
 "The characters that the barcode scanner will send when a <GS> (Group "
 "Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is "
@@ -837,14 +837,14 @@ msgid ""
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_res_users_gs1_barcode_prefix
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_prefix
 msgid ""
 "The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix "
 "codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode_ai
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__ai
 msgid "The standard Application Identifier (AI)"
 msgstr ""
 
