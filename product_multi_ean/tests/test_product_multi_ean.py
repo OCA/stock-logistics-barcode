@@ -2,10 +2,12 @@
 # © 2018 Xavier Jimenez (QubiQ)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, at_install, post_install
 from ..hooks import post_init_hook
 
 
+@at_install(False)
+@post_install(True)
 class TestProductMultiEan(TransactionCase):
     def setUp(self):
         super(TestProductMultiEan, self).setUp()
