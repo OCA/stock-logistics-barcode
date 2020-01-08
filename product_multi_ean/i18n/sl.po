@@ -92,20 +92,17 @@ msgid "Sequence"
 msgstr "Zaporedje"
 
 #. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:51
+#: code:addons/product_multi_ean/models/product_product.py:39
 #, python-format
 msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\""
 msgstr "EAN13 črtna koda \"%s\" za proizvod \"%s\" že obstaja"
 
-#. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:39
-#, python-format
-msgid ""
-"You provided an invalid \"EAN13 Barcode\" reference. You may use the "
-"\"Internal Reference\" field instead."
-msgstr ""
-"Podali ste neveljaven sklic za \"EAN13 črtno kodo\". Namesto tega lahko "
-"uporabite polje \"Interni sklic\"."
+#~ msgid ""
+#~ "You provided an invalid \"EAN13 Barcode\" reference. You may use the "
+#~ "\"Internal Reference\" field instead."
+#~ msgstr ""
+#~ "Podali ste neveljaven sklic za \"EAN13 črtno kodo\". Namesto tega lahko "
+#~ "uporabite polje \"Interni sklic\"."
 
 #~ msgid "True"
 #~ msgstr "Pravilno"
