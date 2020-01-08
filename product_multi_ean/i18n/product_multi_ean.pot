@@ -83,7 +83,8 @@ msgid "Sequence"
 msgstr ""
 
 #. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:51
+#: code:addons/product_multi_ean/models/product_product.py:39
 #, python-format
 msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\""
 msgstr ""
+
