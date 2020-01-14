@@ -5,7 +5,7 @@
 {
     'name': 'Mobile App - Tools',
     'summary': 'Provides generic tools by API for Mobile Apps',
-    'version': '11.0.2.0.0',
+    'version': '12.0.1.0.0',
     'category': 'Tools',
     'author': 'GRAP,Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/stock-logistics-barcode',

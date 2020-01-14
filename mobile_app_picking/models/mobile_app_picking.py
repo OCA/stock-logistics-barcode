@@ -8,7 +8,7 @@ from odoo.exceptions import UserError
 
 class MobileAppPicking(models.Model):
     _name = 'mobile.app.picking'
-    _inherit = ['mobile.app.mxin']
+    _inherit = ['mobile.app.mixin']
 
     # Overload Section
     @api.model

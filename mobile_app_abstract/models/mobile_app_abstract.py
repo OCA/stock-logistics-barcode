@@ -6,7 +6,8 @@ from odoo import api, models
 
 
 class MobileAppAbstract(models.AbstractModel):
-    _name = 'mobile.app.mxin'
+    _name = 'mobile.app.mixin'
+    _description = "Mobile App Mixin Abstract Model"
 
     # To Overload Section
     @api.model
