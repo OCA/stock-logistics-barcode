@@ -83,14 +83,22 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return result
 
     def _prepare_move_line_values(self, candidate_move, available_qty):
+        """When we've got an out picking, the logical workflow is that
+           the scanned location is the location we're getting the stock
+           from"""
+        out_move = candidate_move.picking_code == 'outgoing'
+        location_id = (
+            self.location_id if out_move else self.picking_id.location_id)
+        location_dest_id = (
+            self.picking_id.location_id if out_move else self.location_id)
         return {
             'picking_id': self.picking_id.id,
             'move_id': candidate_move.id,
             'qty_done': available_qty,
             'product_uom_id': self.product_id.uom_po_id.id,
             'product_id': self.product_id.id,
-            'location_id': self.picking_id.location_id.id,
-            'location_dest_id': self.location_id.id,
+            'location_id': location_id.id,
+            'location_dest_id': location_dest_id.id,
             'lot_id': self.lot_id.id,
             'lot_name': self.lot_id.name,
         }
