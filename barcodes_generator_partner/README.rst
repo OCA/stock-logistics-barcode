@@ -38,7 +38,7 @@ Usage
 
 To use this module, you need to:
 
-* Go to a Product form (or a template form):
+* Go to a Customer/Contact form, Sales & Purchases Tab:
 
 1 for manual generation
     * Set a Barcode Rule
@@ -50,7 +50,11 @@ To use this module, you need to:
     * click on the button 'Generate Base (Using Sequence)'
     * click on the button 'Generate Barcode (Using Barcode Rule)'
 
-.. image:: /barcodes_generator/static/description/res_partner_sequence_generation.png
+.. image:: /barcodes_generator_partner/static/description/res_partner_sequence_generation.png
+   :width: 1100px
+
+|
+|
 
 Try this module on Runbot
 
@@ -93,6 +97,7 @@ Contributors
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
 * Dave Lasley <dave@laslabs.com>
+* Druidoo <http://druidoo.io>
 
 Maintainer
 ----------
