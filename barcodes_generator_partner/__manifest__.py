@@ -16,7 +16,6 @@
     'license': 'AGPL-3',
     'depends': [
         'barcodes_generator_abstract',
-        'point_of_sale',
     ],
     'data': [
         'views/view_res_partner.xml',
