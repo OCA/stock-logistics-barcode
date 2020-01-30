@@ -62,18 +62,6 @@ Try this module on Runbot
    :alt: Try me on Runbot
    :target: https://runbot.odoo-community.org/runbot/150/10.0
 
-Known issues / Roadmap
-======================
-
-Dependency to point_of_sale is required because barcode field, defined in 'base'
-module (in the res.partner model), is defined in a 'point_of_sale' view.
-
-It's a relative problem, because barcodes generation for partners will occures
-mostly in a Point of Sale context, to give barcodes to customers.
-
-You could comment 'point_of_sale' dependencies if you want to use this module
-without point of sale installed.
-
 Bug Tracker
 ===========
 
