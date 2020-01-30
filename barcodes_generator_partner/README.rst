@@ -85,7 +85,7 @@ Contributors
 
 * Sylvain LE GAL (https://twitter.com/legalsylvain)
 * Dave Lasley <dave@laslabs.com>
-* Druidoo <http://druidoo.io>
+* Druidoo <https://www.druidoo.io>
 
 Maintainer
 ----------
