@@ -11,3 +11,9 @@ class BarcodeRule(models.Model):
 
     generate_model = fields.Selection(
         selection_add=[('res.partner', 'Partners')])
+
+    type = fields.Selection(
+        selection_add=[
+            ('client', 'Client'),
+        ]
+    )
