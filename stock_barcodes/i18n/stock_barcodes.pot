@@ -138,8 +138,8 @@ msgid "Clean lot"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:205
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:209
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:213
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:217
 #, python-format
 msgid "Click on picking pushpin to lock it"
 msgstr ""
@@ -538,7 +538,7 @@ msgid "Stock move lines"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:182
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:190
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr ""
@@ -580,7 +580,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:68
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:200
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:208
 #, python-format
 msgid "Waiting for input lot"
 msgstr ""
@@ -634,7 +634,7 @@ msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:229
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:237
 #, python-format
 msgid "You can not remove an entry linked to a stock move line in state assigned or confirmed"
 msgstr ""
