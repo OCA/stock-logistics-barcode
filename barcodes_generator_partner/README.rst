@@ -25,10 +25,6 @@ Generate Barcodes for Partners
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
 
-==============================
-Generate Barcodes for Partners
-==============================
-
 This module expands Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for Partners.
 
