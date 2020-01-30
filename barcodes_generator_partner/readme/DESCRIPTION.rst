@@ -1,7 +1,3 @@
-==============================
-Generate Barcodes for Partners
-==============================
-
 This module expands Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for Partners.
 
