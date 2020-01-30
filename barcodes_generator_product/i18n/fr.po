@@ -76,6 +76,11 @@ msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
 
 #. module: barcodes_generator_product
+#: selection:barcode.rule,generate_model:0
+msgid "Partners"
+msgstr ""
+
+#. module: barcodes_generator_product
 #: model:ir.model,name:barcodes_generator_product.model_product_product
 msgid "Product"
 msgstr "Article"
