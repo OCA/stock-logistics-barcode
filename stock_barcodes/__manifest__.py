@@ -3,7 +3,7 @@
 {
     "name": "Stock Barcodes",
     "summary": "It provides read barcode on stock operations.",
-    "version": "11.0.2.0.1",
+    "version": "11.0.2.0.2",
     "author": "Tecnativa, "
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
