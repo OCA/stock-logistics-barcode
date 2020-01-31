@@ -90,7 +90,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         location_id = (
             self.location_id if out_move else self.picking_id.location_id)
         location_dest_id = (
-            self.picking_id.location_id if out_move else self.location_id)
+            self.picking_id.location_dest_id if out_move else self.location_id)
         return {
             'picking_id': self.picking_id.id,
             'move_id': candidate_move.id,
