@@ -1,18 +1,18 @@
-# -*- coding: utf-8 -*-
+
 # Copyright 2017 LasLabs Inc.
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from odoo.tests.common import SavepointCase
 
-from odoo.tests.common import TransactionCase
 
+class TestBarcodeGenerator(SavepointCase):
 
-class TestBarcodeGenerator(TransactionCase):
-
-    def setUp(self):
-        super(TestBarcodeGenerator, self).setUp()
-        self.record = self.env.ref(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.record = cls.env.ref(
             'barcodes_generator_location.stock_location_barcode',
         )
-        self.record.generate_barcode()
+        cls.record.generate_barcode()
 
     def test_generate_base(self):
         """ It should generate the correct base for the barcode. """
