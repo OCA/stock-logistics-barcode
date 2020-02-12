@@ -20,26 +20,48 @@ msgstr ""
 "%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: barcodes_generator_location
-#: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
+#: model:ir.model,name:barcodes_generator_location.model_barcode_rule
+msgid "Barcode Rule"
+msgstr ""
+
+#. module: barcodes_generator_location
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
 msgid "Generate Barcode"
 msgstr "Generiraj barkodove"
 
 #. module: barcodes_generator_location
-#: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
 msgid "Generate Base (Using Sequence)"
 msgstr "Generiraj osnovno ( koristi br.krug)"
 
 #. module: barcodes_generator_location
-#: model:stock.location,name:barcodes_generator_location.stock_location_barcode
-msgid "Location with Generated Barcode"
-msgstr "Lokacija sa generiranim barkodom"
+#: model:ir.model.fields,field_description:barcodes_generator_location.field_barcode_rule__generate_model
+msgid "Generate Model"
+msgstr ""
 
 #. module: barcodes_generator_location
+#: model:ir.model.fields,help:barcodes_generator_location.field_barcode_rule__generate_model
+msgid "If 'Generate Type' is set, mention the model related to this rule."
+msgstr ""
+
+#. module: barcodes_generator_location
+#: selection:barcode.rule,generate_model:0
+msgid "Partners"
+msgstr ""
+
+#. module: barcodes_generator_location
+#: selection:barcode.rule,generate_model:0
+msgid "Products"
+msgstr ""
+
+#. module: barcodes_generator_location
+#: selection:barcode.rule,generate_model:0
 #: model:ir.model,name:barcodes_generator_location.model_stock_location
 msgid "Stock Location"
 msgstr "Lokacija zalihe"
 
-#. module: barcodes_generator_location
-#: model:ir.model,name:barcodes_generator_location.model_barcode_rule
-msgid "barcode.rule"
-msgstr "barcode.rule"
+#~ msgid "Location with Generated Barcode"
+#~ msgstr "Lokacija sa generiranim barkodom"
+
+#~ msgid "barcode.rule"
+#~ msgstr "barcode.rule"
