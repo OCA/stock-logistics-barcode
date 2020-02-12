@@ -21,17 +21,17 @@ msgstr ""
 #. module: barcodes_generator_location
 #: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
 msgid "Generate Barcode"
-msgstr ""
+msgstr "Generar Código de Barras"
 
 #. module: barcodes_generator_location
 #: model:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
 msgid "Generate Base (Using Sequence)"
-msgstr ""
+msgstr "Generar Base (utilizando secuencia)"
 
 #. module: barcodes_generator_location
 #: model:stock.location,name:barcodes_generator_location.stock_location_barcode
 msgid "Location with Generated Barcode"
-msgstr ""
+msgstr "Ubicación con Código de Barras generado"
 
 #. module: barcodes_generator_location
 #: model:ir.model,name:barcodes_generator_location.model_stock_location
