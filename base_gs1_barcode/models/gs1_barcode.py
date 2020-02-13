@@ -57,7 +57,6 @@ class GS1Barcode(models.Model):
         "Data Type",
         default="string",
         required=True,
-        oldname="type",
     )
 
     _sql_constraints = [

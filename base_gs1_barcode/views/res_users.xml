@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_users_form_gs1_barcode" model="ir.ui.view">
         <field name="name">res.users.form.gs1_barcode</field>
