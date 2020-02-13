@@ -1,9 +1,12 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.tests import common
+
 from odoo.addons.stock_barcodes.tests.test_stock_barcodes import TestStockBarcodes
 
 
+@common.tagged("post_install", "-at_install")
 class TestStockBarcodesGS1(TestStockBarcodes):
     def setUp(self):
         super().setUp()
@@ -19,10 +22,10 @@ class TestStockBarcodesGS1(TestStockBarcodes):
             "01993167101234533101002620130" "5041710ABC123214145354"
         )
 
-        self.product_wo_tracking_gs1 = self.product_wo_tracking.copy(
+        self.product_wo_tracking_gs1 = self.product_wo_tracking.with_context({}).copy(
             {"barcode": "07010001234567"}
         )
-        self.product_tracking_gs1 = self.product_tracking.copy()
+        self.product_tracking_gs1 = self.product_tracking.with_context({}).copy()
         self.packaging_gs1 = self.ProductPackaging.create(
             {
                 "product_id": self.product_wo_tracking_gs1.id,
@@ -43,7 +46,7 @@ class TestStockBarcodesGS1(TestStockBarcodes):
             "(Barcode for product packaging not found)",
         )
         # Scan packaging barcode with more than one package
-        self.packaging_gs1.copy({"barcode": "19501101530000"})
+        self.packaging_gs1.with_context({}).copy({"barcode": "19501101530000"})
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
         self.assertEqual(
             self.wiz_scan.message,
@@ -65,7 +68,11 @@ class TestStockBarcodesGS1(TestStockBarcodes):
     def test_wizard_scan_gs1_lot(self):
         self.packaging_gs1.product_id = self.product_tracking_gs1
         lot = self.StockProductionLot.create(
-            {"name": "AB-123", "product_id": self.product_tracking_gs1.id}
+            {
+                "name": "AB-123",
+                "product_id": self.product_tracking_gs1.id,
+                "company_id": self.company.id,
+            }
         )
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
         self.assertEqual(self.wiz_scan.lot_id, lot)
