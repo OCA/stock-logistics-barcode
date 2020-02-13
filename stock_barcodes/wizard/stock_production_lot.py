@@ -19,7 +19,11 @@ class WizStockBarcodesNewLot(models.TransientModel):
         self.lot_name = barcode
 
     def _prepare_lot_values(self):
-        return {"product_id": self.product_id.id, "name": self.lot_name}
+        return {
+            "product_id": self.product_id.id,
+            "name": self.lot_name,
+            "company_id": self.env.user.company_id.id,
+        }
 
     def confirm(self):
         lot = self.env["stock.production.lot"].create(self._prepare_lot_values())
