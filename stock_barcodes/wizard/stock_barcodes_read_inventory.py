@@ -4,8 +4,6 @@ from odoo import _, fields, models
 from odoo.exceptions import ValidationError
 from odoo.fields import first
 
-from odoo.addons import decimal_precision as dp
-
 
 class WizStockBarcodesReadInventory(models.TransientModel):
     _name = "wiz.stock.barcodes.read.inventory"
@@ -14,9 +12,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
 
     inventory_id = fields.Many2one(comodel_name="stock.inventory", readonly=True)
     inventory_product_qty = fields.Float(
-        string="Inventory quantities",
-        digits=dp.get_precision("Product Unit of Measure"),
-        readonly=True,
+        string="Inventory quantities", digits="Product Unit of Measure", readonly=True
     )
 
     def name_get(self):
