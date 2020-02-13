@@ -7,11 +7,13 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def action_barcode_scan(self):
+        out_picking = self.picking_type_code == "outgoing"
+        location = self.location_id if out_picking else self.location_dest_id
         action = self.env.ref(
             "stock_barcodes.action_stock_barcodes_read_picking"
         ).read()[0]
         action["context"] = {
-            "default_location_id": self.location_dest_id.id,
+            "default_location_id": location.id,
             "default_partner_id": self.partner_id.id,
             "default_picking_id": self.id,
             "default_res_model_id": self.env.ref("stock.model_stock_picking").id,
