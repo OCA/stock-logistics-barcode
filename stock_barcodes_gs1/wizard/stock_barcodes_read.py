@@ -8,7 +8,11 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _prepare_lot_values(self, barcode_decoded):
         lot_barcode = barcode_decoded.get("10", False)
-        return {"name": lot_barcode, "product_id": self.product_id.id}
+        return {
+            "name": lot_barcode,
+            "product_id": self.product_id.id,
+            "company_id": self.env.user.company_id.id,
+        }
 
     def _create_lot(self, barcode_decoded):
         return self.env["stock.production.lot"].create(
