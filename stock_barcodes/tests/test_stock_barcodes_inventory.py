@@ -1,8 +1,11 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo.tests.common import tagged
+
 from .test_stock_barcodes import TestStockBarcodes
 
 
+@tagged("post_install", "-at_install")
 class TestStockBarcodesInventory(TestStockBarcodes):
     def setUp(self):
         super().setUp()
@@ -11,8 +14,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.inventory = self.StockInventory.create(
             {
                 "name": "Test Inventory",
-                "filter": "partial",
-                "location_id": self.stock_location.id,
+                "location_ids": [(6, 0, self.stock_location.ids)],
             }
         )
         vals = self.inventory.action_barcode_scan()
@@ -22,7 +24,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
 
     def test_inventory_values(self):
         self.assertEqual(
-            self.wiz_scan_inventory.location_id, self.inventory.location_id
+            self.wiz_scan_inventory.location_id, self.inventory.location_ids[:1]
         )
         self.assertEqual(
             self.wiz_scan_inventory.res_model_id, self.stock_inventory_model

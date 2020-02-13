@@ -1,9 +1,10 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import TransactionCase, tagged
 
 
+@tagged("post_install", "-at_install")
 class TestStockBarcodes(TransactionCase):
     def setUp(self):
         super().setUp()
@@ -24,6 +25,8 @@ class TestStockBarcodes(TransactionCase):
         self.StockProductionLot = self.env["stock.production.lot"]
         self.StockPicking = self.env["stock.picking"]
         self.StockQuant = self.env["stock.quant"]
+
+        self.company = self.env.user.company_id
 
         # warehouse and locations
         self.warehouse = self.env.ref("stock.warehouse0")
@@ -81,7 +84,11 @@ class TestStockBarcodes(TransactionCase):
             }
         )
         self.lot_1 = self.StockProductionLot.create(
-            {"name": "8411822222568", "product_id": self.product_tracking.id}
+            {
+                "name": "8411822222568",
+                "product_id": self.product_tracking.id,
+                "company_id": self.company.id,
+            }
         )
         self.StockQuant.create(
             {

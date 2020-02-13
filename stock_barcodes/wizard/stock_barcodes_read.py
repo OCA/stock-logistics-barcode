@@ -2,8 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import _, api, fields, models
 
-from odoo.addons import decimal_precision as dp
-
 
 class WizStockBarcodesRead(models.AbstractModel):
     _name = "wiz.stock.barcodes.read"
@@ -20,10 +18,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     lot_id = fields.Many2one(comodel_name="stock.production.lot")
     location_id = fields.Many2one(comodel_name="stock.location")
     packaging_id = fields.Many2one(comodel_name="product.packaging")
-    packaging_qty = fields.Float(
-        string="Package Qty", digits=dp.get_precision("Product Unit of Measure")
-    )
-    product_qty = fields.Float(digits=dp.get_precision("Product Unit of Measure"))
+    packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
+    product_qty = fields.Float(digits="Product Unit of Measure")
     manual_entry = fields.Boolean(string="Manual entry data")
     # Computed field for display all scanning logs from res_model and res_id
     # when change product_id
