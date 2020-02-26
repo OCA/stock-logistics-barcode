@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2020 ForgeFlow S.L. (<http://www.forgeflow.com>)
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo noupdate="1">
+    <function model="printing.label.zpl2" name="add_action">
+        <value eval="ref('stock.model_stock_picking')" />
+    </function>
+    <function model="printing.label.zpl2" name="add_action">
+        <value eval="ref('stock.model_stock_inventory')" />
+    </function>
+    <function model="printing.label.zpl2" name="add_action">
+        <value eval="ref('product.model_product_product')" />
+    </function>
+    <function model="printing.label.zpl2" name="add_action">
+        <value eval="ref('product.model_product_template')" />
+    </function>
+</odoo>
