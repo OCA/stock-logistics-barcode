@@ -1,0 +1,3 @@
+"id","name","model_id:id","group_id:id","perm_read","perm_write","perm_create","perm_unlink"
+access_barcode_mapping,access.barcode.mapping,model_wiz_stock_barcodes_mapping,base.group_user,1,1,1,1
+access_barcode_mapping_item,access.barcode.mapping.item,model_wiz_stock_barcodes_mapping_item,base.group_user,1,1,1,1

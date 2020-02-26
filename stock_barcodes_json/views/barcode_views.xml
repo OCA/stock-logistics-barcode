@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_stock_barcodes_mapping_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.mapping</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name='model_id'></field>
+                        <field name='item_ids'></field>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_stock_barcodes_mapping_tree" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.mapping</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name='model_id'></field>
+                <field name='item_ids' widget="many2many_tags"></field>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_stock_barcodes_mapping_item_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.mapping.item</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <group>
+                        <field name='key'></field>
+                        <field name='value'></field>
+                    </group>
+                </group>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="view_stock_barcodes_mapping_action">
+        <field name="name">Barcode Mapping</field>
+        <field name="res_model">wiz.stock.barcodes.mapping</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_type">form</field>
+    </record>
+
+    <menuitem action="view_stock_barcodes_mapping_action" id="menu_config_barcode_mapping" parent="base_report_to_printer.printing_menu"/>
+
+</odoo>
