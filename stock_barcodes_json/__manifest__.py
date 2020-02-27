@@ -11,7 +11,7 @@
     "category": "Extra Tools",
     "depends": [
         'stock_barcodes',
-        'base_gs1_barcode',
+        'printer_zpl2',
     ],
     "data": ['views/barcode_views.xml', 'security/ir.model.access.csv'],
     'installable': True,
