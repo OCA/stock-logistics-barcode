@@ -19,7 +19,6 @@ class ProductEan13(models.Model):
         string="Product", comodel_name="product.product", required=True
     )
 
-    @api.multi
     @api.constrains("name")
     def _check_duplicates(self):
         for record in self:
@@ -46,13 +45,11 @@ class ProductProduct(models.Model):
         inverse_sudo=True,
     )
 
-    @api.multi
     @api.depends("ean13_ids")
     def _compute_barcode(self):
         for product in self:
             product.barcode = product.ean13_ids[:1].name
 
-    @api.multi
     def _inverse_barcode(self):
         for product in self:
             if product.ean13_ids:
@@ -60,10 +57,9 @@ class ProductProduct(models.Model):
             else:
                 self.env["product.ean13"].create(self._prepare_ean13_vals())
 
-    @api.multi
     def _prepare_ean13_vals(self):
         self.ensure_one()
-        return {"product_id": self.id, "name": self.barcode}
+        return [{"product_id": self.id, "name": self.barcode}]
 
     @api.model
     def search(self, domain, *args, **kwargs):

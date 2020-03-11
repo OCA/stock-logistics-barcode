@@ -3,3 +3,4 @@
 * Pedro M. Baeza
 * Xavier Jimenez (QubiQ)
 * Héctor Villarreal (Eficent)
+* Jim Hoefnagels (DynApps)
