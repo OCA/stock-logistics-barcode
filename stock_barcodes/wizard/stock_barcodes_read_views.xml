@@ -81,6 +81,7 @@
                                 <field name="product_id"/>
                                 <field name="product_qty"/>
                                 <field name="lot_id"/>
+                                <field name="package_id"/>
                             </tree>
                             <kanban class="o_kanban_mobile">
                                 <field name="create_date"/>

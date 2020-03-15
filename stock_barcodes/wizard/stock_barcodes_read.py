@@ -33,6 +33,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     lot_id = fields.Many2one(
         comodel_name='stock.production.lot',
     )
+    package_id = fields.Many2one('stock.quant.package', 'Package')
     location_id = fields.Many2one(
         comodel_name='stock.location',
     )
@@ -98,24 +99,24 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(product) > 1:
                 self._set_messagge_info(
                     'more_match', _('More than one product found'))
-                return
+                return True
             elif product.type not in self._allowed_product_types:
                 self._set_messagge_info(
                     'not_found', _('The product type is not allowed'))
-                return
+                return True
             self.action_product_scaned_post(product)
             self.action_done()
-            return
+            return True
         if self.env.user.has_group('product.group_stock_packaging'):
             packaging = self.env['product.packaging'].search(domain)
             if packaging:
                 if len(packaging) > 1:
                     self._set_messagge_info(
                         'more_match', _('More than one package found'))
-                    return
+                    return True
                 self.action_packaging_scaned_post(packaging)
                 self.action_done()
-                return
+                return True
         if self.env.user.has_group('stock.group_production_lot'):
             lot_domain = [('name', '=', barcode)]
             if self.product_id:
@@ -126,13 +127,14 @@ class WizStockBarcodesRead(models.AbstractModel):
             if lot:
                 self.action_lot_scaned_post(lot)
                 self.action_done()
-                return
+                return True
         location = self.env['stock.location'].search(domain)
         if location:
             self.location_id = location
             self._set_messagge_info('info', _('Waiting product'))
-            return
+            return True
         self._set_messagge_info('not_found', _('Barcode not found'))
+        return False
 
     def _barcode_domain(self, barcode):
         return [('barcode', '=', barcode)]
@@ -178,6 +180,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.lot_id = lot
         self.product_qty = 0.0 if self.manual_entry else 1.0
 
+    def action_package_scaned_post(self, package):
+        self.package_id = package
+        self.product_qty = sum(package.mapped("quant_ids.quantity"))
+
     def action_clean_lot(self):
         self.lot_id = False
 
@@ -191,6 +197,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             'product_id': self.product_id.id,
             'packaging_id': self.packaging_id.id,
             'lot_id': self.lot_id.id,
+            'package_id': self.package_id.id,
             'packaging_qty': self.packaging_qty,
             'product_qty': self.product_qty,
             'manual_entry': self.manual_entry,
@@ -203,7 +210,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             vals = self._prepare_scan_log_values(log_detail)
             self.env['stock.barcodes.read.log'].create(vals)
 
-    @api.depends('product_id', 'lot_id')
+    @api.depends('product_id', 'lot_id', 'package_id')
     def _compute_scan_log_ids(self):
         logs = self.env['stock.barcodes.read.log'].search([
             ('res_model_id', '=', self.res_model_id.id),

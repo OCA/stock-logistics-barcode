@@ -15,9 +15,11 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.partner_agrolite = self.env.ref('base.res_partner_2')
         self.picking_type_in = self.env.ref('stock.picking_type_in')
         self.picking_type_out = self.env.ref('stock.picking_type_out')
+        self.picking_type_internal = self.env.ref('stock.picking_type_internal')
         self.supplier_location = self.env.ref('stock.stock_location_suppliers')
         self.customer_location = self.env.ref('stock.stock_location_customers')
         self.stock_location = self.env.ref('stock.stock_location_stock')
+        self.pack_location = self.env.ref('stock.location_pack_zone')
         self.categ_unit = self.env.ref('uom.product_uom_categ_unit')
         self.categ_kgm = self.env.ref('uom.product_uom_categ_kgm')
         self.picking_out_01 = self.env['stock.picking'].with_context(
@@ -281,3 +283,75 @@ class TestStockBarcodesPicking(TestStockBarcodes):
             "stock.removal_lifo")
         self.action_barcode_scanned(self.wiz_scan_picking_out, '8433281006850')
         self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_3)
+
+    def test_picking_package(self):
+        self.StockQuant.create({
+            'product_id': self.product_wo_tracking.id,
+            'location_id': self.stock_location.id,
+            'quantity': 100.0,
+        })
+        self.pack_location.active = True
+        packing_picking = self.env['stock.picking'].with_context(
+            planned_picking=True
+        ).create({
+            'location_id': self.stock_location.id,
+            'location_dest_id': self.pack_location.id,
+            'picking_type_id': self.picking_type_internal.id,
+            'move_lines': [
+                (0, 0, {
+                    'name': self.product_wo_tracking.name,
+                    'product_id': self.product_wo_tracking.id,
+                    'product_uom_qty': 2,
+                    'product_uom': self.product_wo_tracking.uom_id.id,
+                    'location_id': self.stock_location.id,
+                    'location_dest_id': self.pack_location.id,
+                }),
+            ]
+        })
+        packing_picking.action_assign()
+        vals = packing_picking.action_barcode_scan()
+        vals['context']['picking_id'] = packing_picking.id
+        wiz_scan_picking = self.ScanReadPicking.with_context(
+            vals['context']
+        ).create({})
+        self.action_barcode_scanned(wiz_scan_picking, '8480000723208')
+        self.action_barcode_scanned(wiz_scan_picking, '8480000723208')
+        wiz_scan_picking.put_in_pack()
+        wiz_scan_picking.candidate_picking_ids[0].action_validate_picking()
+        package = packing_picking.move_line_ids[0].result_package_id
+        self.assertEqual(packing_picking.state, 'done')
+        self.assertEqual(
+            packing_picking.move_line_ids[0].result_package_id.location_id.id,
+            self.pack_location.id)
+        self.assertEqual(packing_picking.move_line_ids[0].qty_done, 2)
+
+        out_picking = self.env['stock.picking'].with_context(
+            planned_picking=True
+        ).create({
+            'location_id': self.pack_location.id,
+            'location_dest_id': self.customer_location.id,
+            'partner_id': self.partner_agrolite.id,
+            'picking_type_id': self.picking_type_out.id,
+            'move_lines': [
+                (0, 0, {
+                    'name': self.product_wo_tracking.name,
+                    'product_id': self.product_wo_tracking.id,
+                    'product_uom_qty': 2,
+                    'product_uom': self.product_wo_tracking.uom_id.id,
+                    'location_id': self.pack_location.id,
+                    'location_dest_id': self.customer_location.id,
+                }),
+            ]
+        })
+
+        out_picking.action_assign()
+        self.assertEqual(package.id, out_picking.move_line_ids[0].package_id.id)
+        vals = out_picking.action_barcode_scan()
+        vals['context']['picking_id'] = out_picking.id
+        wiz_scan_picking = self.ScanReadPicking.with_context(
+            vals['context']
+        ).create({})
+        self.action_barcode_scanned(wiz_scan_picking, package.name)
+        self.assertEqual(out_picking.move_line_ids[0].qty_done, 2)
+        wiz_scan_picking.candidate_picking_ids[0].action_validate_picking()
+        self.assertEqual(out_picking.state, 'done')

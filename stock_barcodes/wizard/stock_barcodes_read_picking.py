@@ -43,6 +43,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     confirmed_moves = fields.Boolean(
         string='Confirmed moves',
     )
+    picking_state = fields.Selection(related="picking_id.state", readonly=True)
+    picking_has_packages = fields.Boolean(
+        related="picking_id.has_packages", readonly=True)
 
     @api.depends(
         "picking_id", "barcode", "picking_id.move_lines.move_line_ids.qty_done"
@@ -165,11 +168,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.candidate_picking_ids = vals
 
     def _search_candidate_pickings(self, moves_todo=False):
-        if not moves_todo:
-            moves_todo = self.env['stock.move'].search(
-                self._prepare_stock_moves_domain())
         if not self.picking_id:
-            candidate_pickings = moves_todo.mapped('picking_id')
+            if self.package_id:
+                move_lines = self.env['stock.move.line'].search([
+                    ('package_id', '=', self.package_id.id),
+                    ('result_package_id', '=', self.package_id.id),
+                ])
+                candidate_pickings = move_lines.mapped("picking_id")
+            else:
+                if not moves_todo:
+                    moves_todo = self.env['stock.move'].search(
+                        self._prepare_stock_moves_domain())
+                candidate_pickings = moves_todo.mapped('picking_id')
             candidate_pickings_count = len(candidate_pickings)
             if candidate_pickings_count > 1:
                 self._set_candidate_pickings(candidate_pickings)
@@ -180,6 +190,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             _logger.info('No picking assigned')
         return True
 
+    def _process_package(self):
+        move_lines = self.env['stock.move.line'].search([
+            ('package_id', '=', self.package_id.id),
+            ('result_package_id', '=', self.package_id.id),
+            ('picking_id', '=', self.picking_id.id),
+        ])
+        for move_line in move_lines:
+            move_line.write({'qty_done': move_line.product_uom_qty})
+        return move_lines
+
     def _process_stock_move_line(self):
         """
         Search assigned or confirmed stock moves from a picking operation type
@@ -187,6 +207,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         scanned product the interface allow to select what picking to work.
         If only there is one picking the scan data is assigned to it.
         """
+        if self.package_id:
+            move_lines = self._process_package()
+            move_lines_dic = {}
+            for move_line in move_lines:
+                move_lines_dic[move_line.id] = move_line.qty_done
+            return move_lines_dic
         StockMove = self.env['stock.move']
         StockMoveLine = self.env['stock.move.line']
         moves_todo = StockMove.search(self._prepare_stock_moves_domain())
@@ -242,7 +268,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def check_done_conditions(self):
         res = super().check_done_conditions()
-        if self.product_id.tracking != 'none' and not self.lot_id:
+        if (
+            self.product_id.tracking != 'none' and not self.lot_id and
+            not self.package_id
+        ):
+            # if self.package_id then lot is typically already set in stock move line
             self._set_messagge_info('info', _('Waiting for input lot'))
             return False
         if not self.picking_id:
@@ -255,6 +285,38 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 'info', _('Click on picking pushpin to lock it'))
             return False
         return res
+
+    def put_in_pack(self):
+        if self.picking_id != self._candidate_picking_selected():
+            self._set_messagge_info(
+                'info', _('Click on picking pushpin to lock it'))
+            return False
+        return self.picking_id.put_in_pack()
+
+    def process_barcode(self, barcode):
+        processed = super(WizStockBarcodesReadPicking, self).process_barcode(barcode)
+        if not processed:
+            if self.env.user.has_group('product.group_stock_packaging'):
+                pack_domain = [
+                    ('name', '=', barcode), ('location_id', '=', self.location_id.id)
+                ]
+                pack = self.env['stock.quant.package'].search(pack_domain)
+                if not pack and self.picking_id:
+                    pack_domain = [
+                        ('name', '=', barcode),
+                        ('location_id', '=', self.picking_id.location_id.id)
+                    ]
+                    pack = self.env['stock.quant.package'].search(pack_domain)
+                if pack:
+                    self.action_package_scaned_post(pack)
+                    self.action_done()
+                    self._set_messagge_info('success', _('Barcode read correctly'))
+                    return True
+        return processed
+
+    def action_see_packages(self):
+        if self.picking_id:
+            return self.picking_id.action_see_packages()
 
     def _prepare_scan_log_values(self, log_detail=False):
         # Store in read log line each line added with the quantities assigned

@@ -83,6 +83,8 @@
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1"/>
+                <field name="picking_state" invisible="1"/>
+                <field name="picking_has_packages" invisible="1"/>
                 <field name="picking_id"/>
             </field>
             <field name="product_qty" position="after">
@@ -97,6 +99,21 @@
                            nolabel="1"
                     >
                     </field>
+                </group>
+            </xpath>
+            <xpath expr="//group[@groups='stock.group_production_lot']" position="after">
+                <group>
+                    <group groups="product.group_stock_packaging">
+                        <field name="package_id" options="{'no_create': True}"
+                               attrs="{'readonly': [('manual_entry', '=', False)]}"
+                               force_save="1"/>
+                    </group>
+                    <group groups="stock.group_tracking_lot" attrs="{'invisible': ['|', ('picking_id', '=', False), ('picking_state', 'in', ('draft', 'done', 'cancel'))]}">
+                        <button class="oe_link" string="Put in pack" type="object" name="put_in_pack" icon="fa-plus"/>
+                        <button name="action_see_packages" string=" Packages" type="object"
+                            class="oe_link" icon="fa-cubes"
+                            attrs="{'invisible': [('picking_has_packages', '=', False)]}"/>
+                    </group>
                 </group>
             </xpath>
         </field>

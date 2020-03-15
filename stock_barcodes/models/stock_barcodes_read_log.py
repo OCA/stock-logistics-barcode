@@ -23,6 +23,7 @@ class StockBarcodesReadLog(models.Model):
         comodel_name='stock.production.lot',
         string='Lot scanned',
     )
+    package_id = fields.Many2one('stock.quant.package', 'Package')
     location_id = fields.Many2one(
         comodel_name='stock.location',
     )
