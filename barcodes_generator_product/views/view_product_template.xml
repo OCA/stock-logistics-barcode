@@ -15,27 +15,32 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <field name="barcode" position="before">
                 <field name="barcode_rule_id"
                     domain="[('generate_model', '=', 'product.product')]"
+                    attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
                 <field name="generate_type" invisible="1" />
                 <field name="barcode_base" attrs="{
-                    'invisible': [('barcode_rule_id', '=', False)],
+                    'invisible': ['|',('barcode_rule_id', '=', False),('product_variant_count', '&gt;', 1)],
                     'readonly': [('generate_type', '!=', 'manual')]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
-                <button name="generate_base" type="object" string="Generate Base (Using Sequence)" attrs="{'invisible': ['|',
+                <button name="generate_base" type="object" string="Generate Base (Using Sequence)"
+                        attrs="{'invisible': ['|','|',
                     ('generate_type', '!=', 'sequence'),
-                    ('barcode_base', '!=', 0)]}"
+                    ('barcode_base', '!=', 0),
+                    ('product_variant_count', '&gt;', 1)
+                    ]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
             </field>
 
             <field name="barcode" position="attributes">
-                <attribute name="attrs">{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
+                <attribute name="attrs">{'invisible': [('product_variant_count', '&gt;', 1)],'readonly': [('generate_type', '=', 'sequence')]}</attribute>
             </field>
 
             <field name="barcode" position="after">
                 <button name="generate_barcode" type="object" string="Generate Barcode (Using Barcode Rule)"
-                    attrs="{'invisible': ['|',
+                    attrs="{'invisible': ['|','|',
                             ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0)]}"
+                            ('barcode_base', '=', 0),
+                            ('product_variant_count', '&gt;', 1)]}"
                     groups="barcodes_generator_abstract.generate_barcode" colspan="2"/>
             </field>
         </field>
