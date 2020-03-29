@@ -147,25 +147,25 @@ difference between expected and done quantity :
 * ``green`` : done quantity corresponds to the expected quantity
 * ``red``: done quantity is over the expected quantity
 
-.. |authentication| image:: ../static/description/mobile_01_authentication.png
+.. |authentication| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_01_authentication.png
    :width: 300 px
 
-.. |list_picking_type| image:: ../static/description/mobile_02_list_picking_type.png
+.. |list_picking_type| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_02_list_picking_type.png
    :width: 300 px
 
-.. |list_picking| image:: ../static/description/mobile_03_list_picking.png
+.. |list_picking| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_03_list_picking.png
    :width: 300 px
 
-.. |list_move| image:: ../static/description/mobile_04_list_move.png
+.. |list_move| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_04_list_move.png
    :width: 300 px
 
-.. |scan_mode| image:: ../static/description/mobile_05_scan_mode.png
+.. |scan_mode| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_05_scan_mode.png
    :width: 300 px
 
-.. |list_move_change| image:: ../static/description/mobile_06_list_move_change.png
+.. |list_move_change| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_06_list_move_change.png
    :width: 300 px
 
-.. |confirmation| image:: ../static/description/mobile_07_confirmation.png
+.. |confirmation| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/11.0/mobile_app_picking/static/description/mobile_07_confirmation.png
    :width: 300 px
 
 
