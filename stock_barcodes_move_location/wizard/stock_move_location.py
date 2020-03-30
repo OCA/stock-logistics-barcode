@@ -3,7 +3,7 @@
 # Copyright 2019 Sergio Teruel - Tecnativa <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl)
 
-from odoo import _, models
+from odoo import _, api, models
 
 
 class StockMoveLocationWizard(models.TransientModel):
@@ -32,3 +32,9 @@ class StockMoveLocationWizard(models.TransientModel):
 
     def clear_lines(self):
         self._clear_lines()
+
+    @api.onchange("origin_location_id")
+    def onchange_origin_location(self):
+        # Do not fill lines when the picking type is not meant for that
+        if not self.picking_type_id.no_move_proposal:
+            return super().onchange_origin_location()
