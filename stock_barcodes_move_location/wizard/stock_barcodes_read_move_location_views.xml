@@ -29,6 +29,13 @@
                     invisible="1"
                 />
             </button>
+            <button name="action_manual_entry" position="before">
+                <button
+                    name='action_zbarcam'
+                    type="object"
+                    string="Scan With Z-BAR-CAM"
+                />
+            </button>
         </field>
     </record>
     <!--
@@ -40,9 +47,11 @@
         id="action_stock_barcodes_read_stock_move_location"
     >
         <field name="name">Barcodes Read</field>
-        <field name="view_type">form</field>
         <field name="view_mode">form</field>
-        <field name="src_model">wiz.stock.move.location</field>
+        <field
+            name="binding_model_id"
+            ref="stock_move_location.model_wiz_stock_move_location"
+        />
         <field name="res_model">wiz.stock.barcodes.read.move.location</field>
         <field name="context">{}</field>
         <field name="view_id" ref="view_stock_barcodes_read_move_location_form" />
