@@ -1,3 +1,4 @@
-This module extends barcode reader interface to allow to read GS1 barcodes.
-
-The AI's implemented are 01(Group), 02(Product), 37(Quantity) and 10(Lots).
+This module extends barcode reader interface to allow to read JSON embeded in
+barcodes.
+Also, allows to generate zpl barcodes with a json embeded
+Available values are products ids and barcodes, quantity, lots and packages barcodes
