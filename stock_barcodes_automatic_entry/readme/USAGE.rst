@@ -15,4 +15,3 @@ To use this module, you need to:
     def action_automatic_entry(self):
         # Execute specific logic
         return
-
