@@ -71,12 +71,12 @@ Credits
 Authors
 ~~~~~~~
 
-* Eficent Business and IT Consulting Services S.L.
+* ForgeFlow S.L.
 
 Contributors
 ~~~~~~~~~~~~
 
-* Adrià Gil Sorribes <adria.gil@eficent.com>
+* Adrià Gil Sorribes <adria.gil@forgeflow.com>
 
 Maintainers
 ~~~~~~~~~~~
@@ -91,13 +91,13 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-.. |maintainer-ageficent| image:: https://github.com/ageficent.png?size=40px
-    :target: https://github.com/ageficent
-    :alt: ageficent
+.. |maintainer-AdriaGForgeFlow| image:: https://github.com/AdriaGForgeFlow.png?size=40px
+    :target: https://github.com/AdriaGForgeFlow
+    :alt: AdriaGForgeFlow
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-ageficent| 
+|maintainer-AdriaGForgeFlow| 
 
 This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/12.0/stock_barcodes_automatic_entry>`_ project on GitHub.
 
