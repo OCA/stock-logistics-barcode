@@ -7,8 +7,7 @@ odoo.define("stock_barcodes_automatic_entry.FormController", function(require) {
     var FormController = require("web.FormController");
 
     FormController.include({
-        _barcodeActiveScanned: function(method, barcode, activeBarcode) {
-            var self = this;
+        _barcodeActiveScanned: function() {
             return this._super.apply(this, arguments).then(function() {
                 if ($(".barcode-automatic-entry")) {
                     $(".barcode-automatic-entry").trigger("click");
