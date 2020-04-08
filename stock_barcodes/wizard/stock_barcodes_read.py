@@ -108,6 +108,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(lot) == 1:
                 self.product_id = lot.product_id
             if lot:
+                if len(lot) > 1:
+                    self._set_messagge_info(
+                        'more_match', _('More than one product found'))
+                    return
                 self.action_lot_scaned_post(lot)
                 self.action_done()
                 return
