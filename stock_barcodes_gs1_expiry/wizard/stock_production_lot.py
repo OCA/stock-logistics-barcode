@@ -12,9 +12,7 @@ class WizStockBarcodesNewLot(models.TransientModel):
 
     def _prepare_lot_values(self):
         res = super()._prepare_lot_values()
-        res.update(
-            {"use_date": self.use_date, "life_date": self.life_date,}
-        )
+        res.update({"use_date": self.use_date, "life_date": self.life_date})
         return res
 
     def _decode_barcode(self, barcode):
