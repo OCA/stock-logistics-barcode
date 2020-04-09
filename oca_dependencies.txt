@@ -1,0 +1,2 @@
+stock-logistics-barcode https://github.com/Tecnativa/stock-logistics-barcode 13.0-mig-base_gs1_barcode
+stock-logistics-barcode-2 https://github.com/Tecnativa/stock-logistics-barcode.git 13.0-mig-stock_barcodes
