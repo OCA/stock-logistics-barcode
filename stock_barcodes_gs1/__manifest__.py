@@ -4,14 +4,10 @@
     "name": "Stock Barcodes GS1",
     "summary": "It provides read GS1 barcode on stock operations.",
     "version": "12.0.1.0.0",
-    "author": "Tecnativa, "
-              "Odoo Community Association (OCA)",
+    "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
     "license": "AGPL-3",
     "category": "Extra Tools",
-    "depends": [
-        'stock_barcodes',
-        'base_gs1_barcode',
-    ],
-    'installable': True,
+    "depends": ["stock_barcodes", "base_gs1_barcode",],
+    "installable": True,
 }
