@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- views for the configuration of barcode decoding -->
+    <record id="gs1_barcode_tree_view" model="ir.ui.view">
+        <field name="name">gs1_barcode.tree</field>
+        <field name="model">gs1_barcode</field>
+        <field name="arch" type="xml">
+            <tree string="GS1-128/GS1-Datamatrix decoding configuration">
+                <field name="ai" />
+                <field name="name" />
+            </tree>
+        </field>
+    </record>
+    <record id="gs1_barcode_form_view" model="ir.ui.view">
+        <field name="name">gs1_barcode.form</field>
+        <field name="model">gs1_barcode</field>
+        <field name="arch" type="xml">
+            <form string="GS1-128/GS1-Datamatrix decoding configuration">
+                <sheet>
+                    <group string="Application Identifier">
+                        <field name="ai" />
+                        <field name="name" colspan="4" />
+                    </group>
+                    <group string="Data Description">
+                        <field name="data_type" />
+                        <newline />
+                        <field name="length_fixed" />
+                        <newline />
+                        <field
+                            name="length_min"
+                            attrs="{'readonly': [('length_fixed', '=', True)]}"
+                        />
+                        <field name="length_max" />
+                        <field name="decimal" />
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <!-- Add a menu entry for the configuration of GSA-128 decoding -->
+    <record id="action_config_gs1_barcode" model="ir.actions.act_window">
+        <field name="name">GS1-128/GS1-Datamatrix Decoding</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gs1_barcode</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+    <menuitem
+        action="action_config_gs1_barcode"
+        id="menu_config_gs1_barcode"
+        parent="base.next_id_9"
+    />
+</odoo>
