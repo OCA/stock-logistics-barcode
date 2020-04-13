@@ -51,7 +51,7 @@ msgid "Amount payable per single item (with ISO currency code)"
 msgstr "Znesek za plačilo po postavki (ISO koda valute)"
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__string
 msgid "Any character string"
 msgstr "Katerikoli niz znakov"
 
@@ -207,7 +207,7 @@ msgid "Container Width/Diameter/2nd Dimension, in yards"
 msgstr "Širina/premer/2. dimenzija kontejnerja v jardih"
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:97
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
 "Could not decode barcode : wrong prefix - the code should start with \"%s\""
@@ -216,7 +216,7 @@ msgstr ""
 "\"%s\""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:159
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
 "Could not decode barcode: incorrect value for Application Identifer \"%s\" "
@@ -226,7 +226,7 @@ msgstr ""
 "aplikacije \"%s\" pri poziciji %d"
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:180
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid "Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
@@ -314,7 +314,7 @@ msgid "Data Type"
 msgstr "Tip podatkov"
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__date
 msgid "Date"
 msgstr "Datum"
 
@@ -564,7 +564,7 @@ msgid "Number of Units Contained"
 msgstr "Število vsebovanih enot"
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__numeric
 msgid "Numeric value"
 msgstr "Numerična vrednost"
 
@@ -837,7 +837,7 @@ msgstr ""
 "lokacije)"
 
 #. module: base_gs1_barcode
-#: sql_constraint:gs1_barcode:0
+#: model:ir.model.constraint,message:base_gs1_barcode.constraint_gs1_barcode_ai_uniq
 msgid "The Application Identifier must be unique!"
 msgstr "Identifikator aplikacije mora biti unikaten!"
 

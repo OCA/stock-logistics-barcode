@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* base_gs1_barcode
+# 	* base_gs1_barcode
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 12.0\n"
+"Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -44,7 +44,7 @@ msgid "Amount payable per single item (with ISO currency code)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__string
 msgid "Any character string"
 msgstr ""
 
@@ -200,21 +200,25 @@ msgid "Container Width/Diameter/2nd Dimension, in yards"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:97
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
-msgid "Could not decode barcode : wrong prefix - the code should start with \"%s\""
+msgid ""
+"Could not decode barcode : wrong prefix - the code should start with \"%s\""
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:159
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
-msgid "Could not decode barcode: incorrect value for Application Identifer \"%s\" at position %d"
+msgid ""
+"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
+"at position %d"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: code:addons/base_gs1_barcode/models/gs1_barcode.py:180
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
-msgid "Could not decode barcode: unknown Application Identifier at position %d"
+msgid ""
+"Could not decode barcode: unknown Application Identifier at position %d"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -298,7 +302,7 @@ msgid "Data Type"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__date
 msgid "Date"
 msgstr ""
 
@@ -411,12 +415,16 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__decimal
-msgid "Indicates whether a digit is expected before the data for this Application Identifier to indicate the position of the decimal point."
+msgid ""
+"Indicates whether a digit is expected before the data for this Application "
+"Identifier to indicate the position of the decimal point."
 msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_fixed
-msgid "Indicates whether the length of the data for this Application Identifier is fixed or not."
+msgid ""
+"Indicates whether the length of the data for this Application Identifier is "
+"fixed or not."
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -540,7 +548,7 @@ msgid "Number of Units Contained"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: selection:gs1_barcode,data_type:0
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__numeric
 msgid "Numeric value"
 msgstr ""
 
@@ -806,22 +814,29 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:gs1_barcode,name:base_gs1_barcode.DELIVER_FOR
-msgid "Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
+msgid ""
+"Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
 msgstr ""
 
 #. module: base_gs1_barcode
-#: sql_constraint:gs1_barcode:0
+#: model:ir.model.constraint,message:base_gs1_barcode.constraint_gs1_barcode_ai_uniq
 msgid "The Application Identifier must be unique!"
 msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_separator
-msgid "The characters that the barcode scanner will send when a <GS> (Group Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is usually found when the data is of variable length. The ASCII character 29 will be expected by default if this field is left empty."
+msgid ""
+"The characters that the barcode scanner will send when a <GS> (Group "
+"Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is "
+"usually found when the data is of variable length. The ASCII character 29 "
+"will be expected by default if this field is left empty."
 msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_prefix
-msgid "The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix codes are scanned. No prefix is expected if this fields is left empty"
+msgid ""
+"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix"
+" codes are scanned. No prefix is expected if this fields is left empty"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -848,4 +863,3 @@ msgstr ""
 #: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
 msgid "identification of the components of an item"
 msgstr ""
-
