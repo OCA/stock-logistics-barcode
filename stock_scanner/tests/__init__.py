@@ -7,4 +7,5 @@ from . import test_stock_scanner_scenario
 from . import test_stock_scanner_scenario_step
 from . import test_stock_scanner_scenario_transition
 from . import test_stock_scanner_scenario_execution
+from . import test_stock_scanner_scenario_export
 from . import test_stock_scanner_scenario_loading

@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<odoo>
+    <record id="wizard_export_scenario" model="ir.ui.view">
+        <field name="name">wizard.export.scenario</field>
+        <field name="model">wizard.export.scenario</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <p class="oe_gray">
+                        Use this assistant to export senario.
+                    </p>
+                </group>
+                <group>
+                    <field name="scenario_ids" options="{'no_create': True}" widget="many2many_tags"/>
+                    <field name="is_copy"/>
+                </group>
+                <footer>
+                    <button type="special" special="cancel" string="Cancel"/>
+                    <button type="object" string="Export" name="action_export" class="oe_highlight"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+    <record id="action_wizard_export_scenario" model="ir.actions.act_window">
+        <field name="name">Export Scenario</field>
+        <field name="res_model">wizard.export.scenario</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock_scanner.model_scanner_scenario"/>
+    </record>
+</odoo>
