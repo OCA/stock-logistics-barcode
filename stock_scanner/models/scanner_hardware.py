@@ -13,7 +13,6 @@ from odoo import _
 from odoo.tools.misc import ustr, html_escape
 from odoo.tools.safe_eval import safe_eval
 
-
 _logger = logging.getLogger('stock_scanner')
 
 _CURSES_COLORS = [
@@ -49,6 +48,9 @@ class ScannerHardware(models.Model):
         string='Name',
         required=True,
         help='Name of the hardware.')
+    active = fields.Boolean(
+        string='Active',
+        default=True)
     code = fields.Char(
         string='Code',
         required=True,
@@ -83,7 +85,7 @@ class ScannerHardware(models.Model):
     last_call_dt = fields.Datetime(
         string='Last call',
         help='Date and time of the last call to the system done by the '
-        'scanner.'
+             'scanner.'
     )
     scenario_id = fields.Many2one(
         comodel_name='scanner.scenario',
@@ -106,7 +108,7 @@ class ScannerHardware(models.Model):
         inverse_name='hardware_id', string='Steps History',
         readonly=True,
         help='History of all steps executed by this hardware'
-        ' during the current scenario.')
+             ' during the current scenario.')
     reference_document = fields.Integer(
         string='Reference',
         default=0,
@@ -174,95 +176,6 @@ class ScannerHardware(models.Model):
             txt.append('</table>')
             rec.tmp_values_display = ''.join(txt)
 
-    # The json_tmp_valN properties are kept as a compatibility layer to
-    # help scenario migration. You should use the tmp_values field
-    # instead. These will be removed when the module is migrated to
-    # Odoo 13.0
-    @property
-    @api.multi
-    def json_tmp_val1(self):
-        self.ensure_one()
-        return self.get_tmp_value('val1')
-
-    @json_tmp_val1.setter
-    def json_tmp_val1(self, value):
-        self.ensure_one()
-        self.update_tmp_values({'val1': value})
-
-    @property
-    @api.multi
-    def json_tmp_val2(self):
-        self.ensure_one()
-        return self.get_tmp_value('val2')
-
-    @json_tmp_val2.setter
-    def json_tmp_val2(self, value):
-        self.ensure_one()
-        self.update_tmp_values({'val2': value})
-
-    @property
-    @api.multi
-    def json_tmp_val3(self):
-        self.ensure_one()
-        return self.get_tmp_value('val3')
-
-    @json_tmp_val3.setter
-    def json_tmp_val3(self, value):
-        self.ensure_one()
-        self.update_tmp_values({'val3': value})
-
-    @property
-    @api.multi
-    def json_tmp_val4(self):
-        self.ensure_one()
-        return self.get_tmp_value('val4')
-
-    @json_tmp_val4.setter
-    def json_tmp_val4(self, value):
-        self.ensure_one()
-        self.update_tmp_values({'val4': value})
-
-    @property
-    @api.multi
-    def json_tmp_val5(self):
-        self.ensure_one()
-        return self.get_tmp_value('val5')
-
-    @json_tmp_val5.setter
-    def json_tmp_val5(self, value):
-        self.ensure_one()
-        self.update_tmp_values({'val5': value})
-
-    @api.multi
-    def update_tmp_values(self, values):
-        self.ensure_one()
-        tmp_values = self.tmp_values
-        tmp_values.update(values)
-        self.write({'tmp_values': tmp_values})
-
-    @api.multi
-    def get_tmp_value(self, key_name, default=None):
-        self.ensure_one()
-        return self.tmp_values.get(key_name, default)
-
-    @api.multi
-    def set_tmp_value(self, key_name, value):
-        _logger.warning(
-            "'%s' is deprecated. Please use 'terminal.tmp_values'."
-            % key_name)
-        self.ensure_one()
-        self.update_tmp_values({
-            key_name: value,
-        })
-
-    @api.multi
-    def clean_tmp_values(self, items):
-        self.ensure_one()
-        values = self.tmp_values
-        for item in items:
-            values.pop(item, None)
-        self.update_tmp_values(values)
-
     @api.model
     def timeout_session(self):
         timeout_delay = self.env['ir.config_parameter'].get_param(
@@ -284,7 +197,7 @@ class ScannerHardware(models.Model):
     def scanner_check(self, terminal_number):
         terminal = self._get_terminal(terminal_number)
         uid = terminal.user_id.id or self.env.uid
-        terminal = terminal.sudo(uid)
+        terminal = terminal.with_user(uid)
         return terminal.scenario_id and (
             terminal.scenario_id.id,
             terminal.scenario_id.name) or False
@@ -302,7 +215,7 @@ class ScannerHardware(models.Model):
             terminal.last_call_dt = fields.Datetime.now()
         # Change uid if defined on the stock scanner
         uid = terminal.user_id.id or self.env.uid
-        return terminal.sudo(uid)._scanner_call(
+        return terminal.with_user(uid)._scanner_call(
             action, message=message, transition_type=transition_type)
 
     def _scanner_call(self, action, message=False,
@@ -444,7 +357,7 @@ class ScannerHardware(models.Model):
         try:
             user = res_users.search([('login', '=', login)])
             if user:
-                res_users.sudo(user)._check_credentials(password)
+                res_users.with_user(user)._check_credentials(password)
             return user.id
         except exceptions.AccessDenied:
             return False
@@ -496,7 +409,7 @@ class ScannerHardware(models.Model):
         tracer = ''
 
         if (transition_type == 'restart' or
-            transition_type == 'back' and
+                transition_type == 'back' and
                 terminal.scenario_id.id):
             if terminal.step_id.no_back:
                 step_id = terminal.step_id.id
@@ -511,7 +424,7 @@ class ScannerHardware(models.Model):
 
                 # Prevent looping on the same step
                 if transition.to_id == terminal.step_id and \
-                   transition_type == 'back':
+                        transition_type == 'back':
                     # Remove the history line
                     last_call.unlink()
                     return self._do_scenario_save(
@@ -597,8 +510,8 @@ class ScannerHardware(models.Model):
 
                 # Store the old step id if we are on a back step
                 if transition.to_id.step_back and (
-                    not terminal.step_history_ids or
-                    terminal.step_history_ids[-1].transition_id != transition
+                        not terminal.step_history_ids or
+                        terminal.step_history_ids[-1].transition_id != transition
                 ):
                     terminal.step_history_ids.create({
                         'hardware_id': terminal.id,
@@ -753,7 +666,6 @@ class ScannerHardware(models.Model):
 
         return scanner_scenario_ids.mapped('name')
 
-    @api.multi
     def _screen_size(self):
         """
         Retrieve the screen size for this terminal

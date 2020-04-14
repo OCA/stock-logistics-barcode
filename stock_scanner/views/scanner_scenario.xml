@@ -17,19 +17,27 @@
         <field name="name">scanner.scenario.form</field>
         <field name="model">scanner.scenario</field>
         <field name="arch" type="xml">
-            <form string="Scanner Scenario" version="8.0">
+            <form>
+                <header>
+                    <button
+                        name="action_export_scenario"
+                        type="object"
+                        string="Export"
+                    />
+                </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
-                            <field name="active" widget="boolean_button" options="{&quot;terminology&quot;: &quot;archive&quot;}"/>
-                        </button>
                     </div>
+                    <field name="active" invisible="1"/>
+                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
+                            attrs="{'invisible': [('active', '=', True)]}"/>
                     <group colspan="4" col="4">
                         <field name="name"/>
                         <field name="type"/>
                         <field name="sequence"/>
                         <field name="parent_id"/>
-                        <field name="model_id" attrs="{'invisible': [('type','!=', 'scenario')], 'required': [('type', '=', 'scenario')]}"/>
+                        <field name="model_id"
+                               attrs="{'invisible': [('type','!=', 'scenario')], 'required': [('type', '=', 'scenario')]}"/>
                         <field name="company_id" invisible="1"/>
                     </group>
                     <notebook colspan="4">
@@ -42,73 +50,10 @@
                                     <field name="step_back"/>
                                     <field name="no_back"/>
                                 </tree>
-                                <form string="Step">
-                                    <group colspan="4" col="6">
-                                        <field name="name" colspan="6"/>
-                                        <field name="step_start"/>
-                                        <field name="step_stop"/>
-                                        <field name="step_back"/>
-                                        <field name="no_back"/>
-                                        <field name="scenario_id" invisible="True"/>
-                                    </group>
-                                    <notebook colspan="4">
-                                        <page string="Transition">
-                                            <separator string="Outgoing transitions" colspan="4"/>
-                                            <field name="out_transition_ids" colspan="4" nolabel="1">
-                                                <tree string="Transition">
-                                                    <field name="sequence"/>
-                                                    <field name="name"/>
-                                                    <field name="to_id"/>
-                                                    <field name="condition"/>
-                                                    <field name="transition_type"/>
-                                                    <field name="tracer"/>
-                                                </tree>
-                                                <form string="Transition">
-                                                    <group colspan="4" col="4">
-                                                        <field name="name" colspan="4"/>
-                                                        <field name="sequence"/>
-                                                        <field name="to_id" domain="[('scenario_id','=', parent.scenario_id)]"/>
-                                                        <field name="condition" colspan="4"/>
-                                                        <field name="transition_type"/>
-                                                        <field name="tracer"/>
-                                                        <newline/>
-                                                    </group>
-                                                </form>
-                                            </field>
-                                            <separator string="Incoming transitions" colspan="4"/>
-                                            <field name="in_transition_ids" colspan="4" nolabel="1">
-                                                <tree string="Transition">
-                                                    <field name="sequence"/>
-                                                    <field name="name"/>
-                                                    <field name="from_id"/>
-                                                    <field name="condition"/>
-                                                    <field name="transition_type"/>
-                                                    <field name="tracer"/>
-                                                </tree>
-                                                <form string="Transition">
-                                                    <group colspan="4" col="4">
-                                                        <field name="name" colspan="4"/>
-                                                        <field name="sequence"/>
-                                                        <field name="from_id" domain="[('scenario_id','=', parent.scenario_id)]"/>
-                                                        <field name="condition" colspan="4"/>
-                                                        <field name="transition_type"/>
-                                                        <field name="tracer"/>
-                                                        <newline/>
-                                                    </group>
-                                                </form>
-                                            </field>
-                                        </page>
-                                        <page string="Code">
-                                            <separator string="Enter the python code here" colspan="4"/>
-                                            <field name="python_code" colspan="4" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
-                                        </page>
-                                    </notebook>
-                                    <newline/>
-                                </form>
                             </field>
                         </page>
                         <page string="Warehouses">
-                            <field name="warehouse_ids" nolabel="1" colspan="4"/>
+                            <field name="warehouse_ids" nolabel="1"/>
                         </page>
                         <page string="Security">
                             <group colspan="2" col="2">
@@ -136,13 +81,16 @@
                 <field name="name"/>
                 <field name="parent_id"/>
                 <field name="model_id"/>
-                <filter string="Menu" name="menu" domain="[('type','=','menu')]" help="Can contain scenarios or submenus"/>
-                <filter string="Scenario" name="scenario" domain="[('type','=','scenario')]" help="Directly launch a scenario"/>
+                <filter string="Menu" name="menu" domain="[('type','=','menu')]"
+                        help="Can contain scenarios or submenus"/>
+                <filter string="Scenario" name="scenario" domain="[('type','=','scenario')]"
+                        help="Directly launch a scenario"/>
                 <newline/>
                 <filter string="Archived" name="archived" domain="[('active','=',False)]"/>
                 <newline/>
                 <group expand="0" string="Group By...">
-                    <filter string="Parent" name="group_by_parent_id" domain="[]" help="Parent" context="{'group_by':'parent_id'}"/>
+                    <filter string="Parent" name="group_by_parent_id" domain="[]" help="Parent"
+                            context="{'group_by':'parent_id'}"/>
                 </group>
             </search>
         </field>
@@ -154,10 +102,12 @@
         <field name="priority" eval="8"/>
         <field name="arch" type="xml">
             <diagram string="Scenario Editor">
-                <node object="scanner.scenario.step" shape="rectangle:step_back==True" bgcolor="gray:step_start==True;grey:step_stop==True">
+                <node object="scanner.scenario.step" shape="rectangle:step_back==True"
+                      bgcolor="gray:step_start==True;grey:step_stop==True">
                     <field name="name"/>
                 </node>
-                <arrow object="scanner.scenario.transition" source="from_id" destination="to_id" label="['condition','tracer']">
+                <arrow object="scanner.scenario.transition" source="from_id" destination="to_id"
+                       label="['condition','tracer']">
                     <field name="name"/>
                     <field name="from_id"/>
                     <field name="to_id"/>
@@ -169,7 +119,6 @@
         <field name="name">Scanner Scenario</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scanner.scenario</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,diagram</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>
@@ -186,5 +135,6 @@
         <field name="view_mode">tree</field>
         <field name="view_id" ref="view_scanner_scenario_tree"/>
     </record>
-    <menuitem id="menu_scanner_scenario" parent="menu_scanner_configuration" sequence="20" action="act_open_scanner_scenario_view"/>
+    <menuitem id="menu_scanner_scenario" parent="menu_scanner_configuration" sequence="20"
+              action="act_open_scanner_scenario_view"/>
 </odoo>

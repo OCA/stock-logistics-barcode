@@ -47,12 +47,12 @@ If needed enable Login/Logout
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 The module comes with 2 predefined scenarii for Login and Logout. The functionality is disabled by default and the user to use in
 Odoo must be specified in the `.odoorpcrc` file used by odoo-sentinel and can be overriden on the Scanner Hardware definition
-in Odoo. 
+in Odoo.
 
 If the Login/logout functionality is enabled, when a user starts a session with odoo-sentinel, only the Login scenario is displayed on the
 screen. The scenario will prompt the user for its login and pwd. If the authentication succeeds, each interaction with Odoo will be done
 using the uid of the connected user. Once connected, a Logout scenario is displayed in the list of available scenarii and the Login
-scenario no longer appears. 
+scenario no longer appears.
 
 The Login/logout functionality enables you to specify on the scenario a list of users and/or a list of groups with access to the scenario.
 
@@ -63,7 +63,7 @@ To enable the Login/logout functionality:
 
 Be careful, the role *Sentinel: technical users* is a technical role and should only be used by sentinel.
 
-The timeout of sessions is managed by a dedicated cron that resets the inactive sessions. The timeout can be configured on 
+The timeout of sessions is managed by a dedicated cron that resets the inactive sessions. The timeout can be configured on
 settings. "Settings > Warehouse"
 
 For the odoo-sentinel client
@@ -194,7 +194,7 @@ Unlike the standard Odoo Workflow, each step needs to find a valid transition, b
 
 .. image:: https://odoo-community.org/website/image/ir.attachment/5784_f2813bd/datas
    :alt: Try me on Runbot
-   :target: https://runbot.odoo-community.org/runbot/154/12.0
+   :target: https://runbot.odoo-community.org/runbot/154/13.0
 
 A client for the Datalogic PowerScan scanners was developped for a very early version or this module.
 The files have been removed, but are still available in the `git repository history
@@ -225,8 +225,9 @@ Contributors
 * Laetitia Gangloff <laetitia.gangloff@acsone.eu>
 * Laurent Mignon <laurent.mignon@acsone.eu>
 * Olivier Dony <odo@openerp.com>
-* Sebastien LANGE <sebastien.lange@syleam.fr>
-* Sylvain Garancher <sylvain.garancher@syleam.fr>
+* Sebastien LANGE <sebastien.lange@subteno-it.com>
+* Sylvain Garancher
+* Florent de Labarre
 
 Maintainer
 ----------
