@@ -106,8 +106,7 @@ class ScannerScenario(models.Model):
                 _('Error ! You can not create recursive scenarios.'),
             )
 
-    @api.multi
-    def copy(self, default):
+    def copy(self, default=None):
         default = default or {}
         default['name'] = _('Copy of %s') % self.name
 
@@ -120,3 +119,4 @@ class ScannerScenario(models.Model):
                 [('scenario_id', '=', self.id)]):
             trans.copy({'from_id': step_news[trans.from_id.id],
                         'to_id': step_news[trans.to_id.id]})
+        return scenario_new

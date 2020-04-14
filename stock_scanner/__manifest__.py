@@ -4,18 +4,16 @@
 {
     'name': 'Stock Scanner',
     'summary': 'Allows managing barcode readers with simple scenarios',
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Generic Modules/Inventory Control',
     'website': 'https://github.com/OCA/stock-logistics-barcode',
     'author': 'Subteno IT,'
               'ACSONE SA/NV,'
               'Odoo Community Association (OCA)',
     'license': 'AGPL-3',
-    'application': True,
     'installable': True,
     'depends': [
         'base_sparse_field',
-        'product',
         'stock',
     ],
     'data': [
@@ -26,12 +24,13 @@
         'data/scenarios/Login/Login.scenario',
         'data/scenarios/Logout/Logout.scenario',
         'data/scenarios/Stock/Stock.scenario',
-        'wizard/res_config_settings.xml',
         'views/menu.xml',
         'views/scanner_scenario.xml',
         'views/scanner_scenario_step.xml',
         'views/scanner_scenario_transition.xml',
         'views/scanner_hardware.xml',
+        'wizard/res_config_settings.xml',
+        'wizard/wizard_export.xml',
     ],
     'demo': [
         'demo/stock_scanner_demo.xml',
