@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo13-addon-base_gs1_barcode',
         'odoo13-addon-stock_barcodes',
+        'odoo13-addon-stock_barcodes_automatic_entry',
     ],
     classifiers=[
         'Programming Language :: Python',
