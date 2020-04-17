@@ -20,15 +20,21 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
 msgid ""
-" * Draft: not confirmed yet and will not be scheduled until confirmed.\n"
-" * Waiting Another Operation: waiting for another move to proceed before it "
-"becomes automatically available (e.g. in Make-To-Order flows).\n"
-" * Waiting: if it is not ready to be sent because the required products "
-"could not be reserved.\n"
-" * Ready: products are reserved and ready to be sent. If the shipping policy "
-"is 'As soon as possible' this happens as soon as anything is reserved.\n"
-" * Done: has been processed, can't be modified or cancelled anymore.\n"
-" * Cancelled: has been cancelled, can't be confirmed anymore."
+" * Draft: The transfer is not confirmed yet. Reservation doesn't apply.\n"
+" * Waiting another operation: This transfer is waiting for another operation "
+"before being ready.\n"
+" * Waiting: The transfer is waiting for the availability of some products.\n"
+"(a) The shipping policy is \"As soon as possible\": no product could be "
+"reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": not all the "
+"products could be reserved.\n"
+" * Ready: The transfer is ready to be processed.\n"
+"(a) The shipping policy is \"As soon as possible\": at least one product has "
+"been reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": all product have "
+"been reserved.\n"
+" * Done: The transfer has been processed.\n"
+" * Cancelled: The transfer has been cancelled."
 msgstr ""
 
 #. module: stock_barcodes
@@ -76,36 +82,36 @@ msgid "Barcode Scanned"
 msgstr "Lector de códigos de barras"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:119
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode not found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:82
-#: selection:wiz.stock.barcodes.read,message_type:0
-#: selection:wiz.stock.barcodes.read.inventory,message_type:0
-#: selection:wiz.stock.barcodes.read.picking,message_type:0
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__success
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__success
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__success
 #, python-format
 msgid "Barcode read correctly"
 msgstr "Código de barras leído correctamente"
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read,message_type:0
-#: selection:wiz.stock.barcodes.read.inventory,message_type:0
-#: selection:wiz.stock.barcodes.read.picking,message_type:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__info
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__info
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__info
 msgid "Barcode read with additional info"
 msgstr "Código de barras leído con información adicional"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:46
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Barcode reader"
 msgstr "Escaneador"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:77
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode: %s (%s)"
 msgstr "Cód. Barras: %s (%s)"
@@ -152,8 +158,7 @@ msgid "Clean lot"
 msgstr "Borrar lote"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:213
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:217
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Click on picking pushpin to lock it"
 msgstr "Pinche en la chincheta del albarán para bloquearlo"
@@ -211,7 +216,7 @@ msgid "Current product scanning log"
 msgstr ""
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__outgoing
 msgid "Customers"
 msgstr "Clientes"
 
@@ -265,7 +270,7 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
 msgid "Internal"
 msgstr "Interno"
 
@@ -353,7 +358,7 @@ msgid "Manual entry"
 msgstr "Entrada manual"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:134
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Manual entry OK"
 msgstr "Entrada manual correcta"
@@ -381,20 +386,20 @@ msgid "Message Type"
 msgstr "Tipo de mensaje"
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read,message_type:0
-#: selection:wiz.stock.barcodes.read.inventory,message_type:0
-#: selection:wiz.stock.barcodes.read.picking,message_type:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__more_match
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__more_match
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__more_match
 msgid "More than one matches found"
 msgstr "Se ha encontrado más de una coincidencia"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:98
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
 msgstr "Se ha encontrado más de un empaquetado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:88
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one product found"
 msgstr "Se ha encontrado más de un producto"
@@ -410,9 +415,9 @@ msgid "New lot"
 msgstr "Nuevo lote"
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read,message_type:0
-#: selection:wiz.stock.barcodes.read.inventory,message_type:0
-#: selection:wiz.stock.barcodes.read.picking,message_type:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__not_found
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__not_found
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__not_found
 msgid "No barcode found"
 msgstr "Código de barras no encontrado"
 
@@ -562,7 +567,7 @@ msgid "Stock move lines"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:190
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr "No hay movimientos de stock para realizar esta operación"
@@ -602,25 +607,25 @@ msgid "Value of the last barcode scanned."
 msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
 
 #. module: stock_barcodes
-#: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
 msgid "Vendors"
 msgstr "Proveedores"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:68
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:208
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Waiting for input lot"
 msgstr "A la espera de leer lote"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:117
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
 msgstr "A la espera de producto"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:131
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting quantities"
 msgstr "A la espera de introducir cantidad"
@@ -658,13 +663,13 @@ msgid "Wizard to read barcode on picking"
 msgstr "Asistente para leer códigos de barras desde los albaranes"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:96
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:237
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or "
