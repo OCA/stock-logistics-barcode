@@ -1,0 +1,236 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* stock_barcodes_internal_transfer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-29 17:12+0000\n"
+"PO-Revision-Date: 2020-04-29 17:12+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_barcodes_internal_transfer
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_internal_transfer.view_picking_form
+msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
+msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer___barcode_scanned
+msgid "Barcode Scanned"
+msgstr "Lector de códigos de barras"
+
+#. module: stock_barcodes_internal_transfer
+#: selection:wiz.stock.barcodes.read.internal.transfer,message_type:0
+msgid "Barcode read correctly"
+msgstr "Código de barras leído correctamente"
+
+#. module: stock_barcodes_internal_transfer
+#: selection:wiz.stock.barcodes.read.internal.transfer,message_type:0
+msgid "Barcode read with additional info"
+msgstr "Código de barras leído con información adicional"
+
+#. module: stock_barcodes_internal_transfer
+#: code:addons/stock_barcodes_internal_transfer/wizard/stock_barcodes_read_internal_transfer.py:36
+#, python-format
+msgid "Barcode reader"
+msgstr "Escaneador"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.actions.act_window,name:stock_barcodes_internal_transfer.action_stock_barcodes_read_internal_transfer
+msgid "Barcodes Read"
+msgstr ""
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__location_dest_id
+msgid "Destination Location"
+msgstr "Localización Destino"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__display_name
+msgid "Display Name"
+msgstr "Nombre a mostrar"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,help:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__product_tracking
+msgid "Ensure the traceability of a storable product in your warehouse."
+msgstr "Garantice la trazabilidad de un producto almacenable en su almacén"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__id
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__location_id
+msgid "Location"
+msgstr "Localización"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_stock_barcodes_read_log__location_dest_id
+msgid "Location Dest"
+msgstr "Localización Destino"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,help:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__location_dest_id
+msgid "Location where the system will stock the moved products."
+msgstr "Ubicación donde el sistema almacenará los productos movidos."
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model,name:stock_barcodes_internal_transfer.model_stock_barcodes_read_log
+msgid "Log barcode scanner"
+msgstr "Registro de lecturas"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__lot_id
+msgid "Lot"
+msgstr "Lote"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__manual_entry
+msgid "Manual entry data"
+msgstr "Mensaje"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__message
+msgid "Message"
+msgstr ""
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__message_type
+msgid "Message Type"
+msgstr "Tipo de mensaje"
+
+#. module: stock_barcodes_internal_transfer
+#: selection:wiz.stock.barcodes.read.internal.transfer,message_type:0
+msgid "More than one matches found"
+msgstr "Se ha encontrado más de una coincidencia"
+
+#. module: stock_barcodes_internal_transfer
+#: selection:wiz.stock.barcodes.read.internal.transfer,message_type:0
+msgid "No barcode found"
+msgstr "Código de barras no encontrado"
+
+#. module: stock_barcodes_internal_transfer
+#: code:addons/stock_barcodes_internal_transfer/wizard/stock_barcodes_read_internal_transfer.py:118
+#, python-format
+msgid "Not picking selected"
+msgstr "No hay albarán seleccionado"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__packaging_qty
+msgid "Package Qty"
+msgstr "Cdad. de empaquetado"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__packaging_id
+msgid "Packaging"
+msgstr "Empaquetado"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__picking_id
+msgid "Picking"
+msgstr "Albarán"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__picking_product_qty
+msgid "Picking quantities"
+msgstr "Cantidades del albarán"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__product_qty
+msgid "Product Qty"
+msgstr "Cdad. de producto"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__res_id
+msgid "Res"
+msgstr "Resultado"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__res_model_id
+msgid "Res Model"
+msgstr "Modelo"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__scan_log_ids
+msgid "Scan Log"
+msgstr "Registro de lecturas del producto"
+
+#. module: stock_barcodes_internal_transfer
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_internal_transfer.view_picking_form
+msgid "Start barcode interface"
+msgstr "Iniciar el lector de códigos de barras"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,field_description:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer__product_tracking
+msgid "Tracking"
+msgstr "Albarán"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model,name:stock_barcodes_internal_transfer.model_stock_picking
+msgid "Transfer"
+msgstr "Transferir"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model.fields,help:stock_barcodes_internal_transfer.field_wiz_stock_barcodes_read_internal_transfer___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
+
+#. module: stock_barcodes_internal_transfer
+#: code:addons/stock_barcodes_internal_transfer/wizard/stock_barcodes_read_internal_transfer.py:114
+#, python-format
+msgid "Waiting for input lot"
+msgstr "A la espera de leer lote"
+
+#. module: stock_barcodes_internal_transfer
+#: model:ir.model,name:stock_barcodes_internal_transfer.model_wiz_stock_barcodes_read_internal_transfer
+msgid "Wizard to read barcode on internal transfer"
+msgstr "Asistente para leer código de barras"
+
+#. module: stock_barcodes_internal_transfer
+#: code:addons/stock_barcodes_internal_transfer/wizard/stock_barcodes_read_internal_transfer.py:137
+#, python-format
+msgid "You can not remove a scanning log from an validated"
+msgstr "No puede eliminar un log de scaneo en un movimiento validado"
+
