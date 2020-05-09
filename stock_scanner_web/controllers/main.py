@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Eficent Business and IT Consulting Services, S.L.
 # <http://www.eficent.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from openerp import http
-from openerp.http import request
-from openerp import _
+from odoo import http
+from odoo.http import request
+from odoo import _
 
 
 def allowed_hardware(user, t_num):
@@ -120,7 +119,7 @@ class ScannerWeb(http.Controller):
                 'stock_scanner_web.error_message',
                 values)
 
-        scenario_step = request.env['scanner.hardware'].\
+        scenario_step = request.env['scanner.hardware']. \
             search([('code', '=', terminal_number)]).step_id
         step = scenario_step and int(scenario_step) or 0
         header = False
@@ -139,7 +138,7 @@ class ScannerWeb(http.Controller):
                 elif len(line) == 2 and line[0] != '|':
                     lines.append({
                         'href': '/stock_scanner_web/%s/%s/action?message=%s' %
-                        (terminal_number, step, line[0]),
+                                (terminal_number, step, line[0]),
                         'label': line[1]})
                 elif len(line) != 2 and line[0] == '#':
                     lines.append({
