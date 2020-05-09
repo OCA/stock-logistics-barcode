@@ -1,19 +1,17 @@
-# -*- coding: utf-8 -*-
 # © 2011 Sylvain Garancher <sylvain.garancher@syleam.fr>
 # © 2017 Angel Moya <angel.moya@pesol.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp import models, api, fields
+from odoo import models, api, fields
 
 
 class ScannerHardware(models.Model):
     _inherit = 'scanner.hardware'
 
-    show_numpad = fields.Selection(
-        [('yes', 'Yes'),
-         ('no', 'No'),
-        ],
-        string='Show Numpad')
+    show_numpad = fields.Selection([
+        ('yes', 'Yes'),
+        ('no', 'No'),
+    ], string='Show Numpad')
 
     @api.model
     def _scenario_list(self, parent_id=False):

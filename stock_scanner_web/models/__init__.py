@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright 2016 Angel Moya <http://angelmoya.es>
 # Copyright 2016 Eficent Business and IT Consulting Services, S.L.
 # <http://www.eficent.com>

@@ -7,21 +7,15 @@
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-
     <template id="scanner_layout" name="header">
         <t t-call="web.layout">
             <t t-set="head">
                 <t t-call-assets="web.assets_common"/>
                 <t t-call-assets="web.assets_backend"/>
                 <meta name="viewport" content="width=device-width"/>
-                <link rel="stylesheet" href="/web/static/lib/bootstrap/css/bootstrap.css"/>
-                <link rel="stylesheet" href="/web/static/lib/fontawesome/css/font-awesome.css"/>
-                <link rel="stylesheet" href="/stock_scanner_web/static/lib/css/responsive.css"/>
-                <script src="/web/static/lib/jquery/jquery.js" type="text/javascript"/>
-                <script src="/web/static/lib/bootstrap/js/tooltip.js" type="text/javascript"/>
-                <script src="/web/static/lib/bootstrap/js/popover.js" type="text/javascript"/>
-                <script src="/stock_scanner_web/static/lib/js/responsive.js" type="text/javascript"/>
-                <script src="/stock_scanner_web/static/src/js/stock_scanner_web.tour.js"/>
+                <link rel="stylesheet" type="text/css" href="/stock_scanner_web/static/lib/css/responsive.css"/>
+                <script type="text/javascript" src="/stock_scanner_web/static/lib/js/responsive.js"/>
+                <script type="text/javascript" src="/stock_scanner_web/static/src/js/stock_scanner_web.tour.js"/>
             </t>
             <t t-raw="0"/>
         </t>
@@ -82,7 +76,8 @@
             <div id="wrap">
                 <div class="container">
                     <div t-if="action is not 'reset'">
-                        <a id="btn-home" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="btn btn-info">
+                        <a id="btn-home" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset"
+                           class="btn btn-info">
                             <i class="fa fa-bars"></i>
                             <span class="hidden-xs">Main Menu</span>
                         </a>
@@ -95,7 +90,8 @@
                             <t t-foreach="result.get('lines')" t-as="line">
                                 <div class="col-xs-12 col-sm-4 col-md-3">
                                     <div class="list-group">
-                                        <a class="list-group-item list-group-item-info text-center js_item" t-attf-href="{{line.get('href')}}">
+                                        <a class="list-group-item list-group-item-info text-center js_item"
+                                           t-attf-href="{{line.get('href')}}">
                                             <h4 class="list-group-item-heading" t-esc="line.get('label')"/>
                                             <!-- <p class="list-group-item-text">You can put text here</p> -->
                                         </a>
@@ -113,13 +109,14 @@
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0" class="btn btn-default pull-right">
+                            <a id="btn-go" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action/0"
+                               class="btn btn-default pull-right">
                                 Go
                             </a>
                         </div>
                     </t>
                     <t t-if="code == 'E'">
-                        <div >
+                        <div>
                             <div class="col-xs-12">
                                 <t t-foreach="result.get('lines')" t-as="line">
                                     <p t-esc="line"/>
@@ -127,13 +124,14 @@
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="btn btn-default">
+                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back"
+                               class="btn btn-default">
                                 Back
                             </a>
                         </div>
                     </t>
                     <t t-if="code == 'F'">
-                        <div >
+                        <div>
                             <div class="col-xs-12">
                                 <t t-foreach="result.get('lines')" t-as="line">
                                     <p t-esc="line"/>
@@ -141,13 +139,14 @@
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset" class="btn btn-fullwith btn-default">
+                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/?action=reset"
+                               class="btn btn-fullwith btn-default">
                                 Go to menu
                             </a>
                         </div>
                     </t>
                     <t t-if="code == 'C'">
-                        <div >
+                        <div>
                             <div class="col-xs-12">
                                 <t t-foreach="result.get('lines')" t-as="line">
                                     <p t-esc="line"/>
@@ -155,10 +154,14 @@
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-yes" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True" class="btn btn-default pull-right">
+                            <a id="btn-yes"
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=True"
+                               class="btn btn-default pull-right">
                                 Yes
                             </a>
-                            <a id="btn-no" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False" class="btn btn-default">
+                            <a id="btn-no"
+                               t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/action?message=False"
+                               class="btn btn-default">
                                 No
                             </a>
                         </div>
@@ -169,13 +172,17 @@
                                 <p t-esc="line"/>
                             </t>
 
-                            <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="form-horizontal">
+                            <form method="get"
+                                  t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)"
+                                  class="form-horizontal">
                                 <div class="form-group">
                                     <t t-if="code == 'N'">
-                                        <input id="kpad-result" type="number" step="1" name="message" class="search-query form-control" autofocus="autofocus"/>
+                                        <input id="kpad-result" type="number" step="1" name="message"
+                                               class="search-query form-control" autofocus="autofocus"/>
                                     </t>
                                     <t t-if="code == 'Q'">
-                                        <input id="kpad-result" step="any" name="message" class="search-query form-control" autofocus="autofocus"/>
+                                        <input id="kpad-result" step="any" name="message"
+                                               class="search-query form-control" autofocus="autofocus"/>
                                     </t>
                                     <t t-if="show_numpad == 'yes'">
                                         <div class="text-center h1">
@@ -185,9 +192,9 @@
                                                 <span class="btn btn-lg kpad-nmbr btn-default" data-key="3">3</span>
                                             </div>
                                             <div class="kpad-row">
-                                              <span class="btn btn-lg kpad-nmbr btn-default" data-key="4">4</span>
-                                              <span class="btn btn-lg kpad-nmbr btn-default" data-key="5">5</span>
-                                              <span class="btn btn-lg kpad-nmbr btn-default" data-key="6">6</span>
+                                                <span class="btn btn-lg kpad-nmbr btn-default" data-key="4">4</span>
+                                                <span class="btn btn-lg kpad-nmbr btn-default" data-key="5">5</span>
+                                                <span class="btn btn-lg kpad-nmbr btn-default" data-key="6">6</span>
                                             </div>
                                             <div class="kpad-row">
                                                 <span class="btn btn-lg kpad-nmbr btn-default" data-key="7">7</span>
@@ -196,13 +203,18 @@
                                             </div>
                                             <div class="kpad-row">
                                                 <t t-if="code == 'Q'">
-                                                    <span class="btn btn-lg kpad-dot btn-default" t-att-data-key="decimal_point"><t t-esc="decimal_point"/></span>
+                                                    <span class="btn btn-lg kpad-dot btn-default"
+                                                          t-att-data-key="decimal_point">
+                                                        <t t-esc="decimal_point"/>
+                                                    </span>
                                                 </t>
                                                 <t t-if="code == 'N'">
                                                     <span class="btn-lg" data-key=""></span>
                                                 </t>
                                                 <span class="btn btn-lg kpad-nmbr btn-default" data-key="0">0</span>
-                                                <span class="btn btn-lg kpad-del btn-default" data-key="x"><i class="fa fa-caret-square-o-left"></i></span>
+                                                <span class="btn btn-lg kpad-del btn-default" data-key="x">
+                                                    <i class="fa fa-caret-square-o-left"></i>
+                                                </span>
                                             </div>
                                         </div>
                                     </t>
@@ -211,14 +223,17 @@
                             </form>
                         </div>
                     </div>
-                    <div t-if="code == 'T'" >
+                    <div t-if="code == 'T'">
                         <div class="col-xs-12">
                             <t t-foreach="result.get('lines')" t-as="line">
                                 <p t-esc="line"/>
                             </t>
-                            <form method="get" t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)" class="form-horizontal col-md-6 col-xs-12">
+                            <form method="get"
+                                  t-att-action="'/stock_scanner_web/%s/%s/action' % (terminal_number, step)"
+                                  class="form-horizontal col-md-6 col-xs-12">
                                 <div class="form-group">
-                                    <input type="text" name="message" class="search-query form-control" autofocus="autofocus"/>
+                                    <input type="text" name="message" class="search-query form-control"
+                                           autofocus="autofocus"/>
                                 </div>
                                 <button type="submit" class="btn btn-fullwith btn-primary pull-right">Submit</button>
                             </form>
@@ -235,24 +250,26 @@
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu" class="btn btn-fullwith btn-default">
+                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/Menu"
+                               class="btn btn-fullwith btn-default">
                                 Go to menu
                             </a>
                         </div>
                     </t>
                     <t t-if="code == 'U'">
-                        <div >
+                        <div>
                             <div class="col-xs-12">
                                 <h3>Please, contact you administrator</h3>
                             </div>
                         </div>
                         <div class="block-bottom">
-                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back" class="btn btn-fullwith btn-default">
+                            <a id="btn-back" t-attf-href="/stock_scanner_web/{{terminal_number}}/{{step}}/back"
+                               class="btn btn-fullwith btn-default">
                                 Go to menu
                             </a>
                         </div>
                     </t>
-                    <div t-if="code == 'W'" >
+                    <div t-if="code == 'W'">
                         <div class="col-xs-12">
                             <t t-call="{{result}}"/>
                         </div>
