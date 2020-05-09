@@ -23,18 +23,22 @@
     body {
         font-size: 18px;
     }
+
     .container {
         width: 460px;
     }
+
     .btn-fullwith {
         padding: 10px 16px;
         font-size: 18px;
         line-height: 1.3333333;
         border-radius: 6px;
     }
-    .col-xs-12+.col-xs-12 {
+
+    .col-xs-12 + .col-xs-12 {
         margin-top: 5px;
     }
+
     .form-control {
         height: 46px;
         padding: 10px 16px;
@@ -46,6 +50,7 @@
     body {
         font-size: 18px;
     }
+
     .btn-fullwith {
         display: inline-block;
         width: 100%;
@@ -54,9 +59,11 @@
         line-height: 1.3333333;
         border-radius: 6px;
     }
-    .btn+.btn {
+
+    .btn + .btn {
         margin-top: 5px;
     }
+
     .form-control {
         height: 46px;
         padding: 10px 16px;
@@ -64,6 +71,6 @@
     }
 }
 
-.kpad-row{
-                margin-top: 5px;
-            }
+.kpad-row {
+    margin-top: 5px;
+}

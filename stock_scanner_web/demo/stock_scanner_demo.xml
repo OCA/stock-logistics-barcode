@@ -1,8 +1,6 @@
 <?xml version="1.0" ?>
-<openerp>
-    <data noupdate="0">
-        <record model="res.users" id="base.user_root">
-            <field name="scanner_hardware_ids" eval="[(4, ref('stock_scanner.scanner_hardware_1'))]"/>
-        </record>
-    </data>
-</openerp>
+<odoo noupdate="0">
+    <record id="base.user_admin" model="res.users">
+        <field name="scanner_hardware_ids" eval="[(4, ref('stock_scanner.scanner_hardware_1'))]"/>
+    </record>
+</odoo>

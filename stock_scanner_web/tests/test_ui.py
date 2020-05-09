@@ -1,19 +1,19 @@
-# -*- coding: utf-8 -*-
 # © 2017 Jairo Llopis <jairo.llopis@tecnativa.com>
 # © 2017 Angel Moya <angel.moya@pesol.es>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from openerp.tests.common import HttpCase
+import odoo.tests
 
 
-class UICase(HttpCase):
+class TestUi(odoo.tests.HttpCase):
 
-    def test_stock_scanner_web(self):
+    def test_01_stock_scanner_web_tour(self):
         """Test frontend tour."""
-        self.phantom_js(
-            url_path="/stock_scanner_web",
-            code="odoo.__DEBUG__.services['web.Tour']"
-                 ".run('stock_scanner_web', 'test')",
-            ready="odoo.__DEBUG__.services['web.Tour']"
-                  ".tours.stock_scanner_web",
+        tour = "stock_scanner_web_tour"
+        self.browser_js(
+            "/stock_scanner_web",
+            "odoo.__DEBUG__.services['web_tour.tour']"
+            ".run('%s')" % tour,
+            ready="odoo.__DEBUG__.services['web_tour.tour']"
+                  ".tours.%s.ready" % tour,
             login="admin")

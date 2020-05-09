@@ -6,8 +6,7 @@
   <notes/>
   <sequence>0</sequence>
   <parent_id/>
-  <shared_custom>False</shared_custom>
-  <warehouse_ids>OpenERP S.A.</warehouse_ids>
+  <warehouse_ids>Odoo S.A.</warehouse_ids>
   <warehouse_ids>Shop 1</warehouse_ids>
   <warehouse_ids>Shop 2</warehouse_ids>
   <active>True</active>
