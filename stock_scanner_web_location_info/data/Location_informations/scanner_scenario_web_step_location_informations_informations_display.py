@@ -13,7 +13,7 @@ data = []
 location_infos = env['stock.quant'].read_group(
     [('location_id.name', '=', message.get('location_name')),
      ('location_id.usage', '=', 'internal')],
-    ['location_id', 'lot_id', 'qty', 'product_id', 'product_id.uom_id'],
+    ['location_id', 'lot_id', 'quantity', 'product_id', 'product_id.uom_id'],
     ['product_id'],
 )
 for location_info in location_infos:
@@ -21,7 +21,7 @@ for location_info in location_infos:
     data.append({
         'product': location_info['product_id'][1],
         'product_uom': product.uom_id.name,
-        'product_qty': location_info['qty']
+        'product_quantity': location_info['quantity']
     })
 
 act = 'W'

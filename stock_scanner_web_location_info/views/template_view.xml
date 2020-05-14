@@ -28,7 +28,7 @@
                 <t t-foreach="value.get('items')" t-as="item">
                     <tr>
                         <td><span t-esc="item.get('product')"/></td>
-                        <td><span t-esc="item.get('product_qty')"/>
+                        <td><span t-esc="item.get('product_quantity')"/>
                             <span t-esc="item.get('product_uom')"/></td>
                     </tr>
                 </t>
