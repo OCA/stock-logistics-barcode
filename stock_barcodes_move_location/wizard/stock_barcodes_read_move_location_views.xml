@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_read_move_location_form" model="ir.ui.view">
+        <field name="name">stock.barcodes.read.move.location.form</field>
+        <field name="model">wiz.stock.barcodes.read.move.location</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
+        <field name="arch" type="xml">
+            <field name="location_id" position="attributes">
+                <attribute name="string">Origin Location</attribute>
+            </field>
+            <field name="location_id" position="before">
+                <field
+                    name="move_location_id"
+                    invisible="not context.get('default_default_move_location_id', False)"
+                />
+            </field>
+            <field name="location_id" position="after">
+                <field name="location_dest_id" />
+            </field>
+            <field name="product_qty" position="after">
+                <field name="move_location_qty" />
+            </field>
+            <button name="action_manual_entry" position="before">
+                <button
+                    name='action_automatic_entry'
+                    type="object"
+                    string="Automatic entry"
+                    class="btn-default barcode-automatic-entry"
+                    invisible="1"
+                />
+            </button>
+            <button name="action_manual_entry" position="before">
+                <button
+                    name='action_zbarcam'
+                    type="object"
+                    string="Scan With Z-BAR-CAM"
+                />
+            </button>
+        </field>
+    </record>
+    <!--
+     Open wizard in current target option to avoid that the wizard is
+     closed after any button click,
+    -->
+    <record
+        model="ir.actions.act_window"
+        id="action_stock_barcodes_read_stock_move_location"
+    >
+        <field name="name">Barcodes Read</field>
+        <field name="view_mode">form</field>
+        <field
+            name="binding_model_id"
+            ref="stock_move_location.model_wiz_stock_move_location"
+        />
+        <field name="res_model">wiz.stock.barcodes.read.move.location</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_stock_barcodes_read_move_location_form" />
+        <field name="target">current</field>
+    </record>
+</odoo>
