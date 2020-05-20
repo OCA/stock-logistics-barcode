@@ -15,17 +15,12 @@ class ProductProduct(models.Model):
 
     @api.model_cr_context
     def _auto_init(self):
-        found = -1
-        i = 0
-        for _sql_constraint in self._sql_constraints:
-            if _sql_constraint[0] == "barcode_uniq":
-                found = i
-            i += 1
-        if found != -1:
-            self._sql_constraints[found] = (
-                "barcode_uniq",
-                "unique(barcode, tmpl_company_id)", _(
-                    "A barcode can only be assigned to one"
-                    " product per company !")
-            )
+        for i, constraint in enumerate(self._sql_constraints):
+            if constraint[0] == "barcode_uniq":
+                self._sql_constraints[i] = (
+                    "barcode_uniq",
+                    "unique(barcode, tmpl_company_id)", _(
+                        "A barcode can only be assigned to one"
+                        " product per company !")
+                )
         return super()._auto_init()
