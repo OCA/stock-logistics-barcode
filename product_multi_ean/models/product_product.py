@@ -15,7 +15,6 @@ class ProductEan13(models.Model):
 
     name = fields.Char(
         string='EAN13',
-        size=13,
         required=True,
     )
     sequence = fields.Integer(
