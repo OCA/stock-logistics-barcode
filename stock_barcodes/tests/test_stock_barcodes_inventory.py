@@ -27,8 +27,10 @@ class TestStockBarcodesInventory(TestStockBarcodes):
                          self.stock_inventory_model)
         self.assertEqual(self.wiz_scan_inventory.res_id,
                          self.inventory.id)
-        self.assertEqual(self.wiz_scan_inventory.display_name,
-                         'Barcode reader - Test Inventory - OdooBot')
+        self.assertIn(
+            "Barcode reader - Test Inventory - ",
+            self.wiz_scan_inventory.display_name,
+        )
 
     def test_inventory_wizard_scan_product(self):
         self.action_barcode_scanned(self.wiz_scan_inventory, '8480000723208')
