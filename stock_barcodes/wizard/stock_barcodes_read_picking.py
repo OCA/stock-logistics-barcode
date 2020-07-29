@@ -97,10 +97,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             wiz._set_candidate_pickings(wiz.picking_id)
         return wiz
 
-    @api.onchange('new_picking')
-    def onchange_new_picking(self):
-        self.free_insert = self.new_picking
-
     @api.onchange('picking_id')
     def onchange_picking_id(self):
         # Add to candidate pickings the default picking. We are in a wizard
@@ -168,7 +164,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _states_move_allowed(self):
         move_states = ['assigned']
-        if self.confirmed_moves:
+        if self.confirmed_moves or self.free_insert:
             move_states.append('confirmed')
         return move_states
 
@@ -215,16 +211,33 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         StockMove = self.env['stock.move']
         StockMoveLine = self.env['stock.move.line']
         if self.new_picking and not self.picking_id:
+            location_dest_id = (
+                self.location_dest_id.id or
+                self.picking_type_id.default_location_dest_id.id)
+            location_id = self.location_id.id
+            if not location_dest_id and self.picking_type_id.code == 'outgoing':
+                location_dest_id = self.env.ref('stock.stock_location_customers').id
+
+            if self.picking_type_id.code == 'incoming':
+                location_id = (
+                    self.picking_type_id.default_location_src_id.id or
+                    self.env.ref('stock.stock_location_suppliers').id)
+
             self.picking_id = self.env['stock.picking'].create({
+                'code': self.picking_type_id.code,
                 'picking_type_id': self.picking_type_id.id,
-                'location_id': self.location_id.id,
-                'location_dest_id': self.location_dest_id.id,
+                'location_id': location_id,
+                'location_dest_id': location_dest_id,
             })
             self._set_default_picking()
         moves_todo = StockMove.search(self._prepare_stock_moves_domain())
         if self.free_insert:
             if not moves_todo:
-                # self.product_qty = 1
+                if not self.picking_id:
+                    self._set_messagge_info(
+                        'info',
+                        _('No picking set: impossible to create move'))
+                    return False
                 moves_todo += StockMove.create({
                     'name': _('New Move:') + self.product_id.display_name,
                     'product_id': self.product_id.id,

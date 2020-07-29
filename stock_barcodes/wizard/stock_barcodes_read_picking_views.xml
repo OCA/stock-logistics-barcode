@@ -83,11 +83,11 @@
                 <label for="free_insert">
                     Free Insert
                 </label>
-                <field name="free_insert" widget="boolean_toggle"/>
+                <field name="free_insert" widget="barcode_boolean_toggle"/>
                 <label for="new_picking">
                     New Picking
                 </label>
-                <field name="new_picking" widget="boolean_toggle"/>
+                <field name="new_picking" widget="barcode_boolean_toggle"/>
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_id" invisible="1"/>
@@ -97,7 +97,8 @@
             <field name="location_id" position="after">
                 <field name="location_dest_id"
                        attrs="{'invisible': [('picking_type_code', '!=', 'internal')],
-                               'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                               'readonly': [('manual_entry', '=', False)],
+                               'required': [('manual_entry', '=', True),('picking_type_code', '=', 'internal')]}"
                        force_save="1"/>
             </field>
             <field name="product_qty" position="after">
