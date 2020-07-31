@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Copyright (C) 2017-Today GRAP (http://www.grap.coop)
+@author: Sylvain LE GAL (https://twitter.com/legalsylvain)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+
+<odoo>
+
+    <record id="view_barcode_search_form" model="ir.ui.view">
+        <field name="model">barcode.search</field>
+        <field name="arch" type="xml">
+            <form>
+                <group>
+                    <field name="barcode"/>
+                    <field name="state" invisible="1"/>
+                </group>
+                <group string="Result" attrs="{'invisible': [('state', '=', 'new')]}">
+                    <field name="line_ids" nolabel="1">
+                        <tree>
+                            <field name="model_id" />
+                            <field name="field_id" />
+                            <field name="item_name" />
+                            <field name="extra_data_display"/>
+                            <button type="object" name="button_view" string="View" icon="fa-external-link" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button type="object" name="action_search" string="Search" class="btn-primary fa fa-search"/>
+                    <button special="cancel" string="Discard" class="btn-default"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_barcode_search_form" model="ir.actions.act_window">
+        <field name="name">Search By Barcode</field>
+        <field name="res_model">barcode.search</field>
+        <field name="target">new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+    </record>
+
+</odoo>

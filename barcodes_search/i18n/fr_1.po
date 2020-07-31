@@ -1,0 +1,197 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+#	* barcodes_search
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 10.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-01-04 18:49+0000\n"
+"PO-Revision-Date: 2018-01-04 18:49+0000\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_barcode
+msgid "Barcode"
+msgstr "Code Barre"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_barcode_search_id
+msgid "Barcode search id"
+msgstr "Barcode search id"
+
+#. module: barcodes_search
+#: model:ir.model.fields,help:barcodes_search.field_barcode_search_barcode
+msgid "Barcode to search for."
+msgstr "Code Barre à rechercher"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_create_uid
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_create_uid
+msgid "Created by"
+msgstr "Créé par"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_create_date
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_create_date
+msgid "Created on"
+msgstr "Créé le"
+
+#. module: barcodes_search
+#: model:product.product,name:barcodes_search.product_with_barcode_price
+#: model:product.template,name:barcodes_search.product_with_barcode_price_product_template
+msgid "Demo Lemon"
+msgstr "Citron (Démo)"
+
+#. module: barcodes_search
+#: model:product.product,name:barcodes_search.product_with_barcode_weight
+#: model:product.template,name:barcodes_search.product_with_barcode_weight_product_template
+msgid "Demo Onions"
+msgstr "Oignons (Démo)"
+
+#. module: barcodes_search
+#: model:product.product,name:barcodes_search.product_with_barcode
+#: model:product.template,name:barcodes_search.product_with_barcode_product_template
+msgid "Demo Product with Barcode"
+msgstr "Produit avec Code Barre (Démo)"
+
+#. module: barcodes_search
+#: model:ir.ui.view,arch_db:barcodes_search.view_barcode_search_form
+msgid "Discard"
+msgstr "Annuler"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_display_name
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_display_name
+msgid "Display Name"
+msgstr "Nom affiché"
+
+#. module: barcodes_search
+#: selection:barcode.search,state:0
+msgid "Done"
+msgstr "Done"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_extra_data_display
+msgid "Extra Data"
+msgstr "Donnée complémentaire"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_extra_data
+msgid "Extra data"
+msgstr "Donnée complémentaire"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_field_id
+msgid "Field"
+msgstr "Champ"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_id
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_id
+msgid "ID"
+msgstr "ID"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_item_id
+msgid "Item ID"
+msgstr "Item ID"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_item_name
+msgid "Item Name"
+msgstr "Nom de l'objet"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search___last_update
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line___last_update
+msgid "Last Modified on"
+msgstr "Dernière Modification le"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_write_uid
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_write_uid
+msgid "Last Updated by"
+msgstr "Dernière mise à jour par"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_write_date
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_write_date
+msgid "Last Updated on"
+msgstr "Dernière mise à jour le"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_ids
+msgid "Line ids"
+msgstr "Line ids"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_line_model_id
+msgid "Model"
+msgstr "Modèle"
+
+#. module: barcodes_search
+#: selection:barcode.search,state:0
+msgid "New"
+msgstr "New"
+
+#. module: barcodes_search
+#: model:ir.ui.view,arch_db:barcodes_search.view_barcode_search_form
+msgid "Result"
+msgstr "Résultat"
+
+#. module: barcodes_search
+#: model:ir.ui.view,arch_db:barcodes_search.view_barcode_search_form
+msgid "Search"
+msgstr "Rechercher"
+
+#. module: barcodes_search
+#. openerp-web
+#: code:addons/barcodes_search/static/src/xml/barcodes_search.xml:6
+#: model:ir.actions.act_window,name:barcodes_search.action_barcode_search_form
+#, python-format
+msgid "Search By Barcode"
+msgstr "Rechercher par Code Barre"
+
+#. module: barcodes_search
+#: model:ir.model.fields,field_description:barcodes_search.field_barcode_search_state
+msgid "State"
+msgstr "État"
+
+#. module: barcodes_search
+#: model:ir.model.fields,help:barcodes_search.field_barcode_search_line_model_id
+msgid "The model this field belongs to"
+msgstr "Le modèle auquel ce champ appartient"
+
+#. module: barcodes_search
+#: code:addons/barcodes_search/wizards/barcode_search_line.py:37
+#, python-format
+msgid "Type"
+msgstr "Type"
+
+#. module: barcodes_search
+#: code:addons/barcodes_search/wizards/barcode_search_line.py:39
+#, python-format
+msgid "Value"
+msgstr "Valeur"
+
+#. module: barcodes_search
+#: model:ir.ui.view,arch_db:barcodes_search.view_barcode_search_form
+msgid "View"
+msgstr "Voir"
+
+#. module: barcodes_search
+#: model:ir.model,name:barcodes_search.model_barcode_search
+msgid "barcode.search"
+msgstr "barcode.search"
+
+#. module: barcodes_search
+#: model:ir.model,name:barcodes_search.model_barcode_search_line
+msgid "barcode.search.line"
+msgstr "barcode.search.line"
+
