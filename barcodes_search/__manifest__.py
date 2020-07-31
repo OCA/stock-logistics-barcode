@@ -6,7 +6,7 @@
 {
     'name': 'Search By Barcode',
     'summary': 'Search any item by it barcode',
-    'version': '10.0.1.0.1',
+    'version': '10.0.1.0.2',
     'category': 'Tools',
     'author': 'GRAP, Odoo Community Association (OCA)',
     'website': 'https://github.com/OCA/stock-logistics-barcode',
