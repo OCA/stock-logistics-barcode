@@ -32,12 +32,6 @@ msgstr "Código de barras de empaquetado no encontrado"
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
-msgid "Barcode not found"
-msgstr "Código de barras no encontrado"
-
-#. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
-#, python-format
 msgid "Barcode read correctly"
 msgstr "Código de barras leído correctamente"
 
@@ -56,6 +50,9 @@ msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
 #: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
 msgstr "Asistente para leer código de barras"
+
+#~ msgid "Barcode not found"
+#~ msgstr "Código de barras no encontrado"
 
 #~ msgid "More than one product found"
 #~ msgstr "Se ha encontrado más de un producto."
