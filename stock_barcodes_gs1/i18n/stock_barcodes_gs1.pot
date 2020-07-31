@@ -28,12 +28,6 @@ msgstr ""
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
-msgid "Barcode not found"
-msgstr ""
-
-#. module: stock_barcodes_gs1
-#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
-#, python-format
 msgid "Barcode read correctly"
 msgstr ""
 
