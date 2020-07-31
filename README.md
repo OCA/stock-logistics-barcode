@@ -32,6 +32,7 @@ addon | version | summary
 [barcodes_generator_partner](barcodes_generator_partner/) | 10.0.1.0.0 | Generate Barcodes for Partners
 [barcodes_generator_picking](barcodes_generator_picking/) | 10.0.1.0.0 | Generate Barcodes for Stock Pickings
 [barcodes_generator_product](barcodes_generator_product/) | 10.0.1.0.0 | Generate Barcodes for Products (Templates and Variants)
+[barcodes_search](barcodes_search/) | 10.0.1.0.1 | Search any item by it barcode
 [product_packaging_barcode](product_packaging_barcode/) | 10.0.1.0.0 | Reimplement barcode field in Product Packagings
 [stock_scanner](stock_scanner/) | 10.0.1.1.2 | Allows managing barcode readers with simple scenarios
 [stock_scanner_inventory](stock_scanner_inventory/) | 9.0.1.0.0 | Stock Scanner Inventory
