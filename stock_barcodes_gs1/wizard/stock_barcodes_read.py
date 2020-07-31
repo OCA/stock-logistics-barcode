@@ -78,4 +78,4 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.action_done()
             self._set_messagge_info('success', _('Barcode read correctly'))
             return True
-        return super().process_barcode()
+        return super().process_barcode(barcode)
