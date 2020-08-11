@@ -178,3 +178,8 @@ msgstr ""
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 msgid "Sequence Id"
 msgstr ""
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
