@@ -51,7 +51,6 @@ msgstr "Générer une base (via une séquence)"
 #. module: barcodes_generator_partner
 #: model:ir.model.fields,field_description:barcodes_generator_partner.field_barcode_rule__generate_model
 #, fuzzy
-#| msgid "Generate Type"
 msgid "Generate Model"
 msgstr "Type de génération"
 
@@ -78,7 +77,6 @@ msgstr ""
 #. module: barcodes_generator_partner
 #: selection:barcode.rule,generate_model:0
 #, fuzzy
-#| msgid "Partner"
 msgid "Partners"
 msgstr "Partenaire"
 

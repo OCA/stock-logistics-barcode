@@ -53,7 +53,6 @@ msgstr ""
 #. module: barcodes_generator_partner
 #: model:ir.model.fields,field_description:barcodes_generator_partner.field_barcode_rule__generate_model
 #, fuzzy
-#| msgid "Generate Type"
 msgid "Generate Model"
 msgstr "Generar Tipo"
 
