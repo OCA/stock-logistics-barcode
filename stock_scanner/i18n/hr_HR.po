@@ -820,7 +820,6 @@ msgstr ""
 #. module: stock_scanner
 #: model_terms:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_step_form
 #, fuzzy
-#| msgid "Scenario"
 msgid "Scenario Note"
 msgstr "Scenario"
 

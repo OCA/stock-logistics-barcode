@@ -701,7 +701,6 @@ msgstr "Modèle"
 #. module: stock_scanner
 #: model:ir.model,name:stock_scanner.model_ir_model_data
 #, fuzzy
-#| msgid "Model"
 msgid "Model Data"
 msgstr "Modèle"
 
@@ -869,7 +868,6 @@ msgstr "Éditeur de scénarios"
 #. module: stock_scanner
 #: model_terms:ir.ui.view,arch_db:stock_scanner.view_scanner_scenario_step_form
 #, fuzzy
-#| msgid "Scenario Step"
 msgid "Scenario Note"
 msgstr "Étape"
 
