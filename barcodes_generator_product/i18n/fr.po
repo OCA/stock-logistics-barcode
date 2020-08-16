@@ -79,7 +79,6 @@ msgstr "Modèle d'article"
 #: model:product.template,name:barcodes_generator_product.product_product_variant_2_product_template
 #: model:product.template,name:barcodes_generator_product.product_template_multi_variant
 #, fuzzy
-#| msgid "Template with Generated Barcode (Mono Variant)"
 msgid "Product with Generated Barcode (Variant 2 - Black)"
 msgstr "Article avec Code Barre Généré (Mono Variante)"
 
