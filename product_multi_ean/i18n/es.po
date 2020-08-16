@@ -75,7 +75,6 @@ msgstr "Lista de EAN13 para un producto."
 #. module: product_multi_ean
 #: model:ir.model.fields,field_description:product_multi_ean.field_product_product__barcode
 #, fuzzy
-#| msgid "EAN13"
 msgid "Main EAN13"
 msgstr "EAN13"
 
