@@ -1,1 +1,1 @@
-python-barcode
+python-barcode == 0.12.0

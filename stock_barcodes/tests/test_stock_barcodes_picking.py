@@ -93,9 +93,10 @@ class TestStockBarcodesPicking(TestStockBarcodes):
                          self.stock_picking_model)
         self.assertEqual(self.wiz_scan_picking.res_id,
                          self.picking_in_01.id)
-        self.assertEqual(self.wiz_scan_picking.display_name,
-                         'Barcode reader - %s - OdooBot' % (
-                             self.picking_in_01.name))
+        self.assertIn(
+            "Barcode reader - %s - " % (self.picking_in_01.name),
+            self.wiz_scan_picking.display_name,
+        )
 
     def test_picking_wizard_scan_product(self):
         self.action_barcode_scanned(self.wiz_scan_picking, '8480000723208')
