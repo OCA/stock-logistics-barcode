@@ -58,6 +58,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__barcode
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__barcode
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__barcode
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_location_form_inherit
 msgid "Barcode"
 msgstr ""
 
