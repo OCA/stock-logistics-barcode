@@ -13,6 +13,7 @@
         "security/ir.model.access.csv",
         "views/assets.xml",
         "views/stock_inventory_views.xml",
+        "views/stock_location_views.xml",
         "views/stock_picking_views.xml",
         "wizard/stock_production_lot_views.xml",
         "wizard/stock_barcodes_read_views.xml",
