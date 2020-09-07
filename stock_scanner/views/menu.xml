@@ -1,7 +1,12 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
 <odoo>
-    <menuitem id="menu_scanner_configuration" parent="stock.menu_stock_config_settings" sequence="50" name="Scanner Configuration"/>
+    <menuitem
+        id="menu_scanner_configuration"
+        parent="stock.menu_stock_config_settings"
+        sequence="50"
+        name="Scanner Configuration"
+    />
 </odoo>

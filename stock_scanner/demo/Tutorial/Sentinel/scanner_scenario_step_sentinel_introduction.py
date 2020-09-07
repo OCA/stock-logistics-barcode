@@ -5,11 +5,11 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'M'
+act = "M"
 res = [
-    _('Introduction'),
-    '',
-    _('This scenario will explain some features of the sentinel ncurses client.'),
-    '',
-    _('This client is specific to the stock_scanner module.'),
+    _("Introduction"),
+    "",
+    _("This scenario will explain some features of the sentinel ncurses client."),
+    "",
+    _("This client is specific to the stock_scanner module."),
 ]

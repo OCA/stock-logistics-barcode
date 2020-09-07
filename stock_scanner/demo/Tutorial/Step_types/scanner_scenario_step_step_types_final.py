@@ -5,9 +5,9 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'F'
+act = "F"
 res = [
-    _('|Final step'),
-    '',
-    _('After this step, the scenario is finished.'),
+    _("|Final step"),
+    "",
+    _("After this step, the scenario is finished."),
 ]

@@ -47,11 +47,9 @@ class ExportScenario(models.TransientModel):
 
         mem_zip = BytesIO()
         zip_filename = "scenario_export.zip"
-        zf = zipfile.ZipFile(mem_zip, mode="w",
-                             compression=zipfile.ZIP_DEFLATED)
+        zf = zipfile.ZipFile(mem_zip, mode="w", compression=zipfile.ZIP_DEFLATED)
 
-        for scenario in self.scenario_ids.with_context(
-                active_test=False, lang="en_US"):
+        for scenario in self.scenario_ids.with_context(active_test=False, lang="en_US"):
             directory = normalize_name(scenario.name)
             scenario_xml_id = scenario.get_metadata()[0]["xmlid"]
             if self.is_copy or not scenario_xml_id:
@@ -75,7 +73,7 @@ class ExportScenario(models.TransientModel):
             if scenario.parent_id:
                 parent_value = scenario.parent_id.get_metadata()[0]["xmlid"]
                 if self.is_copy or not parent_value:
-                    parent_value = "scenario_{parent_name)".format(
+                    parent_value = "scenario_{parent_name}".format(
                         parent_name=normalize_name(scenario.parent_id.name)
                     )
                 new_node("parent_id", parent_value)
@@ -98,8 +96,7 @@ class ExportScenario(models.TransientModel):
 
             # Export steps
             transitions = set()
-            sorted_steps = sorted(scenario.step_ids,
-                                  key=lambda record: record.name)
+            sorted_steps = sorted(scenario.step_ids, key=lambda record: record.name)
             step_xmlid_counters = {}
             for step in sorted_steps:
                 # Retrieve the step's xml ID
@@ -155,8 +152,7 @@ class ExportScenario(models.TransientModel):
 
             # Export transitions
             transition_xmlid_counters = {}
-            sorted_transitions = sorted(transitions,
-                                        key=lambda record: record.name)
+            sorted_transitions = sorted(transitions, key=lambda record: record.name)
             for transition in sorted_transitions:
                 # Retrieve the transition's xml ID
                 transition_xml_id = transition.get_metadata()[0]["xmlid"]
