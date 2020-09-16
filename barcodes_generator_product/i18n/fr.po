@@ -98,6 +98,11 @@ msgid "Products"
 msgstr "Article"
 
 #. module: barcodes_generator_product
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
+#. module: barcodes_generator_product
 #: model:product.template,name:barcodes_generator_product.product_template_mono_variant
 msgid "Template with Generated Barcode (Mono Variant)"
 msgstr "Article avec Code Barre Généré (Mono Variante)"
