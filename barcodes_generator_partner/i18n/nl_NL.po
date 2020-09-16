@@ -85,6 +85,11 @@ msgid "Products"
 msgstr ""
 
 #. module: barcodes_generator_partner
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
+#. module: barcodes_generator_partner
 #: model:ir.model.fields,field_description:barcodes_generator_partner.field_barcode_rule__type
 msgid "Type"
 msgstr ""
