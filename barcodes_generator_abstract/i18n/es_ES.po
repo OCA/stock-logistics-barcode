@@ -188,6 +188,11 @@ msgstr "Secuencia - %s"
 msgid "Sequence Id"
 msgstr "Secuencia"
 
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
 #~ msgid "barcode.generate.mixin"
 #~ msgstr "unir.generar.barra de codigos"
 

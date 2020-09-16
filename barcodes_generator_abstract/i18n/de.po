@@ -174,3 +174,8 @@ msgstr ""
 #| msgid "Sequence"
 msgid "Sequence Id"
 msgstr "Reihenfolge"
+
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
