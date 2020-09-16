@@ -175,5 +175,10 @@ msgstr ""
 msgid "Sequence Id"
 msgstr "Volgorde"
 
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
 #~ msgid "barcode.rule"
 #~ msgstr "barcode.rule"

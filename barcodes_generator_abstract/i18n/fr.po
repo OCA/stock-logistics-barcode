@@ -193,6 +193,11 @@ msgstr "Séquence - %s"
 msgid "Sequence Id"
 msgstr "Séquence"
 
+#. module: barcodes_generator_abstract
+#: selection:barcode.rule,generate_model:0
+msgid "Stock Location"
+msgstr ""
+
 #~ msgid "barcode.generate.mixin"
 #~ msgstr "barcode.generate.mixin"
 
