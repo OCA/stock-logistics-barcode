@@ -80,10 +80,10 @@ class ProductProduct(models.Model):
         }
 
     @api.model
-    def search(self, domain, *args, **kwargs):
+    def _search(self, domain, *args, **kwargs):
         for sub_domain in list(filter(lambda x: x[0] == 'barcode', domain)):
             domain = self._get_ean13_domain(sub_domain, domain)
-        return super(ProductProduct, self).search(domain, *args, **kwargs)
+        return super(ProductProduct, self)._search(domain, *args, **kwargs)
 
     def _get_ean13_domain(self, sub_domain, domain):
         ean_operator = sub_domain[1]
