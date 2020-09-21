@@ -11,7 +11,9 @@ class TestStockBarcodesGS1(TestStockBarcodes):
     def setUp(self):
         super().setUp()
         # Barcode for packaging and lot
-        self.gs1_barcode_01 = "01195011015300001714070410AB-123"
+        self.gs1_barcode_01_product = "0119501101530000"
+        self.gs1_barcode_01_lot = "1714070410AB-123"
+        self.gs1_barcode_01 = self.gs1_barcode_01_product + self.gs1_barcode_01_lot
         self.gs1_barcode_01_not_found = "011xxx11015300001714070410AB-123"
         self.gs1_barcode_01_not_lot = "01195011015300001714070410AB-124"
         # Barcode for product and quantities
@@ -34,6 +36,28 @@ class TestStockBarcodesGS1(TestStockBarcodes):
                 "barcode": "19501101530000",
             }
         )
+
+    def test_wizard_scan_gs1_package_multi(self):
+        self.packaging_gs1.product_id = self.product_tracking_gs1
+        lot = self.StockProductionLot.create(
+            {
+                "name": "AB-123",
+                "product_id": self.product_tracking_gs1.id,
+                "company_id": self.company.id,
+            }
+        )
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01_product)
+        self.assertEqual(self.wiz_scan.product_id, self.product_tracking_gs1)
+        self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        self.assertFalse(self.wiz_scan.lot_id)
+        self.assertEqual(self.wiz_scan.packaging_qty, 1)
+        self.assertEqual(self.wiz_scan.product_qty, 10)
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01_lot)
+        self.assertEqual(self.wiz_scan.product_id, self.product_tracking_gs1)
+        self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        self.assertEqual(self.wiz_scan.lot_id, lot)
+        self.assertEqual(self.wiz_scan.packaging_qty, 1)
+        self.assertEqual(self.wiz_scan.product_qty, 10)
 
     def test_wizard_scan_gs1_package(self):
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
