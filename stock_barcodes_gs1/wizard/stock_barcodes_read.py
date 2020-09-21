@@ -78,6 +78,13 @@ class WizStockBarcodesRead(models.AbstractModel):
             processed = True
         if product_qty:
             self.product_qty = product_qty
+        if not self.product_qty:
+            # This could happen with double GS1-128 barcodes
+            if self.packaging_id:
+                self.packaging_qty = 0.0 if self.manual_entry else 1.0
+                self.product_qty = self.packaging_id.qty * self.packaging_qty
+            else:
+                self.product_qty = 0.0 if self.manual_entry else 1.0
         if processed:
             self.action_done()
             self._set_messagge_info("success", _("Barcode read correctly"))
