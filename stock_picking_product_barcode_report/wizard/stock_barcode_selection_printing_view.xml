@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcode_selection_printing" model="ir.ui.view">
+        <field name="name">stock.barcode.selection.printing.form</field>
+        <field name="model">stock.picking.print</field>
+        <field name="arch" type="xml">
+            <form>
+                <p>You can print just the products with assigned barcode</p>
+                <field name="picking_ids" invisible="1" force_save="1" />
+                <span>
+                    <strong>Barcode Format</strong>
+                </span>
+                <field name="barcode_format" />
+                <group>
+                    <field name="product_print_moves" nolabel="1">
+                        <tree editable="top" create="0">
+                            <field
+                                name="product_id"
+                                options="{'no_create': True, 'no_open': True}"
+                                force_save="1"
+                                readonly="1"
+                            />
+                            <field name="lot_id" force_save="1" readonly="1" />
+                            <field name="quantity" force_save="1" readonly="1" />
+                            <field name="uom_id" readonly="1" groups="uom.group_uom" />
+                            <field name="label_qty" />
+                        </tree>
+                    </field>
+                </group>
+                <footer>
+                    <button
+                        name="print_labels"
+                        string="Print"
+                        type="object"
+                        class="btn-primary"
+                    />
+                    <button string="Cancel" class="btn-secondary" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+    <act_window
+        id="act_stock_barcode_selection_printing"
+        name="Print barcode labels"
+        binding_model="stock.picking"
+        binding_type="report"
+        res_model="stock.picking.print"
+        view_mode="form"
+        target="new"
+    />
+</odoo>
