@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="action_label_barcode_report"
+        string="Label Impresion"
+        model="stock.picking.line.print"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report.label_barcode_report"
+        name="stock_picking_product_barcode_report.label_barcode_report"
+        paperformat="stock_picking_product_barcode_report.paperformat_label"
+    />
+</odoo>
