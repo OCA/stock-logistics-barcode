@@ -33,3 +33,8 @@ msgstr ""
 msgid "Supplier Pricelist"
 msgstr ""
 
+#. module: product_supplierinfo_barcode
+#: model_terms:ir.ui.view,arch_db:product_supplierinfo_barcode.product_template_search_view_supplier_code
+msgid "Supplier code"
+msgstr ""
+
