@@ -1,5 +1,4 @@
-# -*- coding: utf-8 -*-
-# © 2015-2018 Akretion (http://www.akretion.com)
+# Copyright 2015-2020 Akretion (http://www.akretion.com)
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -14,11 +13,28 @@ class StockInventoryBarcode(models.TransientModel):
     _name = 'stock.inventory.barcode'
     _description = 'Stock Inventory Barcode Wizard'
 
+    inventory_id = fields.Many2one(
+        'stock.inventory', string='Inventory', required=True)
+    inventory_location_id = fields.Many2one(
+        'stock.location', required=True, string='Root Inventory Location')
     product_code = fields.Char(
         string='Barcode or Internal Reference',
         help="This field is designed to be filled with a barcode reader")
     product_id = fields.Many2one(
         'product.product', string='Product', required=True)
+    uom_id = fields.Many2one(
+        'uom.uom', string='Unit of measure', required=True)
+    location_id = fields.Many2one(
+        'stock.location', string='Location', required=True)
+    multi_stock_location = fields.Boolean(readonly=True)
+    lot_id = fields.Many2one(
+        'stock.production.lot', string='Lot')
+    product_tracking = fields.Selection([
+        ('serial', 'By Unique Serial Number'),
+        ('lot', 'By Lots'),
+        ('none', 'No Tracking'),
+        ], string="Tracking", required=True)
+    note = fields.Text()
     theoretical_qty = fields.Float(
         related='inventory_line_id.theoretical_qty', readonly=True)
     product_qty = fields.Float(
@@ -33,6 +49,25 @@ class StockInventoryBarcode(models.TransientModel):
     inventory_line_id = fields.Many2one(
         'stock.inventory.line', string='Stock Inventory Line')
 
+    @api.model
+    def default_get(self, fields_list):
+        res = super(StockInventoryBarcode, self).default_get(fields_list)
+        assert self._context.get('active_model') == 'stock.inventory'
+        inv = self.env['stock.inventory'].browse(self._context.get('active_id'))
+        if inv.state != 'confirm':
+            raise UserError(_(
+                "You cannot start the barcode interface on inventory '%s' "
+                "which is not 'In Progress'.") % inv.display_name)
+        res['inventory_id'] = inv.id
+        root_loc = inv.location_id
+        res['inventory_location_id'] = root_loc.id
+        if root_loc.child_ids:
+            res['multi_stock_location'] = True
+        else:
+            res['multi_stock_location'] = False
+            res['location_id'] = root_loc.id
+        return res
+
     @api.onchange('product_code')
     def product_code_change(self):
         if self.product_code:
@@ -41,7 +76,10 @@ class StockInventoryBarcode(models.TransientModel):
                 ('barcode', '=', self.product_code),
                 ('default_code', '=ilike', self.product_code)])
             if len(products) == 1:
-                self.product_id = products[0]
+                product = products[0]
+                self.product_id = product
+                self.product_tracking = product.tracking
+                self.uom_id = product.uom_id
             elif len(products) > 1:
                 return {'warning': {
                     'title': _('Error'),
@@ -62,52 +100,90 @@ class StockInventoryBarcode(models.TransientModel):
 
     @api.onchange('product_id')
     def product_id_change(self):
-        assert self._context['active_model'] == 'stock.inventory',\
-            'wrong underlying model'
-        assert self._context['active_id'], 'Missing active_id in ctx'
         if self.product_id:
-            silo = self.env['stock.inventory.line']
-            sio = self.env['stock.inventory']
-            inventory_id = self._context['active_id']
-            ilines = silo.search([
-                ('inventory_id', '=', inventory_id),
-                ('product_id', '=', self.product_id.id),
-                ])
-            if len(ilines) == 1:
-                self.inventory_line_id = ilines[0]
-                self.change_qty = ilines[0].product_qty
-            elif len(ilines) > 1:
-                return {'warning': {
+            self.product_tracking = self.product_id.tracking
+            self.uom_id = self.product_id.uom_id
+            if not self.product_tracking or self.product_tracking == 'none':
+                self.lot_id = False
+        else:
+            self.product_tracking = False
+            self.uom_id = False
+            self.lot_id = False
+
+    @api.onchange('product_id', 'location_id', 'lot_id', 'uom_id')
+    def product_lot_loc_change(self):
+        res = {'warning': {}}
+        if self.product_id and self.location_id and self.uom_id:
+            if self.uom_id != self.product_id.uom_id:
+                self.uom_id = self.product_id.uom_id
+                res['warning'] = {
                     'title': _('Error'),
                     'message': _(
-                        'Several inventory lines exists for this product. '
-                        'This scenario is not supported for the moment. '
-                        'It may be caused by the fact that you have '
-                        'sub-locations in the stock location of this '
-                        'inventory and this product is present in '
-                        'several sub-locations, or by the fact that you '
-                        'track Serial Numbers for this product.')}}
-            else:
-                inventory = sio.browse(inventory_id)
-                new_iline = silo.create({
-                    'inventory_id': inventory_id,
-                    'location_id': inventory.location_id.id,
-                    'product_id': self.product_id.id,
-                    'product_uom_id': self.product_id.uom_id.id,
-                    })
-                self.inventory_line_id = new_iline
+                        "You cannot change the unit of measure of the "
+                        "product: it is been restored to '%s'.")
+                    % self.product_id.uom_id.name}
+            if not self.product_id.tracking or self.product_id.tracking == 'none':
+                if self.lot_id:
+                    raise UserError(_(
+                        "Product '%s' is not tracked by lot/serial so the "
+                        "lot field must be empty. This should never "
+                        "happen.") % self.product_id.display_name)
+                self.update_wiz_screen(res)
+            elif self.lot_id:
+                self.update_wiz_screen(res)
+        return res
+
+    def update_wiz_screen(self, res):
+        silo = self.env['stock.inventory.line']
+        ilines = silo.search([
+            ('inventory_id', '=', self.inventory_id.id),
+            ('product_id', '=', self.product_id.id),
+            ('location_id', '=', self.location_id.id),
+            ('prod_lot_id', '=', self.lot_id and self.lot_id.id or False),
+            ])
+        if len(ilines) == 1:
+            self.inventory_line_id = ilines[0]
+            self.change_qty = ilines[0].product_qty
+        elif len(ilines) > 1:
+            res['warning'] = {
+                'title': _('Error'),
+                'message': _(
+                    'Several inventory lines exists for this product '
+                    '(and lot) on the same stock location. '
+                    'This should happen only when using packaging, '
+                    'but this scenario is not supported for the moment.')}
+        else:
+            new_iline = silo.create({
+                'inventory_id': self.inventory_id.id,
+                'product_id': self.product_id.id,
+                'prod_lot_id': self.lot_id and self.lot_id.id or False,
+                'product_uom_id': self.uom_id.id,
+                'location_id': self.location_id.id,
+                })
+            self.inventory_line_id = new_iline
 
     def save(self):
         self.ensure_one()
         if not self.inventory_line_id:
             raise UserError(_('No related inventory line'))
+        if self.inventory_id.state != 'confirm':
+            raise UserError(_(
+                "The inventory '%s' is not 'In Progress' any more.")
+                % self.inventory_id.display_name)
+        if self.uom_id != self.product_id.uom_id:
+            raise UserError(_(
+                "You cannot change the unit of measure. You must "
+                "restore the unit of measure of the product (%s).")
+                % self.product_id.uom_id.display_name)
         prec = self.env['decimal.precision'].precision_get(
             'Product Unit of Measure')
         if not float_is_zero(self.add_qty, precision_digits=prec):
-            self.inventory_line_id.product_qty += self.add_qty
+            prev_inv_line_qty = self.inventory_line_id.product_qty
+            self.inventory_line_id.write({
+                'product_qty': self.add_qty + prev_inv_line_qty})
         elif float_compare(
                 self.change_qty, self.product_qty, precision_digits=prec):
-            self.inventory_line_id.product_qty = self.change_qty
+            self.inventory_line_id.write({'product_qty': self.change_qty})
         action = {
             'name': _('Stock Inventory Barcode Wizard'),
             'type': 'ir.actions.act_window',

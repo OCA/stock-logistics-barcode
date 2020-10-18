@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  © 2015-2018 Akretion (http://www.akretion.com/)
+  Copyright 2015-2020 Akretion (http://www.akretion.com/)
   @author: Alexis de Lattre <alexis.delattre@akretion.com>
   License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -13,18 +13,28 @@
     <field name="arch"  type="xml">
         <form string="Inventory Barcode Wizard">
             <group name="product" string="Select Product">
+                <field name="inventory_id" invisible="1"/>
+                <field name="inventory_location_id" invisible="1"/>
+                <field name="multi_stock_location" invisible="1"/>
                 <field name="product_code"/>
                 <field name="product_id"/>
+                <field name="product_tracking" invisible="1"/>
+                <field name="uom_id" groups="uom.group_uom" options="{'no_create': True, 'no_create_edit': True}"/>
+                <field name="lot_id" attrs="{'invisible': [('product_tracking', 'not in', ('serial', 'lot'))], 'required': [('product_tracking', 'in', ('lot', 'serial'))]}" domain="[('product_id', '=', product_id)]" context="{'default_product_id': product_id}"/>
+                <field name="location_id" attrs="{'invisible': [('multi_stock_location', '=', False)]}" domain="[('id', 'child_of', inventory_location_id)]" options="{'no_create': True, 'no_create_edit': True}"/>
                 <field name="theoretical_qty"/>
                 <field name="product_qty"/>
                 <field name="inventory_line_id" invisible="1"/>
             </group>
             <group name="qty" string="Update Quantity">
                 <field name="change_qty"/>
-                <label string="OR" colspan="2"
+                <label string="OR" colspan="2" for="add_qty"
                     attrs="{'invisible': [('product_qty', '=', 0)]}"/>
                 <field name="add_qty"
                     attrs="{'invisible': [('product_qty', '=', 0)]}"/>
+            </group>
+            <group name="note" string="Note" attrs="{'invisible': [('note', '=', False)]}">
+                <field name="note" nolabel="1"/>
             </group>
             <footer>
                 <button name="save" type="object"
