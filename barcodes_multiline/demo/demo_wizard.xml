@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <record model="ir.ui.view" id="demo_matrix_view">
+        <field name="name">Barcode multiline demo</field>
+        <field name="model">barcodes_multiline.demo_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Barcode multiline demo wizard">
+                <field name="text"/>
+                <field name="_barcode_scanned" widget="barcode_handler" invisible="1"/>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="demo_matrix_action">
+        <field name="name">Barcode multiline demo</field>
+        <field name="res_model">barcodes_multiline.demo_wizard</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">form</field>
+        <field name="usage">menu</field>
+    </record>
+
+    <menuitem 
+        id="demo_matrix_menu"
+        parent="base.menu_administration"
+        action="demo_matrix_action"
+        sequence="100"
+        load_xmlid="True"/>
+
+</odoo>
