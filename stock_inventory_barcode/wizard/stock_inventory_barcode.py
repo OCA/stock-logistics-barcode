@@ -21,7 +21,8 @@ class StockInventoryBarcode(models.TransientModel):
         string='Barcode or Internal Reference',
         help="This field is designed to be filled with a barcode reader")
     product_id = fields.Many2one(
-        'product.product', string='Product', required=True)
+        'product.product', string='Product', required=True,
+        domain=[('type', '=', 'product')])
     uom_id = fields.Many2one(
         'uom.uom', string='Unit of measure', required=True)
     uom_name = fields.Char(related='uom_id.name')
@@ -75,7 +76,9 @@ class StockInventoryBarcode(models.TransientModel):
             products = self.env['product.product'].search([
                 '|',
                 ('barcode', '=', self.product_code),
-                ('default_code', '=ilike', self.product_code)])
+                ('default_code', '=ilike', self.product_code),
+                ('type', '=', 'product'),
+                ])
             if len(products) == 1:
                 product = products[0]
                 self.product_id = product
@@ -85,7 +88,7 @@ class StockInventoryBarcode(models.TransientModel):
                 return {'warning': {
                     'title': _('Error'),
                     'message': _(
-                        'Several products have been found '
+                        'Several stockable products have been found '
                         'with this code as Barcode or Internal Reference:\n %s'
                         '\nYou should select the right product manually.'
                         ) % '\n'.join([
@@ -95,7 +98,7 @@ class StockInventoryBarcode(models.TransientModel):
                 return {'warning': {
                     'title': _('Error'),
                     'message': _(
-                        'No product found with this code as '
+                        'No stockable product found with this code as '
                         'Barcode nor Internal Reference. You should select '
                         'the right product manually.')}}
 
@@ -110,6 +113,7 @@ class StockInventoryBarcode(models.TransientModel):
             self.product_tracking = False
             self.uom_id = False
             self.lot_id = False
+            self.note = False
 
     @api.onchange('product_id', 'location_id', 'lot_id', 'uom_id')
     def product_lot_loc_change(self):
@@ -162,6 +166,36 @@ class StockInventoryBarcode(models.TransientModel):
                 'location_id': self.location_id.id,
                 })
             self.inventory_line_id = new_iline
+        domain_same_product = [
+            ('inventory_id', '=', self.inventory_id.id),
+            ('product_id', '=', self.product_id.id),
+            ('product_qty', '>', 0),
+            ]
+        if ilines:
+            domain_same_product += [('id', 'not in', ilines.ids)]
+        same_product_lines = silo.search(domain_same_product)
+        note_list = []
+        tracking = self.product_id.tracking in ('lot', 'serial') and True or False
+        uom_name = self.uom_id.name
+        for il in same_product_lines:
+            if tracking:
+                note_list.append(_(
+                    "Lot %s already inventoried on %s with real qty %.3f %s") % (
+                        il.prod_lot_id and il.prod_lot_id.display_name or _('<none>'),
+                        il.location_id.display_name,
+                        il.product_qty,
+                        uom_name))
+            else:
+                note_list.append(_(
+                    "Already inventoried on %s with real qty %.3f %s") % (
+                        il.location_id.display_name,
+                        il.product_qty,
+                        uom_name))
+        if note_list:
+            note = '\n'.join(note_list)
+            self.note = note
+        else:
+            self.note = False
 
     def save(self):
         self.ensure_one()
