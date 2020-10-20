@@ -49,7 +49,7 @@
                     <field name="uom_name"/>
                 </div>
             </group>
-            <group name="note" string="Note" attrs="{'invisible': [('note', '=', False)]}">
+            <group name="note" string="Other inventory lines with the same product" attrs="{'invisible': [('note', '=', False)]}">
                 <field name="note" nolabel="1"/>
             </group>
             <footer>
