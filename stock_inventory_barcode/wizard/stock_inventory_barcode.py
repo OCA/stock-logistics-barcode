@@ -24,6 +24,7 @@ class StockInventoryBarcode(models.TransientModel):
         'product.product', string='Product', required=True)
     uom_id = fields.Many2one(
         'uom.uom', string='Unit of measure', required=True)
+    uom_name = fields.Char(related='uom_id.name')
     location_id = fields.Many2one(
         'stock.location', string='Location', required=True)
     multi_stock_location = fields.Boolean(readonly=True)
