@@ -8,7 +8,7 @@
         with the class 'barcode-automatic-entry' after a barcode scanned has
         been processed.
     """,
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.0.1",
     "license": "AGPL-3",
     "maintainers": ["AdriaGForgeFlow"],
     "author": "ForgeFlow S.L., Odoo Community Association (OCA)",
