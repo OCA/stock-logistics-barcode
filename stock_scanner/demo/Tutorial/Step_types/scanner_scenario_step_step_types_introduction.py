@@ -5,13 +5,13 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'M'
+act = "M"
 res = [
-    _('|Introduction'),
-    '',
-    _('Welcome on the stock_scanner module.'),
-    '',
-    _('This scenario will explain all step types.'),
+    _("|Introduction"),
+    "",
+    _("Welcome on the stock_scanner module."),
+    "",
+    _("This scenario will explain all step types."),
     # '',
     # _('All step types allow scrolling, if the displayed text doesn\'t fit on the screen.'),
     # _('To scroll, simply use the arrow keys.'),

@@ -5,8 +5,13 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'L'
+act = "L"
 res = [
-    ('|', _('List Scrolling')),
-    ('', _('Long texts in a list allows the user to scroll horizontally with left/right arrow keys')),
+    ("|", _("List Scrolling")),
+    (
+        "",
+        _(
+            "Long texts in a list allows the user to scroll horizontally with left/right arrow keys"
+        ),
+    ),
 ]

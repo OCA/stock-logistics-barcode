@@ -5,9 +5,9 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'C'
+act = "C"
 res = [
-    _('|Confirm step'),
-    '',
-    _('This step waits for a confirmation from the user.'),
+    _("|Confirm step"),
+    "",
+    _("This step waits for a confirmation from the user."),
 ]

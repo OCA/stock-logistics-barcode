@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="view_scanner_scenario_tree" model="ir.ui.view">
         <field name="name">scanner.scenario.tree</field>
         <field name="model">scanner.scenario</field>
         <field name="arch" type="xml">
             <tree string="Scanner Scenario">
-                <field name="sequence"/>
-                <field name="name"/>
-                <field name="model_id"/>
-                <field name="type"/>
-                <field name="parent_id"/>
+                <field name="sequence" />
+                <field name="name" />
+                <field name="model_id" />
+                <field name="type" />
+                <field name="parent_id" />
             </tree>
         </field>
     </record>
@@ -28,44 +28,62 @@
                 <sheet>
                     <div class="oe_button_box" name="button_box">
                     </div>
-                    <field name="active" invisible="1"/>
-                    <widget name="web_ribbon" text="Archived" bg_color="bg-danger"
-                            attrs="{'invisible': [('active', '=', True)]}"/>
+                    <field name="active" invisible="1" />
+                    <widget
+                        name="web_ribbon"
+                        text="Archived"
+                        bg_color="bg-danger"
+                        attrs="{'invisible': [('active', '=', True)]}"
+                    />
                     <group colspan="4" col="4">
-                        <field name="name"/>
-                        <field name="type"/>
-                        <field name="sequence"/>
-                        <field name="parent_id"/>
-                        <field name="model_id"
-                               attrs="{'invisible': [('type','!=', 'scenario')], 'required': [('type', '=', 'scenario')]}"/>
-                        <field name="company_id" invisible="1"/>
+                        <field name="name" />
+                        <field name="type" />
+                        <field name="sequence" />
+                        <field name="parent_id" />
+                        <field
+                            name="model_id"
+                            attrs="{'invisible': [('type','!=', 'scenario')], 'required': [('type', '=', 'scenario')]}"
+                        />
+                        <field name="company_id" invisible="1" />
                     </group>
                     <notebook colspan="4">
-                        <page string="Steps" attrs="{'invisible': [('type','!=', 'scenario')]}">
+                        <page
+                            string="Steps"
+                            attrs="{'invisible': [('type','!=', 'scenario')]}"
+                        >
                             <field name="step_ids" nolabel="1">
                                 <tree string="Step">
-                                    <field name="name"/>
-                                    <field name="step_start"/>
-                                    <field name="step_stop"/>
-                                    <field name="step_back"/>
-                                    <field name="no_back"/>
+                                    <field name="name" />
+                                    <field name="step_start" />
+                                    <field name="step_stop" />
+                                    <field name="step_back" />
+                                    <field name="no_back" />
                                 </tree>
                             </field>
                         </page>
                         <page string="Warehouses">
-                            <field name="warehouse_ids" nolabel="1"/>
+                            <field name="warehouse_ids" nolabel="1" />
                         </page>
                         <page string="Security">
                             <group colspan="2" col="2">
-                                <separator string="Allowed Users" colspan="1"/>
-                                <separator string="Allowed Users Groups" colspan="1"/>
-                                <field name="user_ids" nolabel="1"/>
-                                <field name="group_ids" nolabel="1"/>
+                                <separator string="Allowed Users" colspan="1" />
+                                <separator string="Allowed Users Groups" colspan="1" />
+                                <field name="user_ids" nolabel="1" />
+                                <field name="group_ids" nolabel="1" />
                             </group>
                         </page>
                         <page string="Note">
-                            <separator string="Add note, modification date, etc." colspan="4"/>
-                            <field name="notes" colspan="4" nolabel="1" widget="ace" options="{'mode': 'python'}"/>
+                            <separator
+                                string="Add note, modification date, etc."
+                                colspan="4"
+                            />
+                            <field
+                                name="notes"
+                                colspan="4"
+                                nolabel="1"
+                                widget="ace"
+                                options="{'mode': 'python'}"
+                            />
                         </page>
                     </notebook>
                 </sheet>
@@ -75,22 +93,39 @@
     <record id="view_scanner_scenario_search" model="ir.ui.view">
         <field name="name">scanner.scenario.search</field>
         <field name="model">scanner.scenario</field>
-        <field name="priority" eval="8"/>
+        <field name="priority" eval="8" />
         <field name="arch" type="xml">
             <search string="Scanner Scenario">
-                <field name="name"/>
-                <field name="parent_id"/>
-                <field name="model_id"/>
-                <filter string="Menu" name="menu" domain="[('type','=','menu')]"
-                        help="Can contain scenarios or submenus"/>
-                <filter string="Scenario" name="scenario" domain="[('type','=','scenario')]"
-                        help="Directly launch a scenario"/>
-                <newline/>
-                <filter string="Archived" name="archived" domain="[('active','=',False)]"/>
-                <newline/>
+                <field name="name" />
+                <field name="parent_id" />
+                <field name="model_id" />
+                <filter
+                    string="Menu"
+                    name="menu"
+                    domain="[('type','=','menu')]"
+                    help="Can contain scenarios or submenus"
+                />
+                <filter
+                    string="Scenario"
+                    name="scenario"
+                    domain="[('type','=','scenario')]"
+                    help="Directly launch a scenario"
+                />
+                <newline />
+                <filter
+                    string="Archived"
+                    name="archived"
+                    domain="[('active','=',False)]"
+                />
+                <newline />
                 <group expand="0" string="Group By...">
-                    <filter string="Parent" name="group_by_parent_id" domain="[]" help="Parent"
-                            context="{'group_by':'parent_id'}"/>
+                    <filter
+                        string="Parent"
+                        name="group_by_parent_id"
+                        domain="[]"
+                        help="Parent"
+                        context="{'group_by':'parent_id'}"
+                    />
                 </group>
             </search>
         </field>
@@ -99,18 +134,25 @@
         <field name="name">scanner.scenario.diagram</field>
         <field name="model">scanner.scenario</field>
         <field name="type">diagram</field>
-        <field name="priority" eval="8"/>
+        <field name="priority" eval="8" />
         <field name="arch" type="xml">
             <diagram string="Scenario Editor">
-                <node object="scanner.scenario.step" shape="rectangle:step_back==True"
-                      bgcolor="gray:step_start==True;grey:step_stop==True">
-                    <field name="name"/>
+                <node
+                    object="scanner.scenario.step"
+                    shape="rectangle:step_back==True"
+                    bgcolor="gray:step_start==True;grey:step_stop==True"
+                >
+                    <field name="name" />
                 </node>
-                <arrow object="scanner.scenario.transition" source="from_id" destination="to_id"
-                       label="['condition','tracer']">
-                    <field name="name"/>
-                    <field name="from_id"/>
-                    <field name="to_id"/>
+                <arrow
+                    object="scanner.scenario.transition"
+                    source="from_id"
+                    destination="to_id"
+                    label="['condition','tracer']"
+                >
+                    <field name="name" />
+                    <field name="from_id" />
+                    <field name="to_id" />
                 </arrow>
             </diagram>
         </field>
@@ -124,17 +166,21 @@
         <field name="context">{}</field>
     </record>
     <record model="ir.actions.act_window.view" id="act_open_scanner_scenario_view_form">
-        <field name="act_window_id" ref="act_open_scanner_scenario_view"/>
-        <field name="sequence" eval="20"/>
+        <field name="act_window_id" ref="act_open_scanner_scenario_view" />
+        <field name="sequence" eval="20" />
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_scanner_scenario_form"/>
+        <field name="view_id" ref="view_scanner_scenario_form" />
     </record>
     <record model="ir.actions.act_window.view" id="act_open_scanner_scenario_view_tree">
-        <field name="act_window_id" ref="act_open_scanner_scenario_view"/>
-        <field name="sequence" eval="10"/>
+        <field name="act_window_id" ref="act_open_scanner_scenario_view" />
+        <field name="sequence" eval="10" />
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_scanner_scenario_tree"/>
+        <field name="view_id" ref="view_scanner_scenario_tree" />
     </record>
-    <menuitem id="menu_scanner_scenario" parent="menu_scanner_configuration" sequence="20"
-              action="act_open_scanner_scenario_view"/>
+    <menuitem
+        id="menu_scanner_scenario"
+        parent="menu_scanner_configuration"
+        sequence="20"
+        action="act_open_scanner_scenario_view"
+    />
 </odoo>
