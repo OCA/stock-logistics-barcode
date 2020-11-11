@@ -12,7 +12,6 @@ class BarcodeNomenclature(models.Model):
     _inherit = 'barcode.nomenclature'
 
     def match_pattern(self, barcode, pattern):
-        print self.rule_ids
         match = super(BarcodeNomenclature, self).match_pattern(
             barcode, pattern)
 
@@ -41,7 +40,6 @@ class BarcodeNomenclature(models.Model):
         # filter rules by their applicability to the currently active model
         model = this.env.context.get('params', {}).get('model')
         if model:
-            rule_ids_backup = this.rule_ids
             rule_ids_filtered = this.rule_ids.filtered(
                 lambda r: (not r.model_ids)
                 or model in r.model_ids.mapped('model')).ids
@@ -51,7 +49,8 @@ class BarcodeNomenclature(models.Model):
         parsed_result = super(BarcodeNomenclature, this).parse_barcode(barcode)
 
         # restore rule_ids
-        this._cache['rule_ids'] = rule_ids_backup
+        if model:
+            this._cache['rule_ids'] = rule_ids_backup
 
         # Post-process any result of group-matching
         if isinstance(parsed_result['value'], Match):
