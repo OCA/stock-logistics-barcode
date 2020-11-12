@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo12-addon-product_multi_ean',
         'odoo12-addon-product_supplierinfo_barcode',
         'odoo12-addon-stock_barcodes',
+        'odoo12-addon-stock_barcodes_automatic_entry',
         'odoo12-addon-stock_barcodes_gs1',
         'odoo12-addon-stock_barcodes_gs1_expiry',
         'odoo12-addon-stock_barcodes_supplierinfo',
