@@ -28,7 +28,6 @@ class ProductEan13(models.Model):
         required=True,
     )
 
-    @api.multi
     @api.constrains("name")
     def _check_duplicates(self):
         for record in self:
@@ -54,16 +53,13 @@ class ProductProduct(models.Model):
         store=True,
         inverse="_inverse_barcode",
         compute_sudo=True,
-        inverse_sudo=True,
     )
 
-    @api.multi
     @api.depends("ean13_ids")
     def _compute_barcode(self):
         for product in self:
             product.barcode = product.ean13_ids[:1].name
 
-    @api.multi
     def _inverse_barcode(self):
         for product in self:
             if product.ean13_ids:
@@ -71,7 +67,6 @@ class ProductProduct(models.Model):
             else:
                 self.env["product.ean13"].create(self._prepare_ean13_vals())
 
-    @api.multi
     def _prepare_ean13_vals(self):
         self.ensure_one()
         return {
