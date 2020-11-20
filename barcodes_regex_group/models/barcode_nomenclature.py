@@ -35,16 +35,17 @@ class BarcodeNomenclature(models.Model):
         return match
 
     def parse_barcode(self, barcode):
+        model = self.env.cache['_barcode_active_model']
         this = self.with_context(barcodes_regex_groups=True)
 
         # filter rules by their applicability to the currently active model
-        model = this.env.context.get('params', {}).get('model')
         if model:
             rule_ids_filtered = this.rule_ids.filtered(
                 lambda r: (not r.model_ids)
                 or model in r.model_ids.mapped('model')).ids
             rule_ids_backup = this._cache['rule_ids']
             this._cache['rule_ids'] = rule_ids_filtered
+            print rule_ids_filtered
 
         parsed_result = super(BarcodeNomenclature, this).parse_barcode(barcode)
 
