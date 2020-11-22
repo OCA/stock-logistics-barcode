@@ -171,7 +171,6 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 #, fuzzy
-#| msgid "Sequence"
 msgid "Sequence Id"
 msgstr "Volgorde"
 
