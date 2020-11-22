@@ -91,7 +91,6 @@ msgstr "Nom affiché"
 #. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin
 #, fuzzy
-#| msgid "Generate Barcodes"
 msgid "Generate Barcode Mixin"
 msgstr "Générer des codes barre"
 
@@ -189,7 +188,6 @@ msgstr "Séquence - %s"
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 #, fuzzy
-#| msgid "Sequence"
 msgid "Sequence Id"
 msgstr "Séquence"
 
