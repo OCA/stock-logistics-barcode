@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-10-06 13:07+0000\n"
-"PO-Revision-Date: 2020-10-06 13:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,8 +19,11 @@ msgid "/ Lot:"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
-msgid "<span class=\"text-muted\">No barcode available</span>"
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<span>\n"
+"                    <strong>Barcode Format</strong>\n"
+"                </span>"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -31,6 +32,7 @@ msgid "Barcode"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_format
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Barcode format"
 msgstr ""
@@ -64,6 +66,7 @@ msgstr ""
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_default_format__gs1_128
+#: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__stock_picking_print__barcode_format__gs1_128
 msgid "Display GS1_128 format for barcodes"
 msgstr ""
 
@@ -108,6 +111,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__lot_id
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_format
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_format
 msgid "Method to choose the barcode formating"
@@ -124,7 +132,7 @@ msgid "Moves"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
-#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__picking_id
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__picking_ids
 msgid "Picking"
 msgstr ""
 
@@ -179,7 +187,6 @@ msgid "Wizard to select how many barcodes have to be printed"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
-#: code:addons/stock_picking_product_barcode_report/wizard/stock_barcode_selection_printing.py:0
-#, python-format
-msgid "You may print the labels for just a picking"
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "You can print just the products with assigned barcode"
 msgstr ""
