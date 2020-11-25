@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo13-addon-stock_barcodes_automatic_entry',
         'odoo13-addon-stock_barcodes_gs1',
         'odoo13-addon-stock_barcodes_move_location',
+        'odoo13-addon-stock_picking_product_barcode_report',
     ],
     classifiers=[
         'Programming Language :: Python',
