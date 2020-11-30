@@ -15,6 +15,7 @@
         'barcodes',
     ],
     "data": [
+        "views/assets_backend.xml",
         "views/barcode_rule.xml"
     ],
     'installable': True,

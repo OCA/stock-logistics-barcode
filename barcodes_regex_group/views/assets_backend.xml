@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="assets_backend"
+              name="barcodes_regex_group assets"
+              inherit_id="web.assets_backend"
+              >
+        <xpath expr="." position="inside">
+            <script type="application/javascript"
+                    src="/barcodes_regex_group/static/src/js/barcode_parser.js"
+                    />
+        </xpath>
+    </template>
+
+</odoo>
+
