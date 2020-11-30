@@ -34,7 +34,7 @@ odoo.define('barcodes_regex_group.BarcodeParser', function (require) {
             //    this._cache['rule_ids'] = rule_ids_backup
 
             // Post-process any result of group-matching
-            if (parsed_result.value.match != 'undefined') {
+            if (parsed_result.value.match !== undefined) {
                 var match = parsed_result.value;
                 parsed_result.value = 0;
                 parsed_result.code = match.match[1];
