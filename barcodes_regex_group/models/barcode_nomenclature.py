@@ -45,7 +45,6 @@ class BarcodeNomenclature(models.Model):
                 or model in r.model_ids.mapped('model')).ids
             rule_ids_backup = this._cache['rule_ids']
             this._cache['rule_ids'] = rule_ids_filtered
-            print rule_ids_filtered
 
         parsed_result = super(BarcodeNomenclature, this).parse_barcode(barcode)
 
