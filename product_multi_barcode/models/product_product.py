@@ -8,13 +8,13 @@ from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
 
-class ProductEan13(models.Model):
-    _name = "product.ean13"
-    _description = "List of EAN13 for a product."
+class ProductBarcode(models.Model):
+    _name = "product.barcode"
+    _description = "Individual item in a product's barcode list"
     _order = "sequence, id"
 
     name = fields.Char(
-        string="EAN13",
+        string="Barcode",
         size=13,
         required=True,
     )
@@ -31,43 +31,45 @@ class ProductEan13(models.Model):
     @api.constrains("name")
     def _check_duplicates(self):
         for record in self:
-            eans = self.search([("id", "!=", record.id), ("name", "=", record.name)])
-            if eans:
+            barcodes = self.search(
+                [("id", "!=", record.id), ("name", "=", record.name)]
+            )
+            if barcodes:
                 raise UserError(
-                    _('The EAN13 Barcode "%s" already exists for product ' '"%s"')
-                    % (record.name, eans[0].product_id.name)
+                    _('The Barcode "%s" already exists for product ' '"%s"')
+                    % (record.name, barcodes[0].product_id.name)
                 )
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    ean13_ids = fields.One2many(
-        comodel_name="product.ean13",
+    barcode_ids = fields.One2many(
+        comodel_name="product.barcode",
         inverse_name="product_id",
-        string="EAN13",
+        string="Barcodes",
     )
     barcode = fields.Char(
-        string="Main EAN13",
+        string="Main barcode",
         compute="_compute_barcode",
         store=True,
         inverse="_inverse_barcode",
         compute_sudo=True,
     )
 
-    @api.depends("ean13_ids")
+    @api.depends("barcode_ids")
     def _compute_barcode(self):
         for product in self:
-            product.barcode = product.ean13_ids[:1].name
+            product.barcode = product.barcode_ids[:1].name
 
     def _inverse_barcode(self):
         for product in self:
-            if product.ean13_ids:
-                product.ean13_ids[:1].write({"name": product.barcode})
+            if product.barcode_ids:
+                product.barcode_ids[:1].write({"name": product.barcode})
             else:
-                self.env["product.ean13"].create(self._prepare_ean13_vals())
+                self.env["product.barcode"].create(self._prepare_barcode_vals())
 
-    def _prepare_ean13_vals(self):
+    def _prepare_barcode_vals(self):
         self.ensure_one()
         return {
             "product_id": self.id,
@@ -77,16 +79,18 @@ class ProductProduct(models.Model):
     @api.model
     def _search(self, domain, *args, **kwargs):
         for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
-            domain = self._get_ean13_domain(sub_domain, domain)
+            domain = self._get_barcode_domain(sub_domain, domain)
         return super(ProductProduct, self)._search(domain, *args, **kwargs)
 
-    def _get_ean13_domain(self, sub_domain, domain):
-        ean_operator = sub_domain[1]
-        ean_value = sub_domain[2]
-        eans = self.env["product.ean13"].search([("name", ean_operator, ean_value)])
+    def _get_barcode_domain(self, sub_domain, domain):
+        barcode_operator = sub_domain[1]
+        barcode_value = sub_domain[2]
+        barcodes = self.env["product.barcode"].search(
+            [("name", barcode_operator, barcode_value)]
+        )
         domain = [
-            ("ean13_ids", "in", eans.ids)
-            if x[0] == "barcode" and x[2] == ean_value
+            ("barcode_ids", "in", barcodes.ids)
+            if x[0] == "barcode" and x[2] == barcode_value
             else x
             for x in domain
         ]

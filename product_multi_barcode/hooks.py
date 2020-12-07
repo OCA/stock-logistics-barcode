@@ -7,7 +7,7 @@
 def post_init_hook(cr, registry):
     cr.execute(
         """
-    INSERT INTO product_ean13
+    INSERT INTO product_barcode
     (product_id, name, sequence)
     SELECT id, barcode, 0
     FROM product_product
