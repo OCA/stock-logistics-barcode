@@ -9,8 +9,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
     <record id="product_template_mono_variant" model="product.template">
         <field name="name">Template with Generated Barcode (Mono Variant)</field>
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
-        <field name="barcode_base">50</field>
     </record>
 
     <record id="product_template_multi_variant" model="product.template">
@@ -18,21 +16,17 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     </record>
 
     <record id="product_product_variant_1" model="product.product">
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
-        <field name="barcode_base">10001</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
         <field
-            name="attribute_value_ids"
+            name="product_template_attribute_value_ids"
             eval="[(6,0,[ref('product.product_attribute_value_3')])]"
         />
     </record>
 
     <record id="product_product_variant_2" model="product.product">
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
-        <field name="barcode_base">10002</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
         <field
-            name="attribute_value_ids"
+            name="product_template_attribute_value_ids"
             eval="[(6,0,[ref('product.product_attribute_value_4')])]"
         />
     </record>
@@ -49,11 +43,36 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         />
     </record>
 
-    <record id="product_template_multi_variant" model="product.template">
-        <field
-            name="attribute_line_ids"
-            eval="[(6,0,[ref('product_template_multi_variant_attribute_line')])]"
+    <function model="ir.model.data" name="_update_xmlids">
+        <value
+            model="base"
+            eval="[{
+            'xml_id': 'barcodes_generator_product.product_template_multi_variant_attribute_2_value_1',
+            'record': obj().env.ref('barcodes_generator_product.product_template_multi_variant_attribute_line').product_template_value_ids[0],
+            'noupdate': True,
+        }, {
+            'xml_id': 'barcodes_generator_product.product_template_multi_variant_attribute_2_value_2',
+            'record': obj().env.ref('barcodes_generator_product.product_template_multi_variant_attribute_line').product_template_value_ids[1],
+            'noupdate': True,
+        }]"
         />
-    </record>
+    </function>
+
+    <function model="ir.model.data" name="_update_xmlids">
+        <value
+            model="base"
+            eval="[{
+            'xml_id': 'barcodes_generator_product.product_product_variant_1',
+            'record': obj().env.ref('barcodes_generator_product.product_template_multi_variant')._get_variant_for_combination(
+            obj().env.ref('barcodes_generator_product.product_template_multi_variant_attribute_2_value_1')),
+            'noupdate': True,
+        }, {
+            'xml_id': 'barcodes_generator_product.product_product_variant_2',
+            'record': obj().env.ref('barcodes_generator_product.product_template_multi_variant')._get_variant_for_combination(
+            obj().env.ref('barcodes_generator_product.product_template_multi_variant_attribute_2_value_2')),
+            'noupdate': True,
+        },]"
+        />
+    </function>
 
 </odoo>

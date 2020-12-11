@@ -7,9 +7,9 @@
 {
     "name": "Generate Barcodes for Products",
     "summary": "Generate Barcodes for Products (Templates and Variants)",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Tools",
-    "author": "GRAP," "La Louve," "Odoo Community Association (OCA)",
+    "author": "GRAP, La Louve, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": [

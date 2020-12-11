@@ -33,11 +33,9 @@ class ProductTemplate(models.Model):
     )
 
     # View Section
-    @api.multi
     def generate_base(self):
         self.product_variant_ids.generate_base()
 
-    @api.multi
     def generate_barcode(self):
         self.ensure_one()
         self.product_variant_ids.generate_barcode()

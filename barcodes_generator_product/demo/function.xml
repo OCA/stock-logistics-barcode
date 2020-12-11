@@ -16,13 +16,13 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <function
         model="product.product"
         name="generate_barcode"
-        eval="[ref('product_product_variant_1')]"
+        eval="[ref('barcodes_generator_product.product_product_variant_1')]"
     />
 
     <function
         model="product.product"
         name="generate_barcode"
-        eval="[ref('product_product_variant_2')]"
+        eval="[ref('barcodes_generator_product.product_product_variant_2')]"
     />
 
 </odoo>
