@@ -51,21 +51,18 @@ class BarcodeRule(models.Model):
 
     # Compute Section
     @api.depends("pattern")
-    @api.multi
     def _compute_padding(self):
         for rule in self:
             rule.padding = rule.pattern.count(".")
 
     # On Change Section
     @api.onchange("generate_type")
-    @api.multi
     def onchange_generate_type(self):
         for rule in self:
             if rule.generate_type == "no":
                 rule.generate_model = False
 
     # Constrains Section
-    @api.multi
     @api.constrains("generate_model", "generate_automate")
     def _check_generate_model_automate(self):
         """It should not allow two automated barcode generators per model.
@@ -94,13 +91,11 @@ class BarcodeRule(models.Model):
         self._clear_cache(vals)
         return super(BarcodeRule, self).create(vals)
 
-    @api.multi
     def write(self, vals):
         self._clear_cache(vals)
         return super(BarcodeRule, self).write(vals)
 
     # View Section
-    @api.multi
     def generate_sequence(self):
         sequence_obj = self.env["ir.sequence"]
         for rule in self:
@@ -156,7 +151,7 @@ class BarcodeRule(models.Model):
         )
         return record.ids
 
-    @api.model_cr_context
+    @api.model
     def _clear_cache(self, vals):
         """It clears the caches if certain vals are updated."""
         fields = ("generate_model", "generate_automate")
