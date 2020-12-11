@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
 Copyright (C) 2016-Today: GRAP (http://www.grap.coop)
 Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 @author Sylvain LE GAL (https://twitter.com/legalsylvain)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
-
 <odoo>
 
     <record id="product_template_mono_variant" model="product.template">
@@ -21,25 +20,40 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
     <record id="product_product_variant_1" model="product.product">
         <field name="barcode_rule_id" ref="product_generated_barcode" />
         <field name="barcode_base">10001</field>
-        <field name="product_tmpl_id" ref="product_template_multi_variant"/>
-        <field name="attribute_value_ids" eval="[(6,0,[ref('product.product_attribute_value_3')])]"/>
+        <field name="product_tmpl_id" ref="product_template_multi_variant" />
+        <field
+            name="attribute_value_ids"
+            eval="[(6,0,[ref('product.product_attribute_value_3')])]"
+        />
     </record>
 
     <record id="product_product_variant_2" model="product.product">
         <field name="barcode_rule_id" ref="product_generated_barcode" />
         <field name="barcode_base">10002</field>
-        <field name="product_tmpl_id" ref="product_template_multi_variant"/>
-        <field name="attribute_value_ids" eval="[(6,0,[ref('product.product_attribute_value_4')])]"/>
+        <field name="product_tmpl_id" ref="product_template_multi_variant" />
+        <field
+            name="attribute_value_ids"
+            eval="[(6,0,[ref('product.product_attribute_value_4')])]"
+        />
     </record>
 
-    <record id="product_template_multi_variant_attribute_line" model="product.template.attribute.line">
-        <field name="product_tmpl_id" ref="product_template_multi_variant"/>
-        <field name="attribute_id" ref="product.product_attribute_2"/>
-        <field name="value_ids" eval="[(6,0,[ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"/>
+    <record
+        id="product_template_multi_variant_attribute_line"
+        model="product.template.attribute.line"
+    >
+        <field name="product_tmpl_id" ref="product_template_multi_variant" />
+        <field name="attribute_id" ref="product.product_attribute_2" />
+        <field
+            name="value_ids"
+            eval="[(6,0,[ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
+        />
     </record>
 
     <record id="product_template_multi_variant" model="product.template">
-        <field name="attribute_line_ids" eval="[(6,0,[ref('product_template_multi_variant_attribute_line')])]"/>
+        <field
+            name="attribute_line_ids"
+            eval="[(6,0,[ref('product_template_multi_variant_attribute_line')])]"
+        />
     </record>
 
 </odoo>
