@@ -14,7 +14,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <xpath expr="//form" position="inside">
                 <group
                     string="Barcode Generation"
-                    colspan='4'
                     attrs="{'invisible': ['|', ('encoding', '=', 'any'), ('padding', '=', 0)]}"
                 >
                     <field name="generate_type" />
@@ -30,13 +29,12 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         name="generate_automate"
                         attrs="{'invisible': [('generate_type', '=', 'no')]}"
                     />
-                    <vbnewline />
                     <button
                         name="generate_sequence"
                         type="object"
                         string="Generate Sequence"
                         colspan="2"
-                        attrs="{'invisible': [('generate_type', '!=', 'sequence')]}"
+                        attrs="{'invisible': ['|', ('generate_type', '!=', 'sequence'), ('sequence_id', '!=', False)]}"
                     />
                     <field
                         name="sequence_id"
