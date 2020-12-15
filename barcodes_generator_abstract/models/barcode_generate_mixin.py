@@ -8,8 +8,6 @@ import logging
 
 from odoo import _, api, exceptions, fields, models
 
-from .barcode_rule import _GENERATE_TYPE
-
 _logger = logging.getLogger(__name__)
 
 try:
@@ -32,8 +30,6 @@ class BarcodeGenerateMixin(models.AbstractModel):
 
     generate_type = fields.Selection(
         string="Generate Type",
-        selection=_GENERATE_TYPE,
-        readonly=True,
         related="barcode_rule_id.generate_type",
     )
 
