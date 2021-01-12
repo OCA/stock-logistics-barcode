@@ -89,15 +89,17 @@ msgid "Format of the barcode when it is printed."
 msgstr "Formato de impresión de códigos de barras"
 
 #. module: stock_picking_product_barcode_report
-#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
-msgid "It only appears here products with barcode defined"
-msgstr "Aquí van a aparecer únicamente los productos que tengan el código de barras definido"
-
-#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__id
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__id
 msgid "ID"
 msgstr "ID"
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "It only appears here products with barcode defined"
+msgstr ""
+"Aquí van a aparecer únicamente los productos que tengan el código de barras "
+"definido"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report
@@ -196,12 +198,16 @@ msgstr "Asistente"
 #. module: stock_picking_product_barcode_report
 #: model:ir.model,name:stock_picking_product_barcode_report.model_stock_picking_print
 msgid "Wizard to select how many barcodes have to be printed"
-msgstr "Ventana emergente para seleccionar la cantidad de códigos de barras a imprimir"
+msgstr ""
+"Ventana emergente para seleccionar la cantidad de códigos de barras a "
+"imprimir"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
 msgid "You can print just the products with assigned barcode"
-msgstr "Sólo vas a poder imprimir los productos con un código de barras asignado"
+msgstr ""
+"Sólo vas a poder imprimir los productos con un código de barras asignado"
 
 #~ msgid "<span class=\"text-muted\">No barcode available</span>"
-#~ msgstr "<span class=\"text-muted\">No hay código de barras disponible</span>"
+#~ msgstr ""
+#~ "<span class=\"text-muted\">No hay código de barras disponible</span>"
