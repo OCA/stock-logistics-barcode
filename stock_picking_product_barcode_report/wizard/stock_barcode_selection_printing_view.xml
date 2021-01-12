@@ -11,6 +11,7 @@
                     <strong>Barcode Format</strong>
                 </span>
                 <field name="barcode_format" />
+                <p>It only appears here products with barcode defined</p>
                 <group>
                     <field name="product_print_moves" nolabel="1">
                         <tree editable="top" create="0">

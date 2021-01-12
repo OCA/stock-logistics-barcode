@@ -88,6 +88,11 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "It only appears here products with barcode defined"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report
 msgid "Label Impresion"
 msgstr ""
