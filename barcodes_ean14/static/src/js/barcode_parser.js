@@ -1,7 +1,7 @@
 /* Copyright 2016-2017 LasLabs Inc.
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-odoo.define('base_gtin.BarcodeParser', function(require) {
+odoo.define('barcodes_ean14.BarcodeParser', function(require) {
     'use strict';
 
     var BarcodeParser = require('barcodes.BarcodeParser');

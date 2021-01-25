@@ -2,23 +2,23 @@
 <odoo>
 
     <template id="assets_backend"
-              name="base_gtin Assets"
+              name="barcodes_ean14 Assets"
               inherit_id="web.assets_backend"
               >
         <xpath expr="." position="inside">
             <script type="application/javascript"
-                    src="/base_gtin/static/src/js/barcode_parser.js"
+                    src="/barcodes_ean14/static/src/js/barcode_parser.js"
                     />
         </xpath>
     </template>
 
     <template id="qunit_suite"
-              name="base_gtin QUnit Assets"
+              name="barcodes_ean14 QUnit Assets"
               inherit_id="web.qunit_suite"
               >
         <xpath expr="//t" position="inside">
             <script type="application/javascript"
-                    src="/base_gtin/static/tests/js/barcode_parser.js"
+                    src="/barcodes_ean14/static/tests/js/barcode_parser.js"
                     />
         </xpath>
     </template>
