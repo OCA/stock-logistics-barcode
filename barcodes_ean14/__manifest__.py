@@ -5,7 +5,7 @@
 {
     "name": "Barcodes - EAN14",
     "summary": "It provides an EAN14 barcode nomenclature.",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "author": "LasLabs, "
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
