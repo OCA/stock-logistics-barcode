@@ -5,7 +5,7 @@
 {
     "name": "Barcodes - Multiline",
     "summary": "It allows barcodes to span multiple lines.",
-    "version": "10.0.1.0.0",
+    "version": "10.0.1.0.1",
     "author": "Sunflower IT, "
               "Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
