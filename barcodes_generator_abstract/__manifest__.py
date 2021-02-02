@@ -5,27 +5,19 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 {
-    'name': 'Generate Barcodes (Abstract)',
-    'summary': 'Generate Barcodes for Any Models',
-    'version': '12.0.1.0.2',
-    'category': 'Tools',
-    'author':
-        'GRAP, '
-        'La Louve, '
-        'LasLabs, '
-        'Odoo Community Association (OCA)',
-    'website': 'https://www.odoo-community.org',
-    'license': 'AGPL-3',
-    'depends': [
-        'barcodes',
+    "name": "Generate Barcodes (Abstract)",
+    "summary": "Generate Barcodes for Any Models",
+    "version": "12.0.1.0.2",
+    "category": "Tools",
+    "author": "GRAP, " "La Louve, " "LasLabs, " "Odoo Community Association (OCA)",
+    "website": "https://www.odoo-community.org",
+    "license": "AGPL-3",
+    "depends": ["barcodes"],
+    "data": [
+        "security/res_groups.xml",
+        "views/view_barcode_rule.xml",
+        "views/menu.xml",
     ],
-    'data': [
-        'security/res_groups.xml',
-        'views/view_barcode_rule.xml',
-        'views/menu.xml',
-    ],
-    'demo': [
-        'demo/res_users.xml',
-    ],
-    'external_dependencies': {'python': ['barcode']},
+    "demo": ["demo/res_users.xml"],
+    "external_dependencies": {"python": ["barcode"]},
 }
