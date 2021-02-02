@@ -68,7 +68,7 @@ class TestStockBarcodes(TransactionCase):
             'name': '8411822222568',
             'product_id': self.product_tracking.id,
         })
-        self.StockQuant.create({
+        self.quant_lot_1 = self.StockQuant.create({
             'product_id': self.product_tracking.id,
             'lot_id': self.lot_1.id,
             'location_id': self.stock_location.id,

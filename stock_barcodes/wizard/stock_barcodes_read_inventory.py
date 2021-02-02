@@ -1,15 +1,22 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import _, fields, models
+from odoo import _, api, fields, models
 from odoo.fields import first
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
+from odoo.tools.safe_eval import safe_eval
 
 
 class WizStockBarcodesReadInventory(models.TransientModel):
     _name = 'wiz.stock.barcodes.read.inventory'
     _inherit = 'wiz.stock.barcodes.read'
     _description = 'Wizard to read barcode on inventory'
+
+    def _default_auto_lot(self):
+        ICP = self.env['ir.config_parameter'].sudo()
+        auto_lot = ICP.get_param("stock_barcodes.auto_lot")
+        if auto_lot:
+            return safe_eval(auto_lot)
 
     inventory_id = fields.Many2one(
         comodel_name='stock.inventory',
@@ -19,6 +26,12 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         string='Inventory quantities',
         digits=dp.get_precision('Product Unit of Measure'),
         readonly=True,
+    )
+    auto_lot = fields.Boolean(
+        string="Get lots automatically",
+        help="If checked the lot will be set automatically with the same "
+             "removal startegy",
+        default=lambda self: self._default_auto_lot(),
     )
 
     def name_get(self):
@@ -64,7 +77,8 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         self.inventory_product_qty = line.product_qty
 
     def check_done_conditions(self):
-        if self.product_id.tracking != 'none' and not self.lot_id:
+        if (self.product_id.tracking != 'none' and not self.lot_id and
+                not self.auto_lot):
             self._set_messagge_info('info', _('Waiting for input lot'))
             return False
         return super().check_done_conditions()
@@ -72,7 +86,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def action_done(self):
         result = super().action_done()
         if result:
-            self._add_inventory_line()
+            if self.auto_lot:
+                self._distribute_inventory_lines()
+            else:
+                self._add_inventory_line()
         return result
 
     def action_manual_entry(self):
@@ -103,3 +120,35 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 self.inventory_product_qty = inventory_line.product_qty
         log_scan.unlink()
         return res
+
+    def _distribute_inventory_lines(self):
+        """Distribute the quantity to all quants.
+        If the quantity is greater than all quant's quantities the difference
+        will be assigned to last quant.
+        """
+        quants = self.env["stock.quant"]._gather(
+            self.product_id, self.location_id)
+        if not quants:
+            self._set_messagge_info(
+                'not_found', _('There is no lots to assign quantities'))
+            return False
+        qty_to_assign = self.product_qty
+        for quant in quants:
+            qty = (qty_to_assign if qty_to_assign <= quant.quantity else
+                   quant.quantity)
+            self.lot_id = quant.lot_id
+            self.product_qty = qty if qty > 0.0 else 0.0
+            self._add_inventory_line()
+            qty_to_assign -= qty
+        if qty_to_assign:
+            self.lot_id = quants[-1:].lot_id
+            self.product_qty = qty_to_assign
+            self._add_inventory_line()
+
+    @api.onchange("product_id")
+    def _onchange_product_id(self):
+        self.auto_lot = self._default_auto_lot()
+
+    @api.onchange("lot_id")
+    def _onchange_lot_id(self):
+        self.auto_lot = False
