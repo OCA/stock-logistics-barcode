@@ -6,17 +6,13 @@
 
 import logging
 
+import barcode
+
 from odoo import _, api, exceptions, fields, models
 
 from .barcode_rule import _GENERATE_TYPE
 
 _logger = logging.getLogger(__name__)
-
-try:
-    import barcode
-except ImportError:
-    _logger.debug("Cannot import 'python-barcode' python library.")
-    barcode = None
 
 
 class BarcodeGenerateMixin(models.AbstractModel):
@@ -43,14 +39,13 @@ class BarcodeGenerateMixin(models.AbstractModel):
         barcode_rule = self.env["barcode.rule"].get_automatic_rule(self._name)
         if barcode_rule.exists():
             vals.update({"barcode_rule_id": barcode_rule.id})
-        record = super(BarcodeGenerateMixin, self).create(vals)
+        record = super().create(vals)
         if barcode_rule:
             record.generate_base()
             record.generate_barcode()
         return record
 
     # View Section
-    @api.multi
     def generate_base(self):
         for item in self:
             if item.generate_type != "sequence":
@@ -63,7 +58,6 @@ class BarcodeGenerateMixin(models.AbstractModel):
             else:
                 item.barcode_base = item.barcode_rule_id.sequence_id.next_by_id()
 
-    @api.multi
     def generate_barcode(self):
         for item in self:
             padding = item.barcode_rule_id.padding
