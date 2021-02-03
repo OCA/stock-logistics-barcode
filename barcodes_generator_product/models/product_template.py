@@ -5,25 +5,32 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.barcodes_generator_abstract.models.barcode_rule\
-    import _GENERATE_TYPE
+from odoo.addons.barcodes_generator_abstract.models.barcode_rule import _GENERATE_TYPE
 
 
 class ProductTemplate(models.Model):
-    _inherit = 'product.template'
+    _inherit = "product.template"
 
     # Related to display product product information if is_product_variant
     barcode_rule_id = fields.Many2one(
-        related='product_variant_ids.barcode_rule_id',
-        string='Barcode Rule', readonly=False, comodel_name='barcode.rule')
+        related="product_variant_ids.barcode_rule_id",
+        string="Barcode Rule",
+        readonly=False,
+        comodel_name="barcode.rule",
+    )
 
     barcode_base = fields.Integer(
-        related='product_variant_ids.barcode_base',
-        readonly=False, string='Barcode Base')
+        related="product_variant_ids.barcode_base",
+        readonly=False,
+        string="Barcode Base",
+    )
 
     generate_type = fields.Selection(
-        string='Generate Type', selection=_GENERATE_TYPE, readonly=True,
-        related='product_variant_ids.barcode_rule_id.generate_type')
+        string="Generate Type",
+        selection=_GENERATE_TYPE,
+        readonly=True,
+        related="product_variant_ids.barcode_rule_id.generate_type",
+    )
 
     # View Section
     @api.multi
@@ -35,7 +42,7 @@ class ProductTemplate(models.Model):
         self.ensure_one()
         self.product_variant_ids.generate_barcode()
 
-    @api.onchange('barcode_rule_id')
+    @api.onchange("barcode_rule_id")
     def onchange_barcode_rule_id(self):
         self.generate_type = self.barcode_rule_id.generate_type
 
@@ -48,7 +55,7 @@ class ProductTemplate(models.Model):
         # these fields should be moved to product as lead to confusion
         # (Ref. product module feature in Odoo Core)
         related_vals = {}
-        for field in ['barcode_rule_id', 'barcode_base']:
+        for field in ["barcode_rule_id", "barcode_base"]:
             if vals.get(field, False):
                 related_vals[field] = vals[field]
             if related_vals:
