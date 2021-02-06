@@ -14,6 +14,12 @@
             <field name="product_qty" position="after">
                 <field name="inventory_product_qty" />
             </field>
+            <xpath expr="//field[@name='manual_entry']" position="after">
+                <label for="auto_lot">
+                    Get lots automatically
+                </label>
+                <field name="auto_lot" widget="barcode_boolean_toggle" />
+            </xpath>
         </field>
     </record>
     <!--
