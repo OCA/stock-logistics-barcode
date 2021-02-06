@@ -6,16 +6,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-09-24 11:03+0000\n"
-"PO-Revision-Date: 2019-09-24 13:05+0200\n"
-"Last-Translator: \n"
+"POT-Creation-Date: 2021-02-06 20:07+0000\n"
+"PO-Revision-Date: 2021-02-06 21:13+0100\n"
+"Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"X-Generator: Poedit 2.3\n"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
@@ -64,6 +64,11 @@ msgid "Are you sure to validate the picking ?"
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Auto lots for inventory"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__barcode
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__barcode
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__barcode
@@ -77,9 +82,8 @@ msgstr "Código de barras"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
-#, fuzzy
 msgid "Barcode Scanned"
-msgstr "Lector de códigos de barras"
+msgstr "Código de barras escaneado"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
@@ -118,7 +122,6 @@ msgstr "Cód. Barras: %s (%s)"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-#, fuzzy
 msgid "Barcodes"
 msgstr "Código de barras"
 
@@ -136,7 +139,6 @@ msgstr "Cancelar"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__name
-#, fuzzy
 msgid "Candidate Picking"
 msgstr "Posibles albaranes"
 
@@ -162,20 +164,24 @@ msgid "Click on picking pushpin to lock it"
 msgstr "Pinche en la chincheta del albarán para bloquearlo"
 
 #. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Confirm"
 msgstr "Confirmar"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__confirmed_moves
-#, fuzzy
 msgid "Confirmed moves"
-msgstr "Confirmar"
+msgstr "movimientos confirmados"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Confirmed moves allowed"
-msgstr ""
+msgstr "Permitir movimientos confirmados"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__create_uid
@@ -210,7 +216,7 @@ msgstr "Fecha de creación, usualmente la del pedido"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Current product scanning log"
-msgstr ""
+msgstr "Registro del producto escaneado"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__outgoing
@@ -220,12 +226,12 @@ msgstr "Clientes"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_uom_qty
 msgid "Demand"
-msgstr ""
+msgstr "Demanda"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Demand:"
-msgstr ""
+msgstr "Demanda:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__display_name
@@ -241,19 +247,30 @@ msgstr "Nombre a mostrar"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_done
 msgid "Done"
-msgstr ""
+msgstr "Hecho"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Done:"
-msgstr ""
+msgstr "Hecho:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Ensure the traceability of a storable product in your warehouse."
-msgstr ""
+msgstr "Asegure la trazabilidad de un producto almacenable en su almacén"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "Get lots automatically"
+msgstr "Obtener lotes automáticamente"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_inventory_auto_lot
+msgid "Get lots automatically for inventories"
+msgstr "Obtener lotes automáticamente para inventarios"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__id
@@ -265,6 +282,35 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__id
 msgid "ID"
 msgstr "ID"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+msgid ""
+"If checked the lot will be set automatically with the same removal strategy"
+msgstr ""
+"Si esta marcado el lote se establecerá automáticamente según la estrategia "
+"de retirada"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid ""
+"If checked, after a product barcode is read, the quantities will be "
+"distributed\n"
+"                                among all existing lots by removal strategy "
+"order."
+msgstr ""
+"Si está marcado, después de escanear un código de barras de producto, las "
+"cantidades se distribuirán entre todos los lotes existentes por orden según "
+"la estrategia de retirada"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid ""
+"If user input more quantities than existing it, the exceeded quantities will "
+"be assigned to last lot"
+msgstr ""
+"Si el usuario introduce más cantidades de las existentes, las cantidades "
+"sobrantes se asignarán al último lote"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
@@ -419,6 +465,11 @@ msgid "No barcode found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "OCA Stock Barcodes reader"
+msgstr "Lector de códigos de barras (OCA)"
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__packaging_qty
@@ -448,14 +499,18 @@ msgstr "Albarán"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking_type
-#, fuzzy
 msgid "Picking Type"
-msgstr "Albarán"
+msgstr "Tipo de operación"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_product_qty
 msgid "Picking quantities"
 msgstr "Cantidades del albarán"
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_config_settings
+msgid "Procurement purchase grouping settings"
+msgstr "Agrupación de la compra abastecida"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__product_id
@@ -480,9 +535,8 @@ msgstr "Cantidad"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__product_qty
-#, fuzzy
 msgid "Quantity scanned"
-msgstr "Lote escaneado"
+msgstr "Cantidad escaneada"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -508,18 +562,17 @@ msgstr "Modelo"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_reserved
 msgid "Reserved"
-msgstr ""
+msgstr "Reservado"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Reserved:"
-msgstr ""
+msgstr "Reservado:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__scan_count
-#, fuzzy
 msgid "Scan Count"
-msgstr "Registro de lecturas del producto"
+msgstr "Cantidad de lecturas"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__scan_log_ids
@@ -530,14 +583,18 @@ msgstr "Registro de lecturas del producto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__read_log_id
-#, fuzzy
 msgid "Scanning log"
 msgstr "Registro de lecturas del producto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__log_line_ids
 msgid "Scanning log details"
-msgstr ""
+msgstr "Detalle del registro de lecturas"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Set a default value for scanner."
+msgstr "Establece un valor por defecto para el lector."
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
@@ -550,6 +607,11 @@ msgid "Status"
 msgstr "Estado"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_inventory_auto_lot
+msgid "Stock Barcodes Inventory Auto Lot"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_read_log_line
 msgid "Stock barcodes read log lines"
 msgstr ""
@@ -557,7 +619,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__move_line_id
 msgid "Stock move lines"
-msgstr ""
+msgstr "Movimiento de existencias"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
@@ -566,12 +628,17 @@ msgid "There are no stock moves to assign this operation"
 msgstr "No hay movimientos de stock para realizar esta operación"
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#, python-format
+msgid "There is no lots to assign quantities"
+msgstr "No hay lotes para asignar la cantidad"
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
-#, fuzzy
 msgid "Tracking"
-msgstr "Albarán"
+msgstr "Seguimiento"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking
@@ -593,9 +660,8 @@ msgstr "Validar"
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
-#, fuzzy
 msgid "Value of the last barcode scanned."
-msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
+msgstr "Valor del último código de barras escaneado."
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
@@ -628,9 +694,8 @@ msgstr "Código de barras"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__wiz_picking_id
-#, fuzzy
 msgid "Wizard Picking"
-msgstr "Albarán"
+msgstr "Asistente para leer códigos de barras desde los albaranes"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_new_lot
