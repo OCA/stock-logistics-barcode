@@ -4,7 +4,6 @@ from odoo import _, api, fields, models
 from odoo.fields import first
 from odoo.addons import decimal_precision as dp
 from odoo.exceptions import ValidationError
-from odoo.tools.safe_eval import safe_eval
 
 
 class WizStockBarcodesReadInventory(models.TransientModel):
@@ -13,10 +12,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _description = 'Wizard to read barcode on inventory'
 
     def _default_auto_lot(self):
-        ICP = self.env['ir.config_parameter'].sudo()
-        auto_lot = ICP.get_param("stock_barcodes.auto_lot")
-        if auto_lot:
-            return safe_eval(auto_lot)
+        return self.env.user.company_id.stock_barcodes_inventory_auto_lot
 
     inventory_id = fields.Many2one(
         comodel_name='stock.inventory',

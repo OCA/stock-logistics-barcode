@@ -166,13 +166,9 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         )
 
     def test_inventory_wizard_auto_lot_default_value(self):
-        # No parameter defined
+        # Company auto lot default value False
         self.assertFalse(self.wiz_scan_inventory.auto_lot)
-        ICP = self.env['ir.config_parameter'].sudo()
-        ICP.create({
-            "key": "stock_barcodes.auto_lot",
-            "value": "True"
-        })
+        self.env.user.company_id.stock_barcodes_inventory_auto_lot = True
         vals = self.inventory.action_barcode_scan()
         wiz_scan_inventory = self.ScanReadInventory.with_context(
             vals['context']
