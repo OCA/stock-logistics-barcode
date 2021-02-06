@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-02-06 20:07+0000\n"
+"PO-Revision-Date: 2021-02-06 20:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -52,6 +54,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Auto lots for inventory"
 msgstr ""
 
 #. module: stock_barcodes
@@ -151,6 +158,11 @@ msgid "Click on picking pushpin to lock it"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Confirm"
 msgstr ""
@@ -244,6 +256,17 @@ msgid "Ensure the traceability of a storable product in your warehouse."
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "Get lots automatically"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_inventory_auto_lot
+msgid "Get lots automatically for inventories"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__id
@@ -252,6 +275,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__id
 msgid "ID"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+msgid ""
+"If checked the lot will be set automatically with the same removal strategy"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid ""
+"If checked, after a product barcode is read, the quantities will be distributed\n"
+"                                among all existing lots by removal strategy order."
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid ""
+"If user input more quantities than existing it, the exceeded quantities will"
+" be assigned to last lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -407,6 +450,11 @@ msgid "No barcode found"
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "OCA Stock Barcodes reader"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__packaging_qty
@@ -442,6 +490,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_product_qty
 msgid "Picking quantities"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_config_settings
+msgid "Procurement purchase grouping settings"
 msgstr ""
 
 #. module: stock_barcodes
@@ -524,6 +577,11 @@ msgid "Scanning log details"
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Set a default value for scanner."
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "Start barcode interface"
 msgstr ""
@@ -531,6 +589,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__state
 msgid "Status"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_inventory_auto_lot
+msgid "Stock Barcodes Inventory Auto Lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -547,6 +610,12 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "There are no stock moves to assign this operation"
+msgstr ""
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#, python-format
+msgid "There is no lots to assign quantities"
 msgstr ""
 
 #. module: stock_barcodes
