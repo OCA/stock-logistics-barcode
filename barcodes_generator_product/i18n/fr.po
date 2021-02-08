@@ -127,11 +127,3 @@ msgstr ""
 #: model:product.template,weight_uom_name:barcodes_generator_product.product_template_mono_variant
 msgid "kg"
 msgstr ""
-
-#, fuzzy
-#~| msgid "Template with Generated Barcode (Mono Variant)"
-#~ msgid "Product with Generated Barcode (Variant 2 - Black)"
-#~ msgstr "Article avec Code Barre Généré (Mono Variante)"
-
-#~ msgid "barcode.rule"
-#~ msgstr "barcode.rule"
