@@ -127,6 +127,3 @@ msgstr ""
 #: model:product.template,weight_uom_name:barcodes_generator_product.product_template_mono_variant
 msgid "kg"
 msgstr ""
-
-#~ msgid "barcode.rule"
-#~ msgstr "regla.barra de codigos"
