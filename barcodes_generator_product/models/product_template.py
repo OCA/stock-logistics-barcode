@@ -33,11 +33,9 @@ class ProductTemplate(models.Model):
     )
 
     # View Section
-    @api.multi
     def generate_base(self):
         self.product_variant_ids.generate_base()
 
-    @api.multi
     def generate_barcode(self):
         self.ensure_one()
         self.product_variant_ids.generate_barcode()
@@ -49,7 +47,7 @@ class ProductTemplate(models.Model):
     # Overload Section
     @api.model
     def create(self, vals):
-        template = super(ProductTemplate, self).create(vals)
+        template = super().create(vals)
 
         # this is needed to set given values to first variant after creation
         # these fields should be moved to product as lead to confusion
@@ -58,6 +56,6 @@ class ProductTemplate(models.Model):
         for field in ["barcode_rule_id", "barcode_base"]:
             if vals.get(field, False):
                 related_vals[field] = vals[field]
-            if related_vals:
-                template.write(related_vals)
+        if related_vals:
+            template.write(related_vals)
         return template
