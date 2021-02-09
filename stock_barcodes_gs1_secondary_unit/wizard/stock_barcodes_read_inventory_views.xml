@@ -1,0 +1,29 @@
+<odoo>
+    <record id="view_stock_barcodes_read_inventory_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.inventory</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_read_inventory_form"
+        />
+        <field name="arch" type="xml">
+            <field name="packaging_id" position="after">
+                <field name="product_tmpl_id" invisible="1" />
+                <field
+                    name="secondary_uom_id"
+                    options="{'no_create': True}"
+                    domain="[('product_tmpl_id', '=', product_tmpl_id)]"
+                    attrs="{'readonly': [('manual_entry', '=', False)]}"
+                    force_save="1"
+                />
+            </field>
+            <field name="packaging_qty" position="after">
+                <field
+                    name="secondary_uom_qty"
+                    attrs="{'invisible': ['|', ('secondary_uom_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
+                    force_save="1"
+                    widget="FieldFloatNumericMode"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
