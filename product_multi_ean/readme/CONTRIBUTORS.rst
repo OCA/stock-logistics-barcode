@@ -4,3 +4,4 @@
 * Xavier Jimenez (QubiQ)
 * Héctor Villarreal (Eficent)
 * Jim Hoefnagels (DynApps)
+* Foram Shah (Initos Gmbh)

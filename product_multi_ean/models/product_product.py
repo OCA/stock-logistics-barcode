@@ -42,7 +42,6 @@ class ProductProduct(models.Model):
         store=True,
         inverse="_inverse_barcode",
         compute_sudo=True,
-        inverse_sudo=True,
     )
 
     @api.depends("ean13_ids")
