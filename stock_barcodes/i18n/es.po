@@ -169,6 +169,11 @@ msgid "Companies"
 msgstr "Compañías"
 
 #. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Confirm"
 msgstr "Confirmar"
@@ -508,11 +513,6 @@ msgid "Picking quantities"
 msgstr "Cantidades del albarán"
 
 #. module: stock_barcodes
-#: model:ir.model,name:stock_barcodes.model_res_config_settings
-msgid "Procurement purchase grouping settings"
-msgstr "Agrupación de la compra abastecida"
-
-#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_id
@@ -730,6 +730,9 @@ msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or "
 "confirmed"
 msgstr ""
+
+#~ msgid "Procurement purchase grouping settings"
+#~ msgstr "Agrupación de la compra abastecida"
 
 #, fuzzy
 #~| msgid "Picking"
