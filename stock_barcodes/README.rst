@@ -144,7 +144,6 @@ Changelog
 * [ADD] New feature.
   Add option to get lots automatically based on removal strategy in inventory.
 
-
 Bug Tracker
 ===========
 
