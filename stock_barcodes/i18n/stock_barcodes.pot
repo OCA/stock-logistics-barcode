@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-02-06 20:07+0000\n"
-"PO-Revision-Date: 2021-02-06 20:07+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -160,6 +158,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_res_company
 msgid "Companies"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_res_config_settings
+msgid "Config Settings"
 msgstr ""
 
 #. module: stock_barcodes
@@ -490,11 +493,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_product_qty
 msgid "Picking quantities"
-msgstr ""
-
-#. module: stock_barcodes
-#: model:ir.model,name:stock_barcodes.model_res_config_settings
-msgid "Procurement purchase grouping settings"
 msgstr ""
 
 #. module: stock_barcodes
