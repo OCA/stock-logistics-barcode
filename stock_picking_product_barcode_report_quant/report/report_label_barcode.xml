@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="action_label_barcode_report_quant"
+        string="Label Quant Report"
+        model="stock.picking.line.print"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report_quant.label_barcode_report"
+        name="stock_picking_product_barcode_report_quant.label_barcode_report"
+        paperformat="stock_picking_product_barcode_report_quant.paperformat_label"
+    />
+    <data>
+        <record id="action_label_barcode_report_quant" model="ir.actions.report">
+            <field name="is_barcode_label">True</field>
+        </record>
+    </data>
+</odoo>

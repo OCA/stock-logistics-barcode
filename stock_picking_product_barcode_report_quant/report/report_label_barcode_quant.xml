@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <report
+        id="report_label_barcode_quant"
+        string="Label Quant Report"
+        model="stock.quant"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report_quant.label_barcode_quant_report"
+        name="stock_picking_product_barcode_report_quant.label_barcode_quant_report"
+        paperformat="stock_picking_product_barcode_report_quant.paperformat_label"
+    />
+</odoo>

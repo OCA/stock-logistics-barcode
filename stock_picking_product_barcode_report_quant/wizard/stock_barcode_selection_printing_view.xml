@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcode_selection_printing" model="ir.ui.view">
+        <field name="model">stock.picking.print</field>
+        <field
+            name="inherit_id"
+            ref="stock_picking_product_barcode_report.view_stock_barcode_selection_printing"
+        />
+        <field name="arch" type="xml">
+            <button name="print_labels" position="after">
+                <button
+                    string="New barcode and print"
+                    name="action_new_barcode_and_print"
+                    type="object"
+                    class="btn btn-secondary"
+                />
+            </button>
+            <field name="label_qty" position="after">
+                <field name="move_line_id" invisible="1" force_save="1" />
+                <field name="barcode" />
+            </field>
+        </field>
+    </record>
+</odoo>
