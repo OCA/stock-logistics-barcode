@@ -59,9 +59,3 @@ msgstr ""
 #: model:ir.model,name:barcodes_generator_location.model_stock_location
 msgid "Stock Location"
 msgstr "Lokacija zalihe"
-
-#~ msgid "Location with Generated Barcode"
-#~ msgstr "Lokacija sa generiranim barkodom"
-
-#~ msgid "barcode.rule"
-#~ msgstr "barcode.rule"
