@@ -4,6 +4,6 @@ from odoo import models
 
 
 class StockLocation(models.Model):
-    _name = 'stock.location'
-    _description = 'Stock Location'
-    _inherit = ['stock.location', 'barcode.generate.mixin']
+    _name = "stock.location"
+    _description = "Stock Location"
+    _inherit = ["stock.location", "barcode.generate.mixin"]

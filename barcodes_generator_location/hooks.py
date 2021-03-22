@@ -5,7 +5,9 @@
 def uninstall_hook(cr, registry):
     """Delete barcode rules with generate model `stock.location` as they
     won't be useful anymore"""
-    cr.execute("""
+    cr.execute(
+        """
         DELETE FROM barcode_rule
         WHERE generate_model = 'stock.location'
-    """)
+    """
+    )

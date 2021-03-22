@@ -4,17 +4,11 @@
     "name": "Generate Barcodes for Stock Locations",
     "version": "12.0.1.0.0",
     "category": "Tools",
-    "author": "LasLabs, "
-              "Odoo Community Association (OCA)",
+    "author": "LasLabs, " "Odoo Community Association (OCA)",
     "website": "https://laslabs.com",
     "license": "AGPL-3",
-    "depends": [
-        "barcodes_generator_abstract",
-        "stock",
-    ],
-    "data": [
-        "views/stock_location.xml",
-    ],
+    "depends": ["barcodes_generator_abstract", "stock",],
+    "data": ["views/stock_location.xml",],
     "demo": [
         "demo/ir_sequence.xml",
         "demo/barcode_rule.xml",
