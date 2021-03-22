@@ -4,8 +4,8 @@ from odoo import fields, models
 
 
 class BarcodeRule(models.Model):
-    _inherit = 'barcode.rule'
+    _inherit = "barcode.rule"
 
     generate_model = fields.Selection(
-        selection_add=[('stock.location', 'Stock Location')],
+        selection_add=[("stock.location", "Stock Location")],
     )
