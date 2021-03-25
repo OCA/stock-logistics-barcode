@@ -144,7 +144,7 @@ if scenario.company_id:
 if scenario.parent_id:
     parent_value = scenario.parent_id.get_metadata()[0]["xmlid"]
     if not parent_value:
-        parent_value = "scanner_scenario_{parent_name)".format(
+        parent_value = "scanner_scenario_{parent_name}".format(
             parent_name=normalize_name(scenario.parent_id.name),
         )
     new_node("parent_id", parent_value)

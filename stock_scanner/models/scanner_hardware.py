@@ -185,7 +185,6 @@ class ScannerHardware(models.Model):
     # instead. These will be removed when the module is migrated to
     # Odoo 13.0
     @property
-    @api.multi
     def json_tmp_val1(self):
         self.ensure_one()
         return self.get_tmp_value("val1")
@@ -196,7 +195,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val1": value})
 
     @property
-    @api.multi
     def json_tmp_val2(self):
         self.ensure_one()
         return self.get_tmp_value("val2")
@@ -207,7 +205,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val2": value})
 
     @property
-    @api.multi
     def json_tmp_val3(self):
         self.ensure_one()
         return self.get_tmp_value("val3")
@@ -218,7 +215,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val3": value})
 
     @property
-    @api.multi
     def json_tmp_val4(self):
         self.ensure_one()
         return self.get_tmp_value("val4")
@@ -229,7 +225,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val4": value})
 
     @property
-    @api.multi
     def json_tmp_val5(self):
         self.ensure_one()
         return self.get_tmp_value("val5")
@@ -239,19 +234,16 @@ class ScannerHardware(models.Model):
         self.ensure_one()
         self.update_tmp_values({"val5": value})
 
-    @api.multi
     def update_tmp_values(self, values):
         self.ensure_one()
         tmp_values = self.tmp_values
         tmp_values.update(values)
         self.write({"tmp_values": tmp_values})
 
-    @api.multi
     def get_tmp_value(self, key_name, default=None):
         self.ensure_one()
         return self.tmp_values.get(key_name, default)
 
-    @api.multi
     def set_tmp_value(self, key_name, value):
         _logger.warning(
             "'%s' is deprecated. Please use 'terminal.tmp_values'." % key_name
@@ -263,7 +255,6 @@ class ScannerHardware(models.Model):
             }
         )
 
-    @api.multi
     def clean_tmp_values(self, items):
         self.ensure_one()
         values = self.tmp_values
@@ -770,7 +761,7 @@ class ScannerHardware(models.Model):
                 _logger.warning("[%s] OSV Exception:", self.code, exc_info=True)
                 result = ("E", [e.name or "", "", e.value or ""], True)
                 break
-            except Exception as e:
+            except Exception:
                 self.env.cr.rollback()
                 _logger.error("[%s] Exception: ", self.code, exc_info=True)
                 result = ("R", ["Please contact", "your", "administrator"], 0)
@@ -804,7 +795,6 @@ class ScannerHardware(models.Model):
 
         return scanner_scenario_ids.mapped("name")
 
-    @api.multi
     def _screen_size(self):
         """
         Retrieve the screen size for this terminal

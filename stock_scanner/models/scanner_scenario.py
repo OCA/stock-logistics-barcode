@@ -41,7 +41,7 @@ class ScannerScenario(models.Model):
         comodel_name="ir.model",
         string="Model",
         required=False,
-        ondelete="restrict",
+        ondelete="cascade",
         help="Model used for this scenario.",
     )
     step_ids = fields.One2many(
@@ -112,7 +112,6 @@ class ScannerScenario(models.Model):
                 _("Error ! You can not create recursive scenarios."),
             )
 
-    @api.multi
     def copy(self, default=None):
         default = default or {}
         default["name"] = _("Copy of %s") % self.name

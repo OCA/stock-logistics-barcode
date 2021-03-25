@@ -4,7 +4,7 @@
 {
     "name": "Stock Scanner",
     "summary": "Allows managing barcode readers with simple scenarios",
-    "version": "12.0.1.0.1",
+    "version": "14.0.1.0.1",
     "category": "Generic Modules/Inventory Control",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "author": "Subteno IT," "ACSONE SA/NV," "Odoo Community Association (OCA)",

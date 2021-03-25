@@ -226,7 +226,6 @@ def scenario_convert_file(
     mode="update",
     noupdate=False,
     kind=None,
-    report=None,
     pathname=None,
 ):
     if pathname is None:
@@ -253,7 +252,6 @@ def scenario_convert_file(
             mode=mode,
             noupdate=noupdate,
             kind=kind,
-            report=report,
             pathname=pathname,
         )
 
