@@ -5,9 +5,9 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'L'
+act = "L"
 res = [
-    ('|', _('List step')),
-    ('error', _('Go to Error step')),
-    ('continue', _('Go to next step')),
+    ("|", _("List step")),
+    ("error", _("Go to Error step")),
+    ("continue", _("Go to next step")),
 ]

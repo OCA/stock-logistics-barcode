@@ -5,11 +5,11 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'T'
+act = "T"
 res = [
-    _('|Text input step'),
-    '',
-    _('This step allows the user to enter custom text.'),
-    '',
-    _('You will also use this step for barcode scanning.'),
+    _("|Text input step"),
+    "",
+    _("This step allows the user to enter custom text."),
+    "",
+    _("You will also use this step for barcode scanning."),
 ]

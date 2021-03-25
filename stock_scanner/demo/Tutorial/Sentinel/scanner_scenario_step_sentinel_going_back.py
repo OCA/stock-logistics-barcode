@@ -5,9 +5,9 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'M'
+act = "M"
 res = [
-    _('Going back'),
-    '',
-    _('By pressing the escape key, you can return back to the last \'Return step\'.'),
+    _("Going back"),
+    "",
+    _("By pressing the escape key, you can return back to the last 'Return step'."),
 ]

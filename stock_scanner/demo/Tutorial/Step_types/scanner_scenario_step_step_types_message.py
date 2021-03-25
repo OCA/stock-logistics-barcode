@@ -5,9 +5,11 @@
 # Put the returned result or message in <res>, as a list of strings.
 # Put the returned value in <val>, as an integer
 
-act = 'M'
+act = "M"
 res = [
-    _('|Message step'),
-    '',
-    _('A step designed to display some information, without waiting for any user input.'),
+    _("|Message step"),
+    "",
+    _(
+        "A step designed to display some information, without waiting for any user input."
+    ),
 ]

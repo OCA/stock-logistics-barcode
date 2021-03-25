@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!--
     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 -->
@@ -6,65 +6,71 @@
     <record id="view_scanner_hardware_tree" model="ir.ui.view">
         <field name="name">scanner.hardware.tree</field>
         <field name="model">scanner.hardware</field>
-        <field name="priority" eval="8"/>
+        <field name="priority" eval="8" />
         <field name="arch" type="xml">
             <tree string="Scanner Hardware">
-                <field name="warehouse_id"/>
-                <field name="code"/>
-                <field name="name"/>
-                <field name="scenario_id"/>
-                <field name="step_id"/>
+                <field name="warehouse_id" />
+                <field name="code" />
+                <field name="name" />
+                <field name="scenario_id" />
+                <field name="step_id" />
             </tree>
         </field>
     </record>
     <record id="view_scanner_hardware_form" model="ir.ui.view">
         <field name="name">scanner.hardware.form</field>
         <field name="model">scanner.hardware</field>
-        <field name="priority" eval="8"/>
+        <field name="priority" eval="8" />
         <field name="arch" type="xml">
             <form string="Scanner Hardware">
                 <sheet>
                     <group colspan="4" col="4">
-                        <field name="code"/>
-                        <field name="name"/>
-                        <field name="warehouse_id"/>
-                        <field name="user_id"/>
-                        <field name="log_enabled"/>
-                        <field name="last_call_dt"/>
-                        <newline/>
+                        <field name="code" />
+                        <field name="name" />
+                        <field name="warehouse_id" />
+                        <field name="user_id" />
+                        <field name="log_enabled" />
+                        <field name="last_call_dt" />
+                        <newline />
                     </group>
                     <group colspan="4">
-                        <separator string="Screen size" colspan="2"/>
-                        <field name="screen_width"/>
-                        <field name="screen_height"/>
+                        <separator string="Screen size" colspan="2" />
+                        <field name="screen_width" />
+                        <field name="screen_height" />
                     </group>
                     <group colspan="4" col="6">
-                        <separator string="Screen colors" colspan="6"/>
-                        <field name="base_fg_color"/>
-                        <field name="info_fg_color"/>
-                        <field name="error_fg_color"/>
-                        <field name="base_bg_color"/>
-                        <field name="info_bg_color"/>
-                        <field name="error_bg_color"/>
+                        <separator string="Screen colors" colspan="6" />
+                        <field name="base_fg_color" />
+                        <field name="info_fg_color" />
+                        <field name="error_fg_color" />
+                        <field name="base_bg_color" />
+                        <field name="info_bg_color" />
+                        <field name="error_bg_color" />
                     </group>
                     <group colspan="4">
-                        <separator string="Scanner status" colspan="2"/>
-                        <field name="scenario_id"/>
-                        <field name="step_id"/>
-                        <field name="reference_document"/>
-                        <button string="Reset Scenario" colspan="2" type="object" icon="fa-retweet" name="empty_scanner_values"/>
+                        <separator string="Scanner status" colspan="2" />
+                        <field name="scenario_id" />
+                        <field name="step_id" />
+                        <field name="reference_document" />
+                        <button
+                            string="Reset Scenario"
+                            colspan="2"
+                            type="object"
+                            icon="fa-retweet"
+                            name="empty_scanner_values"
+                        />
                     </group>
                     <group colspan="4">
-                      <separator string="Temporary values" colspan="2"/>
-                      <field name="tmp_values_display" nolabel='1'/>
+                      <separator string="Temporary values" colspan="2" />
+                      <field name="tmp_values_display" nolabel='1' />
                    </group>
                     <group colspan="4">
-                        <separator string="Current Steps History" colspan="4"/>
+                        <separator string="Current Steps History" colspan="4" />
                         <field name="step_history_ids" colspan="4" nolabel="1">
                             <tree>
-                                <field name="step_id"/>
-                                <field name="transition_id"/>
-                                <field name="message"/>
+                                <field name="step_id" />
+                                <field name="transition_id" />
+                                <field name="message" />
                             </tree>
                         </field>
                     </group>
@@ -82,16 +88,21 @@
         <field name="context">{}</field>
     </record>
     <record model="ir.actions.act_window.view" id="act_open_scanner_hardware_view_form">
-        <field name="act_window_id" ref="act_open_scanner_hardware_view"/>
-        <field name="sequence" eval="20"/>
+        <field name="act_window_id" ref="act_open_scanner_hardware_view" />
+        <field name="sequence" eval="20" />
         <field name="view_mode">form</field>
-        <field name="view_id" ref="view_scanner_hardware_form"/>
+        <field name="view_id" ref="view_scanner_hardware_form" />
     </record>
     <record model="ir.actions.act_window.view" id="act_open_scanner_hardware_view_tree">
-        <field name="act_window_id" ref="act_open_scanner_hardware_view"/>
-        <field name="sequence" eval="10"/>
+        <field name="act_window_id" ref="act_open_scanner_hardware_view" />
+        <field name="sequence" eval="10" />
         <field name="view_mode">tree</field>
-        <field name="view_id" ref="view_scanner_hardware_tree"/>
+        <field name="view_id" ref="view_scanner_hardware_tree" />
     </record>
-    <menuitem id="menu_scanner_hardware" parent="menu_scanner_configuration" sequence="10" action="act_open_scanner_hardware_view"/>
+    <menuitem
+        id="menu_scanner_hardware"
+        parent="menu_scanner_configuration"
+        sequence="10"
+        action="act_open_scanner_hardware_view"
+    />
 </odoo>
