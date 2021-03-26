@@ -7,10 +7,16 @@
             <form>
                 <p>You can print just the products with assigned barcode</p>
                 <field name="picking_ids" invisible="1" force_save="1" />
-                <span>
+                <div>
+                    <strong>Barcode Report</strong>
+                    <br />
+                    <field name="barcode_report" />
+                </div>
+                <div>
                     <strong>Barcode Format</strong>
-                </span>
-                <field name="barcode_format" />
+                    <br />
+                    <field name="barcode_format" />
+                </div>
                 <p>It only appears here products with barcode defined</p>
                 <group>
                     <field name="product_print_moves" nolabel="1">
