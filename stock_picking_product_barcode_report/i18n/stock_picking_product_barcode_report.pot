@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-03-26 15:03+0000\n"
+"PO-Revision-Date: 2021-03-26 15:03+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -21,9 +23,15 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
 msgid ""
-"<span>\n"
-"                    <strong>Barcode Format</strong>\n"
-"                </span>"
+"<strong>Barcode Format</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Barcode Report</strong>\n"
+"                    <br/>"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -35,6 +43,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_format
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Barcode format"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_ir_actions_report__is_barcode_label
+msgid "Barcode label"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -62,6 +75,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__create_date
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__create_date
 msgid "Created on"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_report
+msgid "Default template for barcode labels"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -172,8 +191,23 @@ msgid "Quantity of Labels"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_report
+msgid "Report to print"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Select format of barcode display"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Select report for barcode display"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report

@@ -4,18 +4,15 @@
 from odoo import fields, models
 
 
-class ResConfigSettings(models.TransientModel):
-    _inherit = "res.config.settings"
+class Company(models.Model):
+    _inherit = "res.company"
 
     barcode_default_format = fields.Selection(
         [("gs1_128", "Display GS1_128 format for barcodes")],
         string="Method to choose the barcode formating",
-        related="company_id.barcode_default_format",
-        readonly=False,
     )
     barcode_default_report = fields.Many2one(
         comodel_name="ir.actions.report",
-        related="company_id.barcode_default_report",
         string="Default template for barcode labels",
-        readonly=False,
+        domain=[("is_barcode_label", "=", True)],
     )
