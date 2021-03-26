@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-01-12 07:42+0000\n"
-"PO-Revision-Date: 2021-01-12 08:46+0100\n"
+"POT-Creation-Date: 2021-03-26 15:03+0000\n"
+"PO-Revision-Date: 2021-03-26 16:06+0100\n"
 "Last-Translator: Carlos <carlos.roca@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -25,13 +25,20 @@ msgstr "/ Lote:"
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
 msgid ""
-"<span>\n"
-"                    <strong>Barcode Format</strong>\n"
-"                </span>"
+"<strong>Barcode Format</strong>\n"
+"                    <br/>"
 msgstr ""
-"<span>\n"
-"                    <strong>Formato de código de barras</strong>\n"
-"                </span>"
+"<strong>Formato de código de barras</strong>\n"
+"                    <br/>"
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Barcode Report</strong>\n"
+"                    <br/>"
+msgstr ""
+"<strong>Informe de código de barras</strong>\n"
+"                    <br/>"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
@@ -43,6 +50,11 @@ msgstr "Código de barras"
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Barcode format"
 msgstr "Formato de Código de barras"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_ir_actions_report__is_barcode_label
+msgid "Barcode label"
+msgstr "Etiqueta de código de barras"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
@@ -70,6 +82,12 @@ msgstr "Creado por"
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__create_date
 msgid "Created on"
 msgstr "Creado el"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_report
+msgid "Default template for barcode labels"
+msgstr "Plantilla para etiquetas de códigos de barras"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_default_format__gs1_128
@@ -181,9 +199,24 @@ msgid "Quantity of Labels"
 msgstr "Cantidad de etiquetas"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_ir_actions_report
+msgid "Report Action"
+msgstr "Acción de informe"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_report
+msgid "Report to print"
+msgstr "Informe a imprimir"
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Select format of barcode display"
 msgstr "Selecciona el formato de código de barras"
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Select report for barcode display"
+msgstr "Selecciona el informe para imprimir el código de barras"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__uom_id
@@ -207,7 +240,3 @@ msgstr ""
 msgid "You can print just the products with assigned barcode"
 msgstr ""
 "Sólo vas a poder imprimir los productos con un código de barras asignado"
-
-#~ msgid "<span class=\"text-muted\">No barcode available</span>"
-#~ msgstr ""
-#~ "<span class=\"text-muted\">No hay código de barras disponible</span>"
