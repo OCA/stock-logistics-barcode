@@ -17,6 +17,8 @@
         "wizard/stock_barcode_selection_printing_view.xml",
         "report/report_label_barcode.xml",
         "report/report_label_barcode_template.xml",
+        "data/ir_actions_report_data.xml",
+        "views/ir_actions_report_view.xml",
     ],
     "installable": True,
 }
