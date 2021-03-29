@@ -42,4 +42,15 @@
             </xpath>
         </field>
     </record>
+    <record id="view_picking_type_form" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='use_create_lots']/../.." position="after">
+                <group string="Barcodes">
+                    <field name="barcode_guided_mode" />
+                </group>
+            </xpath>
+        </field>
+    </record>
 </odoo>

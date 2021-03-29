@@ -1,10 +1,14 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import fields, models
 
 
 class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
+
+    barcode_guided_mode = fields.Selection(
+        [("guided", "Guided")], string="Guide mode for barcode"
+    )
 
     def action_barcode_scan(self):
         action = self.env.ref(
@@ -14,6 +18,7 @@ class StockPickingType(models.Model):
             "default_res_model_id": self.env.ref("stock.model_stock_picking_type").id,
             "default_res_id": self.id,
             "default_picking_type_code": self.code,
+            "guided_mode": self.barcode_guided_mode,
         }
         if self.code == "incoming":
             action["context"]["default_location_id"] = self.default_location_dest_id.id

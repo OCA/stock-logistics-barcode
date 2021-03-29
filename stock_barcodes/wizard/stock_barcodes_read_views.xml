@@ -53,14 +53,16 @@
                         </div>
                     </div>
                     <div>
+                        <field name="manual_entry" widget="barcode_boolean_toggle" />
                         <label for="manual_entry">
                             Manual entry data
                         </label>
-                        <field name="manual_entry" widget="barcode_boolean_toggle" />
                     </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1" />
                     <field name="product_tracking" invisible="1" force_save="1" />
+                    <field name="guided_product_id" invisible="1" force_save="1" />
+                    <field name="guided_location_id" invisible="1" force_save="1" />
                     <field name="res_model_id" invisible="1" />
                     <field name="res_id" invisible="1" />
                     <field
@@ -126,13 +128,13 @@
                         />
                         <field
                             name="packaging_qty"
-                            attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
+                            attrs="{'invisible': [('packaging_id', '=', False)]}"
                             force_save="1"
                             widget="FieldFloatNumericMode"
                         />
                         <field
                             name="product_qty"
-                            attrs="{'invisible': [('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
+                            attrs="{'readonly': [('product_tracking', '=', 'serial')]}"
                             force_save="1"
                             widget="FieldFloatNumericMode"
                         />
@@ -146,6 +148,15 @@
                             icon="fa-plus"
                             attrs="{'invisible': [('manual_entry', '=', False)]}"
                             class="btn-primary"
+                        />
+                        <button
+                            name="action_done"
+                            type="object"
+                            string="OK"
+                            icon="fa-thumbs-up"
+                            attrs="{'invisible': [('manual_entry', '=', False)]}"
+                            class="btn-primary"
+                            context="{'done_forced': True}"
                         />
                     </group>
                     <group />
