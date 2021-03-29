@@ -98,11 +98,11 @@
                     </kanban>
                 </field>
             </xpath>
-            <xpath expr="//field[@name='manual_entry']" position="after">
+            <xpath expr="//label[@for='manual_entry']" position="after">
+                <field name="confirmed_moves" widget="barcode_boolean_toggle" />
                 <label for="confirmed_moves">
                     Confirmed moves allowed
                 </label>
-                <field name="confirmed_moves" widget="barcode_boolean_toggle" />
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />

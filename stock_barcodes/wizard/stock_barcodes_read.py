@@ -37,11 +37,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     message = fields.Char(readonly=True)
     message_step = fields.Char(readonly=True)
-
-    @api.onchange("location_id")
-    def onchange_location_id(self):
-        self.packaging_id = False
-        self.product_id = False
+    guided_product_id = fields.Many2one(comodel_name="product.product")
+    guided_location_id = fields.Many2one(comodel_name="stock.location")
 
     @api.onchange("packaging_qty")
     def onchange_packaging_qty(self):
@@ -113,11 +110,35 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.process_barcode(barcode)
 
     def check_done_conditions(self):
+        if not self.location_id:
+            self._set_messagge_info("info", _("Waiting location"))
+            return False
+        if not self.product_id:
+            self._set_messagge_info("info", _("Waiting product"))
+            return False
+        if self.product_id.tracking != "none" and not self.lot_id:
+            self._set_messagge_info("info", _("Waiting lot"))
+            return False
         if not self.product_qty:
             self._set_messagge_info("info", _("Waiting quantities"))
             return False
+        if (
+            self.env.context.get("guided_mode", False)
+            and not self._check_guided_values()
+        ):
+            return False
         if self.manual_entry:
             self._set_messagge_info("success", _("Manual entry OK"))
+        return True
+
+    def _check_guided_values(self):
+        if self.product_id != self.guided_product_id:
+            self._set_messagge_info("more_match", _("Wrong product"))
+            self.product_qty = 0.0
+            return False
+        if self.location_id != self.guided_location_id:
+            self._set_messagge_info("more_match", _("Wrong location"))
+            return False
         return True
 
     def action_done(self):
@@ -150,6 +171,14 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_clean_lot(self):
         self.lot_id = False
+
+    def action_clean_values(self):
+        self.product_id = False
+        self.lot_id = False
+        self.packaging_id = False
+        self.location_id = False
+        self.product_qty = 0.0
+        self.packaging_qty = 0.0
 
     def action_manual_entry(self):
         return True
