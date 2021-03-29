@@ -36,6 +36,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         readonly=True,
     )
     message = fields.Char(readonly=True)
+    message_step = fields.Char(readonly=True)
 
     @api.onchange("location_id")
     def onchange_location_id(self):
@@ -46,6 +47,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     def onchange_packaging_qty(self):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
+
+    def _set_messagge_step(self, message):
+        """Set message type and message description.
+        """
+        self.message_step = _("To do: %s") % (message)
 
     def _set_messagge_info(self, message_type, message):
         """

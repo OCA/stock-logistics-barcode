@@ -43,6 +43,15 @@
                             </button>
                         </div>
                     </div>
+                    <div name="message_step" class="text-center">
+                        <div
+                            class="alert alert-success"
+                            role="status"
+                            attrs="{'invisible': [('message_step', '=', False)]}"
+                        >
+                            <field name="message_step" />
+                        </div>
+                    </div>
                     <div>
                         <label for="manual_entry">
                             Manual entry data
