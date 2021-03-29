@@ -266,6 +266,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.remove_scanning_log(log_scan)
         return res
 
+    def info_step(self):
+        self._set_message_step("Test")
+
 
 class WizCandidatePicking(models.TransientModel):
     """
