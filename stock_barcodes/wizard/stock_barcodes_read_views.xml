@@ -3,7 +3,7 @@
         <field name="name">stock.barcodes.read.form</field>
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="arch" type="xml">
-            <form string="Barcodes">
+            <form string="Barcodes" class="oe_stock_barcordes_form">
                 <sheet>
                     <div class="text-center">
                         <div
@@ -43,26 +43,15 @@
                             </button>
                         </div>
                     </div>
-                    <div name="message_step" class="text-center">
-                        <div
-                            class="alert alert-success"
-                            role="status"
-                            attrs="{'invisible': [('message_step', '=', False)]}"
-                        >
-                            <field name="message_step" />
-                        </div>
-                    </div>
                     <div>
-                        <field name="manual_entry" widget="FieldBarcodeBooleanToggle" />
                         <label for="manual_entry">
                             Manual entry data
                         </label>
+                        <field name="manual_entry" widget="barcode_boolean_toggle" />
                     </div>
                     <field name="message_type" invisible="1" />
                     <field name="barcode" invisible="1" force_save="1" />
                     <field name="product_tracking" invisible="1" force_save="1" />
-                    <field name="guided_product_id" invisible="1" force_save="1" />
-                    <field name="guided_location_id" invisible="1" force_save="1" />
                     <field name="res_model_id" invisible="1" />
                     <field name="res_id" invisible="1" />
                     <field
@@ -139,27 +128,6 @@
                             widget="FieldFloatNumericMode"
                         />
                     </group>
-                    <group />
-                    <group>
-                        <button
-                            name="action_manual_entry"
-                            type="object"
-                            string="Manual entry"
-                            icon="fa-plus"
-                            attrs="{'invisible': [('manual_entry', '=', False)]}"
-                            class="btn-primary"
-                        />
-                        <button
-                            name="action_done"
-                            type="object"
-                            string="OK"
-                            icon="fa-thumbs-up"
-                            attrs="{'invisible': [('manual_entry', '=', False)]}"
-                            class="btn-primary"
-                            context="{'done_forced': True}"
-                        />
-                    </group>
-                    <group />
                     <group
                         string="Current product scanning log"
                         attrs="{'invisible': [('scan_log_ids', '=', [])]}"
@@ -227,6 +195,22 @@
                         </field>
                     </group>
                 </sheet>
+                <div class="oe_sticky_bottom d-flex">
+                    <button
+                        name="action_manual_entry"
+                        type="object"
+                        string="Manual entry"
+                        icon="fa-plus"
+                        attrs="{'invisible': [('manual_entry', '=', False)]}"
+                        class="btn-primary"
+                    />
+                    <button
+                        name="open_actions"
+                        type="object"
+                        string="Actions"
+                        class="btn-secondary ml-auto"
+                    />
+                </div>
             </form>
         </field>
     </record>
