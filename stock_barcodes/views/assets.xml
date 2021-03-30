@@ -14,7 +14,11 @@
                 type="application/javascript"
                 src="/stock_barcodes/static/src/js/basic_fields.js"
             />
-            <link rel="stylesheet" href="/stock_barcodes/static/src/css/stock.css" />
+            <script
+                type="application/javascript"
+                src="/stock_barcodes/static/src/js/form_view.js"
+            />
+            <link rel="stylesheet" href="/stock_barcodes/static/src/css/stock.scss" />
         </xpath>
     </template>
 </odoo>
