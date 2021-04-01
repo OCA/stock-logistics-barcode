@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_action_kanban" model="ir.ui.view">
+        <field name="name">stock.barcodes.action</field>
+        <field name="model">stock.barcodes.action</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="id" />
+                <field name="name" />
+                <field name="action_window_id" />
+                <field name="context" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_global_click">
+                            <div class="oe_kanban_details">
+                                <h4>
+                                    <field name="name" />
+                                </h4>
+                                <div>
+                                    <button name="open_action" type="object">
+                                        PEEPE
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_stock_barcodes_action">
+        <field name="res_model">stock.barcodes.action</field>
+        <field name="name">Barcodes actions</field>
+        <field name="view_mode">kanban</field>
+        <field name="context">{}</field>
+        <field name="view_id" ref="view_stock_barcodes_action_kanban" />
+        <field name="target">current</field>
+    </record>
+</odoo>

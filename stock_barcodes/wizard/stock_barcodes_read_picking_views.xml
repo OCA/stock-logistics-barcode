@@ -4,6 +4,7 @@
         <field name="name">stock.barcodes.read.picking.form</field>
         <field name="model">wiz.stock.barcodes.read.picking</field>
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
+        <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='manual_entry']/.." position="before">
                 <field
@@ -99,7 +100,7 @@
                 </field>
             </xpath>
             <xpath expr="//label[@for='manual_entry']" position="after">
-                <field name="confirmed_moves" widget="barcode_boolean_toggle" />
+                <field name="confirmed_moves" widget="FieldBarcodeBooleanToggle" />
                 <label for="confirmed_moves">
                     Confirmed moves allowed
                 </label>

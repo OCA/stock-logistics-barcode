@@ -20,5 +20,6 @@ class StockPicking(models.Model):
             "default_res_id": self.id,
             "default_picking_type_code": self.picking_type_code,
             "guided_mode": self.picking_type_id.barcode_guided_mode,
+            "picking_mode": "picking",
         }
         return action

@@ -53,7 +53,7 @@
                         </div>
                     </div>
                     <div>
-                        <field name="manual_entry" widget="barcode_boolean_toggle" />
+                        <field name="manual_entry" widget="FieldBarcodeBooleanToggle" />
                         <label for="manual_entry">
                             Manual entry data
                         </label>
@@ -128,13 +128,13 @@
                         />
                         <field
                             name="packaging_qty"
-                            attrs="{'invisible': [('packaging_id', '=', False)]}"
+                            attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
                             force_save="1"
                             widget="FieldFloatNumericMode"
                         />
                         <field
                             name="product_qty"
-                            attrs="{'readonly': [('product_tracking', '=', 'serial')]}"
+                            attrs="{'invisible': [('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
                             force_save="1"
                             widget="FieldFloatNumericMode"
                         />

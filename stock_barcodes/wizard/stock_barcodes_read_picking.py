@@ -14,9 +14,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     _name = "wiz.stock.barcodes.read.picking"
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on picking"
+    _field_candidate_ids = "candidate_picking_ids"
 
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
+    )
+    picking_ids = fields.Many2many(
+        comodel_name="stock.picking", string="Pickings", readonly=True
     )
     candidate_picking_ids = fields.One2many(
         comodel_name="wiz.candidate.picking",
@@ -83,13 +87,17 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         )
         return move_lines
 
-    def determine_todo_action(self):
-        if not self.env.context.get("guided_mode", False):
-            return False
+    def _get_stock_move_lines_todo(self):
         move_lines = self.picking_id.move_line_ids.filtered(
             lambda ml: ml.barcode_scan_state == "pending"
             and ml.qty_done < ml.product_qty
         )
+        return move_lines
+
+    def determine_todo_action(self):
+        if not self.env.context.get("guided_mode", False):
+            return False
+        move_lines = self._get_stock_move_lines_todo()
         if not move_lines:
             self._set_messagge_step(_("Nothing to do!!"))
             return True
@@ -112,16 +120,19 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 move_line.product_uom_qty - move_line.qty_done,
             )
         self.guided_product_id = move_line.product_id
-        self.picking_product_qty = move_line.qty_done
+        self.update_fields_after_determine_todo(move_line)
         # self.product_id = move_line.product_id
         self._set_messagge_step(todo_msg)
+
+    def update_fields_after_determine_todo(self, move_line):
+        self.picking_product_qty = move_line.qty_done
 
     def action_done(self):
         if self.check_done_conditions():
             res = self._process_stock_move_line()
             if res:
                 self._add_read_log(res)
-                self.candidate_picking_ids.scan_count += 1
+                self[self._field_candidate_ids].scan_count += 1
                 if self.env.context.get("guided_mode", False):
                     self.action_clean_values()
         self.determine_todo_action()
@@ -175,7 +186,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         vals.extend([(0, 0, {"picking_id": p.id}) for p in candidate_pickings])
         self.candidate_picking_ids = vals
 
-    def _search_candidate_pickings(self, moves_todo=False):
+    def _search_candidate_picking(self, moves_todo=False):
         if not moves_todo:
             moves_todo = self.env["stock.move"].search(
                 self._prepare_stock_moves_domain()
@@ -201,17 +212,30 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         """
         StockMove = self.env["stock.move"]
         StockMoveLine = self.env["stock.move.line"]
-        moves_todo = StockMove.search(self._prepare_stock_moves_domain())
-        if not self._search_candidate_pickings(moves_todo):
+        domain = self._prepare_stock_moves_domain()
+        moves_todo = StockMove.search(domain)
+        if not getattr(
+            self,
+            "_search_candidate_%s" % self.env.context.get("picking_mode", "picking"),
+        )(moves_todo):
             return False
         lines = moves_todo.mapped("move_line_ids").filtered(
             lambda l: (
-                l.picking_id == self.picking_id
-                and l.product_id == self.product_id
+                # l.picking_id == self.picking_id and
+                l.product_id == self.product_id
                 and l.lot_id == self.lot_id
             )
         )
         available_qty = self.product_qty
+        max_quantity = sum([sml.product_uom_qty - sml.qty_done for sml in lines])
+        if (
+            not self.env.context.get("force_create_move", False)
+            and available_qty > max_quantity
+        ):
+            self._set_messagge_info(
+                "more_match", _("Quantities scanned are higher than necessary")
+            )
+            return False
         move_lines_dic = {}
         for line in lines:
             if line.product_uom_qty:
@@ -245,25 +269,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         ):
             # Create an extra stock move line if this product has an
             # initial demand.
-            moves = moves_todo.filtered(
-                lambda m: (
-                    m.product_id == self.product_id
-                    and m.state in self._states_move_allowed()
-                )
+            line = StockMoveLine.create(
+                self._prepare_move_line_values(moves_todo[0], available_qty)
             )
-            if not moves:
-                # TODO: Add picking if picking_id to message
-                self._set_messagge_info(
-                    "info", _("There are no stock moves to assign this operation")
-                )
-                return False
-            else:
-                line = StockMoveLine.create(
-                    self._prepare_move_line_values(moves[0], available_qty)
-                )
-                move_lines_dic[line.id] = available_qty
-        self.picking_product_qty = sum(moves_todo.mapped("quantity_done"))
+            move_lines_dic[line.id] = available_qty
+        self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
+
+    def update_fields_after_process_stock(self, moves):
+        self.picking_product_qty = sum(moves.mapped("quantity_done"))
 
     def _candidate_picking_selected(self):
         if len(self.candidate_picking_ids) == 1:
@@ -273,13 +287,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def check_done_conditions(self):
         res = super().check_done_conditions()
+        if self.env.context.get("picking_mode", "picking") == "picking_batch":
+            return res
         if not self.picking_id:
-            if not self._search_candidate_pickings():
+            if not self._search_candidate_picking():
                 self._set_messagge_info(
                     "info", _("Click on picking pushpin to lock it")
                 )
                 return False
-        if self.picking_id != self._candidate_picking_selected():
+        if self.picking_id and self.picking_id != self._candidate_picking_selected():
             self._set_messagge_info("info", _("Click on picking pushpin to lock it"))
             return False
         return res
