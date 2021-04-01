@@ -19,6 +19,7 @@ class StockPicking(models.Model):
             "default_res_model_id": self.env.ref("stock.model_stock_picking").id,
             "default_res_id": self.id,
             "default_picking_type_code": self.picking_type_code,
+            "control_panel_hidden": True,
             "guided_mode": self.picking_type_id.barcode_guided_mode,
             "picking_mode": "picking",
         }

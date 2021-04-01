@@ -1,0 +1,24 @@
+.oe_stock_scan_button {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.oe_sticky_bottom {
+    position: sticky;
+    bottom: 0;
+    padding: 0.5em;
+    background-color: $o-view-background-color;
+    border: 0 solid $border-color;
+    border-width: 1px 0 0 0;
+}
+
+.oe_stock_barcordes_form {
+    .o_group {
+        &.o_inner_group {
+            margin-bottom: 0 !important;
+        }
+
+        margin: 0 !important;
+    }
+}
