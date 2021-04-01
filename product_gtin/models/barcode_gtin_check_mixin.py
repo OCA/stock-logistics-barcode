@@ -16,8 +16,10 @@ class BarcodeGtincheckMixin(models.AbstractModel):
 
     @api.constrains(_barcode_field)
     def _check_barcode(self):
-        if self[self._barcode_field]:
-            self._check_code(self[self._barcode_field])
+        barcode_field = self._barcode_field
+        for record in self:
+            if record[barcode_field]:
+                record._check_code(record[barcode_field])
 
     @api.model
     def _check_ean8(self, code):
