@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template
+        id="assets_backend"
+        name="stock_barcodes Assets"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="application/javascript"
+                src="/stock_barcodes_picking_batch/static/src/js/barcodes_models_mixin.js"
+            />
+        </xpath>
+    </template>
+</odoo>
