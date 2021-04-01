@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="stock_barcodes_action_picking_out" model="stock.barcodes.action">
+            <field name="name">Picking OUT</field>
+        </record>
+    </data>
+</odoo>
