@@ -22,7 +22,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.action_lot_scaned_post(quants.lot_id)
             if self.env.context.get("default_picking_type_code", False) == "outgoing":
                 self.location_id = quants.location_id
-            self.product_qty = quants.quantity
+            else:
+                self.product_qty = quants.quantity
             if not self.manual_entry:
                 self.action_done()
             return True
