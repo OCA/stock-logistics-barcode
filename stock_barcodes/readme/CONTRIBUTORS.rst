@@ -8,3 +8,7 @@
 * `Onestein <https://www.onestein.eu>`_:
 
   * Andrea Stirpe
+
+* `InitOS <https://www.initos.com>`_:
+
+  * Foram Shah

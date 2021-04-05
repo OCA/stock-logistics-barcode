@@ -30,6 +30,7 @@
                                         <a
                                             name="action_lock_picking"
                                             type="object"
+                                            title="lock picking"
                                             t-if="record.picking_id.raw_value != record.wiz_picking_id.raw_value"
                                             class="fa fa-thumb-tack fa-2x pull-right"
                                             context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
@@ -37,6 +38,7 @@
                                         <a
                                             name="action_unlock_picking"
                                             type="object"
+                                            title="unlock picking"
                                             class="pull-right"
                                             t-if="record.picking_id.raw_value == record.wiz_picking_id.raw_value"
                                             context="{'wiz_barcode_id': parent.id}"
@@ -86,6 +88,7 @@
                                                 name="action_validate_picking"
                                                 type="object"
                                                 class="pull-right"
+                                                title="validate picking"
                                                 attrs="{'invisible': [('state', 'not in', 'assigned')]}"
                                                 confirm="Are you sure to validate the picking ?"
                                                 context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
