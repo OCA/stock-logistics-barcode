@@ -31,7 +31,8 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         )
         self.assertEqual(self.wiz_scan_inventory.res_id, self.inventory.id)
         self.assertIn(
-            "Barcode reader - Test Inventory - ", self.wiz_scan_inventory.display_name,
+            "Barcode reader - Test Inventory - ",
+            self.wiz_scan_inventory.display_name,
         )
 
     def test_inventory_wizard_scan_product(self):
