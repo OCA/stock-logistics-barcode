@@ -1,13 +1,13 @@
 /* Copyright 2018-2019 Sergio Teruel <sergio.teruel@tecnativa.com>.
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-odoo.define("stock_barcodes.FormController", function(require) {
+odoo.define("stock_barcodes.FormController", function (require) {
     "use strict";
 
     var FormController = require("web.FormController");
 
     FormController.include({
-        _barcodeScanned: function(barcode, target) {
+        _barcodeScanned: function (barcode, target) {
             var self = this;
 
             /*
@@ -15,7 +15,7 @@ odoo.define("stock_barcodes.FormController", function(require) {
             scan a barcode for manual entry mode entries.
             */
 
-            this._super(barcode, target).then(function() {
+            this._super(barcode, target).then(function () {
                 var manual_entry_mode = self.$("div[name='manual_entry'] input").val();
                 if (manual_entry_mode) {
                     var packaging = self.$("div[name='packaging_id'] input").val();
@@ -27,7 +27,7 @@ odoo.define("stock_barcodes.FormController", function(require) {
                 }
             });
         },
-        renderButtons: function($node) {
+        renderButtons: function ($node) {
             /* Hide save and discard buttons from wizard, for this form do
                anything and confuse the user if he wants do a manual entry. All
                extended models from  wiz.stock.barcodes.read do not have this
@@ -39,7 +39,7 @@ odoo.define("stock_barcodes.FormController", function(require) {
                 this.$buttons.find(".o_form_buttons_edit").css({display: "none"});
             }
         },
-        canBeDiscarded: function(recordID) {
+        canBeDiscarded: function (recordID) {
             /*
              Silent the warning that says that the record has been modified.
              */
