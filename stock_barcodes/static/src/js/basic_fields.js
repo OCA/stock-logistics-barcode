@@ -1,7 +1,7 @@
 /* Copyright 2018-2019 Sergio Teruel <sergio.teruel@tecnativa.com>.
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-odoo.define("stock_barcodes.FieldFloatNumericMode", function(require) {
+odoo.define("stock_barcodes.FieldFloatNumericMode", function (require) {
     "use strict";
 
     var basic_fields = require("web.basic_fields");
@@ -11,12 +11,12 @@ odoo.define("stock_barcodes.FieldFloatNumericMode", function(require) {
         events: _.extend({}, basic_fields.FieldFloat.prototype.events, {
             focusin: "_onFocusIn",
         }),
-        _onFocusIn: function() {
+        _onFocusIn: function () {
             // Auto select all content when user enters into fields with this
             // widget.
             this.$input.select();
         },
-        _prepareInput: function($input) {
+        _prepareInput: function ($input) {
             // Set numeric mode to display numeric keyboard in mobile devices
             var $input_numeric = this._super($input);
             $input_numeric.attr({inputmode: "numeric"});
@@ -31,11 +31,9 @@ odoo.define("stock_barcodes.FieldFloatNumericMode", function(require) {
         barcode afterwards, it will not perform the python on_barcode_scanned
         function.
         */
-        _onClick: function(event) {
+        _onClick: function (event) {
             this._super(event);
-            $(this.el)
-                .find("input")
-                .blur();
+            $(this.el).find("input").blur();
         },
     });
 
