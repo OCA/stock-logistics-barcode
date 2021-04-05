@@ -194,7 +194,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.wiz_scan_inventory.lot_id = self.lot_1
         self.wiz_scan_inventory._onchange_lot_id()
         self.assertFalse(self.wiz_scan_inventory.auto_lot)
-        self.wiz_scan_inventory.product_id_id = self.product_tracking
+        self.wiz_scan_inventory.product_id = self.product_tracking
         self.wiz_scan_inventory._onchange_product_id()
         self.assertEqual(
             self.wiz_scan_inventory.auto_lot,

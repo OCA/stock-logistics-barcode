@@ -35,7 +35,7 @@
                             type="object"
                             class="btn btn-info"
                         >
-                            <i class="fa fa-barcode fa-2x" />
+                            <i class="fa fa-barcode fa-2x" title="Barcode Scan" />
                         </button>
                     </div>
                 </div>
