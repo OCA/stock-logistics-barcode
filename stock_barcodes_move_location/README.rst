@@ -166,6 +166,8 @@ Contributors
   * Carlos Dauden
   * Pedro M. Baeza
 
+* Foram Shah <foram.shah@initos.com>
+
 Maintainers
 ~~~~~~~~~~~
 

@@ -29,7 +29,9 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         comodel_name="wiz.stock.move.location", string="Move Location", readonly=True
     )
     move_location_qty = fields.Float(
-        string="To Move quantities", digits="Product Unit of Measure", readonly=True,
+        string="To Move quantities",
+        digits="Product Unit of Measure",
+        readonly=True,
     )
     location_dest_id = fields.Many2one(
         comodel_name="stock.location", string="Destination Location", readonly=True
