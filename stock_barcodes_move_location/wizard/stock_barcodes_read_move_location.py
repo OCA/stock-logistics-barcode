@@ -136,6 +136,9 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
             self.with_context(force_add_log=True, manual_entry=True).action_done()
         return result
 
+    def action_automatic_entry(self):
+        return True
+
     def reset_qty(self):
         super().reset_qty()
         self.move_location_qty = 0.0

@@ -14,6 +14,7 @@
         "stock_barcodes_automatic_entry",
     ],
     "data": [
+        "security/ir.model.access.csv",
         "views/assets.xml",
         "views/stock_picking_type_views.xml",
         "wizard/stock_move_location_views.xml",
