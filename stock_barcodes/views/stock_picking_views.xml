@@ -20,24 +20,40 @@
             </div>
         </field>
     </record>
+    <record id="stock_picking_kanban" model="ir.ui.view">
+        <field name="model">stock.picking</field>
+        <field name="inherit_id" ref="stock.stock_picking_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='kanban-box']/div" position="inside">
+                <button
+                    name="action_barcode_scan"
+                    class="btn btn-secondary"
+                    icon="fa-barcode"
+                    type="object"
+                    help="Start barcode interface"
+                    states="assigned"
+                >
+                    <i class="fa fa-barcode fa-2x" />
+                </button>
+            </xpath>
+        </field>
+    </record>
     <record id="stock_picking_type_kanban" model="ir.ui.view">
         <field name="model">stock.picking.type</field>
         <field name="inherit_id" ref="stock.stock_picking_type_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//div[hasclass('o_kanban_card_content')]" position="after">
-                <div class="container o_kanban_card_content o_visible">
-                    <div
-                        class="text-center"
-                        t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1"
+            <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="inside">
+                <div
+                    class="mt8"
+                    t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1"
+                >
+                    <button
+                        name="action_barcode_scan"
+                        type="object"
+                        class="btn btn-secondary"
                     >
-                        <button
-                            name="action_barcode_scan"
-                            type="object"
-                            class="btn btn-info"
-                        >
-                            <i class="fa fa-barcode fa-2x" />
-                        </button>
-                    </div>
+                        <i class="fa fa-barcode fa-2x" />
+                    </button>
                 </div>
             </xpath>
         </field>
@@ -51,6 +67,15 @@
                     <field name="barcode_guided_mode" />
                 </group>
             </xpath>
+        </field>
+    </record>
+    <record id="view_pickingtype_filter" model="ir.ui.view">
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_pickingtype_filter" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="code" string="Type of operation" />
+            </field>
         </field>
     </record>
 </odoo>
