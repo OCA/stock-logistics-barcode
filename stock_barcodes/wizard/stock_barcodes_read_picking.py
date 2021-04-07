@@ -89,7 +89,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _get_stock_move_lines_todo(self):
         move_lines = self.picking_id.move_line_ids.filtered(
-            lambda ml: ml.barcode_scan_state == "pending"
+            lambda ml: (not ml.barcode_scan_state or ml.barcode_scan_state == "pending")
             and ml.qty_done < ml.product_qty
         )
         return move_lines

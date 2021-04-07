@@ -39,6 +39,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     message_step = fields.Char(readonly=True)
     guided_product_id = fields.Many2one(comodel_name="product.product")
     guided_location_id = fields.Many2one(comodel_name="stock.location")
+    action_ids = fields.Many2many(
+        comodel_name="stock.barcodes.action", compute="_compute_action_ids"
+    )
+
+    @api.depends("res_id")
+    def _compute_action_ids(self):
+        actions = self.env["stock.barcodes.action"].search([])
+        self.action_ids = actions
 
     @api.onchange("packaging_qty")
     def onchange_packaging_qty(self):
@@ -221,3 +229,23 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_undo_last_scan(self):
         return True
+
+    def open_actions(self):
+        action = self.get_formview_action()
+        action["res_id"] = self.id
+        ctx = self.env.context.copy()
+        ctx.update({"display_menu": True})
+        action["context"] = ctx
+        return action
+
+    def action_back(self):
+        action = self.get_formview_action()
+        action["res_id"] = self.id
+        ctx = self.env.context.copy()
+        ctx.update({"display_menu": False})
+        action["context"] = ctx
+        return action
+
+    def open_records(self):
+        action = self.action_ids
+        return action

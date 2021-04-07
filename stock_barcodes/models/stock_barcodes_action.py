@@ -7,6 +7,7 @@ from odoo.tools.safe_eval import safe_eval
 class StockBarcodesAction(models.Model):
     _name = "stock.barcodes.action"
     _description = "Actions for barcode interface"
+    _order = "sequence, id"
 
     name = fields.Char()
     sequence = fields.Integer(string="Sequence", default=100)
@@ -17,7 +18,14 @@ class StockBarcodesAction(models.Model):
 
     def open_action(self):
         action = self.action_window_id.read()[0]
+        action_context = safe_eval(action["context"])
         ctx = self.env.context.copy()
-        ctx.update(safe_eval(self.context))
+        if action_context:
+            ctx.update(action_context)
+        if self.context:
+            ctx.update(safe_eval(self.context))
+
+        # Hide menu
+        ctx["display_menu"] = False
         action["context"] = ctx
         return action
