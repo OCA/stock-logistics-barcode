@@ -15,6 +15,7 @@
         "views/assets.xml",
         "views/res_config_settings_views.xml",
         "views/stock_barcodes_action_view.xml",
+        "views/stock_barcodes_option_view.xml",
         "views/stock_inventory_views.xml",
         "views/stock_location_views.xml",
         "views/stock_picking_views.xml",

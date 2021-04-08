@@ -36,6 +36,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     confirmed_moves = fields.Boolean(string="Confirmed moves")
+    move_line_id = fields.Many2one(comodel_name="stock.move.line")
 
     def name_get(self):
         return [
@@ -103,8 +104,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return True
         move_lines = self.get_sorted_move_lines(move_lines)
         move_line = move_lines[:1]
+        self.move_line_id = move_line
+        option_group = self.picking_id.picking_type_id.barcode_option_group_id
         if self.picking_id.picking_type_code in ["incoming", "internal"]:
-            self.location_id = move_line.location_dest_id
+            location = move_line.location_dest_id
             self.guided_location_id = move_line.location_dest_id
             todo_msg = "Location: {}\n Product: {}\n Qty: {}\n".format(
                 move_line.location_dest_id.name,
@@ -112,7 +115,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 move_line.product_uom_qty - move_line.qty_done,
             )
         else:
-            self.location_id = move_line.location_id
+            location = move_line.location_id
             self.guided_location_id = move_line.location_id
             todo_msg = "Location: {}\n Product: {}\n Qty: {}\n".format(
                 move_line.location_id.name,
@@ -120,8 +123,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 move_line.product_uom_qty - move_line.qty_done,
             )
         self.guided_product_id = move_line.product_id
+        self.guided_lot_id = move_line.lot_id
+
+        if option_group.get_option_value("location_id", "filled_default"):
+            self.location_id = location
+        if option_group.get_option_value("product_id", "filled_default"):
+            self.product_id = move_line.product_id
+        if option_group.get_option_value("lot_id", "filled_default"):
+            self.lot_id = move_line.lot_id
+        if option_group.get_option_value("product_qty", "filled_default"):
+            self.product_qty = move_line.product_uom_qty - move_line.qty_done
+
         self.update_fields_after_determine_todo(move_line)
-        # self.product_id = move_line.product_id
         self._set_messagge_step(todo_msg)
 
     def update_fields_after_determine_todo(self, move_line):
@@ -135,7 +148,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self[self._field_candidate_ids].scan_count += 1
                 if self.env.context.get("guided_mode", False):
                     self.action_clean_values()
-        self.determine_todo_action()
+                if self.env.context.get("force_create_move"):
+                    self.move_line_id.barcode_scan_state = "done_forced"
+                self.determine_todo_action()
 
     def action_manual_entry(self):
         result = super().action_manual_entry()
@@ -219,10 +234,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "_search_candidate_%s" % self.env.context.get("picking_mode", "picking"),
         )(moves_todo):
             return False
+        # TODO: Check location or location_dest
         lines = moves_todo.mapped("move_line_ids").filtered(
             lambda l: (
                 # l.picking_id == self.picking_id and
-                l.product_id == self.product_id
+                l.location_id == self.location_id
+                and l.product_id == self.product_id
                 and l.lot_id == self.lot_id
             )
         )
@@ -235,6 +252,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self._set_messagge_info(
                 "more_match", _("Quantities scanned are higher than necessary")
             )
+            if not self.option_group_id.get_option_value("product_qty", "forced"):
+                self.visible_force_done = True
             return False
         move_lines_dic = {}
         for line in lines:

@@ -20,5 +20,6 @@ class StockInventory(models.Model):
             "default_inventory_id": self.id,
             "default_res_model_id": self.env.ref("stock.model_stock_inventory").id,
             "default_res_id": self.id,
+            "control_panel_hidden": True,
         }
         return action

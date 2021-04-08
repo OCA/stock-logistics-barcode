@@ -108,6 +108,8 @@
                         <field name="product_tracking" invisible="1" force_save="1" />
                         <field name="guided_product_id" invisible="1" force_save="1" />
                         <field name="guided_location_id" invisible="1" force_save="1" />
+                        <field name="guided_lot_id" invisible="1" force_save="1" />
+                        <field name="visible_force_done" invisible="1" force_save="1" />
                         <field name="res_model_id" invisible="1" />
                         <field name="res_id" invisible="1" />
                         <field
@@ -260,6 +262,14 @@
                         icon="fa-plus"
                         attrs="{'invisible': [('manual_entry', '=', False)]}"
                         class="btn-primary"
+                    />
+                    <button
+                        name="action_force_done"
+                        type="object"
+                        string="Ok"
+                        icon="fa-plus"
+                        attrs="{'invisible': [('visible_force_done', '=', False)]}"
+                        class="btn-danger"
                     />
                     <button
                         name="open_actions"

@@ -39,9 +39,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     message_step = fields.Char(readonly=True)
     guided_product_id = fields.Many2one(comodel_name="product.product")
     guided_location_id = fields.Many2one(comodel_name="stock.location")
+    guided_lot_id = fields.Many2one(comodel_name="stock.production.lot")
     action_ids = fields.Many2many(
         comodel_name="stock.barcodes.action", compute="_compute_action_ids"
     )
+    option_group_id = fields.Many2one(comodel_name="stock.barcodes.option.group")
+    visible_force_done = fields.Boolean()
 
     @api.depends("res_id")
     def _compute_action_ids(self):
@@ -102,12 +105,18 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.action_lot_scaned_post(lot)
                 self.action_done()
                 return
-        location = self.env["stock.location"].search(domain)
+        if self._scanned_location(barcode):
+            return
+        self._set_messagge_info("not_found", _("Barcode not found"))
+
+    def _scanned_location(self, barcode):
+        location = self.env["stock.location"].search(self._barcode_domain(barcode))
         if location:
             self.location_id = location
             self._set_messagge_info("info", _("Waiting product"))
-            return
-        self._set_messagge_info("not_found", _("Barcode not found"))
+            return True
+        else:
+            return False
 
     def _barcode_domain(self, barcode):
         return [("barcode", "=", barcode)]
@@ -140,11 +149,24 @@ class WizStockBarcodesRead(models.AbstractModel):
         return True
 
     def _check_guided_values(self):
-        if self.product_id != self.guided_product_id:
+        if (
+            self.product_id != self.guided_product_id
+            and self.option_group_id.get_option_value("product_id", "forced")
+        ):
             self._set_messagge_info("more_match", _("Wrong product"))
             self.product_qty = 0.0
             return False
-        if self.location_id != self.guided_location_id:
+        if (
+            self.guided_product_id.tracking != "none"
+            and self.lot_id != self.guided_lot_id
+            and self.option_group_id.get_option_value("lot_id", "forced")
+        ):
+            self._set_messagge_info("more_match", _("Wrong lot"))
+            return False
+        if (
+            self.location_id != self.guided_location_id
+            and self.option_group_id.get_option_value("location_id", "forced")
+        ):
             self._set_messagge_info("more_match", _("Wrong location"))
             return False
         return True
@@ -249,3 +271,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     def open_records(self):
         action = self.action_ids
         return action
+
+    def get_option_value(self, field_name, attribute):
+        option = self.option_group_id.option_ids.filtered(
+            lambda op: op.field_name == field_name
+        )[:1]
+        return option[attribute]
+
+    def action_force_done(self):
+        res = self.with_context(force_create_move=True).action_done()
+        self.visible_force_done = False
+        return res
