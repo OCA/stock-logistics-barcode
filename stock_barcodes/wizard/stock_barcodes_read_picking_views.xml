@@ -7,6 +7,9 @@
         <field name="mode">primary</field>
         <field name="arch" type="xml">
             <xpath expr="//field[@name='manual_entry']/.." position="before">
+                <field name="todo_line_ids" mode="kanban" force_save="1" />
+            </xpath>
+            <xpath expr="//field[@name='manual_entry']/.." position="before">
                 <field
                     name="candidate_picking_ids"
                     mode="kanban"
