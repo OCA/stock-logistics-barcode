@@ -36,7 +36,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     confirmed_moves = fields.Boolean(string="Confirmed moves")
-    move_line_id = fields.Many2one(comodel_name="stock.move.line")
+    move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
+    todo_line_ids = fields.One2many(
+        comodel_name="wiz.stock.barcodes.read.todo",
+        inverse_name="wiz_barcode_id",
+        domain=[("state", "=", "pending")],
+        readonly=True,
+    )
+    todo_line_id = fields.Many2one(comodel_name="wiz.stock.barcodes.read.todo")
 
     def name_get(self):
         return [
@@ -95,18 +102,23 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         )
         return move_lines
 
+    def fill_todo_records(self):
+        move_lines = self.picking_id.move_line_ids
+        move_lines = self.get_sorted_move_lines(move_lines)
+        self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
+
     def determine_todo_action(self):
         if not self.env.context.get("guided_mode", False):
             return False
-        move_lines = self._get_stock_move_lines_todo()
-        if not move_lines:
-            self._set_messagge_step(_("Nothing to do!!"))
-            return True
-        move_lines = self.get_sorted_move_lines(move_lines)
-        move_line = move_lines[:1]
-        self.move_line_id = move_line
-        option_group = self.picking_id.picking_type_id.barcode_option_group_id
-        if self.picking_id.picking_type_code in ["incoming", "internal"]:
+        # move_lines = self._get_stock_move_lines_todo()
+        # if not move_lines:
+        #     self._set_messagge_step(_("Nothing to do!!"))
+        #     return True
+        if not self.todo_line_ids:
+            self.fill_todo_records()
+        self.todo_line_id = self.todo_line_ids[:1]
+        move_line = self.todo_line_id
+        if self.picking_type_code in ["incoming", "internal"]:
             location = move_line.location_dest_id
             self.guided_location_id = move_line.location_dest_id
             todo_msg = "Location: {}\n Product: {}\n Qty: {}\n".format(
@@ -125,13 +137,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.guided_product_id = move_line.product_id
         self.guided_lot_id = move_line.lot_id
 
-        if option_group.get_option_value("location_id", "filled_default"):
+        if self.option_group_id.get_option_value("location_id", "filled_default"):
             self.location_id = location
-        if option_group.get_option_value("product_id", "filled_default"):
+        if self.option_group_id.get_option_value("product_id", "filled_default"):
             self.product_id = move_line.product_id
-        if option_group.get_option_value("lot_id", "filled_default"):
+        if self.option_group_id.get_option_value("lot_id", "filled_default"):
             self.lot_id = move_line.lot_id
-        if option_group.get_option_value("product_qty", "filled_default"):
+        if self.option_group_id.get_option_value("product_qty", "filled_default"):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
 
         self.update_fields_after_determine_todo(move_line)
