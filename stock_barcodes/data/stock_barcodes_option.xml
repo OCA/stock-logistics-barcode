@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- TODO: Set noupdate=1 -->
+    <data>
+        <record
+            id="stock_barcodes_option_group_picking_out"
+            model="stock.barcodes.option.group"
+        >
+            <field name="name">Picking OUT options</field>
+            <field name="code">OUT</field>
+            <field name="barcode_guided_mode">guided</field>
+        </record>
+        <record
+            id="stock_barcodes_option_location_picking_out"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Scan location</field>
+            <field name="sequence">10</field>
+            <field name="code">location</field>
+            <field name="field_name">location_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">True</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_out"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_product_picking_out"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Scan product</field>
+            <field name="sequence">20</field>
+            <field name="code">product</field>
+            <field name="field_name">product_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">True</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_out"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_lot_picking_out"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Scan lot</field>
+            <field name="sequence">30</field>
+            <field name="code">lot</field>
+            <field name="field_name">lot_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">False</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_out"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_product_qty_picking_out"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Product Qty</field>
+            <field name="sequence">40</field>
+            <field name="code">product_qty</field>
+            <field name="field_name">product_qty</field>
+            <field name="filled_default">False</field>
+            <field name="forced">False</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">False</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_out"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_group_picking_in"
+            model="stock.barcodes.option.group"
+        >
+            <field name="name">Picking IN options</field>
+            <field name="code">IN</field>
+            <field name="barcode_guided_mode">guided</field>
+        </record>
+        <record
+            id="stock_barcodes_option_location_picking_in"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Scan location</field>
+            <field name="sequence">10</field>
+            <field name="code">location</field>
+            <field name="field_name">location_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">True</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_in"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_product_picking_in"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Scan product</field>
+            <field name="sequence">20</field>
+            <field name="code">product</field>
+            <field name="field_name">product_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">True</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_in"
+            />
+        </record>
+        <record id="stock_barcodes_option_lot_picking_in" model="stock.barcodes.option">
+            <field name="name">Scan lot</field>
+            <field name="sequence">30</field>
+            <field name="code">lot</field>
+            <field name="field_name">lot_id</field>
+            <field name="filled_default">True</field>
+            <field name="forced">False</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">True</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_in"
+            />
+        </record>
+        <record
+            id="stock_barcodes_option_product_qty_picking_in"
+            model="stock.barcodes.option"
+        >
+            <field name="name">Product Qty</field>
+            <field name="sequence">40</field>
+            <field name="code">product_qty</field>
+            <field name="field_name">product_qty</field>
+            <field name="filled_default">False</field>
+            <field name="forced">False</field>
+            <field name="is_invisible">False</field>
+            <field name="to_scan">False</field>
+            <field
+                name="option_group_id"
+                ref="stock_barcodes.stock_barcodes_option_group_picking_in"
+            />
+        </record>
+    </data>
+</odoo>
