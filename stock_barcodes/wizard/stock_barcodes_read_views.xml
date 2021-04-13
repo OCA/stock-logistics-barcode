@@ -257,50 +257,39 @@
                     </div>
                 </sheet>
                 <div class="oe_sticky_bottom d-flex">
-                    <div class="row">
-                        <div class="col">
-                            <field
-                                name="manual_entry"
-                                widget="FieldBarcodeBooleanToggle"
-                            />
-                            <label for="manual_entry" />
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <button
-                                name="action_manual_entry"
-                                type="object"
-                                string="Manual entry"
-                                icon="fa-plus"
-                                attrs="{'invisible': [('manual_entry', '=', False)]}"
-                                class="btn-primary"
-                            />
-                            <button
-                                name="action_force_done"
-                                type="object"
-                                string="Ok"
-                                icon="fa-plus"
-                                attrs="{'invisible': [('visible_force_done', '=', False)]}"
-                                class="btn-danger"
-                            />
-                            <button
-                                name="open_actions"
-                                type="object"
-                                string="Actions"
-                                class="btn-secondary ml-auto"
-                                invisible="context.get('display_menu', False)"
-                            />
-                            <button
-                                name="action_back"
-                                type="object"
-                                string="Back"
-                                class="btn-secondary ml-auto"
-                                icon="fa-backward"
-                                invisible="not context.get('display_menu', False)"
-                            />
-                        </div>
-                    </div>
+                    <field name="manual_entry" widget="FieldBarcodeBooleanToggle" />
+                    <label for="manual_entry" />
+                    <button
+                        name="action_manual_entry"
+                        type="object"
+                        string="Manual entry"
+                        icon="fa-plus"
+                        attrs="{'invisible': [('manual_entry', '=', False)]}"
+                        class="btn-primary"
+                    />
+                    <button
+                        name="action_force_done"
+                        type="object"
+                        string="Ok"
+                        icon="fa-plus"
+                        attrs="{'invisible': [('visible_force_done', '=', False)]}"
+                        class="btn-danger"
+                    />
+                    <button
+                        name="open_actions"
+                        type="object"
+                        string="Actions"
+                        class="btn-secondary ml-auto"
+                        invisible="context.get('display_menu', False)"
+                    />
+                    <button
+                        name="action_back"
+                        type="object"
+                        string="Back"
+                        class="btn-secondary ml-auto"
+                        icon="fa-backward"
+                        invisible="not context.get('display_menu', False)"
+                    />
                 </div>
             </form>
         </field>

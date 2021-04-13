@@ -37,9 +37,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     )
     move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
     todo_line_ids = fields.One2many(
-        comodel_name="wiz.stock.barcodes.read.todo",
-        inverse_name="wiz_barcode_id",
-        domain=[("state", "=", "pending")],
+        comodel_name="wiz.stock.barcodes.read.todo", inverse_name="wiz_barcode_id",
     )
     todo_line_display_ids = fields.Many2many(
         comodel_name="wiz.stock.barcodes.read.todo",
@@ -132,19 +130,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.picking_type_code in ["incoming", "internal"]:
             location = move_line.location_dest_id
             self.guided_location_id = move_line.location_dest_id
-            todo_msg = "Location: {}\n Product: {}\n Qty: {}\n".format(
-                move_line.location_dest_id.name,
-                move_line.product_id.name,
-                move_line.product_uom_qty - move_line.qty_done,
-            )
         else:
             location = move_line.location_id
             self.guided_location_id = move_line.location_id
-            todo_msg = "Location: {}\n Product: {}\n Qty: {}\n".format(
-                move_line.location_id.name,
-                move_line.product_id.name,
-                move_line.product_uom_qty - move_line.qty_done,
-            )
         self.guided_product_id = move_line.product_id
         self.guided_lot_id = move_line.lot_id
 
@@ -158,7 +146,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
 
         self.update_fields_after_determine_todo(move_line)
-        self._set_messagge_step(todo_msg)
 
     def update_fields_after_determine_todo(self, move_line):
         self.picking_product_qty = move_line.qty_done
@@ -174,6 +161,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
+            return res
 
     def action_manual_entry(self):
         result = super().action_manual_entry()
