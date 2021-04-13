@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <data>
-        <record id="stock_barcodes_option_picking_in" model="stock.barcodes.action">
-            <field name="name">Picking IN options</field>
+        <record id="stock_barcodes_action_picking_in" model="stock.barcodes.action">
+            <field name="name">Picking IN</field>
             <field name="sequence">10</field>
             <field name="action_window_id" ref="stock.stock_picking_type_action" />
             <field name="context">{'search_default_code': 'incoming'}</field>
         </record>
-        <record id="stock_barcodes_option_picking_out" model="stock.barcodes.action">
-            <field name="name">Picking OUT options</field>
+        <record id="stock_barcodes_action_picking_out" model="stock.barcodes.action">
+            <field name="name">Picking OUT</field>
             <field name="sequence">20</field>
             <field name="action_window_id" ref="stock.stock_picking_type_action" />
             <field name="context">{'search_default_code': 'outgoing'}</field>
+        </record>
+        <record id="stock_barcodes_action_picking_int" model="stock.barcodes.action">
+            <field name="name">Picking INT</field>
+            <field name="sequence">30</field>
+            <field name="action_window_id" ref="stock.stock_picking_type_action" />
+            <field name="context">{'search_default_code': 'internal'}</field>
         </record>
     </data>
 </odoo>

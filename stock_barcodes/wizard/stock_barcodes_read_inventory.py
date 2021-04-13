@@ -18,7 +18,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         string="Inventory quantities", digits="Product Unit of Measure", readonly=True
     )
     auto_lot = fields.Boolean(
-        string="Get lots automatically",
+        string="Auto lot",
         help="If checked the lot will be set automatically with the same "
         "removal strategy",
         default=lambda self: self._default_auto_lot(),

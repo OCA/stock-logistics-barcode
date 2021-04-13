@@ -20,7 +20,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     packaging_id = fields.Many2one(comodel_name="product.packaging")
     packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
     product_qty = fields.Float(digits="Product Unit of Measure")
-    manual_entry = fields.Boolean(string="Manual entry data")
+    manual_entry = fields.Boolean(
+        string="Manual entry data", related="option_group_id.manual_entry"
+    )
+    confirmed_moves = fields.Boolean(
+        string="Confirmed moves", related="option_group_id.confirmed_moves"
+    )
     # Computed field for display all scanning logs from res_model and res_id
     # when change product_id
     scan_log_ids = fields.Many2many(

@@ -19,15 +19,26 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     )
     state = fields.Selection(
         [("pending", "Pending"), ("done", "Done"), ("done_forced", "Done forced")],
+        string="Scan State",
         default="pending",
+        compute="_compute_state",
+        readonly=False,
+        store=True,
     )
+
     product_qty_reserved = fields.Float(
         "Reserved", digits="Product Unit of Measure", readonly=True,
     )
     product_uom_qty = fields.Float(
         "Demand", digits="Product Unit of Measure", readonly=True,
     )
-    qty_done = fields.Float("Done", digits="Product Unit of Measure", readonly=True,)
+    qty_done = fields.Float(
+        "Done",
+        digits="Product Unit of Measure",
+        readonly=False,
+        compute="_compute_qty_done",
+        store=True,
+    )
     location_id = fields.Many2one(comodel_name="stock.location")
     location_dest_id = fields.Many2one(comodel_name="stock.location")
     product_id = fields.Many2one(comodel_name="product.product")
@@ -77,3 +88,25 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             #     records += self.new(vals)
             # wiz_barcode.todo_line_ids = records
             wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
+
+    def action_todo_next(self):
+        self.state = "done_forced"
+        self.line_ids.barcode_scan_state = "done_forced"
+
+    @api.depends("line_ids.qty_done")
+    def _compute_qty_done(self):
+        for rec in self:
+            rec.qty_done = sum([ln.qty_done for ln in rec.line_ids])
+
+    @api.depends(
+        "line_ids",
+        "line_ids.qty_done",
+        "line_ids.product_uom_qty",
+        "line_ids.barcode_scan_state",
+    )
+    def _compute_state(self):
+        for rec in self:
+            if rec.qty_done >= rec.product_uom_qty:
+                rec.state = "done"
+            else:
+                rec.state = "pending"
