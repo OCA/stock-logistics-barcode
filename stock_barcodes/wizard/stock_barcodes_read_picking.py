@@ -35,15 +35,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         [("incoming", "Vendors"), ("outgoing", "Customers"), ("internal", "Internal")],
         "Type of Operation",
     )
-    confirmed_moves = fields.Boolean(string="Confirmed moves")
     move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
     todo_line_ids = fields.One2many(
         comodel_name="wiz.stock.barcodes.read.todo",
         inverse_name="wiz_barcode_id",
         domain=[("state", "=", "pending")],
-        readonly=True,
+    )
+    todo_line_display_ids = fields.Many2many(
+        comodel_name="wiz.stock.barcodes.read.todo",
+        compute="_compute_todo_line_display_ids",
     )
     todo_line_id = fields.Many2one(comodel_name="wiz.stock.barcodes.read.todo")
+
+    @api.depends("todo_line_ids")
+    def _compute_todo_line_display_ids(self):
+        """Technical field to display only the first record in kanban view
+        """
+        for rec in self:
+            rec.todo_line_display_ids = rec.todo_line_ids.filtered(
+                lambda t: t.state == "pending"
+            )[:1]
 
     def name_get(self):
         return [
@@ -103,20 +114,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return move_lines
 
     def fill_todo_records(self):
-        move_lines = self.picking_id.move_line_ids
+        move_lines = self.picking_id.move_line_ids.filtered(
+            lambda ln: ln.barcode_scan_state == "pending"
+        )
         move_lines = self.get_sorted_move_lines(move_lines)
         self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
 
     def determine_todo_action(self):
         if not self.env.context.get("guided_mode", False):
             return False
-        # move_lines = self._get_stock_move_lines_todo()
-        # if not move_lines:
-        #     self._set_messagge_step(_("Nothing to do!!"))
-        #     return True
-        if not self.todo_line_ids:
-            self.fill_todo_records()
-        self.todo_line_id = self.todo_line_ids[:1]
+        # if not self.todo_line_ids:
+        self.fill_todo_records()
+        self.todo_line_id = self.todo_line_ids.filtered(lambda t: t.state == "pending")[
+            :1
+        ]
         move_line = self.todo_line_id
         if self.picking_type_code in ["incoming", "internal"]:
             location = move_line.location_dest_id
@@ -161,7 +172,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if self.env.context.get("guided_mode", False):
                     self.action_clean_values()
                 if self.env.context.get("force_create_move"):
-                    self.move_line_id.barcode_scan_state = "done_forced"
+                    self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
 
     def action_manual_entry(self):
@@ -193,7 +204,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         }
 
     def _states_move_allowed(self):
-        move_states = ["assigned"]
+        move_states = ["assigned", "partially_available"]
         if self.confirmed_moves:
             move_states.append("confirmed")
         return move_states
@@ -230,6 +241,17 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             _logger.info("No picking assigned")
         return True
 
+    def _check_guided_restrictions(self):
+        # Check restrictions in guided mode
+        if self.env.context.get("guided_mode", False):
+            if (
+                self.option_group_id.get_option_value("product_id", "forced")
+                and self.product_id != self.todo_line_id.product_id
+            ):
+                self._set_messagge_info("more_match", _("Wrong product"))
+                return False
+        return True
+
     def _process_stock_move_line(self):
         """
         Search assigned or confirmed stock moves from a picking operation type
@@ -246,15 +268,21 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "_search_candidate_%s" % self.env.context.get("picking_mode", "picking"),
         )(moves_todo):
             return False
+
         # TODO: Check location or location_dest
         lines = moves_todo.mapped("move_line_ids").filtered(
             lambda l: (
                 # l.picking_id == self.picking_id and
                 l.location_id == self.location_id
+                if self.picking_type_code == "outgoing"
+                else l.location_dest_id == self.location_id
                 and l.product_id == self.product_id
                 and l.lot_id == self.lot_id
+                and l.barcode_scan_state == "pending"
             )
         )
+        # Determine location depend on picking type code
+        # lines = lines.filtered(lambda ln: )
         available_qty = self.product_qty
         max_quantity = sum([sml.product_uom_qty - sml.qty_done for sml in lines])
         if (

@@ -6,10 +6,17 @@
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
         <field name="mode">primary</field>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='manual_entry']/.." position="before">
-                <field name="todo_line_ids" mode="kanban" force_save="1" />
+            <xpath expr="//field[@name='message_type']" position="before">
+                <field
+                    name="todo_line_ids"
+                    invisible="1"
+                    readonly="1"
+                    mode="kanban"
+                    force_save="1"
+                />
+                <field name="todo_line_display_ids" mode="kanban" force_save="1" />
             </xpath>
-            <xpath expr="//field[@name='manual_entry']/.." position="before">
+            <xpath expr="//field[@name='message_type']" position="before">
                 <field
                     name="candidate_picking_ids"
                     mode="kanban"
@@ -102,15 +109,9 @@
                     </kanban>
                 </field>
             </xpath>
-            <xpath expr="//label[@for='manual_entry']" position="after">
-                <field name="confirmed_moves" widget="FieldBarcodeBooleanToggle" />
-                <label for="confirmed_moves">
-                    Confirmed moves allowed
-                </label>
-            </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
-                <field name="picking_id" />
+                <field name="picking_id" invisible="1" force_save="1" />
             </field>
             <field name="product_qty" position="after">
                 <field name="picking_product_qty" />

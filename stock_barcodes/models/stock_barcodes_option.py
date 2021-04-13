@@ -15,6 +15,8 @@ class StockBarcodesOptionGroup(models.Model):
     barcode_guided_mode = fields.Selection(
         [("guided", "Guided")], string="Guide mode for barcode"
     )
+    manual_entry = fields.Boolean(string="Manual entry data")
+    confirmed_moves = fields.Boolean(string="Confirmed moves")
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(

@@ -10,6 +10,8 @@
                         <field name="name" />
                         <field name="code" />
                         <field name="barcode_guided_mode" />
+                        <field name="manual_entry" />
+                        <field name="confirmed_moves" />
                     </group>
                     <field name="option_ids">
                         <tree editable="bottom">

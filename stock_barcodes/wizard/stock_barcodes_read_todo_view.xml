@@ -12,25 +12,50 @@
                 <field name="uom_id" />
                 <field name="product_uom_qty" />
                 <field name="qty_done" />
+                <field name="state" />
+                <!--                <field name="line_ids" />-->
                 <templates>
                     <t t-name="kanban-box">
-                        <div t-attf-class="oe_kanban_content oe_kanban_global_click">
+                        <div
+                            t-attf-class="oe_kanban_content oe_kanban_global_click bg-success"
+                        >
                             <div class="row">
-                                <div class="col-6">
+                                <div class="col-10">
+                                    Location:
                                     <strong>
-                                        <field name="location_id" />
+                                        <field name="location_id" /> \u21E8 <field
+                                            name="location_dest_id"
+                                        />
                                     </strong>
+                                </div>
+                                <div class="col-2">
+                                    <field name="state" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
                                     <strong>
                                         <field name="product_id" />
                                     </strong>
                                 </div>
-                                <div class="col-6">
-                                    <span class="float-right">
-                                        <field name="product_uom_qty" />
+                            </div>
+                            <div name="action" class="row">
+                                <div class="col-10">
+                                    <span>
+                                        <span class="font-weight-bold">
+                                            <t t-esc="record.qty_done.value" />
+                                        </span> / <t
+                                            t-esc="record.product_uom_qty.value"
+                                        /> <t t-esc="record.uom_id.value" />
                                     </span>
-                                    <span class="float-right">
-                                        <field name="qty_done" />
-                                    </span>
+                                </div>
+                                <div class="col-2">
+                                    <a
+                                        name="action_todo_next"
+                                        type="object"
+                                        class="fa fa-caret-square-o-right fa-2x pull-right"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                    />
                                 </div>
                             </div>
                         </div>
