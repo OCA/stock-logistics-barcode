@@ -58,7 +58,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         :param lines_list: browse list
         :return:
         """
-        wiz_barcode.todo_line_ids.unlink()
+        wiz_barcode.todo_line_ids = self.browse()
         for lines in lines_list:
             todo_vals = OrderedDict()
             vals_list = []

@@ -21,7 +21,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
     product_qty = fields.Float(digits="Product Unit of Measure")
     manual_entry = fields.Boolean(
-        string="Manual entry data", related="option_group_id.manual_entry"
+        string="Manual entry", related="option_group_id.manual_entry"
     )
     confirmed_moves = fields.Boolean(
         string="Confirmed moves", related="option_group_id.confirmed_moves"

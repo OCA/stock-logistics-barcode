@@ -111,7 +111,7 @@
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
-                <field name="picking_id" invisible="1" force_save="1" />
+                <field name="picking_id" invisible="0" force_save="1" />
             </field>
             <field name="product_qty" position="after">
                 <field name="picking_product_qty" />

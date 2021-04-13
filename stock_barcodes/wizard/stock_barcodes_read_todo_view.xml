@@ -20,16 +20,13 @@
                             t-attf-class="oe_kanban_content oe_kanban_global_click bg-success"
                         >
                             <div class="row">
-                                <div class="col-10">
+                                <div class="col-12">
                                     Location:
                                     <strong>
                                         <field name="location_id" /> \u21E8 <field
                                             name="location_dest_id"
                                         />
                                     </strong>
-                                </div>
-                                <div class="col-2">
-                                    <field name="state" />
                                 </div>
                             </div>
                             <div class="row">
