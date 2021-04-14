@@ -258,7 +258,9 @@
                 </sheet>
                 <div class="oe_sticky_bottom d-flex">
                     <field name="manual_entry" widget="FieldBarcodeBooleanToggle" />
-                    <label for="manual_entry" />
+                    <label for="manual_entry">
+                        Manual entry
+                    </label>
                     <button
                         name="action_manual_entry"
                         type="object"

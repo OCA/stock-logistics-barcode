@@ -7,17 +7,23 @@
             <field name="action_window_id" ref="stock.stock_picking_type_action" />
             <field name="context">{'search_default_code': 'incoming'}</field>
         </record>
+        <record id="stock_barcodes_action_picking_int" model="stock.barcodes.action">
+            <field name="name">Picking INTERNAL</field>
+            <field name="sequence">30</field>
+            <field name="action_window_id" ref="stock.stock_picking_type_action" />
+            <field name="context">{'search_default_code': 'internal'}</field>
+        </record>
         <record id="stock_barcodes_action_picking_out" model="stock.barcodes.action">
             <field name="name">Picking OUT</field>
             <field name="sequence">20</field>
             <field name="action_window_id" ref="stock.stock_picking_type_action" />
             <field name="context">{'search_default_code': 'outgoing'}</field>
         </record>
-        <record id="stock_barcodes_action_picking_int" model="stock.barcodes.action">
-            <field name="name">Picking INT</field>
-            <field name="sequence">30</field>
-            <field name="action_window_id" ref="stock.stock_picking_type_action" />
-            <field name="context">{'search_default_code': 'internal'}</field>
+        <record id="stock_barcodes_action_inventory" model="stock.barcodes.action">
+            <field name="name">Inventory</field>
+            <field name="sequence">40</field>
+            <field name="action_window_id" ref="stock.action_inventory_form" />
+            <field name="context">{"search_default_confirm": 1}</field>
         </record>
     </data>
 </odoo>

@@ -15,7 +15,7 @@
             <field name="product_qty" position="after">
                 <field name="inventory_product_qty" />
             </field>
-            <xpath expr="//button[@name='action_back']" position="after">
+            <xpath expr="//button[@name='action_manual_entry']" position="after">
                 <field name="auto_lot" widget="FieldBarcodeBooleanToggle" />
                 <label for="auto_lot">
                     Auto lot
