@@ -22,6 +22,8 @@
                     mode="kanban"
                     attrs="{'invisible': [('candidate_picking_ids', '=', [])]}"
                     nolabel="1"
+                    force_save="1"
+                    options='{"always_reload": True}'
                 >
                     <kanban>
                         <field name="name" />
@@ -34,9 +36,12 @@
                         <field name="product_uom_qty" />
                         <field name="product_qty_done" />
                         <field name="scan_count" />
+                        <field name="is_pending" />
                         <templates>
                             <t t-name="kanban-box">
-                                <div class="oe_kanban_color_alert">
+                                <div
+                                    t-att-class="'oe_kanban_color_alert' + (record.is_pending.raw_value == false ? ' bg-success' : '')"
+                                >
                                     <div>
                                         <a
                                             name="action_lock_picking"
@@ -96,7 +101,7 @@
                                             <a
                                                 name="action_validate_picking"
                                                 type="object"
-                                                class="pull-right"
+                                                t-att-class="'pull-right' + (record.is_pending.raw_value == false ? ' btn btn-primary' : '')"
                                                 attrs="{'invisible': [('state', 'not in', 'assigned')]}"
                                                 confirm="Are you sure to validate the picking ?"
                                                 context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
@@ -112,9 +117,6 @@
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
                 <field name="picking_id" invisible="1" force_save="1" />
-            </field>
-            <field name="product_qty" position="after">
-                <field name="picking_product_qty" />
             </field>
         </field>
     </record>
