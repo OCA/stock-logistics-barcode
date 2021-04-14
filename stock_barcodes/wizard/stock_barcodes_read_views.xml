@@ -123,7 +123,7 @@
                             <field
                                 name="location_id"
                                 options="{'no_create': True}"
-                                attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                                attrs="{'readonly': [('manual_entry', '=', False)]}"
                                 force_save="1"
                             />
                         </group>
@@ -164,7 +164,7 @@
                             <field
                                 name="product_id"
                                 options="{'no_create': True}"
-                                attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
+                                attrs="{'readonly': [('manual_entry', '=', False)]}"
                                 force_save="1"
                             />
                             <field
