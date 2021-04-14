@@ -17,11 +17,10 @@
                 <templates>
                     <t t-name="kanban-box">
                         <div
-                            t-attf-class="oe_kanban_content oe_kanban_global_click bg-success"
+                            t-attf-class="oe_kanban_content oe_kanban_global_click bg-info"
                         >
                             <div class="row">
                                 <div class="col-12">
-                                    Location:
                                     <strong>
                                         <field name="location_id" /> \u21E8 <field
                                             name="location_dest_id"
@@ -47,12 +46,14 @@
                                     </span>
                                 </div>
                                 <div class="col-2">
-                                    <a
+                                    <button
                                         name="action_todo_next"
                                         type="object"
-                                        class="fa fa-caret-square-o-right fa-2x pull-right"
+                                        class="btn btn-danger pull-right"
                                         context="{'wiz_barcode_id': parent.id}"
-                                    />
+                                    >
+                                    Force
+                                    </button>
                                 </div>
                             </div>
                         </div>

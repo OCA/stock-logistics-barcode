@@ -61,11 +61,6 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    def _set_messagge_step(self, message):
-        """Set message type and message description.
-        """
-        self.message_step = _("To do: %s") % (message)
-
     def _set_messagge_info(self, message_type, message):
         """
         Set message type and message description.
@@ -73,12 +68,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         self.message_type = message_type
         if self.barcode:
-            self.message = _("Barcode: %s (%s)") % (self.barcode, message)
+            self.message = _("%s (%s)") % (self.barcode, message)
         else:
             self.message = "%s" % message
 
     def process_barcode(self, barcode):
-        self._set_messagge_info("success", _("Barcode read correctly"))
+        self._set_messagge_info("success", _("OK"))
         domain = self._barcode_domain(barcode)
         product = self.env["product.product"].search(domain)
         if product:

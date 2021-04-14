@@ -14,7 +14,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     _name = "wiz.stock.barcodes.read.picking"
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on picking"
-    _field_candidate_ids = "candidate_picking_ids"
+
+    @property
+    @api.depends_context("picking_mode")
+    def _field_candidate_ids(self):
+        return "candidate_%s_ids" % self.env.context.get("picking_mode", "picking")
 
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
@@ -28,6 +32,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         string="Candidate pickings",
         readonly=True,
     )
+    # TODO: Remove this field
     picking_product_qty = fields.Float(
         string="Picking quantities", digits="Product Unit of Measure", readonly=True
     )
@@ -144,7 +149,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.lot_id = move_line.lot_id
         if self.option_group_id.get_option_value("product_qty", "filled_default"):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
-
         self.update_fields_after_determine_todo(move_line)
 
     def update_fields_after_determine_todo(self, move_line):
@@ -383,9 +387,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.remove_scanning_log(log_scan)
         return res
 
-    def info_step(self, message):
-        self._set_message_step("Test")
-
 
 class WizCandidatePicking(models.TransientModel):
     """
@@ -442,6 +443,7 @@ class WizCandidatePicking(models.TransientModel):
     )
     # For reload kanban view
     scan_count = fields.Integer()
+    is_pending = fields.Boolean(compute="_compute_is_pending")
 
     @api.depends("scan_count")
     def _compute_picking_quantity(self):
@@ -462,6 +464,15 @@ class WizCandidatePicking(models.TransientModel):
                     "product_uom_qty": qty_demand,
                     "product_qty_done": qty_done,
                 }
+            )
+
+    @api.depends("scan_count")
+    def _compute_is_pending(self):
+        for rec in self:
+            rec.is_pending = bool(
+                rec.picking_id.move_line_ids.filtered(
+                    lambda ln: ln.barcode_scan_state == "pending"
+                )
             )
 
     def _get_wizard_barcode_read(self):

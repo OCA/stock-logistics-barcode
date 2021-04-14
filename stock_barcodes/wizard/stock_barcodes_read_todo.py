@@ -92,6 +92,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def action_todo_next(self):
         self.state = "done_forced"
         self.line_ids.barcode_scan_state = "done_forced"
+        self.wiz_barcode_id.determine_todo_action()
 
     @api.depends("line_ids.qty_done")
     def _compute_qty_done(self):
