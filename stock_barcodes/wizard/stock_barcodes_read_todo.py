@@ -59,8 +59,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         :return:
         """
         wiz_barcode.todo_line_ids = self.browse()
+        todo_vals = OrderedDict()
         for lines in lines_list:
-            todo_vals = OrderedDict()
             vals_list = []
             for line in lines:
                 key = self._group_key(line)
@@ -75,19 +75,17 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                         "product_uom_qty": line.product_uom_qty,
                         "qty_done": line.qty_done,
                         "line_ids": [(6, 0, line.ids)],
-                        "name": "xxxx",
+                        "name": "To do action",
                     }
                 else:
                     todo_vals[key]["product_qty_reserved"] += line.product_qty
                     todo_vals[key]["product_uom_qty"] += line.product_uom_qty
                     todo_vals[key]["qty_done"] += line.qty_done
                     todo_vals[key]["line_ids"][0][2].append(line.id)
+                if todo_vals[key]["qty_done"] >= todo_vals[key]["product_uom_qty"]:
+                    todo_vals[key]["state"] = "done"
                 vals_list.append(todo_vals)
-            # records = self.browse()
-            # for vals in todo_vals.values():
-            #     records += self.new(vals)
-            # wiz_barcode.todo_line_ids = records
-            wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
+        wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
 
     def action_todo_next(self):
         self.state = "done_forced"
