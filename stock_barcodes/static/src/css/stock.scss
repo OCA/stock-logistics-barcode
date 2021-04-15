@@ -22,3 +22,12 @@
         margin: 0 !important;
     }
 }
+
+.o_kanban_barcode {
+    .o_kanban_record.oe_kanban_details {
+        @extend .btn;
+        @extend .btn-secondary;
+        padding: 0.6em 0;
+        margin-bottom: 0.5em;
+    }
+}
