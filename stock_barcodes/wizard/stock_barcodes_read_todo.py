@@ -82,8 +82,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     todo_vals[key]["product_uom_qty"] += line.product_uom_qty
                     todo_vals[key]["qty_done"] += line.qty_done
                     todo_vals[key]["line_ids"][0][2].append(line.id)
-                if todo_vals[key]["qty_done"] >= todo_vals[key]["product_uom_qty"]:
-                    todo_vals[key]["state"] = "done"
                 vals_list.append(todo_vals)
         wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
 
