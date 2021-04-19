@@ -104,6 +104,10 @@ Contributors
 
   * Sergio Teruel <sergio.teruel@tecnativa.com>
 
+* `Initos Gmbh <https://www.initos.com/>`_:
+
+  * Foram Shah <foram.shah@initos.com>
+
 Maintainers
 ~~~~~~~~~~~
 
