@@ -11,17 +11,12 @@ class StockPickingType(models.Model):
     )
 
     def action_barcode_scan(self):
-        action = self.env.ref(
-            "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
-        action["context"] = {
-            "default_res_model_id": self.env.ref("stock.model_stock_picking_type").id,
-            "default_res_id": self.id,
-            "default_picking_type_code": self.code,
-            "guided_mode": self.barcode_option_group_id.barcode_guided_mode,
-            "control_panel_hidden": True,
+        vals = {
+            "res_model_id": self.env.ref("stock.model_stock_picking_type").id,
+            "res_id": self.id,
+            "picking_type_code": self.code,
+            "option_group_id": self.barcode_option_group_id.id,
             "picking_mode": "picking",
-            "default_option_group_id": self.barcode_option_group_id.id,
         }
         if self.barcode_option_group_id.get_option_value(
             "location_id", "filled_default"
@@ -30,5 +25,11 @@ class StockPickingType(models.Model):
                 location = self.default_location_dest_id
             elif self.code in ["outgoing", "internal"]:
                 location = self.default_location_src_id
-            action["context"]["default_location_id"] = location.id
+            vals["location_id"] = location.id
+        wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
+        wiz.determine_todo_action()
+        action = self.env.ref(
+            "stock_barcodes.action_stock_barcodes_read_picking"
+        ).read()[0]
+        action["res_id"] = wiz.id
         return action

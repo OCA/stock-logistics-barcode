@@ -16,9 +16,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     _description = "Wizard to read barcode on picking"
 
     @property
-    @api.depends_context("picking_mode")
+    @api.depends("picking_mode")
     def _field_candidate_ids(self):
-        return "candidate_%s_ids" % self.env.context.get("picking_mode", "picking")
+        return "candidate_%s_ids" % self.picking_mode
 
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
@@ -49,6 +49,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         compute="_compute_todo_line_display_ids",
     )
     todo_line_id = fields.Many2one(comodel_name="wiz.stock.barcodes.read.todo")
+    picking_mode = fields.Selection([("picking", "Picking mode")])
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -120,7 +121,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def determine_todo_action(self, forced_todo_line=False):
         self.visible_force_done = self.env.context.get("visible_force_done", False)
-        if not self.env.context.get("guided_mode", False):
+        if not self.option_group_id.barcode_guided_mode == "guided":
             return False
         if not self.todo_line_ids:
             self.fill_todo_records()
@@ -265,10 +266,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         StockMoveLine = self.env["stock.move.line"]
         domain = self._prepare_stock_moves_domain()
         moves_todo = StockMove.search(domain)
-        if not getattr(
-            self,
-            "_search_candidate_%s" % self.env.context.get("picking_mode", "picking"),
-        )(moves_todo):
+        if not getattr(self, "_search_candidate_%s" % self.picking_mode,)(moves_todo):
             return False
 
         # TODO: Check location or location_dest
@@ -354,7 +352,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def check_done_conditions(self):
         res = super().check_done_conditions()
-        if self.env.context.get("picking_mode", "picking") == "picking_batch":
+        if self.picking_mode == "picking_batch":
             return res
         if not self.picking_id:
             if not self._search_candidate_picking():

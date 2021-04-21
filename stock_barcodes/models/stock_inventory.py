@@ -11,15 +11,14 @@ class StockInventory(models.Model):
         self.start_empty = True
         self._action_start()
         self._check_company()
-        action = self.env.ref(
-            "stock_barcodes.action_stock_barcodes_read_inventory"
-        ).read()[0]
-        action["context"] = {
-            "default_location_id": self.location_ids[:1].id,
-            "default_product_id": self.product_ids[:1].id,
-            "default_inventory_id": self.id,
-            "default_res_model_id": self.env.ref("stock.model_stock_inventory").id,
-            "default_res_id": self.id,
-            "control_panel_hidden": True,
+        vals = {
+            "inventory_id": self.id,
+            "res_model_id": self.env.ref("stock.model_stock_inventory").id,
+            "res_id": self.id,
+            "location_id": self.location_ids[:1].id,
+            "product_id": self.product_ids[:1].id,
         }
+        wiz = self.env["wiz.stock.barcodes.read.inventory"].create(vals)
+        action = wiz.get_formview_action()
+        action["res_id"] = wiz.id
         return action
