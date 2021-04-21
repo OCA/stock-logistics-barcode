@@ -50,14 +50,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     )
     todo_line_id = fields.Many2one(comodel_name="wiz.stock.barcodes.read.todo")
 
-    @api.depends("todo_line_ids")
+    @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
         """Technical field to display only the first record in kanban view
         """
-        for rec in self:
-            rec.todo_line_display_ids = rec.todo_line_ids.filtered(
-                lambda t: t.state == "pending"
-            )[:1]
+        self.todo_line_display_ids = self.todo_line_id
 
     def name_get(self):
         return [
@@ -117,20 +114,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return move_lines
 
     def fill_todo_records(self):
-        move_lines = self.picking_id.move_line_ids.filtered(
-            lambda ln: ln.barcode_scan_state == "pending"
-        )
+        move_lines = self.picking_id.move_line_ids
         move_lines = self.get_sorted_move_lines(move_lines)
         self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
 
-    def determine_todo_action(self):
+    def determine_todo_action(self, forced_todo_line=False):
         if not self.env.context.get("guided_mode", False):
             return False
-        # if not self.todo_line_ids:
-        self.fill_todo_records()
-        self.todo_line_id = self.todo_line_ids.filtered(lambda t: t.state == "pending")[
-            :1
-        ]
+        if not self.todo_line_ids:
+            self.fill_todo_records()
+        self.todo_line_id = (
+            forced_todo_line
+            or self.todo_line_ids.filtered(lambda t: t._origin.state == "pending")[:1]
+        )
+        self.todo_line_id._compute_qty_done()
         move_line = self.todo_line_id
         if self.picking_type_code in ["incoming", "internal"]:
             location = move_line.location_dest_id
@@ -177,6 +174,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         """When we've got an out picking, the logical workflow is that
            the scanned location is the location we're getting the stock
            from"""
+        if not self.picking_id:
+            raise ValidationError(
+                _("You can not add extra moves if you have " "not set a picking")
+            )
         out_move = candidate_move.picking_code == "outgoing"
         location_id = self.location_id if out_move else self.picking_id.location_id
         location_dest_id = (
@@ -286,6 +287,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             if not self.option_group_id.get_option_value("product_qty", "forced"):
                 self.visible_force_done = True
+            self.determine_todo_action()
             return False
         move_lines_dic = {}
         for line in lines:
@@ -323,6 +325,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             line = StockMoveLine.create(
                 self._prepare_move_line_values(moves_todo[0], available_qty)
             )
+            # When create new stock move lines and we are in guided mode we need
+            # link this new lines to the todo line details
+            if self.env.context.get("guided_mode", False):
+                self.todo_line_id.line_ids = [(4, line.id)]
             move_lines_dic[line.id] = available_qty
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
