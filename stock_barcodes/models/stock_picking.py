@@ -7,23 +7,23 @@ class StockPicking(models.Model):
     _inherit = "stock.picking"
 
     def action_barcode_scan(self):
-        action = self.env.ref(
-            "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
         option_group = self.picking_type_id.barcode_option_group_id
-        action["context"] = {
-            "default_partner_id": self.partner_id.id,
-            "default_picking_id": self.id,
-            "default_res_model_id": self.env.ref("stock.model_stock_picking").id,
-            "default_res_id": self.id,
-            "default_picking_type_code": self.picking_type_code,
-            "control_panel_hidden": True,
-            "guided_mode": option_group.barcode_guided_mode,
+        vals = {
+            "picking_id": self.id,
+            "res_model_id": self.env.ref("stock.model_stock_picking").id,
+            "res_id": self.id,
+            "picking_type_code": self.picking_type_code,
+            "option_group_id": option_group.id,
             "picking_mode": "picking",
-            "default_option_group_id": option_group.id,
         }
         if option_group.get_option_value("location_id", "filled_default"):
             out_picking = self.picking_type_code == "outgoing"
             location = self.location_id if out_picking else self.location_dest_id
-            action["context"]["default_location_id"] = location.id
+            vals["location_id"] = location.id
+        wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
+        wiz.determine_todo_action()
+        action = self.env.ref(
+            "stock_barcodes.action_stock_barcodes_read_picking"
+        ).read()[0]
+        action["res_id"] = wiz.id
         return action
