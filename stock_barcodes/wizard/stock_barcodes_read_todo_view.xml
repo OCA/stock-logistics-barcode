@@ -6,24 +6,23 @@
         <field name="arch" type="xml">
             <kanban class="o_kanban_mobile">
                 <field name="location_id" />
+                <field name="location_name" />
                 <field name="location_dest_id" />
+                <field name="location_dest_name" />
                 <field name="product_id" />
                 <field name="lot_id" />
                 <field name="uom_id" />
                 <field name="product_uom_qty" />
                 <field name="qty_done" />
                 <field name="state" />
-                <!--                <field name="line_ids" />-->
                 <templates>
                     <t t-name="kanban-box">
-                        <div
-                            t-attf-class="oe_kanban_content oe_kanban_global_click bg-info"
-                        >
+                        <div t-attf-class="oe_kanban_content bg-info">
                             <div class="row">
                                 <div class="col-12">
                                     <strong>
-                                        <field name="location_id" /> \u21E8 <field
-                                            name="location_dest_id"
+                                        <field name="location_name" /> \u21E8 <field
+                                            name="location_dest_name"
                                         />
                                     </strong>
                                 </div>
@@ -35,8 +34,8 @@
                                     </strong>
                                 </div>
                             </div>
-                            <div name="action" class="row">
-                                <div class="col-10">
+                            <div class="row">
+                                <div class="col-12">
                                     <span>
                                         <span class="font-weight-bold">
                                             <t t-esc="record.qty_done.value" />
@@ -45,7 +44,19 @@
                                         /> <t t-esc="record.uom_id.value" />
                                     </span>
                                 </div>
-                                <div class="col-2">
+                            </div>
+                            <div name="action" class="row">
+                                <div class="col-3">
+                                    <button
+                                        name="action_back_line"
+                                        type="object"
+                                        class="btn btn-danger pull-right"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                    >
+                                    Back
+                                    </button>
+                                </div>
+                                <div class="col-3">
                                     <button
                                         name="action_todo_next"
                                         type="object"
@@ -53,6 +64,26 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                     >
                                     Force
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button
+                                        name="action_reset_lines"
+                                        type="object"
+                                        class="btn btn-danger pull-right"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                    >
+                                    Reset
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button
+                                        name="action_next_line"
+                                        type="object"
+                                        class="btn btn-danger pull-right"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                    >
+                                    Next
                                     </button>
                                 </div>
                             </div>
