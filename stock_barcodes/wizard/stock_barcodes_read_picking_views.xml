@@ -8,16 +8,6 @@
         <field name="arch" type="xml">
             <xpath expr="//field[@name='message_type']" position="before">
                 <field
-                    name="todo_line_ids"
-                    invisible="1"
-                    readonly="1"
-                    mode="kanban"
-                    force_save="1"
-                />
-                <field name="todo_line_display_ids" mode="kanban" force_save="1" />
-            </xpath>
-            <xpath expr="//field[@name='message_type']" position="before">
-                <field
                     name="candidate_picking_ids"
                     mode="kanban"
                     attrs="{'invisible': [('candidate_picking_ids', '=', [])]}"
@@ -113,6 +103,14 @@
                         </templates>
                     </kanban>
                 </field>
+                <field
+                    name="todo_line_ids"
+                    invisible="1"
+                    readonly="1"
+                    mode="kanban"
+                    force_save="1"
+                />
+                <field name="todo_line_display_ids" mode="kanban" force_save="1" />
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />

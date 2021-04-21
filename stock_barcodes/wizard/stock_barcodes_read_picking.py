@@ -119,6 +119,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
 
     def determine_todo_action(self, forced_todo_line=False):
+        self.visible_force_done = self.env.context.get("visible_force_done", False)
         if not self.env.context.get("guided_mode", False):
             return False
         if not self.todo_line_ids:
@@ -140,12 +141,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
         if self.option_group_id.get_option_value("location_id", "filled_default"):
             self.location_id = location
+        else:
+            self.location_id = False
         if self.option_group_id.get_option_value("product_id", "filled_default"):
             self.product_id = move_line.product_id
+        else:
+            self.product_id = False
         if self.option_group_id.get_option_value("lot_id", "filled_default"):
             self.lot_id = move_line.lot_id
+        else:
+            self.lot_id = False
         if self.option_group_id.get_option_value("product_qty", "filled_default"):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
+        else:
+            self.product_qty = 0.0
         self.update_fields_after_determine_todo(move_line)
 
     def update_fields_after_determine_todo(self, move_line):
@@ -286,8 +295,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 "more_match", _("Quantities scanned are higher than necessary")
             )
             if not self.option_group_id.get_option_value("product_qty", "forced"):
-                self.visible_force_done = True
-            self.determine_todo_action()
+                self.with_context(visible_force_done=True).determine_todo_action()
+            else:
+                self.determine_todo_action()
             return False
         move_lines_dic = {}
         for line in lines:
