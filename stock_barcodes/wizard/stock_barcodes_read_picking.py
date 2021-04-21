@@ -155,7 +155,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.option_group_id.get_option_value("product_qty", "filled_default"):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
         else:
-            self.product_qty = 0.0
+            if not self.visible_force_done:
+                self.product_qty = 0.0
         self.update_fields_after_determine_todo(move_line)
 
     def update_fields_after_determine_todo(self, move_line):
@@ -167,7 +168,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if res:
                 self._add_read_log(res)
                 self[self._field_candidate_ids].scan_count += 1
-                if self.env.context.get("guided_mode", False):
+                if self.option_group_id.barcode_guided_mode == "guided":
                     self.action_clean_values()
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
@@ -246,7 +247,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _check_guided_restrictions(self):
         # Check restrictions in guided mode
-        if self.env.context.get("guided_mode", False):
+        if self.option_group_id.barcode_guided_mode == "guided":
             if (
                 self.option_group_id.get_option_value("product_id", "forced")
                 and self.product_id != self.todo_line_id.product_id
@@ -335,7 +336,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             # When create new stock move lines and we are in guided mode we need
             # link this new lines to the todo line details
-            if self.env.context.get("guided_mode", False):
+            if self.option_group_id.barcode_guided_mode == "guided":
                 self.todo_line_id.line_ids = [(4, line.id)]
             move_lines_dic[line.id] = available_qty
         self.update_fields_after_process_stock(moves_todo)
