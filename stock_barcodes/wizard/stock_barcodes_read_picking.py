@@ -520,3 +520,9 @@ class WizCandidatePicking(models.TransientModel):
             self.env.context.get("picking_id", False)
         )
         return picking.button_validate()
+
+    def action_open_picking(self):
+        picking = self.env["stock.picking"].browse(
+            self.env.context.get("picking_id", False)
+        )
+        return picking.get_formview_action()
