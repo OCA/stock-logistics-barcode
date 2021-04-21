@@ -140,7 +140,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             self._set_messagge_info("info", _("Waiting quantities"))
             return False
         if (
-            self.env.context.get("guided_mode", False)
+            self.option_group_id.barcode_guided_mode == "guided"
             and not self._check_guided_values()
         ):
             return False
