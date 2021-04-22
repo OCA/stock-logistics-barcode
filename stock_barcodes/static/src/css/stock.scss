@@ -21,6 +21,33 @@
 
         margin: 0 !important;
     }
+
+    .o_form_sheet,
+    .o_form_sheet_bg {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        border: 0 !important;
+    }
+
+    .o_field_widget {
+        margin-bottom: 0 !important;
+    }
+
+    .o_kanban_record {
+        padding: 0.3em;
+
+        &.o_kanban_ghost {
+            display: none;
+        }
+    }
+
+    .alert {
+        position: fixed;
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+    }
 }
 
 .o_kanban_barcode {
