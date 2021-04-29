@@ -109,6 +109,7 @@ class TestStockBarcodes(TransactionCase):
         self.assertEqual(self.wiz_scan.location_id, self.location_1)
 
     def test_wizard_scan_product(self):
+        self.wiz_scan.location_id = self.location_1
         self.action_barcode_scanned(self.wiz_scan, "8480000723208")
         self.assertEqual(self.wiz_scan.product_id, self.product_wo_tracking)
         self.assertEqual(self.wiz_scan.product_qty, 1.0)
@@ -118,6 +119,7 @@ class TestStockBarcodes(TransactionCase):
     def test_wizard_scan_product_manual_entry(self):
         # Test manual entry
         self.wiz_scan.manual_entry = True
+        self.wiz_scan.location_id = self.location_1
         self.action_barcode_scanned(self.wiz_scan, "8480000723208")
         self.assertEqual(self.wiz_scan.product_qty, 0.0)
         self.wiz_scan.product_qty = 50.0
