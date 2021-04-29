@@ -13,9 +13,19 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.stock_picking_model = self.env.ref("stock.model_stock_picking")
 
         # Model Data
+        self.barcode_option_group_out = self.env.ref(
+            "stock_barcodes.stock_barcodes_option_group_picking_out"
+        )
+        self.barcode_option_group_in = self.env.ref(
+            "stock_barcodes.stock_barcodes_option_group_picking_in"
+        )
+        self.barcode_option_group_out.barcode_guided_mode = False
+        self.barcode_option_group_in.barcode_guided_mode = False
         self.partner_agrolite = self.env.ref("base.res_partner_2")
         self.picking_type_in = self.env.ref("stock.picking_type_in")
+        self.picking_type_in.barcode_option_group_id = self.barcode_option_group_in
         self.picking_type_out = self.env.ref("stock.picking_type_out")
+        self.picking_type_out.barcode_option_group_id = self.barcode_option_group_out
         self.supplier_location = self.env.ref("stock.stock_location_suppliers")
         self.customer_location = self.env.ref("stock.stock_location_customers")
         self.stock_location = self.env.ref("stock.stock_location_stock")
@@ -111,12 +121,13 @@ class TestStockBarcodesPicking(TestStockBarcodes):
             )
         )
         self.picking_in_01.action_confirm()
-        vals = self.picking_in_01.action_barcode_scan()
-        self.wiz_scan_picking = self.ScanReadPicking.with_context(
-            vals["context"]
-        ).create({})
+        action = self.picking_in_01.action_barcode_scan()
+        self.wiz_scan_picking = self.ScanReadPicking.browse(action["res_id"])
 
     def test_wiz_picking_values(self):
+        self.picking_in_01.picking_type_id.barcode_option_group_id = self.env.ref(
+            "stock_barcodes.stock_barcodes_option_group_picking_in"
+        )
         self.assertEqual(
             self.wiz_scan_picking.location_id, self.picking_in_01.location_dest_id
         )
@@ -128,6 +139,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         )
 
     def test_picking_wizard_scan_product(self):
+        wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
         self.action_barcode_scanned(self.wiz_scan_picking, "8480000723208")
         self.assertEqual(self.wiz_scan_picking.product_id, self.product_wo_tracking)
         sml = self.picking_in_01.move_line_ids.filtered(
@@ -141,40 +153,40 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         )
         self.assertEqual(sml.qty_done, 0.0)
         self.assertEqual(
-            self.wiz_scan_picking.message,
-            "Barcode: 8433281006850 (Waiting for input lot)",
+            self.wiz_scan_picking.message, "8433281006850 (Waiting lot)",
         )
         # Scan a lot. Increment quantities if scan product or other lot from
         # this product
-        self.action_barcode_scanned(self.wiz_scan_picking, "8411822222568")
+        self.action_barcode_scanned(wiz_scan_picking, "8411822222568")
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_tracking and x.lot_id
         )
         self.assertEqual(sml.lot_id, self.lot_1)
         self.assertEqual(sml.qty_done, 1.0)
-        self.action_barcode_scanned(self.wiz_scan_picking, "8433281006850")
-        self.assertEqual(sml.qty_done, 2.0)
-        self.action_barcode_scanned(self.wiz_scan_picking, "8411822222568")
-        self.assertEqual(sml.qty_done, 3.0)
+        self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
+        stock_move = sml.move_id
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 2.0)
+        self.action_barcode_scanned(wiz_scan_picking, "8411822222568")
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 3.0)
         self.assertEqual(
-            self.wiz_scan_picking.message,
-            "Barcode: 8411822222568 (Barcode read correctly)",
+            self.wiz_scan_picking.message, "8411822222568 (OK)",
         )
         # Scan a package
-        self.action_barcode_scanned(self.wiz_scan_picking, "5420008510489")
+        self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
         # Package of 5 product units. Already three unit exists
-        self.assertEqual(sml.qty_done, 8.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 8.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
+        wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
         self.wiz_scan_picking.manual_entry = True
-        self.action_barcode_scanned(self.wiz_scan_picking, "8480000723208")
-        self.assertEqual(self.wiz_scan_picking.product_id, self.product_wo_tracking)
+        self.action_barcode_scanned(wiz_scan_picking, "8480000723208")
+        self.assertEqual(wiz_scan_picking.product_id, self.product_wo_tracking)
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(self.wiz_scan_picking.product_qty, 0.0)
+        self.assertEqual(wiz_scan_picking.product_qty, 0.0)
         self.wiz_scan_picking.product_qty = 12.0
-        self.wiz_scan_picking.action_manual_entry()
+        wiz_scan_picking.action_manual_entry()
         self.assertEqual(sml.qty_done, 8.0)
         self.assertEqual(sml.move_id.quantity_done, 12.0)
 
@@ -194,16 +206,14 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.picking_out_01.action_assign()
         self.picking_out_02.action_assign()
 
-        vals = self.picking_type_out.action_barcode_scan()
-        self.wiz_scan_picking = self.ScanReadPicking.with_context(
-            vals["context"]
-        ).create({})
+        action = self.picking_type_out.action_barcode_scan()
+        self.wiz_scan_picking = self.ScanReadPicking.browse(action["res_id"])
         self.wiz_scan_picking.manual_entry = True
         self.wiz_scan_picking.product_id = self.product_tracking
         self.wiz_scan_picking.lot_id = self.lot_1
         self.wiz_scan_picking.product_qty = 2
 
-        self.wiz_scan_picking.action_manual_entry()
+        self.wiz_scan_picking.with_context(force_create_move=True).action_manual_entry()
         self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 2)
         # Lock first picking
         candidate = self.wiz_scan_picking.candidate_picking_ids.filtered(
@@ -212,18 +222,18 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         candidate_wiz = candidate.with_context(
             wiz_barcode_id=self.wiz_scan_picking.id, picking_id=self.picking_out_01.id
         )
-        candidate_wiz.action_lock_picking()
+        candidate_wiz.with_context(force_create_move=True).action_lock_picking()
         self.assertEqual(self.picking_out_01.move_lines.quantity_done, 2)
-        self.wiz_scan_picking.action_manual_entry()
+        self.wiz_scan_picking.with_context(force_create_move=True).action_manual_entry()
         self.assertEqual(self.picking_out_01.move_lines.quantity_done, 4)
 
         # Picking out 3 is in confirmed state, so until confirmed moves has
         # not been activated candidate pickings is 2
         picking_out_3.action_confirm()
         candidate_wiz.action_unlock_picking()
-        self.wiz_scan_picking.action_manual_entry()
+        self.wiz_scan_picking.with_context(force_create_move=True).action_manual_entry()
         self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 2)
         self.wiz_scan_picking.confirmed_moves = True
         candidate_wiz.action_unlock_picking()
-        self.wiz_scan_picking.action_manual_entry()
+        self.wiz_scan_picking.with_context(force_create_move=True).action_manual_entry()
         self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 3)

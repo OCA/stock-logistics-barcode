@@ -17,10 +17,8 @@ class TestStockBarcodesInventory(TestStockBarcodes):
                 "location_ids": [(6, 0, self.stock_location.ids)],
             }
         )
-        vals = self.inventory.action_barcode_scan()
-        self.wiz_scan_inventory = self.ScanReadInventory.with_context(
-            vals["context"]
-        ).create({})
+        action = self.inventory.action_barcode_scan()
+        self.wiz_scan_inventory = self.ScanReadInventory.browse(action["res_id"])
 
     def test_inventory_values(self):
         self.assertEqual(
@@ -43,8 +41,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.action_barcode_scanned(self.wiz_scan_inventory, "8433281006850")
         self.assertEqual(len(self.inventory.line_ids), 1.0)
         self.assertEqual(
-            self.wiz_scan_inventory.message,
-            "Barcode: 8433281006850 (Waiting for input lot)",
+            self.wiz_scan_inventory.message, "8433281006850 (Waiting lot)",
         )
         # Scan a lot. Increment quantities if scan product or other lot from
         # this produt
@@ -56,8 +53,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         inventory_line_lot = self.inventory.line_ids.filtered("prod_lot_id")
         self.assertEqual(inventory_line_lot.product_qty, 3.0)
         self.assertEqual(
-            self.wiz_scan_inventory.message,
-            "Barcode: 8411822222568 (Barcode read correctly)",
+            self.wiz_scan_inventory.message, "8411822222568 (OK)",
         )
         # Scan a package
         self.action_barcode_scanned(self.wiz_scan_inventory, "5420008510489")
@@ -82,7 +78,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.wiz_scan_inventory.action_undo_last_scan()
         self.assertEqual(self.inventory.line_ids.product_qty, 0.0)
 
-    def testinventory_wizard_scan_product_auto_lot(self):
+    def test_inventory_wizard_scan_product_auto_lot(self):
         # Prepare more data
         lot_2 = self.StockProductionLot.create(
             {
@@ -120,8 +116,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         # Scan product with tracking lot enable
         self.action_barcode_scanned(self.wiz_scan_inventory, "8433281006850")
         self.assertEqual(
-            self.wiz_scan_inventory.message,
-            "Barcode: 8433281006850 (Waiting for input lot)",
+            self.wiz_scan_inventory.message, "8433281006850 (Waiting lot)",
         )
 
         self.wiz_scan_inventory.auto_lot = True
@@ -163,7 +158,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
 
         # Barcode read OK
         self.assertEqual(
-            self.wiz_scan_inventory.message, "Barcode: 8433281006850 (Manual entry OK)"
+            self.wiz_scan_inventory.message, "8433281006850 (Manual entry OK)"
         )
 
         # Remove quants for this product
@@ -176,17 +171,15 @@ class TestStockBarcodesInventory(TestStockBarcodes):
         self.wiz_scan_inventory.action_manual_entry()
         self.assertEqual(
             self.wiz_scan_inventory.message,
-            "Barcode: 8433281006850 (There is no lots to assign quantities)",
+            "8433281006850 (There is no lots to assign quantities)",
         )
 
     def test_inventory_wizard_auto_lot_default_value(self):
         # Company auto lot default value False
         self.assertFalse(self.wiz_scan_inventory.auto_lot)
         self.env.user.company_id.stock_barcodes_inventory_auto_lot = True
-        vals = self.inventory.action_barcode_scan()
-        wiz_scan_inventory = self.ScanReadInventory.with_context(
-            vals["context"]
-        ).create({})
+        action = self.inventory.action_barcode_scan()
+        wiz_scan_inventory = self.ScanReadInventory.browse(action["res_id"])
         self.assertTrue(wiz_scan_inventory)
 
     def test_inventory_wizard_onchanges(self):

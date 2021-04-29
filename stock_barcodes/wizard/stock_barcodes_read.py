@@ -126,15 +126,27 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.reset_qty()
         self.process_barcode(barcode)
 
-    def check_done_conditions(self):
+    def check_location_contidion(self):
         if not self.location_id:
             self._set_messagge_info("info", _("Waiting location"))
+            return False
+        return True
+
+    def check_lot_contidion(self):
+        if self.product_id.tracking != "none" and not self.lot_id:
+            self._set_messagge_info("info", _("Waiting lot"))
+            return False
+        return True
+
+    def check_done_conditions(self):
+        result_ok = self.check_location_contidion()
+        if not result_ok:
             return False
         if not self.product_id:
             self._set_messagge_info("info", _("Waiting product"))
             return False
-        if self.product_id.tracking != "none" and not self.lot_id:
-            self._set_messagge_info("info", _("Waiting lot"))
+        result_ok = self.check_lot_contidion()
+        if not result_ok:
             return False
         if not self.product_qty:
             self._set_messagge_info("info", _("Waiting quantities"))
