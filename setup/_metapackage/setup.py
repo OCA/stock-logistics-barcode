@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo13-addon-barcodes_generator_abstract',
+        'odoo13-addon-barcodes_generator_location',
         'odoo13-addon-barcodes_generator_product',
         'odoo13-addon-base_gs1_barcode',
         'odoo13-addon-stock_barcodes',
