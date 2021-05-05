@@ -129,6 +129,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     def check_location_contidion(self):
         if not self.location_id:
             self._set_messagge_info("info", _("Waiting location"))
+            # Remove product when no location has been scanned
+            self.product_id = False
             return False
         return True
 
