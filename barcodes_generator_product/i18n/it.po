@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-11-25 20:36+0000\n"
+"PO-Revision-Date: 2021-05-06 17:47+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: barcodes_generator_product
 #: model:ir.model.fields,help:barcodes_generator_product.field_product_template__generate_type
@@ -60,6 +60,7 @@ msgstr "Genera Tipo"
 #: model:ir.model.fields,help:barcodes_generator_product.field_barcode_rule__generate_model
 msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
+"Se \"Genera Tipo\" è impostato, indica il modello relativo a questa regola."
 
 #. module: barcodes_generator_product
 #: selection:barcode.rule,generate_model:0
@@ -89,14 +90,14 @@ msgstr "Ubicazione Stock"
 #. module: barcodes_generator_product
 #: model:product.template,name:barcodes_generator_product.product_template_mono_variant
 msgid "Template with Generated Barcode (Mono Variant)"
-msgstr ""
+msgstr "Modello con Barcode Generato (Monovariante)"
 
 #. module: barcodes_generator_product
 #: model:product.product,name:barcodes_generator_product.product_product_variant_1
 #: model:product.product,name:barcodes_generator_product.product_product_variant_2
 #: model:product.template,name:barcodes_generator_product.product_product_variant_1_product_template
 msgid "Template with Generated Barcode (Multi Variant)"
-msgstr ""
+msgstr "Modello con Barcode Generato (Multivariante)"
 
 #. module: barcodes_generator_product
 #: model:product.product,uom_name:barcodes_generator_product.product_product_variant_1
