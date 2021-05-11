@@ -7,15 +7,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-08-27 14:47+0000\n"
-"PO-Revision-Date: 2019-08-27 16:48+0200\n"
-"Last-Translator: \n"
+"PO-Revision-Date: 2021-05-11 12:47+0000\n"
+"Last-Translator: Haftec <hmahamud@tecnihand.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.0.6\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
@@ -39,7 +39,7 @@ msgstr "Código de barras leído correctamente"
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
-msgstr "Se ha encontrado más de un empaquetado."
+msgstr "Se ha encontrado más de un empaquetado"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_new_lot
