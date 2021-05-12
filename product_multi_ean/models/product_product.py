@@ -19,7 +19,6 @@ class ProductEan13(models.Model):
         string="Product", comodel_name="product.product", required=True,
     )
 
-    @api.multi
     @api.constrains("name")
     def _check_duplicates(self):
         for record in self:
@@ -30,12 +29,11 @@ class ProductEan13(models.Model):
                     % (record.name, eans[0].product_id.name)
                 )
 
-
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
     ean13_ids = fields.One2many(
-        comodel_name="product.ean13", inverse_name="product_id", string="EAN13",
+        comodel_name="product.ean13", size=13, inverse_name="product_id", string="EAN13",
     )
     barcode = fields.Char(
         string="Main EAN13",
@@ -46,13 +44,11 @@ class ProductProduct(models.Model):
         inverse_sudo=True,
     )
 
-    @api.multi
     @api.depends("ean13_ids")
     def _compute_barcode(self):
         for product in self:
             product.barcode = product.ean13_ids[:1].name
 
-    @api.multi
     def _inverse_barcode(self):
         for product in self:
             if product.ean13_ids:
@@ -60,7 +56,6 @@ class ProductProduct(models.Model):
             else:
                 self.env["product.ean13"].create(self._prepare_ean13_vals())
 
-    @api.multi
     def _prepare_ean13_vals(self):
         self.ensure_one()
         return {
