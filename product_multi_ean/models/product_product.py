@@ -29,11 +29,32 @@ class ProductEan13(models.Model):
                     % (record.name, eans[0].product_id.name)
                 )
 
+class ProductTemplate(models.Model):
+    _inherit = "product.template"
+
+    ean13_ids = fields.One2many(
+        string='EAN 13', comodel_name="product.ean13", compute='_compute_barcodes',
+        inverse='_inverse_barcodes')
+
+    @api.depends('product_variant_ids', 'product_variant_ids.ean13_ids',)
+    def _compute_barcodes(self):
+        unique_variants = self.filtered(lambda template: len(template.product_variant_ids) == 1)
+        for template in unique_variants:
+            template.ean13_ids = template.product_variant_ids.ean13_ids
+        for template in (self - unique_variants):
+            template.ean13_ids = False
+
+    def _inverse_barcodes(self):
+        for template in self:
+            if len(template.product_variant_ids) == 1:
+                (template.product_variant_ids.ean13_ids - template.ean13_ids).unlink()
+                template.product_variant_ids.ean13_ids = template.ean13_ids
+
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
     ean13_ids = fields.One2many(
-        comodel_name="product.ean13", size=13, inverse_name="product_id", string="EAN13",
+        comodel_name="product.ean13", inverse_name="product_id", string="EAN13",
     )
     barcode = fields.Char(
         string="Main EAN13",
@@ -44,7 +65,7 @@ class ProductProduct(models.Model):
         inverse_sudo=True,
     )
 
-    @api.depends("ean13_ids")
+    @api.depends("ean13_ids.name", "ean13_ids.sequence")
     def _compute_barcode(self):
         for product in self:
             product.barcode = product.ean13_ids[:1].name
