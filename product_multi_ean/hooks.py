@@ -5,9 +5,11 @@
 
 
 def post_init_hook(cr, registry):
-    cr.execute("""
+    cr.execute(
+        """
     INSERT INTO product_ean13
     (product_id, name, sequence)
     SELECT id, barcode, 0
     FROM product_product
-    WHERE barcode IS NOT NULL""")
+    WHERE barcode IS NOT NULL"""
+    )
