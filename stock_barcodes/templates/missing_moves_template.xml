@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <template id="missing_moves">
+        <div class="table-responsive" t-if="moves">
+            <table
+                class='o_list_view table table-sm table-hover table-striped o_list_view_ungrouped'
+            >
+                <thead>
+                    <tr>
+                        <th class="o_column_sortable">Product</th>
+                        <th class="o_column_sortable">Initial Demand</th>
+                        <th class="o_column_sortable">Done</th>
+                    </tr>
+                </thead>
+                <tr t-foreach="moves" t-as="move">
+                    <td>
+                        <span t-field="move.product_id" />
+                    </td>
+                    <td>
+                        <span t-field="move.product_uom_qty" />
+                    </td>
+                    <td>
+                        <span t-field="move.quantity_done" />
+                    </td>
+                </tr>
+                <tfoot class="oe_foot">
+                    <tr>
+                        <td />
+                        <td />
+                        <td />
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+        <div t-else="">
+            <h3>No pending operations</h3>
+        </div>
+    </template>
+</odoo>

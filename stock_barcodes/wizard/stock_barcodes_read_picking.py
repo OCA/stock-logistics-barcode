@@ -18,6 +18,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
     )
+    pending_moves = fields.Html(compute="_compute_pending_move",)
     candidate_picking_ids = fields.One2many(
         comodel_name="wiz.candidate.picking",
         inverse_name="wiz_barcode_id",
@@ -32,6 +33,23 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     confirmed_moves = fields.Boolean(string="Confirmed moves")
+
+    @api.depends(
+        "picking_id", "barcode", "picking_id.move_lines.move_line_ids.qty_done"
+    )
+    def _compute_pending_move(self):
+        for record in self:
+            text = ""
+            if record.picking_id:
+                moves = record.picking_id.move_ids_without_package.filtered(
+                    lambda r: r.product_uom_qty > r.quantity_done
+                )
+
+                text = self.env["ir.qweb"].render(
+                    "stock_barcodes.missing_moves",
+                    {"picking": record.picking_id, "moves": moves},
+                )
+            record.pending_moves = text
 
     def name_get(self):
         return [
