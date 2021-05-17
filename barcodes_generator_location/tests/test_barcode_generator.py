@@ -7,17 +7,21 @@ class TestBarcodeGenerator(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.record = cls.env.ref("barcodes_generator_location.stock_location_barcode",)
+        cls.record = cls.env.ref(
+            "barcodes_generator_location.stock_location_barcode",
+        )
         cls.record.generate_barcode()
 
     def test_generate_base(self):
         """ It should generate the correct base for the barcode. """
         self.assertEqual(
-            self.record.barcode_base, 1,
+            self.record.barcode_base,
+            1,
         )
 
     def test_generate_sequence(self):
         """ It should generate the correct sequence for the barcode. """
         self.assertEqual(
-            self.record.barcode, "1190000000014",
+            self.record.barcode,
+            "1190000000014",
         )
