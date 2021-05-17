@@ -1,12 +1,12 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* stock_barcodes_gs1_expiry
+# 	* stock_barcodes_gs1_expiry
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: <>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -17,6 +17,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_new_lot__use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read__use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_inventory__use_date
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_move_location__use_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_picking__use_date
 msgid "Best before Date"
 msgstr ""
@@ -25,6 +26,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_new_lot__life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read__life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_inventory__life_date
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_move_location__life_date
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_expiry.field_wiz_stock_barcodes_read_picking__life_date
 msgid "End of Life Date"
 msgstr ""
@@ -43,4 +45,3 @@ msgstr ""
 #: model:ir.model,name:stock_barcodes_gs1_expiry.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
 msgstr ""
-
