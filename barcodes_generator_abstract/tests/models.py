@@ -6,9 +6,13 @@ from odoo import fields, models
 class BarcodeRuleUserFake(models.Model):
     _inherit = "barcode.rule"
 
-    generate_model = fields.Selection(selection_add=[("res.users", "Users")])
+    generate_model = fields.Selection(
+        selection_add=[("res.users", "Users")], ondelete={"res.users": "cascade"}
+    )
 
-    type = fields.Selection(selection_add=[("user", "User")])
+    type = fields.Selection(
+        selection_add=[("user", "User")], ondelete={"user": "cascade"}
+    )
 
 
 class BarcodeGeneratorUserFake(models.Model):
