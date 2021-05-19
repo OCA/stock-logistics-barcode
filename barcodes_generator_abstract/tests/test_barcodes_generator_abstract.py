@@ -13,7 +13,12 @@ class TestBarcodesGeneratorAbstract(SavepointCase, FakeModelLoader):
         cls.loader.backup_registry()
         from .models import BarcodeGeneratorUserFake, BarcodeRuleUserFake
 
-        cls.loader.update_registry((BarcodeGeneratorUserFake, BarcodeRuleUserFake,))
+        cls.loader.update_registry(
+            (
+                BarcodeGeneratorUserFake,
+                BarcodeRuleUserFake,
+            )
+        )
         cls.barcode_rule_fake = cls.env["barcode.rule"].create(
             {
                 "name": "User rule",
@@ -45,5 +50,6 @@ class TestBarcodesGeneratorAbstract(SavepointCase, FakeModelLoader):
 
     def test_generate_sequence(self):
         self.assertEqual(
-            self.user_fake.barcode, "2000010000005",
+            self.user_fake.barcode,
+            "2000010000005",
         )
