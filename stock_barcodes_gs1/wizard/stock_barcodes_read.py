@@ -50,7 +50,11 @@ class WizStockBarcodesRead(models.AbstractModel):
             product = self.env["product.product"].search(
                 self._barcode_domain(product_barcode)
             )
-            if not product:
+            if not product and not package_barcode:
+                # If we did not found a product and we have not a package, maybe we
+                # can try to use this product barcode as a packaging barcode
+                package_barcode = product_barcode
+            elif not product:
                 self._set_messagge_info("not_found", _("Barcode for product not found"))
                 return False
             else:
@@ -76,7 +80,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         if lot_barcode and self.product_id.tracking != "none":
             self.process_lot(barcode_decoded)
             processed = True
-        if product_qty:
+        if product_qty and package_barcode:
+            # If we have processed a package, we need to multiply it
+            self.product_qty = self.product_qty * product_qty
+        elif product_qty:
             self.product_qty = product_qty
         if not self.product_qty:
             # This could happen with double GS1-128 barcodes
