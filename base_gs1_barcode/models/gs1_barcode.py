@@ -184,7 +184,7 @@ class GS1Barcode(models.Model):
                     )
 
                 position += len(groups["value"])
-                results[ai] = groups["value"].replace(separator, "")
+                results[ai] = groups["value"].replace(separator, "").strip()
                 if types[ai] == "numeric":
                     results[ai] = int(results[ai])
                     if "decimal" in groups:
