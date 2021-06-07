@@ -86,13 +86,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
            from"""
         out_move = candidate_move.picking_code == "outgoing"
         location_id = self.location_id if out_move else self.picking_id.location_id
+        quants = self.env["stock.quant"]._gather(
+            self.product_id, location_id, lot_id=self.lot_id, strict=False
+        )
         location_dest_id = (
             self.picking_id.location_dest_id if out_move else self.location_id
         )
         location_dest_id = (
             location_dest_id._get_putaway_strategy(self.product_id) or location_dest_id
         )
-        return {
+        vals = {
             "picking_id": self.picking_id.id,
             "move_id": candidate_move.id,
             "qty_done": available_qty,
@@ -105,6 +108,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "lot_id": self.lot_id.id,
             "lot_name": self.lot_id.name,
         }
+        if quants:
+            reserved_quant = quants[0]
+            vals.update(
+                {
+                    "location_id": reserved_quant.location_id.id,
+                    "owner_id": reserved_quant.owner_id.id or False,
+                }
+            )
+        return vals
 
     def _states_move_allowed(self):
         move_states = ["assigned"]
