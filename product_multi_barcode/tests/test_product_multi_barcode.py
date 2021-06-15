@@ -14,11 +14,11 @@ class TestProductMultiBarcode(TransactionCase):
         super(TestProductMultiBarcode, self).setUp()
         # Product 1
         self.product = self.env["product.product"]
-        self.product_1 = self.product.create({"name": "Test product 1",})
+        self.product_1 = self.product.create({"name": "Test product 1"})
         self.valid_barcode_1 = "1234567890128"
         self.valid_barcode2_1 = "0123456789012"
         # Product 2
-        self.product_2 = self.product.create({"name": "Test product 2",})
+        self.product_2 = self.product.create({"name": "Test product 2"})
         self.valid_barcode_2 = "9780471117094"
         self.valid_barcode2_2 = "4006381333931"
 
