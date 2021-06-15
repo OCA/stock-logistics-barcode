@@ -16,24 +16,29 @@ class ProductBarcode(models.Model):
     name = fields.Char(string="Barcode", required=True,)
     sequence = fields.Integer(string="Sequence", default=0,)
     product_id = fields.Many2one(
-        string="Product", comodel_name="product.product",
-        compute='_compute_product', store=True,
+        string="Product",
+        comodel_name="product.product",
+        compute="_compute_product",
+        store=True,
         readonly=False,
     )
     product_tmpl_id = fields.Many2one(
         comodel_name="product.template",
-        compute='_compute_product_tmpl', store=True,
+        compute="_compute_product_tmpl",
+        store=True,
         readonly=False,
     )
 
-    @api.depends('product_id')
+    @api.depends("product_id")
     def _compute_product_tmpl(self):
         for rec in self.filtered(lambda x: not x.product_tmpl_id and x.product_id):
             rec.product_tmpl_id = rec.product_id.product_tmpl_id
 
-    @api.depends('product_tmpl_id.product_variant_ids')
+    @api.depends("product_tmpl_id.product_variant_ids")
     def _compute_product(self):
-        for rec in self.filtered(lambda x: not x.product_id and x.product_tmpl_id.product_variant_ids):
+        for rec in self.filtered(
+            lambda x: not x.product_id and x.product_tmpl_id.product_variant_ids
+        ):
             rec.product_id = rec.product_tmpl_id.product_variant_ids[0]
 
     @api.constrains("name")
