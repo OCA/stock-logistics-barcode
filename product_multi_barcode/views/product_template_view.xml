@@ -10,7 +10,10 @@
                 <attribute name="readonly">True</attribute>
             </field>
             <field name="barcode" position="after">
-                <field name="barcode_ids" attrs="{'invisible': [('product_variant_count', '>', 1)]}">
+                <field
+                    name="barcode_ids"
+                    attrs="{'invisible': [('product_variant_count', '>', 1)]}"
+                >
                     <tree string="Barcodes" editable="bottom">
                         <field name="sequence" widget="handle" />
                         <field name="name" />
