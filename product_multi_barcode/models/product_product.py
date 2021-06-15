@@ -11,9 +11,7 @@ class ProductProduct(models.Model):
     _inherit = "product.product"
 
     barcode_ids = fields.One2many(
-        comodel_name="product.barcode",
-        inverse_name="product_id",
-        string="Barcodes",
+        comodel_name="product.barcode", inverse_name="product_id", string="Barcodes",
     )
     barcode = fields.Char(
         string="Main barcode",
