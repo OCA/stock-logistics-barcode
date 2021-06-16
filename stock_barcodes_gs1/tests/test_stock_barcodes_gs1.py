@@ -12,6 +12,9 @@ class TestStockBarcodesGS1(TestStockBarcodes):
         # Barcode for packaging and lot
         self.gs1_barcode_01_product = '0119501101530000'
         self.gs1_barcode_01_lot = '1714070410AB-123'
+        self.gs1_separator = self.env.user.gs1_barcode_separator or '\x1D'
+        self.gs1_barcode_unit_01 = self.gs1_separator + '371'
+        self.gs1_barcode_unit_02 = self.gs1_separator + '372'
         self.gs1_barcode_01 = (
             self.gs1_barcode_01_product + self.gs1_barcode_01_lot)
         self.gs1_barcode_01_not_found = '011xxx11015300001714070410AB-123'
@@ -72,6 +75,23 @@ class TestStockBarcodesGS1(TestStockBarcodes):
                          'Barcode: 01195011015300001714070410AB-123 '
                          '(More than one package found)')
 
+    def test_wizard_scan_gs1_package_units(self):
+        self.action_barcode_scanned(
+            self.wiz_scan, self.gs1_barcode_01
+        )
+        self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        self.assertEqual(self.wiz_scan.product_qty, 10)
+        self.action_barcode_scanned(
+            self.wiz_scan, self.gs1_barcode_01 + self.gs1_barcode_unit_01
+        )
+        self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        self.assertEqual(self.wiz_scan.product_qty, 10)
+        self.action_barcode_scanned(
+            self.wiz_scan, self.gs1_barcode_01 + self.gs1_barcode_unit_02
+        )
+        self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        self.assertEqual(self.wiz_scan.product_qty, 20)
+
     def test_wizard_scan_gs1_product(self):
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
         self.assertEqual(
@@ -82,7 +102,24 @@ class TestStockBarcodesGS1(TestStockBarcodes):
             self.wiz_scan, self.gs1_barcode_02_not_found)
         self.assertEqual(self.wiz_scan.message,
                          'Barcode: 020xxx0001234567150410183724 '
-                         '(Barcode for product not found)')
+                         '(Barcode for product packaging not found)')
+
+    def test_wizard_scan_gs1_product_as_packaging(self):
+        self.product_wo_tracking_gs1.barcode = "X07010001234567Xg"
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
+        self.assertEqual(self.wiz_scan.message,
+                         'Barcode: 0207010001234567150410183724 '
+                         '(Barcode for product packaging not found)')
+        self.ProductPackaging.create({
+            'product_id': self.product_wo_tracking_gs1.id,
+            'name': 'Barcode as package',
+            'qty': 2.0,
+            'barcode': '07010001234567',
+        })
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
+        self.assertEqual(
+            self.wiz_scan.product_id, self.product_wo_tracking_gs1)
+        self.assertEqual(self.wiz_scan.product_qty, 48)
 
     def test_wizard_scan_gs1_lot(self):
         self.packaging_gs1.product_id = self.product_tracking_gs1
