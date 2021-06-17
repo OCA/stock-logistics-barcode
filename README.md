@@ -19,7 +19,7 @@ Available addons
 ----------------
 addon | version | summary
 --- | --- | ---
-[base_gs1_barcode](base_gs1_barcode/) | 14.0.1.0.0 | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
+[base_gs1_barcode](base_gs1_barcode/) | 14.0.1.0.1 | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 
 [//]: # (end addons)
 
