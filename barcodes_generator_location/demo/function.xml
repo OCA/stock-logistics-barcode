@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <function
+        model="stock.location"
+        name="generate_base"
+        eval="[ref('stock_location_barcode')]"
+    />
+    <function
+        model="stock.location"
+        name="generate_barcode"
+        eval="[ref('stock_location_barcode')]"
+    />
+</odoo>
