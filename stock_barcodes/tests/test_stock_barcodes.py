@@ -128,6 +128,7 @@ class TestStockBarcodes(TransactionCase):
         self.assertTrue(self.wiz_scan.scan_log_ids[:1].manual_entry)
 
     def test_wizard_scan_package(self):
+        self.wiz_scan.location_id = self.location_1
         self.action_barcode_scanned(self.wiz_scan, "5420008510489")
         self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
         self.assertEqual(self.wiz_scan.product_qty, 5.0)
@@ -152,6 +153,7 @@ class TestStockBarcodes(TransactionCase):
         )
 
     def test_wizard_scan_lot(self):
+        self.wiz_scan.location_id = self.location_1.id
         self.action_barcode_scanned(self.wiz_scan, "8411822222568")
         # Lot found for one product, so product_id is filled
         self.assertTrue(self.wiz_scan.product_id)
