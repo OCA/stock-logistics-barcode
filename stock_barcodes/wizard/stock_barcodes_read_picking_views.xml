@@ -69,22 +69,22 @@
                                                     force_save="1"
                                                 />
                                             </strong>
-                                            <field name="date" />
+                                            <field name="date" widget="date" />
                                         </div>
                                         <div>
                                             <field name="partner_id" />
                                         </div>
                                         <div>
-                                            <label
-                                                for="product_uom_qty"
-                                            >Demand: </label>
+                                            <label for="product_uom_qty">Dem.: </label>
                                             <field name="product_uom_qty" />
                                             <label
                                                 for="product_qty_reserved"
-                                            >Reserved: </label>
+                                            >Res.: </label>
                                             <field name="product_qty_reserved" />
                                             <label for="product_qty_done">Done: </label>
-                                            <field name="product_qty_done" />
+                                            <strong class="text-success">
+                                                <field name="product_qty_done" />
+                                            </strong>
                                         </div>
                                         <div>
                                             <a
