@@ -24,7 +24,7 @@
         id="menu_action_stock_barcodes_action"
         groups="stock.group_stock_user"
         name="Barcode actions"
-        parent="stock.menu_stock_root"
+        parent="stock.menu_product_in_config_stock"
         sequence="100"
     />
 </odoo>
