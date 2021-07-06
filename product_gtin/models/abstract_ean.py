@@ -1,19 +1,20 @@
-# -*- coding: utf-8 -*-
 # © 2004-2011 Tiny SPRL (<http://tiny.be>)
 # © 2010-2011 Camptocamp Austria (<http://www.camptocamp.at>)
 # © 2016 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp import api, models
-from openerp.tools.translate import _
-from openerp.exceptions import ValidationError
-import operator
 import logging
+import operator
+
+from openerp import api, models
+from openerp.exceptions import ValidationError
+from openerp.tools.translate import _
+
 _logger = logging.getLogger(__name__)
 
 
 class AbstractEan(models.AbstractModel):
-    _name = 'abstract.ean'
-    _description = 'Abstract Ean'
+    _name = "abstract.ean"
+    _description = "Abstract Ean"
 
     @api.model
     def _is_pair(self, x):
@@ -29,7 +30,7 @@ class AbstractEan(models.AbstractModel):
         if not eancode or not eancode.isdigit():
             return False
         if not len(eancode) == 8:
-            _logger.warn('Ean8 code has to have a length of 8 characters.')
+            _logger.warn("Ean8 code has to have a length of 8 characters.")
             return False
         sum = 0
         ean_len = int(len(eancode))
@@ -55,7 +56,7 @@ class AbstractEan(models.AbstractModel):
         if not upccode or not upccode.isdigit():
             return False
         if not len(upccode) == 12:
-            _logger.warn('UPC code has to have a length of 12 characters.')
+            _logger.warn("UPC code has to have a length of 12 characters.")
             return False
         sum_pair = 0
         ean_len = int(len(upccode))
@@ -80,7 +81,7 @@ class AbstractEan(models.AbstractModel):
         if not eancode or not eancode.isdigit():
             return False
         if not len(eancode) == 13:
-            _logger.warn('Ean13 code has to have a length of 13 characters.')
+            _logger.warn("Ean13 code has to have a length of 13 characters.")
             return False
         sum = 0
         ean_len = int(len(eancode))
@@ -115,11 +116,10 @@ class AbstractEan(models.AbstractModel):
     def _check_code(self, barcode):
         nb_digit = len(barcode)
         if nb_digit not in self._DICT_CHECK_EAN:
-            raise ValidationError(_('Size of EAN/GTIN code is not valid'))
+            raise ValidationError(_("Size of EAN/GTIN code is not valid"))
         try:
             int(barcode)
         except:
-            raise ValidationError(_('EAN/GTIN Should be a digit'))
+            raise ValidationError(_("EAN/GTIN Should be a digit"))
         if not self._DICT_CHECK_EAN[nb_digit](self, barcode):
-            raise ValidationError(
-                _('EAN/GTIN format is not a valid format'))
+            raise ValidationError(_("EAN/GTIN format is not a valid format"))

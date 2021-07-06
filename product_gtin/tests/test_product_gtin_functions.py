@@ -1,9 +1,8 @@
-# -*- coding: utf-8 -*-
 # © 2015 Therp BV (<http://therp.nl>)
 # © 2016 ACSONE SA/NV (<http://acsone.eu>)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from openerp.tests import common
 from openerp.exceptions import ValidationError
+from openerp.tests import common
 
 VALID_EAN8_CODES = [
     # http://www.softmatic.com/barcode-ean-8.html
@@ -23,24 +22,23 @@ VALID_UPC_CODES = [
 
 
 class TestProductGtin(common.TransactionCase):
-
     def setUp(self):
         super(TestProductGtin, self).setUp()
-        self.aean = self.env['abstract.ean']
+        self.aean = self.env["abstract.ean"]
 
     def test_is_pair(self):
         # http://en.wikipedia.org/wiki/Parity_of_zero
         self.assertTrue(self.aean._is_pair(0))
 
         # Testing random numbers.
-        self.assertTrue(self.aean._is_pair(2), 'Should be True')
-        self.assertTrue(self.aean._is_pair(4), 'Should be True')
-        self.assertTrue(self.aean._is_pair(40), 'Should be True')
+        self.assertTrue(self.aean._is_pair(2), "Should be True")
+        self.assertTrue(self.aean._is_pair(4), "Should be True")
+        self.assertTrue(self.aean._is_pair(40), "Should be True")
 
-        self.assertFalse(self.aean._is_pair(1), 'Should be False')
-        self.assertFalse(self.aean._is_pair(3), 'Should be False')
-        self.assertFalse(self.aean._is_pair(5), 'Should be False')
-        self.assertFalse(self.aean._is_pair(77), 'Should be False')
+        self.assertFalse(self.aean._is_pair(1), "Should be False")
+        self.assertFalse(self.aean._is_pair(3), "Should be False")
+        self.assertFalse(self.aean._is_pair(5), "Should be False")
+        self.assertFalse(self.aean._is_pair(77), "Should be False")
 
     # The codes have been tested against
     # http://www.hipaaspace.com/Medical_Data_Validation/Universal_Product_Code/
@@ -128,12 +126,11 @@ class TestProductGtin(common.TransactionCase):
         self.assertTrue(self.aean._DICT_CHECK_EAN)
 
     def test_partner_barcode(self):
-        partner = self.env['res.partner'].with_context(
-            mail_create_nosubscribe=True)
+        partner = self.env["res.partner"].with_context(mail_create_nosubscribe=True)
         vals = {
-            'name': 'test',
-            'barcode': 't',
+            "name": "test",
+            "barcode": "t",
         }
         self.assertRaises(ValidationError, partner.create, vals)
-        vals['barcode'] = "0075678164125"
+        vals["barcode"] = "0075678164125"
         self.assertTrue(partner.create(vals))
