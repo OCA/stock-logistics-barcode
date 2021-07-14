@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 06:03+0000\n"
-"PO-Revision-Date: 2020-04-09 17:19+0000\n"
+"PO-Revision-Date: 2021-07-14 10:49+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-stock-logistics-barcode-8-0/language/it/)\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: product_multi_ean
 #: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__create_uid
@@ -39,7 +39,6 @@ msgstr "Nome da visualizzare"
 #: model:ir.model.fields,field_description:product_multi_ean.field_product_product__ean13_ids
 #: model_terms:ir.ui.view,arch_db:product_multi_ean.product_normal_form_view_multi_ean13
 #: model_terms:ir.ui.view,arch_db:product_multi_ean.product_search_form_view_multi_ean13
-#, fuzzy
 msgid "EAN13"
 msgstr "EAN13"
 
