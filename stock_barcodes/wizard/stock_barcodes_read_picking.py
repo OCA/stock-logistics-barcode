@@ -22,6 +22,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     )
     pending_moves = fields.Html(
         compute="_compute_pending_move",
+        groups="stock_barcodes.group_track_pending_products_picking_barcode"
     )
     candidate_picking_ids = fields.One2many(
         comodel_name='wiz.candidate.picking',

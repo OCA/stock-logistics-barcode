@@ -23,9 +23,7 @@
             </tr>
             <tfoot class="oe_foot">
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td colspan="3"/>
                 </tr>
             </tfoot>
         </table>
