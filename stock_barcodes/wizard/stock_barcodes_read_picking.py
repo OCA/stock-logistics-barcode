@@ -18,7 +18,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
     )
-    pending_moves = fields.Html(compute="_compute_pending_move",)
+    pending_moves = fields.Html(
+        compute="_compute_pending_move",
+        groups="stock_barcodes.group_track_pending_products_picking_barcode",
+    )
     candidate_picking_ids = fields.One2many(
         comodel_name="wiz.candidate.picking",
         inverse_name="wiz_barcode_id",
@@ -46,8 +49,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 )
 
                 text = self.env["ir.qweb"].render(
-                    "stock_barcodes.missing_moves",
-                    {"picking": record.picking_id, "moves": moves},
+                    "stock_barcodes.missing_moves", {"moves": moves},
                 )
             record.pending_moves = text
 

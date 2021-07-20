@@ -11,6 +11,7 @@
     "depends": ["barcodes", "stock"],
     "data": [
         "security/ir.model.access.csv",
+        "security/security.xml",
         "views/assets.xml",
         "views/res_config_settings_views.xml",
         "views/stock_inventory_views.xml",
