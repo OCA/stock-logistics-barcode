@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+    Copyright 2021 Creu Blanca
+    License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
+-->
+<odoo>
+    <record id="group_track_pending_products_picking_barcode" model="res.groups">
+        <field name="name">Add table to track pending products at picking stock wizard</field>
+        <field name="category_id" ref="base.module_category_hidden" />
+    </record>
+</odoo>

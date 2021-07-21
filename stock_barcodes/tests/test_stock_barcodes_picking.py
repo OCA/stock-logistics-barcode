@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.addons.stock_barcodes.tests.test_stock_barcodes import\
     TestStockBarcodes
+from lxml import etree
 
 
 class TestStockBarcodesPicking(TestStockBarcodes):
@@ -129,6 +130,37 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.action_barcode_scanned(self.wiz_scan_picking, '5420008510489')
         # Package of 5 product units. Already three unit exists
         self.assertEqual(sml.qty_done, 8.0)
+
+    def test_compute_pending_products(self):
+        self.assertTrue(self.wiz_scan_picking.pending_moves)
+        for i in range(0, 8):
+            view = etree.fromstring(self.wiz_scan_picking.pending_moves)
+            node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
+                              % self.product_tracking.name)
+            self.assertTrue(node)
+            quantity_done = node[0].xpath('td[last()]/span')
+            self.assertEqual(i, float(quantity_done[0].text))
+            node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
+                              % self.product_wo_tracking.name)
+            self.assertTrue(node)
+            quantity_done = node[0].xpath('td[last()]/span')
+            self.assertEqual(0, float(quantity_done[0].text))
+            self.action_barcode_scanned(self.wiz_scan_picking, '8411822222568')
+        view = etree.fromstring(self.wiz_scan_picking.pending_moves)
+        node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
+                          % self.product_tracking.name)
+        self.assertFalse(node)
+        node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
+                          % self.product_wo_tracking.name)
+        self.assertTrue(node)
+        quantity_done = node[0].xpath('td[last()]/span')
+        self.assertEqual(0, float(quantity_done[0].text))
+        move = self.wiz_scan_picking.picking_id.move_ids_without_package.\
+            filtered(
+                lambda r: r.product_id == self.product_wo_tracking)
+        move.quantity_done = move.product_uom_qty
+        self.assertRegex(self.wiz_scan_picking.pending_moves,
+                         ".*No pending operations.*")
 
     def test_picking_wizard_scan_product_manual_entry(self):
         self.wiz_scan_picking.manual_entry = True

@@ -12,6 +12,11 @@ class ResConfigSettings(models.TransientModel):
         related="company_id.stock_barcodes_inventory_auto_lot",
         readonly=False,
     )
+    group_track_pending_products_picking_barcode_wizard = fields.Boolean(
+        string="Track pending products at the picking barcode wizard",
+        implied_group="stock_barcodes."
+                      "group_track_pending_products_picking_barcode",
+    )
 
 
 class ResCompany(models.Model):

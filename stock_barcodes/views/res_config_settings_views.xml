@@ -26,6 +26,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="row mt16 o_settings_container">
+                    <div class="col-12 col-lg-6 o_setting_box" title="Track pending products at the picking wizard">
+                        <div class="o_setting_left_pane">
+                            <field name="group_track_pending_products_picking_barcode_wizard"/>
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label for="group_track_pending_products_picking_barcode_wizard"/>
+                            <div class="text-muted">
+                               Add table to track pending products at picking stock wizard
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </field>
     </record>
