@@ -53,6 +53,12 @@ msgid "<span>New lot</span>"
 msgstr "<span>Nuevo lote</span>"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+#: model:res.groups,name:stock_barcodes.group_track_pending_products_picking_barcode
+msgid "Add table to track pending products at picking stock wizard"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
 msgstr "¿Seguro que quiere validar este albarán?"
@@ -102,7 +108,7 @@ msgstr "Código de barras leído con información adicional"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:36
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:46
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:69
 #, python-format
 msgid "Barcode reader"
 msgstr "Escaneador"
@@ -151,8 +157,8 @@ msgid "Clean lot"
 msgstr "Borrar lote"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:228
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:232
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:251
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:255
 #, python-format
 msgid "Click on picking pushpin to lock it"
 msgstr "Pinche en la chincheta del albarán para bloquearlo"
@@ -245,6 +251,7 @@ msgstr "Nombre a mostrar"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_done
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
 msgid "Done"
 msgstr "Hecho"
 
@@ -310,6 +317,11 @@ msgid ""
 msgstr ""
 "Si el usuario introduce más cantidades de las existentes, las cantidades "
 "sobrantes se asignarán al último lote"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
+msgid "Initial Demand"
+msgstr ""
 
 #. module: stock_barcodes
 #: selection:wiz.stock.barcodes.read.picking,picking_type_code:0
@@ -464,6 +476,11 @@ msgid "No barcode found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
+msgid "No pending operations"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
 msgid "OCA Stock Barcodes reader"
 msgstr "Lector de códigos de barras (OCA)"
@@ -490,6 +507,16 @@ msgid "Partner"
 msgstr "Empresa"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__pending_moves
+msgid "Pending Moves"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "Pending operations"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_id
@@ -512,6 +539,7 @@ msgstr "Cantidades del albarán"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
 msgid "Product"
 msgstr "Producto"
 
@@ -616,7 +644,7 @@ msgid "Stock move lines"
 msgstr "Movimiento de existencias"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:205
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:228
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr "No hay movimientos de stock para realizar esta operación"
@@ -626,6 +654,16 @@ msgstr "No hay movimientos de stock para realizar esta operación"
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr "No hay lotes para asignar la cantidad"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__group_track_pending_products_picking_barcode_wizard
+msgid "Track pending products at the picking barcode wizard"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Track pending products at the picking wizard"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
@@ -664,7 +702,7 @@ msgstr "Proveedores"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:78
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:223
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:246
 #, python-format
 msgid "Waiting for input lot"
 msgstr "A la espera de leer lote"
@@ -718,7 +756,7 @@ msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:252
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:275
 #, python-format
 msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or "
