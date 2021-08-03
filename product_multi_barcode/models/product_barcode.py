@@ -13,8 +13,14 @@ class ProductBarcode(models.Model):
     _description = "Individual item in a product's barcode list"
     _order = "sequence, id"
 
-    name = fields.Char(string="Barcode", required=True,)
-    sequence = fields.Integer(string="Sequence", default=0,)
+    name = fields.Char(
+        string="Barcode",
+        required=True,
+    )
+    sequence = fields.Integer(
+        string="Sequence",
+        default=0,
+    )
     product_id = fields.Many2one(
         string="Product",
         comodel_name="product.product",
