@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_template_form_view_multi_barcode" model="ir.ui.view">
+        <field name="name">product.template.form.multi.barcode</field>
+        <field name="model">product.template</field>
+        <field name="priority">16</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="barcode" position="after">
+                <field
+                    name="barcode_ids"
+                    attrs="{'invisible': [('product_variant_count', '>', 1)]}"
+                >
+                    <tree string="Barcodes" editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field name="name" />
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+</odoo>
