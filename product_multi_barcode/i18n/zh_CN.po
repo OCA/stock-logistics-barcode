@@ -19,80 +19,107 @@ msgstr ""
 "Plural-Forms: nplurals=1; plural=0;\n"
 "X-Generator: Weblate 3.8\n"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__create_uid
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
+msgid "Barcode"
+msgstr ""
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
+#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_normal_form_view_multi_barcodes
+#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
+#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_template_form_view_multi_barcode
+msgid "Barcodes"
+msgstr ""
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
 msgid "Created by"
 msgstr "创建者"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__create_date
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_date
 msgid "Created on"
 msgstr "创建时间"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__display_name
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__name
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_product__ean13_ids
-#: model_terms:ir.ui.view,arch_db:product_multi_ean.product_normal_form_view_multi_ean13
-#: model_terms:ir.ui.view,arch_db:product_multi_ean.product_search_form_view_multi_ean13
-msgid "EAN13"
-msgstr "EAN13"
-
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__id
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__id
 msgid "ID"
 msgstr "ID"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,help:product_multi_ean.field_product_product__barcode
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_barcode
+msgid "Individual item in a product's barcode list"
+msgstr ""
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
 msgid "International Article Number used for product identification."
 msgstr "用于商品识别的国际商品编号。"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13____last_update
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
 msgid "Last Modified on"
 msgstr "最后修改时间"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__write_uid
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_uid
 msgid "Last Updated by"
 msgstr "最后更新者"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__write_date
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_date
 msgid "Last Updated on"
 msgstr "上次更新日期"
 
-#. module: product_multi_ean
-#: model:ir.model,name:product_multi_ean.model_product_ean13
-msgid "List of EAN13 for a product."
-msgstr "产品的EAN13列表。"
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
+msgid "Main barcode"
+msgstr ""
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_product__barcode
-msgid "Main EAN13"
-msgstr "EAN13"
-
-#. module: product_multi_ean
-#: model:ir.model,name:product_multi_ean.model_product_product
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__product_id
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_product
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_id
 msgid "Product"
 msgstr "产品"
 
-#. module: product_multi_ean
-#: model:ir.model.fields,field_description:product_multi_ean.field_product_ean13__sequence
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_template
+#, fuzzy
+msgid "Product Template"
+msgstr "产品"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
+#, fuzzy
+msgid "Product Tmpl"
+msgstr "产品"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
 msgid "Sequence"
 msgstr "序号"
 
-#. module: product_multi_ean
-#: code:addons/product_multi_ean/models/product_product.py:39
-#, python-format
-msgid "The EAN13 Barcode \"%s\" already exists for product \"%s\""
+#. module: product_multi_barcode
+#: code:addons/product_multi_barcode/models/product_barcode.py:0
+#, fuzzy, python-format
+msgid "The Barcode \"%s\" already exists for product \"%s\""
 msgstr "EAN13 条码\"%s\" 产品 \"%s\"已存在"
+
+#~ msgid "EAN13"
+#~ msgstr "EAN13"
+
+#~ msgid "List of EAN13 for a product."
+#~ msgstr "产品的EAN13列表。"
+
+#~ msgid "Main EAN13"
+#~ msgstr "EAN13"
 
 #~ msgid ""
 #~ "You provided an invalid \"EAN13 Barcode\" reference. You may use the "
