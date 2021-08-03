@@ -2,13 +2,12 @@
 # © 2018 Xavier Jimenez (QubiQ)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase, at_install, post_install
+from odoo.tests import TransactionCase, tagged
 
 from ..hooks import post_init_hook
 
 
-@at_install(False)
-@post_install(True)
+@tagged("post_install", "-at_install")
 class TestProductMultiBarcode(TransactionCase):
     def setUp(self):
         super(TestProductMultiBarcode, self).setUp()
