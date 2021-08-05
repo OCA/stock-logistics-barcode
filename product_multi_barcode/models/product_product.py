@@ -21,7 +21,6 @@ class ProductProduct(models.Model):
         store=True,
         inverse="_inverse_barcode",
         compute_sudo=True,
-        inverse_sudo=True,
     )
 
     @api.depends("barcode_ids.name", "barcode_ids.sequence")
