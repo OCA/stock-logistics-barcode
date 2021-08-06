@@ -21,6 +21,5 @@
         "views/supplierinfo_views.xml",
         "views/product_views.xml",
     ],
-    "demo": [
-    ],
+    "demo": [],
 }
