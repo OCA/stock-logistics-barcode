@@ -140,19 +140,25 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 if qty_to_assign <= quant.quantity
                 else max(quant.quantity, 0)
             )
-            self.lot_id = quant.lot_id
+            self.with_context(keep_auto_lot=True).lot_id = quant.lot_id
             self.product_qty = qty if qty > 0.0 else 0.0
             self._add_inventory_line()
             qty_to_assign -= qty
         if qty_to_assign:
-            self.lot_id = quants[-1:].lot_id
+            self.with_context(keep_auto_lot=True).lot_id = quants[-1:].lot_id
             self.product_qty = qty_to_assign
             self._add_inventory_line()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
+        self.lot_id = False
         self.auto_lot = self._default_auto_lot()
 
     @api.onchange("lot_id")
     def _onchange_lot_id(self):
-        self.auto_lot = False
+        if self.lot_id and not self.env.context.get("keep_auto_lot"):
+            self.auto_lot = False
+
+    @api.onchange("manual_entry")
+    def _onchange_manual_entry(self):
+        self.auto_lot = self._default_auto_lot()
