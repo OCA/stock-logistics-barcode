@@ -9,7 +9,7 @@
                 <h2>Barcode format</h2>
                 <div class="row mt16 o_settings_container">
                     <div
-                        class="col-12 col-lg-12 o_setting_box"
+                        class="col-6 col-lg-6 o_setting_box"
                         title="Select format of barcode display"
                     >
                         <div class="o_setting_right_pane">
@@ -24,6 +24,19 @@
                                         class="o_light_label"
                                         widget="selection"
                                     />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-6 col-lg-6 o_setting_box"
+                        title="Select report for barcode display"
+                    >
+                        <div class="o_setting_right_pane">
+                            <label for="barcode_default_report" />
+                            <div class="content-group">
+                                <div class="mt16">
+                                    <field name="barcode_default_report" />
                                 </div>
                             </div>
                         </div>

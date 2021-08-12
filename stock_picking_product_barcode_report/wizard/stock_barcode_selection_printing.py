@@ -41,6 +41,14 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             res.update({"picking_ids": picking_ids.ids})
         return res
 
+    def _default_barcode_report(self):
+        barcode_report = self.env.company.barcode_default_report
+        if not barcode_report:
+            barcode_report = self.env.ref(
+                "stock_picking_product_barcode_report.action_label_barcode_report"
+            )
+        return barcode_report
+
     picking_ids = fields.Many2many("stock.picking")
     product_print_moves = fields.One2many(
         "stock.picking.line.print", "wizard_id", "Moves"
@@ -49,6 +57,13 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         selection=[("gs1_128", "Display GS1_128 format for barcodes")],
         string="Barcode format",
         default=lambda self: self.env.company.barcode_default_format,
+    )
+    barcode_report = fields.Many2one(
+        comodel_name="ir.actions.report",
+        string="Report to print",
+        domain=[("is_barcode_label", "=", True)],
+        default=_default_barcode_report,
+        required=True,
     )
 
     @api.onchange("picking_ids")
@@ -60,7 +75,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         ].default_get(line_fields)
         for picking_id in self.picking_ids.ids:
             picking = self.env["stock.picking"].browse(picking_id)
-            for move_line in picking.move_line_ids.filtered("product_id.barcode"):
+            for move_line in self._get_move_lines(picking):
                 product_print_moves_data = dict(product_print_moves_data_tmpl)
                 product_print_moves_data.update(
                     self._prepare_data_from_move_line(move_line)
@@ -69,6 +84,10 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
                     product_print_moves.append((0, 0, product_print_moves_data))
         if self.picking_ids:
             self.product_print_moves = product_print_moves
+
+    @api.model
+    def _get_move_lines(self, picking):
+        return picking.move_line_ids.filtered("product_id.barcode")
 
     @api.model
     def _prepare_data_from_move_line(self, move_line):
@@ -84,6 +103,4 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     def print_labels(self):
         print_move = self.product_print_moves.filtered(lambda p: p.label_qty > 0)
         if print_move:
-            return self.env.ref(
-                "stock_picking_product_barcode_report.action_label_barcode_report"
-            ).report_action(self.product_print_moves)
+            return self.barcode_report.report_action(self.product_print_moves)
