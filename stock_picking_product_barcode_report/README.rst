@@ -45,7 +45,6 @@ Configuration
    barcode formating' the value 'Display GS1_128 format for barcodes' or let it blank
    for normal use of barcodes on Odoo.
 
-
 Usage
 =====
 
