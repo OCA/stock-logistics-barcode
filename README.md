@@ -22,28 +22,28 @@ Please don't hesitate to suggest one of your module to this project. Also, you m
 
 Available addons
 ----------------
-addon | version | summary
---- | --- | ---
-[base_gs1_barcode](base_gs1_barcode/) | 8.0.1.1.0 | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
-[mobile_app_inventory](mobile_app_inventory/) | 8.0.2.0.0 | Inventory Mobile App
-[product_barcode_generator](product_barcode_generator/) | 8.0.1.0.0 | Product barcode generator
-[product_multi_ean](product_multi_ean/) | 8.0.1.0.0 | Multiple EAN13 on products
-[stock_disable_barcode_interface](stock_disable_barcode_interface/) | 8.0.1.0.0 | Disable and enable (configurable) the barcode interface
-[stock_inventory_barcode](stock_inventory_barcode/) | 8.0.0.1.0 | Add simple barcode interface on inventories
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[base_gs1_barcode](base_gs1_barcode/) | 8.0.1.1.0 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
+[mobile_app_inventory](mobile_app_inventory/) | 8.0.2.0.0 |  | Inventory Mobile App
+[product_barcode_generator](product_barcode_generator/) | 8.0.1.0.0 |  | Product barcode generator
+[product_multi_ean](product_multi_ean/) | 8.0.1.0.0 |  | Multiple EAN13 on products
+[stock_disable_barcode_interface](stock_disable_barcode_interface/) | 8.0.1.0.0 |  | Disable and enable (configurable) the barcode interface
+[stock_inventory_barcode](stock_inventory_barcode/) | 8.0.0.1.0 |  | Add simple barcode interface on inventories
 
 
 Unported addons
 ---------------
-addon | version | summary
---- | --- | ---
-[barcode_link](barcode_link/) | 1.0 (unported) | Barcode link Module
-[tr_barcode](tr_barcode/) | 1.1.4 (unported) | TR Barcode
-[tr_barcode_config](tr_barcode_config/) | 1.1.1 (unported) | Barcode configuration Module
-[tr_barcode_field](tr_barcode_field/) | 1.1 (unported) | Barcode field Module
-[tr_barcode_on_picking](tr_barcode_on_picking/) | 1.1 (unported) | Barcode for pickings
-[tr_barcode_on_prodlots](tr_barcode_on_prodlots/) | 1.1 (unported) | Barcode for production lots
-[tr_barcode_on_product](tr_barcode_on_product/) | 1.1 (unported) | Barcode for product
-[tr_barcode_on_tracking](tr_barcode_on_tracking/) | 1.1 (unported) | Barcode for tracking
+addon | version | maintainers | summary
+--- | --- | --- | ---
+[barcode_link](barcode_link/) | 1.0 (unported) |  | Barcode link Module
+[tr_barcode](tr_barcode/) | 1.1.4 (unported) |  | TR Barcode
+[tr_barcode_config](tr_barcode_config/) | 1.1.1 (unported) |  | Barcode configuration Module
+[tr_barcode_field](tr_barcode_field/) | 1.1 (unported) |  | Barcode field Module
+[tr_barcode_on_picking](tr_barcode_on_picking/) | 1.1 (unported) |  | Barcode for pickings
+[tr_barcode_on_prodlots](tr_barcode_on_prodlots/) | 1.1 (unported) |  | Barcode for production lots
+[tr_barcode_on_product](tr_barcode_on_product/) | 1.1 (unported) |  | Barcode for product
+[tr_barcode_on_tracking](tr_barcode_on_tracking/) | 1.1 (unported) |  | Barcode for tracking
 
 [//]: # (end addons)
 
