@@ -14,13 +14,13 @@ Generate Barcodes (Abstract)
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-barcode/tree/13.0/barcodes_generator_abstract
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/14.0/barcodes_generator_abstract
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-13-0/stock-logistics-barcode-13-0-barcodes_generator_abstract
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-14-0/stock-logistics-barcode-14-0-barcodes_generator_abstract
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
-    :target: https://runbot.odoo-community.org/runbot/150/13.0
+    :target: https://runbot.odoo-community.org/runbot/150/14.0
     :alt: Try me on Runbot
 
 |badge1| |badge2| |badge3| |badge4| |badge5| 
@@ -28,22 +28,22 @@ Generate Barcodes (Abstract)
 This module extends Odoo functionality, allowing user to generate barcode
 depending on a given barcode rule for any Model.
 
-For example, a typical pattern for products is  "20.....{NNNDD}" that means
-that:
-* the EAN13 code will begin by '20'
-* followed by 5 digits (named Barcode Base in this module)
-* and after 5 others digits to define the variable price
-* a 13 digit control
+For example, if the barcode pattern is "20.....{NNNDD}":
+
+* the EAN13 code will begin with '20',
+* followed by 5 digits (named *Barcode Base* in this module),
+* followed by 5 others digits to define the variable price with 2 decimals,
+* the last digit (the 13rd digit) is the control digit (i.e. the checksum).
 
 With this module, it is possible to:
 
 * Affect a pattern (barcode.rule) to a model
 
 * Define a Barcode base:
-    * manually, if the base of the barcode must be set by a user. (typically an
-      internal code defined in your company)
-    * automaticaly by a sequence, if you want to let Odoo to increment a
-      sequence. (typical case of a customer number incrementation)
+    * manually, if the base of the barcode must be set by a user (typically an
+      internal code defined in your company).
+    * automatically by a sequence, if you want to let Odoo increment a
+      sequence (typical case of a customer number incrementation).
 
 * Generate a barcode, based on the defined pattern and the barcode base
 
@@ -99,6 +99,28 @@ model.
 Alternatively, you can develop a custom module for a custom model. See
 'Inheritance' parts.
 
+If you want to generate barcode for another model, you can create a custom
+module that depend on 'barcodes_generator_abstract' and inherit your model
+like that:
+
+.. code::
+
+  class MyModel(models.Model):
+      _name = 'my.model'
+      _inherit = ['my.model', 'barcode.generate.mixin']
+
+  class barcode_rule(models.Model):
+      _inherit = 'barcode.rule'
+
+      generate_model = fields.Selection(selection_add=[('my.model', 'My Model')])
+
+Eventually, you should inherit your model view adding buttons and fields.
+
+Note
+~~~~
+
+Your model should have a field 'barcode' defined.
+
 Development
 ===========
 
@@ -136,7 +158,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us smashing it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20barcodes_generator_abstract%0Aversion:%2013.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20barcodes_generator_abstract%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -181,6 +203,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/13.0/barcodes_generator_abstract>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/14.0/barcodes_generator_abstract>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
