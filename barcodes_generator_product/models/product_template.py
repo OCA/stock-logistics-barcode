@@ -5,8 +5,6 @@
 
 from odoo import api, fields, models
 
-from odoo.addons.barcodes_generator_abstract.models.barcode_rule import _GENERATE_TYPE
-
 
 class ProductTemplate(models.Model):
     _inherit = "product.template"
@@ -27,7 +25,6 @@ class ProductTemplate(models.Model):
 
     generate_type = fields.Selection(
         string="Generate Type",
-        selection=_GENERATE_TYPE,
         readonly=True,
         related="product_variant_ids.barcode_rule_id.generate_type",
     )
