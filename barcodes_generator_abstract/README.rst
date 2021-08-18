@@ -139,8 +139,8 @@ class barcode_rule(models.Model):
 
 Finally, you should inherit your model view adding buttons and fields.
 
-Notes
-~~~~~
+Note
+~~~~
 
 Your model should have a field 'barcode' defined.
 
