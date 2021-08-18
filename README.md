@@ -20,6 +20,7 @@ Available addons
 addon | version | maintainers | summary
 --- | --- | --- | ---
 [barcodes_generator_abstract](barcodes_generator_abstract/) | 14.0.1.0.0 |  | Generate Barcodes for Any Models
+[barcodes_generator_product](barcodes_generator_product/) | 14.0.1.0.0 |  | Generate Barcodes for Products (Templates and Variants)
 [base_gs1_barcode](base_gs1_barcode/) | 14.0.1.0.1 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 
 [//]: # (end addons)
