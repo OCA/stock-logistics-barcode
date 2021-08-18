@@ -17,7 +17,7 @@ Generate Barcodes for Products
     :target: https://github.com/OCA/stock-logistics-barcode/tree/14.0/barcodes_generator_product
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-14.0/stock-logistics-barcode-14.0-barcodes_generator_product
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-14-0/stock-logistics-barcode-14-0-barcodes_generator_product
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runbot-Try%20me-875A7B.png
     :target: https://runbot.odoo-community.org/runbot/150/14.0
