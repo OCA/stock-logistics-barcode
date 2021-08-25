@@ -1,4 +1,4 @@
-# Copyright 2015-2020 Akretion (http://www.akretion.com)
+# Copyright 2015-2021 Akretion (http://www.akretion.com)
 # @author Alexis de Lattre <alexis.delattre@akretion.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
@@ -15,28 +15,32 @@ class StockInventoryBarcode(models.TransientModel):
 
     inventory_id = fields.Many2one(
         'stock.inventory', string='Inventory', required=True)
-    inventory_location_id = fields.Many2one(
-        'stock.location', required=True, string='Root Inventory Location')
+    company_id = fields.Many2one(
+        'res.company', string='Company', required=True)
     product_code = fields.Char(
         string='Barcode or Internal Reference',
         help="This field is designed to be filled with a barcode reader")
     product_id = fields.Many2one(
         'product.product', string='Product', required=True,
-        domain=[('type', '=', 'product')])
+        domain=lambda self: self.env['stock.inventory.line']._domain_product_id())
     uom_id = fields.Many2one(
         'uom.uom', string='Unit of measure', required=True)
     uom_name = fields.Char(related='uom_id.name')
     location_id = fields.Many2one(
-        'stock.location', string='Location', required=True)
+        'stock.location', string='Location', required=True,
+        domain=lambda self: self.env['stock.inventory.line']._domain_location_id())
     multi_stock_location = fields.Boolean(readonly=True)
     lot_id = fields.Many2one(
-        'stock.production.lot', string='Lot')
+        'stock.production.lot', string='Lot',
+        domain="[('product_id', '=', product_id), ('company_id', '=', company_id)]")
     product_tracking = fields.Selection([
         ('serial', 'By Unique Serial Number'),
         ('lot', 'By Lots'),
         ('none', 'No Tracking'),
         ], string="Tracking", required=True)
     note = fields.Text()
+    inventory_line_id = fields.Many2one(
+        'stock.inventory.line', string='Stock Inventory Line')
     theoretical_qty = fields.Float(
         related='inventory_line_id.theoretical_qty', readonly=True)
     product_qty = fields.Float(
@@ -44,16 +48,14 @@ class StockInventoryBarcode(models.TransientModel):
         related='inventory_line_id.product_qty', readonly=True)
     change_qty = fields.Float(
         string='Change Real Quantity',
-        digits=dp.get_precision('Product Unit of Measure'))
+        digits='Product Unit of Measure')
     add_qty = fields.Float(
         string='Add to Real Quantity',
-        digits=dp.get_precision('Product Unit of Measure'))
-    inventory_line_id = fields.Many2one(
-        'stock.inventory.line', string='Stock Inventory Line')
+        digits='Product Unit of Measure')
 
     @api.model
     def default_get(self, fields_list):
-        res = super(StockInventoryBarcode, self).default_get(fields_list)
+        res = super().default_get(fields_list)
         assert self._context.get('active_model') == 'stock.inventory'
         inv = self.env['stock.inventory'].browse(self._context.get('active_id'))
         if inv.state != 'confirm':
@@ -61,13 +63,22 @@ class StockInventoryBarcode(models.TransientModel):
                 "You cannot start the barcode interface on inventory '%s' "
                 "which is not 'In Progress'.") % inv.display_name)
         res['inventory_id'] = inv.id
-        root_loc = inv.location_id
-        res['inventory_location_id'] = root_loc.id
-        if root_loc.child_ids:
-            res['multi_stock_location'] = True
+        res['company_id'] = inv.company_id.id
+        if inv.location_ids:
+            loc_domain = [('id', 'child_of', inv.location_ids.ids)]
         else:
+            loc_domain = [
+                ('company_id', '=', inv.company_id.id),
+                ('usage', 'in', ('internal', 'transit')),
+                ]
+        inv_locations = self.env['stock.location'].search(loc_domain)
+        if len(inv_locations) > 1:
+            res['multi_stock_location'] = True
+        elif len(inv_locations) == 1:
             res['multi_stock_location'] = False
-            res['location_id'] = root_loc.id
+            res['location_id'] = inv_locations.id
+        else:
+            raise UserError(_("No internal/transit stock locations."))
         return res
 
     @api.onchange('product_code')
