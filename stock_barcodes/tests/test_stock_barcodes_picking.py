@@ -136,22 +136,22 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         for i in range(0, 8):
             view = etree.fromstring(self.wiz_scan_picking.pending_moves)
             node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
-                              % self.product_tracking.name)
+                              % self.product_tracking.display_name)
             self.assertTrue(node)
             quantity_done = node[0].xpath('td[last()]/span')
             self.assertEqual(i, float(quantity_done[0].text))
             node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
-                              % self.product_wo_tracking.name)
+                              % self.product_wo_tracking.display_name)
             self.assertTrue(node)
             quantity_done = node[0].xpath('td[last()]/span')
             self.assertEqual(0, float(quantity_done[0].text))
             self.action_barcode_scanned(self.wiz_scan_picking, '8411822222568')
         view = etree.fromstring(self.wiz_scan_picking.pending_moves)
         node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
-                          % self.product_tracking.name)
+                          % self.product_tracking.display_name)
         self.assertFalse(node)
         node = view.xpath("//table/tr/td/span[text() = '%s']/../.."
-                          % self.product_wo_tracking.name)
+                          % self.product_wo_tracking.display_name)
         self.assertTrue(node)
         quantity_done = node[0].xpath('td[last()]/span')
         self.assertEqual(0, float(quantity_done[0].text))
