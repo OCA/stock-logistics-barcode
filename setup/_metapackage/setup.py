@@ -11,6 +11,7 @@ setuptools.setup(
         'odoo14-addon-barcodes_generator_abstract',
         'odoo14-addon-barcodes_generator_product',
         'odoo14-addon-base_gs1_barcode',
+        'odoo14-addon-product_multi_barcode',
     ],
     classifiers=[
         'Programming Language :: Python',
