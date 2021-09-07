@@ -124,6 +124,12 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         """
         quants = self.env["stock.quant"]._gather(
             self.product_id, self.location_id)
+        # If the product changed from untracked to tracked we need to avoid to
+        # distribute quantities to possible quants with no lot, as those should
+        # be corrected with the inventory. For example with remanent negative
+        # quants.
+        if self.product_id.tracking != 'none':
+            quants = quants.filtered("lot_id")
         if not quants:
             self._set_messagge_info(
                 'not_found', _('There is no lots to assign quantities'))
@@ -131,20 +137,26 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         qty_to_assign = self.product_qty
         for quant in quants:
             qty = (qty_to_assign if qty_to_assign <= quant.quantity else
-                   quant.quantity)
-            self.lot_id = quant.lot_id
+                   max(quant.quantity, 0))
+            self.with_context(keep_auto_lot=True).lot_id = quant.lot_id
             self.product_qty = qty if qty > 0.0 else 0.0
             self._add_inventory_line()
             qty_to_assign -= qty
         if qty_to_assign:
-            self.lot_id = quants[-1:].lot_id
+            self.with_context(keep_auto_lot=True).lot_id = quants[-1:].lot_id
             self.product_qty = qty_to_assign
             self._add_inventory_line()
 
     @api.onchange("product_id")
     def _onchange_product_id(self):
+        self.lot_id = False
         self.auto_lot = self._default_auto_lot()
 
     @api.onchange("lot_id")
     def _onchange_lot_id(self):
-        self.auto_lot = False
+        if self.lot_id and not self.env.context.get("keep_auto_lot"):
+            self.auto_lot = False
+
+    @api.onchange("manual_entry")
+    def _onchange_manual_entry(self):
+        self.auto_lot = self._default_auto_lot()
