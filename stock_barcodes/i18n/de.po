@@ -655,7 +655,7 @@ msgid "There are no stock moves to assign this operation"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:129
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:135
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr ""
