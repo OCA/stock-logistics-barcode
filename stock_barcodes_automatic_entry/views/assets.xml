@@ -1,0 +1,19 @@
+<?xml version="1.0" ?>
+<odoo>
+    <template
+        id="assets_backend"
+        name="stock_barcodes Assets"
+        inherit_id="web.assets_backend"
+    >
+        <xpath expr="." position="inside">
+            <script
+                type="application/javascript"
+                src="/stock_barcodes_automatic_entry/static/src/js/stock_barcodes.js"
+            />
+            <link
+                rel="stylesheet"
+                href="/stock_barcodes_automatic_entry/static/src/css/button_style.css"
+            />
+        </xpath>
+    </template>
+</odoo>
