@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -39,6 +39,11 @@ msgid "2 - Scan or input product lot barcode"
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
+msgid "<i class=\"fa fa-barcode fa-2x\" title=\"Barcode Scan\"/>"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_inventory_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
@@ -69,6 +74,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__name
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_inventory___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
@@ -231,8 +237,13 @@ msgid "Demand:"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_inventory__display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking__display_name
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__display_name
@@ -270,8 +281,13 @@ msgid "Get lots automatically for inventories"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__id
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__id
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_inventory__id
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking__id
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__id
@@ -317,8 +333,13 @@ msgid "Inventory quantities"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company____last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line____last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_inventory____last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking____last_update
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read____last_update
@@ -639,6 +660,7 @@ msgid "Validate"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_inventory___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_new_lot___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
@@ -712,4 +734,19 @@ msgstr ""
 msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or"
 " confirmed"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "lock picking"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "unlock picking"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "validate picking"
 msgstr ""
