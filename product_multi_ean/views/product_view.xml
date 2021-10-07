@@ -20,6 +20,25 @@
         </field>
     </record>
 
+    <record id="product_template_only_form_view_multi_ean13" model="ir.ui.view">
+        <field name="name">product_template_only_form_view_multi_ean13</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="barcode" position="after">
+                <field name="ean13_ids" context="{'template_active_id': active_id}">
+                    <tree string="EAN13" editable="bottom">
+                        <field name="sequence" widget="handle"/>
+                        <field name="name"/>
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+
     <record id="product_search_form_view_multi_ean13" model="ir.ui.view">
         <field name="name">product.product.search.multi.ean13</field>
         <field name="model">product.product</field>

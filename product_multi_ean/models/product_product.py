@@ -58,7 +58,7 @@ class ProductProduct(models.Model):
     )
 
     @api.multi
-    @api.depends('ean13_ids')
+    @api.depends('ean13_ids.name')
     def _compute_barcode(self):
         for product in self:
             product.barcode = product.ean13_ids[:1].name
