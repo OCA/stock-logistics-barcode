@@ -1,2 +1,3 @@
 odoo-test-helper
 python-barcode
+barcodenumber

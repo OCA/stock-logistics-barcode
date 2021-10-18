@@ -1,0 +1,47 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_gtin
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-07-06 14:56+0000\n"
+"PO-Revision-Date: 2021-07-06 14:56+0000\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: product_gtin
+#: model:ir.model,name:product_gtin.model_barcode_gtin_check_mixin
+msgid "Barcode Gtin check mixin"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_barcode_gtin_check_mixin__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: product_gtin
+#: code:addons/product_gtin/models/barcode_gtin_check_mixin.py:0
+#, python-format
+msgid "EAN/GTIN format is not a valid format"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_barcode_gtin_check_mixin__id
+msgid "ID"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_barcode_gtin_check_mixin____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model,name:product_gtin.model_product_product
+msgid "Product"
+msgstr ""
