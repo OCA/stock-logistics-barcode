@@ -9,4 +9,22 @@
         name="stock_picking_product_barcode_report.label_barcode_report"
         paperformat="stock_picking_product_barcode_report.paperformat_label"
     />
+    <report
+        id="action_label_barcode_report_quant_package"
+        string="Label Quant Package"
+        model="stock.picking.line.print"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report.label_barcode_report_quant_package"
+        name="stock_picking_product_barcode_report.label_barcode_report_quant_package"
+        paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
+    />
+    <report
+        id="report_label_barcode_quant"
+        string="Label Quant Report"
+        model="stock.quant"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report.label_barcode_report_quant_package"
+        name="stock_picking_product_barcode_report.label_barcode_report_quant_package"
+        paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
+    />
 </odoo>
