@@ -3,211 +3,444 @@
         <field name="name">stock.barcodes.read.form</field>
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="arch" type="xml">
-            <form string="Barcodes">
-                <sheet>
-                    <div class="text-center">
-                        <div
-                            class="alert alert-success"
-                            role="status"
-                            attrs="{'invisible': [('message_type', '!=', 'success')]}"
-                        >
-                            <field name="message" />
-                        </div>
-                        <div
-                            class="alert alert-info"
-                            role="status"
-                            attrs="{'invisible': [('message_type', '!=', 'info')]}"
-                        >
-                            <field name="message" />
-                        </div>
-                        <div
-                            class="alert alert-danger"
-                            role="status"
-                            attrs="{'invisible': [('message_type', '!=', 'more_match')]}"
-                        >
-                            <field name="message" />
-                        </div>
-                        <div
-                            class="alert alert-danger"
-                            role="status"
-                            attrs="{'invisible': [('message_type', '!=', 'not_found')]}"
-                        >
-                            <field name="message" />
-                            <button
-                                class="oe_link"
-                                name="%(action_stock_barcodes_new_lot)d"
-                                type="action"
-                                context="{'default_lot_name': barcode}"
-                            >
-                                <span>New lot</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div>
-                        <label for="manual_entry">
-                            Manual entry data
-                        </label>
-                        <field name="manual_entry" widget="barcode_boolean_toggle" />
-                    </div>
-                    <field name="message_type" invisible="1" />
-                    <field name="barcode" invisible="1" force_save="1" />
-                    <field name="product_tracking" invisible="1" force_save="1" />
-                    <field name="res_model_id" invisible="1" />
-                    <field name="res_id" invisible="1" />
-                    <field
-                        name="_barcode_scanned"
-                        widget="barcode_handler"
-                        invisible="0"
-                    />
-                    <group>
-                        <field
-                            name="location_id"
-                            options="{'no_create': True}"
-                            attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
-                            force_save="1"
-                        />
-                    </group>
-                    <group
-                        groups="stock.group_production_lot"
-                        attrs="{'invisible': [('product_tracking', 'in', [False, 'none'])]}"
+            <form string="Barcodes" class="oe_stock_barcordes_form">
+                <div class="d-flex flex-column h-100">
+                    <div
+                        name="menu_actions"
+                        attrs="{'invisible': [('display_menu', '=', False)]}"
                     >
-                        <group>
-                            <field
-                                name="lot_id"
-                                options="{'no_create': True}"
-                                domain="[('product_id', '=', product_id)]"
-                                context="{'default_product_id': product_id}"
-                                attrs="{'readonly': [('manual_entry', '=', False)]}"
-                                force_save="1"
-                            />
-                        </group>
-                        <group>
-                            <button
-                                class="oe_link"
-                                string="Clean lot"
-                                name="action_clean_lot"
-                                type="object"
-                                icon="fa-trash"
-                                attrs="{'invisible': [('lot_id', '=', False)]}"
-                            />
-                            <button
-                                class="oe_link"
-                                string="New lot"
-                                type="action"
-                                name="%(action_stock_barcodes_new_lot)d"
-                                icon="fa-plus"
-                                context="{'default_product_id': product_id}"
-                            />
-                        </group>
-                    </group>
-                    <group>
                         <field
-                            name="product_id"
-                            options="{'no_create': True}"
-                            attrs="{'readonly': [('manual_entry', '=', False)], 'required': [('manual_entry', '=', True)]}"
-                            force_save="1"
-                        />
-                        <field
-                            name="packaging_id"
-                            options="{'no_create': True}"
-                            domain="[('product_id', '=', product_id)]"
-                            attrs="{'readonly': [('manual_entry', '=', False)]}"
-                            force_save="1"
-                            groups="product.group_stock_packaging"
-                        />
-                        <field
-                            name="packaging_qty"
-                            attrs="{'invisible': ['|', ('packaging_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
-                            force_save="1"
-                            widget="FieldFloatNumericMode"
-                        />
-                        <field
-                            name="product_qty"
-                            attrs="{'invisible': [('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
-                            force_save="1"
-                            widget="FieldFloatNumericMode"
-                        />
-                    </group>
-                    <group />
-                    <group>
-                        <button
-                            name="action_manual_entry"
-                            type="object"
-                            string="Manual entry"
-                            icon="fa-plus"
-                            attrs="{'invisible': [('manual_entry', '=', False)]}"
-                            class="btn-primary"
-                        />
-                    </group>
-                    <group />
-                    <group
-                        string="Current product scanning log"
-                        attrs="{'invisible': [('scan_log_ids', '=', [])]}"
-                    >
-                        <group>
-                            <button
-                                name="action_undo_last_scan"
-                                type="object"
-                                string="Remove last yours"
-                                icon="fa-trash"
-                            />
-                        </group>
-                        <field
-                            name="scan_log_ids"
+                            name="action_ids"
                             options="{'no_open': True}"
                             nolabel="1"
-                            mode="tree,kanban"
+                            mode="kanban"
+                            context="{'context_display_menu': display_menu}"
                         >
-                            <tree string="Current product scanning log">
-                                <field name="create_date" />
-                                <field name="create_uid" />
+                            <tree string="Actions">
                                 <field name="name" />
-                                <field name="product_id" />
-                                <field name="product_qty" />
-                                <field name="lot_id" />
                             </tree>
-                            <kanban class="o_kanban_mobile">
-                                <field name="create_date" />
-                                <field name="create_uid" />
-                                <field name="product_qty" />
+                            <kanban class="o_kanban_mobile o_kanban_barcode">
+                                <field name="name" />
+                                <field name="action_window_id" />
+                                <field name="key_shortcut" />
+                                <field name="key_char_shortcut" />
+                                <field name="icon_class" />
                                 <templates>
                                     <t t-name="kanban-box">
-                                        <div t-attf-class="oe_kanban_card">
-                                            <div class="row">
-                                                <div class="col-8">
-                                                    <strong>
-                                                        <span>
-                                                            <t
-                                                                t-esc="record.create_date.value"
-                                                            />
-                                                        </span>
-                                                        <span>
-                                                            <t
-                                                                t-esc="record.create_uid.value"
-                                                            />
-                                                        </span>
-                                                    </strong>
+                                        <div class="oe_kanban_details">
+                                            <button
+                                                name="open_action"
+                                                type="object"
+                                                class="pull-right btn"
+                                                style="width:100%"
+                                                t-att-aria-keyshortcuts="key_char_shortcut"
+                                                t-att-accesskey="context.context_display_menu &amp;&amp; record.key_char_shortcut.raw_value || ''"
+                                            >
+                                                <div class="row">
+                                                    <div class="col-1">
+                                                        <i
+                                                            t-attf-class="text-right #{record.icon_class.raw_value}"
+                                                        />
+                                                    </div>
+                                                    <div class="col">
+                                                        <strong>
+                                                            <span>
+                                                                <field name="name" />
+                                                            </span>
+                                                        </strong>
+                                                    </div>
                                                 </div>
-                                                <div class="col-4">
-                                                    <strong>
-                                                        <span
-                                                            class="pull-right text-right"
-                                                        >
-                                                            <t
-                                                                t-esc="record.product_qty.value"
-                                                            />
-                                                        </span>
-                                                    </strong>
-                                                </div>
-                                            </div>
+                                            </button>
                                         </div>
                                     </t>
                                 </templates>
                             </kanban>
                         </field>
-                    </group>
-                </sheet>
+                    </div>
+                    <div
+                        attrs="{'invisible': [('display_menu', '=', True)]}"
+                        class="flex-fill oe_stock_barcordes_content"
+                    >
+                        <div name="info" class="text-center h3">
+                            <div
+                                class="alert alert-success"
+                                role="status"
+                                attrs="{'invisible': [('message_type', '!=', 'success')]}"
+                            >
+                                <field name="message" />
+                            </div>
+                            <div
+                                class="alert alert-info"
+                                role="status"
+                                attrs="{'invisible': [('message_type', '!=', 'info')]}"
+                            >
+                                <field name="message" />
+                            </div>
+                            <div
+                                class="alert alert-danger"
+                                role="status"
+                                attrs="{'invisible': [('message_type', '!=', 'more_match'), ('message_type', '!=', 'not_found')]}"
+                            >
+                                <field name="message" />
+                                <button
+                                    name="action_clean_message"
+                                    class="fa fa-window-close pull-right"
+                                    type="object"
+                                />
+                            </div>
+                        </div>
+                        <field name="message_type" invisible="1" />
+                        <field name="barcode" invisible="1" force_save="1" />
+                        <field name="step" invisible="1" force_save="1" />
+                        <field name="is_manual_qty" invisible="1" />
+                        <field name="is_manual_confirm" invisible="1" />
+                        <field name="show_scan_log" invisible="1" />
+                        <field name="auto_lot" invisible="1" />
+                        <field name="product_tracking" invisible="1" force_save="1" />
+                        <field name="guided_product_id" invisible="1" force_save="1" />
+                        <field name="guided_location_id" invisible="1" force_save="1" />
+                        <field
+                            name="guided_location_dest_id"
+                            invisible="1"
+                            force_save="1"
+                        />
+                        <field name="guided_lot_id" invisible="1" force_save="1" />
+                        <field name="visible_force_done" invisible="1" force_save="1" />
+                        <field name="res_model_id" invisible="1" />
+                        <field name="res_id" invisible="1" />
+                        <field name="option_group_id" invisible="1" force_save="1" />
+                        <field name="confirmed_moves" invisible="1" force_save="1" />
+                        <field name="qty_available" invisible="1" />
+                        <field name="owner_id" invisible="1" force_save="1" />
+                        <field
+                            name="_barcode_scanned"
+                            widget="barcode_handler"
+                            invisible="1"
+                        />
+                        <group name="scan_fields" class="bg-light">
+                            <group name="location">
+                                <div class="mt4">
+                                    <strong
+                                        class=" d-none d-sm-block"
+                                    >Source Location</strong>
+                                    <span
+                                        class="fa fa-map-marker d-sm-none oe_span_small_icon"
+                                    />
+                                    <field
+                                        name="location_id"
+                                        options="{'no_create': True}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:85%"
+                                        class="h5"
+                                    />
+                                </div>
+                            </group>
+                            <group
+                                name="quant_package"
+                                groups="stock.group_tracking_lot"
+                            >
+                                <div class="mt4">
+                                    <strong
+                                        class="d-none d-sm-block"
+                                    >Source Package -> Result Package</strong>
+                                    <span
+                                        class="fa fa-cubes d-sm-none oe_span_small_icon"
+                                    />
+                                    <field
+                                        name="package_id"
+                                        options="{'no_create': True}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:35%"
+                                        class="h5"
+                                    />
+                                    <span
+                                        attrs="{'invisible': [('result_package_id', '=', False)]}"
+                                    >-></span>
+                                    <field
+                                        name="result_package_id"
+                                        options="{'no_create': True}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:35%"
+                                        class="h5"
+                                    />
+                                    <button
+                                        class="btn btn-warning btn-sm oe_kanban_action_button pull-right mr4"
+                                        name="action_clean_package"
+                                        type="object"
+                                        icon="fa-trash fa-1x"
+                                        attrs="{'invisible': [('package_id', '=', False), ('result_package_id', '=', False)]}"
+                                        title="Clean package info"
+                                    />
+                                    <button
+                                        id="btn_create_package"
+                                        class="btn btn-secondary ml2 btn-sm oe_kanban_action_button pull-right mr4"
+                                        type="object"
+                                        name="action_create_package"
+                                        icon="fa-plus fa-1x"
+                                        title="Create new package"
+                                    />
+                                </div>
+                            </group>
+                            <group>
+                                <div class="mt4">
+                                    <strong class="d-none d-sm-block">Product</strong>
+                                    <span
+                                        class="fa fa-th-list d-sm-none oe_span_small_icon"
+                                    />
+                                    <field
+                                        name="product_id"
+                                        options="{'no_create': True}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:85%"
+                                        class="h5"
+                                    />
+                                    <button
+                                        class="btn btn-warning btn-sm pull-right mr4 oe_kanban_action_button"
+                                        name="action_clean_product"
+                                        type="object"
+                                        icon="fa-trash fa-1x"
+                                        attrs="{'invisible': [('product_id', '=', False)]}"
+                                    />
+                                </div>
+                            </group>
+                            <group
+                                groups="stock.group_production_lot"
+                                attrs="{'invisible': [('product_tracking', 'in', [False, 'none'])]}"
+                            >
+                                <div>
+                                    <strong class="d-none d-sm-block">Lot S/N</strong>
+                                    <span
+                                        class="fa fa-tags d-sm-none oe_span_small_icon"
+                                    />
+                                    <field
+                                        name="lot_id"
+                                        options="{'no_create': True}"
+                                        domain="[('product_id', '=', product_id)]"
+                                        context="{'default_product_id': product_id}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:60%"
+                                        class="h5"
+                                    />
+                                    <button
+                                        class="btn btn-warning btn-sm pull-right mr4 oe_kanban_action_button"
+                                        name="action_clean_lot"
+                                        type="object"
+                                        icon="fa-trash fa-1x"
+                                        attrs="{'invisible': [('lot_id', '=', False)]}"
+                                    />
+                                    <button
+                                        id="btn_create_lot"
+                                        class="btn btn-secondary ml2 btn-sm oe_kanban_action_button pull-right mr4"
+                                        type="action"
+                                        name="%(action_stock_barcodes_new_lot)d"
+                                        icon="fa-plus fa-1x"
+                                        context="{'default_product_id': product_id}"
+                                        help="Create new lot"
+                                    />
+                                </div>
+                            </group>
+                            <group
+                                name="option_qty"
+                                attrs="{'invisible': ['|', ('product_id', '=', False),'&amp;', ('is_manual_qty', '=', False), ('manual_entry', '=', False)]}"
+                                col="1"
+                            >
+                                <div class="row mt8" name="option_qty_header">
+                                    <div
+                                        class="col text-center pr-0"
+                                        name="total_qty_header"
+                                    >
+                                        <div>
+                                            <span>Total qty</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" name="option_qty_fields">
+                                    <div class="col text-center" name="total_qty_field">
+                                        <field
+                                            name="product_qty"
+                                            force_save="1"
+                                            widget="numeric_step"
+                                            options="{'auto_select': True}"
+                                        />
+                                    </div>
+                                </div>
+                            </group>
+                        </group>
+                        <group
+                            name="scan_log"
+                            string="Current product scanning log"
+                            attrs="{'invisible': [('show_scan_log', '=', False)]}"
+                        >
+                                <group>
+                                    <button
+                                    name="action_undo_last_scan"
+                                    type="object"
+                                    string="Remove last yours"
+                                    icon="fa-trash"
+                                />
+                                </group>
+                                <field
+                                name="scan_log_ids"
+                                options="{'no_open': True}"
+                                nolabel="1"
+                                mode="tree,kanban"
+                            >
+                                    <tree string="Current product scanning log">
+                                        <field name="create_date" />
+                                        <field name="create_uid" />
+                                        <field name="name" />
+                                        <field name="location_id" />
+                                        <field name="product_id" />
+                                        <field name="product_qty" />
+                                        <field name="lot_id" />
+                                    </tree>
+                                    <kanban class="o_kanban_mobile">
+                                        <field name="create_date" />
+                                        <field name="create_uid" />
+                                        <field name="product_qty" />
+                                        <templates>
+                                            <t t-name="kanban-box">
+                                                <div t-attf-class="oe_kanban_card">
+                                                    <div class="row">
+                                                        <div class="col">
+                                                            <strong>
+                                                                <span>
+                                                                    <t
+                                                                    t-esc="record.create_date.value"
+                                                                />
+                                                                </span>
+                                                                <span>
+                                                                    <t
+                                                                    t-esc="record.create_uid.value"
+                                                                />
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                        <div class="col">
+                                                            <strong>
+                                                                <span
+                                                                class="pull-right text-right"
+                                                            >
+                                                                    <t
+                                                                    t-esc="record.product_qty.value"
+                                                                />
+                                                                </span>
+                                                            </strong>
+                                                        </div>
+                                                    </div>
+                                                    <row>
+                                                        <div class="col">
+                                                            <field name="product_id" />
+                                                        </div>
+                                                    </row>
+                                                </div>
+                                            </t>
+                                        </templates>
+                                    </kanban>
+                                </field>
+                            </group>
+                    </div>
+                    <div class="oe_stock_barcodes_bottombar d-flex">
+                        <field
+                            name="manual_entry"
+                            widget="FieldBarcodeBooleanToggle"
+                            accesskey="5"
+                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                        />
+                        <field name="display_menu" invisible="1" />
+                        <label
+                            for="manual_entry"
+                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                        >
+                            Edit
+                        </label>
+                        <!-- HACK: To avoid inheritance crash -->
+                        <button name="action_manual_entry" invisible="1" />
+                        <!-- // -->
+                        <button
+                            name="action_clean_values"
+                            type="object"
+                            class="btn-warning ml-auto oe_kanban_action_button btn-sm"
+                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                            accesskey="7"
+                        >
+                            <i class="fa fa-trash-o" />
+                        </button>
+                        <button
+                            name="action_confirm"
+                            type="object"
+                            class="btn-success ml-auto oe_kanban_action_button btn-sm"
+                            attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
+                            accesskey="8"
+                        >
+                            <i class="fa fa-check" />
+                        </button>
+                        <button
+                            name="action_force_done"
+                            type="object"
+                            icon="fa-check"
+                            attrs="{'invisible': [('visible_force_done', '=', False)]}"
+                            class="btn-danger ml-auto oe_kanban_action_button btn-sm"
+                            accesskey="8"
+                        />
+                        <button
+                            name="open_actions"
+                            type="object"
+                            class="ml-auto oe_kanban_action_button btn-sm"
+                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                            accesskey="0"
+                        >
+                            <i class="fa fa-bars" />
+                        </button>
+                        <button
+                            name="action_back"
+                            type="object"
+                            string="Back"
+                            class="btn-secondary ml-auto oe_kanban_action_button btn-sm"
+                            icon="fa-backward"
+                            attrs="{'invisible': [('display_menu', '=', False)]}"
+                            accesskey="7"
+                        />
+                    </div>
+                </div>
             </form>
+        </field>
+    </record>
+    <record id="view_stock_barcodes_read_packaging_form" model="ir.ui.view">
+        <field name="name">stock.barcodes.read.packaging.form</field>
+        <field name="model">wiz.stock.barcodes.read</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
+        <field name="groups_id" eval="[(4, ref('product.group_stock_packaging'))]" />
+        <field name="arch" type="xml">
+            <div name="total_qty_header" position="before">
+                <div class="col text-center pr-0">
+                    <field name="product_packaging_ids" invisible="1" />
+                    <field
+                        name="packaging_id"
+                        options="{'no_open': True, 'no_create': True}"
+                        domain="[('product_id', '=', product_id)]"
+                        force_save="1"
+                        placeholder="Packaging"
+                        attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
+                    />
+                </div>
+            </div>
+            <div name="total_qty_field" position="before">
+                <div class="col text-center">
+                    <field
+                        name="packaging_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                        attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
+                    />
+                </div>
+            </div>
         </field>
     </record>
     <!--
@@ -221,5 +454,37 @@
         <field name="context">{}</field>
         <field name="view_id" ref="view_stock_barcodes_read_form" />
         <field name="target">current</field>
+    </record>
+    <record id="view_stock_barcodes_read_form_manual_qty" model="ir.ui.view">
+        <field name="name">stock.barcodes.read.form.manual_qty</field>
+        <field name="model">wiz.stock.barcodes.read</field>
+        <field name="priority" eval="999" />
+        <field name="arch" type="xml">
+            <form string="Barcodes manual quantities">
+                <sheet>
+                    <field name="packaging_id" invisible="1" />
+                    <field
+                        name="packaging_qty"
+                        attrs="{'invisible': [('packaging_id', '=', False)]}"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                    />
+                    <field
+                        name="product_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                    />
+                    <button
+                        name="action_reopen_wizard"
+                        type="object"
+                        class="btn-success"
+                    >
+                        <i class="fa fa-check" />
+                    </button>
+                </sheet>
+            </form>
+        </field>
     </record>
 </odoo>

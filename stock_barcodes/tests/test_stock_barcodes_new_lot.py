@@ -2,9 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.tests.common import tagged
 
-from odoo.addons.stock_barcodes.tests.test_stock_barcodes_inventory import (
-    TestStockBarcodesInventory,
-)
+from .test_stock_barcodes_inventory import TestStockBarcodesInventory
 
 
 @tagged("post_install", "-at_install")
@@ -19,9 +17,10 @@ class TestStockBarcodesNewLot(TestStockBarcodesInventory):
         self.assertEqual(self.wiz_scan_lot.product_id, self.product_tracking)
         self.action_barcode_scanned(self.wiz_scan_lot, "8433281xy6850")
         self.assertEqual(self.wiz_scan_lot.lot_name, "8433281xy6850")
-        new_lot = self.wiz_scan_lot.with_context(
+        self.wiz_scan_lot.with_context(
             active_model=self.wiz_scan_inventory._name,
             active_id=self.wiz_scan_inventory.id,
         ).confirm()
-        self.assertEqual(self.wiz_scan_lot.lot_name, new_lot.name)
-        self.assertEqual(self.wiz_scan_inventory.lot_id, new_lot)
+        self.assertEqual(
+            self.wiz_scan_lot.lot_name, self.wiz_scan_inventory.lot_id.name
+        )

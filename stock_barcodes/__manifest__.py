@@ -8,11 +8,14 @@
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "category": "Extra Tools",
-    "depends": ["barcodes", "stock"],
+    "depends": ["barcodes", "stock", "web_widget_numeric_step"],
     "data": [
         "security/ir.model.access.csv",
+        "data/stock_barcodes_action.xml",
+        "data/stock_barcodes_option.xml",
         "views/assets.xml",
-        "views/res_config_settings_views.xml",
+        "views/stock_barcodes_action_view.xml",
+        "views/stock_barcodes_option_view.xml",
         "views/stock_inventory_views.xml",
         "views/stock_location_views.xml",
         "views/stock_picking_views.xml",
@@ -20,6 +23,10 @@
         "wizard/stock_barcodes_read_views.xml",
         "wizard/stock_barcodes_read_inventory_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
+        "wizard/stock_barcodes_read_todo_view.xml",
+        # Keep order
+        "views/stock_barcodes_menu.xml",
     ],
     "installable": True,
+    "pre_init_hook": "pre_init_hook",
 }

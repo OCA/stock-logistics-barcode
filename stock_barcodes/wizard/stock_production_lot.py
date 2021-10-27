@@ -9,7 +9,7 @@ class WizStockBarcodesNewLot(models.TransientModel):
     _description = "Wizard to create new lot from barcode scanner"
 
     product_id = fields.Many2one(comodel_name="product.product", required=True)
-    lot_name = fields.Char(string="Lot name", required=True)
+    lot_name = fields.Char(string="Lot name")
 
     def on_barcode_scanned(self, barcode):
         product = self.env["product.product"].search([("barcode", "=", barcode)])[:1]
@@ -25,12 +25,36 @@ class WizStockBarcodesNewLot(models.TransientModel):
             "company_id": self.env.company.id,
         }
 
-    def confirm(self):
-        lot = self.env["stock.production.lot"].create(self._prepare_lot_values())
-        # Assign lot created to wizard scanning barcode lot_id field
-        wiz = self.env[self.env.context["active_model"]].browse(
+    def get_scan_wizard(self):
+        return self.env[self.env.context["active_model"]].browse(
             self.env.context["active_id"]
         )
+
+    def scan_wizard_action(self):
+        if self.env.context.get("active_model") == "wiz.stock.barcodes.read.inventory":
+            action = self.env.ref(
+                "stock_barcodes.action_stock_barcodes_read_inventory"
+            ).read()[0]
+        else:
+            action = self.env.ref(
+                "stock_barcodes.action_stock_barcodes_read_picking"
+            ).read()[0]
+        wiz_id = self.get_scan_wizard()
+        action["res_id"] = wiz_id.id
+        return action
+
+    def confirm(self):
+        ProductionLot = self.env["stock.production.lot"]
+        lot = ProductionLot.search(
+            [("product_id", "=", self.product_id.id), ("name", "=", self.lot_name)]
+        )
+        if not lot:
+            lot = self.env["stock.production.lot"].create(self._prepare_lot_values())
+        # Assign lot created or found to wizard scanning barcode lot_id field
+        wiz = self.get_scan_wizard()
         if wiz:
             wiz.lot_id = lot
-        return lot
+        return self.scan_wizard_action()
+
+    def cancel(self):
+        return self.scan_wizard_action()

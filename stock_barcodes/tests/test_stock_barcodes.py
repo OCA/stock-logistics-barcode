@@ -21,12 +21,15 @@ class TestStockBarcodes(TransactionCase):
         self.StockInventory = self.env["stock.inventory"]
         self.Product = self.env["product.product"]
         self.ProductPackaging = self.env["product.packaging"]
-        self.WizScanRead = self.env["wiz.stock.barcodes.read"]
+        self.WizScanReadPicking = self.env["wiz.stock.barcodes.read.picking"]
         self.StockProductionLot = self.env["stock.production.lot"]
         self.StockPicking = self.env["stock.picking"]
         self.StockQuant = self.env["stock.quant"]
 
         self.company = self.env.company
+
+        # Option groups for test
+        self.option_group = self._create_barcode_option_group()
 
         # warehouse and locations
         self.warehouse = self.env.ref("stock.warehouse0")
@@ -98,7 +101,63 @@ class TestStockBarcodes(TransactionCase):
                 "quantity": 100.0,
             }
         )
-        self.wiz_scan = self.WizScanRead.new()
+        self.wiz_scan = self.WizScanReadPicking.create(
+            {"option_group_id": self.option_group.id, "step": 1}
+        )
+
+    def _create_barcode_option_group(self):
+        return self.env["stock.barcodes.option.group"].create(
+            {
+                "name": "option group for tests",
+                "show_scan_log": True,
+                "option_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 1,
+                            "name": "Location",
+                            "field_name": "location_id",
+                            "to_scan": True,
+                            "required": True,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Product",
+                            "field_name": "product_id",
+                            "to_scan": True,
+                            "required": True,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Packaging",
+                            "field_name": "packaging_id",
+                            "to_scan": True,
+                            "required": False,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Lot / Serial",
+                            "field_name": "lot_id",
+                            "to_scan": True,
+                            "required": True,
+                        },
+                    ),
+                ],
+            }
+        )
 
     def action_barcode_scanned(self, wizard, barcode):
         wizard._barcode_scanned = barcode
@@ -109,23 +168,24 @@ class TestStockBarcodes(TransactionCase):
         self.assertEqual(self.wiz_scan.location_id, self.location_1)
 
     def test_wizard_scan_product(self):
+        self.wiz_scan.location_id = self.location_1
+        self.wiz_scan.action_show_step()
         self.action_barcode_scanned(self.wiz_scan, "8480000723208")
         self.assertEqual(self.wiz_scan.product_id, self.product_wo_tracking)
         self.assertEqual(self.wiz_scan.product_qty, 1.0)
-        self.assertEqual(self.wiz_scan.scan_log_ids[:1].product_qty, 1.0)
-        self.assertFalse(self.wiz_scan.scan_log_ids[:1].manual_entry)
 
     def test_wizard_scan_product_manual_entry(self):
         # Test manual entry
         self.wiz_scan.manual_entry = True
+        self.wiz_scan.location_id = self.location_1
+        self.wiz_scan.action_show_step()
         self.action_barcode_scanned(self.wiz_scan, "8480000723208")
         self.assertEqual(self.wiz_scan.product_qty, 0.0)
         self.wiz_scan.product_qty = 50.0
-        self.wiz_scan.action_done()
-        self.assertEqual(self.wiz_scan.scan_log_ids[:1].product_qty, 50.0)
-        self.assertTrue(self.wiz_scan.scan_log_ids[:1].manual_entry)
 
     def test_wizard_scan_package(self):
+        self.wiz_scan.location_id = self.location_1
+        self.wiz_scan.action_show_step()
         self.action_barcode_scanned(self.wiz_scan, "5420008510489")
         self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
         self.assertEqual(self.wiz_scan.product_qty, 5.0)
@@ -133,7 +193,7 @@ class TestStockBarcodes(TransactionCase):
             self.wiz_scan.packaging_id, self.product_tracking.packaging_ids
         )
 
-        # Manual entry data
+        # Manual entry
         self.wiz_scan.manual_entry = True
         self.action_barcode_scanned(self.wiz_scan, "5420008510489")
         self.assertEqual(self.wiz_scan.packaging_qty, 0.0)
@@ -147,10 +207,12 @@ class TestStockBarcodes(TransactionCase):
         self.action_barcode_scanned(self.wiz_scan, "5420008510489")
         self.assertEqual(
             self.wiz_scan.message,
-            "Barcode: 5420008510489 (More than one package found)",
+            "5420008510489 (More than one package found)",
         )
 
     def test_wizard_scan_lot(self):
+        self.wiz_scan.location_id = self.location_1.id
+        self.wiz_scan.action_show_step()
         self.action_barcode_scanned(self.wiz_scan, "8411822222568")
         # Lot found for one product, so product_id is filled
         self.assertTrue(self.wiz_scan.product_id)
@@ -164,25 +226,17 @@ class TestStockBarcodes(TransactionCase):
     def test_wizard_scan_not_found(self):
         self.action_barcode_scanned(self.wiz_scan, "84118xxx22568")
         self.assertEqual(
-            self.wiz_scan.message, "Barcode: 84118xxx22568 (Barcode not found)"
+            self.wiz_scan.message,
+            "84118xxx22568 (Barcode not found with this screen values)",
         )
 
     def test_wizard_remove_last_scan(self):
         self.assertTrue(self.wiz_scan.action_undo_last_scan())
 
-    def test_wizard_onchange_location(self):
-        self.action_barcode_scanned(self.wiz_scan, "8480000723208")
-        self.assertEqual(self.wiz_scan.product_id, self.product_wo_tracking)
-        self.wiz_scan.location_id = self.location_2
-        self.wiz_scan.onchange_location_id()
-        self.assertFalse(self.wiz_scan.product_id)
-        self.assertFalse(self.wiz_scan.packaging_id)
-
     def test_wiz_clean_lot(self):
+        self.wiz_scan.location_id = self.location_1.id
+        self.wiz_scan.action_show_step()
         self.action_barcode_scanned(self.wiz_scan, "8433281006850")
         self.action_barcode_scanned(self.wiz_scan, "8411822222568")
         self.wiz_scan.action_clean_lot()
         self.assertFalse(self.wiz_scan.lot_id)
-
-    def test_wiz_manual_entry(self):
-        self.assertTrue(self.wiz_scan.action_manual_entry)
