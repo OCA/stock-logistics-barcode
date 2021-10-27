@@ -20,4 +20,22 @@
             </div>
         </field>
     </record>
+    <record id="view_stock_inventory_kanban" model="ir.ui.view">
+        <field name="model">stock.inventory</field>
+        <field name="inherit_id" ref="stock.view_stock_inventory_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//t[@t-name='kanban-box']/div" position="inside">
+                <button
+                    name="action_barcode_scan"
+                    class="btn btn-secondary"
+                    icon="fa-barcode"
+                    type="object"
+                    help="Start barcode interface"
+                    states="confirm"
+                >
+                    <i class="fa fa-barcode fa-2x" />
+                </button>
+            </xpath>
+        </field>
+    </record>
 </odoo>

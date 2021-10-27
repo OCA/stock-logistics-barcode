@@ -11,14 +11,28 @@ class StockInventory(models.Model):
         self.start_empty = True
         self._action_start()
         self._check_company()
-        action = self.env["ir.actions.act_window"]._for_xml_id(
-            "stock_barcodes.action_stock_barcodes_read_inventory"
+        option_group = self.env.ref(
+            "stock_barcodes.stock_barcodes_option_group_inventory"
         )
-        action["context"] = {
-            "default_location_id": self.location_ids[:1].id,
-            "default_product_id": self.product_ids[:1].id,
-            "default_inventory_id": self.id,
-            "default_res_model_id": self.env.ref("stock.model_stock_inventory").id,
-            "default_res_id": self.id,
+        if option_group.auto_lot:
+            # Disable lot_id step required
+            option_group.option_ids.filtered(
+                lambda p: p.field_name == "lot_id"
+            ).required = False
+        vals = {
+            "inventory_id": self.id,
+            "res_model_id": self.env.ref("stock.model_stock_inventory").id,
+            "res_id": self.id,
+            "option_group_id": self.env.ref(
+                "stock_barcodes.stock_barcodes_option_group_inventory"
+            ).id,
+            "manual_entry": option_group.manual_entry,
         }
+        if option_group.get_option_value("location_id", "filled_default"):
+            vals["location_id"] = self.location_ids[:1].id
+        wiz = self.env["wiz.stock.barcodes.read.inventory"].create(vals)
+        action = self.env.ref(
+            "stock_barcodes.action_stock_barcodes_read_inventory"
+        ).read()[0]
+        action["res_id"] = wiz.id
         return action
