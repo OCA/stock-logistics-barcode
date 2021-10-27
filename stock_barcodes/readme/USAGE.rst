@@ -65,7 +65,7 @@ scanning the product.
 Manual entry mode
 ~~~~~~~~~~~~~~~~~
 
-You can change to "manual entry data" to allow to select data without scanner
+You can change to "manual entry" to allow to select data without scanner
 hardware, but hardward scanner still active on, so a use case would be when
 user wants set quantities manually instead increment 1.0 unit peer scan action.
 
