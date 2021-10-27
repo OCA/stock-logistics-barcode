@@ -4,6 +4,7 @@
   * Sergio Teruel
   * Carlos Dauden
   * Pedro M. Baeza
+  * Alexandre D. Díaz
 
 * `Onestein <https://www.onestein.eu>`_:
 
