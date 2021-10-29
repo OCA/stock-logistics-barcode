@@ -66,9 +66,9 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         required=True,
     )
 
-    @api.onchange("picking_ids")
+    @api.onchange("picking_ids", "barcode_report")
     def _onchange_picking_ids(self):
-        product_print_moves = []
+        product_print_moves = [(5, 0)]
         line_fields = [f for f in self.env["stock.picking.line.print"]._fields.keys()]
         product_print_moves_data_tmpl = self.env[
             "stock.picking.line.print"
@@ -87,7 +87,13 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
 
     @api.model
     def _get_move_lines(self, picking):
-        return picking.move_line_ids.filtered("product_id.barcode")
+        if self.barcode_report == self.env.ref(
+            "stock_picking_product_barcode_report."
+            "action_label_barcode_report_quant_package"
+        ):
+            return picking.move_line_ids.filtered("result_package_id")
+        else:
+            return picking.move_line_ids.filtered("product_id.barcode")
 
     @api.model
     def _prepare_data_from_move_line(self, move_line):
