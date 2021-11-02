@@ -15,3 +15,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             }
         )
         return vals
+
+    def filter_sml(self, candidate_lines, lines, sml_vals):
+        if self.secondary_uom_id:
+            lines = lines.filtered(
+                lambda ln: ln.secondary_uom_id == self.secondary_uom_id
+                and ln.barcode_scan_state == "pending"
+            )
+        return lines
