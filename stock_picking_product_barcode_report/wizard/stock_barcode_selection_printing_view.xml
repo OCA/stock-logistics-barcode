@@ -31,6 +31,7 @@
                             <field name="quantity" force_save="1" readonly="1" />
                             <field name="uom_id" readonly="1" groups="uom.group_uom" />
                             <field name="label_qty" />
+                            <field name="move_line_id" invisible="1" force_save="1" />
                         </tree>
                     </field>
                 </group>
