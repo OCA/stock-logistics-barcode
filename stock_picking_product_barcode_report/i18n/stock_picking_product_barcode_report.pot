@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-11-03 10:31+0000\n"
+"PO-Revision-Date: 2021-11-03 10:31+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -82,11 +84,6 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.model,name:stock_picking_product_barcode_report.model_res_company
 msgid "Companies"
-msgstr ""
-
-#. module: stock_picking_product_barcode_report
-#: model:ir.model,name:stock_picking_product_barcode_report.model_res_config_settings
-msgid "Config Settings"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -207,6 +204,11 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing
 msgid "Print barcode labels"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_res_config_settings
+msgid "Procurement purchase grouping settings"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
