@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div name="barcode" class="text-left mt8">
-                            <span t-esc="barcode" />
+                            <span t-esc="barcode" style="font-size: 3em" />
                             <div>
                                 <img
                                     t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;quiet=0' % ('Code128', barcode, 400, 100)"
