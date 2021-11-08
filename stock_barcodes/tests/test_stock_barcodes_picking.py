@@ -11,7 +11,7 @@ from .test_stock_barcodes import TestStockBarcodes
 class TestStockBarcodesPicking(TestStockBarcodes):
     def setUp(self):
         super().setUp()
-        self.ScanReadPicking = self.env["wiz.stock.barcodes.read.picking"]
+        self.ScanReadPicking = self.env["wiz.stock.barcodes.read.picking"].sudo()
         self.stock_picking_model = self.env.ref("stock.model_stock_picking")
 
         # Model Data
@@ -195,9 +195,50 @@ class TestStockBarcodesPicking(TestStockBarcodes):
             lambda r: r.product_id == self.product_wo_tracking
         )
         move.quantity_done = move.product_uom_qty
-        self.wiz_scan_picking.refresh()
+        # We will recompute manually as we are not using scan app
+        self.wiz_scan_picking.flush()
+        self.wiz_scan_picking._compute_pending_move()
         self.assertRegex(
             self.wiz_scan_picking.pending_moves, ".*No pending operations.*"
+        )
+
+    def test_compute_pending_detailed_products(self):
+        self.assertTrue(self.wiz_scan_picking.detailed_pending_moves)
+        self.wiz_scan_picking.picking_id.action_assign()
+        for i in range(0, 8):
+            view = etree.fromstring(self.wiz_scan_picking.detailed_pending_moves)
+            product = self.product_tracking.name
+            node = view.xpath("//table/tr/td/span[text() = '%s']/../.." % product)
+            self.assertTrue(node)
+            quantity_done = node[-1].xpath("td[last()]/span")
+            self.assertEqual(i, float(quantity_done[0].text))
+            product = self.product_wo_tracking.name
+            node = view.xpath(
+                "//table/tr/td/span[text() = '%s' and last()]/../.." % product
+            )
+            self.assertTrue(node)
+            quantity_done = node[0].xpath("td[last()]/span")
+            self.assertEqual(0, float(quantity_done[0].text))
+            self.action_barcode_scanned(self.wiz_scan_picking, "8411822222568")
+        view = etree.fromstring(self.wiz_scan_picking.detailed_pending_moves)
+        product = self.product_tracking.name
+        node = view.xpath("//table/tr/td/span[text() = '%s']/../.." % product)
+        self.assertFalse(node)
+        product = self.product_wo_tracking.name
+        node = view.xpath("//table/tr/td/span[text() = '%s']/../.." % product)
+        self.assertTrue(node)
+        quantity_done = node[0].xpath("td[last()]/span")
+        self.assertEqual(0, float(quantity_done[0].text))
+        move = self.wiz_scan_picking.picking_id.move_line_ids_without_package.filtered(
+            lambda r: r.product_id == self.product_wo_tracking
+        )
+        move.qty_done = move.product_uom_qty
+        # We will recompute manually as we are not using scan app
+        self.wiz_scan_picking.flush()
+        self.wiz_scan_picking._compute_detailed_pending_move()
+        self.assertRegex(
+            self.wiz_scan_picking.detailed_pending_moves,
+            ".*No pending detailed operations*",
         )
 
     def test_picking_wizard_scan_product_manual_entry(self):
