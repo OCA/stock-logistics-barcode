@@ -12,7 +12,7 @@
                     name="secondary_uom_id"
                     options="{'no_create': True}"
                     domain="[('product_tmpl_id', '=', product_tmpl_id)]"
-                    attrs="{'readonly': [('manual_entry', '=', False)]}"
+                    attrs="{'readonly': [('manual_entry', '=', False)], 'invisible': [('secondary_uom_id', '=', False), ('manual_entry', '=', False)]}"
                     force_save="1"
                 />
             </field>
