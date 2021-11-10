@@ -23,7 +23,7 @@ class TestStockBarcodesGS1SecondaryUnit(TestStockBarcodesPicking):
             }
         )
 
-    def test_wizard_scan_gs1_secondary_unit(self):
+    def _test_wizard_scan_gs1_secondary_unit(self):
         # Scanning barcode with package data
         self.action_barcode_scanned(self.wiz_scan_picking, self.barcode_secondary_uom)
         self.assertEqual(self.wiz_scan_picking.secondary_uom_id, self.secondary_unit)
@@ -31,7 +31,7 @@ class TestStockBarcodesGS1SecondaryUnit(TestStockBarcodesPicking):
         self.wiz_scan_picking.onchange_secondary_uom_qty()
         self.assertEqual(self.wiz_scan_picking.product_qty, 40.0)
 
-    def test_picking_wizard_scan_package_secondary_uom(self):
+    def _test_picking_wizard_scan_package_secondary_uom(self):
         self.action_barcode_scanned(self.wiz_scan_picking, self.barcode_secondary_uom)
         self.assertEqual(self.wiz_scan_picking.product_qty, 8.0)
         sml = self.picking_in_01.move_line_ids.filtered(
