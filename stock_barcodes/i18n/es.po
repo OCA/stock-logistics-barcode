@@ -59,6 +59,28 @@ msgid "<span>New lot</span>"
 msgstr "<span>Nuevo lote</span>"
 
 #. module: stock_barcodes
+#: model:res.groups,name:stock_barcodes.group_track_pending_products_picking_barcode_detailed_operations
+msgid ""
+"Add table to track pending products at picking stock wizard for detailed "
+"operations"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:res.groups,name:stock_barcodes.group_track_pending_products_picking_barcode_non_detailed_operations
+msgid ""
+"Add table to track pending products at picking stock wizard for non-detailed "
+"operations"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid ""
+"Add table to track pending products at picking stock wizard.\n"
+"                               Non-detailed operations, detailed operations "
+"or both can be shown."
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
 msgstr ""
@@ -230,6 +252,7 @@ msgstr "Clientes"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_uom_qty
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
 msgid "Demand"
 msgstr "Demanda"
 
@@ -237,6 +260,16 @@ msgstr "Demanda"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Demand:"
 msgstr "Demanda:"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__detailed_pending_moves
+msgid "Detailed Pending Moves"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "Detailed pending operations"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__display_name
@@ -251,6 +284,8 @@ msgstr "Nombre a mostrar"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_done
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
 msgid "Done"
 msgstr "Hecho"
 
@@ -265,6 +300,11 @@ msgstr "Hecho:"
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Ensure the traceability of a storable product in your warehouse."
 msgstr "Asegure la trazabilidad de un producto almacenable en su almacén"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+msgid "From"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
@@ -400,6 +440,11 @@ msgid "Lot scanned"
 msgstr "Lote escaneado"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__manual_entry
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Manual entry"
@@ -470,6 +515,16 @@ msgid "No barcode found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+msgid "No pending detailed operations"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
+msgid "No pending operations"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
 msgid "OCA Stock Barcodes reader"
 msgstr "Lector de códigos de barras (OCA)"
@@ -496,6 +551,16 @@ msgid "Partner"
 msgstr "Empresa"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__pending_moves
+msgid "Pending Moves"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
+msgid "Pending operations"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_id
@@ -518,6 +583,8 @@ msgstr "Cantidades del albarán"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_moves
 msgid "Product"
 msgstr "Producto"
 
@@ -561,6 +628,7 @@ msgstr "Modelo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_reserved
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
 msgid "Reserved"
 msgstr "Reservado"
 
@@ -595,6 +663,18 @@ msgstr "Detalle del registro de lecturas"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
 msgid "Set a default value for scanner."
 msgstr "Establece un valor por defecto para el lector."
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__group_picking_barcode_wizard_detailed_operations
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Show detailed operations"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__group_picking_barcode_wizard_non_detailed_operations
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Show non-detailed operations"
+msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
@@ -632,6 +712,16 @@ msgstr "No hay movimientos de stock para realizar esta operación"
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr "No hay lotes para asignar la cantidad"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.missing_detailed_moves
+msgid "To"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
+msgid "Track pending products at the picking wizard"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
