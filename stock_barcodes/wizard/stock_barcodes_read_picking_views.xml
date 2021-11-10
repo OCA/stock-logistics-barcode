@@ -111,26 +111,6 @@
             <field name="product_qty" position="after">
                 <field name="picking_product_qty" />
             </field>
-            <xpath expr="//field[@name='scan_log_ids']/.." position="before">
-                <group
-                    name="pending_operations"
-                    string="Pending operations"
-                    attrs="{'invisible': [('picking_id', '=', False)]}"
-                    groups="stock_barcodes.group_track_pending_products_picking_barcode_non_detailed_operations"
-                >
-                    <field name="pending_moves" nolabel="1">
-                    </field>
-                </group>
-                <group
-                    name="detailed_pending_operations"
-                    string="Detailed pending operations"
-                    attrs="{'invisible': [('picking_id', '=', False)]}"
-                    groups="stock_barcodes.group_track_pending_products_picking_barcode_detailed_operations"
-                >
-                    <field name="detailed_pending_moves" nolabel="1">
-                    </field>
-                </group>
-            </xpath>
         </field>
     </record>
     <!--

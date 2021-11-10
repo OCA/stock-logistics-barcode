@@ -2,7 +2,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.tests.common import tagged
 
-from .test_stock_barcodes_inventory import TestStockBarcodesInventory
+from odoo.addons.stock_barcodes.tests.test_stock_barcodes_inventory import (
+    TestStockBarcodesInventory,
+)
 
 
 @tagged("post_install", "-at_install")

@@ -28,36 +28,6 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class="col-12 col-lg-6 o_setting_box"
-                        title="Track pending products at the picking wizard"
-                        name="track_pending_products_picking_wizard"
-                    >
-                        <div class="o_setting_right_pane">
-                            <label
-                                string="Track pending products at the picking wizard"
-                                for="track_pending_products_picking_wizard"
-                            />
-                            <div class="text-muted">
-                               Add table to track pending products at picking stock wizard.
-                               Non-detailed operations, detailed operations or both can be shown.
-                            </div>
-                            <div>
-                                <field
-                                    class="oe_inline"
-                                    name="group_picking_barcode_wizard_non_detailed_operations"
-                                />
-                            Show non-detailed operations
-                            </div>
-                            <div>
-                                <field
-                                    name="group_picking_barcode_wizard_detailed_operations"
-                                    class="oe_inline"
-                                />
-                                Show detailed operations
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </field>
