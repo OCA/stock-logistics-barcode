@@ -18,6 +18,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
     )
+    pending_moves = fields.Html(
+        compute="_compute_pending_move",
+        store=True,
+        groups="stock_barcodes."
+        "group_track_pending_products_picking_barcode_non_detailed_operations",
+    )
+    detailed_pending_moves = fields.Html(
+        store=True,
+        compute="_compute_detailed_pending_move",
+        groups="stock_barcodes."
+        "group_track_pending_products_picking_barcode_detailed_operations",
+    )
     candidate_picking_ids = fields.One2many(
         comodel_name="wiz.candidate.picking",
         inverse_name="wiz_barcode_id",
@@ -32,6 +44,41 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     confirmed_moves = fields.Boolean(string="Confirmed moves")
+
+    @api.depends(
+        "picking_id",
+        "barcode",
+        "picking_id.move_lines.move_line_ids.qty_done",
+        "picking_id.move_lines.move_line_ids",
+        "picking_id.move_lines",
+    )
+    def _compute_pending_move(self):
+        for record in self:
+            text = ""
+            if record.picking_id:
+                moves = record.picking_id.move_ids_without_package.filtered(
+                    lambda r: r.product_uom_qty > r.quantity_done
+                )
+
+                text = self.env["ir.qweb"].render(
+                    "stock_barcodes.missing_moves", {"moves": moves},
+                )
+            record.pending_moves = text
+
+    @api.depends(
+        "picking_id", "barcode", "picking_id.move_lines.move_line_ids.qty_done"
+    )
+    def _compute_detailed_pending_move(self):
+        for record in self:
+            text = ""
+            if record.picking_id:
+                move_lines = record.picking_id.move_ids_without_package.filtered(
+                    lambda r: r.product_uom_qty > r.quantity_done
+                ).mapped("move_line_ids")
+                text = self.env["ir.qweb"].render(
+                    "stock_barcodes.missing_detailed_moves", {"moves": move_lines},
+                )
+            record.detailed_pending_moves = text
 
     def name_get(self):
         return [
