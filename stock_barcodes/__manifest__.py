@@ -11,7 +11,6 @@
     "depends": ["barcodes", "stock"],
     "data": [
         "security/ir.model.access.csv",
-        "security/security.xml",
         "views/assets.xml",
         "views/res_config_settings_views.xml",
         "views/stock_inventory_views.xml",
@@ -21,7 +20,6 @@
         "wizard/stock_barcodes_read_views.xml",
         "wizard/stock_barcodes_read_inventory_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
-        "templates/missing_moves_template.xml",
     ],
     "installable": True,
 }
