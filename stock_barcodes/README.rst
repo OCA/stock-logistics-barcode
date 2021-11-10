@@ -144,14 +144,6 @@ Changelog
 * [ADD] New feature.
   Add option to get lots automatically based on removal strategy in inventory.
 
-13.0.1.3.0(2021-11-08)
-~~~~~~~~~~~~~~~~~~~~~~
-
-* [ADD] New feature
-  Add option to track pending products at the stock barcodes read picking wizard.
-  Non-detailed operations, detailed operations or both can be shown.
-  This feature can be set at res.config.settings
-
 Bug Tracker
 ===========
 
