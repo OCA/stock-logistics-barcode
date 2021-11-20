@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="stock_location_barcode" model="stock.location">
+        <field name="name">Location with Generated Barcode</field>
+        <field name="barcode_rule_id" ref="stock_location_generated_barcode" />
+        <field name="usage">internal</field>
+    </record>
+</odoo>
