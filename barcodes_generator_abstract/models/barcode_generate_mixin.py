@@ -22,10 +22,9 @@ class BarcodeGenerateMixin(models.AbstractModel):
         string="Barcode Rule", comodel_name="barcode.rule"
     )
 
-    barcode_base = fields.Integer(string="Barcode Base", copy=False)
+    barcode_base = fields.Integer(copy=False)
 
     generate_type = fields.Selection(
-        string="Generate Type",
         related="barcode_rule_id.generate_type",
     )
 
