@@ -35,6 +35,7 @@ addon | version | maintainers | summary
 [barcodes_multiline](barcodes_multiline/) | 10.0.1.0.1 |  | It allows barcodes to span multiple lines.
 [barcodes_search](barcodes_search/) | 10.0.1.0.2 |  | Search any item by it barcode
 [product_packaging_barcode](product_packaging_barcode/) | 10.0.1.0.0 |  | Reimplement barcode field in Product Packagings
+[stock_inventory_barcode](stock_inventory_barcode/) | 10.0.0.1.0 |  | Add simple barcode interface on inventories
 [stock_scanner](stock_scanner/) | 10.0.1.1.2 |  | Allows managing barcode readers with simple scenarios
 [stock_scanner_inventory](stock_scanner_inventory/) | 9.0.1.0.0 |  | Stock Scanner Inventory
 [stock_scanner_receipt](stock_scanner_receipt/) | 10.0.1.0.0 |  | Stock Scanner Receipt
