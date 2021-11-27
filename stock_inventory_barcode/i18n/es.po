@@ -1,0 +1,174 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * stock_inventory_barcode
+# 
+# Translators:
+# Fernando Lara <gennesis45@gmail.com>, 2017
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2017-02-19 03:46+0000\n"
+"PO-Revision-Date: 2017-02-19 20:08+0000\n"
+"Last-Translator: Fernando Lara <gennesis45@gmail.com>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/es/)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Language: es\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,add_qty:0
+msgid "Add to Real Quantity"
+msgstr "Añadir a la Cantidad Real"
+
+#. module: stock_inventory_barcode
+#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Cancel"
+msgstr "Cancelar"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,change_qty:0
+msgid "Change Real Quantity"
+msgstr "Cambiar la Cantidad Real"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,create_uid:0
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,create_date:0
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,product_qty:0
+msgid "Current Real Quantity"
+msgstr "Cantidad Real Actual"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,display_name:0
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,product_code:0
+msgid "EAN13 or Internal Reference"
+msgstr "EAN13 o Referencia Interna"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:62
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:72
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:96
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,id:0
+msgid "ID"
+msgstr "ID"
+
+#. module: stock_inventory_barcode
+#: model:ir.actions.act_window,name:stock_inventory_barcode.stock_inventory_barcode_action
+#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Inventory Barcode Wizard"
+msgstr "Asistente de Código de Barras del inventario"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,__last_update:0
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,write_uid:0
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,write_date:0
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:73
+#, python-format
+msgid ""
+"No product found with this code as EAN13 nor Internal Reference. You should "
+"select the right product manually."
+msgstr "Ningún producto encontrado con este código EAN13 ni referencia interna. Debe seleccionar el producto adecuado manualmente."
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:119
+#, python-format
+msgid "No related inventory line"
+msgstr "Sin línea de inventario relacionada"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,product_id:0
+msgid "Product"
+msgstr "Producto"
+
+#. module: stock_inventory_barcode
+#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Select Product"
+msgstr "Seleccionar Producto"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:97
+#, python-format
+msgid ""
+"Several inventory lines exists for this product. This scenario is not "
+"supported for the moment. It may be caused by the fact that you have sub-"
+"locations in the stock location of this inventory and this product is "
+"present in several sub-locations, or by the fact that you track Serial "
+"Numbers for this product."
+msgstr "Existen varias líneas de inventario para este producto. Este escenario no se admite por el momento. Esto puede deberse al hecho de que usted tiene ubicaciones secundarias en la ubicación de inventario y este producto está presente en varias ubicaciones secundarias o por el hecho de su rastreo de  los Números de Serie de este producto no es correcto."
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:63
+#, python-format
+msgid ""
+"Several products have been found with this code as EAN13 or Internal Reference:\n"
+" %s\n"
+"You should select the right product manually."
+msgstr "Se han encontrado varios productos con este código como EAN13 o Referencia Interna: 'U+23CE'\n'%s' 'U+23CE'\nDebe seleccionar el producto adecuado manualmente."
+
+#. module: stock_inventory_barcode
+#: view:stock.inventory:stock_inventory_barcode.view_inventory_form
+msgid "Start Barcode Interface"
+msgstr "Inicie la interfaz de Código de Barras"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:125
+#: model:ir.model,name:stock_inventory_barcode.model_stock_inventory_barcode
+#, python-format
+msgid "Stock Inventory Barcode Wizard"
+msgstr "Asistente de Código de Barras del Inventario de Productos"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,inventory_line_id:0
+msgid "Stock Inventory Line"
+msgstr "Línea de Inventario de Producto"
+
+#. module: stock_inventory_barcode
+#: field:stock.inventory.barcode,theoretical_qty:0
+msgid "Theoretical Quantity"
+msgstr "Cantidad Teórica"
+
+#. module: stock_inventory_barcode
+#: help:stock.inventory.barcode,product_code:0
+msgid "This field is designed to be filled with a barcode reader"
+msgstr "Este campo está diseñado para ser llenado con un lector de código de barras"
+
+#. module: stock_inventory_barcode
+#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Update"
+msgstr "Actualizar"
+
+#. module: stock_inventory_barcode
+#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Update Quantity"
+msgstr "Cantidad de Actualización"
