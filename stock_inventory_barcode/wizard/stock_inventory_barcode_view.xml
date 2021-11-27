@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--
+  Copyright 2015-2021 Akretion (http://www.akretion.com/)
+  @author: Alexis de Lattre <alexis.delattre@akretion.com>
+  License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+-->
+<odoo>
+
+<record id="stock_inventory_barcode_form" model="ir.ui.view">
+    <field name="name">stock.inventory.barcode.form</field>
+    <field name="model">stock.inventory.barcode</field>
+    <field name="arch" type="xml">
+        <form string="Inventory Barcode Wizard">
+            <group name="product" string="Select Product">
+                <field name="inventory_id" invisible="1" />
+                <field name="multi_stock_location" invisible="1" />
+                <field name="company_id" invisible="1" />
+                <field name="product_code" />
+                <field name="product_id" />
+                <field name="product_tracking" invisible="1" />
+                <field
+                        name="lot_id"
+                        attrs="{'invisible': [('product_tracking', 'not in', ('serial', 'lot'))], 'required': [('product_tracking', 'in', ('lot', 'serial'))]}"
+                        context="{'default_product_id': product_id}"
+                    />
+                <field
+                        name="location_id"
+                        attrs="{'invisible': [('multi_stock_location', '=', False)]}"
+                        options="{'no_create': True, 'no_create_edit': True}"
+                    />
+                <field name="uom_id" invisible="1" />
+                <label for="theoretical_qty" />
+                <div name="theoretical_qty">
+                    <field name="theoretical_qty" class="oe_inline" />
+                    <field name="uom_name" />
+                </div>
+                <label for="product_qty" />
+                <div name="product_qty">
+                    <field name="product_qty" class="oe_inline" />
+                    <field name="uom_name" />
+                </div>
+                <field name="inventory_line_id" invisible="1" />
+            </group>
+            <group name="qty" string="Update Quantity">
+                <label for="change_qty" />
+                <div name="change_qty">
+                    <field name="change_qty" class="oe_inline" />
+                    <field name="uom_name" />
+                </div>
+                <label
+                        string="OR"
+                        colspan="2"
+                        for="inventory_id"
+                        attrs="{'invisible': [('product_qty', '=', 0)]}"
+                    />
+                <label for="add_qty" attrs="{'invisible': [('product_qty', '=', 0)]}" />
+                <div name="add_qty" attrs="{'invisible': [('product_qty', '=', 0)]}">
+                    <field name="add_qty" class="oe_inline" />
+                    <field name="uom_name" />
+                </div>
+            </group>
+            <group
+                    name="note"
+                    string="Other inventory lines with the same product"
+                    attrs="{'invisible': [('note', '=', False)]}"
+                >
+                <field name="note" nolabel="1" />
+            </group>
+            <footer>
+                <button name="save" type="object" class="btn-primary" string="Update" />
+                <button special="cancel" string="Close" class="oe_link" />
+            </footer>
+        </form>
+    </field>
+</record>
+
+<record id="stock_inventory_barcode_action" model="ir.actions.act_window">
+    <field name="name">Inventory Barcode Wizard</field>
+    <field name="res_model">stock.inventory.barcode</field>
+    <field name="view_mode">form</field>
+    <field name="target">new</field>
+</record>
+
+</odoo>

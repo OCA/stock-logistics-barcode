@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_stock_inventory_barcode,Full access on stock.inventory.barcode wizard,model_stock_inventory_barcode,stock.group_stock_user,1,1,1,1
