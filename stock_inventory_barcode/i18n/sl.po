@@ -1,7 +1,7 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
 # * stock_inventory_barcode
-# 
+#
 # Translators:
 # Matjaž Mozetič <m.mozetic@matmoz.si>, 2016
 msgid ""
@@ -11,164 +11,317 @@ msgstr ""
 "POT-Creation-Date: 2016-05-05 02:43+0000\n"
 "PO-Revision-Date: 2016-05-04 10:17+0000\n"
 "Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
-"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/sl/)\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/sl/)\n"
+"Language: sl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Language: sl\n"
-"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n%100==4 ? 2 : 3);\n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,add_qty:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid "<none>"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__add_qty
 msgid "Add to Real Quantity"
 msgstr "Dodaj k realni količini"
 
 #. module: stock_inventory_barcode
-#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
-msgid "Cancel"
-msgstr "Preklic"
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid "Already inventoried on %s with real qty %.3f %s"
+msgstr ""
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,change_qty:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__product_code
+#, fuzzy
+msgid "Barcode or Internal Reference"
+msgstr "EAN13 ali notranji sklic"
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields.selection,name:stock_inventory_barcode.selection__stock_inventory_barcode__product_tracking__lot
+msgid "By Lots"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields.selection,name:stock_inventory_barcode.selection__stock_inventory_barcode__product_tracking__serial
+msgid "By Unique Serial Number"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__change_qty
 msgid "Change Real Quantity"
 msgstr "Spremeni realno količino"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,create_uid:0
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Close"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__company_id
+msgid "Company"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__create_uid
 msgid "Created by"
 msgstr "Ustvaril"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,create_date:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__create_date
 msgid "Created on"
 msgstr "Ustvarjeno"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,product_qty:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__product_qty
 msgid "Current Real Quantity"
 msgstr "Trenutna realna količina"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,display_name:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__display_name
 msgid "Display Name"
 msgstr "Prikazni naziv"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,product_code:0
-msgid "EAN13 or Internal Reference"
-msgstr "EAN13 ali notranji sklic"
-
-#. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:62
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:72
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:96
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid "Error"
 msgstr "Napaka"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,id:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__id
 msgid "ID"
 msgstr "ID"
 
 #. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__inventory_id
+#, fuzzy
+msgid "Inventory"
+msgstr "Postavka inventarja zaloge"
+
+#. module: stock_inventory_barcode
 #: model:ir.actions.act_window,name:stock_inventory_barcode.stock_inventory_barcode_action
-#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
 msgid "Inventory Barcode Wizard"
 msgstr "Čarovnik za črtne kode inventarja"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,__last_update:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode____last_update
 msgid "Last Modified on"
 msgstr "Zadnjič spremenjeno"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,write_uid:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__write_uid
 msgid "Last Updated by"
 msgstr "Zadnji posodobil"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,write_date:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__write_date
 msgid "Last Updated on"
 msgstr "Zadnjič posodobljeno"
 
 #. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:73
-#, python-format
-msgid ""
-"No product found with this code as EAN13 nor Internal Reference. You should "
-"select the right product manually."
-msgstr "Noben proizvod s to EAN kodo ali tem notranjim sklicem ni najden. Ročno izberite pravi proizvod."
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__location_id
+msgid "Location"
+msgstr ""
 
 #. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:119
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__lot_id
+msgid "Lot"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid "Lot %s already inventoried on %s with real qty %.3f %s"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__multi_stock_location
+msgid "Multi Stock Location"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields.selection,name:stock_inventory_barcode.selection__stock_inventory_barcode__product_tracking__none
+msgid "No Tracking"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid "No internal/transit stock locations."
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid "No related inventory line"
 msgstr "Ni povezane postavke inventarja"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,product_id:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, fuzzy, python-format
+msgid ""
+"No stockable product found with this code as Barcode nor Internal Reference. "
+"You should select the right product manually."
+msgstr ""
+"Noben proizvod s to EAN kodo ali tem notranjim sklicem ni najden. Ročno "
+"izberite pravi proizvod."
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__note
+msgid "Note"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "OR"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
+msgid "Other inventory lines with the same product"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__product_id
 msgid "Product"
 msgstr "Proizvod"
 
 #. module: stock_inventory_barcode
-#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid ""
+"Product '%s' is not tracked by lot/serial so the lot field must be empty. "
+"This should never happen."
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
 msgid "Select Product"
 msgstr "Izbira proizvoda"
 
 #. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:97
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid ""
-"Several inventory lines exists for this product. This scenario is not "
-"supported for the moment. It may be caused by the fact that you have sub-"
-"locations in the stock location of this inventory and this product is "
-"present in several sub-locations, or by the fact that you track Serial "
-"Numbers for this product."
-msgstr "Obstaja več postavk inventarja za ta proizvod. Taka situacija trenutno ni podprta. Morda jo povzroča dejstvo, da imate pod-lokacije na lokaciji zaloge tega inventarja in je ta proizvod prisoten v več pod-lokacijah, ali pa zato, ker sledite serijski številki tega proizvoda."
+"Several inventory lines exists for this product (and lot) on the same stock "
+"location. This should happen only when using packaging, but this scenario is "
+"not supported for the moment."
+msgstr ""
 
 #. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:63
-#, python-format
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, fuzzy, python-format
 msgid ""
-"Several products have been found with this code as EAN13 or Internal Reference:\n"
+"Several stockable products have been found with this code as Barcode or "
+"Internal Reference:\n"
 " %s\n"
 "You should select the right product manually."
-msgstr "S to EAN13 kodo ali internim sklicem je najdenih več proizvodov:\n %s\nPravi proizvod izberite ročno."
+msgstr ""
+"S to EAN13 kodo ali internim sklicem je najdenih več proizvodov:\n"
+" %s\n"
+"Pravi proizvod izberite ročno."
 
 #. module: stock_inventory_barcode
-#: view:stock.inventory:stock_inventory_barcode.view_inventory_form
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.view_inventory_form
 msgid "Start Barcode Interface"
 msgstr "Zaženi vmesnik za črtno kodo"
 
 #. module: stock_inventory_barcode
-#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:125
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #: model:ir.model,name:stock_inventory_barcode.model_stock_inventory_barcode
 #, python-format
 msgid "Stock Inventory Barcode Wizard"
 msgstr "Čarovnik za črtno kodo inventarja zaloge"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,inventory_line_id:0
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__inventory_line_id
 msgid "Stock Inventory Line"
 msgstr "Postavka inventarja zaloge"
 
 #. module: stock_inventory_barcode
-#: field:stock.inventory.barcode,theoretical_qty:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid "The inventory '%s' is not 'In Progress' any more."
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__theoretical_qty
 msgid "Theoretical Quantity"
 msgstr "Teoretična količina"
 
 #. module: stock_inventory_barcode
-#: help:stock.inventory.barcode,product_code:0
+#: model:ir.model.fields,help:stock_inventory_barcode.field_stock_inventory_barcode__product_code
 msgid "This field is designed to be filled with a barcode reader"
 msgstr "Polje, ki ga bo izpolnil čitalnik črtne kode."
 
 #. module: stock_inventory_barcode
-#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__product_tracking
+msgid "Tracking"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__uom_name
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__uom_id
+msgid "Unit of measure"
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
 msgid "Update"
 msgstr "Posodobi"
 
 #. module: stock_inventory_barcode
-#: view:stock.inventory.barcode:stock_inventory_barcode.stock_inventory_barcode_form
+#: model_terms:ir.ui.view,arch_db:stock_inventory_barcode.stock_inventory_barcode_form
 msgid "Update Quantity"
 msgstr "Posodobi količino"
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid ""
+"You cannot change the unit of measure of the product: it is been restored to "
+"'%s'."
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid ""
+"You cannot change the unit of measure. You must restore the unit of measure "
+"of the product (%s)."
+msgstr ""
+
+#. module: stock_inventory_barcode
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#, python-format
+msgid ""
+"You cannot start the barcode interface on inventory '%s' which is not 'In "
+"Progress'."
+msgstr ""
+
+#~ msgid "Cancel"
+#~ msgstr "Preklic"
+
+#~ msgid ""
+#~ "Several inventory lines exists for this product. This scenario is not "
+#~ "supported for the moment. It may be caused by the fact that you have sub-"
+#~ "locations in the stock location of this inventory and this product is "
+#~ "present in several sub-locations, or by the fact that you track Serial "
+#~ "Numbers for this product."
+#~ msgstr ""
+#~ "Obstaja več postavk inventarja za ta proizvod. Taka situacija trenutno ni "
+#~ "podprta. Morda jo povzroča dejstvo, da imate pod-lokacije na lokaciji "
+#~ "zaloge tega inventarja in je ta proizvod prisoten v več pod-lokacijah, "
+#~ "ali pa zato, ker sledite serijski številki tega proizvoda."

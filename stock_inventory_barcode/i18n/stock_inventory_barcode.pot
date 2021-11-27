@@ -1,22 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * stock_inventory_barcode
+# 	* stock_inventory_barcode
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:53+0000\n"
-"PO-Revision-Date: 2016-05-04 05:59+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Galician (Spain) (http://www.transifex.com/oca/OCA-stock-"
-"logistics-barcode-8-0/language/gl_ES/)\n"
-"Language: gl_ES\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Plural-Forms: \n"
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
@@ -87,6 +82,9 @@ msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
+#: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid "Error"
 msgstr ""
@@ -94,7 +92,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__inventory_id
@@ -164,8 +162,8 @@ msgstr ""
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid ""
-"No stockable product found with this code as Barcode nor Internal Reference. "
-"You should select the right product manually."
+"No stockable product found with this code as Barcode nor Internal Reference."
+" You should select the right product manually."
 msgstr ""
 
 #. module: stock_inventory_barcode
@@ -206,16 +204,15 @@ msgstr ""
 #, python-format
 msgid ""
 "Several inventory lines exists for this product (and lot) on the same stock "
-"location. This should happen only when using packaging, but this scenario is "
-"not supported for the moment."
+"location. This should happen only when using packaging, but this scenario is"
+" not supported for the moment."
 msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid ""
-"Several stockable products have been found with this code as Barcode or "
-"Internal Reference:\n"
+"Several stockable products have been found with this code as Barcode or Internal Reference:\n"
 " %s\n"
 "You should select the right product manually."
 msgstr ""
@@ -282,8 +279,8 @@ msgstr ""
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:0
 #, python-format
 msgid ""
-"You cannot change the unit of measure of the product: it is been restored to "
-"'%s'."
+"You cannot change the unit of measure of the product: it is been restored to"
+" '%s'."
 msgstr ""
 
 #. module: stock_inventory_barcode
