@@ -13,6 +13,7 @@ setuptools.setup(
         'odoo12-addon-barcodes_generator_partner',
         'odoo12-addon-barcodes_generator_product',
         'odoo12-addon-base_gs1_barcode',
+        'odoo12-addon-product_barcode_constraint_per_company',
         'odoo12-addon-product_multi_ean',
         'odoo12-addon-product_supplierinfo_barcode',
         'odoo12-addon-stock_barcodes',
