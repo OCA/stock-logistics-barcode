@@ -64,6 +64,8 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
             }
         )
         self.picking.button_validate()
+
+    def _create_print_wizard(self):
         self.wizard = (
             self.env["stock.picking.print"]
             .with_context(
@@ -73,8 +75,19 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
         )
 
     def test_wizard_creation(self):
+        self._create_print_wizard()
         self.wizard._onchange_picking_ids()
         self.assertEqual(1, len(self.wizard.product_print_moves.ids))
         line = self.wizard.product_print_moves[0]
         self.assertEqual(line.label_qty, 5)
         self.assertEqual(line.product_id.id, self.product_barcode.id)
+
+    def test_wizard_creation_with_secondary_uom_move(self):
+        sml = self.picking.move_line_ids
+        sml.secondary_uom_id = self.product_barcode.secondary_uom_ids[1]
+        sml.secondary_uom_qty = 2
+        self._create_print_wizard()
+        self.wizard._onchange_picking_ids()
+        self.assertEqual(1, len(self.wizard.product_print_moves.ids))
+        line = self.wizard.product_print_moves[0]
+        self.assertEqual(line.label_qty, 2)
