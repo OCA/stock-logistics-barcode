@@ -9,7 +9,7 @@
     "license": "AGPL-3",
     "maintainers": ["CarlosRoca13"],
     "category": "Extra Tools",
-    "depends": ["stock_picking_product_barcode_report", "product_secondary_unit"],
+    "depends": ["stock_picking_product_barcode_report", "stock_secondary_unit"],
     "external_dependencies": {"python": ["python-barcode"]},
     "installable": True,
 }
