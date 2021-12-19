@@ -3,13 +3,13 @@
 {
     "name": "Stock Picking Product Barcode Report Secondary Unit",
     "summary": "Set by default the maximum quantity of labels to print.",
-    "version": "13.0.1.0.0",
+    "version": "13.0.1.1.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://odoo-community.org/",
     "license": "AGPL-3",
     "maintainers": ["CarlosRoca13"],
     "category": "Extra Tools",
-    "depends": ["stock_picking_product_barcode_report", "product_secondary_unit"],
+    "depends": ["stock_picking_product_barcode_report", "stock_secondary_unit"],
     "external_dependencies": {"python": ["python-barcode"]},
     "installable": True,
 }
