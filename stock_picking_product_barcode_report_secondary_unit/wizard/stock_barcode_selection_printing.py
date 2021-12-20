@@ -12,9 +12,13 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     @api.model
     def _prepare_data_from_move_line(self, move_line):
         res = super()._prepare_data_from_move_line(move_line)
-        if move_line.product_id.secondary_uom_ids:
-            minimal_factor_sec_unit = min(
+        if move_line.secondary_uom_id:
+            factor = move_line.secondary_uom_id.factor
+        elif move_line.product_id.secondary_uom_ids:
+            factor = min(
                 move_line.product_id.secondary_uom_ids, key=lambda u: u.factor
-            )
-            res["label_qty"] = ceil(move_line.qty_done / minimal_factor_sec_unit.factor)
+            ).factor
+        else:
+            factor = 1.0
+        res["label_qty"] = ceil(move_line.qty_done / (factor or 1.0))
         return res
