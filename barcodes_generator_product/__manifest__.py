@@ -14,6 +14,7 @@
     "license": "AGPL-3",
     "depends": ["barcodes_generator_abstract", "product"],
     "data": ["views/view_product_product.xml", "views/view_product_template.xml"],
+    "maintainers": ["legalsylvain"],
     "demo": [
         "demo/res_users.xml",
         "demo/barcode_rule.xml",
