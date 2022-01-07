@@ -48,12 +48,14 @@ msgid "Display Name"
 msgstr ""
 
 #. module: barcodes_generator_product
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.product_variant_easy_edit_view
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
 msgid "Generate Barcode (Using Barcode Rule)"
 msgstr ""
 
 #. module: barcodes_generator_product
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_product.product_variant_easy_edit_view
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
 msgid "Generate Base (Using Sequence)"
