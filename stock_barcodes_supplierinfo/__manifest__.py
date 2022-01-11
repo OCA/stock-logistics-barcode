@@ -18,8 +18,6 @@
         "product_supplierinfo_barcode",
         "stock_barcodes",
     ],
-    "data": [
-    ],
-    "demo": [
-    ],
+    "data": [],
+    "demo": [],
 }
