@@ -3,7 +3,7 @@
 {
     "name": "Stock barcodes - Supplier pricelist",
     "summary": "Process products searching them by supplier barcode",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "development_status": "Beta",
     "category": "Extra Tools",
     "website": "https://github.com/OCA/stock-logistics-barcode",
