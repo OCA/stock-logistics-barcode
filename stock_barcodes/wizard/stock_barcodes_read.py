@@ -10,6 +10,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     _description = 'Wizard to read barcode'
     # To prevent remove the record wizard until 2 days old
     _transient_max_hours = 48
+    _allowed_product_types = ['product', 'consu']
 
     @api.model
     def _default_auto_lot(self):
@@ -23,6 +24,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(
         comodel_name='product.product',
+        domain=[('type', 'in', _allowed_product_types)],
     )
     product_tracking = fields.Selection(
         related='product_id.tracking',
@@ -96,6 +98,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             if len(product) > 1:
                 self._set_messagge_info(
                     'more_match', _('More than one product found'))
+                return
+            elif product.type not in self._allowed_product_types:
+                self._set_messagge_info(
+                    'not_found', _('The product type is not allowed'))
                 return
             self.action_product_scaned_post(product)
             self.action_done()
