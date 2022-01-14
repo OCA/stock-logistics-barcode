@@ -9,7 +9,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _name = "wiz.stock.barcodes.read.inventory"
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on inventory"
+    _allowed_product_types = ["product"]
 
+    # Overwrite is needed to take into account new domain values
+    product_id = fields.Many2one(domain=[("type", "in", _allowed_product_types)])
     inventory_id = fields.Many2one(comodel_name="stock.inventory", readonly=True)
     inventory_product_qty = fields.Float(
         string="Inventory quantities", digits="Product Unit of Measure", readonly=True
