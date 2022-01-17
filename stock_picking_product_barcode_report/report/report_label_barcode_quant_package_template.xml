@@ -47,7 +47,7 @@
                                 name="life_date"
                             >
                                 <span>Life date: </span>
-                                <span t-field="doc.lot_id.life_date" />
+                                <span t-field="doc.lot_id.life_date" widget="date" />
                             </div>
                             <div name="package">
                                 <span>Quantity: </span>
