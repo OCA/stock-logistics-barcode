@@ -1,30 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
-    <report
-        id="action_label_barcode_report"
-        string="Label Impresion"
-        model="stock.picking.line.print"
-        report_type="qweb-pdf"
-        file="stock_picking_product_barcode_report.label_barcode_report"
-        name="stock_picking_product_barcode_report.label_barcode_report"
-        paperformat="stock_picking_product_barcode_report.paperformat_label"
-    />
-    <report
-        id="action_label_barcode_report_quant_package"
-        string="Label Quant Package"
-        model="stock.picking.line.print"
-        report_type="qweb-pdf"
-        file="stock_picking_product_barcode_report.label_barcode_report_quant_package"
-        name="stock_picking_product_barcode_report.label_barcode_report_quant_package"
-        paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
-    />
-    <report
-        id="report_label_barcode_quant"
-        string="Label Quant Report"
-        model="stock.quant"
-        report_type="qweb-pdf"
-        file="stock_picking_product_barcode_report.label_barcode_report_quant_package"
-        name="stock_picking_product_barcode_report.label_barcode_report_quant_package"
-        paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
-    />
+    <record id="action_label_barcode_report" model="ir.actions.report">
+        <field name="name">Label Impresion</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report</field>
+        <field
+            name="binding_model_id"
+            ref="stock_picking_product_barcode_report.model_stock_picking_line_print"
+        />
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label"
+        />
+        <field name="binding_type">report</field>
+        <field name="is_barcode_label">True</field>
+    </record>
+
+    <record id="action_label_barcode_report_quant_package" model="ir.actions.report">
+        <field name="name">Label Quant Package</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="binding_model_id"
+            ref="stock_picking_product_barcode_report.model_stock_picking_line_print"
+        />
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
+        />
+        <field name="binding_type">report</field>
+        <field name="is_barcode_label">True</field>
+    </record>
+
+    <record id="report_label_barcode_quant" model="ir.actions.report">
+        <field name="name">Label Quant Report</field>
+        <field name="model">stock.quant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
+        />
+        <field name="binding_type">report</field>
+    </record>
+
 </odoo>

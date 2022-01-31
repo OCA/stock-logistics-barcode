@@ -8,7 +8,6 @@ class ResConfigSettings(models.TransientModel):
     _inherit = "res.config.settings"
 
     barcode_default_format = fields.Selection(
-        [("gs1_128", "Display GS1_128 format for barcodes")],
         string="Method to choose the barcode formating",
         related="company_id.barcode_default_format",
         readonly=False,

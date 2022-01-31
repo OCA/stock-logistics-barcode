@@ -46,13 +46,13 @@
             </form>
         </field>
     </record>
-    <act_window
-        id="act_stock_barcode_selection_printing"
-        name="Print barcode labels"
-        binding_model="stock.picking"
-        binding_type="report"
-        res_model="stock.picking.print"
-        view_mode="form"
-        target="new"
-    />
+
+    <record id="act_stock_barcode_selection_printing" model="ir.actions.act_window">
+        <field name="name">Print barcode label</field>
+        <field name="res_model">stock.picking.print</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="stock.model_stock_picking" />
+        <field name="binding_type">report</field>
+    </record>
 </odoo>
