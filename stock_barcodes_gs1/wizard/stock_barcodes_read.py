@@ -29,7 +29,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.lot_id = lot
 
     def process_barcode(self, barcode):
-        """ Only has been implemented AI (01, 02, 10, 37), so is possible that
+        """Only has been implemented AI (01, 02, 10, 37), so is possible that
         scanner reads a barcode ok but this one is not precessed.
         """
         try:
