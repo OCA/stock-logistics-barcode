@@ -6,8 +6,12 @@ from odoo import fields, models
 class WizStockBarcodesRead(models.AbstractModel):
     _inherit = "wiz.stock.barcodes.read"
 
-    life_date = fields.Datetime(string="End of Life Date",)
-    use_date = fields.Datetime(string="Best before Date",)
+    life_date = fields.Datetime(
+        string="End of Life Date",
+    )
+    use_date = fields.Datetime(
+        string="Best before Date",
+    )
 
     def _prepare_lot_values(self, barcode_decoded):
         res = super()._prepare_lot_values(barcode_decoded)
