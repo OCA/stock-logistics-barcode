@@ -21,7 +21,8 @@ class TestStockBarcodesNewLotGS1Expiry(TestStockBarcodesNewLotGS1):
         self.assertEqual(self.wiz_scan_lot.use_date, datetime(2019, 7, 4, 0, 0))
         wiz_scan = self.env["wiz.stock.barcodes.read.inventory"].create({})
         self.wiz_scan_lot.with_context(
-            active_model=wiz_scan._name, active_id=wiz_scan.id,
+            active_model=wiz_scan._name,
+            active_id=wiz_scan.id,
         ).confirm()
         lot = self.env["stock.production.lot"].search(
             [
