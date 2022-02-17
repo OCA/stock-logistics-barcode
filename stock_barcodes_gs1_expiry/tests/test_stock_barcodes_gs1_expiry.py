@@ -19,7 +19,9 @@ class TestStockBarcodesGS1Expiry(TestStockBarcodesGS1):
         self.product_wo_tracking_gs1.tracking = "lot"
         # Scanning barcode with life date data
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
-        self.assertEqual(self.wiz_scan.lot_id.life_date, datetime(2014, 7, 4, 0, 0))
+        self.assertEqual(
+            self.wiz_scan.lot_id.expiration_date, datetime(2014, 7, 4, 0, 0)
+        )
 
     def test_wizard_scan_gs1_expiry_use_date(self):
         self.product_wo_tracking_gs1.tracking = "lot"
