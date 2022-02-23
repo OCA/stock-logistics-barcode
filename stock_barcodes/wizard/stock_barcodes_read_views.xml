@@ -57,7 +57,7 @@
                     <field
                         name="_barcode_scanned"
                         widget="barcode_handler"
-                        invisible="1"
+                        invisible="0"
                     />
                     <group>
                         <field
