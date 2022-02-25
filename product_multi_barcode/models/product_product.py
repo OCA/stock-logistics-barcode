@@ -32,10 +32,11 @@ class ProductProduct(models.Model):
         for product in self:
             if product.barcode_ids:
                 product.barcode_ids[:1].write({"name": product.barcode})
-            if not product.barcode:
-                product.barcode_ids.unlink()
             else:
-                self.env["product.barcode"].create(self._prepare_barcode_vals())
+                if not product.barcode:
+                    product.barcode_ids.unlink()
+                else:
+                    self.env["product.barcode"].create(self._prepare_barcode_vals())
 
     def _prepare_barcode_vals(self):
         self.ensure_one()
