@@ -21,6 +21,7 @@ setuptools.setup(
         'odoo12-addon-stock_barcodes_gs1',
         'odoo12-addon-stock_barcodes_gs1_expiry',
         'odoo12-addon-stock_barcodes_supplierinfo',
+        'odoo12-addon-stock_inventory_barcode',
         'odoo12-addon-stock_scanner',
     ],
     classifiers=[
