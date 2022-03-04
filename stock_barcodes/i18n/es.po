@@ -85,13 +85,13 @@ msgid "Barcode Scanned"
 msgstr "Código de barras escaneado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:128
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:135
 #, python-format
 msgid "Barcode not found"
 msgstr "Código de barras no encontrado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:91
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:94
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 #: selection:wiz.stock.barcodes.read.picking,message_type:0
@@ -107,14 +107,14 @@ msgid "Barcode read with additional info"
 msgstr "Código de barras leído con información adicional"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:33
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:69
 #, python-format
 msgid "Barcode reader"
 msgstr "Escaneador"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:86
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:89
 #, python-format
 msgid "Barcode: %s (%s)"
 msgstr "Cód. Barras: %s (%s)"
@@ -413,7 +413,7 @@ msgid "Manual entry"
 msgstr "Entrada manual"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:143
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:150
 #, python-format
 msgid "Manual entry OK"
 msgstr "Entrada manual correcta"
@@ -448,13 +448,13 @@ msgid "More than one matches found"
 msgstr "Se ha encontrado más de una coincidencia"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:107
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:114
 #, python-format
 msgid "More than one package found"
 msgstr "Se ha encontrado más de un empaquetado"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:97
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:100
 #, python-format
 msgid "More than one product found"
 msgstr "Se ha encontrado más de un producto"
@@ -632,7 +632,6 @@ msgstr "Estado"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_auto_lot
 #, fuzzy
-#| msgid "OCA Stock Barcodes reader"
 msgid "Stock Barcodes Auto Lot"
 msgstr "Lector de códigos de barras (OCA)"
 
@@ -647,13 +646,19 @@ msgid "Stock move lines"
 msgstr "Movimiento de existencias"
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:104
+#, python-format
+msgid "The product type is not allowed"
+msgstr ""
+
+#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:228
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr "No hay movimientos de stock para realizar esta operación"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:126
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:132
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr "No hay lotes para asignar la cantidad"
@@ -704,20 +709,20 @@ msgid "Vendors"
 msgstr "Proveedores"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:69
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:75
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:246
 #, python-format
 msgid "Waiting for input lot"
 msgstr "A la espera de leer lote"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:126
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:133
 #, python-format
 msgid "Waiting product"
 msgstr "A la espera de producto"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:140
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:147
 #, python-format
 msgid "Waiting quantities"
 msgstr "A la espera de introducir cantidad"
@@ -753,7 +758,7 @@ msgid "Wizard to read barcode on picking"
 msgstr "Asistente para leer códigos de barras desde los albaranes"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:100
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:106
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""

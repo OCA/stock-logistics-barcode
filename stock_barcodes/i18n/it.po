@@ -97,13 +97,13 @@ msgid "Barcode Scanned"
 msgstr "Barcode scansionato"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:119
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:135
 #, python-format
 msgid "Barcode not found"
 msgstr "Codice a barre non trovato"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:82
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:94
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 #: selection:wiz.stock.barcodes.read.picking,message_type:0
@@ -119,14 +119,14 @@ msgid "Barcode read with additional info"
 msgstr "Codice a barre letto con informazione aggiuntiva"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:36
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:33
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:69
 #, python-format
 msgid "Barcode reader"
 msgstr "Lettore codice a barre"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:77
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:89
 #, python-format
 msgid "Barcode: %s (%s)"
 msgstr "Codice a barre: %s (%s)"
@@ -281,15 +281,14 @@ msgstr ""
 "Garantire la tracciabilità di un prodotto immagazzinabile nel tuo magazzino."
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_auto_lot
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_lot_form
 msgid "Get lots automatically"
 msgstr "Preleva lotti automaticamente"
-
-#. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_inventory_auto_lot
-msgid "Get lots automatically for inventories"
-msgstr "Preleva lotti automaticamente per gli inventari"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__id
@@ -303,7 +302,9 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 msgid ""
 "If checked the lot will be set automatically with the same removal startegy"
 msgstr ""
@@ -426,7 +427,7 @@ msgid "Manual entry"
 msgstr "Inserimento manuale"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:134
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:150
 #, python-format
 msgid "Manual entry OK"
 msgstr "Inserimento manuale OK"
@@ -461,13 +462,13 @@ msgid "More than one matches found"
 msgstr "Più di una corrispondenza trovata"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:98
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:114
 #, python-format
 msgid "More than one package found"
 msgstr "Più di un collo trovato"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:88
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:100
 #, python-format
 msgid "More than one product found"
 msgstr "Più di un prodotto trovato"
@@ -643,9 +644,9 @@ msgid "Status"
 msgstr "Stato"
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_inventory_auto_lot
-msgid "Stock Barcodes Inventory Auto Lot"
-msgstr "Lotto Automatico Lettore di Codici a Barre Inventario"
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_auto_lot
+msgid "Stock Barcodes Auto Lot"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_read_log_line
@@ -658,13 +659,19 @@ msgid "Stock move lines"
 msgstr "Linee di trasferimento"
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:104
+#, python-format
+msgid "The product type is not allowed"
+msgstr ""
+
+#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:228
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr "Non ci sono trasferimenti da assegnare a questa operazione"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:135
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:132
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr "Non ci sono lotti con quantità da assegnare"
@@ -715,20 +722,20 @@ msgid "Vendors"
 msgstr "Fornitori"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:78
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:75
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:246
 #, python-format
 msgid "Waiting for input lot"
 msgstr "In attesa inserimento lotto"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:117
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:133
 #, python-format
 msgid "Waiting product"
 msgstr "In attesa prodotto"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:131
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:147
 #, python-format
 msgid "Waiting quantities"
 msgstr "In attesa quantità"
@@ -765,7 +772,7 @@ msgid "Wizard to read barcode on picking"
 msgstr "Procedura guidata per leggere il codice a barre sul prelievo"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:109
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:106
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""
@@ -780,3 +787,9 @@ msgid ""
 msgstr ""
 "Non è possibile rimuovere un ingresso legato a un trasferimento di magazzino "
 "in stato assegnato o confermato"
+
+#~ msgid "Get lots automatically for inventories"
+#~ msgstr "Preleva lotti automaticamente per gli inventari"
+
+#~ msgid "Stock Barcodes Inventory Auto Lot"
+#~ msgstr "Lotto Automatico Lettore di Codici a Barre Inventario"
