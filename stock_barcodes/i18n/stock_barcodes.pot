@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-09-07 21:59+0000\n"
-"PO-Revision-Date: 2021-09-07 21:59+0000\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -79,13 +77,13 @@ msgid "Barcode Scanned"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:128
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:135
 #, python-format
 msgid "Barcode not found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:91
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:94
 #: selection:wiz.stock.barcodes.read,message_type:0
 #: selection:wiz.stock.barcodes.read.inventory,message_type:0
 #: selection:wiz.stock.barcodes.read.picking,message_type:0
@@ -101,14 +99,14 @@ msgid "Barcode read with additional info"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:27
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:33
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:69
 #, python-format
 msgid "Barcode reader"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:86
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:89
 #, python-format
 msgid "Barcode: %s (%s)"
 msgstr ""
@@ -394,7 +392,7 @@ msgid "Manual entry"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:143
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:150
 #, python-format
 msgid "Manual entry OK"
 msgstr ""
@@ -429,13 +427,13 @@ msgid "More than one matches found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:107
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:114
 #, python-format
 msgid "More than one package found"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:97
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:100
 #, python-format
 msgid "More than one product found"
 msgstr ""
@@ -626,13 +624,19 @@ msgid "Stock move lines"
 msgstr ""
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:104
+#, python-format
+msgid "The product type is not allowed"
+msgstr ""
+
+#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:228
 #, python-format
 msgid "There are no stock moves to assign this operation"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:126
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:132
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr ""
@@ -683,20 +687,20 @@ msgid "Vendors"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:69
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:75
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:246
 #, python-format
 msgid "Waiting for input lot"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:126
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:133
 #, python-format
 msgid "Waiting product"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:140
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:147
 #, python-format
 msgid "Waiting quantities"
 msgstr ""
@@ -732,7 +736,7 @@ msgid "Wizard to read barcode on picking"
 msgstr ""
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:100
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:106
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
 msgstr ""
