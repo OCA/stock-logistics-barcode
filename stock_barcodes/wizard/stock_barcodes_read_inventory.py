@@ -10,9 +10,12 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _name = 'wiz.stock.barcodes.read.inventory'
     _inherit = 'wiz.stock.barcodes.read'
     _description = 'Wizard to read barcode on inventory'
+    _allowed_product_types = ['product']
 
-    def _default_auto_lot(self):
-        return self.env.user.company_id.stock_barcodes_inventory_auto_lot
+    # Overwrite is needed to take into account new domain values
+    product_id = fields.Many2one(
+        domain=[('type', 'in', _allowed_product_types)]
+    )
 
     inventory_id = fields.Many2one(
         comodel_name='stock.inventory',
@@ -22,12 +25,6 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         string='Inventory quantities',
         digits=dp.get_precision('Product Unit of Measure'),
         readonly=True,
-    )
-    auto_lot = fields.Boolean(
-        string="Get lots automatically",
-        help="If checked the lot will be set automatically with the same "
-             "removal startegy",
-        default=lambda self: self._default_auto_lot(),
     )
 
     def name_get(self):

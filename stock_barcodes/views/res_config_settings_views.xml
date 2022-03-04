@@ -9,10 +9,10 @@
                 <div class="row mt16 o_settings_container">
                     <div class="col-12 col-lg-6 o_setting_box" title="Auto lots for inventory">
                         <div class="o_setting_left_pane">
-                            <field name="stock_barcodes_inventory_auto_lot"/>
+                            <field name="stock_barcodes_auto_lot"/>
                         </div>
                         <div class="o_setting_right_pane">
-                            <label for="stock_barcodes_inventory_auto_lot"/>
+                            <label for="stock_barcodes_auto_lot"/>
                             <div class="text-muted">
                                 Set a default value for scanner.
                             </div>

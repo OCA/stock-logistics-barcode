@@ -7,9 +7,9 @@ from odoo import fields, models
 class ResConfigSettings(models.TransientModel):
     _inherit = 'res.config.settings'
 
-    stock_barcodes_inventory_auto_lot = fields.Boolean(
-        string='Get lots automatically for inventories',
-        related="company_id.stock_barcodes_inventory_auto_lot",
+    stock_barcodes_auto_lot = fields.Boolean(
+        string='Get lots automatically',
+        related="company_id.stock_barcodes_auto_lot",
         readonly=False,
     )
     group_track_pending_products_picking_barcode_wizard = fields.Boolean(
@@ -22,4 +22,4 @@ class ResConfigSettings(models.TransientModel):
 class ResCompany(models.Model):
     _inherit = "res.company"
 
-    stock_barcodes_inventory_auto_lot = fields.Boolean()
+    stock_barcodes_auto_lot = fields.Boolean()
