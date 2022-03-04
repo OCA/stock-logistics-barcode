@@ -1,23 +1,17 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * stock_inventory_barcode
+#	* stock_inventory_barcode
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:53+0000\n"
-"PO-Revision-Date: 2016-05-04 05:59+0000\n"
 "Last-Translator: <>\n"
-"Language-Team: Bosnian (http://www.transifex.com/oca/OCA-stock-logistics-"
-"barcode-8-0/language/bs/)\n"
-"Language: bs\n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: \n"
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:184
@@ -64,12 +58,12 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__create_uid
 msgid "Created by"
-msgstr "Kreirao"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__create_date
 msgid "Created on"
-msgstr "Kreirano"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__product_qty
@@ -79,7 +73,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__display_name
 msgid "Display Name"
-msgstr "Prikaži naziv"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:89
@@ -93,7 +87,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__id
 msgid "ID"
-msgstr "ID"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__inventory_id
@@ -109,17 +103,17 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode____last_update
 msgid "Last Modified on"
-msgstr "Zadnje mijenjano"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__write_uid
 msgid "Last Updated by"
-msgstr "Zadnji ažurirao"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__write_date
 msgid "Last Updated on"
-msgstr "Zadnje ažurirano"
+msgstr ""
 
 #. module: stock_inventory_barcode
 #: model:ir.model.fields,field_description:stock_inventory_barcode.field_stock_inventory_barcode__location_id
@@ -156,9 +150,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:100
 #, python-format
-msgid ""
-"No stockable product found with this code as Barcode nor Internal Reference. "
-"You should select the right product manually."
+msgid "No stockable product found with this code as Barcode nor Internal Reference. You should select the right product manually."
 msgstr ""
 
 #. module: stock_inventory_barcode
@@ -184,9 +176,7 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:132
 #, python-format
-msgid ""
-"Product '%s' is not tracked by lot/serial so the lot field must be empty. "
-"This should never happen."
+msgid "Product '%s' is not tracked by lot/serial so the lot field must be empty. This should never happen."
 msgstr ""
 
 #. module: stock_inventory_barcode
@@ -202,18 +192,13 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:155
 #, python-format
-msgid ""
-"Several inventory lines exists for this product (and lot) on the same stock "
-"location. This should happen only when using packaging, but this scenario is "
-"not supported for the moment."
+msgid "Several inventory lines exists for this product (and lot) on the same stock location. This should happen only when using packaging, but this scenario is not supported for the moment."
 msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:90
 #, python-format
-msgid ""
-"Several stockable products have been found with this code as Barcode or "
-"Internal Reference:\n"
+msgid "Several stockable products have been found with this code as Barcode or Internal Reference:\n"
 " %s\n"
 "You should select the right product manually."
 msgstr ""
@@ -279,26 +264,18 @@ msgstr ""
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:126
 #, python-format
-msgid ""
-"You cannot change the unit of measure of the product: it is been restored to "
-"'%s'."
+msgid "You cannot change the unit of measure of the product: it is been restored to '%s'."
 msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:209
 #, python-format
-msgid ""
-"You cannot change the unit of measure. You must restore the unit of measure "
-"of the product (%s)."
+msgid "You cannot change the unit of measure. You must restore the unit of measure of the product (%s)."
 msgstr ""
 
 #. module: stock_inventory_barcode
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:60
 #, python-format
-msgid ""
-"You cannot start the barcode interface on inventory '%s' which is not 'In "
-"Progress'."
+msgid "You cannot start the barcode interface on inventory '%s' which is not 'In Progress'."
 msgstr ""
 
-#~ msgid "Cancel"
-#~ msgstr "Otkaži"
