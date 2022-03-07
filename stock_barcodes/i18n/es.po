@@ -267,15 +267,14 @@ msgid "Ensure the traceability of a storable product in your warehouse."
 msgstr "Asegure la trazabilidad de un producto almacenable en su almacén"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_auto_lot
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_lot_form
 msgid "Get lots automatically"
 msgstr "Obtener lotes automáticamente"
-
-#. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_inventory_auto_lot
-msgid "Get lots automatically for inventories"
-msgstr "Obtener lotes automáticamente para inventarios"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__id
@@ -289,12 +288,12 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 msgid ""
-"If checked the lot will be set automatically with the same removal strategy"
+"If checked the lot will be set automatically with the same removal startegy"
 msgstr ""
-"Si esta marcado el lote se establecerá automáticamente según la estrategia "
-"de retirada"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
@@ -607,8 +606,8 @@ msgid "Status"
 msgstr "Estado"
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_inventory_auto_lot
-msgid "Stock Barcodes Inventory Auto Lot"
+#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_auto_lot
+msgid "Stock Barcodes Auto Lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -620,6 +619,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__move_line_id
 msgid "Stock move lines"
 msgstr "Movimiento de existencias"
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "The product type is not allowed"
+msgstr ""
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
@@ -730,6 +735,16 @@ msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or "
 "confirmed"
 msgstr ""
+
+#~ msgid "Get lots automatically for inventories"
+#~ msgstr "Obtener lotes automáticamente para inventarios"
+
+#~ msgid ""
+#~ "If checked the lot will be set automatically with the same removal "
+#~ "strategy"
+#~ msgstr ""
+#~ "Si esta marcado el lote se establecerá automáticamente según la "
+#~ "estrategia de retirada"
 
 #~ msgid "Procurement purchase grouping settings"
 #~ msgstr "Agrupación de la compra abastecida"
