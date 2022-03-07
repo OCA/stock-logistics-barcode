@@ -271,6 +271,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.remove_scanning_log(log_scan)
         return res
 
+    def get_lot_by_removal_strategy(self):
+        quants = first(
+            self.env["stock.quant"]._gather(self.product_id, self.location_id)
+        )
+        self.lot_id = quants.lot_id
+
+    def action_product_scaned_post(self, product):
+        res = super().action_product_scaned_post(product)
+        if self.auto_lot and self.picking_type_code != "incoming":
+            self.get_lot_by_removal_strategy()
+        return res
+
 
 class WizCandidatePicking(models.TransientModel):
     """

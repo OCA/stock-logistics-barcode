@@ -10,6 +10,10 @@ class WizStockBarcodesRead(models.AbstractModel):
     # To prevent remove the record wizard until 2 days old
     _transient_max_hours = 48
 
+    @api.model
+    def _default_auto_lot(self):
+        return self.env.user.company_id.stock_barcodes_auto_lot
+
     barcode = fields.Char()
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
     res_id = fields.Integer(index=True)
@@ -36,6 +40,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         readonly=True,
     )
     message = fields.Char(readonly=True)
+    auto_lot = fields.Boolean(
+        string="Get lots automatically",
+        help="If checked the lot will be set automatically with the same "
+        "removal startegy",
+        default=_default_auto_lot,
+    )
 
     @api.onchange("location_id")
     def onchange_location_id(self):

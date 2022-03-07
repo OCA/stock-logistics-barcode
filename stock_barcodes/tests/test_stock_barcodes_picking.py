@@ -115,6 +115,12 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.wiz_scan_picking = self.ScanReadPicking.with_context(
             vals["context"]
         ).create({})
+        # Create a wizard for outgoing picking
+        self.picking_out_01.action_confirm()
+        vals = self.picking_out_01.action_barcode_scan()
+        self.wiz_scan_picking_out = self.ScanReadPicking.with_context(
+            vals["context"]
+        ).create({})
 
     def test_wiz_picking_values(self):
         self.assertEqual(
@@ -227,3 +233,67 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         candidate_wiz.action_unlock_picking()
         self.wiz_scan_picking.action_manual_entry()
         self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 3)
+
+    def test_picking_wizard_scan_product_auto_lot(self):
+        # Prepare more data
+        lot_2 = self.StockProductionLot.create(
+            {
+                "name": "8411822222578",
+                "product_id": self.product_tracking.id,
+                "company_id": self.company.id,
+            }
+        )
+        lot_3 = self.StockProductionLot.create(
+            {
+                "name": "8411822222588",
+                "product_id": self.product_tracking.id,
+                "company_id": self.company.id,
+            }
+        )
+        quant_lot_2 = self.StockQuant.create(
+            {
+                "product_id": self.product_tracking.id,
+                "lot_id": lot_2.id,
+                "location_id": self.stock_location.id,
+                "quantity": 15.0,
+            }
+        )
+        quant_lot_3 = self.StockQuant.create(
+            {
+                "product_id": self.product_tracking.id,
+                "lot_id": lot_3.id,
+                "location_id": self.stock_location.id,
+                "quantity": 10.0,
+            }
+        )
+        self.quant_lot_1.in_date = "2021-01-01"
+        quant_lot_2.in_date = "2021-01-05"
+        quant_lot_3.in_date = "2021-01-06"
+        # Scan product with tracking lot enable
+        self.action_barcode_scanned(self.wiz_scan_picking, "8433281006850")
+        self.assertEqual(
+            self.wiz_scan_picking.message,
+            "Barcode: 8433281006850 (Waiting for input lot)",
+        )
+
+        self.wiz_scan_picking.auto_lot = True
+        # self.wiz_scan_picking.manual_entry = True
+
+        # Removal strategy FIFO
+
+        # No auto lot for incoming pickings
+        self.action_barcode_scanned(self.wiz_scan_picking, "8433281006850")
+        self.assertFalse(self.wiz_scan_picking.lot_id)
+
+        # Continue test with a outgoing wizard
+        self.wiz_scan_picking_out.auto_lot = True
+        self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
+        self.assertEqual(self.wiz_scan_picking_out.lot_id, self.lot_1)
+
+        # Removal strategy LIFO
+        self.wiz_scan_picking_out.lot_id = False
+        self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
+            "stock.removal_lifo"
+        )
+        self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
+        self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_3)
