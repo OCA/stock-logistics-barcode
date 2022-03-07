@@ -9,11 +9,18 @@ class WizStockBarcodesRead(models.AbstractModel):
     _description = "Wizard to read barcode"
     # To prevent remove the record wizard until 2 days old
     _transient_max_hours = 48
+    _allowed_product_types = ["product", "consu"]
+
+    @api.model
+    def _default_auto_lot(self):
+        return self.env.user.company_id.stock_barcodes_auto_lot
 
     barcode = fields.Char()
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
     res_id = fields.Integer(index=True)
-    product_id = fields.Many2one(comodel_name="product.product")
+    product_id = fields.Many2one(
+        comodel_name="product.product", domain=[("type", "in", _allowed_product_types)]
+    )
     product_tracking = fields.Selection(related="product_id.tracking", readonly=True)
     lot_id = fields.Many2one(comodel_name="stock.production.lot")
     location_id = fields.Many2one(comodel_name="stock.location")
@@ -36,6 +43,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         readonly=True,
     )
     message = fields.Char(readonly=True)
+    auto_lot = fields.Boolean(
+        string="Get lots automatically",
+        help="If checked the lot will be set automatically with the same "
+        "removal startegy",
+        default=_default_auto_lot,
+    )
 
     @api.onchange("location_id")
     def onchange_location_id(self):
@@ -65,6 +78,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         if product:
             if len(product) > 1:
                 self._set_messagge_info("more_match", _("More than one product found"))
+                return
+            elif product.type not in self._allowed_product_types:
+                self._set_messagge_info(
+                    "not_found", _("The product type is not allowed")
+                )
                 return
             self.action_product_scaned_post(product)
             self.action_done()
