@@ -1,0 +1,58 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcodes_gs1
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 11.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-27 14:47+0000\n"
+"PO-Revision-Date: 2021-05-11 12:47+0000\n"
+"Last-Translator: Haftec <hmahamud@tecnihand.com>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
+
+#. module: stock_barcodes_gs1
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "Barcode for product not found"
+msgstr "Código de barras no encontrado"
+
+#. module: stock_barcodes_gs1
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "Barcode for product packaging not found"
+msgstr "Código de barras de empaquetado no encontrado"
+
+#. module: stock_barcodes_gs1
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "Barcode read correctly"
+msgstr "Código de barras leído correctamente"
+
+#. module: stock_barcodes_gs1
+#: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "More than one package found"
+msgstr "Se ha encontrado más de un empaquetado"
+
+#. module: stock_barcodes_gs1
+#: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_new_lot
+msgid "Wizard to create new lot from barcode scanner"
+msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
+
+#. module: stock_barcodes_gs1
+#: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_read
+msgid "Wizard to read barcode"
+msgstr "Asistente para leer código de barras"
+
+#~ msgid "Barcode not found"
+#~ msgstr "Código de barras no encontrado"
+
+#~ msgid "More than one product found"
+#~ msgstr "Se ha encontrado más de un producto."
