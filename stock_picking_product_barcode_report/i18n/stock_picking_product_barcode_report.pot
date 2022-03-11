@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-03-11 22:42+0000\n"
+"PO-Revision-Date: 2022-03-11 22:42+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -148,6 +150,11 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_quant
 msgid "Label Quant Report"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_package
+msgid "Labels package content"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
