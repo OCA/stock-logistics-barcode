@@ -93,4 +93,17 @@
             </t>
         </t>
     </template>
+    <!-- Print labels from package quants -->
+    <template id="label_barcode_report_package_content">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="package">
+                <t t-foreach="package.quant_ids" t-as="doc">
+                    <t
+                        t-call="stock_picking_product_barcode_report.report_label_barcode_quant_package"
+                        t-lang="doc.env.user.lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
 </odoo>
