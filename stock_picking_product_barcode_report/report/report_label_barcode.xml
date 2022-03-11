@@ -27,4 +27,13 @@
         name="stock_picking_product_barcode_report.label_barcode_report_quant_package"
         paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
     />
+    <report
+        id="report_label_barcode_package"
+        string="Labels package content"
+        model="stock.quant.package"
+        report_type="qweb-pdf"
+        file="stock_picking_product_barcode_report.label_barcode_report_package_content"
+        name="stock_picking_product_barcode_report.label_barcode_report_package_content"
+        paperformat="stock_picking_product_barcode_report.paperformat_label_quant_package"
+    />
 </odoo>
