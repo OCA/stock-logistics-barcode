@@ -151,6 +151,11 @@ msgid "Label Quant Report"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_package
+msgid "Labels package content"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print____last_update
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print____last_update
 msgid "Last Modified on"
