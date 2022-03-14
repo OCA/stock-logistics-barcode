@@ -17,6 +17,7 @@ setuptools.setup(
         'odoo14-addon-stock_barcodes',
         'odoo14-addon-stock_barcodes_automatic_entry',
         'odoo14-addon-stock_barcodes_gs1',
+        'odoo14-addon-stock_barcodes_gs1_expiry',
         'odoo14-addon-stock_inventory_barcode',
     ],
     classifiers=[
