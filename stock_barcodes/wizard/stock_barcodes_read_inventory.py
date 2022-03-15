@@ -11,7 +11,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _description = "Wizard to read barcode on inventory"
 
     def _default_auto_lot(self):
-        return self.env.user.company_id.stock_barcodes_inventory_auto_lot
+        return self.env.company.stock_barcodes_inventory_auto_lot
 
     inventory_id = fields.Many2one(comodel_name="stock.inventory", readonly=True)
     inventory_product_qty = fields.Float(

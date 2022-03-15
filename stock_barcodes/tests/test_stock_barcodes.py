@@ -26,7 +26,7 @@ class TestStockBarcodes(TransactionCase):
         self.StockPicking = self.env["stock.picking"]
         self.StockQuant = self.env["stock.quant"]
 
-        self.company = self.env.user.company_id
+        self.company = self.env.company
 
         # warehouse and locations
         self.warehouse = self.env.ref("stock.warehouse0")
