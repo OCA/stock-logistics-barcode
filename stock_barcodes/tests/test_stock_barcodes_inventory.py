@@ -183,7 +183,7 @@ class TestStockBarcodesInventory(TestStockBarcodes):
     def test_inventory_wizard_auto_lot_default_value(self):
         # Company auto lot default value False
         self.assertFalse(self.wiz_scan_inventory.auto_lot)
-        self.env.user.company_id.stock_barcodes_inventory_auto_lot = True
+        self.env.company.stock_barcodes_inventory_auto_lot = True
         vals = self.inventory.action_barcode_scan()
         wiz_scan_inventory = self.ScanReadInventory.with_context(
             vals["context"]
