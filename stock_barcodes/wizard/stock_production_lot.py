@@ -22,7 +22,7 @@ class WizStockBarcodesNewLot(models.TransientModel):
         return {
             "product_id": self.product_id.id,
             "name": self.lot_name,
-            "company_id": self.env.user.company_id.id,
+            "company_id": self.env.company.id,
         }
 
     def confirm(self):
