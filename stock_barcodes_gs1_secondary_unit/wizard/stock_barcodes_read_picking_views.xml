@@ -5,37 +5,46 @@
             name="inherit_id"
             ref="stock_barcodes.view_stock_barcodes_read_picking_form"
         />
+        <field name="groups_id" eval="[(4, ref('uom.group_uom'))]" />
         <field name="arch" type="xml">
-            <group name="packaging_qty" position="after">
-                <group name="secondary_uom">
+            <div name="total_qty_header" position="before">
+                <div class="col text-center pr-0">
+                    <field name="product_tmpl_id" invisible="1" />
+                    <field
+                        name="secondary_uom_id"
+                        options="{'no_open': True, 'no_create': True}"
+                        domain="[('product_tmpl_id', '=', product_tmpl_id)]"
+                        force_save="1"
+                        placeholder="Secondary uom"
+                    />
+                </div>
+                <div class="col text-center">
                     <div>
-                        <span
-                            class="fa fa-dropbox fa-2x text-center"
-                            style="width:15%"
-                        />
-                        <field name="product_tmpl_id" invisible="1" />
-                        <field
-                            name="secondary_uom_id"
-                            options="{'no_create': True}"
-                            domain="[('product_tmpl_id', '=', product_tmpl_id)]"
-                            attrs="{'readonly': [('manual_entry', '=', False)], 'invisible': [('secondary_uom_id', '=', False), ('manual_entry', '=', False)]}"
-                            force_save="1"
-                            style="width:85%"
-                        />
+                        <field name="product_uom_id" readonly="1"
+                               options="{'no_open': True, 'no_create': True}"/>
                     </div>
-                </group>
-                <group name="secondary_uom_qty">
-                    <div class="mt8 text-center">
-                        <field
-                            name="secondary_uom_qty"
-                            attrs="{'invisible': ['|', ('secondary_uom_id', '=', False), ('manual_entry', '=', False)], 'readonly': [('manual_entry', '=', False)]}"
-                            force_save="1"
-                            style="width:60%"
-                            widget="numeric_step"
-                        />
+                </div>
+            </div>
+            <div name="total_qty_field" position="before">
+                <div class="col text-center pr-0">
+                    <div>
                     </div>
-                </group>
-            </group>
+                    <field
+                        name="secondary_uom_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                    />
+                </div>
+                <div class="col text-center px-0">
+                    <field
+                        name="secondary_single_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                    />
+                </div>
+            </div>
         </field>
     </record>
 </odoo>
