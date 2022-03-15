@@ -23,3 +23,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 and ln.barcode_scan_state == "pending"
             )
         return lines
+
+    def determine_todo_action(self, forced_todo_line=False):
+        res = super().determine_todo_action(forced_todo_line=forced_todo_line)
+        if self.option_group_id.barcode_guided_mode == "guided":
+            if self.option_group_id.get_option_value("secondary_uom_id", "filled_default"):
+                self.secondary_uom_id = self.todo_line_id.line_ids[:1].secondary_uom_id
+        return res

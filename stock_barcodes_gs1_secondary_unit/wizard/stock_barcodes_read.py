@@ -15,11 +15,16 @@ class WizStockBarcodesRead(models.AbstractModel):
     secondary_uom_qty = fields.Float(
         string="Secondary UOM Qty", digits="Product Unit of Measure"
     )
+    secondary_single_qty = fields.Float(
+        string="Secondary single Qty", digits="Product Unit of Measure"
+    )
 
-    @api.onchange("secondary_uom_qty")
+    @api.onchange("secondary_uom_id", "secondary_uom_qty", "secondary_single_qty")
     def onchange_secondary_uom_qty(self):
         if self.secondary_uom_id:
-            self.product_qty = self.secondary_uom_qty * self.secondary_uom_id.factor
+            self.product_qty = (
+                self.secondary_uom_qty * self.secondary_uom_id.factor
+            ) + self.secondary_single_qty
 
     def action_secondary_uom_scaned_post(self, secondary_uom):
         self.secondary_uom_id = secondary_uom
