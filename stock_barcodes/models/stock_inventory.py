@@ -11,9 +11,9 @@ class StockInventory(models.Model):
         self.start_empty = True
         self._action_start()
         self._check_company()
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_read_inventory"
-        ).read()[0]
+        )
         action["context"] = {
             "default_location_id": self.location_ids[:1].id,
             "default_product_id": self.product_ids[:1].id,
