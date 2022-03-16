@@ -7,9 +7,9 @@ class StockPickingType(models.Model):
     _inherit = "stock.picking.type"
 
     def action_barcode_scan(self):
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
+        )
         action["context"] = {
             "default_res_model_id": self.env.ref("stock.model_stock_picking_type").id,
             "default_res_id": self.id,
