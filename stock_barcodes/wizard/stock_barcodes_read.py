@@ -13,7 +13,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     @api.model
     def _default_auto_lot(self):
-        return self.env.user.company_id.stock_barcodes_auto_lot
+        return self.env.company.stock_barcodes_auto_lot
 
     barcode = fields.Char()
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
