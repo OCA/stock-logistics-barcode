@@ -1,0 +1,30 @@
+<odoo>
+
+    <record id="action_sale_line_barcode" model="ir.actions.act_window">
+        <field name="name">Input Product</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">barcode.action</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <record id="view_order_form" model="ir.ui.view">
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form" />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//form//header//button[@name='action_confirm']"
+                position="after"
+            >
+               <button
+                    type="action"
+                    help="Input product lines scanning barcodes"
+                    name="%(action_sale_line_barcode)d"
+                    icon="fa-qrcode"
+                    context="{'default_model': 'sale.order', 'default_method': 'action_sale_line_barcode', 'default_res_id': active_id}"
+                />
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
