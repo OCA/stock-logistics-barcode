@@ -54,7 +54,6 @@ class GS1Barcode(models.Model):
             ("numeric", "Numeric value"),
             ("date", "Date"),
         ],
-        "Data Type",
         default="string",
         required=True,
     )
@@ -174,14 +173,14 @@ class GS1Barcode(models.Model):
                     groups = (
                         value_regexps[ai].match(barcode_string, position).groupdict()
                     )
-                except AttributeError:
+                except AttributeError as e:
                     raise exceptions.ValidationError(
                         _(
                             "Could not decode barcode: incorrect value for "
-                            'Application Identifer "%s" at position %d'
+                            'Application Identifer "%(ai)s" at position %(position)d'
                         )
-                        % (ai, position)
-                    )
+                        % ({"ai": ai, "position": position})
+                    ) from e
 
                 position += len(groups["value"])
                 results[ai] = groups["value"].replace(separator, "")

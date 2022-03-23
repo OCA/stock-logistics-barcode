@@ -5,7 +5,7 @@
         <field name="name">gs1_barcode.tree</field>
         <field name="model">gs1_barcode</field>
         <field name="arch" type="xml">
-            <tree string="GS1-128/GS1-Datamatrix decoding configuration">
+            <tree>
                 <field name="ai" />
                 <field name="name" />
             </tree>
