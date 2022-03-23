@@ -2,7 +2,7 @@
 {
     "name": "GS1 Barcode API",
     "summary": "Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.0",
     "author": "Numérigraphe, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "category": "Generic Modules/Inventory Control",
