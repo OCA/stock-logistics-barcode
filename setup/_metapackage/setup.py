@@ -14,6 +14,7 @@ setuptools.setup(
         'odoo14-addon-base_gs1_barcode',
         'odoo14-addon-product_multi_barcode',
         'odoo14-addon-product_supplierinfo_barcode',
+        'odoo14-addon-sale_input_barcode',
         'odoo14-addon-stock_barcodes',
         'odoo14-addon-stock_barcodes_automatic_entry',
         'odoo14-addon-stock_barcodes_gs1',
