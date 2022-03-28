@@ -1,10 +1,7 @@
 <odoo>
     <record id="view_stock_barcodes_read_picking_form" model="ir.ui.view">
-        <field name="model">wiz.stock.barcodes.read.picking</field>
-        <field
-            name="inherit_id"
-            ref="stock_barcodes.view_stock_barcodes_read_picking_form"
-        />
+        <field name="model">wiz.stock.barcodes.read</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
         <field name="groups_id" eval="[(4, ref('uom.group_uom'))]" />
         <field name="arch" type="xml">
             <div name="total_qty_header" position="before">
@@ -20,15 +17,16 @@
                 </div>
                 <div class="col text-center">
                     <div>
-                        <field name="product_uom_id" readonly="1"
-                               options="{'no_open': True, 'no_create': True}"/>
+                        <field
+                            name="product_uom_id"
+                            readonly="1"
+                            options="{'no_open': True, 'no_create': True}"
+                        />
                     </div>
                 </div>
             </div>
             <div name="total_qty_field" position="before">
                 <div class="col text-center pr-0">
-                    <div>
-                    </div>
                     <field
                         name="secondary_uom_qty"
                         force_save="1"
