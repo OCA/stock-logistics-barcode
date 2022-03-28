@@ -20,7 +20,7 @@
                 </div>
                 <div class="col text-center">
                     <div>
-                        <field name="product_uom_id" readonly="1"/>
+                        <field name="product_uom_id" readonly="1" />
                     </div>
                 </div>
             </div>
