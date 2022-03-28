@@ -3,7 +3,7 @@
 
 {
     "name": "Sale Input Barcode",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "author": "Akretion, Odoo Community Association (OCA)",
