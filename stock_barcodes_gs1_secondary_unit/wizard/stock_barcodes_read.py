@@ -69,3 +69,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     def onchange_product_id(self):
         super().onchange_product_id()
         self.secondary_uom_id = self.product_id.stock_secondary_uom_id
+
+    def _set_focus_on_qty_input(self, field_name="product_qty"):
+        if self.secondary_uom_id:
+            field_name = "secondary_uom_qty"
+        return super()._set_focus_on_qty_input(field_name=field_name)
