@@ -21,10 +21,9 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     @api.onchange("secondary_uom_id", "secondary_uom_qty", "secondary_single_qty")
     def onchange_secondary_uom_qty(self):
-        if self.secondary_uom_id:
-            self.product_qty = (
-                self.secondary_uom_qty * self.secondary_uom_id.factor
-            ) + self.secondary_single_qty
+        self.product_qty = (
+            self.secondary_uom_qty * self.secondary_uom_id.factor
+        ) + self.secondary_single_qty
 
     def action_secondary_uom_scaned_post(self, secondary_uom):
         self.secondary_uom_id = secondary_uom
@@ -65,3 +64,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_secondary_uom_scaned_post(secondary_uom)
+
+    @api.onchange("product_id")
+    def onchange_product_id(self):
+        super().onchange_product_id()
+        self.secondary_uom_id = self.product_id.stock_secondary_uom_id
