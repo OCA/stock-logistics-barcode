@@ -74,3 +74,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.secondary_uom_id:
             field_name = "secondary_uom_qty"
         return super()._set_focus_on_qty_input(field_name=field_name)
+
+    def action_clean_values(self):
+        super().action_clean_values()
+        self.secondary_uom_id = False
+        self.secondary_uom_qty = 0.0
+        self.secondary_single_qty = 0.0
