@@ -13,14 +13,14 @@ class TestBarcodeGenerator(SavepointCase):
         cls.record.generate_barcode()
 
     def test_generate_base(self):
-        """ It should generate the correct base for the barcode. """
+        """It should generate the correct base for the barcode."""
         self.assertEqual(
             self.record.barcode_base,
             1,
         )
 
     def test_generate_sequence(self):
-        """ It should generate the correct sequence for the barcode. """
+        """It should generate the correct sequence for the barcode."""
         self.assertEqual(
             self.record.barcode,
             "1190000000014",
