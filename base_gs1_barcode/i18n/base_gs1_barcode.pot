@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -210,8 +210,8 @@ msgstr ""
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
-"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
-"at position %d"
+"Could not decode barcode: incorrect value for Application Identifer "
+"\"%(ai)s\" at position %(position)d"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -323,7 +323,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__display_name
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__display_name
 msgid "Display Name"
 msgstr ""
 
@@ -365,7 +364,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 
@@ -406,7 +404,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__id
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__id
 msgid "ID"
 msgstr ""
 
@@ -481,7 +478,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode____last_update
-#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users____last_update
 msgid "Last Modified on"
 msgstr ""
 
