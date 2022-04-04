@@ -1,0 +1,889 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * base_gs1_barcode
+#
+# Translators:
+# Matjaž Mozetič <m.mozetic@matmoz.si>, 2015
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-04-30 02:48+0000\n"
+"PO-Revision-Date: 2016-04-30 05:17+0000\n"
+"Last-Translator: Matjaž Mozetič <m.mozetic@matmoz.si>\n"
+"Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/sl/)\n"
+"Language: sl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=4; plural=(n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3);\n"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.ACTIVE_POTENCY
+msgid "Active Potency"
+msgstr "Aktivna moč"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.ADDITIONAL_PRODUCT_ID
+msgid "Additional Product Identification"
+msgstr "Dodatna identifikacija proizvoda"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE
+msgid "Amount payable (local currency)"
+msgstr "Znesek za plačilo (lokalna valuta)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_CURRENCY
+msgid "Amount payable (with ISO currency code)"
+msgstr "Znesek za plačilo (ISO koda valute)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM
+msgid "Amount payable per single item (local currency)"
+msgstr "Znesek za plačilo po postavki (lokalna valuta)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AMOUNT_PAYABLE_SINGLE_ITEM_CURRENCY
+msgid "Amount payable per single item (with ISO currency code)"
+msgstr "Znesek za plačilo po postavki (ISO koda valute)"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__string
+msgid "Any character string"
+msgstr "Katerikoli niz znakov"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__ai
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+msgid "Application Identifier"
+msgstr "Identifikator aplikacije"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.LOT
+msgid "Batch/Lot Number"
+msgstr "Številka šarže/lota"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INVOICE_LOCATION
+msgid "Bill To/Invoice Location Code (Global Location Number)"
+msgstr "Zaračunati/koda lokacije računa (globalna številka lokacije)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.BILL_OF_LADING
+msgid "Bill of Lading number"
+msgstr "Številka tovornega lista"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONSIGNMENT
+msgid "Consignment Number"
+msgstr "Konsignacijska številka"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_FT2
+msgid "Container Area (Square Feet)"
+msgstr "Površina kontejnerja (kvadratni čevlji)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_IN2
+msgid "Container Area (Square Inches)"
+msgstr "Površina kontejnerja (kvadratne cole)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA
+msgid "Container Area (Square Meters)"
+msgstr "Površina kontejnerja (kvadratni metri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_AREA_SQUARE_YD
+msgid "Container Area (Square Yards)"
+msgstr "Površina kontejnerja (kvadratni jardi)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH
+msgid "Container Depth/Thickness/3rd Dimension (Meters)"
+msgstr "Globina/Debelina/3. dimenzija kontejnerja (metri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_FT
+msgid "Container Depth/Thickness/Height/3rd Dimension, in feet"
+msgstr "Globina/Debelina/Višina/3. dimenzija kontejnerja v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_IN
+msgid "Container Depth/Thickness/Height/3rd Dimension, in inches"
+msgstr "Globina/Debelina/Višina/3. dimenzija kontejnerja v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_DEPTH_YD
+msgid "Container Depth/Thickness/Height/3rd Dimension, in yards"
+msgstr "Globina/Debelina/Višina/3. dimenzija kontejnerja v jardih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_FT3
+msgid "Container Gross Volume (Cubic Feet)"
+msgstr "Bruto prostornina kontejnerja (kubični čevlji)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_IN3
+msgid "Container Gross Volume (Cubic Inches)"
+msgstr "Bruto prostornina kontejnerja (kubične cole)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME
+msgid "Container Gross Volume (Cubic Meters)"
+msgstr "Bruto prostornina kontejnerja (kubični metri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_YD3
+msgid "Container Gross Volume (Cubic Yards)"
+msgstr "Bruto prostornina kontejnerja (kubični jardi)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_L
+msgid "Container Gross Volume (Liters)"
+msgstr "Bruto prostornina kontejnerja (litri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_QUARTS
+msgid "Container Gross Volume (Quarts)"
+msgstr "Bruto prostornina kontejnerja (kvarti)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_VOLUME_GALLONS
+msgid "Container Gross Volume (U.S. Gallons)"
+msgstr "Bruto prostornina kontejnerja (ameriške galone)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_WEIGHT_LB
+msgid "Container Gross Weight (Pounds)"
+msgstr "Bruto masa kontejnerja (funti)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_GROSS_WEIGHT
+msgid "Container Gross Weight (kg)"
+msgstr "Bruto masa kontejnerja (kg)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH
+msgid "Container Length/1st Dimension (Meters)"
+msgstr "Dolžina/1. dimenzija kontejnerja (metri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_YD
+msgid "Container Length/1st Dimension in, in yards"
+msgstr "Dolžina/1. dimenzija kontejnerja v jardih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_FT
+msgid "Container Length/1st Dimension, in feet"
+msgstr "Dolžina/1. dimenzija kontejnerja v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_LENGTH_IN
+msgid "Container Length/1st Dimension, in inches"
+msgstr "Dolžina/1. dimenzija kontejnerja v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH
+msgid "Container Width/Diameter/2nd Dimension (Meters)"
+msgstr "Širina/premer/2. dimenzija kontejnerja (metri)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_FT
+msgid "Container Width/Diameter/2nd Dimension, in feet"
+msgstr "Širina/premer/2. dimenzija kontejnerja v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_IN
+msgid "Container Width/Diameter/2nd Dimension, in inches"
+msgstr "Širina/premer/2. dimenzija kontejnerja v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTAINER_WIDTH_YD
+msgid "Container Width/Diameter/2nd Dimension, in yards"
+msgstr "Širina/premer/2. dimenzija kontejnerja v jardih"
+
+#. module: base_gs1_barcode
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
+#, python-format
+msgid ""
+"Could not decode barcode : wrong prefix - the code should start with \"%s\""
+msgstr ""
+"Ni bilo mogoče dekodirati črtne kode: napačna predpona - koda mora pričeti z "
+"\"%s\""
+
+#. module: base_gs1_barcode
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
+#, python-format
+msgid ""
+"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
+"at position %d"
+msgstr ""
+"Ni bilo mogoče dekodirati črtne kode: napačna vrednost za identifikator "
+"aplikacije \"%s\" pri poziciji %d"
+
+#. module: base_gs1_barcode
+#: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
+#, python-format
+msgid "Could not decode barcode: unknown Application Identifier at position %d"
+msgstr ""
+"Ni bilo mogoče dekodirati črtne kode: neznana vrednost za identifikator "
+"aplikacije pri poziciji %d"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNT
+msgid "Count of items"
+msgstr "Seštevek artiklov"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_ORIGIN
+msgid "Country of Origin (ISO country code)"
+msgstr "Država izvora (ISO koda države)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_DISASSEMBLY
+msgid "Country of disassembly"
+msgstr "Država demontaže"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNTRY
+msgid "Country of full process chain"
+msgstr "Država celotne obdelovalne verige"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNTRY__PROCESSING
+msgid "Country of processing"
+msgstr "Država obdelave"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUNTRY_INITIAL_PROCESSING
+msgid "Country or countries of initial processing"
+msgstr "Država ali države začetne obdelave"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER
+msgid "Coupon Extended Code: Number System and Offer"
+msgstr "Razširjena koda kupona: številčni sistem in ponudba"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_PRECEDED_BY_0
+msgid "Coupon Extended Code: Number System preceded by 0"
+msgstr "Razširjena koda kupona: 0 pred številčnim sistemom"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUPON_EXTENDED_CODE_NB_SYSTEM_OFFER_END
+msgid "Coupon Extended Code: Number System, Offer, End of Offer"
+msgstr "Razširjena koda kupona: številčni sistem, ponudba, konec ponudbe"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COUPON_CODE_ID
+msgid "Coupon code ID (North America)"
+msgstr "ID koda kupona (Severna Amerika)"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__create_uid
+msgid "Created by"
+msgstr "Ustvaril"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__create_date
+msgid "Created on"
+msgstr "Ustvarjeno"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CUSTOMER_PART
+msgid "Customer Part Number"
+msgstr "Kupčeva številka komponente"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CUSTOMER_PURCHASE_ORDER
+msgid "Customer Purchase Order Number"
+msgstr "Kupčeva številka nabavnega naloga"
+
+#. module: base_gs1_barcode
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+msgid "Data Description"
+msgstr "Opis podatkov"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__data_type
+msgid "Data Type"
+msgstr "Tip podatkov"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__date
+msgid "Date"
+msgstr "Datum"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DATE_PRODUCTION
+msgid "Date/time of production"
+msgstr "Datum/čas proizvodnje"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__decimal
+msgid "Decimal Indicator"
+msgstr "Decimalni indikator"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__name
+msgid "Description"
+msgstr "Opis"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__display_name
+msgid "Display Name"
+msgstr "Prikazni naziv"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DUE_DATE
+msgid "Due Date"
+msgstr "Datum zapadlosti"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE
+msgid "Expiration Date"
+msgstr "Rok trajanja"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_fixed
+msgid "Fixed-length Data"
+msgstr "Podatki stalne dolžine"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GLN_EXTENSION_COMPONENT
+msgid "GLN Extension Component"
+msgstr "GLN razširitvena komponenta"
+
+#. module: base_gs1_barcode
+#: model:ir.actions.act_window,name:base_gs1_barcode.action_config_gs1_barcode
+#: model:ir.ui.menu,name:base_gs1_barcode.menu_config_gs1_barcode
+msgid "GS1-128/GS1-Datamatrix Decoding"
+msgstr "GS1-128/GS1-Datamatrix dekodiranje"
+
+#. module: base_gs1_barcode
+#: model:ir.model,name:base_gs1_barcode.model_gs1_barcode
+msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
+msgstr "GS1-128/GS1-Datamatrix API dekodirnika črtne kode in nastavitve"
+
+#. module: base_gs1_barcode
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.view_users_form_gs1_barcode
+msgid "GS1-128/GS1-Datamatrix barcodes"
+msgstr "GS1-128/GS1-Datamatrix črtne kode"
+
+#. module: base_gs1_barcode
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
+#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
+msgid "GS1-128/GS1-Datamatrix decoding configuration"
+msgstr "GS1-128/GS1-Datamatrix nastavitve dekodiranja"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.CONTENT_GTIN
+msgid "GTIN of Contained Trade Items"
+msgstr "GTIN vsebovanih tržnih artiklov"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GLOBAL_DOCUMENT_TYPE_ID
+msgid "Global Document Type Identifier"
+msgstr "Globalni identifikator tipa dokumenta"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GLOBAL_INDIVIDUAL_ASSET_ID
+msgid "Global Individual Asset Identifier"
+msgstr "Globalni identifikator posameznega sredstva"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GLOBAL_RETURNABLE_ASSET_ID
+msgid "Global Returnable Asset Identifier"
+msgstr "Globalni identifikator vračljivega sredstva"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GLOBAL_SERVICE_RELATION
+msgid "Global Service Relation Number"
+msgstr "Globalni identifikator storitvene relacije"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.GTIN
+msgid "Global Trade Item Number (GTIN)"
+msgstr "Globalna tržna številka artikla (GTIN)"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__gs1_barcode_separator
+msgid "Group Separator"
+msgstr "Ločevalnik skupine"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__id
+msgid "ID"
+msgstr "ID"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PHYSICAL_LOCATION_ID
+msgid "Identification of a physical location (Global Location Number)"
+msgstr "Identifikacija fizične lokacije (globalna številka lokacije)"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__decimal
+msgid ""
+"Indicates whether a digit is expected before the data for this Application "
+"Identifier to indicate the position of the decimal point."
+msgstr ""
+"Določa, če se pred podatki za ta identifikator aplikacije pričakuje "
+"številka, za določitev položaja decimalne vejice."
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_fixed
+msgid ""
+"Indicates whether the length of the data for this Application Identifier is "
+"fixed or not."
+msgstr ""
+"Določa, če je dolžina podatkov tega identifikatorja aplikacije, stalna ali "
+"ne."
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_1
+msgid "Internal Company Code 1"
+msgstr "Interna koda družbe 1"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_2
+msgid "Internal Company Code 2"
+msgstr "Interna koda družbe 2"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_3
+msgid "Internal Company Code 3"
+msgstr "Interna koda družbe 3"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_4
+msgid "Internal Company Code 4"
+msgstr "Interna koda družbe 4"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_5
+msgid "Internal Company Code 5"
+msgstr "Interna koda družbe 5"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_6
+msgid "Internal Company Code 6"
+msgstr "Interna koda družbe 6"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_7
+msgid "Internal Company Code 7"
+msgstr "Interna koda družbe 7"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_8
+msgid "Internal Company Code 8"
+msgstr "Interna koda družbe 8"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.INTERNAL_COMPANY_CODE_9
+msgid "Internal Company Code 9"
+msgstr "Interna koda družbe 9"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.IBAN
+msgid "International Bank Account Number"
+msgstr "Mednarodna bančna številka računa - IBAN"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode____last_update
+msgid "Last Modified on"
+msgstr "Zadnjič spremenjeno"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__write_uid
+msgid "Last Updated by"
+msgstr "Zadnji posodobil"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__write_date
+msgid "Last Updated on"
+msgstr "Zadnjič posodobljeno"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VARIATION
+msgid "Made-to-Order Variation Number"
+msgstr "Variacijska številka za narejeno po naročilu"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_max
+msgid "Maximum Data Length"
+msgstr "Maksimalna dolžina podatkov"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_max
+msgid "Maximum length of the data for this Application Identifier."
+msgstr "Maksimalna dolžina podatkov za ta identifikator aplikacije."
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__length_min
+msgid "Minimum Data Length"
+msgstr "Minimalna dolžina podatkov"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__length_min
+msgid "Minimum length of the data for this Application Identifier."
+msgstr "Minimalna dolžina podatkov za ta identifikator aplikacije."
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.MOBILE_PHONE_ID
+msgid "Mobile phone identifier"
+msgstr "Identifikator prenosnega telefona"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.MUTUALLY_AGREED_BETWEEN_TRADING_PARTNERS
+msgid "Mutually Agreed Between Trading Partners"
+msgstr "Obojestransko dogovorjeno med tržnimi partnerji"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NATO_STOCK
+msgid "NATO Stock Number (NSN)"
+msgstr "NATO številka zaloga (NSN)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_WEIGHT_OZT
+msgid "Net Weight (Troy Ounces)"
+msgstr "Neto masa (Trojska unča)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_WEIGHT_VOLUME_OZ
+msgid "Net Weight/Volume (Ounces)"
+msgstr "Neto masa/volumen (unče)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NB_CONTAINED
+msgid "Number of Units Contained"
+msgstr "Število vsebovanih enot"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields.selection,name:base_gs1_barcode.selection__gs1_barcode__data_type__numeric
+msgid "Numeric value"
+msgstr "Numerična vrednost"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PACKAGING_DATE
+msgid "Packaging Date"
+msgstr "Datum pakiranja"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PAYMENT_SLIP
+msgid "Payment slip reference number"
+msgstr "Številka sklica potrdila o plačilu"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__gs1_barcode_prefix
+msgid "Prefix"
+msgstr "Predpona"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PRICE_PER_UOM
+msgid "Price per Unit of Measure"
+msgstr "Cena na enoto mere"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_1
+msgid "Processor approval (with ISO country code) --1st processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 1. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_2
+msgid "Processor approval (with ISO country code) --2nd processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 2. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_3
+msgid "Processor approval (with ISO country code) --3rd processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 3. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_4
+msgid "Processor approval (with ISO country code) – 4th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 4. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_5
+msgid "Processor approval (with ISO country code) – 5th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 5. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_6
+msgid "Processor approval (with ISO country code) – 6th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 6. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_7
+msgid "Processor approval (with ISO country code) – 7th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 7. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_9
+msgid "Processor approval (with ISO country code) – 9th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 9. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PROCESSOR_APPROVAL_WITH_COUNTRY_8
+msgid "Processor approval (with ISO country code) –8th processor"
+msgstr "Odobritev predelovalca (z ISO kodo države) -- 8. predelovalec"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AREA_FT2
+msgid "Product Area (Square Feet)"
+msgstr "Površina proizvoda (kvadratni čevlji)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AREA_IN2
+msgid "Product Area (Square Inches)"
+msgstr "Površina proizvoda (kvadratne cole)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AREA_SQUARE_YD
+msgid "Product Area (Square Yards)"
+msgstr "Površina proizvoda (kvadratni jardi)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.AREA
+msgid "Product Area, in square meters"
+msgstr "Površina proizvoda v kvadratnih metrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DEPTH_YD
+msgid "Product Depth/Thickness/3rd Dimension, in yards"
+msgstr "Globina/debelina/3. dimenzija proizvoda v jardih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DEPTH_FT
+msgid "Product Depth/Thickness/Height/3rd Dimension, in feet"
+msgstr "Globina/debelina/višina/3. dimenzija proizvoda v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DEPTH_IN
+msgid "Product Depth/Thickness/Height/3rd Dimension, in inches"
+msgstr "Globina/debelina/višina/3. dimenzija proizvoda v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DEPTH
+msgid "Product Depth/Thickness/Height/3rd Dimension, in meters"
+msgstr "Globina/debelina/višina/3. dimenzija proizvoda v metrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.LENGTH_FT
+msgid "Product Length/1st Dimension, in feet"
+msgstr "Dolžina/1. dimenzija proizvoda v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.LENGTH_IN
+msgid "Product Length/1st Dimension, in inches"
+msgstr "Dolžina/1. dimenzija proizvoda v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.LENGTH
+msgid "Product Length/1st Dimension, in meters"
+msgstr "Dolžina/1. dimenzija proizvoda v metrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.LENGTH_YD
+msgid "Product Length/1st Dimension, in yards"
+msgstr "Dolžina/1. dimenzija proizvoda v jardih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_VOLUME
+msgid "Product Net Volume, in cubic meters"
+msgstr "Neto prostornina proizvoda v kubičnih metrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_VOLUME_L
+msgid "Product Net Volume, in liters"
+msgstr "Neto prostornina proizvoda v litrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_WEIGHT
+msgid "Product Net Weight in kg"
+msgstr "Neto masa proizvoda v kg"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.NET_WEIGHT_LB
+msgid "Product Net Weight, in pounds"
+msgstr "Neto masa proizvoda v funtih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VARIANT
+msgid "Product Variant"
+msgstr "Različica proizvoda"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VOLUME_FT3
+msgid "Product Volume (Cubic Feet)"
+msgstr "Prostornina proizvoda (kubični čevlji)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VOLUME_IN3
+msgid "Product Volume (Cubic Inches)"
+msgstr "Prostornina proizvoda (kubične cole)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VOLUME_YD3
+msgid "Product Volume (Cubic Yards)"
+msgstr "Prostornina proizvoda (kubični jardi)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VOLUME_GALLONS
+msgid "Product Volume (Gallons)"
+msgstr "Prostornina proizvoda (galone)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.VOLUME_QUARTS
+msgid "Product Volume (Quarts)"
+msgstr "Prostornina proizvoda (kvarti)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.WIDTH_FT
+msgid "Product Width/Diameter/2nd Dimension, in feet"
+msgstr "Širina/premer/2. dimenzija proizvoda v čevljih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.WIDTH_IN
+msgid "Product Width/Diameter/2nd Dimension, in inches"
+msgstr "Širina/premer/2. dimenzija proizvoda v colah"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.WIDTH
+msgid "Product Width/Diameter/2nd Dimension, in meters"
+msgstr "Širina/premer/2. dimenzija proizvoda v metrih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.WIDTH_YD
+msgid "Product Width/Diameter/2nd Dimension, in yards"
+msgstr "Širina/premer/2. dimenzija proizvoda v jardih"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PRODUCTION_DATE
+msgid "Production Date"
+msgstr "Datum proizvodnje"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.PURCHASE_LOCATION_
+msgid "Purchase From Location Code (Global Location Number)"
+msgstr "Nabava iz kode lokacije (globalna številka lokacije)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SOURCE_ENTITY
+msgid "Reference to Source Entity"
+msgstr "Sklic vira"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.ROLL_PRODUCTS_DIMENSIONS
+msgid "Roll Products - Width/Length/Core Diameter/Direction/Splices"
+msgstr "Proizvodi v zvitkih - širina/dolžina/premer jedra/smer/spleti"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.ROUTING_CODE
+msgid "Routing code"
+msgstr "Koda proge"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SECONDARY_DATA_FIELDS
+msgid "Secondary Data Fields"
+msgstr "Polja sekundarnih podatkov"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SECONDARY_SN
+msgid "Secondary Serial Number"
+msgstr "Sekundarna serijska številka"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SELL_BY_DATE
+msgid "Sell by Date (Quality Control)"
+msgstr "Prodaja do datuma (kontrola kvalitete)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SN
+msgid "Serial Number"
+msgstr "Serijska številka"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.SSCC
+msgid "Serial Shipping Container Code (SSCC)"
+msgstr "Serijska koda odpreme kontejnerja (SSCC)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DELIVER_TO_LOCATION
+msgid "Ship To/Deliver To Location Code (Global Location Number)"
+msgstr "Koda odpreme/dostave na lokacijo (globalna številka lokacije)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DELIVER_TO_POSTAL_CODE
+msgid "Ship To/Deliver To Postal Code (Single Postal Authority)"
+msgstr "Poštna koda odpreme/dostave (posamezna poštna avtoriteta)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DELIVER_TO_POSTAL_CODE_COUNTRY
+msgid "Ship To/Deliver To Postal Code (with ISO country code)"
+msgstr "Poštna koda odpreme/dostave (ISO koda države)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.DELIVER_FOR
+msgid ""
+"Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
+msgstr ""
+"Koda odpreme, dostave ali posredovanja na lokacijo (globalna številka "
+"lokacije)"
+
+#. module: base_gs1_barcode
+#: model:ir.model.constraint,message:base_gs1_barcode.constraint_gs1_barcode_ai_uniq
+msgid "The Application Identifier must be unique!"
+msgstr "Identifikator aplikacije mora biti unikaten!"
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_separator
+msgid ""
+"The characters that the barcode scanner will send when a <GS> (Group "
+"Separator) is encountered in a GS1-128 or GS1-Datamatrix code. <GS> is "
+"usually found when the data is of variable length. The ASCII character 29 "
+"will be expected by default if this field is left empty."
+msgstr ""
+"Znaki, ki jih bo čitalnik črtne kode poslal ob zaznavi  <GS> (Group "
+"Separator) pri GS1-128 ali GS1-Datamatrix kodi. <GS> se običajno najde pri "
+"podatkih variabilne dolžine. Pri praznem polju se privzeto pričakuje ASCII "
+"znak 29."
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_res_users__gs1_barcode_prefix
+msgid ""
+"The prefix that the barcode scanner will send when GS1-128 or GS1-Datamatrix "
+"codes are scanned. No prefix is expected if this fields is left empty"
+msgstr ""
+"Predpona, ki jo bo čitalnik črtne kode poslal ob branju kod GS1-128 ali GS1-"
+"Datamatrix. Če je to polje prazno, se ne pričakuje predpone."
+
+#. module: base_gs1_barcode
+#: model:ir.model.fields,help:base_gs1_barcode.field_gs1_barcode__ai
+msgid "The standard Application Identifier (AI)"
+msgstr "Standardni identifikator aplikacije (AI)"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.UN_ECE_CLASSIFICATION
+msgid "UN/ECE Meat Carcasses and cuts classification"
+msgstr "UN/ECE mesni trupi in klasifikacija rezov"
+
+#. module: base_gs1_barcode
+#: model:ir.model,name:base_gs1_barcode.model_res_users
+msgid "Users"
+msgstr "Uporabniki"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.EXPIRATION_DATE_AND_TIME
+msgid "expiration date and time"
+msgstr "rok trajanja in čas"
+
+#. module: base_gs1_barcode
+#: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
+msgid "identification of the components of an item"
+msgstr "identifikator komponent artikla"
