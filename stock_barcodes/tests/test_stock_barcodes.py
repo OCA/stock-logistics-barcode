@@ -1,6 +1,8 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo_test_helper import FakeModelLoader
+
 from odoo.tests.common import TransactionCase, tagged
 
 
@@ -8,6 +10,25 @@ from odoo.tests.common import TransactionCase, tagged
 class TestStockBarcodes(TransactionCase):
     def setUp(self):
         super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
+        from .test_stock_barcodes_tester import WizStockBarcodesReadTester
+
+        self.loader.update_registry((WizStockBarcodesReadTester,))
+
+        self.tester_model = self.env["ir.model"].search(
+            [("model", "=", "wiz.stock.barcodes.read.tester")]
+        )
+        self.env["ir.model.access"].create(
+            {
+                "name": "access.tester",
+                "model_id": self.tester_model.id,
+                "perm_read": 1,
+                "perm_write": 1,
+                "perm_create": 1,
+                "perm_unlink": 1,
+            }
+        )
 
         # Active group_stock_packaging and group_production_lot for user
         group_stock_packaging = self.env.ref("product.group_stock_packaging")
@@ -18,10 +39,10 @@ class TestStockBarcodes(TransactionCase):
         ]
         # models
         self.StockLocation = self.env["stock.location"]
-        self.StockInventory = self.env["stock.inventory"]
+        # self.StockInventory = self.env["stock.inventory"]
         self.Product = self.env["product.product"]
         self.ProductPackaging = self.env["product.packaging"]
-        self.WizScanRead = self.env["wiz.stock.barcodes.read"]
+        self.WizScanRead = self.env["wiz.stock.barcodes.read.tester"]
         self.StockProductionLot = self.env["stock.production.lot"]
         self.StockPicking = self.env["stock.picking"]
         self.StockQuant = self.env["stock.quant"]

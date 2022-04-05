@@ -113,7 +113,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.picking_in_01.action_confirm()
         vals = self.picking_in_01.action_barcode_scan()
         self.wiz_scan_picking = self.ScanReadPicking.with_context(
-            vals["context"]
+            **vals["context"]
         ).create({})
 
     def test_wiz_picking_values(self):
@@ -196,7 +196,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
 
         vals = self.picking_type_out.action_barcode_scan()
         self.wiz_scan_picking = self.ScanReadPicking.with_context(
-            vals["context"]
+            **vals["context"]
         ).create({})
         self.wiz_scan_picking.manual_entry = True
         self.wiz_scan_picking.product_id = self.product_tracking
@@ -219,6 +219,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
 
         # Picking out 3 is in confirmed state, so until confirmed moves has
         # not been activated candidate pickings is 2
+        picking_out_3.move_lines.picking_type_id.reservation_method = "manual"
         picking_out_3.action_confirm()
         candidate_wiz.action_unlock_picking()
         self.wiz_scan_picking.action_manual_entry()

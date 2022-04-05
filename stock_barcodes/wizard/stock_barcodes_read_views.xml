@@ -158,7 +158,7 @@
                             nolabel="1"
                             mode="tree,kanban"
                         >
-                            <tree string="Current product scanning log">
+                            <tree>
                                 <field name="create_date" />
                                 <field name="create_uid" />
                                 <field name="name" />

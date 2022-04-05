@@ -54,7 +54,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         self.message_type = message_type
         if self.barcode:
-            self.message = _("Barcode: %s (%s)") % (self.barcode, message)
+            self.message = _("Barcode: %(barcode)s (%(message)s)") % (
+                {"barcode": self.barcode, "message": message}
+            )
         else:
             self.message = "%s" % message
 

@@ -31,7 +31,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         [("incoming", "Vendors"), ("outgoing", "Customers"), ("internal", "Internal")],
         "Type of Operation",
     )
-    confirmed_moves = fields.Boolean(string="Confirmed moves")
+    confirmed_moves = fields.Boolean()
 
     def name_get(self):
         return [

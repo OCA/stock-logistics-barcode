@@ -17,7 +17,7 @@ class StockBarcodesReadLog(models.Model):
     packaging_id = fields.Many2one(comodel_name="product.packaging")
     packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
     product_qty = fields.Float(string="Quantity", digits="Product Unit of Measure")
-    manual_entry = fields.Boolean(string="Manual entry")
+    manual_entry = fields.Boolean()
     picking_id = fields.Many2one(comodel_name="stock.picking", string="Picking")
     log_line_ids = fields.One2many(
         comodel_name="stock.barcodes.read.log.line",
