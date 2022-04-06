@@ -19,7 +19,7 @@
                     <div>
                         <field
                             name="product_uom_id"
-                            readonly="1"
+                            domain="[('id', '=', product_uom_id)]"
                             options="{'no_open': True, 'no_create': True}"
                         />
                     </div>
