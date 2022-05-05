@@ -33,9 +33,11 @@ odoo.define("stock_barcodes.FieldFloatNumericMode", function(require) {
         */
         _onClick: function(event) {
             this._super(event);
-            $(this.el)
-                .find("input")
-                .blur();
+            //            This.getFocusableElement().blur();
+            //            HACK: Fails normal way
+            _.defer(() => {
+                this.getFocusableElement().blur();
+            });
         },
     });
 
