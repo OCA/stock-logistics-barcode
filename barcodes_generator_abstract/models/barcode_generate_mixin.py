@@ -29,10 +29,20 @@ class BarcodeGenerateMixin(models.AbstractModel):
         related="barcode_rule_id.generate_type",
     )
 
+    def get_rule_selected(self, vals):
+        if self._name == 'product.product' and vals.get('product_tmpl_id'):
+            return self.env['product.template'].browse(
+                vals.get('product_tmpl_id')).barcode_rule_id or False
+
     @api.model
     def create(self, vals):
         """It creates a new barcode if automation is active."""
-        barcode_rule = self.env["barcode.rule"].get_automatic_rule(self._name)
+
+        rule_id = self.get_rule_selected(vals)
+
+        barcode_rule = self.env["barcode.rule"].get_automatic_rule(self._name,
+                                                                   rule_id)
+
         if barcode_rule.exists():
             vals.update({"barcode_rule_id": barcode_rule.id})
         record = super().create(vals)
@@ -61,7 +71,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
             custom_code = self._get_custom_barcode(item)
             if custom_code:
                 custom_code = custom_code.replace("." * padding, str_base)
-                barcode_class = barcode.get_barcode_class(item.barcode_rule_id.encoding)
+                barcode_class = barcode.get_barcode_class(
+                    item.barcode_rule_id.encoding)
                 item.barcode = barcode_class(custom_code)
 
     # Custom Section

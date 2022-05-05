@@ -29,6 +29,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         name="generate_automate"
                         attrs="{'invisible': [('generate_type', '=', 'no')]}"
                     />
+                    <field
+                        name="general_rule"
+                        attrs="{'invisible': [('generate_type', '=', 'no')]}"
+                    />
                     <button
                         name="generate_sequence"
                         type="object"
