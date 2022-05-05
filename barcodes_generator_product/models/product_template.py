@@ -11,7 +11,7 @@ class ProductTemplate(models.Model):
 
     # Related to display product product information if is_product_variant
     barcode_rule_id = fields.Many2one(
-        related="product_variant_ids.barcode_rule_id",
+        # related="product_variant_ids.barcode_rule_id",
         string="Barcode Rule",
         readonly=False,
         comodel_name="barcode.rule",
@@ -28,6 +28,11 @@ class ProductTemplate(models.Model):
         readonly=True,
         related="product_variant_ids.barcode_rule_id.generate_type",
     )
+
+    def action_generate_barcode(self):
+        self.ensure_one()
+        self.product_variant_ids.filtered(lambda k: not k.barcode).generate_base()
+        self.product_variant_ids.filtered(lambda k: not k.barcode).generate_barcode()
 
     # View Section
     def generate_base(self):
@@ -56,3 +61,11 @@ class ProductTemplate(models.Model):
         if related_vals:
             template.write(related_vals)
         return template
+
+    def write(self, vals):
+        res = super().write(vals)
+
+        if "barcode_rule_id" in vals:
+            self.product_variant_ids.write({"barcode_rule_id": self.barcode_rule_id})
+
+        return res

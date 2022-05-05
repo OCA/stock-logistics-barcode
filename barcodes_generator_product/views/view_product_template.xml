@@ -16,7 +16,12 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     domain="[('generate_model', '=', 'product.product')]"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
-                    attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
+                />
+                <button
+                    name="action_generate_barcode"
+                    type="object"
+                    string="Generate Barcodes"
+                    groups="barcodes_generator_abstract.generate_barcode"
                 />
                 <field name="generate_type" invisible="1" />
                 <field
@@ -49,20 +54,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     'readonly': [('generate_type', '=', 'sequence')],
                     'invisible': [('product_variant_count', '&gt;', 1)]
                     }</attribute>
-            </field>
-            <field name="barcode" position="after">
-                <button
-                    name="generate_barcode"
-                    type="object"
-                    string="Generate Barcode (Using Barcode Rule)"
-                    attrs="{'invisible': ['|', '|',
-                            ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0),
-                            ('product_variant_count', '&gt;', 1)
-                            ]}"
-                    groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
-                />
             </field>
         </field>
     </record>

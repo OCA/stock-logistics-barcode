@@ -9,3 +9,9 @@ from odoo import models
 class ProductProduct(models.Model):
     _name = "product.product"
     _inherit = ["product.product", "barcode.generate.mixin"]
+
+    def write(self, vals):
+        barcode_rule_id = self.mapped("product_tmpl_id.barcode_rule_id")
+        if barcode_rule_id:
+            vals["barcode_rule_id"] = barcode_rule_id[0]
+        return super(ProductProduct, self).write(vals)

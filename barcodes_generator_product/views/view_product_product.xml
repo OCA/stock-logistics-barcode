@@ -16,6 +16,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     domain="[('generate_model', '=', 'product.product')]"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
+                    readonly="1"
                 />
                 <field name="generate_type" invisible="1" />
                 <field
