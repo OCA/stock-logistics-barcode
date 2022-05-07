@@ -19,5 +19,5 @@
         "views/menu.xml",
     ],
     "demo": ["demo/res_users.xml"],
-    "external_dependencies": {"python": ["barcode"]},
+    "external_dependencies": {"python": ["python-barcode"]},
 }
