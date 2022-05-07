@@ -5,7 +5,7 @@
     "summary": "It provides a wizard to select how many barcodes print.",
     "version": "13.0.2.2.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
-    "website": "https://odoo-community.org/",
+    "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "maintainers": ["CarlosRoca13"],
     "category": "Extra Tools",
