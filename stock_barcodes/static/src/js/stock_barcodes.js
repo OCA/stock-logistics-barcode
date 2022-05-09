@@ -20,9 +20,13 @@ odoo.define("stock_barcodes.FormController", function(require) {
                 if (manual_entry_mode) {
                     var packaging = self.$("div[name='packaging_id'] input").val();
                     if (packaging) {
-                        self.$("input[name='packaging_qty']").focus();
+                        setTimeout(() => {
+                            self.$("input[name='packaging_qty']").focus();
+                        }, 400);
                     } else {
-                        self.$("input[name='product_qty']").focus();
+                        setTimeout(() => {
+                            self.$("input[name='product_qty']").focus();
+                        }, 400);
                     }
                 }
             });
