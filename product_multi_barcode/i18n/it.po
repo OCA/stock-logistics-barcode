@@ -8,21 +8,21 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 06:03+0000\n"
-"PO-Revision-Date: 2020-04-09 17:19+0000\n"
+"PO-Revision-Date: 2022-05-25 12:05+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
-"Language-Team: Italian (http://www.transifex.com/oca/OCA-stock-logistics-"
-"barcode-8-0/language/it/)\n"
+"Language-Team: Italian (http://www.transifex.com/oca/"
+"OCA-stock-logistics-barcode-8-0/language/it/)\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
 msgid "Barcode"
-msgstr ""
+msgstr "Codice a barre"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
@@ -31,7 +31,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_template_form_view_multi_barcode
 msgid "Barcodes"
-msgstr ""
+msgstr "Codici a barre"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
@@ -56,7 +56,7 @@ msgstr "ID"
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_barcode
 msgid "Individual item in a product's barcode list"
-msgstr ""
+msgstr "Singolo oggetto nella lista codici a barre di un prodotto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
@@ -81,7 +81,7 @@ msgstr "Ultimo aggiornamento il"
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
 msgid "Main barcode"
-msgstr ""
+msgstr "Codice a barre principale"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_product
@@ -91,15 +91,13 @@ msgstr "Prodotto"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_template
-#, fuzzy
 msgid "Product Template"
-msgstr "Prodotto"
+msgstr "Modello Prodotto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
-#, fuzzy
 msgid "Product Tmpl"
-msgstr "Prodotto"
+msgstr "Modello Prodotto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
@@ -108,7 +106,7 @@ msgstr "Sequenza"
 
 #. module: product_multi_barcode
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
-#, fuzzy, python-format
+#, python-format
 msgid "The Barcode \"%s\" already exists for product \"%s\""
 msgstr "Il codice a barre \"%s\" esiste già per il prodotto \"%s\""
 
