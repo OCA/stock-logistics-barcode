@@ -5,7 +5,6 @@ class SupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
     barcode = fields.Char(
-        "Barcode",
         copy=False,
         help="Article number used by supplier for product identification.",
     )
