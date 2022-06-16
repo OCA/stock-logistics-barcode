@@ -14,7 +14,7 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_barcodes_supplierinfo
-#: code:addons/stock_barcodes_supplierinfo/wizard/stock_barcodes_read.py:16
+#: code:addons/stock_barcodes_supplierinfo/wizard/stock_barcodes_read.py:17
 #, python-format
 msgid "More than one product found"
 msgstr ""
