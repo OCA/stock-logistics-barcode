@@ -17,6 +17,11 @@ class WizStockBarcodesNewLot(models.TransientModel):
             return super().on_barcode_scanned(barcode)
         package_barcode = barcode_decoded.get("01", False)
         product_barcode = barcode_decoded.get("02", False)
+        if not product_barcode:
+            # Sometimes the product does not yet have a GTIN. In this case
+            # try the AI 240 'Additional product identification assigned
+            # by the manufacturer'.
+            product_barcode = barcode_decoded.get("240", False)
         lot_barcode = barcode_decoded.get("10", False)
         if not lot_barcode:
             return
