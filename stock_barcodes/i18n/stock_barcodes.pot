@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-11 11:09+0000\n"
-"PO-Revision-Date: 2022-05-11 11:09+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -170,8 +168,8 @@ msgid "Assign Serial Numbers"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
-msgid "Auto lots for inventory"
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "Auto lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -350,16 +348,6 @@ msgid "Code"
 msgstr ""
 
 #. module: stock_barcodes
-#: model:ir.model,name:stock_barcodes.model_res_company
-msgid "Companies"
-msgstr ""
-
-#. module: stock_barcodes
-#: model:ir.model,name:stock_barcodes.model_res_config_settings
-msgid "Config Settings"
-msgstr ""
-
-#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Confirm"
 msgstr ""
@@ -442,9 +430,6 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__manual_entry
-#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
-#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__manual_entry
-#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__manual_entry
 msgid "Default value when open scan interface"
 msgstr ""
 
@@ -525,6 +510,13 @@ msgid "Ensure the traceability of a storable product in your warehouse."
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__manual_entry
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__manual_entry
+msgid "Entry manual data"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__field_name
 msgid "Field Name"
 msgstr ""
@@ -550,7 +542,6 @@ msgid "Forced"
 msgstr ""
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_config_settings__stock_barcodes_auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
@@ -640,13 +631,6 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
-msgid ""
-"If checked, after a product barcode is read, the quantities will be distributed\n"
-"                                among all existing lots by removal strategy order."
-msgstr ""
-
-#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__fill_fields_from_lot
 msgid ""
 "If checked, the fields in the interface will be filled from the scanned lot"
@@ -668,13 +652,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
 msgid "If it is marked, the movement must always be confirmed from a button"
-msgstr ""
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
-msgid ""
-"If user input more quantities than existing it, the exceeded quantities will"
-" be assigned to last lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -965,11 +942,6 @@ msgid "No stock available for this lot with screen values"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
-msgid "OCA Stock Barcodes reader"
-msgstr ""
-
-#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "OK"
@@ -1250,6 +1222,12 @@ msgstr ""
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
+msgid "S/N Already in picking"
+msgstr ""
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
+#, python-format
 msgid "S/N already created"
 msgstr ""
 
@@ -1291,11 +1269,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__sequence
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__sequence
 msgid "Sequence"
-msgstr ""
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.res_config_settings_view_form
-msgid "Set a default value for scanner."
 msgstr ""
 
 #. module: stock_barcodes
@@ -1354,11 +1327,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
 msgid "Steps to scan"
-msgstr ""
-
-#. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_res_company__stock_barcodes_auto_lot
-msgid "Stock Barcodes Auto Lot"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1517,7 +1485,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking batch"
+msgid "Wizard to read barcode on picking"
 msgstr ""
 
 #. module: stock_barcodes
