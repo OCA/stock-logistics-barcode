@@ -24,9 +24,28 @@ class WizStockBarcodesRead(models.AbstractModel):
         lot = self.env["stock.production.lot"].search(
             [("name", "=", lot_barcode), ("product_id", "=", self.product_id.id)]
         )
-        if not lot:
+        if not lot and self.option_group_id.create_lot:
             lot = self._create_lot(barcode_decoded)
         self.lot_id = lot
+
+    def _process_product_qty_gs1(self, product_qty):
+        """Extend for custom processing of product qty."""
+        return product_qty
+
+    def process_barcode_package(self, package_barcode, processed):
+        packaging = self.env["product.packaging"].search(
+            self._barcode_domain(package_barcode)
+        )
+        if not packaging:
+            self._set_messagge_info(
+                "not_found", _("Barcode for product packaging not found")
+            )
+            return False
+        else:
+            if len(packaging) > 1:
+                self._set_messagge_info("more_match", _("More than one package found"))
+                return False
+            self.action_packaging_scaned_post(packaging)
 
     def process_barcode(self, barcode):
         """Only has been implemented AI (01, 02, 10, 37), so is possible that
@@ -61,29 +80,18 @@ class WizStockBarcodesRead(models.AbstractModel):
                 processed = True
                 self.action_product_scaned_post(product)
         if package_barcode:
-            packaging = self.env["product.packaging"].search(
-                self._barcode_domain(package_barcode)
-            )
-            if not packaging:
-                self._set_messagge_info(
-                    "not_found", _("Barcode for product packaging not found")
-                )
-                return False
-            else:
-                if len(packaging) > 1:
-                    self._set_messagge_info(
-                        "more_match", _("More than one package found")
-                    )
-                    return False
-                processed = True
-                self.action_packaging_scaned_post(packaging)
+            value_returned = self.process_barcode_package(package_barcode, processed)
+            if value_returned is not None:
+                return value_returned
         if lot_barcode and self.product_id.tracking != "none":
             self.process_lot(barcode_decoded)
             processed = True
         if product_qty and package_barcode:
             # If we have processed a package, we need to multiply it
+            product_qty = self._process_product_qty_gs1(product_qty)
             self.product_qty = self.product_qty * product_qty
         elif product_qty:
+            product_qty = self._process_product_qty_gs1(product_qty)
             self.product_qty = product_qty
         if not self.product_qty:
             # This could happen with double GS1-128 barcodes
@@ -93,6 +101,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             else:
                 self.product_qty = 0.0 if self.manual_entry else 1.0
         if processed:
+            if not self.check_option_required():
+                return False
             self.action_done()
             self._set_messagge_info("success", _("Barcode read correctly"))
             return True
