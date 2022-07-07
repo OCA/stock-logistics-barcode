@@ -24,6 +24,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_normal_form_view_multi_barcodes
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_template_form_view_multi_barcode
+#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_variant_easy_edit_view_multi_barcodes
 msgid "Barcodes"
 msgstr ""
 
