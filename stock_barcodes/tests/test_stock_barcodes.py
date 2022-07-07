@@ -110,6 +110,7 @@ class TestStockBarcodes(TransactionCase):
             {
                 "name": "option group for tests",
                 "show_scan_log": True,
+                "create_lot": True,
                 "option_ids": [
                     (
                         0,
