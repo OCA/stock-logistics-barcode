@@ -245,6 +245,26 @@
                                 </div>
                             </group>
                             <group
+                                name="option_qty_info"
+                                attrs="{'invisible': ['|', ('product_id', '=', False),'|', ('is_manual_qty', '=', True), ('manual_entry', '=', True)]}"
+                                col="1"
+                            >
+                                <div class="mt4">
+                                    <strong class="d-none d-sm-block">Total Qty</strong>
+                                    <span
+                                        class="fa fa-hashtag d-sm-none oe_span_small_icon"
+                                    />
+                                    <field
+                                        name="product_qty"
+                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        force_save="1"
+                                        style="width:85%"
+                                        class="h5"
+                                    />
+                                </div>
+                            </group>
+
+                            <group
                                 name="option_qty"
                                 attrs="{'invisible': ['|', ('product_id', '=', False),'&amp;', ('is_manual_qty', '=', False), ('manual_entry', '=', False)]}"
                                 col="1"
@@ -255,7 +275,7 @@
                                         name="total_qty_header"
                                     >
                                         <div>
-                                            <span>Total qty</span>
+                                            <span>Total Qty</span>
                                         </div>
                                     </div>
                                 </div>
