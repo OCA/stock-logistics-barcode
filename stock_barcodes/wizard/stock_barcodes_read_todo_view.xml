@@ -127,7 +127,7 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                         accesskey="3"
                                     >
-                                    Force
+                                    Done
                                     </button>
                                 </div>
                                 <div class="col-3">
