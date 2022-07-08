@@ -165,6 +165,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return False
         if not self.todo_line_ids:
             self.fill_todo_records()
+        # When scanning all information in one step (e.g. using GS-1), the
+        # status and qty processed might have not been update, we ensure it
+        # invalidating the cache.
+        self.todo_line_ids.invalidate_cache()
         self.todo_line_id = (
             forced_todo_line
             or self.todo_line_ids.filtered(lambda t: t._origin.state == "pending")[:1]
@@ -334,7 +338,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                         and l.product_id == self.product_id
                     )
                 )
-                if candidate_lines:
+                if candidate_lines and self.location_id:
                     sml_vals.update({"location_id": self.location_id.id})
         if not candidate_lines:
             location_dest_option = self.option_group_id.option_ids.filtered(
@@ -347,7 +351,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                         and l.product_id == self.product_id
                     )
                 )
-                if candidate_lines:
+                if candidate_lines and self.location_dest_id:
                     sml_vals.update({"location_dest_id": self.location_dest_id.id})
         return candidate_lines
 
@@ -749,7 +753,10 @@ class WizCandidatePicking(models.TransientModel):
         picking = self.env["stock.picking"].browse(
             self.env.context.get("picking_id", False)
         )
-        picking.button_validate()
+        res = picking.button_validate()
+        if isinstance(res, dict):
+            # backorder wizard
+            return res
         return self.env.ref("stock_barcodes.action_stock_barcodes_action").read()[0]
 
     def action_open_picking(self):
