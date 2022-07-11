@@ -33,7 +33,7 @@
                     help="Start barcode interface"
                     states="confirm"
                 >
-                    <i class="fa fa-barcode fa-2x" />
+                    <i class="fa fa-barcode fa-2x" title="Start barcode interface" />
                 </button>
             </xpath>
         </field>

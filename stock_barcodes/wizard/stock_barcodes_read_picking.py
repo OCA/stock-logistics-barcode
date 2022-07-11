@@ -44,6 +44,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     # TODO: Check if move_line_ids is used
     move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
     todo_line_ids = fields.One2many(
+        string="To Do Lines",
         comodel_name="wiz.stock.barcodes.read.todo",
         inverse_name="wiz_barcode_id",
     )

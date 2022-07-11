@@ -86,6 +86,7 @@
                                     name="action_clean_message"
                                     class="fa fa-window-close pull-right"
                                     type="object"
+                                    title="Clean message"
                                 />
                             </div>
                         </div>
@@ -115,7 +116,7 @@
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
-                            invisible="1"
+                            invisible="0"
                         />
                         <group name="scan_fields" class="bg-light">
                             <group name="location">
@@ -125,6 +126,7 @@
                                     >Source Location</strong>
                                     <span
                                         class="fa fa-map-marker d-sm-none oe_span_small_icon"
+                                        title="Source Location"
                                     />
                                     <field
                                         name="location_id"
@@ -146,6 +148,7 @@
                                     >Source Package -> Result Package</strong>
                                     <span
                                         class="fa fa-cubes d-sm-none oe_span_small_icon"
+                                        title="Source Package to Result Package"
                                     />
                                     <field
                                         name="package_id"
@@ -189,6 +192,7 @@
                                     <strong class="d-none d-sm-block">Product</strong>
                                     <span
                                         class="fa fa-th-list d-sm-none oe_span_small_icon"
+                                        title="Product"
                                     />
                                     <field
                                         name="product_id"
@@ -215,6 +219,7 @@
                                     <strong class="d-none d-sm-block">Lot S/N</strong>
                                     <span
                                         class="fa fa-tags d-sm-none oe_span_small_icon"
+                                        title="Lot S/N"
                                     />
                                     <field
                                         name="lot_id"
@@ -253,6 +258,7 @@
                                     <strong class="d-none d-sm-block">Total Qty</strong>
                                     <span
                                         class="fa fa-hashtag d-sm-none oe_span_small_icon"
+                                        title="Total Quantity"
                                     />
                                     <field
                                         name="product_qty"
@@ -389,7 +395,7 @@
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                             accesskey="7"
                         >
-                            <i class="fa fa-trash-o" />
+                            <i class="fa fa-trash-o" title="Clean Values" />
                         </button>
                         <button
                             name="action_confirm"
@@ -398,7 +404,7 @@
                             attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
                             accesskey="8"
                         >
-                            <i class="fa fa-check" />
+                            <i class="fa fa-check" title="Confirm" />
                         </button>
                         <button
                             name="action_force_done"
@@ -415,7 +421,7 @@
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                             accesskey="0"
                         >
-                            <i class="fa fa-bars" />
+                            <i class="fa fa-bars" title="Open actions" />
                         </button>
                         <button
                             name="action_back"
@@ -501,7 +507,7 @@
                         type="object"
                         class="btn-success"
                     >
-                        <i class="fa fa-check" />
+                        <i class="fa fa-check" title="Reopen" />
                     </button>
                 </sheet>
             </form>
