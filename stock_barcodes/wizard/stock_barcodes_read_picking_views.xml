@@ -119,6 +119,7 @@
                         <strong class=" d-none d-sm-block">Dest. Location</strong>
                         <span
                             class="fa fa-share text-center d-sm-none oe_span_small_icon"
+                            title="Destination Location"
                         />
                         <field
                             name="location_dest_id"
@@ -195,7 +196,10 @@
                                                     class="btn"
                                                     context="{'wiz_barcode_id': parent.id}"
                                                 >
-                                                    <i class="fa fa-upload fa-2x" />
+                                                    <i
+                                                        class="fa fa-upload fa-2x"
+                                                        title="Fill from pencil"
+                                                    />
                                                 </button>
                                             </div>
                                         </div>
@@ -228,7 +232,7 @@
                     groups="stock.group_tracking_lot"
                     accesskey="6"
                 >
-                     <i class="fa fa-cubes" />
+                     <i class="fa fa-cubes" title="Put in Pack" />
                 </button>
             </xpath>
         </field>
