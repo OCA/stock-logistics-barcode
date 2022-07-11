@@ -28,7 +28,10 @@
                         >
                             <div class="row">
                                 <div class="col">
-                                    <span class="fa fa-map-marker" />
+                                    <span
+                                        class="fa fa-map-marker"
+                                        title="Location name"
+                                    />
                                     <strong>
                                         <span
                                             attrs="{'invisible': [('picking_code', '!=', 'incoming')]}"
@@ -64,7 +67,10 @@
                                     <tr>
                                         <td>
                                             <span>
-                                                <span class="fa fa-tags" />
+                                                <span
+                                                    class="fa fa-tags"
+                                                    title="Lot S/N"
+                                                />
                                                 <field name="lot_id" />
                                             </span>
                                         </td>
@@ -105,7 +111,10 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                         accesskey="1"
                                     >
-                                        <i class="fa fa-step-backward" />
+                                        <i
+                                            class="fa fa-step-backward"
+                                            title="Previous"
+                                        />
                                     </button>
                                 </div>
                                 <div class="col-3">
@@ -116,7 +125,7 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                         accesskey="2"
                                     >
-                                        <i class="fa fa-trash" />
+                                        <i class="fa fa-trash" title="Clean" />
                                     </button>
                                 </div>
                                 <div class="col-3">
@@ -138,7 +147,7 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                         accesskey="4"
                                     >
-                                        <i class="fa fa-step-forward" />
+                                        <i class="fa fa-step-forward" title="Next" />
                                     </button>
                                 </div>
                             </div>

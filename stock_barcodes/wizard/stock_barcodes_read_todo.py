@@ -48,7 +48,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     location_id = fields.Many2one(comodel_name="stock.location")
     location_name = fields.Char(related="location_id.name")
     location_dest_id = fields.Many2one(comodel_name="stock.location")
-    location_dest_name = fields.Char(related="location_dest_id.name")
+    location_dest_name = fields.Char(
+        string="Destinatino Name", related="location_dest_id.name"
+    )
     product_id = fields.Many2one(comodel_name="product.product")
     lot_id = fields.Many2one(comodel_name="stock.production.lot")
     uom_id = fields.Many2one(comodel_name="uom.uom")
@@ -71,6 +73,14 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             return (line.location_id, line.product_id, line.lot_id)
         else:
             return (line.location_id, line.product_id)
+
+    def _get_all_products_quantities_in_package(self, package):
+        res = {}
+        for quant in package._get_contained_quants():
+            if quant.product_id not in res:
+                res[quant.product_id] = 0
+            res[quant.product_id] += quant.quantity
+        return res
 
     @api.model
     def fill_records(self, wiz_barcode, lines_list):
@@ -97,7 +107,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                         == "move_line_ids"
                     ):
                         package_product_dic = (
-                            line.package_id._get_all_products_quantities()
+                            self._get_all_products_quantities_in_package(
+                                line.package_id
+                            )
                         )
                         vals.update(
                             {
