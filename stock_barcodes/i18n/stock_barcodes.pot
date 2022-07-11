@@ -60,7 +60,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "<span>Total qty</span>"
+msgid "<span>Total Qty</span>"
 msgstr ""
 
 #. module: stock_barcodes
@@ -103,6 +103,13 @@ msgstr ""
 msgid ""
 "<strong class=\"d-none d-sm-block\">Source Package -&gt; Result Package</strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none oe_span_small_icon\"/>"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
+msgid ""
+"<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
+"                                    <span class=\"fa fa-hashtag d-sm-none oe_span_small_icon\"/>"
 msgstr ""
 
 #. module: stock_barcodes
@@ -488,6 +495,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__qty_done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Done"
 msgstr ""
 
@@ -529,11 +537,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__filled_default
 msgid "Filled Default"
-msgstr ""
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
-msgid "Force"
 msgstr ""
 
 #. module: stock_barcodes
