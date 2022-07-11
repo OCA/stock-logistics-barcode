@@ -57,7 +57,10 @@
             <group name="quant_package" position="after">
                 <div class="mt4">
                     <strong class="d-none d-sm-block">Package</strong>
-                    <span class="fa fa-inbox d-sm-none oe_span_small_icon" />
+                    <span
+                        class="fa fa-inbox d-sm-none oe_span_small_icon"
+                        title="Package"
+                    />
                     <field
                         name="package_id"
                         options="{'no_create': True}"
