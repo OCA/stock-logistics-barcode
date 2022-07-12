@@ -27,12 +27,14 @@ class ProductBarcode(models.Model):
         compute="_compute_product",
         store=True,
         readonly=False,
+        ondelete="cascade",
     )
     product_tmpl_id = fields.Many2one(
         comodel_name="product.template",
         compute="_compute_product_tmpl",
         store=True,
         readonly=False,
+        ondelete="cascade",
     )
 
     @api.depends("product_id")
