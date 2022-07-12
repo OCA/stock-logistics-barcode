@@ -88,8 +88,8 @@ msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "<span>Total qty</span>"
-msgstr "<span>Ctad. total</span>"
+msgid "<span>Total Qty</span>"
+msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -158,6 +158,14 @@ msgstr ""
 "strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none "
 "oe_span_small_icon\"/>"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
+msgid ""
+"<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
+"                                    <span class=\"fa fa-hashtag d-sm-none "
+"oe_span_small_icon\"/>"
+msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -541,6 +549,7 @@ msgstr "Muestra un registro de los escaneos realizados"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__qty_done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Done"
 msgstr "Hecho"
 
@@ -583,11 +592,6 @@ msgstr "Rellenar campos desde lote"
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__filled_default
 msgid "Filled Default"
 msgstr "Auto rellenado"
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
-msgid "Force"
-msgstr "Hecho"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__forced
@@ -1622,6 +1626,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "\\u21E8"
 msgstr ""
+
+#~ msgid "<span>Total qty</span>"
+#~ msgstr "<span>Ctad. total</span>"
+
+#~ msgid "Force"
+#~ msgstr "Hecho"
 
 #~ msgid "Auto lots for inventory"
 #~ msgstr "Lotes automáticos para inventarios"
