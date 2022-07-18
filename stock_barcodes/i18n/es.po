@@ -105,7 +105,6 @@ msgstr "Cód. Barras: %s (%s)"
 #. module: stock_barcodes
 #: model:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 #, fuzzy
-#| msgid "Barcode"
 msgid "Barcodes"
 msgstr "Código de barras"
 
@@ -151,7 +150,6 @@ msgstr "Confirmar"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_confirmed_moves
 #, fuzzy
-#| msgid "Confirm"
 msgid "Confirmed moves"
 msgstr "Confirmar"
 
@@ -465,7 +463,6 @@ msgstr "Cantidad"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line_product_qty
 #, fuzzy
-#| msgid "Lot scanned"
 msgid "Quantity scanned"
 msgstr "Lote escaneado"
 
@@ -505,7 +502,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking_scan_count
 #, fuzzy
-#| msgid "Scan Log"
 msgid "Scan Count"
 msgstr "Registro de lecturas del producto"
 
@@ -520,7 +516,6 @@ msgstr "Registro de lecturas del producto"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line_read_log_id
 #, fuzzy
-#| msgid "Scan log"
 msgid "Scanning log"
 msgstr "Registro de lecturas del producto"
 
@@ -542,7 +537,6 @@ msgstr "Estado"
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking
 #, fuzzy
-#| msgid "Picking"
 msgid "Stock Picking"
 msgstr "Albarán"
 
@@ -573,7 +567,6 @@ msgstr "No hay movimientos de stock para realizar esta operación"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking_product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_product_tracking
 #, fuzzy
-#| msgid "Picking"
 msgid "Tracking"
 msgstr "Albarán"
 
