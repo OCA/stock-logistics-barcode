@@ -75,6 +75,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         wiz_barcode.todo_line_ids = self.browse()
         todo_vals = OrderedDict()
         position = 0
+        # Compute qty in packages before for increase performance
+        package_product_dic = self._get_package_product_dict(wiz_barcode, lines_list)
         for lines in lines_list:
             for line in lines:
                 key = self._group_key(wiz_barcode, line)
@@ -90,9 +92,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                         wiz_barcode.option_group_id.source_pending_moves
                         == "move_line_ids"
                     ):
-                        package_product_dic = (
-                            line.package_id._get_all_products_quantities()
-                        )
                         vals.update(
                             {
                                 "location_id": line.location_id.id,
@@ -208,3 +207,19 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             self.wiz_barcode_id[field] = self[field]
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id._set_focus_on_qty_input()
+
+    def _get_package_product_dict(self, wiz_barcode, lines_list):
+        """Compute product into packages one time instead for every line
+        """
+        package_product_dic = {}
+        if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
+            package_ids = set()
+            for lines in lines_list:
+                for line in lines:
+                    package_ids.add(line.package_id.id)
+            package_product_dic = (
+                self.env["stock.quant.package"]
+                .browse(package_ids)
+                ._get_all_products_quantities()
+            )
+        return package_product_dic
