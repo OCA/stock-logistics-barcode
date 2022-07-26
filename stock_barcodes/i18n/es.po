@@ -887,6 +887,17 @@ msgid "Lot scanned"
 msgstr "Lote escaneado"
 
 #. module: stock_barcodes
+#: model:ir.model,name:stock_barcodes.model_stock_production_lot
+msgid "Lot/Serial"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_move_line__lot_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_production_lot__name
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__manual_entry
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__manual_entry
@@ -1166,6 +1177,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__product_id
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_production_lot__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_id
@@ -1464,6 +1476,11 @@ msgstr "Tipo de operación"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Type of operation"
 msgstr "Tipo de operación"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_production_lot__name
+msgid "Unique Lot/Serial Number"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__uom_id
