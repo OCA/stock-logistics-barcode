@@ -14,6 +14,8 @@ class StockMoveLine(models.Model):
         readonly=False,
         store=True,
     )
+    # Increase performance in scan barcode operations
+    lot_id = fields.Many2one(index=True)
 
     @api.depends("qty_done", "product_uom_qty")
     def _compute_barcode_scan_state(self):
