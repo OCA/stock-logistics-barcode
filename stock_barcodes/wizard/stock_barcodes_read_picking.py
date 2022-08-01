@@ -606,7 +606,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def get_lot_by_removal_strategy(self):
         quants = first(
-            self.env["stock.quant"]._gather(self.product_id, self.location_id)
+            self.env["stock.quant"]
+            ._gather(self.product_id, self.location_id)
+            .filtered(lambda q: q.quantity > 0.0)
         )
         # TODO: Perhaps update location_id from quant??
         self.lot_id = quants.lot_id
