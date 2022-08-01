@@ -128,11 +128,6 @@ msgid "<strong>Name: </strong>"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid "<strong>Products:</strong>"
-msgstr ""
-
-#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__action_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__action_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__action_ids
