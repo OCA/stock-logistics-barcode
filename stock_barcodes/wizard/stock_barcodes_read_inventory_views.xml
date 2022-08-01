@@ -29,12 +29,6 @@
                                             <field name="location_ids" />
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col">
-                                            <strong>Products:</strong>
-                                            <field name="product_ids" />
-                                        </div>
-                                    </div>
                                 </div>
                             </t>
                         </templates>
