@@ -619,6 +619,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.get_lot_by_removal_strategy()
         return res
 
+    def action_packaging_scaned_post(self, packaging):
+        res = super().action_packaging_scaned_post(packaging)
+        if self.auto_lot and self.picking_type_code != "incoming":
+            self.get_lot_by_removal_strategy()
+        return res
+
     def action_assign_serial(self):
         move = self.env["stock.move"].search(self._prepare_stock_moves_domain())
         if len(move) > 1:
