@@ -105,7 +105,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                                 "line_ids": [(6, 0, line.ids)],
                                 "stock_move_ids": [(6, 0, line.move_id.ids)],
                                 "package_product_qty": package_product_dic
-                                and package_product_dic[line.product_id]
+                                and package_product_dic.get(line.product_id, False)
                                 or 0.0,
                             }
                         )
