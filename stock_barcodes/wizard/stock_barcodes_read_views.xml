@@ -395,7 +395,7 @@
                             name="action_confirm"
                             type="object"
                             class="btn-success ml-auto oe_kanban_action_button btn-sm"
-                            attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
+                            attrs="{'invisible': ['|', '|','&amp;', '&amp;', ('is_manual_confirm', '=', False), ('is_manual_qty', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
                             accesskey="8"
                         >
                             <i class="fa fa-check" />

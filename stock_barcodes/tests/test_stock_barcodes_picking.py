@@ -283,7 +283,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.assertFalse(self.wiz_scan_picking.lot_id)
 
         # Continue test with a outgoing wizard
-        self.wiz_scan_picking_out.option_group_id.auto_lot = True
+        self.wiz_scan_picking_out.auto_lot = True
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
         self.assertEqual(self.wiz_scan_picking_out.lot_id, self.lot_1)
 
