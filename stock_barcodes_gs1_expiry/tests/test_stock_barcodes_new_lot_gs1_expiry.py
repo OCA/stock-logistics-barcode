@@ -20,14 +20,12 @@ class TestStockBarcodesNewLotGS1Expiry(TestStockBarcodesNewLotGS1):
         self.action_barcode_scanned(self.wiz_scan_lot, self.gs1_barcode_01_use_date)
         self.assertEqual(self.wiz_scan_lot.use_date, datetime(2019, 7, 4, 0, 0))
         wiz_scan = self.env["wiz.stock.barcodes.read.inventory"].create({})
+        wiz_product = self.wiz_scan_lot.product_id
         self.wiz_scan_lot.with_context(
             active_model=wiz_scan._name, active_id=wiz_scan.id,
         ).confirm()
         lot = self.env["stock.production.lot"].search(
-            [
-                ("name", "=", "AB-123"),
-                ("product_id", "=", self.wiz_scan_lot.product_id.id),
-            ]
+            [("name", "=", "AB-123"), ("product_id", "=", wiz_product.id)]
         )
         self.assertEqual(lot.life_date, datetime(2014, 7, 4, 0, 0))
         self.assertEqual(lot.use_date, datetime(2019, 7, 4, 0, 0))

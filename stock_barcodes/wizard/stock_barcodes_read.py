@@ -91,7 +91,6 @@ class WizStockBarcodesRead(models.AbstractModel):
         for rec in self:
             rec.is_manual_qty = rec.option_group_id.is_manual_qty
             rec.is_manual_confirm = rec.option_group_id.is_manual_confirm
-            rec.auto_lot = rec.option_group_id.auto_lot
             rec.show_scan_log = rec.option_group_id.show_scan_log
 
     @api.depends("option_group_id")

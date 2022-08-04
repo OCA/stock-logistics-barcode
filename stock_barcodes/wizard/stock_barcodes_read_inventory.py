@@ -86,7 +86,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def action_done(self):
         result = super().action_done()
         if result:
-            if self.auto_lot and self.product_id.tracking != "none":
+            if not self.lot_id and self.auto_lot and self.product_id.tracking != "none":
                 res = self._distribute_inventory_lines()
                 if res is not None and not res:
                     return res
