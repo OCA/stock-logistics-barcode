@@ -54,6 +54,7 @@ class WizStockBarcodesNewLot(models.TransientModel):
         wiz = self.get_scan_wizard()
         if wiz:
             wiz.lot_id = lot
+            wiz.action_confirm()
         return self.scan_wizard_action()
 
     def cancel(self):
