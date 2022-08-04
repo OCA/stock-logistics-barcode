@@ -9,7 +9,6 @@ from odoo.tools.misc import mute_logger
 
 
 class TestModule(TransactionCase):
-
     def setUp(self):
         super().setUp()
 
@@ -22,7 +21,7 @@ class TestModule(TransactionCase):
     def test_create_same_company(self):
         self._create_product("Product 1", self.company_1)
 
-        with self.assertRaises(IntegrityError), mute_logger('odoo.sql_db'):
+        with self.assertRaises(IntegrityError), mute_logger("odoo.sql_db"):
             self._create_product("Product 2", self.company_1)
 
     def test_create_different_company(self):
