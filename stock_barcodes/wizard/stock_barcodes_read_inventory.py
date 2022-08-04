@@ -132,11 +132,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         If the quantity is greater than all quant's quantities the difference
         will be assigned to last quant.
         """
-        quants = (
-            self.env["stock.quant"]
-            ._gather(self.product_id, self.location_id)
-            .filtered(lambda q: q.quantity > 0.0)
-        )
+        quants = self.env["stock.quant"]._gather(self.product_id, self.location_id)
         # If the product changed from untracked to tracked we need to avoid to
         # distribute quantities to possible quants with no lot, as those should
         # be corrected with the inventory. For example with remanent negative
