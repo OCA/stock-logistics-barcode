@@ -40,7 +40,7 @@ addon | version | maintainers | summary
 [product_multi_barcode](product_multi_barcode/) | 13.0.1.1.0 |  | Multiple barcodes on products
 [stock_barcodes](stock_barcodes/) | 13.0.2.2.3 |  | It provides read barcode on stock operations.
 [stock_barcodes_automatic_entry](stock_barcodes_automatic_entry/) | 13.0.1.0.1 | [![AdriaGForgeFlow](https://github.com/AdriaGForgeFlow.png?size=30px)](https://github.com/AdriaGForgeFlow) | This module will automatically trigger the click event on a button with the class 'barcode-automatic-entry' after a barcode scanned has been processed.
-[stock_barcodes_gs1](stock_barcodes_gs1/) | 13.0.2.0.1 |  | It provides read GS1 barcode on stock operations.
+[stock_barcodes_gs1](stock_barcodes_gs1/) | 13.0.2.0.2 |  | It provides read GS1 barcode on stock operations.
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 13.0.1.0.1 |  | It provides read expiry dates from GS1 barcode on stock operations.
 [stock_barcodes_move_location](stock_barcodes_move_location/) | 13.0.1.0.1 |  | It provides read barcode on stock operations.
 [stock_picking_product_barcode_report](stock_picking_product_barcode_report/) | 13.0.2.2.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | It provides a wizard to select how many barcodes print.
