@@ -187,6 +187,10 @@ Contributors
 
   * Foram Shah
 
+* `ForgeFlow <https://www.forgeflow.com>`_:
+
+  * Lois Rilo
+
 Maintainers
 ~~~~~~~~~~~
 
