@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_todo_kanban" model="ir.ui.view">
+        <field name="name">stock.barcodes.todo.kanban</field>
+        <field name="model">wiz.stock.barcodes.read.todo</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile">
+                <field name="picking_code" />
+                <field name="location_id" />
+                <field name="location_name" />
+                <field name="location_dest_id" />
+                <field name="location_dest_name" />
+                <field name="product_id" />
+                <field name="lot_id" />
+                <field name="uom_id" />
+                <field name="package_id" />
+                <field name="result_package_id" />
+                <field name="package_product_qty" />
+                <field name="product_uom_qty" />
+                <field name="qty_done" />
+                <field name="line_ids" invisible="1" />
+                <field name="state" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div
+                            t-attf-class="oe_kanban_content "
+                            style="background-color: #FFF8DC;"
+                        >
+                            <div class="row">
+                                <div class="col">
+                                    <span
+                                        class="fa fa-map-marker"
+                                        title="Location name"
+                                    />
+                                    <strong>
+                                        <span
+                                            attrs="{'invisible': [('picking_code', '!=', 'incoming')]}"
+                                        >
+                                            <field name="location_dest_name" />
+                                        </span>
+                                        <span
+                                            attrs="{'invisible': [('picking_code', '!=', 'internal')]}"
+                                        >
+                                            <field name="location_name" /> \u21E8 <field
+                                                name="location_dest_name"
+                                            />
+                                        </span>
+                                        <span
+                                            attrs="{'invisible': [('picking_code', '!=', 'outgoing')]}"
+                                        >
+                                            <field name="location_name" />
+                                        </span>
+                                    </strong>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <strong>
+                                        <field name="product_id" />
+                                    </strong>
+                                </div>
+                            </div>
+                            <t
+                                t-if="record.lot_id or record.package_id or record.result_package_id"
+                            >
+                                <table>
+                                    <tr>
+                                        <td>
+                                            <span>
+                                                <span
+                                                    class="fa fa-tags"
+                                                    title="Lot S/N"
+                                                />
+                                                <field name="lot_id" />
+                                            </span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span class="fa fa-dropbox" />
+                                            <span>
+                                                <field name="package_id" />
+                                                <t t-if="record.package_id">(<span
+                                                        t-esc="record.package_product_qty.value"
+                                                    /> <t
+                                                        t-esc="record.uom_id.value.slice(0,3)"
+                                                    />)</t>
+                                            </span>
+                                            <span>
+                                                <field name="result_package_id" />
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </t>
+                            <div class="row">
+                                <div class="col-12">
+                                    <span>
+                                        <span class="font-weight-bold">
+                                            <t t-esc="record.qty_done.value" />
+                                        </span> / <t
+                                            t-esc="record.product_uom_qty.value"
+                                        /> <t t-esc="record.uom_id.value.slice(0,3)" />
+                                    </span>
+                                </div>
+                            </div>
+                            <div name="action" class="row">
+                                <div class="col-3">
+                                    <button
+                                        name="action_back_line"
+                                        type="object"
+                                        class="btn btn-primary pull-left btn-sm"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                        accesskey="1"
+                                    >
+                                        <i
+                                            class="fa fa-step-backward"
+                                            title="Previous"
+                                        />
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button
+                                        name="action_reset_lines"
+                                        type="object"
+                                        class="btn btn-warning pull-right btn-sm"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                        accesskey="2"
+                                    >
+                                        <i class="fa fa-trash" title="Clean" />
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button
+                                        name="action_todo_next"
+                                        type="object"
+                                        class="btn btn-danger pull-right btn-sm"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                        accesskey="3"
+                                    >
+                                    Done
+                                    </button>
+                                </div>
+                                <div class="col-3">
+                                    <button
+                                        name="action_next_line"
+                                        type="object"
+                                        class="btn btn-primary pull-right btn-sm"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                        accesskey="4"
+                                    >
+                                        <i class="fa fa-step-forward" title="Next" />
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+</odoo>
