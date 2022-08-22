@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2022-08-22 19:07+0000\n"
+"Last-Translator: Samuele Mariani <samuele@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.3.2\n"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
@@ -34,17 +36,17 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "%s (%s)"
-msgstr ""
+msgstr "%s (%s)"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "1 - Scan or input product barcode"
-msgstr ""
+msgstr "1 - Scansionare o inserire il codice a barre del prodotto"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "2 - Scan or input product lot barcode"
-msgstr ""
+msgstr "2 - Scansionare o inserire il codice a barre del lotto del prodotto"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_kanban
@@ -119,7 +121,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_inventory_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">Scansionare i codici a barre</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -230,7 +232,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
-msgstr ""
+msgstr "Sei sicuro di validare il prelievo?"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -263,7 +265,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_location_form_inherit
 msgid "Barcode"
-msgstr ""
+msgstr "Codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__barcode_option_group_id
@@ -283,7 +285,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
 msgid "Barcode Scanned"
-msgstr ""
+msgstr "Barcode scansionato"
 
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes
@@ -314,35 +316,35 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__success
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__success
 msgid "Barcode read correctly"
-msgstr ""
+msgstr "Codice a barre letto correttamente"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__info
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__info
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__info
 msgid "Barcode read with additional info"
-msgstr ""
+msgstr "Codice a barre letto con informazione aggiuntiva"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Barcode reader"
-msgstr ""
+msgstr "Lettore codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.stock_barcodes_root
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Barcodes"
-msgstr ""
+msgstr "Codici a barre"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_inventory
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_picking
 msgid "Barcodes Read"
-msgstr ""
+msgstr "Codici a barre letti"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes
@@ -378,22 +380,22 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Cancel"
-msgstr ""
+msgstr "Annullare"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__name
 msgid "Candidate Picking"
-msgstr ""
+msgstr "Prelievo candidato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_ids
 msgid "Candidate pickings"
-msgstr ""
+msgstr "Prelievi candidati"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_candidate_picking
 msgid "Candidate pickings for barcode interface"
-msgstr ""
+msgstr "Prelievi candidati per interfaccia codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__clean_after_done
@@ -415,7 +417,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Click on picking pushpin to lock it"
-msgstr ""
+msgstr "Fare clic sulla puntina del prelievo per bloccarlo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__code
@@ -425,7 +427,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Confirm"
-msgstr ""
+msgstr "Confermare"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__confirmed_moves
@@ -433,7 +435,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__confirmed_moves
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__confirmed_moves
 msgid "Confirmed moves"
-msgstr ""
+msgstr "Confermare i movimenti"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__context
@@ -467,7 +469,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "Creato da"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__create_date
@@ -481,27 +483,27 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__create_date
 msgid "Created on"
-msgstr ""
+msgstr "Creato il"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__date
 msgid "Creation Date"
-msgstr ""
+msgstr "Data di creazione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__date
 msgid "Creation Date, usually the time of the order"
-msgstr ""
+msgstr "Date di creazione, solitamente la data dell'ordine"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Current product scanning log"
-msgstr ""
+msgstr "Log del prodotto attualmente scansionato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__outgoing
 msgid "Customers"
-msgstr ""
+msgstr "Clienti"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__manual_entry
@@ -512,7 +514,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_uom_qty
 msgid "Demand"
-msgstr ""
+msgstr "Domanda"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_dest_name
@@ -560,7 +562,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__show_scan_log
@@ -574,7 +576,7 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Done"
-msgstr ""
+msgstr "Completato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done_forced
@@ -593,6 +595,7 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Ensure the traceability of a storable product in your warehouse."
 msgstr ""
+"Garantire la tracciabilità di un prodotto immagazzinabile nel tuo magazzino."
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
@@ -627,7 +630,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 msgid "Get lots automatically"
-msgstr ""
+msgstr "Preleva lotti automaticamente"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__product_packaging_ids
@@ -691,7 +694,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__icon_class
@@ -706,6 +709,8 @@ msgstr ""
 msgid ""
 "If checked the lot will be set automatically with the same removal startegy"
 msgstr ""
+"Se selezionato il lotto sarà impostato automaticamente con la stessa "
+"strategia di rimozione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__create_lot
@@ -746,19 +751,19 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
 msgid "Internal"
-msgstr ""
+msgstr "Interno"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_inventory
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_id
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_inventory
 msgid "Inventory"
-msgstr ""
+msgstr "Magazzino"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_product_qty
 msgid "Inventory quantities"
-msgstr ""
+msgstr "Quantità di magazzino"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
@@ -818,7 +823,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modica il"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__write_uid
@@ -832,7 +837,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "Ultimo aggiornamento da"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__write_date
@@ -846,7 +851,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "Ultimo aggiornamento il"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__line_ids
@@ -865,7 +870,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_id
 msgid "Location"
-msgstr ""
+msgstr "Ubicazione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_dest_id
@@ -887,7 +892,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_read_log
 msgid "Log barcode scanner"
-msgstr ""
+msgstr "Log scanner codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__lot_id
@@ -895,17 +900,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__lot_id
 msgid "Lot"
-msgstr ""
+msgstr "Lotto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__lot_name
 msgid "Lot name"
-msgstr ""
+msgstr "Nome del lotto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__lot_id
 msgid "Lot scanned"
-msgstr ""
+msgstr "Lotto scansionato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
@@ -929,7 +934,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Manual entry OK"
-msgstr ""
+msgstr "Inserimento manuale OK"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__message
@@ -937,7 +942,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__message
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__message
 msgid "Message"
-msgstr ""
+msgstr "Messaggio"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__message_step
@@ -951,7 +956,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__message_type
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__message_type
 msgid "Message Type"
-msgstr ""
+msgstr "Tipo di messaggio"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__barcode_guided_mode
@@ -971,19 +976,19 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__more_match
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__more_match
 msgid "More than one matches found"
-msgstr ""
+msgstr "Più di una corrispondenza trovata"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
-msgstr ""
+msgstr "Più di un collo trovato"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one product found"
-msgstr ""
+msgstr "Più di un prodotto trovato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__move_line_ids
@@ -1001,7 +1006,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_new_lot
 msgid "New Lot"
-msgstr ""
+msgstr "Nuovo lotto"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
@@ -1014,13 +1019,13 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__not_found
 msgid "No barcode found"
-msgstr ""
+msgstr "Nessun codice a barre trovato"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "No pending lines for this product"
-msgstr ""
+msgstr "Nessuna operazione in sospeso"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
@@ -1098,7 +1103,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__packaging_qty
 msgid "Package Qty"
-msgstr ""
+msgstr "Qtà collo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__packaging_id
@@ -1107,13 +1112,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__packaging_id
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_packaging_form
 msgid "Packaging"
-msgstr ""
+msgstr "Imballaggio"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__partner_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__partner_id
 msgid "Partner"
-msgstr ""
+msgstr "Contatto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__pending
@@ -1129,14 +1134,14 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Pending moves"
-msgstr ""
+msgstr "Movimenti in sospeso"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_id
 msgid "Picking"
-msgstr ""
+msgstr "Previelo"
 
 #. module: stock_barcodes
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_picking_in
@@ -1161,7 +1166,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking_type
 msgid "Picking Type"
-msgstr ""
+msgstr "Tipo di prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_mode__picking
@@ -1171,7 +1176,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_product_qty
 msgid "Picking quantities"
-msgstr ""
+msgstr "Quantità prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_ids
@@ -1191,7 +1196,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_id
 msgid "Product"
-msgstr ""
+msgstr "Prodotto"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_move_line
@@ -1210,7 +1215,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_qty
 msgid "Product Qty"
-msgstr ""
+msgstr "Qtà prodotto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_uom_id
@@ -1246,12 +1251,12 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__product_qty
 msgid "Quantity"
-msgstr ""
+msgstr "Quantità"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__product_qty
 msgid "Quantity scanned"
-msgstr ""
+msgstr "Quantità scansionata"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -1261,7 +1266,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Remove last yours"
-msgstr ""
+msgstr "Rimuovere gli ultimi"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__required
@@ -1275,7 +1280,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__res_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__res_ids
 msgid "Res"
-msgstr ""
+msgstr "Res"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__res_model_id
@@ -1284,13 +1289,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__res_model_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__res_model_id
 msgid "Res Model"
-msgstr ""
+msgstr "Res Model"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_reserved
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_qty_reserved
 msgid "Reserved"
-msgstr ""
+msgstr "Riservato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__result_package_id
@@ -1321,14 +1326,14 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__scan_count
 msgid "Scan Count"
-msgstr ""
+msgstr "Conteggio scansione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__scan_log_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__scan_log_ids
 msgid "Scan Log"
-msgstr ""
+msgstr "Log scansione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_move_line__barcode_scan_state
@@ -1345,12 +1350,12 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__read_log_id
 msgid "Scanning log"
-msgstr ""
+msgstr "Log in fase di scansione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__log_line_ids
 msgid "Scanning log details"
-msgstr ""
+msgstr "Dettagli log di scansione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__sequence
@@ -1395,13 +1400,13 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_inventory_kanban
 msgid "Start barcode interface"
-msgstr ""
+msgstr "Avviare interfaccia codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__state
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_state
 msgid "Status"
-msgstr ""
+msgstr "Stato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__step
@@ -1424,24 +1429,24 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_read_log_line
 msgid "Stock barcodes read log lines"
-msgstr ""
+msgstr "Lettura linee di log di stock barcodes"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log_line__move_line_id
 msgid "Stock move lines"
-msgstr ""
+msgstr "Linee di trasferimento"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "The product type is not allowed"
-msgstr ""
+msgstr "Questo tipo prodotto non è permesso"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "There is no lots to assign quantities"
-msgstr ""
+msgstr "Non ci sono lotti con quantità da assegnare"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_ids
@@ -1468,23 +1473,23 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Tracking"
-msgstr ""
+msgstr "Tracciatura"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Trasferimento"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_type_code
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__picking_code
 msgid "Type of Operation"
-msgstr ""
+msgstr "Tipo di Operazione"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Type of operation"
-msgstr ""
+msgstr "Tipo di operazione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__uom_id
@@ -1494,7 +1499,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Validate"
-msgstr ""
+msgstr "Valida"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_inventory___barcode_scanned
@@ -1503,12 +1508,12 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
 msgid "Value of the last barcode scanned."
-msgstr ""
+msgstr "Valore dell'ultimo codice a barre scansionato."
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
 msgid "Vendors"
-msgstr ""
+msgstr "Fornitori"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__visible_force_done
@@ -1534,13 +1539,13 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
-msgstr ""
+msgstr "In attesa prodotto"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting quantities"
-msgstr ""
+msgstr "In attesa quantità"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__barcode_guided_mode
@@ -1553,32 +1558,32 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__wiz_barcode_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__wiz_barcode_id
 msgid "Wiz Barcode"
-msgstr ""
+msgstr "Procedura guidata Codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__wiz_picking_id
 msgid "Wizard Picking"
-msgstr ""
+msgstr "Procedura guidata Prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_new_lot
 msgid "Wizard to create new lot from barcode scanner"
-msgstr ""
+msgstr "Procedura guidata per creare un nuovo lotto dal lettore codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
-msgstr ""
+msgstr "Procedura guidata per leggere il codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_inventory
 msgid "Wizard to read barcode on inventory"
-msgstr ""
+msgstr "Procedura guidata per leggere il codice a barre sull'inventario"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
 msgid "Wizard to read barcode on picking"
-msgstr ""
+msgstr "Procedura guidata per leggere il codice a barre sul prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -1628,7 +1633,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
-msgstr ""
+msgstr "Non è possibile rimuovere un log di scansione da un inventario validato"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
@@ -1637,6 +1642,8 @@ msgid ""
 "You can not remove an entry linked to a stock move line in state assigned or"
 " confirmed"
 msgstr ""
+"Non è possibile rimuovere un ingresso legato a un trasferimento di magazzino "
+"in stato assegnato o confermato"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
