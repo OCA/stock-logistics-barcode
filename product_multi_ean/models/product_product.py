@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields, api, _
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class ProductEan13(models.Model):
@@ -35,7 +35,7 @@ class ProductEan13(models.Model):
             eans = self.search(
                 [('id', '!=', record.id), ('name', '=', record.name)])
             if eans:
-                raise UserError(
+                raise ValidationError(
                     _('The EAN13 Barcode "%s" already exists for product '
                       '"%s"') % (record.name, eans[0].product_id.name))
 
