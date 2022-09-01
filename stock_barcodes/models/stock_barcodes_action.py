@@ -21,7 +21,7 @@ class StockBarcodesAction(models.Model):
     icon_class = fields.Char()
 
     def open_action(self):
-        action = self.action_window_id.read()[0]
+        action = self.action_window_id.sudo().read()[0]
         action_context = safe_eval(action["context"])
         ctx = self.env.context.copy()
         if action_context:
