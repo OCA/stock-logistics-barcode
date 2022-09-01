@@ -758,7 +758,9 @@ class WizCandidatePicking(models.TransientModel):
         if isinstance(res, dict):
             # backorder wizard
             return res
-        return self.env.ref("stock_barcodes.action_stock_barcodes_action").read()[0]
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_action"
+        )
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(

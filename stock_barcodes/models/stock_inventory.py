@@ -31,8 +31,8 @@ class StockInventory(models.Model):
         if option_group.get_option_value("location_id", "filled_default"):
             vals["location_id"] = self.location_ids[:1].id
         wiz = self.env["wiz.stock.barcodes.read.inventory"].create(vals)
-        action = self.env.ref(
+        action = self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_read_inventory"
-        ).read()[0]
+        )
         action["res_id"] = wiz.id
         return action

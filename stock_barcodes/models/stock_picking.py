@@ -29,9 +29,9 @@ class StockPicking(models.Model):
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
         wiz.determine_todo_action()
         wiz.fill_pending_moves()
-        action = self.env.ref(
+        action = self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_read_picking"
-        ).read()[0]
+        )
         action["res_id"] = wiz.id
         return action
 
