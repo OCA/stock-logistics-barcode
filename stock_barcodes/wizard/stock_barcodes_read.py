@@ -454,8 +454,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.product_qty = 1.0
         if not self.check_done_conditions():
             return False
-        _logger.info("Add scanned log barcode:{}".format(self.barcode))
-        self._add_read_log()
+        if not self.env.context.get("_stock_barcodes_skip_read_log"):
+            _logger.info("Add scanned log barcode:{}".format(self.barcode))
+            self._add_read_log()
         return True
 
     def action_cancel(self):
