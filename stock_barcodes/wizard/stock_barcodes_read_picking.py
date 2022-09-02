@@ -215,7 +215,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.picking_product_qty = move_line.qty_done
 
     def action_done(self):
-        res = super().action_done()
+        # Skip read log creation to be able to pass log_detail when available.
+        res = super(
+            WizStockBarcodesReadPicking,
+            self.with_context(_stock_barcodes_skip_read_log=True),
+        ).action_done()
         if res:
             move_dic = self._process_stock_move_line()
             if move_dic:
@@ -225,7 +229,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
+            # Now we can add read log with details.
+            _logger.info("Add scanned log barcode:{}".format(self.barcode))
+            self._add_read_log(log_detail=move_dic)
             return bool(move_dic)
+        # Add read log normally.
+        _logger.info("Add scanned log barcode:{}".format(self.barcode))
+        self._add_read_log()
         return res
 
     def action_manual_entry(self):
@@ -586,15 +596,19 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def remove_scanning_log(self, scanning_log):
         for log in scanning_log:
             for log_scan_line in log.log_line_ids:
-                if log_scan_line.move_line_id.state not in ["assigned", "confirmed"]:
+                sml = log_scan_line.move_line_id
+                if sml.state not in ["draft", "assigned", "confirmed"]:
                     raise ValidationError(
                         _(
-                            "You can not remove an entry linked to a stock move "
-                            "line in state assigned or confirmed"
+                            "You cannot remove an entry linked to a operation "
+                            "in state new, assigned or confirmed"
                         )
                     )
-                qty = log_scan_line.move_line_id.qty_done - log_scan_line.product_qty
+                qty = sml.qty_done - log_scan_line.product_qty
                 log_scan_line.move_line_id.qty_done = max(qty, 0.0)
+                if sml.state == "draft" and sml.move_id.quantity_done == 0.0:
+                    # This move has been created by the last scan, remove it.
+                    sml.move_id.unlink()
             self.picking_product_qty = sum(
                 log.log_line_ids.mapped("move_line_id.move_id.quantity_done")
             )
