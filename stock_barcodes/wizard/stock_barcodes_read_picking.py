@@ -254,7 +254,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "picking_id": picking.id,
             "move_id": candidate_move.id,
             "qty_done": available_qty,
-            "product_uom_id": self.product_id.uom_po_id.id
+            "product_uom_id": candidate_move.product_uom.id or self.product_id.uom_id.id
             if not self.packaging_id
             else self.packaging_id.product_uom_id.id,
             "product_id": self.product_id.id,
@@ -758,7 +758,9 @@ class WizCandidatePicking(models.TransientModel):
         if isinstance(res, dict):
             # backorder wizard
             return res
-        return self.env.ref("stock_barcodes.action_stock_barcodes_action").read()[0]
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_action"
+        )
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(
