@@ -442,7 +442,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             not self.option_group_id.code == "REL"
             and not self.env.context.get("force_create_move", False)
             and not self.env.context.get("manual_picking", False)
-            and available_qty > max_quantity
+            and float_compare(
+                available_qty,
+                max_quantity,
+                precision_rounding=self.product_id.uom_id.rounding,
+            )
+            > 0
         ):
             self._set_messagge_info(
                 "more_match", _("Quantities scanned are higher than necessary")
@@ -557,7 +562,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         res = super().check_done_conditions()
         if (
             self.picking_type_code != "incoming"
-            and self.product_qty > self.qty_available
+            and float_compare(
+                self.product_qty,
+                self.qty_available,
+                precision_rounding=self.product_id.uom_id.rounding,
+            )
+            > 0
             and not self.env.context.get("force_create_move", False)
             and not self.option_group_id.allow_negative_quant
         ):
