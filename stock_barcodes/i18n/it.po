@@ -21,13 +21,18 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_state
 msgid ""
 " * Draft: The transfer is not confirmed yet. Reservation doesn't apply.\n"
-" * Waiting another operation: This transfer is waiting for another operation before being ready.\n"
+" * Waiting another operation: This transfer is waiting for another operation "
+"before being ready.\n"
 " * Waiting: The transfer is waiting for the availability of some products.\n"
-"(a) The shipping policy is \"As soon as possible\": no product could be reserved.\n"
-"(b) The shipping policy is \"When all products are ready\": not all the products could be reserved.\n"
+"(a) The shipping policy is \"As soon as possible\": no product could be "
+"reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": not all the "
+"products could be reserved.\n"
 " * Ready: The transfer is ready to be processed.\n"
-"(a) The shipping policy is \"As soon as possible\": at least one product has been reserved.\n"
-"(b) The shipping policy is \"When all products are ready\": all product have been reserved.\n"
+"(a) The shipping policy is \"As soon as possible\": at least one product has "
+"been reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": all product have "
+"been reserved.\n"
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
@@ -152,7 +157,8 @@ msgstr "<span>Qtà totale</span>"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid ""
 "<strong class=\" d-none d-sm-block\">Dest. Location</strong>\n"
-"                        <span class=\"fa fa-share text-center d-sm-none oe_span_small_icon\" title=\"Destination Location\"/>"
+"                        <span class=\"fa fa-share text-center d-sm-none "
+"oe_span_small_icon\" title=\"Destination Location\"/>"
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Ubicazione destinazione</strong>\n"
 "                        <span class=\"fa fa-share text-center d-sm-none "
@@ -162,7 +168,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\" d-none d-sm-block\">Source Location</strong>\n"
-"                                    <span class=\"fa fa-map-marker d-sm-none oe_span_small_icon\" title=\"Source Location\"/>"
+"                                    <span class=\"fa fa-map-marker d-sm-none "
+"oe_span_small_icon\" title=\"Source Location\"/>"
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Ubicazione provenienza</strong>\n"
 "                                    <span class=\"fa fa-map-marker d-sm-none "
@@ -172,7 +179,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Lot S/N</strong>\n"
-"                                    <span class=\"fa fa-tags d-sm-none oe_span_small_icon\" title=\"Lot S/N\"/>"
+"                                    <span class=\"fa fa-tags d-sm-none "
+"oe_span_small_icon\" title=\"Lot S/N\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Lotto/Seriale</strong>\n"
 "                                    <span class=\"fa fa-tags d-sm-none "
@@ -182,7 +190,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Package</strong>\n"
-"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" title=\"Package\"/>"
+"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
+"title=\"Package\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Collo</strong>\n"
 "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
@@ -192,7 +201,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Product</strong>\n"
-"                                    <span class=\"fa fa-th-list d-sm-none oe_span_small_icon\" title=\"Product\"/>"
+"                                    <span class=\"fa fa-th-list d-sm-none "
+"oe_span_small_icon\" title=\"Product\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Prodotto</strong>\n"
 "                                    <span class=\"fa fa-th-list d-sm-none "
@@ -201,11 +211,13 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
-"<strong class=\"d-none d-sm-block\">Source Package -&gt; Result Package</strong>\n"
-"                                    <span class=\"fa fa-cubes d-sm-none oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
+"<strong class=\"d-none d-sm-block\">Source Package -&gt; Result Package</"
+"strong>\n"
+"                                    <span class=\"fa fa-cubes d-sm-none "
+"oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Collo originario -&gt; Collo "
-"risultante</strong>\n"
+"<strong class=\"d-none d-sm-block\">Collo originario -&gt; Collo risultante</"
+"strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none "
 "oe_span_small_icon\" title=\"Collo originario a Collo risultante\"/>"
 
@@ -213,7 +225,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
-"                                    <span class=\"fa fa-hashtag d-sm-none oe_span_small_icon\" title=\"Total Quantity\"/>"
+"                                    <span class=\"fa fa-hashtag d-sm-none "
+"oe_span_small_icon\" title=\"Total Quantity\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Qtà totale</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none "
@@ -455,7 +468,6 @@ msgid "Clean package info"
 msgstr "Pulisci informazioni collo"
 
 #. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Click on picking pushpin to lock it"
@@ -1590,7 +1602,6 @@ msgstr "Attesa lotto"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
 msgstr "In attesa prodotto"
@@ -1674,7 +1685,8 @@ msgstr "Prodotto errato"
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
 msgid ""
-"You can establish a list of fields that will act as a grouping key to generate the movements to be process.\n"
+"You can establish a list of fields that will act as a grouping key to "
+"generate the movements to be process.\n"
 "The object variable is used to refer to the source record\n"
 "For example, object.location_id,object.product_id,object.lot_id"
 msgstr ""
@@ -1693,17 +1705,16 @@ msgstr "Non puoi aggiungere movimenti extra se non hai impostato un prelievo"
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "You can not remove a scanning log from an inventory validated"
-msgstr "Non è possibile rimuovere un log di scansione da un inventario validato"
+msgstr ""
+"Non è possibile rimuovere un log di scansione da un inventario validato"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid ""
-"You can not remove an entry linked to a stock move line in state assigned or"
-" confirmed"
+"You cannot remove an entry linked to a operation in state new, assigned or "
+"confirmed"
 msgstr ""
-"Non è possibile rimuovere un ingresso legato a un trasferimento di magazzino "
-"in stato assegnato o confermato"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -1719,3 +1730,10 @@ msgstr "blocca prelievo"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
 msgstr "sblocca prelievo"
+
+#~ msgid ""
+#~ "You can not remove an entry linked to a stock move line in state assigned "
+#~ "or confirmed"
+#~ msgstr ""
+#~ "Non è possibile rimuovere un ingresso legato a un trasferimento di "
+#~ "magazzino in stato assegnato o confermato"
