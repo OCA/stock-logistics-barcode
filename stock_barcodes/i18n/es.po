@@ -1649,7 +1649,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid ""
-"You can not remove an entry linked to a stock move line in state assigned or "
+"You cannot remove an entry linked to a operation in state new, assigned or "
 "confirmed"
 msgstr ""
 
