@@ -1629,15 +1629,21 @@ msgstr "No puede borrar un registro de escaneo de un inventario validado"
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid ""
-"You can not remove an entry linked to a stock move line in state assigned or "
+"You cannot remove an entry linked to a operation in state new, assigned or "
 "confirmed"
 msgstr ""
-"No puede borrar un registro de escaneo de un movimiento asignado o confirmado"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "\\u21E8"
 msgstr ""
+
+#~ msgid ""
+#~ "You can not remove an entry linked to a stock move line in state assigned "
+#~ "or confirmed"
+#~ msgstr ""
+#~ "No puede borrar un registro de escaneo de un movimiento asignado o "
+#~ "confirmado"
 
 #~ msgid "<strong>Products:</strong>"
 #~ msgstr "<strong>Productos:</strong>"
