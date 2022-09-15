@@ -18,7 +18,6 @@ class ProductBarcode(models.Model):
         required=True,
     )
     sequence = fields.Integer(
-        string="Sequence",
         default=0,
     )
     product_id = fields.Many2one(
