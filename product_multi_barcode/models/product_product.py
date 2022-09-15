@@ -35,7 +35,7 @@ class ProductProduct(models.Model):
             elif not product.barcode:
                 product.barcode_ids.unlink()
             else:
-                self.env["product.barcode"].create(self._prepare_barcode_vals())
+                self.env["product.barcode"].create(product._prepare_barcode_vals())
 
     def _prepare_barcode_vals(self):
         self.ensure_one()

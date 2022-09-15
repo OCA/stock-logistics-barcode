@@ -18,7 +18,6 @@ class ProductBarcode(models.Model):
         required=True,
     )
     sequence = fields.Integer(
-        string="Sequence",
         default=0,
     )
     product_id = fields.Many2one(
@@ -57,6 +56,9 @@ class ProductBarcode(models.Model):
             )
             if barcodes:
                 raise UserError(
-                    _('The Barcode "%s" already exists for product ' '"%s"')
-                    % (record.name, barcodes[0].product_id.name)
+                    _(
+                        'The Barcode "%(barcode)s" already exists for product '
+                        '"%(product)s"'
+                    )
+                    % {"barcode": record.name, "product": barcodes[0].product_id.name}
                 )
