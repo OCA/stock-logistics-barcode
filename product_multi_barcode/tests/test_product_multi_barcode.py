@@ -29,7 +29,11 @@ class TestProductMultiBarcode(TransactionCase):
     def test_set_incorrect_barcode(self):
         self.product_1.barcode = self.valid_barcode_1
         # Insert duplicated EAN13
-        with self.assertRaises(Exception):
+        with self.assertRaisesRegex(
+            Exception,
+            'The Barcode "%(barcode)s" already exists for product "%(product)s"'
+            % {"barcode": self.valid_barcode_1, "product": self.product_1.name},
+        ):
             self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
 
     def test_post_init_hook(self):
