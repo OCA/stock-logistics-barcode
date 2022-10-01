@@ -328,6 +328,7 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__display_name
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode__display_name
 msgid "Display Name"
 msgstr "Nume Afişat"
 
@@ -360,6 +361,11 @@ msgstr ""
 #. module: base_gs1_barcode
 #: model:ir.model,name:base_gs1_barcode.model_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
+msgstr ""
+
+#. module: base_gs1_barcode
+#: model:ir.model,name:base_gs1_barcode.model_gs1_encode_barcode
+msgid "GS1-128/GS1-Datamatrix barcode encoder function"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -410,6 +416,7 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__id
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode__id
 msgid "ID"
 msgstr "ID"
 
@@ -484,6 +491,7 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode____last_update
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode____last_update
 msgid "Last Modified on"
 msgstr "Ultima actualizare în"
 
@@ -821,6 +829,12 @@ msgstr ""
 #: model:gs1_barcode,name:base_gs1_barcode.DELIVER_FOR
 msgid ""
 "Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
+msgstr ""
+
+#. module: base_gs1_barcode
+#: code:addons/base_gs1_barcode/models/gs1_encode_barcode.py:0
+#, python-format
+msgid "Size is not correct"
 msgstr ""
 
 #. module: base_gs1_barcode
