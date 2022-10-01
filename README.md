@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [barcodes_generator_location](barcodes_generator_location/) | 14.0.1.0.0 |  | Generate Barcodes for Stock Locations
 [barcodes_generator_product](barcodes_generator_product/) | 14.0.1.1.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Products (Templates and Variants)
 [base_gs1_barcode](base_gs1_barcode/) | 14.0.1.0.1 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
+[product_gs1_barcode](product_gs1_barcode/) | 14.0.1.0.0 |  | Encoding for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_multi_barcode](product_multi_barcode/) | 14.0.1.1.1 |  | Multiple barcodes on products
 [product_multi_barcode_stock_menu](product_multi_barcode_stock_menu/) | 14.0.1.0.0 |  | Multiple barcodes menu
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 14.0.1.0.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
