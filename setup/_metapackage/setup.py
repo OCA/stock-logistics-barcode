@@ -9,6 +9,7 @@ setuptools.setup(
     version=version,
     install_requires=[
         'odoo-addon-base_gs1_barcode>=15.0dev,<15.1dev',
+        'odoo-addon-product_supplierinfo_barcode>=15.0dev,<15.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
