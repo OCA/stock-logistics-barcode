@@ -333,6 +333,8 @@ msgstr "Beschreibung"
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__display_name
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode__display_name
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__display_name
 msgid "Display Name"
 msgstr "Anzeigename"
 
@@ -366,6 +368,11 @@ msgstr "GS1-128/GS1-Datenmatrix Decodierung"
 #: model:ir.model,name:base_gs1_barcode.model_gs1_barcode
 msgid "GS1-128/GS1-Datamatrix barcode decoder API and configuration"
 msgstr "GS1-128/GS1-Datenmatrix Barcodedecodierer API und Konfiguration"
+
+#. module: base_gs1_barcode
+#: model:ir.model,name:base_gs1_barcode.model_gs1_encode_barcode
+msgid "GS1-128/GS1-Datamatrix barcode encoder function"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.view_users_form_gs1_barcode
@@ -415,6 +422,8 @@ msgstr "Gruppentrenner"
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode__id
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode__id
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users__id
 msgid "ID"
 msgstr "ID"
 
@@ -493,6 +502,8 @@ msgstr "International Bank Account Number (IBAN)"
 
 #. module: base_gs1_barcode
 #: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_barcode____last_update
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_gs1_encode_barcode____last_update
+#: model:ir.model.fields,field_description:base_gs1_barcode.field_res_users____last_update
 msgid "Last Modified on"
 msgstr "Zuletzt geändert am"
 
@@ -831,6 +842,12 @@ msgstr "Versandt/Lieferung an Postleitzahl (mit ISO-Länderschlüssel)"
 msgid ""
 "Ship for, Deliver for, or Forward to Location Code (Global Location Number)"
 msgstr "Versandt/Lieferung für oder Weiterleiten an Standortschlüssel (GLN)"
+
+#. module: base_gs1_barcode
+#: code:addons/base_gs1_barcode/models/gs1_encode_barcode.py:0
+#, python-format
+msgid "Size is not correct"
+msgstr ""
 
 #. module: base_gs1_barcode
 #: model:ir.model.constraint,message:base_gs1_barcode.constraint_gs1_barcode_ai_uniq
