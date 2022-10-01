@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_supplierinfo_form_view_barcode" model="ir.ui.view">
+        <field name="name">product_supplierinfo_form_view_barcode</field>
+        <field name="model">product.supplierinfo</field>
+        <field name="inherit_id" ref="product.product_supplierinfo_form_view" />
+        <field name="arch" type="xml">
+            <field name="product_code" position="after">
+                <field name="barcode" />
+            </field>
+        </field>
+    </record>
+</odoo>
