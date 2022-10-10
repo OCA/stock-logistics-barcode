@@ -437,7 +437,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         # Determine location depend on picking type code
         # lines = lines.filtered(lambda ln: )
         available_qty = self.product_qty
-        max_quantity = sum([sm.product_uom_qty - sm.quantity_done for sm in moves_todo])
+        max_quantity = sum(sm.product_uom_qty - sm.quantity_done for sm in moves_todo)
         if (
             not self.option_group_id.code == "REL"
             and not self.env.context.get("force_create_move", False)
