@@ -192,7 +192,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     @api.depends("line_ids.qty_done")
     def _compute_qty_done(self):
         for rec in self:
-            rec.qty_done = sum([ln._origin.qty_done for ln in rec.line_ids])
+            rec.qty_done = sum(ln._origin.qty_done for ln in rec.line_ids)
 
     @api.depends(
         "line_ids",
