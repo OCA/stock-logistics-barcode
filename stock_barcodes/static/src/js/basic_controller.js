@@ -22,7 +22,8 @@ odoo.define("stock_barcodes.BasicController", function (require) {
             if (this._is_valid_barcode_model) {
                 this._keybind_selectable_index = -1;
                 this._keybind_selectable_items = [];
-                this._is_browser_chrome = WebClientObj.BrowserDetection.isBrowserChrome();
+                this._is_browser_chrome =
+                    WebClientObj.BrowserDetection.isBrowserChrome();
                 const state_id = this.initialState.data.id;
                 if (state_id) {
                     this._channel_barcode_read = `stock_barcodes_read-${this.initialState.data.id}`;
