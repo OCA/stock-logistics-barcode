@@ -34,7 +34,7 @@
                                                 class="pull-right btn"
                                                 style="width:100%"
                                                 t-att-aria-keyshortcuts="key_char_shortcut"
-                                                t-att-accesskey="context.context_display_menu &amp;&amp; record.key_char_shortcut.raw_value || ''"
+                                                t-att-data-hotkey="context.context_display_menu &amp;&amp; record.key_char_shortcut.raw_value || ''"
                                             >
                                                 <div class="row">
                                                     <div class="col-1">
@@ -375,7 +375,7 @@
                         <field
                             name="manual_entry"
                             widget="FieldBarcodeBooleanToggle"
-                            accesskey="5"
+                            data-hotkey="5"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                         />
                         <field name="display_menu" invisible="1" />
@@ -393,7 +393,7 @@
                             type="object"
                             class="btn-warning ml-auto oe_kanban_action_button btn-sm"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
-                            accesskey="7"
+                            data-hotkey="7"
                         >
                             <i class="fa fa-trash-o" title="Clean Values" />
                         </button>
@@ -402,7 +402,7 @@
                             type="object"
                             class="btn-success ml-auto oe_kanban_action_button btn-sm"
                             attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
-                            accesskey="8"
+                            data-hotkey="8"
                         >
                             <i class="fa fa-check" title="Confirm" />
                         </button>
@@ -412,14 +412,14 @@
                             icon="fa-check"
                             attrs="{'invisible': [('visible_force_done', '=', False)]}"
                             class="btn-danger ml-auto oe_kanban_action_button btn-sm"
-                            accesskey="8"
+                            data-hotkey="8"
                         />
                         <button
                             name="open_actions"
                             type="object"
                             class="ml-auto oe_kanban_action_button btn-sm"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
-                            accesskey="0"
+                            data-hotkey="0"
                         >
                             <i class="fa fa-bars" title="Open actions" />
                         </button>
@@ -430,7 +430,7 @@
                             class="btn-secondary ml-auto oe_kanban_action_button btn-sm"
                             icon="fa-backward"
                             attrs="{'invisible': [('display_menu', '=', False)]}"
-                            accesskey="7"
+                            data-hotkey="7"
                         />
                     </div>
                 </div>

@@ -109,7 +109,7 @@
                                         type="object"
                                         class="btn btn-primary pull-left btn-sm"
                                         context="{'wiz_barcode_id': parent.id}"
-                                        accesskey="1"
+                                        data-hotkey="1"
                                     >
                                         <i
                                             class="fa fa-step-backward"
@@ -123,7 +123,7 @@
                                         type="object"
                                         class="btn btn-warning pull-right btn-sm"
                                         context="{'wiz_barcode_id': parent.id}"
-                                        accesskey="2"
+                                        data-hotkey="2"
                                     >
                                         <i class="fa fa-trash" title="Clean" />
                                     </button>
@@ -134,7 +134,7 @@
                                         type="object"
                                         class="btn btn-danger pull-right btn-sm"
                                         context="{'wiz_barcode_id': parent.id}"
-                                        accesskey="3"
+                                        data-hotkey="3"
                                     >
                                     Done
                                     </button>
@@ -145,7 +145,7 @@
                                         type="object"
                                         class="btn btn-primary pull-right btn-sm"
                                         context="{'wiz_barcode_id': parent.id}"
-                                        accesskey="4"
+                                        data-hotkey="4"
                                     >
                                         <i class="fa fa-step-forward" title="Next" />
                                     </button>
