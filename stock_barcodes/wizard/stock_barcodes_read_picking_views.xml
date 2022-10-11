@@ -230,7 +230,7 @@
                     attrs="{'invisible': ['|', ('picking_state', 'in', ('draft', 'done', 'cancel')), ('display_menu', '=', True)]}"
                     class="ml-auto oe_kanban_action_button btn btn-secondary btn-sm"
                     groups="stock.group_tracking_lot"
-                    accesskey="6"
+                    data-hotkey="6"
                 >
                      <i class="fa fa-cubes" title="Put in Pack" />
                 </button>
