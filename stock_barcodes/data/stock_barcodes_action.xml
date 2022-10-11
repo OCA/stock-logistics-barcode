@@ -28,12 +28,5 @@
                 name="context"
             >{'search_default_code': 'outgoing', 'search_default_barcode_options': 1}</field>
         </record>
-        <record id="stock_barcodes_action_inventory" model="stock.barcodes.action">
-            <field name="name">Inventory</field>
-            <field name="sequence">40</field>
-            <field name="action_window_id" ref="stock.action_inventory_form" />
-            <field name="key_char_shortcut">4</field>
-            <field name="context">{'search_default_confirm': 1}</field>
-        </record>
     </data>
 </odoo>
