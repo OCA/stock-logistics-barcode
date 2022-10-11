@@ -9,7 +9,6 @@ odoo.define("stock_barcodes.BarcodesModelsMixin", function (require) {
         // Models allowed to have extra keybinding features
         _barcode_models: [
             "stock.barcodes.action",
-            "stock.inventory",
             "stock.picking",
             "stock.picking.type",
             "wiz.candidate.picking",

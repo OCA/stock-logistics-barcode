@@ -136,7 +136,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         # TODO: Uncomment this line when the tests of all modules have been adapted
         # if self.barcode and self.message_type in ["more_match", "not_found"]:
         if self.barcode:
-            self.message = _("%s (%s)") % (self.barcode, message)
+            self.message = _(
+                "%(barcode)s (%(message)s)", barcode=self.barcode, message=message
+            )
         else:
             self.message = "%s" % message
 
@@ -643,19 +645,24 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def play_sounds(self, res):
         if res:
-            self.env["bus.bus"].sendone(
-                "stock_barcodes_sound-{}".format(self.ids[0]), {"sound": "ok"}
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes_sound-{}".format(self.ids[0]),
+                "stock_barcodes",
+                {"sound": "ok"},
             )
         else:
-            self.env["bus.bus"].sendone(
-                "stock_barcodes_sound-{}".format(self.ids[0]), {"sound": "ko"}
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes_sound-{}".format(self.ids[0]),
+                "stock_barcodes",
+                {"sound": "ko"},
             )
 
     def _set_focus_on_qty_input(self, field_name="product_qty"):
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
-        self.env["bus.bus"].sendone(
+        self.env["bus.bus"]._sendone(
             "stock_barcodes_read-{}".format(self.ids[0]),
+            "stock_barcodes",
             {"action": "focus", "field_name": field_name},
         )
 

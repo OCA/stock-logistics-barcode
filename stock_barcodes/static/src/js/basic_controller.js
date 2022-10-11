@@ -6,8 +6,10 @@ odoo.define("stock_barcodes.BasicController", function (require) {
     "use strict";
 
     const BasicController = require("web.BasicController");
-    const WebClientObj = require("web.web_client");
+    const BrowserDetection = require("web.BrowserDetection");
     const BarcodesModelsMixin = require("stock_barcodes.BarcodesModelsMixin");
+    const ui = require("@web/core/utils/ui");
+    const getVisibleElements = ui.getVisibleElements;
 
     BasicController.include(BarcodesModelsMixin);
     BasicController.include({
@@ -20,11 +22,12 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                 this.initialState.model
             );
             if (this._is_valid_barcode_model) {
+                this.BrowserDetection = new BrowserDetection();
                 this._keybind_selectable_index = -1;
                 this._keybind_selectable_items = [];
-                this._is_browser_chrome =
-                    WebClientObj.BrowserDetection.isBrowserChrome();
+                this._is_browser_chrome = this.BrowserDetection.isBrowserChrome();
                 const state_id = this.initialState.data.id;
+                this._areAccessKeyVisible = false;
                 if (state_id) {
                     this._channel_barcode_read = `stock_barcodes_read-${this.initialState.data.id}`;
                     this._channel_barcode_sound = `stock_barcodes_sound-${this.initialState.data.id}`;
@@ -131,6 +134,46 @@ odoo.define("stock_barcodes.BasicController", function (require) {
             }
         },
 
+        _addHotkeyOverlays: function () {
+            if (this._areAccessKeyVisible) {
+                return;
+            }
+            for (const el of getVisibleElements(
+                document,
+                "[data-hotkey]:not(:disabled)"
+            )) {
+                const hotkey = el.dataset.hotkey;
+                const overlay = document.createElement("div");
+                overlay.className = "o_web_hotkey_overlay";
+                overlay.appendChild(document.createTextNode(hotkey.toUpperCase()));
+
+                let overlayParent = false;
+                if (el.tagName.toUpperCase() === "INPUT") {
+                    // Special case for the search input that has an access key
+                    // defined. We cannot set the overlay on the input itself,
+                    // only on its parent.
+                    overlayParent = el.parentElement;
+                } else {
+                    overlayParent = el;
+                }
+
+                if (overlayParent.style.position !== "absolute") {
+                    overlayParent.style.position = "relative";
+                }
+                overlayParent.appendChild(overlay);
+            }
+            this._areAccessKeyVisible = true;
+        },
+
+        _removeHotkeyOverlays: function () {
+            if (!this._areAccessKeyVisible) {
+                return;
+            }
+            for (const overlay of document.querySelectorAll(".o_web_hotkey_overlay")) {
+                overlay.remove();
+            }
+            this._areAccessKeyVisible = false;
+        },
         /**
          * Helper to toggle access keys panel visibility
          *
@@ -138,11 +181,10 @@ odoo.define("stock_barcodes.BasicController", function (require) {
          */
         _toggleAccessKeys: function (status) {
             if (status) {
-                WebClientObj._addAccessKeyOverlays();
+                this._addHotkeyOverlays();
             } else {
-                WebClientObj._hideAccessKeyOverlay();
+                this._removeHotkeyOverlays();
             }
-            WebClientObj._areAccessKeyVisible = status;
         },
 
         /**
@@ -186,7 +228,7 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                 prefixkey += "shift+";
             }
             const elementWithAccessKey = document.querySelector(
-                `[accesskey="${prefixkey}${ev.key.toLowerCase()}"], [accesskey="${prefixkey}${ev.key.toUpperCase()}"]`
+                `[data-hotkey="${prefixkey}${ev.key.toLowerCase()}"], [data-hotkey="${prefixkey}${ev.key.toUpperCase()}"]`
             );
             if (elementWithAccessKey) {
                 ev.preventDefault();
@@ -208,14 +250,14 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                     shift = ev.shiftKey || ev.key === "Shift";
                 if (ev.keyCode === 113) {
                     // F2
-                    self._toggleAccessKeys(!WebClientObj._areAccessKeyVisible);
-                } else if (WebClientObj._areAccessKeyVisible && !shift && !alt) {
+                    self._toggleAccessKeys(!self._areAccessKeyVisible);
+                } else if (self._areAccessKeyVisible && !shift && !alt) {
                     if (self._is_browser_chrome) {
                         self._onPushKeyForChrome(ev);
                     } else {
                         newEvent.altKey = true;
                         newEvent.shiftKey = true;
-                        WebClientObj._onKeyDown(newEvent);
+                        self._onKeyDown(newEvent);
                     }
                 }
                 // Open actions directly only when menu is active
@@ -226,7 +268,7 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                         (ev.keyCode >= 97 && ev.keyCode <= 105))
                 ) {
                     self.$(
-                        "button[accesskey=" +
+                        "button[data-hotkey=" +
                             String.fromCharCode(ev.keyCode) +
                             "]:visible"
                     ).click();
