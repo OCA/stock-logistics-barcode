@@ -18,7 +18,6 @@ class TestStockBarcodes(TransactionCase):
         ]
         # models
         self.StockLocation = self.env["stock.location"]
-        self.StockInventory = self.env["stock.inventory"]
         self.Product = self.env["product.product"]
         self.ProductPackaging = self.env["product.packaging"]
         self.WizScanReadPicking = self.env["wiz.stock.barcodes.read.picking"]
