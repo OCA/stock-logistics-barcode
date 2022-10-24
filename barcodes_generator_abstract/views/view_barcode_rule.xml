@@ -11,7 +11,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">barcode.rule</field>
         <field name="inherit_id" ref="barcodes.view_barcode_rule_form" />
         <field name="arch" type="xml">
-            <xpath expr="//form" position="inside">
+            <xpath expr="//form/group" position="after">
                 <group
                     string="Barcode Generation"
                     attrs="{'invisible': ['|', ('encoding', '=', 'any'), ('padding', '=', 0)]}"
@@ -28,13 +28,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     <field
                         name="generate_automate"
                         attrs="{'invisible': [('generate_type', '=', 'no')]}"
-                    />
-                    <button
-                        name="generate_sequence"
-                        type="object"
-                        string="Generate Sequence"
-                        colspan="2"
-                        attrs="{'invisible': ['|', ('generate_type', '!=', 'sequence'), ('sequence_id', '!=', False)]}"
                     />
                     <field
                         name="sequence_id"
