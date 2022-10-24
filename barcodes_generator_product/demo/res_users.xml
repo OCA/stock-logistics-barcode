@@ -6,7 +6,7 @@ Copyright (C) 2016-Today La Louve (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-    <record id="base.user_root" model="res.users">
+    <record id="base.user_admin" model="res.users">
         <field
             name="groups_id"
             eval="[
