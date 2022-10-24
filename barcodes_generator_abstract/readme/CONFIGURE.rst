@@ -4,7 +4,7 @@ To configure this module, you need to:
 * Select a Nomenclature
 * Create or select a rule
 
-.. image:: ../static/description/barcode_rule_tree.png
+.. image:: ../static/description/barcode_nomenclature_form.png
 
 * For manual generation, set:
     * 'Base set Manually' in 'Generate Type'

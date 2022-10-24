@@ -19,7 +19,6 @@ class BarcodeRule(models.Model):
 
     # Column Section
     generate_type = fields.Selection(
-        string="Generate Type",
         selection=_GENERATE_TYPE,
         required=True,
         default="no",
@@ -32,16 +31,15 @@ class BarcodeRule(models.Model):
     )
 
     generate_model = fields.Selection(
-        string="Generate Model",
         selection=[],
         help="If 'Generate Type' is set, mention the model related to this" " rule.",
     )
 
-    padding = fields.Integer(
-        string="Padding", compute="_compute_padding", readonly=True, store=True
-    )
+    padding = fields.Integer(compute="_compute_padding", readonly=True, store=True)
 
-    sequence_id = fields.Many2one(string="Sequence Id", comodel_name="ir.sequence")
+    sequence_id = fields.Many2one(
+        string="Generation Sequence", comodel_name="ir.sequence"
+    )
 
     generate_automate = fields.Boolean(
         string="Automatic Generation",
@@ -86,27 +84,26 @@ class BarcodeRule(models.Model):
                 )
 
     # CRUD
-    @api.model
-    def create(self, vals):
-        self._clear_cache(vals)
-        return super().create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        self._clear_cache(vals_list)
+        res = super().create(vals_list)
+        res.generate_sequence_if_required()
+        return res
 
     def write(self, vals):
         self._clear_cache(vals)
-        return super().write(vals)
+        res = super().write(vals)
+        self.generate_sequence_if_required()
+        return res
 
-    # View Section
-    def generate_sequence(self):
-        sequence_obj = self.env["ir.sequence"]
-        for rule in self:
-            if rule.generate_type != "sequence":
-                raise exceptions.UserError(
-                    _(
-                        "Generate Sequence is possible only if  'Generate Type'"
-                        " is set to 'Base managed by Sequence'"
-                    )
-                )
-            sequence = sequence_obj.create(self._prepare_sequence(rule))
+    def generate_sequence_if_required(self):
+        IrSequence = self.env["ir.sequence"]
+        rules = self.filtered(
+            lambda x: x.generate_type == "sequence" and not x.sequence_id
+        )
+        for rule in rules:
+            sequence = IrSequence.create(self._prepare_sequence(rule))
             rule.sequence_id = sequence.id
 
     # Custom Section
@@ -153,4 +150,4 @@ class BarcodeRule(models.Model):
         """It clears the caches if certain vals are updated."""
         fields = ("generate_model", "generate_automate")
         if any(k in vals for k in fields):
-            self.invalidate_cache(fields)
+            self.invalidate_model(fields)
