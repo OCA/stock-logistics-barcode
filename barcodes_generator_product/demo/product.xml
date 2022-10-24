@@ -8,13 +8,15 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 <odoo>
     <record id="product_template_mono_variant" model="product.template">
         <field name="name">Template with Generated Barcode (Mono Variant)</field>
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
+        <field name="barcode_rule_id" ref="rule_product_generated_barcode_manually" />
         <field name="barcode_base">50</field>
     </record>
+
     <!-- pylint:disable=duplicate-xml-record-id -->
     <record id="product_template_multi_variant" model="product.template">
         <field name="name">Template with Generated Barcode (Multi Variant)</field>
     </record>
+
     <!-- pylint:disable=duplicate-xml-record-id -->
     <record
         id="product_template_multi_variant_attribute_line"
@@ -27,6 +29,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             eval="[(6, 0, [ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
         />
     </record>
+
     <function model="ir.model.data" name="_update_xmlids">
         <value
             model="base"
@@ -55,16 +58,19 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         },]"
         />
     </function>
+
     <record id="product_product_variant_1" model="product.product">
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
+        <field name="barcode_rule_id" ref="rule_product_generated_barcode_manually" />
         <field name="barcode_base">10001</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
     </record>
+
     <record id="product_product_variant_2" model="product.product">
-        <field name="barcode_rule_id" ref="product_generated_barcode" />
+        <field name="barcode_rule_id" ref="rule_product_generated_barcode_manually" />
         <field name="barcode_base">10002</field>
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
     </record>
+
     <record
         id="product_template_multi_variant_attribute_line"
         model="product.template.attribute.line"
@@ -76,6 +82,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             eval="[(6,0,[ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
         />
     </record>
+
     <record id="product_template_multi_variant" model="product.template">
         <field
             name="attribute_line_ids"

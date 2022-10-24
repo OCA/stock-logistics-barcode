@@ -6,9 +6,11 @@ Copyright (C) 2016-Today GRAP (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
+
     <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="barcode" position="before">
                 <field
@@ -18,48 +20,68 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     colspan="2"
                 />
                 <field name="generate_type" invisible="1" />
-                <field
-                    name="barcode_base"
-                    attrs="{
-                    'invisible': [('barcode_rule_id', '=', False)],
-                    'readonly': [('generate_type', '!=', 'manual')]}"
+                <label
+                    for="barcode_base"
+                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
-                <button
-                    name="generate_base"
-                    type="object"
-                    string="Generate Base (Using Sequence)"
-                    attrs="{'invisible': ['|',
-                    ('generate_type', '!=', 'sequence'),
-                    ('barcode_base', '!=', 0)]}"
+                <div
+                    name="div_barcode_base"
+                    class="o_row"
+                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
-                />
+                >
+                    <field
+                        name="barcode_base"
+                        attrs="{'readonly': [('generate_type', '!=', 'manual')]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                    <button
+                        name="generate_base"
+                        type="object"
+                        string="Generate Base"
+                        help="Generate Base (Using Sequence)"
+                        attrs="{'invisible': ['|',
+                        ('generate_type', '!=', 'sequence'),
+                        ('barcode_base', '!=', 0),
+                        ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                </div>
             </field>
-            <field name="barcode" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
-            </field>
-            <field name="barcode" position="after">
-                <button
-                    name="generate_barcode"
-                    type="object"
-                    string="Generate Barcode (Using Barcode Rule)"
-                    attrs="{'invisible': ['|',
+
+            <field name="barcode" position="replace">
+                <label for="barcode" />
+                <div name="div_barcode" class="o_row">
+                    <field
+                        name="barcode"
+                        class="oe_inline"
+                        attrs="{'readonly': [('generate_type', '=', 'sequence')]}"
+                    />
+                    <button
+                        name="generate_barcode"
+                        type="object"
+                        string="Generate Barcode"
+                        help="Generate Barcode (Using Barcode Rule)"
+                        attrs="{'invisible': ['|',
                             ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0)]}"
-                    groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
-                />
+                            ('barcode_base', '=', 0),
+                            ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                </div>
             </field>
+
         </field>
     </record>
 
     <record id="product_variant_easy_edit_view" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="priority">100</field>
         <field name="arch" type="xml">
             <field name="barcode" position="before">
                 <field
@@ -69,41 +91,62 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     colspan="2"
                 />
                 <field name="generate_type" invisible="1" />
-                <field
-                    name="barcode_base"
-                    attrs="{
-                    'invisible': [('barcode_rule_id', '=', False)],
-                    'readonly': [('generate_type', '!=', 'manual')]}"
+                <label
+                    for="barcode_base"
+                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
-                <button
-                    name="generate_base"
-                    type="object"
-                    string="Generate Base (Using Sequence)"
-                    attrs="{'invisible': ['|',
-                    ('generate_type', '!=', 'sequence'),
-                    ('barcode_base', '!=', 0)]}"
+                <div
+                    name="div_barcode_base"
+                    class="o_row"
+                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
+                >
+                    <field
+                        name="barcode_base"
+                        attrs="{'readonly': [('generate_type', '!=', 'manual')]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                    <button
+                        name="generate_base"
+                        type="object"
+                        string="Generate Base"
+                        help="Generate Base (Using Sequence)"
+                        attrs="{'invisible': ['|',
+                        ('generate_type', '!=', 'sequence'),
+                        ('barcode_base', '!=', 0),
+                        ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                </div>
+            </field>
+
+            <field name="barcode" position="replace">
+                <label
+                    for="barcode"
+                    groups="barcodes_generator_abstract.generate_barcode"
                 />
-            </field>
-            <field name="barcode" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
-            </field>
-            <field name="barcode" position="after">
-                <button
-                    name="generate_barcode"
-                    type="object"
-                    string="Generate Barcode (Using Barcode Rule)"
-                    attrs="{'invisible': ['|',
+                <div name="div_barcode" class="o_row">
+                    <field
+                        name="barcode"
+                        class="oe_inline"
+                        attrs="{'readonly': [('generate_type', '=', 'sequence')]}"
+                    />
+                    <button
+                        name="generate_barcode"
+                        type="object"
+                        string="Generate Barcode"
+                        help="Generate Barcode (Using Barcode Rule)"
+                        attrs="{'invisible': ['|',
                             ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0)]}"
-                    groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
-                />
+                            ('barcode_base', '=', 0),
+                            ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        class="oe_inline"
+                    />
+                </div>
             </field>
         </field>
     </record>
