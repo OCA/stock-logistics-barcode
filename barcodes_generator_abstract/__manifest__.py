@@ -7,9 +7,10 @@
 {
     "name": "Generate Barcodes (Abstract)",
     "summary": "Generate Barcodes for Any Models",
-    "version": "14.0.1.0.2",
+    "version": "16.0.1.0.1",
     "category": "Tools",
     "author": "GRAP, La Louve, LasLabs, Odoo Community Association (OCA)",
+    "maintainers": ["legalsylvain"],
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": ["barcodes"],

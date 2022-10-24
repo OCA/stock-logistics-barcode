@@ -3,6 +3,7 @@
 # Copyright 2017 LasLabs Inc.
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# pylint: disable=missing-manifest-dependency
 
 import logging
 
@@ -22,24 +23,24 @@ class BarcodeGenerateMixin(models.AbstractModel):
         string="Barcode Rule", comodel_name="barcode.rule"
     )
 
-    barcode_base = fields.Integer(string="Barcode Base", copy=False)
+    barcode_base = fields.Integer(copy=False)
 
     generate_type = fields.Selection(
-        string="Generate Type",
         related="barcode_rule_id.generate_type",
     )
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         """It creates a new barcode if automation is active."""
         barcode_rule = self.env["barcode.rule"].get_automatic_rule(self._name)
         if barcode_rule.exists():
-            vals.update({"barcode_rule_id": barcode_rule.id})
-        record = super().create(vals)
+            for vals in vals_list:
+                vals.update({"barcode_rule_id": barcode_rule.id})
+        records = super().create(vals_list)
         if barcode_rule:
-            record.generate_base()
-            record.generate_barcode()
-        return record
+            records.generate_base()
+            records.generate_barcode()
+        return records
 
     # View Section
     def generate_base(self):
