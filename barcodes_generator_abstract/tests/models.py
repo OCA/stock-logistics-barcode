@@ -19,4 +19,4 @@ class BarcodeGeneratorUserFake(models.Model):
     _name = "res.users"
     _inherit = ["res.users", "barcode.generate.mixin"]
 
-    barcode = fields.Char("Barcode", copy=False)
+    barcode = fields.Char(copy=False)
