@@ -182,13 +182,13 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
         wiz_scan_picking.manual_entry = True
         self.action_barcode_scanned(wiz_scan_picking, "8480000723208")
-        sml = self.picking_in_01.move_line_ids.filtered(
+        sml = self.picking_in_01.move_lines.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
         self.assertEqual(wiz_scan_picking.product_qty, 0.0)
         wiz_scan_picking.product_qty = 12.0
         wiz_scan_picking.action_confirm()
-        self.assertEqual(sml.qty_done, 12.0)
+        self.assertEqual(sml.quantity_done, 12.0)
 
     def test_barcode_from_operation(self):
         picking_out_3 = self.picking_out_01.copy()
