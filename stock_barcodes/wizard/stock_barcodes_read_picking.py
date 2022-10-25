@@ -259,6 +259,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             and sum(self.package_id.quant_ids.mapped("quantity")) <= self.product_qty
         ):
             self.result_package_id = self.package_id
+        location_dest_id = (
+            self.location_dest_id._get_putaway_strategy(self.product_id)
+            or self.location_dest_id
+        )
         vals = {
             "picking_id": picking.id,
             "move_id": candidate_move.id,
@@ -268,7 +272,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             else self.packaging_id.product_uom_id.id,
             "product_id": self.product_id.id,
             "location_id": self.location_id.id,
-            "location_dest_id": self.location_dest_id.id,
+            "location_dest_id": location_dest_id.id,
             "lot_id": self.lot_id.id,
             "lot_name": self.lot_id.name,
             "barcode_scan_state": "done_forced",
