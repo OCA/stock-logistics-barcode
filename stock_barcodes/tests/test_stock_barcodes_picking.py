@@ -142,7 +142,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
     def test_picking_wizard_scan_product(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
         self.action_barcode_scanned(wiz_scan_picking, "8480000723208")
-        sml = self.picking_in_01.move_line_ids.filtered(
+        sml = self.picking_in_01.move_line_nosuggest_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
         self.assertEqual(sml.qty_done, 1.0)

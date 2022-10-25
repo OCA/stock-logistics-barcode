@@ -329,7 +329,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return True
 
     def _get_candidate_stock_move_lines(self, moves_todo, sml_vals):
-        candidate_lines = moves_todo.mapped("move_line_ids").filtered(
+        field_lines = "move_line_ids"
+        if not self.picking_id.show_reserved:
+            field_lines = "move_line_nosuggest_ids"
+        candidate_lines = moves_todo.mapped(field_lines).filtered(
             lambda l: (
                 # l.picking_id == self.picking_id and
                 l.location_id == self.location_id
@@ -342,7 +345,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 lambda op: op.field_name == "location_id"
             )
             if not location_option.forced:
-                candidate_lines = moves_todo.mapped("move_line_ids").filtered(
+                candidate_lines = moves_todo.mapped(field_lines).filtered(
                     lambda l: (
                         l.location_dest_id == self.location_dest_id
                         and l.product_id == self.product_id
@@ -355,7 +358,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 lambda op: op.field_name == "location_dest_id"
             )
             if not location_dest_option.forced:
-                candidate_lines = moves_todo.mapped("move_line_ids").filtered(
+                candidate_lines = moves_todo.mapped(field_lines).filtered(
                     lambda l: (
                         l.location_id == self.location_id
                         and l.product_id == self.product_id
