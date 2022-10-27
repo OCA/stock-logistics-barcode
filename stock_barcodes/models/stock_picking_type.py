@@ -10,6 +10,12 @@ class StockPickingType(models.Model):
         comodel_name="stock.barcodes.option.group"
     )
 
+    new_picking_barcode_option_group_id = fields.Many2one(
+        comodel_name="stock.barcodes.option.group",
+        help="This Barcode Option Group will be selected when clicking the 'New' button"
+        " in an operation type. It will be used to create a non planned picking.",
+    )
+
     def action_barcode_scan(self):
         vals = {
             "res_model_id": self.env.ref("stock.model_stock_picking_type").id,
@@ -56,4 +62,5 @@ class StockPickingType(models.Model):
                 "location_dest_id": self.default_location_dest_id.id,
             }
         )
-        return picking.action_barcode_scan()
+        option_group = self.new_picking_barcode_option_group_id
+        return picking.action_barcode_scan(option_group=option_group)
