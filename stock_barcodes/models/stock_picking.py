@@ -6,8 +6,8 @@ from odoo import models
 class StockPicking(models.Model):
     _inherit = "stock.picking"
 
-    def action_barcode_scan(self):
-        option_group = self.picking_type_id.barcode_option_group_id
+    def action_barcode_scan(self, option_group=False):
+        option_group = option_group or self.picking_type_id.barcode_option_group_id
         vals = {
             "picking_id": self.id,
             "res_model_id": self.env.ref("stock.model_stock_picking").id,
