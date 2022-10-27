@@ -3,7 +3,7 @@
 {
     "name": "Barcode in supplier pricelist",
     "summary": "Add a barcode to supplier pricelist items",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.1.0",
     "development_status": "Beta",
     "category": "Hidden",
     "website": "https://github.com/OCA/stock-logistics-barcode",
