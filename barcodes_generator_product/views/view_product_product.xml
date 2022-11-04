@@ -108,4 +108,18 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         </field>
     </record>
 
+    <record id="product_search_form_view" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view" />
+        <field name="arch" type="xml">
+            <field name="pricelist_id" position="after">
+                <filter
+                    string="No barcode"
+                    name="no_barcode"
+                    domain="[('barcode','=',False)]"
+                />
+            </field>
+        </field>
+    </record>
+
 </odoo>

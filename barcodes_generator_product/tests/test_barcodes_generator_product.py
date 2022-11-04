@@ -72,3 +72,33 @@ class Tests(TransactionCase):
                 self.product_variant_1.barcode_base,
             ),
         )
+
+    def test_03_multi_barcode_generation(self):
+        product_1 = self.product_obj.create({"name": "P1"})
+        product_2 = self.product_obj.create({"name": "P2"})
+        product_3 = self.product_obj.create({"name": "P3"})
+        wizard = self.env["barcode.multiple.generator.wizard"].create(
+            {
+                "product_ids": [product_1.id, product_2.id],
+                "barcode_rule_id": self.barcode_rule.id,
+            }
+        )
+        wizard.generate_multi_barcode()
+        self.assertTrue(product_1.barcode)
+        self.assertTrue(product_2.barcode)
+
+        # test exception if product already have a barcode
+        product_1_barcode = product_1.barcode
+        wizard_2 = self.env["barcode.multiple.generator.wizard"].create(
+            {
+                "product_ids": [product_1.id, product_3.id],
+                "barcode_rule_id": self.barcode_rule.id,
+            }
+        )
+        self.assertTrue("P1" in wizard.product_barcode_exception)
+        wizard_2.generate_multi_barcode()
+        self.assertEqual(product_1_barcode, product_1.barcode)
+        self.assertTrue(product_3.barcode)
+        self.assertFalse("P2" in wizard_2.product_barcode_exception)
+        wizard_2.product_ids = [(4, product_2.id)]
+        self.assertTrue("P2" in wizard_2.product_barcode_exception)

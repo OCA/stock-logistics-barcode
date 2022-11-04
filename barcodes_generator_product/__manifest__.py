@@ -13,7 +13,12 @@
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": ["barcodes_generator_abstract", "product"],
-    "data": ["views/view_product_product.xml", "views/view_product_template.xml"],
+    "data": [
+        "security/ir.model.access.csv",
+        "views/view_product_product.xml",
+        "views/view_product_template.xml",
+        "wizard/multi_barcode_wizard.xml",
+    ],
     "maintainers": ["legalsylvain"],
     "demo": [
         "demo/res_users.xml",

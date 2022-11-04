@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_barcode_multiple_generator_wizard,barcode.multiple.generator.wizard.user,model_barcode_multiple_generator_wizard,barcodes_generator_abstract.generate_barcode,1,1,1,1

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!-- Copyright (C) 2022 Akretion (<http://www.akretion.com>).
+     @author Kévin Roche <kevin.roche@akretion.com>
+     License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="view_generate_multi_barcodes_form">
+        <field name="name">generate.multi.barcodes.form</field>
+        <field name="model">barcode.multiple.generator.wizard</field>
+        <field name="arch" type="xml">
+            <form string=" ">
+                <div
+                    class="alert alert-danger alert-dismissable"
+                    role="alert"
+                    style="margin-bottom:0px;"
+                    attrs="{'invisible':[('product_barcode_exception','=', False)]}"
+                >
+                    <field name="product_barcode_exception" />
+                </div>
+                <sheet>
+                    <group name="Barcodes Configuration">
+                        <field name="barcode_rule_id" />
+                        <field name="barcode_base" />
+                        <field name="generate_type" />
+
+                    </group>
+                    <group name="Products">
+                        <field
+                            name="product_ids"
+                            nolabel="1"
+                            options="{'no_create': True}"
+                        >
+                            <tree create="false" editable="bottom">
+                                <field name="default_code" />
+                                <field name="name" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+                <footer>
+                    <button
+                        string="Confirm"
+                        name="generate_multi_barcode"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                    <button string="Cancel" class="oe_link" special="cancel" />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="generate_barcode_multi_wizard" model="ir.actions.server">
+        <field name="name">Generate barcodes</field>
+        <field name="model_id" ref="product.model_product_product" />
+        <field name="binding_model_id" ref="product.model_product_product" />
+        <field name="binding_type">action</field>
+        <field name="state">code</field>
+        <field name="code">action = model.show_generate_multi_barcodes()
+    </field>
+    </record>
+
+
+</odoo>
