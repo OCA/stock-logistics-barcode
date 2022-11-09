@@ -15,7 +15,7 @@ class ProductPrintingQty(models.TransientModel):
         required=True,
         domain="[('id', '=', product_id)]",
     )
-    quantity = fields.Float("Quantity", digits="Product Unit of Measure", required=True)
+    quantity = fields.Float(digits="Product Unit of Measure", required=True)
     label_qty = fields.Integer("Quantity of Labels")
     uom_id = fields.Many2one(
         "uom.uom",
@@ -55,8 +55,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     )
     barcode_format = fields.Selection(
         selection=[("gs1_128", "Display GS1_128 format for barcodes")],
-        string="Barcode format",
-        default=lambda self: self.env.company.barcode_default_format,
+        default=lambda self: self.env.company.barcode_report_default_format,
     )
     barcode_report = fields.Many2one(
         comodel_name="ir.actions.report",

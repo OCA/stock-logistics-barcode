@@ -13,14 +13,14 @@
                         title="Select format of barcode display"
                     >
                         <div class="o_setting_right_pane">
-                            <label for="barcode_default_format" />
+                            <label for="barcode_report_default_format" />
                             <div class="text-muted">
                                 Format of the barcode when it is printed.
                             </div>
                             <div class="content-group">
                                 <div class="mt16">
                                     <field
-                                        name="barcode_default_format"
+                                        name="barcode_report_default_format"
                                         class="o_light_label"
                                         widget="selection"
                                     />
