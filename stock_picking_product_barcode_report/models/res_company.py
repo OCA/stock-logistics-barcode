@@ -7,7 +7,7 @@ from odoo import fields, models
 class Company(models.Model):
     _inherit = "res.company"
 
-    barcode_default_format = fields.Selection(
+    barcode_report_default_format = fields.Selection(
         [("gs1_128", "Display GS1_128 format for barcodes")],
         string="Method to choose the barcode formating",
     )
