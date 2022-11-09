@@ -128,6 +128,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         action = self.picking_out_01.action_barcode_scan()
         self.wiz_scan_picking_out = self.ScanReadPicking.browse(action["res_id"])
 
+
     def test_wiz_picking_values(self):
         self.assertEqual(
             self.wiz_scan_picking.location_id, self.picking_in_01.location_id
@@ -177,7 +178,12 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
         # Package of 5 product units. Already three unit exists
         self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 8.0)
-
+    
+    
+    def test_action_put_in_pack(self):
+        self.assertTrue(self.picking_in_01.action_put_in_pack())
+        
+    
     def test_picking_wizard_scan_product_manual_entry(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
         wiz_scan_picking.manual_entry = True
