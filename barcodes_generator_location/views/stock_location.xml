@@ -32,8 +32,9 @@
                         name="generate_base"
                         type="object"
                         string="Generate Base (Using Sequence)"
-                        attrs="{'invisible': ['|',
+                        attrs="{'invisible': ['|', '&amp;',
                                         ('generate_type', '!=', 'sequence'),
+                                        ('generate_type', '!=', 'many sequences'),
                                         ('barcode_base', '!=', 0),
                                     ]}"
                         groups="barcodes_generator_abstract.generate_barcode"

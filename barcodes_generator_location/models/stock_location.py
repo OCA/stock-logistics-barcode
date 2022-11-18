@@ -49,7 +49,13 @@ class StockLocation(models.Model):
                 placeholder.addprevious(barcode_field)
             # To the `barcode` field in the view (either the new
             # or the existing one), a modifier is added.
-            modifier = {"readonly": [("generate_type", "=", "sequence")]}
+            modifier = {
+                "readonly": [
+                    "|",
+                    ("generate_type", "=", "many sequences"),
+                    ("generate_type", "=", "sequence"),
+                ]
+            }
             barcode_field.set("modifiers", json.dumps(modifier))
             result["arch"] = etree.tostring(doc)
         return result
