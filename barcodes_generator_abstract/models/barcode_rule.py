@@ -10,11 +10,11 @@ _GENERATE_TYPE = [
     ("no", "No generation"),
     ("manual", "Base set Manually"),
     ("sequence", "Base managed by Sequence"),
+    ("many sequences", "Base managed by Many Sequences"),
 ]
 
 
 class BarcodeRule(models.Model):
-
     _inherit = "barcode.rule"
 
     # Column Section
@@ -42,6 +42,14 @@ class BarcodeRule(models.Model):
     )
 
     sequence_id = fields.Many2one(string="Sequence Id", comodel_name="ir.sequence")
+
+    sequences_ids = fields.Many2many(string="Sequences Ids", comodel_name="ir.sequence")
+
+    number_of_sequences_todo = fields.Integer(
+        string="Number of sequences",
+        default=1,
+        help="Choose the number of sequences to generate.",
+    )
 
     generate_automate = fields.Boolean(
         string="Automatic Generation",
@@ -109,11 +117,28 @@ class BarcodeRule(models.Model):
             sequence = sequence_obj.create(self._prepare_sequence(rule))
             rule.sequence_id = sequence.id
 
+    def generate_sequences(self):
+        for rule in self:
+            if rule.generate_type != "many sequences":
+                raise exceptions.UserError(
+                    _(
+                        "Generate many Sequences is possible only if  'Generate Type'"
+                        " is set to 'Base managed by Many Sequences'"
+                    )
+                )
+            number = self.number_of_sequences_todo
+            for i in range(number):
+                sequence_obj = self.env["ir.sequence"]
+                sequence_i = sequence_obj.create(self._prepare_sequence(rule, i))
+                rule.sequences_ids |= sequence_i
+                if i == 0:
+                    rule.sequence_id = sequence_i.id
+
     # Custom Section
     @api.model
-    def _prepare_sequence(self, rule):
+    def _prepare_sequence(self, rule, i=1):
         return {
-            "name": _("Sequence - %s") % rule.name,
+            "name": _("Sequence - %s - %s", rule.name, i),
             "padding": rule.padding,
         }
 

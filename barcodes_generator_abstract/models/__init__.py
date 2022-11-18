@@ -2,3 +2,4 @@
 
 from . import barcode_generate_mixin
 from . import barcode_rule
+from . import ir_sequence

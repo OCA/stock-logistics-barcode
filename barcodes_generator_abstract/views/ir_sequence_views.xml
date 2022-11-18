@@ -1,0 +1,12 @@
+<odoo>
+    <record id="sequence_view_last_number" model="ir.ui.view">
+        <field name="name">ir.sequence - last_number</field>
+        <field name="model">ir.sequence</field>
+        <field name="inherit_id" ref="base.sequence_view" />
+        <field name="arch" type="xml">
+            <field name="number_increment" position="after">
+                <field name="last_number" />
+            </field>
+        </field>
+    </record>
+</odoo>

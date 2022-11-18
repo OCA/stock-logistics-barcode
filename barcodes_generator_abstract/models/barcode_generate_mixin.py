@@ -44,13 +44,43 @@ class BarcodeGenerateMixin(models.AbstractModel):
     # View Section
     def generate_base(self):
         for item in self:
-            if item.generate_type != "sequence":
+            if (
+                item.generate_type != "sequence"
+                and item.generate_type != "many sequences"
+            ):
                 raise exceptions.UserError(
                     _(
                         "Generate Base can be used only with barcode rule with"
-                        " 'Generate Type' set to 'Base managed by Sequence'"
+                        " 'Generate Type' set to 'Base managed by Sequence' or set to "
+                        "'Base managed by Many Sequences'"
                     )
                 )
+            elif item.generate_type == "many sequences":
+                if (
+                    item.barcode_rule_id.sequence_id.number_next
+                    > item.barcode_rule_id.sequence_id.last_number
+                ):
+                    index = item.barcode_rule_id.sequences_ids.ids.index(
+                        item.barcode_rule_id.sequence_id.id
+                    )
+                    if index + 1 > len(item.barcode_rule_id.sequences_ids.ids) - 1:
+
+                        raise exceptions.UserError(
+                            _(
+                                "All rule sequences have been consumed from rule: %s",
+                                item.barcode_rule_id.name,
+                            )
+                        )
+                    item.barcode_rule_id.sequence_id = (
+                        item.barcode_rule_id.sequences_ids[index + 1].id
+                    )
+                    item.barcode_base = item.barcode_rule_id.sequence_id.next_by_id()
+                    # update number_next with number_next_actual
+                    item.barcode_rule_id.sequence_id._set_number_next_actual()
+                else:
+                    item.barcode_base = item.barcode_rule_id.sequence_id.next_by_id()
+                    # update number_next with number_next_actual
+                    item.barcode_rule_id.sequence_id._set_number_next_actual()
             else:
                 item.barcode_base = item.barcode_rule_id.sequence_id.next_by_id()
 

@@ -15,6 +15,7 @@
     "depends": ["barcodes"],
     "data": [
         "security/res_groups.xml",
+        "views/ir_sequence_views.xml",
         "views/view_barcode_rule.xml",
         "views/menu.xml",
     ],

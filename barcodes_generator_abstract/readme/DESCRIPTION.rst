@@ -17,5 +17,7 @@ With this module, it is possible to:
       internal code defined in your company).
     * automatically by a sequence, if you want to let Odoo increment a
       sequence (typical case of a customer number incrementation).
+    * automatically by many sequences, if you want to let Odoo increment a
+      sequence (typical case of a customer number incrementation). Every sequence has the last number that it can generate.
 
 * Generate a barcode, based on the defined pattern and the barcode base
