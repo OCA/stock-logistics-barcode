@@ -35,8 +35,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     name="generate_base"
                     type="object"
                     string="Generate Base (Using Sequence)"
-                    attrs="{'invisible': ['|', '|',
+                    attrs="{'invisible': ['|', '|', '&amp;',
                     ('generate_type', '!=', 'sequence'),
+                    ('generate_type', '!=', 'many sequences'),
                     ('barcode_base', '!=', 0),
                     ('product_variant_count', '&gt;', 1),
                     ]}"
@@ -46,7 +47,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             </field>
             <field name="barcode" position="attributes">
                 <attribute name="attrs">{
-                    'readonly': [('generate_type', '=', 'sequence')],
+                    'readonly': ['|', ('generate_type', '=', 'sequence'), ('generate_type', '=', 'many sequences')],
                     'invisible': [('product_variant_count', '&gt;', 1)]
                     }</attribute>
             </field>

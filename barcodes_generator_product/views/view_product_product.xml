@@ -30,8 +30,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     name="generate_base"
                     type="object"
                     string="Generate Base (Using Sequence)"
-                    attrs="{'invisible': ['|',
+                    attrs="{'invisible': ['|', '&amp;',
                     ('generate_type', '!=', 'sequence'),
+                    ('generate_type', '!=', 'many sequences'),
                     ('barcode_base', '!=', 0)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
@@ -40,7 +41,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <field name="barcode" position="attributes">
                 <attribute
                     name="attrs"
-                >{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
+                >{'readonly': ['|', ('generate_type', '=', 'sequence'), ('generate_type', '=', 'many sequences')]}</attribute>
             </field>
             <field name="barcode" position="after">
                 <button
@@ -81,8 +82,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     name="generate_base"
                     type="object"
                     string="Generate Base (Using Sequence)"
-                    attrs="{'invisible': ['|',
+                    attrs="{'invisible': ['|', '&amp;',
                     ('generate_type', '!=', 'sequence'),
+                    ('generate_type', '!=', 'many sequences'),
                     ('barcode_base', '!=', 0)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
@@ -91,7 +93,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <field name="barcode" position="attributes">
                 <attribute
                     name="attrs"
-                >{'readonly': [('generate_type', '=', 'sequence')]}</attribute>
+                >{'readonly': ['|', ('generate_type', '=', 'sequence'), ('generate_type', '=', 'many sequences')]}</attribute>
             </field>
             <field name="barcode" position="after">
                 <button
