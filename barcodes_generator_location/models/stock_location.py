@@ -51,9 +51,7 @@ class StockLocation(models.Model):
             # or the existing one), a modifier is added.
             modifier = {
                 "readonly": [
-                    "|",
-                    ("generate_type", "=", "many sequences"),
-                    ("generate_type", "=", "sequence"),
+                    ("generate_type", "in", ["many_sequences", "sequence"]),
                 ]
             }
             barcode_field.set("modifiers", json.dumps(modifier))
