@@ -46,7 +46,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
         for item in self:
             if (
                 item.generate_type != "sequence"
-                and item.generate_type != "many sequences"
+                and item.generate_type != "many_sequences"
             ):
                 raise exceptions.UserError(
                     _(
@@ -55,7 +55,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
                         "'Base managed by Many Sequences'"
                     )
                 )
-            elif item.generate_type == "many sequences":
+            elif item.generate_type == "many_sequences":
                 if (
                     item.barcode_rule_id.sequence_id.number_next
                     > item.barcode_rule_id.sequence_id.last_number

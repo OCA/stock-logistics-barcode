@@ -10,7 +10,7 @@ _GENERATE_TYPE = [
     ("no", "No generation"),
     ("manual", "Base set Manually"),
     ("sequence", "Base managed by Sequence"),
-    ("many sequences", "Base managed by Many Sequences"),
+    ("many_sequences", "Base managed by Many Sequences"),
 ]
 
 
@@ -119,7 +119,7 @@ class BarcodeRule(models.Model):
 
     def generate_sequences(self):
         for rule in self:
-            if rule.generate_type != "many sequences":
+            if rule.generate_type != "many_sequences":
                 raise exceptions.UserError(
                     _(
                         "Generate many Sequences is possible only if  'Generate Type'"

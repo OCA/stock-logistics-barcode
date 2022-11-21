@@ -59,7 +59,7 @@ class TestBarcodesGeneratorAbstract(SavepointCase, FakeModelLoader):
                 "sequence": 1000,
                 "encoding": "ean13",
                 "pattern": "21.....{NNNDD}",
-                "generate_type": "many sequences",
+                "generate_type": "many_sequences",
                 "generate_model": "res.users",
                 "number_of_sequences_todo": 2,
                 "sequence_id": cls.sequence1.id,

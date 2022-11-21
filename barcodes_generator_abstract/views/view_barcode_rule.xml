@@ -31,7 +31,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     />
                     <field
                         name="number_of_sequences_todo"
-                        attrs="{'invisible': [('generate_type', '!=', 'many sequences')]}"
+                        attrs="{'invisible': [('generate_type', '!=', 'many_sequences')]}"
                     />
                     <button
                         name="generate_sequence"
@@ -45,7 +45,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         type="object"
                         string="Generate Many Sequences"
                         colspan="2"
-                        attrs="{'invisible': ['|', ('generate_type', '!=', 'many sequences'),('sequences_ids', '!=', [] )]}"
+                        attrs="{'invisible': ['|', ('generate_type', '!=', 'many_sequences'),('sequences_ids', '!=', [] )]}"
                     />
                     <field
                         name="sequence_id"
@@ -54,7 +54,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
                     <field
                         name="sequences_ids"
-                        attrs="{'invisible': [('generate_type', '!=', 'many sequences')]}"
+                        attrs="{'invisible': [('generate_type', '!=', 'many_sequences')]}"
                     />
 
                 </group>
