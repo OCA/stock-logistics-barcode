@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -65,6 +65,10 @@ msgstr ""
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_format
+msgid "Barcode Format"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Barcode format"
 msgstr ""
@@ -108,7 +112,7 @@ msgid "Default template for barcode labels"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
-#: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_default_format__gs1_128
+#: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_report_default_format__gs1_128
 #: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__stock_picking_print__barcode_format__gs1_128
 msgid "Display GS1_128 format for barcodes"
 msgstr ""
@@ -179,8 +183,8 @@ msgid "Lot/Serial Number"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
-#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_format
-#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_format
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_report_default_format
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_report_default_format
 msgid "Method to choose the barcode formating"
 msgstr ""
 
