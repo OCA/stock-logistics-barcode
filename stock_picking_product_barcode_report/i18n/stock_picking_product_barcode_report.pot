@@ -1,0 +1,270 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_picking_product_barcode_report
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
+msgid "/ Lot:"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "<span>Life date: </span>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "<span>Lot: </span>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "<span>Partner Ref: </span>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "<span>Quantity: </span>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "<span>Weight:</span>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Barcode Format</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Barcode Report</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_format
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Barcode format"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_ir_actions_report__is_barcode_label
+msgid "Barcode label"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "Cancel"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__create_uid
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__create_date
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_report
+msgid "Default template for barcode labels"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_default_format__gs1_128
+#: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__stock_picking_print__barcode_format__gs1_128
+msgid "Display GS1_128 format for barcodes"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__display_name
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Format of the barcode when it is printed."
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__id
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "It only appears here products with barcode defined"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report
+msgid "Label Impresion"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report_quant_package
+msgid "Label Quant Package"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_quant
+msgid "Label Quant Report"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_package
+msgid "Labels package content"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print____last_update
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__write_uid
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__write_date
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__lot_id
+msgid "Lot/Serial Number"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_format
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_format
+msgid "Method to choose the barcode formating"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__move_line_id
+msgid "Move"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__product_print_moves
+msgid "Moves"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__picking_ids
+msgid "Picking"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "Print"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_stock_picking_line_print
+msgid "Print Picking Line"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing
+msgid "Print barcode labels"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__product_id
+msgid "Product"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__quantity
+msgid "Quantity"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__label_qty
+msgid "Quantity of Labels"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_ir_actions_report
+msgid "Report Action"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_report
+msgid "Report to print"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Select format of barcode display"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
+msgid "Select report for barcode display"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__uom_id
+msgid "Unit of Measure"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__wizard_id
+msgid "Wizard"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_stock_picking_print
+msgid "Wizard to select how many barcodes have to be printed"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "You can print just the products with assigned barcode"
+msgstr ""

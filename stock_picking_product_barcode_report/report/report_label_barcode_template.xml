@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_label_barcode">
+        <t t-call="web.basic_layout">
+            <div class="page text-justify">
+                <t t-foreach="doc.label_qty" t-as="i">
+                    <div class="text-center">
+                        <t t-if="doc.wizard_id.barcode_format == 'gs1_128'">
+                            <t t-set="type" t-value="'gs1_128'" />
+                            <t
+                                t-set="barcode"
+                                t-value="doc.product_id.barcode.zfill(14)"
+                            />
+                            <t t-set="lot" t-value="doc.lot_id" />
+                            <t t-if="lot">
+                                <t
+                                    t-set="value"
+                                    t-value="'02' + barcode + '10' + lot.name"
+                                />
+                                <img
+                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 100)"
+                                    style="width:100%;height:70px;margin: 0px 0px -25px 0px"
+                                    alt="Barcode"
+                                />
+                                <span
+                                    t-esc="'(02)' + barcode + '(10)' + lot.name"
+                                    style="font-size: 6px;"
+                                />
+                            </t>
+                            <t t-else="">
+                                <t t-set="value" t-value="'02' + barcode" />
+                                <img
+                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 100)"
+                                    style="width:100%;height:70px;margin: 0px 0px -25px 0px"
+                                    alt="Barcode"
+                                />
+                                <span
+                                    t-esc="'(02)' + barcode"
+                                    style="font-size: 6px;"
+                                />
+                            </t>
+                        </t>
+                        <t t-else="">
+                            <img
+                                t-if="len(doc.product_id.barcode) == 13"
+                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', doc.product_id.barcode, 600, 100)"
+                                style="width:100%;height:35px"
+                                alt="Barcode"
+                            />
+                            <img
+                                t-elif="len(doc.product_id.barcode) == 8"
+                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', doc.product_id.barcode, 600, 100)"
+                                style="width:100%;height:35px"
+                                alt="Barcode"
+                            />
+                            <img
+                                t-else=""
+                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.product_id.barcode, 600, 100)"
+                                style="width:100%;height:35px"
+                                alt="Barcode"
+                            />
+                            <span
+                                t-esc="doc.product_id.barcode"
+                                style="font-size: 6px;"
+                            />
+                        </t>
+                    </div>
+                    <div class="text-center" style="font-size: 9px;">
+                        <span
+                            t-field="doc.product_id.display_name"
+                            style="font-weight: bold;
+                                    font-size: 11px;"
+                        />
+                        <br />
+                        <span t-field="doc.product_id.barcode" />
+                        <span t-if="doc.lot_id">/ Lot:<span
+                                t-field="doc.lot_id.name"
+                            /></span>
+                    </div>
+                    <p style="page-break-after:always;" />
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="label_barcode_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.label_qty > 0">
+                    <t
+                        t-call="stock_picking_product_barcode_report.report_label_barcode"
+                        t-lang="doc.env.user.lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

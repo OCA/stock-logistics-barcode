@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_label_barcode_quant_package">
+        <t t-call="web.basic_layout">
+            <t t-set="company" t-value="env.company" />
+            <t t-if="doc._name == 'stock.quant'">
+                <t t-set="label_qty" t-value="1" />
+                <t t-set="barcode" t-value="doc.package_id.name" />
+            </t>
+            <t t-else="">
+                <t t-set="label_qty" t-value="doc.label_qty" />
+                <t t-set="barcode" t-value="doc.move_line_id.result_package_id.name" />
+            </t>
+            <t t-if="label_qty > 0">
+                <t t-foreach="label_qty" t-as="i">
+                    <br />
+                    <div class="page">
+                        <h6 class="text-left">
+                            <field
+                                t-field="company.display_name"
+                                class="font-weight-bold"
+                            />
+                        </h6>
+                        <div class="text-left">
+                            <span
+                                t-field="company.partner_id"
+                                style="font-size:12px;"
+                                t-options='{"widget": "contact", "fields": ["address", "email"], "no_marker": true}'
+                            />
+                        </div>
+                        <h4
+                            t-field="doc.product_id.display_name"
+                            class="font-weight-bold mt32"
+                        />
+                        <div style="font-size:2em;">
+                            <div name="partner_ref">
+                                <span>Partner Ref: </span>
+                            </div>
+                            <div name="lot">
+                                <span>Lot: </span>
+                                <span t-field="doc.lot_id" />
+                            </div>
+                            <!-- To avoid to create a new glue module that depends of product_expiry module-->
+                            <div
+                                t-if="'life_date' in doc.lot_id"
+                                class="mt8"
+                                name="life_date"
+                            >
+                                <span>Life date: </span>
+                                <span t-field="doc.lot_id.life_date" widget="date" />
+                            </div>
+                            <div name="package">
+                                <span>Quantity: </span>
+                                <span
+                                    t-esc="doc.quantity"
+                                    t-options="{'widget': 'float', 'decimal_precision': 'Product Unit of Measure'}"
+                                />
+                            </div>
+                            <div name="Weight" class="mt16">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <span>Weight:</span>
+                                        <span
+                                            t-esc="doc.product_id.weight * doc.quantity"
+                                            t-options="{'widget': 'float', 'decimal_precision': 'Stock Weight'}"
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div name="barcode" class="text-left mt8">
+                            <span t-esc="barcode" style="font-size: 3em" />
+                            <div>
+                                <img
+                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s&amp;quiet=0' % ('Code128', barcode, 400, 100)"
+                                    alt="Barcode"
+                                />
+                            </div>
+                        </div>
+                        <p style="page-break-after:always;" />
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+    <template id="label_barcode_report_quant_package">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t
+                    t-call="stock_picking_product_barcode_report.report_label_barcode_quant_package"
+                    t-lang="doc.env.user.lang"
+                />
+            </t>
+        </t>
+    </template>
+    <!-- Print labels from package quants -->
+    <template id="label_barcode_report_package_content">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="package">
+                <t t-foreach="package.quant_ids" t-as="doc">
+                    <t
+                        t-call="stock_picking_product_barcode_report.report_label_barcode_quant_package"
+                        t-lang="doc.env.user.lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
