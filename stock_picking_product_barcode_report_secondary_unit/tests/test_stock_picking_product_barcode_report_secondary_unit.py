@@ -4,12 +4,13 @@ from odoo.tests.common import TransactionCase
 
 
 class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
-    def setUp(self):
-        super().setUp()
-        self.supplier_location = self.env.ref("stock.stock_location_suppliers")
-        self.stock_location = self.env.ref("stock.stock_location_stock")
-        primary_uom = self.env.ref("uom.product_uom_kgm")
-        self.product_barcode = self.env["product.product"].create(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
+        cls.stock_location = cls.env.ref("stock.stock_location_stock")
+        primary_uom = cls.env.ref("uom.product_uom_kgm")
+        cls.product_barcode = cls.env["product.product"].create(
             {
                 "name": "Test Product 1",
                 "type": "product",
@@ -24,7 +25,7 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                         {
                             "code": "TB",
                             "name": "Test Box",
-                            "uom_id": self.env.ref("uom.product_uom_unit").id,
+                            "uom_id": cls.env.ref("uom.product_uom_unit").id,
                             "factor": 10,
                         },
                     ),
@@ -34,19 +35,19 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                         {
                             "code": "TP",
                             "name": "Test Package",
-                            "uom_id": self.env.ref("uom.product_uom_unit").id,
+                            "uom_id": cls.env.ref("uom.product_uom_unit").id,
                             "factor": 20,
                         },
                     ),
                 ],
             }
         )
-        partner = self.env["res.partner"].create({"name": "Test Partner"})
-        picking_receipt_type = self.env.ref("stock.picking_type_in")
-        self.picking = self.env["stock.picking"].create(
+        partner = cls.env["res.partner"].create({"name": "Test Partner"})
+        picking_receipt_type = cls.env.ref("stock.picking_type_in")
+        cls.picking = cls.env["stock.picking"].create(
             {
-                "location_id": self.supplier_location.id,
-                "location_dest_id": self.stock_location.id,
+                "location_id": cls.supplier_location.id,
+                "location_dest_id": cls.stock_location.id,
                 "partner_id": partner.id,
                 "picking_type_id": picking_receipt_type.id,
                 "move_ids_without_package": [
@@ -55,22 +56,22 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                         0,
                         {
                             "name": "Test 01",
-                            "product_id": self.product_barcode.id,
+                            "product_id": cls.product_barcode.id,
                             "quantity_done": 50,
-                            "product_uom": self.product_barcode.uom_id.id,
+                            "product_uom": cls.product_barcode.uom_id.id,
+                            "location_id": cls.supplier_location.id,
+                            "location_dest_id": cls.stock_location.id,
                         },
                     )
                 ],
             }
         )
-        self.picking.button_validate()
+        cls.picking.button_validate()
 
     def _create_print_wizard(self):
         self.wizard = (
             self.env["stock.picking.print"]
-            .with_context(
-                {"active_ids": [self.picking.id], "active_model": "stock.picking"}
-            )
+            .with_context(active_ids=[self.picking.id], active_model="stock.picking")
             .create({})
         )
 
