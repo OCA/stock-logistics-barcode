@@ -646,14 +646,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     def play_sounds(self, res):
         if res:
             self.env["bus.bus"]._sendone(
+                "stock_barcodes-{}".format(self.ids[0]),
                 "stock_barcodes_sound-{}".format(self.ids[0]),
-                "stock_barcodes",
                 {"sound": "ok"},
             )
         else:
             self.env["bus.bus"]._sendone(
+                "stock_barcodes-{}".format(self.ids[0]),
                 "stock_barcodes_sound-{}".format(self.ids[0]),
-                "stock_barcodes",
                 {"sound": "ko"},
             )
 
@@ -661,8 +661,8 @@ class WizStockBarcodesRead(models.AbstractModel):
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
         self.env["bus.bus"]._sendone(
+            "stock_barcodes-{}".format(self.ids[0]),
             "stock_barcodes_read-{}".format(self.ids[0]),
-            "stock_barcodes",
             {"action": "focus", "field_name": field_name},
         )
 

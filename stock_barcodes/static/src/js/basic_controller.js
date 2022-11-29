@@ -29,20 +29,10 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                 const state_id = this.initialState.data.id;
                 this._areAccessKeyVisible = false;
                 if (state_id) {
-                    this._channel_barcode_read = `stock_barcodes_read-${this.initialState.data.id}`;
-                    this._channel_barcode_sound = `stock_barcodes_sound-${this.initialState.data.id}`;
+                    this._channel_barcode = `stock_barcodes-${this.initialState.data.id}`;
 
                     if (this.call("bus_service", "isMasterTab")) {
-                        this.call(
-                            "bus_service",
-                            "addChannel",
-                            this._channel_barcode_read
-                        );
-                        this.call(
-                            "bus_service",
-                            "addChannel",
-                            this._channel_barcode_sound
-                        );
+                        this.call("bus_service", "addChannel", this._channel_barcode);
                     }
                 }
             }
@@ -114,15 +104,16 @@ odoo.define("stock_barcodes.BasicController", function (require) {
          */
         onBusNotificationBarcode: function (notifications) {
             for (const notif of notifications) {
-                const [channel, message] = notif;
-                if (channel === "stock_barcodes_read-" + this.initialState.data.id) {
+                const notif_type = notif.type;
+                const message = notif.payload;
+                if (notif_type === "stock_barcodes_read-" + this.initialState.data.id) {
                     if (message.action === "focus") {
                         setTimeout(() => {
                             this.$(`[name=${message.field_name}] input`).select();
                         }, 400);
                     }
                 } else if (
-                    channel ===
+                    notif_type ===
                     "stock_barcodes_sound-" + this.initialState.data.id
                 ) {
                     if (message.sound === "ok") {
