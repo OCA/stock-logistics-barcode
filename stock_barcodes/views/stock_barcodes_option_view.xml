@@ -64,7 +64,7 @@
         <field name="name">stock.barcodes.option.tree</field>
         <field name="model">stock.barcodes.option</field>
         <field name="arch" type="xml">
-            <tree string="Barcode options" editable="bottom">
+            <tree editable="bottom">
                 <field name="sequence" />
                 <field name="name" />
                 <field
