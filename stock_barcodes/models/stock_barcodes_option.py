@@ -89,7 +89,7 @@ class StockBarcodesOption(models.Model):
     _description = "Options for barcode interface"
     _order = "step, sequence, id"
 
-    sequence = fields.Integer(string="Sequence", default=100)
+    sequence = fields.Integer(default=100)
     name = fields.Char()
     option_group_id = fields.Many2one(
         comodel_name="stock.barcodes.option.group", ondelete="cascade"

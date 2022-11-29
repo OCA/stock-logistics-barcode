@@ -11,7 +11,7 @@ class StockBarcodesAction(models.Model):
 
     name = fields.Char(translate=True)
     active = fields.Boolean(default=True)
-    sequence = fields.Integer(string="Sequence", default=100)
+    sequence = fields.Integer(default=100)
     action_window_id = fields.Many2one(
         comodel_name="ir.actions.act_window", string="Action window"
     )

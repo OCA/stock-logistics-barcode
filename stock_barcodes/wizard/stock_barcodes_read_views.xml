@@ -16,7 +16,7 @@
                             mode="kanban"
                             context="{'context_display_menu': display_menu}"
                         >
-                            <tree string="Actions">
+                            <tree>
                                 <field name="name" />
                             </tree>
                             <kanban class="o_kanban_mobile o_kanban_barcode">
@@ -316,7 +316,7 @@
                                 nolabel="1"
                                 mode="tree,kanban"
                             >
-                                    <tree string="Current product scanning log">
+                                    <tree>
                                         <field name="create_date" />
                                         <field name="create_uid" />
                                         <field name="name" />
