@@ -13,7 +13,6 @@
         "security/ir.model.access.csv",
         "data/stock_barcodes_action.xml",
         "data/stock_barcodes_option.xml",
-        # "views/assets.xml",
         "views/stock_barcodes_action_view.xml",
         "views/stock_barcodes_option_view.xml",
         "views/stock_location_views.xml",
