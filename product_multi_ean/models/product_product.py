@@ -27,6 +27,9 @@ class ProductEan13(models.Model):
         comodel_name='product.product',
         required=True,
     )
+    active = fields.Boolean(
+        related='product_id.active',
+    )
 
     @api.multi
     @api.constrains('name')
@@ -58,16 +61,24 @@ class ProductProduct(models.Model):
     )
 
     @api.multi
-    @api.depends('ean13_ids')
+    @api.depends('ean13_ids.active')
     def _compute_barcode(self):
         for product in self:
-            product.barcode = product.ean13_ids[:1].name
+            eans = product.ean13_ids
+            active_eans = eans.filtered('active')
+            if not active_eans:
+                barcode = False
+            else:
+                barcode = active_eans[:1].name
+            product.barcode = barcode
 
     @api.multi
     def _inverse_barcode(self):
         for product in self:
-            if product.ean13_ids:
-                product.ean13_ids[:1].write({'name': product.barcode})
+            eans = product.ean13_ids
+            active_eans = eans.filtered('active')
+            if active_eans:
+                active_eans[:1].write({'name': product.barcode})
             else:
                 self.env['product.ean13'].create(self._prepare_ean13_vals())
 
