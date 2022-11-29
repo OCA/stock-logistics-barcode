@@ -5,7 +5,7 @@ setuptools.setup(
     odoo_addon={
         'external_dependencies_override': {
             'python': {
-                'barcode': 'python-barcode',
+                'barcode': 'python-barcode == 0.12.0',
             },
         },
     },

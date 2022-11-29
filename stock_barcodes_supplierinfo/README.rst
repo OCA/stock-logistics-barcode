@@ -10,9 +10,9 @@ Stock barcodes - Supplier pricelist
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/licence-LGPL--3-blue.png
-    :target: http://www.gnu.org/licenses/lgpl-3.0-standalone.html
-    :alt: License: LGPL-3
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
+    :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
+    :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
     :target: https://github.com/OCA/stock-logistics-barcode/tree/12.0/stock_barcodes_supplierinfo
     :alt: OCA/stock-logistics-barcode
@@ -23,7 +23,7 @@ Stock barcodes - Supplier pricelist
     :target: https://runbot.odoo-community.org/runbot/150/12.0
     :alt: Try me on Runbot
 
-|badge1| |badge2| |badge3| |badge4| |badge5| 
+|badge1| |badge2| |badge3| |badge4| |badge5|
 
 This module extends barcodes stock operations allowing to search and process products by supplier barcode.
 
@@ -84,7 +84,7 @@ promote its widespread use.
 
 Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
-|maintainer-eLBati| 
+|maintainer-eLBati|
 
 This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/12.0/stock_barcodes_supplierinfo>`_ project on GitHub.
 

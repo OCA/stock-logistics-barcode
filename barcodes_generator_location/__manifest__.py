@@ -6,7 +6,7 @@
     "category": "Tools",
     "author": "LasLabs, "
               "Odoo Community Association (OCA)",
-    "website": "https://laslabs.com",
+    "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": [
         "barcodes_generator_abstract",
