@@ -93,6 +93,7 @@ msgid "Generate Barcodes"
 msgstr "Genera Codici a Barre"
 
 #. module: barcodes_generator_abstract
+#. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:0
 #, python-format
 msgid ""
@@ -130,6 +131,7 @@ msgid "No generation"
 msgstr "Nessuna generazione"
 
 #. module: barcodes_generator_abstract
+#. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
 #, python-format
 msgid "Only one rule per model can be used for automatic barcode generation."
@@ -143,6 +145,7 @@ msgid "Padding"
 msgstr "Padding"
 
 #. module: barcodes_generator_abstract
+#. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
 #, python-format
 msgid "Sequence - %s"
