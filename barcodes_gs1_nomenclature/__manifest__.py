@@ -2,10 +2,12 @@
 
 {
     'name': 'Barcode - GS1 Nomenclature',
-    'version': '1.0',
+    'version': '14.0.1.0.0',
     'category': 'Hidden',
     'summary': 'Parse barcodes according to the GS1-128 specifications',
     'depends': ['barcodes', 'uom'],
+    "author": "Odoo SA, Camptocamp, Odoo Community Association (OCA)",
+    "website": "https://github.com/OCA/stock-logistics-barcode",
     'data': [
         'data/barcodes_gs1_rules.xml',
         'views/barcodes_view.xml',
