@@ -20,7 +20,6 @@
     ],
     "data": [
         "views/assets.xml",
-        "views/tour_views.xml",
     ],
     "installable": True,
 }
