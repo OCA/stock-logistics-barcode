@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<odoo>
+
+    <template id="assets_backend"
+              name="barcodes_multiline Assets"
+              inherit_id="web.assets_backend"
+              >
+        <xpath expr="." position="inside">
+            <script type="application/javascript"
+                    src="/barcodes_multiline/static/src/js/barcode_events.js"
+                    />
+            <script type="text/javascript" src="/barcodes_multiline/static/src/js/tour.js"></script>
+        </xpath>
+    </template>
+
+</odoo>
