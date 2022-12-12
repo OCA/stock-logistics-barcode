@@ -1,2 +1,3 @@
-python-barcode
+# generated from manifests external_dependencies
 barcodenumber
+python-barcode
