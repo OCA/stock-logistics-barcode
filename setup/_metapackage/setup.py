@@ -10,6 +10,7 @@ setuptools.setup(
     install_requires=[
         'odoo-addon-base_gs1_barcode>=15.0dev,<15.1dev',
         'odoo-addon-product_supplierinfo_barcode>=15.0dev,<15.1dev',
+        'odoo-addon-stock_barcodes>=15.0dev,<15.1dev',
         'odoo-addon-stock_picking_product_barcode_report>=15.0dev,<15.1dev',
     ],
     classifiers=[
