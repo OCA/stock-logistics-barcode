@@ -6,14 +6,12 @@
 {
     "name": "Generate Barcodes for Partners",
     "summary": "Generate Barcodes for Partners",
-    "version": "12.0.1.0.0",
+    "version": "14.0.1.0.0",
     "category": "Tools",
     "author": "GRAP," "La Louve," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
-    "depends": [
-        "barcodes_generator_abstract",
-    ],
+    "depends": ["barcodes_generator_abstract", "point_of_sale"],
     "data": [
         "views/view_res_partner.xml",
     ],

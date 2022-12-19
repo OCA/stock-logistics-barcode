@@ -7,16 +7,15 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
 
-    <record id="view_res_partner_form" model="ir.ui.view">
+    <record id="view_partner_property_form" model="ir.ui.view">
         <field name="model">res.partner</field>
-        <field name="inherit_id" ref="base.view_partner_form" />
+        <field name="inherit_id" ref="point_of_sale.view_partner_property_form" />
         <field name="arch" type="xml">
             <field name="barcode" position="before">
                 <field
                     name="barcode_rule_id"
                     domain="[('generate_model', '=', 'res.partner')]"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
                 <field name="generate_type" invisible="1" />
                 <field
@@ -25,7 +24,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     'invisible': [('barcode_rule_id', '=', False)],
                     'readonly': [('generate_type', '!=', 'manual')]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
                 <button
                     name="generate_base"
@@ -35,7 +33,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     ('generate_type', '!=', 'sequence'),
                     ('barcode_base', '!=', 0)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
             </field>
 
@@ -54,7 +51,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                             ('barcode_rule_id', '=', False),
                             ('barcode_base', '=', 0)]}"
                     groups="barcodes_generator_abstract.generate_barcode"
-                    colspan="2"
                 />
             </field>
         </field>
