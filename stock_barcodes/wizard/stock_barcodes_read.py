@@ -495,7 +495,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.action_show_step()
 
     def action_clean_product(self):
-        self.product_id = False
+        self.update(
+            {
+                "product_id": False,
+                "visible_force_done": False,
+            }
+        )
         self.action_show_step()
 
     def action_clean_package(self):

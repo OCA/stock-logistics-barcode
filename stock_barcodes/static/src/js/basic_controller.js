@@ -283,13 +283,8 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                             const $action_confirm = self.$(
                                 "button[name='action_confirm']:visible"
                             );
-                            const $action_confirm_force = self.$(
-                                "button[name='action_force_done']:visible"
-                            );
                             if ($action_confirm.length) {
                                 $action_confirm.click();
-                            } else if ($action_confirm_force.length) {
-                                $action_confirm_force.click();
                             }
                         }
                     }
