@@ -20,6 +20,6 @@ class ProductProduct(models.Model):
                 self._sql_constraints[i] = (
                     "barcode_uniq",
                     "unique(barcode, tmpl_company_id)",
-                    _("A barcode can only be assigned to one" " product per company !"),
+                    _("A barcode can only be assigned to one product per company !"),
                 )
-        return super()._auto_init()
+        return super(ProductProduct, self)._auto_init()
