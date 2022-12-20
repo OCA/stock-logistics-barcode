@@ -1,7 +1,6 @@
 # Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 from psycopg2 import IntegrityError
 
 from odoo.tests.common import TransactionCase
@@ -22,7 +21,8 @@ class TestModule(TransactionCase):
         self._create_product("Product 1", self.company_1)
 
         with self.assertRaises(IntegrityError), mute_logger("odoo.sql_db"):
-            self._create_product("Product 2", self.company_1)
+            product2 = self._create_product("Product 2", self.company_1)
+            product2.flush()
 
     def test_create_different_company(self):
         self._create_product("Product 1", self.company_1)
@@ -34,4 +34,4 @@ class TestModule(TransactionCase):
             "company_id": company.id,
             "barcode": "978020137962",
         }
-        self.ProductProduct.create(vals)
+        return self.ProductProduct.create(vals)
