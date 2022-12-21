@@ -41,7 +41,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     qty_done = fields.Float(
         "Done",
         digits="Product Unit of Measure",
-        readonly=False,
+        readonly=True,
         compute="_compute_qty_done",
         store=True,
     )
