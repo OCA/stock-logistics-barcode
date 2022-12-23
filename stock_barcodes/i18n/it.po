@@ -967,6 +967,11 @@ msgid "New Move:"
 msgstr "Nuovo movimento:"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
+msgid "New Picking Barcode Option Group"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__not_found
 msgid "No barcode found"
@@ -1377,6 +1382,13 @@ msgstr "Linee di trasferimento"
 #, python-format
 msgid "The product type is not allowed"
 msgstr "Questo tipo prodotto non è permesso"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
+msgid ""
+"This Barcode Option Group will be selected when clicking the 'New' button in "
+"an operation type. It will be used to create a non planned picking."
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_ids
