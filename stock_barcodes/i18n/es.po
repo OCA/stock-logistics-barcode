@@ -997,6 +997,11 @@ msgid "New Move:"
 msgstr "Nuevo movimiento:"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
+msgid "New Picking Barcode Option Group"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__not_found
@@ -1432,6 +1437,13 @@ msgstr "Tipo de producto no permitido"
 #, python-format
 msgid "There is no lots to assign quantities"
 msgstr "No hay lotes para asignar la cantidad"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
+msgid ""
+"This Barcode Option Group will be selected when clicking the 'New' button in "
+"an operation type. It will be used to create a non planned picking."
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__to_scan
