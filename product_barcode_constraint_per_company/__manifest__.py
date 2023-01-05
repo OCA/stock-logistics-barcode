@@ -4,11 +4,12 @@
 
 {
     "name": "Product Barcode Constraint per Company",
-    "version": "14.0.1.0.1",
+    "version": "16.0.1.0.1",
     "category": "Product",
     "summary": "Change the product barcode constraint"
     ", allowing the same barcode for differents companies",
     "author": "GRAP, Odoo Community Association (OCA)",
+    "maintainers": ["legalsylvain"],
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": [
