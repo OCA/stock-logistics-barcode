@@ -216,7 +216,11 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info(
                     "more_match", _("More than one lot found\nScan product before")
                 )
-            elif self.product_id and self.option_group_id.create_lot:
+            elif (
+                self.product_id
+                and self.product_id.tracking != "none"
+                and self.option_group_id.create_lot
+            ):
                 new_lot = self._create_new_lot(self.barcode)
                 self.action_lot_scaned_post(new_lot)
                 return True
