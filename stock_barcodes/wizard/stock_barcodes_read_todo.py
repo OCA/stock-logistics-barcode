@@ -139,9 +139,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                                 ).location_dest_id.id,
                                 "uom_id": line.product_uom.id,
                                 "qty_done": line.quantity_done,
-                                "product_qty_reserved": sum(
-                                    line.move_line_ids.mapped("product_qty")
-                                ),
+                                "product_qty_reserved": line.move_line_ids
+                                and sum(line.move_line_ids.mapped("product_qty"))
+                                or line.product_uom_qty,
                                 "line_ids": [(6, 0, line.move_line_ids.ids)],
                                 "stock_move_ids": [(6, 0, line.ids)],
                             }
@@ -159,8 +159,10 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                         todo_vals[key]["line_ids"][0][2].append(line.id)
                         todo_vals[key]["stock_move_ids"][0][2].append(line.move_id.id)
                     else:
-                        todo_vals[key]["product_qty_reserved"] += sum(
-                            line.move_line_ids.mapped("product_qty")
+                        todo_vals[key]["product_qty_reserved"] += (
+                            line.move_line_ids
+                            and sum(line.move_line_ids.mapped("product_qty"))
+                            or line.product_uom_qty
                         )
                         todo_vals[key]["qty_done"] += line.quantity_done
                         todo_vals[key]["line_ids"][0][2].extend(line.move_line_ids.ids)
@@ -204,8 +206,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     )
     def _compute_state(self):
         for rec in self:
-            if rec.qty_done >= rec.product_uom_qty or not any(
-                ln.barcode_scan_state == "pending" for ln in rec.line_ids
+            if rec.qty_done >= rec.product_uom_qty or (
+                rec.line_ids
+                and not any(ln.barcode_scan_state == "pending" for ln in rec.line_ids)
             ):
                 rec.state = "done"
             else:
