@@ -741,14 +741,7 @@ class WizCandidatePicking(models.TransientModel):
     @api.depends("scan_count")
     def _compute_is_pending(self):
         for rec in self:
-            rec.is_pending = (
-                bool(
-                    rec.picking_id.move_line_ids.filtered(
-                        lambda ln: ln.barcode_scan_state == "pending"
-                    )
-                )
-                or rec.picking_id.state == "draft"
-            )
+            rec.is_pending = bool(rec.wiz_barcode_id.pending_move_ids)
 
     def _get_wizard_barcode_read(self):
         return self.env["wiz.stock.barcodes.read.picking"].browse(
