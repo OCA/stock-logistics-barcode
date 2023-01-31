@@ -3,3 +3,4 @@
 * `Tecnativa <https://www.tecnativa.com>`_:
 
   * Carlos Roca
+* Manuel Regidor <manuel.regidor@sygel.es>
