@@ -1,18 +1,12 @@
-# -*- coding: utf-8 -*-
 # Copyright 2021 Sunflower IT
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import HttpCase, at_install, post_install
+from odoo.tests import common, tagged
 
 
-@at_install(False)
-@post_install(True)
-class TestBarcodesMultilineUI(HttpCase):
+@tagged("-at_install", "post_install")
+class TestBarcodesMultilineUI(common.HttpCase):
+    def setUp(self):
+        super().setUp()
 
-    def test_barcodes_multiline_tour(self):
-        self.phantom_js(
-            "/web",
-            "odoo.__DEBUG__.services['web_tour.tour'].run('barcodes_multiline.tour')",
-            "odoo.__DEBUG__.services['web_tour.tour']"
-            ".tours['barcodes_multiline.tour'].ready",
-            login="admin"
-        )
+    def test_tour(self):
+        self.start_tour("/web", "barcodes_multiline_tour", login="admin")
