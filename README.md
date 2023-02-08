@@ -21,6 +21,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
+[barcodes_generator_abstract](barcodes_generator_abstract/) | 15.0.1.0.0 |  | Generate Barcodes for Any Models
 [base_gs1_barcode](base_gs1_barcode/) | 15.0.1.0.0 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 15.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
 [stock_barcodes](stock_barcodes/) | 15.0.1.2.0 |  | It provides read barcode on stock operations.
