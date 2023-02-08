@@ -46,7 +46,7 @@ class TestBarcodesGeneratorAbstract(SavepointCase, FakeModelLoader):
     @classmethod
     def tearDownClass(cls):
         cls.loader.restore_registry()
-        super().tearDownClass()
+        return super().tearDownClass()
 
     def test_generate_sequence(self):
         self.assertEqual(

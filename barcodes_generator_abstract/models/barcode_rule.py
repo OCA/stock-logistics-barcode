@@ -19,7 +19,6 @@ class BarcodeRule(models.Model):
 
     # Column Section
     generate_type = fields.Selection(
-        string="Generate Type",
         selection=_GENERATE_TYPE,
         required=True,
         default="no",
@@ -32,16 +31,13 @@ class BarcodeRule(models.Model):
     )
 
     generate_model = fields.Selection(
-        string="Generate Model",
         selection=[],
         help="If 'Generate Type' is set, mention the model related to this" " rule.",
     )
 
-    padding = fields.Integer(
-        string="Padding", compute="_compute_padding", readonly=True, store=True
-    )
+    padding = fields.Integer(compute="_compute_padding", readonly=True, store=True)
 
-    sequence_id = fields.Many2one(string="Sequence Id", comodel_name="ir.sequence")
+    sequence_id = fields.Many2one(comodel_name="ir.sequence")
 
     generate_automate = fields.Boolean(
         string="Automatic Generation",
