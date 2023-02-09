@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 14.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -41,13 +41,6 @@ msgid "Black"
 msgstr ""
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_barcode_rule__display_name
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_product__display_name
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: barcodes_generator_product
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.product_variant_easy_edit_view
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
@@ -73,22 +66,8 @@ msgid "Generate Type"
 msgstr ""
 
 #. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_barcode_rule__id
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_product__id
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template__id
-msgid "ID"
-msgstr ""
-
-#. module: barcodes_generator_product
 #: model:ir.model.fields,help:barcodes_generator_product.field_barcode_rule__generate_model
 msgid "If 'Generate Type' is set, mention the model related to this rule."
-msgstr ""
-
-#. module: barcodes_generator_product
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_barcode_rule____last_update
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_product____last_update
-#: model:ir.model.fields,field_description:barcodes_generator_product.field_product_template____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: barcodes_generator_product
