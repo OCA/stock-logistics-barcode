@@ -22,20 +22,27 @@ class SupplierInfo(models.Model):
         for rec in self:
             if rec.barcode_id:
                 rec.barcode = rec.barcode_id.name
+            else:
+                rec.barcode = ""
 
     def _inverse_barcode_field(self):
-        barcode = self.env["product.barcode"].search([("name", "=", self.barcode)])
-        if not self.barcode_id:
-            if not barcode:
-                self.barcode_id = self.barcode_id.create({"name": self.barcode})
-            if barcode:
-                self.barcode_id = barcode
-        else:
-            self.barcode_id.name = self.barcode
-        self.barcode_id.supplier_id = self.name
-        self.barcode_id.product_tmpl_id = self.product_tmpl_id
-        if self.product_tmpl_id.product_variant_count > 1:
-            self.barcode_id.product_id = self.product_id
+        for supplier_info in self:
+            barcode = self.env["product.barcode"].search(
+                [("name", "=", supplier_info.barcode)]
+            )
+            if not supplier_info.barcode_id:
+                if not barcode and supplier_info.barcode:
+                    supplier_info.barcode_id = supplier_info.barcode_id.create(
+                        {"name": supplier_info.barcode}
+                    )
+                elif barcode:
+                    supplier_info.barcode_id = barcode
+            else:
+                supplier_info.barcode_id.name = supplier_info.barcode
+            supplier_info.barcode_id.supplier_id = supplier_info.name
+            supplier_info.barcode_id.product_tmpl_id = supplier_info.product_tmpl_id
+            if supplier_info.product_tmpl_id.product_variant_count > 1:
+                supplier_info.barcode_id.product_id = supplier_info.product_id
 
     @api.constrains("barcode")
     def check_barcode(self):
@@ -50,6 +57,7 @@ class SupplierInfo(models.Model):
                 )
 
     def unlink_product_barcode(self):
+        self.ensure_one()
         product_barcode_id = self.env["product.barcode"].search(
             [
                 ("product_tmpl_id", "=", self.product_tmpl_id.id),
