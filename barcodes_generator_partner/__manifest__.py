@@ -11,7 +11,7 @@
     "author": "GRAP," "La Louve," "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
-    "depends": ["barcodes_generator_abstract", "point_of_sale"],
+    "depends": ["barcodes_generator_abstract"],
     "data": [
         "views/view_res_partner.xml",
     ],
