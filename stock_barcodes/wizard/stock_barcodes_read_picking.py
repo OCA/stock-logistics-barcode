@@ -5,7 +5,7 @@ import logging
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.fields import first
-from odoo.tools.float_utils import float_compare
+from odoo.tools.float_utils import float_compare, float_is_zero
 
 _logger = logging.getLogger(__name__)
 
@@ -601,6 +601,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def remove_scanning_log(self, scanning_log):
         for log in scanning_log:
+            if log.picking_id.picking_type_code == "incoming":
+                rounding = log.product_id.uom_po_id.rounding
+            else:
+                rounding = log.product_id.uom_id.rounding
             for log_scan_line in log.log_line_ids:
                 sml = log_scan_line.move_line_id
                 if sml.state not in ["draft", "assigned", "confirmed"]:
@@ -612,6 +616,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     )
                 qty = sml.qty_done - log_scan_line.product_qty
                 log_scan_line.move_line_id.qty_done = max(qty, 0.0)
+                # Try remove lot if needed
+                if log.lot_id and float_is_zero(
+                    log_scan_line.move_line_id.qty_done, precision_rounding=rounding
+                ):
+                    if log.picking_id.picking_type_id.use_create_lots:
+                        log_scan_line.move_line_id.lot_name = False
+                        log.lot_id.unlink()
                 if sml.state == "draft" and sml.move_id.quantity_done == 0.0:
                     # This move has been created by the last scan, remove it.
                     sml.move_id.unlink()
@@ -619,6 +630,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 log.log_line_ids.mapped("move_line_id.move_id.quantity_done")
             )
             log.unlink()
+        # Refresh pending moves data
+        self.fill_todo_records()
 
     def action_undo_last_scan(self):
         res = super().action_undo_last_scan()
