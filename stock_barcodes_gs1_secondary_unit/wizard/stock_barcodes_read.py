@@ -7,10 +7,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     _inherit = "wiz.stock.barcodes.read"
 
     product_tmpl_id = fields.Many2one(
-        comodel_name="product.template", related="product_id.product_tmpl_id",
+        comodel_name="product.template",
+        related="product_id.product_tmpl_id",
     )
     secondary_uom_id = fields.Many2one(
-        comodel_name="product.secondary.unit", string="Secondary uom",
+        comodel_name="product.secondary.unit",
+        string="Secondary uom",
     )
     secondary_uom_qty = fields.Float(
         string="Secondary UOM Qty", digits="Product Unit of Measure"
