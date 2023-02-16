@@ -366,6 +366,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     sml_vals.update({"location_dest_id": self.location_dest_id.id})
         return candidate_lines
 
+    def _get_candidate_line_domain(self):
+        """To be extended for other modules"""
+        domain = []
+        if self.env.user.has_group("stock.group_tracking_lot"):
+            domain.extend(
+                [
+                    ("package_id", "=", self.package_id.id),
+                    ("result_package_id", "=", self.result_package_id.id),
+                ]
+            )
+        return domain
+
     def _process_stock_move_line(self):  # noqa: C901
         """
         Search assigned or confirmed stock moves from a picking operation type
@@ -422,20 +434,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 sml_vals.update(
                     {"lot_id": self.lot_id.id, "lot_name": self.lot_id.name}
                 )
+        candidate_domain = self._get_candidate_line_domain()
+        if candidate_domain:
+            lines = lines.filtered_domain(candidate_domain)
         # The new lines scanned has been created without reserved quantity
         if not lines:
             lines = candidate_lines.filtered(
-                lambda l: (
-                    l.lot_id == self.lot_id
-                    and l.product_uom_qty == 0.0
-                    and l.qty_done > 0.0
+                lambda ln: (
+                    ln.lot_id == self.lot_id
+                    and ln.product_uom_qty == 0.0
+                    and ln.qty_done > 0.0
                 )
             )
-        if lines:
-            # Hook: extra filter to be extend by other modules
-            lines = self.filter_sml(candidate_lines, lines, sml_vals)
-        # Determine location depend on picking type code
-        # lines = lines.filtered(lambda ln: )
+            if candidate_domain:
+                lines = lines.filtered_domain(candidate_domain)
         available_qty = self.product_qty
         max_quantity = sum(sm.product_uom_qty - sm.quantity_done for sm in moves_todo)
         if (
