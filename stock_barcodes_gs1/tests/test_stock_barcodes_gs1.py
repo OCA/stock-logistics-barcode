@@ -8,6 +8,7 @@ from odoo.addons.stock_barcodes.tests.test_stock_barcodes import TestStockBarcod
 
 @common.tagged("post_install", "-at_install")
 class TestStockBarcodesGS1(TestStockBarcodes):
+    # pylint: disable=W8121
     def setUp(self):
         super().setUp()
         # Barcode for packaging and lot
@@ -26,7 +27,6 @@ class TestStockBarcodesGS1(TestStockBarcodes):
         self.gs1_barcode_01_not_processed = (
             "01993167101234533101002620130" "5041710ABC123214145354"
         )
-
         self.product_wo_tracking_gs1 = self.product_wo_tracking.with_context({}).copy(
             {"barcode": "07010001234567"}
         )
