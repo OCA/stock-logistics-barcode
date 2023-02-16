@@ -69,8 +69,9 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     @api.onchange("product_id")
     def onchange_product_id(self):
-        super().onchange_product_id()
+        res = super().onchange_product_id()
         self.secondary_uom_id = self.product_id.stock_secondary_uom_id
+        return res
 
     def _set_focus_on_qty_input(self, field_name="product_qty"):
         if self.secondary_uom_id:
@@ -78,7 +79,8 @@ class WizStockBarcodesRead(models.AbstractModel):
         return super()._set_focus_on_qty_input(field_name=field_name)
 
     def action_clean_values(self):
-        super().action_clean_values()
+        res = super().action_clean_values()
         self.secondary_uom_id = False
         self.secondary_uom_qty = 0.0
         self.secondary_single_qty = 0.0
+        return res
