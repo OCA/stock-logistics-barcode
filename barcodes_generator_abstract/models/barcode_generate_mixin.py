@@ -6,7 +6,7 @@
 
 import logging
 
-import barcode
+import barcode  # pylint: disable=W7936
 
 from odoo import _, api, exceptions, fields, models
 
