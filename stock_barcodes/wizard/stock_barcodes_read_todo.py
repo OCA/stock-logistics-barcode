@@ -207,7 +207,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def _compute_state(self):
         for rec in self:
             if rec.qty_done >= rec.product_uom_qty or (
-                rec.line_ids
+                rec.wiz_barcode_id.option_group_id.source_pending_moves
+                == "move_line_ids"
+                and rec.line_ids
                 and not any(ln.barcode_scan_state == "pending" for ln in rec.line_ids)
             ):
                 rec.state = "done"
