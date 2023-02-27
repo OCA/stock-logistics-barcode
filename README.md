@@ -28,6 +28,7 @@ addon | version | maintainers | summary
 [product_gs1_barcode](product_gs1_barcode/) | 14.0.1.0.0 |  | Encoding for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_multi_barcode](product_multi_barcode/) | 14.0.1.1.1 |  | Multiple barcodes on products
 [product_multi_barcode_stock_menu](product_multi_barcode_stock_menu/) | 14.0.1.0.0 |  | Multiple barcodes menu
+[product_multi_barcode_supplierinfo](product_multi_barcode_supplierinfo/) | 14.0.1.0.0 |  | Adds supplier pricelist barcode in product barcode
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 14.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
 [sale_input_barcode](sale_input_barcode/) | 14.0.1.0.1 | [![bealdav](https://github.com/bealdav.png?size=30px)](https://github.com/bealdav) | Add Sale line with barcode
 [stock_barcodes](stock_barcodes/) | 14.0.2.2.1 |  | It provides read barcode on stock operations.
