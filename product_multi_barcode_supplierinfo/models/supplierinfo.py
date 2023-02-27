@@ -23,7 +23,7 @@ class SupplierInfo(models.Model):
             if rec.barcode_id:
                 rec.barcode = rec.barcode_id.name
             else:
-                rec.barcode = ""
+                rec.barcode = False
 
     def _inverse_barcode_field(self):
         for supplier_info in self:
