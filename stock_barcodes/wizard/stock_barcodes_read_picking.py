@@ -58,6 +58,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         comodel_name="wiz.stock.barcodes.read.todo",
         compute="_compute_pending_move_ids",
     )
+    selected_pending_move_id = fields.Many2one(
+        comodel_name="wiz.stock.barcodes.read.todo"
+    )
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -670,6 +673,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def action_put_in_pack(self):
         self.picking_id.action_put_in_pack()
+
+    def action_clean_values(self):
+        res = super().action_clean_values()
+        self.selected_pending_move_id = False
+        return res
 
 
 class WizCandidatePicking(models.TransientModel):
