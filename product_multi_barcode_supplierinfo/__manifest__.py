@@ -3,7 +3,7 @@
 {
     "name": "Multi barcode from supplier pricelist",
     "summary": "Adds  supplier pricelist barcode in product barcode",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Product Management",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "author": "ForgeFlow, Odoo Community Association (OCA)",
