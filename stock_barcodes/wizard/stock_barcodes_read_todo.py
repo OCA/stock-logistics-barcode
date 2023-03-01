@@ -227,6 +227,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         ]
 
     def fill_from_pending_line(self):
+        self.wiz_barcode_id.selected_pending_move_id = self
         self.wiz_barcode_id.determine_todo_action(forced_todo_line=self)
         for field in self.fields_to_fill_from_pending_line():
             self.wiz_barcode_id[field] = self[field]
