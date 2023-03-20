@@ -19,7 +19,7 @@ msgstr ""
 #. module: sale_input_barcode
 #: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
 #, python-format
-msgid "Decoded barcode %s doesn't include a valid segment for GTIN"
+msgid "'Decoded barcode %s doesn't include a valid segment for GTIN' %barcode"
 msgstr "Le code barre lu n'est pas au format GTIN"
 
 #. module: sale_input_barcode
@@ -56,7 +56,7 @@ msgstr "Date de la dernière modification"
 #. module: sale_input_barcode
 #: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
 #, python-format
-msgid "No product found matching this barcode %s"
+msgid "'No product found matching this barcode %s' %barcode"
 msgstr "Pas de produit trouvé pour ce code barre"
 
 #. module: sale_input_barcode
@@ -73,7 +73,7 @@ msgstr "Ligne de la commande de vente"
 #: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
 #, python-format
 msgid ""
-"These products %s share the same barcode.\n"
+"'These products %s share the same barcode.\n' % [(x.display_name for x in product)]"
 "Impossible to guess which one to choose."
 msgstr "Ces produits ont le même code barre. Impossible d'en sélectionner un."
 

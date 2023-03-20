@@ -23,10 +23,8 @@ class ProductLineMixin(models.AbstractModel):
         res = self.env["gs1_barcode"].decode(barcode)
         if not res.get("01"):
             raise UserError(
-                _(
-                    "Decoded barcode %s doesn't include a valid segment for GTIN"
-                    % barcode
-                )
+                _("Decoded barcode %s doesn't include a valid segment for GTIN")
+                % barcode
             )
         product = self.env["product.product"].search([("barcode", "=", res["01"])])
         if product:
@@ -35,11 +33,11 @@ class ProductLineMixin(models.AbstractModel):
                     _(
                         "These products %s share the same barcode.\n"
                         "Impossible to guess which one to choose."
-                        % [(x.display_name for x in product)]
                     )
+                    % [(x.display_name for x in product)]
                 )
         else:
-            raise UserError(_("No product found matching this barcode %s" % barcode))
+            raise UserError(_("No product found matching this barcode %s") % barcode)
         vals = {"product_id": product.id}
         if res.get("10") and "lot_id" in self._fields:
             # some module may add `lot_id` field
