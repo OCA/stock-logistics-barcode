@@ -6,7 +6,7 @@
         <field name="model">product.barcode</field>
         <field name="priority">1</field>
         <field name="arch" type="xml">
-            <tree string="Product Barcodes">
+            <tree>
                 <field name="sequence" />
                 <field name="name" />
                 <field name="product_id" />
