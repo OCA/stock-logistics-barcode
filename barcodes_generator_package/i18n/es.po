@@ -21,12 +21,12 @@ msgstr ""
 #. module: barcodes_generator_package
 #: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
 msgid "Generate Barcode (Using Barcode Rule)"
-msgstr ""
+msgstr "Generar código de barras (usando la regla de código de barras)"
 
 #. module: barcodes_generator_package
 #: model:ir.ui.view,arch_db:barcodes_generator_package.product_packaging_form_view
 msgid "Generate Base (Using Sequence)"
-msgstr ""
+msgstr "Generar base (Usando Secuencia)"
 
 #. module: barcodes_generator_package
 #: model:ir.model,name:barcodes_generator_package.model_product_packaging
