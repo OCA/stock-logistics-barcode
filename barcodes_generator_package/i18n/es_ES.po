@@ -32,7 +32,7 @@ msgstr ""
 #. module: barcodes_generator_package
 #: model:ir.model,name:barcodes_generator_package.model_product_packaging
 msgid "Product Packaging"
-msgstr ""
+msgstr "Empaquetado de producto"
 
 #. module: barcodes_generator_package
 #: model:ir.model,name:barcodes_generator_package.model_barcode_rule
