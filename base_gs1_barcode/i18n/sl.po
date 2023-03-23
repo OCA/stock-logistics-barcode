@@ -219,11 +219,9 @@ msgstr ""
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
-"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
-"at position %d"
+"Could not decode barcode: incorrect value for Application Identifer \"%(ai)s"
+"\" at position %(position)d"
 msgstr ""
-"Ni bilo mogoče dekodirati črtne kode: napačna vrednost za identifikator "
-"aplikacije \"%s\" pri poziciji %d"
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
@@ -376,7 +374,6 @@ msgstr "GS1-128/GS1-Datamatrix črtne kode"
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr "GS1-128/GS1-Datamatrix nastavitve dekodiranja"
 
@@ -887,3 +884,11 @@ msgstr "rok trajanja in čas"
 #: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
 msgid "identification of the components of an item"
 msgstr "identifikator komponent artikla"
+
+#, python-format
+#~ msgid ""
+#~ "Could not decode barcode: incorrect value for Application Identifer \"%s"
+#~ "\" at position %d"
+#~ msgstr ""
+#~ "Ni bilo mogoče dekodirati črtne kode: napačna vrednost za identifikator "
+#~ "aplikacije \"%s\" pri poziciji %d"

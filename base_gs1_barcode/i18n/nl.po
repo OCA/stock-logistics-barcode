@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2017-03-28 08:23+0000\n"
 "PO-Revision-Date: 2020-12-13 23:19+0000\n"
 "Last-Translator: Bosd <c5e2fd43-d292-4c90-9d1f-74ff3436329a@anonaddy.me>\n"
-"Language-Team: Dutch (http://www.transifex.com/oca/"
-"OCA-stock-logistics-barcode-8-0/language/nl/)\n"
+"Language-Team: Dutch (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/nl/)\n"
 "Language: nl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -216,8 +216,8 @@ msgstr ""
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
-"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
-"at position %d"
+"Could not decode barcode: incorrect value for Application Identifer \"%(ai)s"
+"\" at position %(position)d"
 msgstr ""
 
 #. module: base_gs1_barcode
@@ -369,7 +369,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 

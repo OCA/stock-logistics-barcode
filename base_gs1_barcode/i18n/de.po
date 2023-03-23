@@ -218,11 +218,9 @@ msgstr ""
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
-"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
-"at position %d"
+"Could not decode barcode: incorrect value for Application Identifer \"%(ai)s"
+"\" at position %(position)d"
 msgstr ""
-"Konnte Barcode nicht entziffern: Falsche Anwendungskennung \"%s\" an "
-"Position %d"
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
@@ -374,7 +372,6 @@ msgstr "GS1-128/GS1-Datenmatrix Barcodes"
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr "GS1-128/GS1-Datenmatrix Decodierer-Konfiguration"
 
@@ -884,3 +881,11 @@ msgstr "Ablaufdatum und -zeit"
 #: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
 msgid "identification of the components of an item"
 msgstr "Identifizierung von Komponenten eines Postens"
+
+#, python-format
+#~ msgid ""
+#~ "Could not decode barcode: incorrect value for Application Identifer \"%s"
+#~ "\" at position %d"
+#~ msgstr ""
+#~ "Konnte Barcode nicht entziffern: Falsche Anwendungskennung \"%s\" an "
+#~ "Position %d"
