@@ -5,7 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, fields, models
-from odoo.exceptions import UserError
+from odoo.exceptions import ValidationError
 
 
 class ProductBarcode(models.Model):
@@ -51,16 +51,16 @@ class ProductBarcode(models.Model):
     @api.constrains("name")
     def _check_duplicates(self):
         for record in self:
-            barcodes = self.search(
-                [("id", "!=", record.id), ("name", "=", record.name)]
+            barcode = self.search(
+                [("id", "!=", record.id), ("name", "=", record.name)], limit=1
             )
-            if barcodes:
+            if barcode:
                 # by default barcode 'shared' between all company (no ir.rule)
                 # so we may not have the access right on the product
                 # note: if you do not want to share the barcode between company
                 # you just need to add a custom ir.rule
-                product = barcodes[0].sudo().product_id
-                raise UserError(
+                product = barcode.sudo().product_id
+                raise ValidationError(
                     _(
                         'The Barcode "%(barcode_name)s" already exists for '
                         'product "%(product_name)s" in the company %(company_name)s'
