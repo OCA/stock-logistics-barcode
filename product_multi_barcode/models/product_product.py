@@ -29,13 +29,20 @@ class ProductProduct(models.Model):
             product.barcode = product.barcode_ids[:1].name
 
     def _inverse_barcode(self):
+        """Store the product's barcode value in the barcode model."""
+        barcodes_to_unlink = self.env["product.barcode"]
+        create_barcode_vals_list = []
         for product in self:
             if product.barcode_ids:
-                product.barcode_ids[:1].write({"name": product.barcode})
+                product.barcode_ids[0].name = product.barcode
             elif not product.barcode:
-                product.barcode_ids.unlink()
+                barcodes_to_unlink |= product.barcode_ids
             else:
-                self.env["product.barcode"].create(self._prepare_barcode_vals())
+                create_barcode_vals_list.append(product._prepare_barcode_vals())
+        if barcodes_to_unlink:
+            barcodes_to_unlink.unlink()
+        if create_barcode_vals_list:
+            self.env["product.barcode"].create(create_barcode_vals_list)
 
     def _prepare_barcode_vals(self):
         self.ensure_one()
