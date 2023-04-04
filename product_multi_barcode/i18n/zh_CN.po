@@ -115,9 +115,15 @@ msgstr "序号"
 
 #. module: product_multi_barcode
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for product "
+"\"%(product_name)s\" in the company %(company_name)s"
+msgstr ""
+
 #, fuzzy, python-format
-msgid "The Barcode \"%s\" already exists for product \"%s\""
-msgstr "EAN13 条码\"%s\" 产品 \"%s\"已存在"
+#~ msgid "The Barcode \"%s\" already exists for product \"%s\""
+#~ msgstr "EAN13 条码\"%s\" 产品 \"%s\"已存在"
 
 #~ msgid "EAN13"
 #~ msgstr "EAN13"

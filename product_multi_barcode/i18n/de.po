@@ -117,9 +117,16 @@ msgstr "Reihenfolge"
 
 #. module: product_multi_barcode
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for product "
+"\"%(product_name)s\" in the company %(company_name)s"
+msgstr ""
+
 #, fuzzy, python-format
-msgid "The Barcode \"%s\" already exists for product \"%s\""
-msgstr "Der EAN13 Strichcode \"%s\" existiert bereits für das Produkt \"%s\""
+#~ msgid "The Barcode \"%s\" already exists for product \"%s\""
+#~ msgstr ""
+#~ "Der EAN13 Strichcode \"%s\" existiert bereits für das Produkt \"%s\""
 
 #~ msgid "EAN13"
 #~ msgstr "EAN13"
