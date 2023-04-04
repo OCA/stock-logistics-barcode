@@ -2,6 +2,7 @@
 # © 2018 Xavier Jimenez (QubiQ)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo.exceptions import ValidationError
 from odoo.tests import TransactionCase, tagged
 
 from ..hooks import post_init_hook
@@ -9,17 +10,18 @@ from ..hooks import post_init_hook
 
 @tagged("post_install", "-at_install")
 class TestProductMultiBarcode(TransactionCase):
-    def setUp(self):
-        super(TestProductMultiBarcode, self).setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         # Product 1
-        self.product = self.env["product.product"]
-        self.product_1 = self.product.create({"name": "Test product 1"})
-        self.valid_barcode_1 = "1234567890128"
-        self.valid_barcode2_1 = "0123456789012"
+        cls.product = cls.env["product.product"]
+        cls.product_1 = cls.product.create({"name": "Test product 1"})
+        cls.valid_barcode_1 = "1234567890128"
+        cls.valid_barcode2_1 = "0123456789012"
         # Product 2
-        self.product_2 = self.product.create({"name": "Test product 2"})
-        self.valid_barcode_2 = "9780471117094"
-        self.valid_barcode2_2 = "4006381333931"
+        cls.product_2 = cls.product.create({"name": "Test product 2"})
+        cls.valid_barcode_2 = "9780471117094"
+        cls.valid_barcode2_2 = "4006381333931"
 
     def test_set_main_barcode(self):
         self.product_1.barcode = self.valid_barcode_1
@@ -30,7 +32,7 @@ class TestProductMultiBarcode(TransactionCase):
         self.product_1.barcode = self.valid_barcode_1
         # Insert duplicated EAN13
         with self.assertRaisesRegex(
-            Exception,
+            ValidationError,
             'The Barcode "%(barcode)s" already exists for product "%(product)s"'
             % {"barcode": self.valid_barcode_1, "product": self.product_1.name},
         ):
@@ -45,7 +47,7 @@ class TestProductMultiBarcode(TransactionCase):
             (self.valid_barcode_1, self.product_1.id),
         )
         post_init_hook(self.env.cr, self.registry)
-        self.product_1.refresh()
+        self.product_1.invalidate_recordset()
         self.assertEqual(len(self.product_1.barcode_ids), 1)
         self.assertEqual(self.product_1.barcode_ids.name, self.valid_barcode_1)
 
