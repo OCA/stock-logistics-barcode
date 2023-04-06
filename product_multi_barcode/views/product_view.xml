@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_normal_form_view_multi_barcodes" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_normal_form_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="barcode" position="after">
+                <field name="barcode_ids">
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field name="name" />
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+    <record id="product_variant_easy_edit_view_multi_barcodes" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_variant_easy_edit_view" />
+        <field name="arch" type="xml">
+            <field name="barcode" position="attributes">
+                <attribute name="readonly">True</attribute>
+            </field>
+            <field name="barcode" position="after">
+                <field name="barcode_ids">
+                    <tree editable="bottom">
+                        <field name="sequence" widget="handle" />
+                        <field name="name" />
+                    </tree>
+                </field>
+            </field>
+        </field>
+    </record>
+    <record id="product_search_form_view_multi_barcodes" model="ir.ui.view">
+        <field name="model">product.product</field>
+        <field name="inherit_id" ref="product.product_search_form_view" />
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="barcode" string="Barcodes" />
+            </field>
+        </field>
+    </record>
+</odoo>
