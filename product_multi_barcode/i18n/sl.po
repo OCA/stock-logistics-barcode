@@ -29,10 +29,7 @@ msgstr ""
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
-#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_normal_form_view_multi_barcodes
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
-#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_template_form_view_multi_barcode
-#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_variant_easy_edit_view_multi_barcodes
 msgid "Barcodes"
 msgstr ""
 
@@ -48,15 +45,11 @@ msgstr "Ustvarjeno"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__display_name
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__display_name
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__display_name
 msgid "Display Name"
 msgstr "Prikazni naziv"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__id
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__id
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__id
 msgid "ID"
 msgstr "ID"
 
@@ -72,8 +65,6 @@ msgstr "Mednarodna številka artikla uporabljena za identifikacijo proizvoda."
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product____last_update
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template____last_update
 msgid "Last Modified on"
 msgstr "Zadnjič spremenjeno"
 
@@ -93,15 +84,9 @@ msgid "Main barcode"
 msgstr ""
 
 #. module: product_multi_barcode
-#: model:ir.model,name:product_multi_barcode.model_product_product
+#: model:ir.model,name:product_multi_barcode.model_product_template
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_id
 msgid "Product"
-msgstr "Proizvod"
-
-#. module: product_multi_barcode
-#: model:ir.model,name:product_multi_barcode.model_product_template
-#, fuzzy
-msgid "Product Template"
 msgstr "Proizvod"
 
 #. module: product_multi_barcode
@@ -111,15 +96,31 @@ msgid "Product Tmpl"
 msgstr "Proizvod"
 
 #. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_product
+msgid "Product Variant"
+msgstr ""
+
+#. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
 msgid "Sequence"
 msgstr "Zaporedje"
 
 #. module: product_multi_barcode
+#. odoo-python
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for product "
+"\"%(product_name)s\" in the company %(company_name)s"
+msgstr ""
+
+#, fuzzy
+#~ msgid "Product Template"
+#~ msgstr "Proizvod"
+
 #, fuzzy, python-format
-msgid "The Barcode \"%s\" already exists for product \"%s\""
-msgstr "EAN13 črtna koda \"%s\" za proizvod \"%s\" že obstaja"
+#~ msgid "The Barcode \"%s\" already exists for product \"%s\""
+#~ msgstr "EAN13 črtna koda \"%s\" za proizvod \"%s\" že obstaja"
 
 #~ msgid "EAN13"
 #~ msgstr "EAN13"
