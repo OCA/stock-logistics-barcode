@@ -1,0 +1,2 @@
+This module expands Odoo functionality, to presereve already generated barcode in system.
+When a barcode is generated through various other modules like (https://github.com/OCA/stock-logistics-barcode/tree/14.0/barcodes_generator_product and https://github.com/OCA/stock-logistics-barcode/tree/14.0/product_multi_barcode) and another record is already present, this module just add it to the multi barcode table without erasing previous data.
