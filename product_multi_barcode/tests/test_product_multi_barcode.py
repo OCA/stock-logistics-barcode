@@ -12,12 +12,12 @@ class TestProductMultiBarcode(TransactionCase):
     def setUp(self):
         super(TestProductMultiBarcode, self).setUp()
         # Product 1
-        self.product = self.env["product.product"]
-        self.product_1 = self.product.create({"name": "Test product 1"})
+        self.model_product = self.env["product.product"]
+        self.product_1 = self.model_product.create({"name": "Test product 1"})
         self.valid_barcode_1 = "1234567890128"
         self.valid_barcode2_1 = "0123456789012"
         # Product 2
-        self.product_2 = self.product.create({"name": "Test product 2"})
+        self.product_2 = self.model_product.create({"name": "Test product 2"})
         self.valid_barcode_2 = "9780471117094"
         self.valid_barcode2_2 = "4006381333931"
 
@@ -54,13 +54,13 @@ class TestProductMultiBarcode(TransactionCase):
             (0, 0, {"name": self.valid_barcode_2}),
             (0, 0, {"name": self.valid_barcode2_2}),
         ]
-        products = self.product.search([("barcode", "=", self.valid_barcode_1)])
+        products = self.model_product.search([("barcode", "=", self.valid_barcode_1)])
         self.assertEqual(len(products), 1)
         self.assertEqual(products, self.product_1)
-        products = self.product.search([("barcode", "=", self.valid_barcode2_1)])
+        products = self.model_product.search([("barcode", "=", self.valid_barcode2_1)])
         self.assertEqual(len(products), 1)
         self.assertEqual(products, self.product_1)
-        products = self.product.search(
+        products = self.model_product.search(
             [
                 "|",
                 ("barcode", "=", self.valid_barcode2_1),
