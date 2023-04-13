@@ -35,6 +35,11 @@ class ProductBarcode(models.Model):
         readonly=False,
         ondelete="cascade",
     )
+    company_id = fields.Many2one(
+        comodel_name="res.company",
+        related="product_id.company_id",
+        readonly=True,
+    )
 
     @api.depends("product_id")
     def _compute_product_tmpl(self):
@@ -48,18 +53,22 @@ class ProductBarcode(models.Model):
         ):
             rec.product_id = rec.product_tmpl_id.product_variant_ids[0]
 
+    def _get_domain_check_duplicates(self):
+        return [("id", "not in", self.ids), ("name", "in", self.mapped("name"))]
+
+    def _get_duplicates(self, barcodes_to_check):
+        self.ensure_one()
+        return barcodes_to_check.filtered(lambda b: b.name == self.name)
+
     @api.constrains("name")
     def _check_duplicates(self):
+        barcodes_to_check = self.sudo().search(self._get_domain_check_duplicates())
         for record in self:
-            barcode = self.search(
-                [("id", "!=", record.id), ("name", "=", record.name)], limit=1
-            )
-            if barcode:
+            duplicate = record._get_duplicates(barcodes_to_check)
+            if duplicate:
                 # by default barcode 'shared' between all company (no ir.rule)
                 # so we may not have the access right on the product
-                # note: if you do not want to share the barcode between company
-                # you just need to add a custom ir.rule
-                product = barcode.sudo().product_id
+                product = duplicate[0].sudo().product_id
                 raise ValidationError(
                     _(
                         'The Barcode "%(barcode_name)s" already exists for '
