@@ -53,20 +53,14 @@ class ProductProduct(models.Model):
 
     @api.model
     def _search(self, domain, *args, **kwargs):
-        for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
-            domain = self._get_barcode_domain(sub_domain, domain)
-        return super(ProductProduct, self)._search(domain, *args, **kwargs)
+        domain = domain.copy()
+        for key, sub_domain in enumerate(domain):
+            if sub_domain[0] == "barcode":
+                domain[key] = self._get_barcode_subdomain(sub_domain)
+        return super()._search(domain, *args, **kwargs)
 
-    def _get_barcode_domain(self, sub_domain, domain):
+    def _get_barcode_subdomain(self, sub_domain):
         barcode_operator = sub_domain[1]
         barcode_value = sub_domain[2]
-        barcodes = self.env["product.barcode"].search(
-            [("name", barcode_operator, barcode_value)]
-        )
-        domain = [
-            ("barcode_ids", "in", barcodes.ids)
-            if x[0] == "barcode" and x[2] == barcode_value
-            else x
-            for x in domain
-        ]
-        return domain
+        sub_domain = ("barcode_ids.name", barcode_operator, barcode_value)
+        return sub_domain
