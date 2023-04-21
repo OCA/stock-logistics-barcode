@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_todo_kanban" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.todo</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_todo_kanban" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='state']" position="before">
+                <field name="elaboration_ids" />
+                <field name="elaboration_note" />
+            </xpath>
+            <xpath expr="//kanban//div[@name='action']" position="before">
+                <t t-if="record.elaboration_ids.raw_value.length gt 0">
+                    <div class="row mt8 mb8 border border-success elaboration">
+                        <div class="col-12 mt4">
+                            <h5>Elaboration</h5>
+                        </div>
+                        <div class="col-12">
+                            <field name="elaboration_ids" />
+                        </div>
+                        <div class="col-12">
+                            <field name="elaboration_note" />
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+</odoo>
