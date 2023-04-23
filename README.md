@@ -44,6 +44,7 @@ addon | version | maintainers | summary
 [stock_barcodes_gs1](stock_barcodes_gs1/) | 13.0.2.0.2 |  | It provides read GS1 barcode on stock operations.
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 13.0.1.0.1 |  | It provides read expiry dates from GS1 barcode on stock operations.
 [stock_barcodes_move_location](stock_barcodes_move_location/) | 13.0.1.0.1 |  | It provides read barcode on stock operations.
+[stock_barcodes_picking_batch](stock_barcodes_picking_batch/) | 13.0.1.0.0 |  | It provides read barcodes on stock operations from batch pickings.
 [stock_picking_product_barcode_report](stock_picking_product_barcode_report/) | 13.0.2.2.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | It provides a wizard to select how many barcodes print.
 [stock_picking_product_barcode_report_secondary_unit](stock_picking_product_barcode_report_secondary_unit/) | 13.0.1.1.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Set by default the maximum quantity of labels to print.
 
