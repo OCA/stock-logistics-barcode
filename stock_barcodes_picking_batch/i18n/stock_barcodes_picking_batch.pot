@@ -6,8 +6,6 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-06 21:50+0000\n"
-"PO-Revision-Date: 2022-04-06 21:50+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,18 +24,20 @@ msgid "#Product Ref:"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Read:"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Ref:"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_batch_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "<span for=\"product_ref_count\">#Ref: </span>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid ""
+"<span> | </span>\n"
+"                                                <span for=\"product_ref_done\">#Read: </span>"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
