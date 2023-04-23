@@ -1579,8 +1579,9 @@ msgstr "Asistente para leer códigos de barras desde el inventario"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
+msgid "Wizard to read barcode on picking batch"
 msgstr ""
+"Asistente para leer códigos de barras desde las agrupaciones de albaranes"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -1700,7 +1701,3 @@ msgstr ""
 
 #~ msgid "Stock Barcodes Auto Lot"
 #~ msgstr "Auto lote códigos de barras"
-
-#~ msgid "Wizard to read barcode on picking batch"
-#~ msgstr ""
-#~ "Asistente para leer códigos de barras desde las agrupaciones de albaranes"
