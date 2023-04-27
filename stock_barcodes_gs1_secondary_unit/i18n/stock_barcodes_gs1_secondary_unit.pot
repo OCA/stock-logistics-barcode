@@ -4,10 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 13.0\n"
+"Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-09-07 20:03+0000\n"
-"PO-Revision-Date: 2020-09-07 20:03+0000\n"
+"POT-Creation-Date: 2023-04-27 17:43+0000\n"
+"PO-Revision-Date: 2023-04-27 17:43+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -49,28 +49,52 @@ msgstr ""
 
 #. module: stock_barcodes_gs1_secondary_unit
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__product_tmpl_id
-#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__product_tmpl_id
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__product_tmpl_id
 msgid "Product Template"
 msgstr ""
 
 #. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_id
+msgid "Second unit"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_qty
+msgid "Secondary Qty"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_stock_barcodes_read_log__secondary_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_qty
-#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_qty
 msgid "Secondary UOM Qty"
 msgstr ""
 
 #. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_single_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_single_qty
+msgid "Secondary single Qty"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_stock_barcodes_read_log__secondary_uom_id
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_id
-#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_id
 #: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_gs1_secondary_unit.view_stock_barcodes_read_form
 msgid "Secondary uom"
 msgstr ""
 
 #. module: stock_barcodes_gs1_secondary_unit
 #: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_picking
+msgid "Wizard to read barcode on picking"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_todo
+msgid "Wizard to read barcode todo"
 msgstr ""
