@@ -13,6 +13,7 @@
     "data": [
         "views/product_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
+        "wizard/stock_barcodes_read_todo_view.xml",
     ],
     "installable": True,
     "auto_install": True,
