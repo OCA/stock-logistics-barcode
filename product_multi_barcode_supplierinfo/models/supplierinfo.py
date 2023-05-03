@@ -71,4 +71,4 @@ class SupplierInfo(models.Model):
         for rec in self:
             if rec.barcode:
                 rec.unlink_product_barcode()
-        super().unlink()
+        return super().unlink()
