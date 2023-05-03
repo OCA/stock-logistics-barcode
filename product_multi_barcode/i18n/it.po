@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-12-17 06:03+0000\n"
-"PO-Revision-Date: 2023-04-18 12:34+0000\n"
+"PO-Revision-Date: 2023-05-03 15:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-stock-logistics-barcode-8-0/language/it/)\n"
@@ -59,7 +59,8 @@ msgstr "Singolo oggetto nella lista codici a barre di un prodotto"
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
 msgid "International Article Number used for product identification."
-msgstr "Numero Internazionale utilizzato per l'identificazione dell'articolo."
+msgstr ""
+"Codice internazionale articolo utilizzato per l'identificazione del prodotto."
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
