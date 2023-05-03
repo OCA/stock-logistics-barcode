@@ -39,7 +39,7 @@ class SupplierInfo(models.Model):
                     supplier_info.barcode_id = barcode
             else:
                 supplier_info.barcode_id.name = supplier_info.barcode
-            supplier_info.barcode_id.supplier_id = supplier_info.name
+            supplier_info.barcode_id.supplier_id = supplier_info.partner_id
             supplier_info.barcode_id.product_tmpl_id = supplier_info.product_tmpl_id
             if supplier_info.product_tmpl_id.product_variant_count > 1:
                 supplier_info.barcode_id.product_id = supplier_info.product_id

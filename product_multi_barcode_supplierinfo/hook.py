@@ -21,22 +21,20 @@ def copy_barcode(cr):
 
 
 def update_barcodes_ids(cr, registry):
-    with api.Environment.manage():
-        env = api.Environment(cr, SUPERUSER_ID, {})
-        cr.execute(
-            """ UPDATE product_supplierinfo SET barcode = old_barcode
-                WHERE old_barcode is not NULL
-         """
-        )
-        supplierinfos = env["product.supplierinfo"].search([("barcode", "!=", False)])
-        prod_barcode = env["product.barcode"]
-        for supplierinfo in supplierinfos:
-            barcode_dict = {
-                "name": supplierinfo.barcode,
-                "product_tmpl_id": supplierinfo.product_tmpl_id.id,
-                "supplier_id": supplierinfo.name.id,
-            }
-            if supplierinfo.product_id:
-                barcode_dict["product_id"] = supplierinfo.product_id.id
-            prod_barcode.create(barcode_dict)
-    return
+    env = api.Environment(cr, SUPERUSER_ID, {})
+    cr.execute(
+        """ UPDATE product_supplierinfo SET barcode = old_barcode
+            WHERE old_barcode is not NULL
+        """
+    )
+    supplierinfos = env["product.supplierinfo"].search([("barcode", "!=", False)])
+    prod_barcode = env["product.barcode"]
+    for supplierinfo in supplierinfos:
+        barcode_dict = {
+            "name": supplierinfo.barcode,
+            "product_tmpl_id": supplierinfo.product_tmpl_id.id,
+            "supplier_id": supplierinfo.partner_id.id,
+        }
+        if supplierinfo.product_id:
+            barcode_dict["product_id"] = supplierinfo.product_id.id
+        prod_barcode.create(barcode_dict)
