@@ -4,7 +4,7 @@
 {
     "name": "Generate Barcodes for Packaging",
     "summary": "Generate Barcodes for Product Packaging",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "author": "LasLabs, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
