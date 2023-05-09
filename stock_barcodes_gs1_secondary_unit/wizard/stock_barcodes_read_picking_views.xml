@@ -59,7 +59,7 @@
                 position="before"
             >
                 <field name="secondary_uom_qty" />
-                <field name="secondary_uom_id" />
+                <field name="secondary_uom_id" options="{'no_open': True}" />
             </xpath>
             <xpath
                 expr="//field[@name='pending_move_ids']/kanban//field[@name='qty_done']"
@@ -70,6 +70,39 @@
             </xpath>
             <xpath
                 expr="//field[@name='pending_move_ids']/kanban//div[@t-attf-class='oe_kanban_card']"
+                position="inside"
+            >
+                <t t-if="record.secondary_uom_id.raw_value">
+                    <div class="row">
+                        <div class="col-12 font-italic text-success">
+                            <strong><field name="secondary_uom_qty" /> <field
+                                    name="secondary_uom_id"
+                                /></strong>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+            <!-- Add secondary uom info to detailed operations -->
+            <xpath
+                expr="//field[@name='move_line_ids']/tree/button[@name='action_barcode_detailed_operation_unlink']"
+                position="before"
+            >
+                <field name="secondary_uom_qty" optional="show" />
+                <field
+                    name="secondary_uom_id"
+                    options="{'no_open': True}"
+                    optional="show"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids']/kanban//field[@name='qty_done']"
+                position="after"
+            >
+                <field name="secondary_uom_qty" />
+                <field name="secondary_uom_id" />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids']/kanban//div[@t-attf-class='oe_kanban_card']"
                 position="inside"
             >
                 <t t-if="record.secondary_uom_id.raw_value">
