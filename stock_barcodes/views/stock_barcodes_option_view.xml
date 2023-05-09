@@ -27,6 +27,7 @@
                             />
                             <field name="group_key_for_todo_records" />
                             <field name="show_scan_log" />
+                            <field name="show_detailed_operations" />
                             <field name="auto_put_in_pack" />
                         </group>
                         <group>
