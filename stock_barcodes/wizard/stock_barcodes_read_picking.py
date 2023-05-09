@@ -42,7 +42,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     # TODO: Check if move_line_ids is used
-    move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
+    move_line_ids = fields.One2many(
+        comodel_name="stock.move.line", compute="_compute_move_line_ids"
+    )
     todo_line_ids = fields.One2many(
         string="To Do Lines",
         comodel_name="wiz.stock.barcodes.read.todo",
@@ -75,6 +77,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         else:
             self.pending_move_ids = False
+
+    def _compute_move_line_ids(self):
+        if self.option_group_id.show_detailed_operations:
+            self.move_line_ids = self.picking_id.move_line_ids.filtered(
+                "qty_done"
+            ).sorted("write_date", reverse=True)
+        else:
+            self.move_line_ids = False
 
     def name_get(self):
         return [
