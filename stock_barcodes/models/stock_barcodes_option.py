@@ -78,6 +78,9 @@ class StockBarcodesOptionGroup(models.Model):
         help="If checked the lot will created automatically with the scanned barcode "
         "if not exists ",
     )
+    show_detailed_operations = fields.Boolean(
+        help="If checked the picking detailed operations are displayed",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
