@@ -20,7 +20,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     def _compute_secondary_uom(self):
         for line in self:
-            moves = line.stock_move_ids or line.line_ids.mapped("move_id")
+            moves = line.line_ids or line.stock_move_ids
             line.secondary_uom_qty = sum(m.secondary_uom_qty for m in moves)
             line.secondary_uom_id = moves.secondary_uom_id[:1]
 

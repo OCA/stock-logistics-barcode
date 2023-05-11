@@ -80,7 +80,6 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_clean_values(self):
         res = super().action_clean_values()
-        self.secondary_uom_id = False
         self.secondary_uom_qty = 0.0
         self.secondary_single_qty = 0.0
         return res
