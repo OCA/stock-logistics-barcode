@@ -27,7 +27,18 @@
                                 force_save="1"
                                 readonly="1"
                             />
-                            <field name="lot_id" force_save="1" readonly="1" />
+                            <field
+                                name="lot_id"
+                                force_save="1"
+                                readonly="1"
+                                groups="stock.group_production_lot"
+                            />
+                            <field
+                                name="result_package_id"
+                                force_save="1"
+                                readonly="1"
+                                groups="stock.group_tracking_lot"
+                            />
                             <field name="quantity" force_save="1" readonly="1" />
                             <field name="uom_id" readonly="1" groups="uom.group_uom" />
                             <field name="label_qty" />

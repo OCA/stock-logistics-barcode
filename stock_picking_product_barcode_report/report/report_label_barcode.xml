@@ -46,6 +46,7 @@
             name="paperformat_id"
             ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
         />
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
     </record>
     <record id="report_label_barcode_package" model="ir.actions.report">
         <field name="name">Labels package content</field>
@@ -61,5 +62,6 @@
             name="paperformat_id"
             ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
         />
+        <field name="binding_model_id" ref="stock.model_stock_quant_package" />
     </record>
 </odoo>
