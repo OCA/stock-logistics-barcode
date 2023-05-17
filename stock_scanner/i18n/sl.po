@@ -16,8 +16,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
-"n%100==4 ? 2 : 3;\n"
+"Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || n"
+"%100==4 ? 2 : 3;\n"
 "X-Generator: Weblate 3.10\n"
 
 #. module: stock_scanner
@@ -206,7 +206,7 @@ msgid ""
 msgstr "S pritiskom na tipko ESC se lahko vrnete na zadnji 'Korak vračanja'."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:13
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:14
 #, python-format
 msgid "Bye !"
 msgstr "Pozdravljeni !"
@@ -378,7 +378,7 @@ msgid "Display Name"
 msgstr "Prikazni naziv"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirm.py:11
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirm.py:12
 #, python-format
 msgid "Do you really want to logout?"
 msgstr "Se res želite odjaviti?"
@@ -603,7 +603,7 @@ msgid "Login"
 msgstr "Prijava"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_login.py:10
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_login.py:11
 #, python-format
 msgid "Login ?"
 msgstr "Prijava?"
@@ -619,7 +619,7 @@ msgid "Logout"
 msgstr "Odjava"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:10
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:11
 #, python-format
 msgid "Logout cancelled"
 msgstr "Odjava preklicana"
@@ -766,7 +766,7 @@ msgid "Please contact"
 msgstr "Kontaktirajte"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:13
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:14
 #, python-format
 msgid "Pwd ?"
 msgstr "Geslo?"
@@ -1256,7 +1256,7 @@ msgid "Width of the terminal's screen."
 msgstr "Širina zaslona terminala."
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_error.py:10
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_error.py:11
 #, python-format
 msgid "Wrong login/password"
 msgstr "Napačna prijava/geslo"
@@ -1268,19 +1268,19 @@ msgid "Yellow"
 msgstr "Rumena"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:11
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:12
 #, python-format
 msgid "You are authenticated as %s !"
 msgstr "Overjeni ste kot %s !"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_done.py:12
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_done.py:13
 #, python-format
 msgid "You are now authenticated as %s !"
 msgstr "Niste overjeni kot %s !"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:12
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:13
 #, python-format
 msgid "You are now logged out"
 msgstr "Odjavili ste se"
@@ -1330,7 +1330,7 @@ msgid "your"
 msgstr "vaš"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:12
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:13
 #, python-format
 msgid "| Login %s"
 msgstr "| Prijava %s"
