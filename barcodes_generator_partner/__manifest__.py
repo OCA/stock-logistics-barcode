@@ -12,7 +12,7 @@
         'GRAP,'
         'La Louve,'
         'Odoo Community Association (OCA)',
-    'website': 'https://www.odoo-community.org',
+    'website': 'https://github.com/OCA/stock-logistics-barcode',
     'license': 'AGPL-3',
     'depends': [
         'barcodes_generator_abstract',
