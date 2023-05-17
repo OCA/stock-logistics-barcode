@@ -35,7 +35,7 @@ addon | version | maintainers | summary
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 12.0.1.0.1 |  | It provides read expiry dates from GS1 barcode on stock operations.
 [stock_barcodes_supplierinfo](stock_barcodes_supplierinfo/) | 12.0.1.0.2 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Process products searching them by supplier barcode
 [stock_inventory_barcode](stock_inventory_barcode/) | 12.0.1.0.1 |  | Add simple barcode interface on inventories
-[stock_scanner](stock_scanner/) | 12.0.1.0.2 |  | Allows managing barcode readers with simple scenarios
+[stock_scanner](stock_scanner/) | 12.0.1.0.3 |  | Allows managing barcode readers with simple scenarios
 
 [//]: # (end addons)
 
