@@ -186,7 +186,7 @@ msgid ""
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:13
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:14
 #, python-format
 msgid "Bye !"
 msgstr ""
@@ -358,7 +358,7 @@ msgid "Display Name"
 msgstr "Nombre mostrado"
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirm.py:11
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirm.py:12
 #, python-format
 msgid "Do you really want to logout?"
 msgstr ""
@@ -577,7 +577,7 @@ msgid "Login"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_login.py:10
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_login.py:11
 #, python-format
 msgid "Login ?"
 msgstr ""
@@ -593,7 +593,7 @@ msgid "Logout"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:10
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:11
 #, python-format
 msgid "Logout cancelled"
 msgstr ""
@@ -728,7 +728,7 @@ msgid "Please contact"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:13
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:14
 #, python-format
 msgid "Pwd ?"
 msgstr ""
@@ -1215,7 +1215,7 @@ msgid "Width of the terminal's screen."
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_error.py:10
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_error.py:11
 #, python-format
 msgid "Wrong login/password"
 msgstr ""
@@ -1227,19 +1227,19 @@ msgid "Yellow"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:11
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_cancelled.py:12
 #, python-format
 msgid "You are authenticated as %s !"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_done.py:12
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_done.py:13
 #, python-format
 msgid "You are now authenticated as %s !"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:12
+#: code:addons/stock_scanner/data/scenarios/Logout/stock_scanner.scanner_scenario_logout_step_confirmed.py:13
 #, python-format
 msgid "You are now logged out"
 msgstr ""
@@ -1289,7 +1289,7 @@ msgid "your"
 msgstr ""
 
 #. module: stock_scanner
-#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:12
+#: code:addons/stock_scanner/data/scenarios/Login/stock_scanner.scanner_scenario_login_step_pwd.py:13
 #, python-format
 msgid "| Login %s"
 msgstr ""
