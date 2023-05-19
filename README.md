@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [barcodes_generator_location](barcodes_generator_location/) | 14.0.1.0.0 |  | Generate Barcodes for Stock Locations
 [barcodes_generator_package](barcodes_generator_package/) | 14.0.1.0.1 |  | Generate Barcodes for Product Packaging
 [barcodes_generator_product](barcodes_generator_product/) | 14.0.1.1.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Products (Templates and Variants)
+[barcodes_generator_product_multi_barcode](barcodes_generator_product_multi_barcode/) | 14.0.1.0.0 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) [![AshishHirapara](https://github.com/AshishHirapara.png?size=30px)](https://github.com/AshishHirapara) | Barcode Generator product - multi barcode
 [base_gs1_barcode](base_gs1_barcode/) | 14.0.1.0.1 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_gs1_barcode](product_gs1_barcode/) | 14.0.1.0.0 |  | Encoding for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_multi_barcode](product_multi_barcode/) | 14.0.1.1.2 |  | Multiple barcodes on products
