@@ -37,10 +37,22 @@ class BarcodeGenerateMixin(models.AbstractModel):
             for vals in vals_list:
                 vals.update({"barcode_rule_id": barcode_rule.id})
         records = super().create(vals_list)
-        if barcode_rule:
+        if barcode_rule and barcode_rule.generate_type == "sequence":
             records.generate_base()
             records.generate_barcode()
         return records
+
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get("barcode_rule_id"):
+            rule = self.env["barcode.rule"].browse(vals["barcode_rule_id"])
+            if rule.generate_automate and rule.generate_type == "sequence":
+                for rec in self:
+                    if not rec.barcode_base:
+                        rec.generate_base()
+                    if not rec.barcode:
+                        rec.generate_barcode()
+        return res
 
     # View Section
     def generate_base(self):
