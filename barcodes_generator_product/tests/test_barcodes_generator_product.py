@@ -72,3 +72,17 @@ class Tests(TransactionCase):
                 self.product_variant_1.barcode_base,
             ),
         )
+
+    def test_03_auto_generation_product(self):
+        self.template_auto_gen = self.template_obj.create(
+            {"name": "Template Test Auto Gen"}
+        )
+        self.assertFalse(self.template_auto_gen.barcode)
+        rule = self.env.ref("barcodes_generator_product.product_generated_barcode")
+        rule.sequence_id = self.env.ref(
+            "barcodes_generator_product.seq_product_generated_barcode"
+        )
+        rule.generate_automate = True
+        rule.generate_type = "sequence"
+        self.template_auto_gen.barcode_rule_id = rule
+        self.assertIsNotNone(self.template_auto_gen.barcode)

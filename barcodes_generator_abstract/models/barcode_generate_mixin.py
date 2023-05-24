@@ -29,6 +29,18 @@ class BarcodeGenerateMixin(models.AbstractModel):
         related="barcode_rule_id.generate_type",
     )
 
+    def write(self, vals):
+        res = super().write(vals)
+        if vals.get("barcode_rule_id"):
+            rule = self.env["barcode.rule"].browse(vals["barcode_rule_id"])
+            if rule.generate_automate and rule.generate_type == "sequence":
+                for rec in self:
+                    if not rec.barcode_base:
+                        rec.generate_base()
+                    if not rec.barcode:
+                        rec.generate_barcode()
+        return res
+
     @api.model
     def create(self, vals):
         """It creates a new barcode if automation is active."""
@@ -36,7 +48,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
         if barcode_rule.exists():
             vals.update({"barcode_rule_id": barcode_rule.id})
         record = super().create(vals)
-        if barcode_rule:
+        if barcode_rule and barcode_rule.generate_type == "sequence":
             record.generate_base()
             record.generate_barcode()
         return record
