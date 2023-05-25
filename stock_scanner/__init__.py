@@ -2,6 +2,4 @@
 # © 2015 Damien CRIER <damien.crier@objectif-pi.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from . import load_scenario
-from . import models
-from . import wizard
+from . import load_scenario, models, wizards

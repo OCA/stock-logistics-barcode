@@ -263,7 +263,6 @@
         <field name="name">Scanner Scenario</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">scanner.scenario</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,diagram</field>
         <field name="domain">[]</field>
         <field name="context">{}</field>

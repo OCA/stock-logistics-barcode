@@ -1,4 +1,4 @@
-#! /usr/bin/env python3
+#!/usr/bin/python3
 # © 2011 Christophe CHAUVET <christophe.chauvet@syleam.fr>
 # © 2011 Jean-Sébastien SUZANNE <jean-sebastien.suzanne@syleam.fr>
 # © 2015 Sylvain Garancher <sylvain.garancher@syleam.fr>

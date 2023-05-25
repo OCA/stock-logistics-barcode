@@ -5,7 +5,8 @@ import logging
 import sys
 import traceback
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 logger = logging.getLogger("stock_scanner")
 
@@ -76,9 +77,7 @@ class ScannerScenarioTransition(models.Model):
     @api.constrains("from_id", "to_id")
     def _check_scenario(self):
         if self.from_id.scenario_id.id != self.to_id.scenario_id.id:
-            raise exceptions.UserError(
-                _("Error ! You can not create recursive scenarios."),
-            )
+            raise ValidationError(_("Error ! You can not create recursive scenarios."),)
 
         return True
 
@@ -98,7 +97,7 @@ class ScannerScenarioTransition(models.Model):
                         )
                     )
                 )
-                raise exceptions.ValidationError(
+                raise ValidationError(
                     _(
                         'Error in condition for transition "%s"'
                         " at line %d, offset %d:\n%s"

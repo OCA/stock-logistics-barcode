@@ -16,19 +16,15 @@ class StockConfig(models.TransientModel):
     _inherit = "res.config.settings"
 
     is_login_enabled = fields.Boolean("Login/logout scenarii enabled")
-    session_timeout_delay = fields.Integer("Session validity in seconds")
+    session_timeout_delay = fields.Integer(
+        "Session validity in seconds",
+        config_parameter="stock_scanner.hardware_scanner_session_timeout_sec",
+    )
 
     def get_values(self):
         values = super().get_values()
         is_login_enabled = self.env.ref(ACTIVABLE_XML_IDS[0]).active
-        session_timeout_delay = self.env.ref(
-            "stock_scanner.hardware_scanner_session_timeout_sec"
-        ).value
-
-        values.update(
-            is_login_enabled=is_login_enabled,
-            session_timeout_delay=int(session_timeout_delay),
-        )
+        values.update(is_login_enabled=is_login_enabled,)
 
         return values
 
@@ -36,9 +32,4 @@ class StockConfig(models.TransientModel):
         res = super().set_values()
         for xml_id in ACTIVABLE_XML_IDS:
             self.env.ref(xml_id).active = self.is_login_enabled
-
-        self.env["ir.config_parameter"].set_param(
-            "hardware_scanner_session_timeout", self.session_timeout_delay
-        )
-
         return res

@@ -12,6 +12,8 @@ from odoo import _, api, exceptions, fields, models
 from odoo.tools.misc import html_escape, ustr
 from odoo.tools.safe_eval import safe_eval
 
+from odoo.addons.base_sparse_field.models.fields import Serialized
+
 _logger = logging.getLogger("stock_scanner")
 
 _CURSES_COLORS = [
@@ -157,7 +159,7 @@ class ScannerHardware(models.Model):
         default="red",
         help="Color for the error background.",
     )
-    tmp_values = fields.Serialized(readonly=True)
+    tmp_values = Serialized(readonly=True)
     tmp_values_display = fields.Html(
         compute="_compute_tmp_values_display", help="Debug tmp values",
     )
@@ -184,7 +186,6 @@ class ScannerHardware(models.Model):
     # instead. These will be removed when the module is migrated to
     # Odoo 13.0
     @property
-    @api.multi
     def json_tmp_val1(self):
         self.ensure_one()
         return self.get_tmp_value("val1")
@@ -195,7 +196,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val1": value})
 
     @property
-    @api.multi
     def json_tmp_val2(self):
         self.ensure_one()
         return self.get_tmp_value("val2")
@@ -206,7 +206,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val2": value})
 
     @property
-    @api.multi
     def json_tmp_val3(self):
         self.ensure_one()
         return self.get_tmp_value("val3")
@@ -217,7 +216,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val3": value})
 
     @property
-    @api.multi
     def json_tmp_val4(self):
         self.ensure_one()
         return self.get_tmp_value("val4")
@@ -228,7 +226,6 @@ class ScannerHardware(models.Model):
         self.update_tmp_values({"val4": value})
 
     @property
-    @api.multi
     def json_tmp_val5(self):
         self.ensure_one()
         return self.get_tmp_value("val5")
@@ -238,35 +235,29 @@ class ScannerHardware(models.Model):
         self.ensure_one()
         self.update_tmp_values({"val5": value})
 
-    @api.multi
     def update_tmp_values(self, values):
         self.ensure_one()
         tmp_values = self.tmp_values
         tmp_values.update(values)
         self.write({"tmp_values": tmp_values})
 
-    @api.multi
     def get_tmp_value(self, key_name, default=None):
         self.ensure_one()
         return self.tmp_values.get(key_name, default)
 
-    @api.multi
     def set_tmp_value(self, key_name, value):
         _logger.warning(
             "'%s' is deprecated. Please use 'terminal.tmp_values'." % key_name
         )
         self.ensure_one()
-        self.update_tmp_values(
-            {key_name: value,}
-        )
+        self.update_tmp_values({key_name: value})
 
-    @api.multi
     def clean_tmp_values(self, items):
         self.ensure_one()
-        values = self.tmp_values
+        values = self.tmp_values.copy()
         for item in items:
             values.pop(item, None)
-        self.update_tmp_values(values)
+        self.tmp_values = values
 
     @api.model
     def timeout_session(self):
@@ -473,14 +464,10 @@ class ScannerHardware(models.Model):
         self.ensure_one()
         uid = self.check_credentials(login, password)
         if uid:
-            self.write(
-                {"user_id": uid, "last_call_dt": fields.Datetime.now(),}
-            )
+            self.write({"user_id": uid, "last_call_dt": fields.Datetime.now()})
 
     def logout(self):
-        self.write(
-            {"user_id": False, "last_call_dt": False,}
-        )
+        self.write({"user_id": False, "last_call_dt": False})
         return True
 
     def _memorize(self, scenario_id, step_id, obj=None):
@@ -489,9 +476,7 @@ class ScannerHardware(models.Model):
         If obj is specify, save it as well (ex: res.partner,12)
         """
         self.ensure_one()
-        self.write(
-            {"scenario_id": scenario_id, "step_id": step_id,}
-        )
+        self.write({"scenario_id": scenario_id, "step_id": step_id})
 
     def _do_scenario_save(
         self, message, transition_type, scenario_id=None, step_id=None
@@ -554,12 +539,12 @@ class ScannerHardware(models.Model):
             if scenario_ids:
                 scenario_id = scenario_ids[0].id
                 step_ids = scanner_step_obj.search(
-                    [("scenario_id", "=", scenario_id), ("step_start", "=", True),]
+                    [("scenario_id", "=", scenario_id), ("step_start", "=", True)]
                 )
 
                 # No start step found on the scenario, return an error
                 if not step_ids:
-                    return self._send_error([_("No start step found on the scenario"),])
+                    return self._send_error([_("No start step found on the scenario")])
 
                 step_id = step_ids[0].id
                 # Store the first step in terminal history
@@ -634,7 +619,7 @@ class ScannerHardware(models.Model):
             if not step_id:
                 terminal.log("No valid transition found !")
                 return self._unknown_action(
-                    [_("Please contact"), _("your"), _("administrator"),]
+                    [_("Please contact"), _("your"), _("administrator")]
                 )
 
         # Memorize the current step
@@ -696,7 +681,7 @@ class ScannerHardware(models.Model):
                 self.env.cr.rollback()
                 if e.pgcode not in PG_CONCURRENCY_ERRORS_TO_RETRY:
                     _logger.warning("[%s] OperationalError", self.code, exc_info=True)
-                    result = ("R", ["Please contact", "your", "administrator",], 0)
+                    result = ("R", ["Please contact", "your", "administrator"], 0)
                     break
                 if tries >= MAX_TRIES_ON_CONCURRENCY_FAILURE:
                     _logger.warning(
@@ -770,7 +755,6 @@ class ScannerHardware(models.Model):
 
         return scanner_scenario_ids.mapped("name")
 
-    @api.multi
     def _screen_size(self):
         """
         Retrieve the screen size for this terminal

@@ -129,7 +129,7 @@ class TestStockScannerHardware(common.TransactionCase):
         )
 
         # The scenario should have been restarted
-        self.assertEqual(ret, ("R", ["No start step found on the scenario",], 0))
+        self.assertEqual(ret, ("R", ["No start step found on the scenario"], 0))
 
     def test_no_transition(self):
         """ Should not do anything when there is no transition """
@@ -167,13 +167,11 @@ class TestStockScannerHardware(common.TransactionCase):
         )
 
         # Remove all outgoing transitions from the current step
-        self.hardware.step_id.out_transition_ids.write(
-            {"condition": "False",}
-        )
+        self.hardware.step_id.out_transition_ids.write({"condition": "False"})
 
         # Try to go to the next step
         ret = scanner_hardware.scanner_call(self.hardware.code, action="action")
-        self.assertEqual(ret, ("U", ["Please contact", "your", "administrator",], 0))
+        self.assertEqual(ret, ("U", ["Please contact", "your", "administrator"], 0))
 
     def test_transition_execution_error(self):
         """ Should return an error when a transition's condition crashes """
@@ -191,13 +189,13 @@ class TestStockScannerHardware(common.TransactionCase):
 
         # Remove all outgoing transitions from the current step
         self.hardware.step_id.out_transition_ids.write(
-            {"condition": "undefined_function()",}
+            {"condition": "undefined_function()"}
         )
 
         # Try to go to the next step
         with mute_logger("stock_scanner"):
             ret = scanner_hardware.scanner_call(self.hardware.code, action="action")
-        self.assertEqual(ret, ("R", ["Please contact", "your", "administrator",], 0))
+        self.assertEqual(ret, ("R", ["Please contact", "your", "administrator"], 0))
 
     def test_automatic_step(self):
         """ Should automatically go to the next step when automatic """
@@ -291,9 +289,7 @@ class TestStockScannerHardware(common.TransactionCase):
         # Activate the log for the current hardware
         self.hardware.log_enabled = True
         # Change the code of the next step to execute to write in the log
-        self.hardware.step_id.out_transition_ids.write(
-            {"tracer": "something",}
-        )
+        self.hardware.step_id.out_transition_ids.write({"tracer": "something"})
 
         # Go to the next step
         ret = scanner_hardware.scanner_call(self.hardware.code, action="action")
@@ -334,9 +330,7 @@ class TestStockScannerHardware(common.TransactionCase):
 
         tmp_val_1 = "test 1"
         tmp_val_2 = list(range(5))
-        hardware.update_tmp_values(
-            {"tmp_val_1": "test 1", "tmp_val_2": tmp_val_2,}
-        )
+        hardware.update_tmp_values({"tmp_val_1": "test 1", "tmp_val_2": tmp_val_2})
         self.assertEqual(hardware.get_tmp_value("tmp_val_1"), tmp_val_1)
         self.assertEqual(hardware.get_tmp_value("tmp_val_2"), tmp_val_2)
 
@@ -346,12 +340,10 @@ class TestStockScannerHardware(common.TransactionCase):
         tmp_val_1 = "test 1"
         tmp_val_2 = list(range(5))
 
-        hardware.set_tmp_value(
-            "tmp_dict", {"extra_1": tmp_val_1, "extra_2": tmp_val_2,}
-        )
+        hardware.set_tmp_value("tmp_dict", {"extra_1": tmp_val_1, "extra_2": tmp_val_2})
         self.assertEqual(
             hardware.get_tmp_value("tmp_dict"),
-            {"extra_1": tmp_val_1, "extra_2": tmp_val_2,},
+            {"extra_1": tmp_val_1, "extra_2": tmp_val_2},
         )
         self.assertEqual(hardware.get_tmp_value("tmp_dict").get("extra_1"), tmp_val_1)
 
@@ -361,6 +353,8 @@ class TestStockScannerHardware(common.TransactionCase):
         self.assertNotEqual(hardware.tmp_values, {})
 
         hardware.clean_tmp_values(["a"])
+        hardware.flush()
+        hardware.invalidate_cache()
         self.assertEqual(hardware.tmp_values, {"b": 2})
 
         self.assertTrue(bool(hardware.tmp_values))

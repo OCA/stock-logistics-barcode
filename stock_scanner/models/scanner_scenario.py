@@ -3,7 +3,8 @@
 
 import logging
 
-from odoo import _, api, exceptions, fields, models
+from odoo import _, api, fields, models
+from odoo.exceptions import ValidationError
 
 logger = logging.getLogger("stock_scanner")
 
@@ -108,11 +109,8 @@ class ScannerScenario(models.Model):
     @api.constrains("parent_id")
     def _check_recursion(self):
         if not super(ScannerScenario, self)._check_recursion():
-            raise exceptions.UserError(
-                _("Error ! You can not create recursive scenarios."),
-            )
+            raise ValidationError(_("Error ! You can not create recursive scenarios."),)
 
-    @api.multi
     def copy(self, default=None):
         default = default or {}
         default["name"] = _("Copy of %s") % self.name
