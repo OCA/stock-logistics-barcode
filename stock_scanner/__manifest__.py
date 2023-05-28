@@ -37,4 +37,5 @@
         "images/scanner_scenario.png",
         "images/scanner_screen.png",
     ],
+    "external_dependencies": {"python": ["odoorpc"]},
 }
