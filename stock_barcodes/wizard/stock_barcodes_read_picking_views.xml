@@ -65,6 +65,12 @@
                                         <div>
                                             <strong>
                                                 <field name="name" />
+                                                <t t-if="record.partner_id.raw_value">
+                                                    [<field
+                                                        name="partner_id"
+                                                        invisible="context.get('hide_partner', False)"
+                                                    />]
+                                                </t>
                                                 <field
                                                     name="scan_count"
                                                     invisible="1"
