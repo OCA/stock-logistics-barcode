@@ -151,10 +151,20 @@
                         mode="tree,kanban"
                     >
                         <tree>
-                            <field name="state" />
+                            <field name="state" invisible="1" />
                             <field name="product_id" />
                             <field name="product_uom_qty" />
                             <field name="line_ids" invisible="1" />
+                            <field
+                                name="lot_id"
+                                groups="stock.group_production_lot"
+                                optional="hide"
+                            />
+                            <field
+                                name="package_id"
+                                groups="stock.group_tracking_lot"
+                                optional="hide"
+                            />
                             <field name="qty_done" />
                             <button
                                 name="fill_from_pending_line"
