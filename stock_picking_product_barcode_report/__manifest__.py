@@ -19,6 +19,7 @@
         "report/report_label_barcode.xml",
         "report/report_label_barcode_quant_package_template.xml",
         "report/report_label_barcode_template.xml",
+        "report/report_label_custom.xml",
         "views/ir_actions_report_view.xml",
     ],
     "installable": True,
