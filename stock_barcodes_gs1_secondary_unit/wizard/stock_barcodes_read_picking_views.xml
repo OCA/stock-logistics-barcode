@@ -58,8 +58,12 @@
                 expr="//field[@name='pending_move_ids']/tree/button[@name='fill_from_pending_line']"
                 position="before"
             >
-                <field name="secondary_uom_qty" />
-                <field name="secondary_uom_id" options="{'no_open': True}" />
+                <field name="secondary_uom_qty" optional="show" />
+                <field
+                    name="secondary_uom_id"
+                    options="{'no_open': True}"
+                    optional="show"
+                />
             </xpath>
             <xpath
                 expr="//field[@name='pending_move_ids']/kanban//field[@name='qty_done']"
