@@ -237,8 +237,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             move_dic = self._process_stock_move_line()
             if move_dic:
                 self[self._field_candidate_ids].scan_count += 1
-                if self.option_group_id.barcode_guided_mode == "guided":
-                    self.action_clean_values()
+                self.action_clean_values()
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
