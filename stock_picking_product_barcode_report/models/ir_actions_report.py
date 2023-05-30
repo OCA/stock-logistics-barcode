@@ -7,3 +7,4 @@ class IrActionsReport(models.Model):
     _inherit = "ir.actions.report"
 
     is_barcode_label = fields.Boolean(string="Barcode label")
+    is_custom_label = fields.Boolean(string="Custom label")

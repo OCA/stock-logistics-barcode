@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-05-30 10:08+0000\n"
+"PO-Revision-Date: 2023-05-30 10:08+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -58,6 +60,13 @@ msgid ""
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Label Quantity</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
 msgid "Barcode"
@@ -106,6 +115,16 @@ msgid "Created on"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_custom_report
+msgid "Custom Label Impresion"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_ir_actions_report__is_custom_label
+msgid "Custom label"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_report
 msgid "Default template for barcode labels"
@@ -134,9 +153,19 @@ msgid "Format of the barcode when it is printed."
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__html_content
+msgid "Html Content"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__id
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__id
 msgid "ID"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__is_custom_label
+msgid "Is Custom Label"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
@@ -147,6 +176,11 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report
 msgid "Label Impresion"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__label_qty
+msgid "Label Qty"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report

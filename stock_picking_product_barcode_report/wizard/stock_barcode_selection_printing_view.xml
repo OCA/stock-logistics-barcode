@@ -12,13 +12,23 @@
                     <br />
                     <field name="barcode_report" />
                 </div>
-                <div>
+                <div attrs="{'invisible': [('is_custom_label', '=', True)]}">
                     <strong>Barcode Format</strong>
                     <br />
                     <field name="barcode_format" />
                 </div>
-                <p>It only appears here products with barcode defined</p>
-                <group>
+                <p
+                    attrs="{'invisible': [('is_custom_label', '=', True)]}"
+                >It only appears here products with barcode defined</p>
+                <div attrs="{'invisible': [('is_custom_label', '=', False)]}">
+                    <field name="is_custom_label" invisible="1" />
+                    <strong>Label Quantity</strong>
+                    <br />
+                    <field name="label_qty" />
+                    <br />
+                    <field name="html_content" nolabel="1" />
+                </div>
+                <group attrs="{'invisible': [('is_custom_label', '=', True)]}">
                     <field name="product_print_moves" nolabel="1">
                         <tree editable="top" create="0">
                             <field
