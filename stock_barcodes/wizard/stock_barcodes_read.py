@@ -641,8 +641,6 @@ class WizStockBarcodesRead(models.AbstractModel):
         record.write(self._convert_to_write(self._cache))
         self = record
         res = self.action_done()
-        if res:
-            self.action_clean_values()
         self.refresh()
         self.play_sounds(res)
         return res
