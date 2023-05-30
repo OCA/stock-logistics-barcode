@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-03-13 09:54+0000\n"
-"PO-Revision-Date: 2022-03-13 10:58+0100\n"
+"POT-Creation-Date: 2023-05-30 10:08+0000\n"
+"PO-Revision-Date: 2023-05-30 12:13+0200\n"
 "Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.2.2\n"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
@@ -66,6 +66,15 @@ msgstr ""
 "                    <br/>"
 
 #. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Label Quantity</strong>\n"
+"                    <br/>"
+msgstr ""
+"<strong>Cantidad de etiquetas</strong>\n"
+"                    <br/>"
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
 msgid "Barcode"
@@ -74,7 +83,7 @@ msgstr "Código de barras"
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__barcode_format
 msgid "Barcode Format"
-msgstr ""
+msgstr "Formato de Código de barras"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
@@ -114,6 +123,16 @@ msgid "Created on"
 msgstr "Creado el"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_custom_report
+msgid "Custom Label Impresion"
+msgstr "Impresión de etiquetas personalizadas"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_ir_actions_report__is_custom_label
+msgid "Custom label"
+msgstr "Etqueta personalizada"
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_company__barcode_default_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_res_config_settings__barcode_default_report
 msgid "Default template for barcode labels"
@@ -122,7 +141,7 @@ msgstr "Plantilla para etiquetas de códigos de barras"
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__result_package_id
 msgid "Dest. package"
-msgstr ""
+msgstr "Paquete destino"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields.selection,name:stock_picking_product_barcode_report.selection__res_company__barcode_report_default_format__gs1_128
@@ -142,10 +161,20 @@ msgid "Format of the barcode when it is printed."
 msgstr "Formato de impresión de códigos de barras."
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__html_content
+msgid "Html Content"
+msgstr "Contenido html"
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__id
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__id
 msgid "ID"
 msgstr "ID"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__is_custom_label
+msgid "Is Custom Label"
+msgstr "Es etiqueta personalizada"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
@@ -158,6 +187,11 @@ msgstr ""
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report
 msgid "Label Impresion"
 msgstr "Impresión de etiquetas"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__label_qty
+msgid "Label Qty"
+msgstr "Cantidad de etiquetas"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.action_label_barcode_report_quant_package
