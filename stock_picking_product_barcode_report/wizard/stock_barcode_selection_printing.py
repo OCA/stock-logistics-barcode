@@ -68,6 +68,9 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         default=_default_barcode_report,
         required=True,
     )
+    is_custom_label = fields.Boolean(compute="_compute_is_custom_label")
+    html_content = fields.Html()
+    label_qty = fields.Integer(default=1)
 
     @api.onchange("picking_ids", "barcode_report")
     def _onchange_picking_ids(self):
@@ -119,6 +122,13 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         }
 
     def print_labels(self):
+        if self.is_custom_label:
+            return self.barcode_report.report_action(self)
         print_move = self.product_print_moves.filtered(lambda p: p.label_qty > 0)
         if print_move:
             return self.barcode_report.report_action(self.product_print_moves)
+
+    @api.onchange("barcode_report")
+    def _compute_is_custom_label(self):
+        for record in self:
+            record.is_custom_label = record.barcode_report.is_custom_label
