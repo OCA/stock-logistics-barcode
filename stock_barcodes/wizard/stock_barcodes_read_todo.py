@@ -70,7 +70,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         if group_key_for_todo_records:
             return safe_eval(group_key_for_todo_records, globals_dict={"object": line})
         if wiz.option_group_id.source_pending_moves == "move_line_ids":
-            return (line.location_id, line.product_id, line.lot_id)
+            return (line.location_id, line.product_id, line.lot_id, line.package_id)
         else:
             return (line.location_id, line.product_id)
 
