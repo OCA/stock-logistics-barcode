@@ -27,6 +27,7 @@
                         <field name="product_qty_done" />
                         <field name="scan_count" />
                         <field name="is_pending" />
+                        <field name="note" />
                         <templates>
                             <t t-name="kanban-box">
                                 <div
@@ -78,6 +79,18 @@
                                                 />
                                             </strong>
                                         </div>
+                                        <t
+                                            t-if="!widget.isHtmlEmpty(record.note.raw_value)"
+                                        >
+                                            <div
+                                                class="text-danger font-italic font-weight-bold text-center"
+                                            >
+                                                <t
+                                                    t-out="record.note.value"
+                                                    invisible="context.get('hide_note', False)"
+                                                />
+                                            </div>
+                                        </t>
                                         <div class="row">
                                             <div class="col">
                                                 <button
