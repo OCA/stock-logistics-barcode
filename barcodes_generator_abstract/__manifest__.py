@@ -17,6 +17,7 @@
     "data": [
         "security/res_groups.xml",
         "views/view_barcode_rule.xml",
+        "views/view_barcode_nomenclature.xml",
         "views/menu.xml",
     ],
     "demo": ["demo/res_users.xml"],
