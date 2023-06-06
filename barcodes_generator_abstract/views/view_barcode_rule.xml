@@ -23,7 +23,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     />
                     <field
                         name="generate_model"
-                        attrs="{'invisible': [('generate_type', '=', 'no')]}"
+                        attrs="{
+                            'invisible': [('generate_type', '=', 'no')],
+                            'required': [('generate_type', '!=', 'no')]
+                        }"
                     />
                     <field
                         name="generate_automate"
