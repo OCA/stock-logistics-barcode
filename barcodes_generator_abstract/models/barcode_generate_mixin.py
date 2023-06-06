@@ -16,10 +16,16 @@ class BarcodeGenerateMixin(models.AbstractModel):
 
     # Column Section
     barcode_rule_id = fields.Many2one(
-        string="Barcode Rule", comodel_name="barcode.rule"
+        string="Barcode Rule",
+        comodel_name="barcode.rule",
+        help="Select a rule to generate a barcode",
     )
 
-    barcode_base = fields.Integer(copy=False)
+    barcode_base = fields.Integer(
+        copy=False,
+        help="This value is used to generate barcode"
+        " according to the setting of the barcode rule.",
+    )
 
     generate_type = fields.Selection(
         related="barcode_rule_id.generate_type",
