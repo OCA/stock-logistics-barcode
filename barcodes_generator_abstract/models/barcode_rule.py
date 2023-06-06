@@ -4,7 +4,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, exceptions, fields, models, tools
+from odoo import _, api, fields, models
 
 _GENERATE_TYPE = [
     ("no", "No generation"),
@@ -60,39 +60,14 @@ class BarcodeRule(models.Model):
             if rule.generate_type == "no":
                 rule.generate_model = False
 
-    # Constrains Section
-    @api.constrains("generate_model", "generate_automate")
-    def _check_generate_model_automate(self):
-        """It should not allow two automated barcode generators per model.
-        It also clears the cache of automated rules if necessary.
-        """
-        for record in self:
-            if not record.generate_automate:
-                continue
-            # This query is duplicated, but necessary because the other
-            # method is cached & we need a completely current result.
-            domain = [
-                ("generate_model", "=", record.generate_model),
-                ("generate_automate", "=", True),
-            ]
-            if len(self.search(domain)) > 1:
-                raise exceptions.ValidationError(
-                    _(
-                        "Only one rule per model can be used for automatic "
-                        "barcode generation."
-                    )
-                )
-
     # CRUD
     @api.model_create_multi
     def create(self, vals_list):
-        self._clear_cache(vals_list)
         res = super().create(vals_list)
         res.generate_sequence_if_required()
         return res
 
     def write(self, vals):
-        self._clear_cache(vals)
         res = super().write(vals)
         self.generate_sequence_if_required()
         return res
@@ -113,41 +88,3 @@ class BarcodeRule(models.Model):
             "name": _("Sequence - %s") % rule.name,
             "padding": rule.padding,
         }
-
-    @api.model
-    def get_automatic_rule(self, model):
-        """It provides a cached indicator for barcode automation.
-
-        Args:
-            model (str): Name of model to search for.
-        Returns:
-            BarcodeRule: Recordset of automated barcode rules for model.
-
-        """
-        return self.browse(self.get_automatic_rule_ids(model))
-
-    @api.model
-    @tools.ormcache("model")
-    def get_automatic_rule_ids(self, model):
-        """It provides a cached indicator for barcode automation.
-
-        Note that this cache needs to be explicitly cleared when
-        `generate_automate` is changed on an associated `barcode.rule`.
-
-        Args:
-            model (str): Name of model to search for.
-        Returns:
-            list of int: IDs of the automated barcode rules for model.
-
-        """
-        record = self.search(
-            [("generate_model", "=", model), ("generate_automate", "=", True)]
-        )
-        return record.ids
-
-    @api.model
-    def _clear_cache(self, vals):
-        """It clears the caches if certain vals are updated."""
-        fields = ("generate_model", "generate_automate")
-        if any(k in vals for k in fields):
-            self.invalidate_model(fields)
