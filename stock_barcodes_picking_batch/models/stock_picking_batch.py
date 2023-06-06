@@ -32,7 +32,7 @@ class StockPickingBatch(models.Model):
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
         wiz.determine_todo_action()
         wiz.fill_pending_moves()
-        action = self.env.ref(
+        action = self.sudo().env.ref(
             "stock_barcodes_picking_batch.action_stock_barcodes_read_picking_batch"
         ).read()[0]
         action["res_id"] = wiz.id
