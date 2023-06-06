@@ -1,7 +1,9 @@
 # Copyright 2021 Tecnativa - Carlos Roca
+# Copyright 2023-Today GRAP (http://www.grap.coop)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 from odoo_test_helper import FakeModelLoader
 
+from odoo.exceptions import UserError
 from odoo.tests import TransactionCase
 
 
@@ -37,19 +39,63 @@ class TestBarcodesGeneratorAbstract(TransactionCase, FakeModelLoader):
             {
                 "name": "Test user",
                 "login": "testing_01",
-                "barcode_rule_id": cls.barcode_rule_fake.id,
-                "barcode_base": 10,
             }
         )
-        cls.user_fake.generate_barcode()
 
     @classmethod
     def tearDownClass(cls):
         cls.loader.restore_registry()
         super().tearDownClass()
 
-    def test_generate_sequence(self):
+    def test_generate_sequence_manually(self):
+        self.user_fake.barcode_rule_id = self.barcode_rule_fake
+        self.assertFalse(self.user_fake.barcode_base)
+        self.assertFalse(self.user_fake.barcode)
+
+        with self.assertRaises(UserError):
+            self.user_fake.generate_base()
+
+        self.user_fake.generate_barcode()
+        self.assertEqual(
+            self.user_fake.barcode,
+            "2000000000008",
+        )
+        self.user_fake.barcode_base = 10
+        self.user_fake.generate_barcode()
         self.assertEqual(
             self.user_fake.barcode,
             "2000010000005",
         )
+
+    def test_generate_sequence_sequence(self):
+        self.barcode_rule_fake.generate_type = "sequence"
+        self.assertTrue(self.barcode_rule_fake.sequence_id)
+
+        self.user_fake.barcode_rule_id = self.barcode_rule_fake
+        self.assertFalse(self.user_fake.barcode_base)
+        self.assertFalse(self.user_fake.barcode)
+
+        self.user_fake.generate_base()
+        self.assertEqual(self.user_fake.barcode_base, 1)
+        self.assertFalse(self.user_fake.barcode)
+
+        self.user_fake.generate_barcode()
+        self.assertEqual(self.user_fake.barcode, "2000001000007")
+
+        self.user_fake.generate_base()
+        self.assertEqual(self.user_fake.barcode_base, 2)
+        self.user_fake.generate_barcode()
+        self.assertEqual(self.user_fake.barcode, "2000002000006")
+
+    def test_generate_sequence_sequence_automate(self):
+        self.barcode_rule_fake.write(
+            {
+                "generate_type": "sequence",
+                "generate_automate": True,
+            }
+        )
+        self.assertTrue(self.barcode_rule_fake.sequence_id)
+
+        self.user_fake.barcode_rule_id = self.barcode_rule_fake
+        self.assertEqual(self.user_fake.barcode_base, 1)
+        self.assertEqual(self.user_fake.barcode, "2000001000007")
