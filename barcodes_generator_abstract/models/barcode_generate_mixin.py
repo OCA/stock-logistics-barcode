@@ -5,13 +5,9 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 # pylint: disable=missing-manifest-dependency
 
-import logging
-
 import barcode
 
 from odoo import _, api, exceptions, fields, models
-
-_logger = logging.getLogger(__name__)
 
 
 class BarcodeGenerateMixin(models.AbstractModel):
@@ -32,17 +28,18 @@ class BarcodeGenerateMixin(models.AbstractModel):
     @api.model_create_multi
     def create(self, vals_list):
         """It creates a new barcode if automation is active."""
-        barcode_rule = self.env["barcode.rule"].get_automatic_rule(self._name)
-        if barcode_rule.exists():
-            for vals in vals_list:
-                vals.update({"barcode_rule_id": barcode_rule.id})
         records = super().create(vals_list)
-        if barcode_rule and barcode_rule.generate_type == "sequence":
-            records.generate_base()
-            records.generate_barcode()
+        for rec in records:
+            if rec.barcode_rule_id and rec.barcode_rule_id.generate_type == "sequence":
+                if not rec.barcode_base:
+                    rec.generate_base()
+                if not rec.barcode:
+                    rec.generate_barcode()
         return records
 
     def write(self, vals):
+        """Generate new barcodes if a barcode rule with automation
+        is applied."""
         res = super().write(vals)
         if vals.get("barcode_rule_id"):
             rule = self.env["barcode.rule"].browse(vals["barcode_rule_id"])
