@@ -12,10 +12,14 @@
     "data": [
         "security/ir.model.access.csv",
         "data/stock_barcodes_action.xml",
-        "views/assets.xml",
         "views/stock_picking_batch_views.xml",
         "wizard/stock_barcodes_read_picking_batch_views.xml",
     ],
+    "assets": {
+        "web.assets_backend": [
+            "stock_barcodes_picking_batch/static/src/js/barcodes_models_mixin.js"
+        ],
+    },
     "installable": True,
     "auto_install": True,
 }

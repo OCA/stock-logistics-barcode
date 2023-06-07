@@ -5,7 +5,7 @@
         <field name="sequence">30</field>
         <field
             name="action_window_id"
-            ref="stock_picking_batch_extended.action_stock_batch_picking_tree"
+            ref="stock_picking_batch.stock_picking_batch_action"
         />
         <field
             name="context"
