@@ -108,7 +108,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if self.option_group_id.source_pending_moves == "move_line_ids":
             return self.picking_batch_id.move_line_ids.filtered(lambda ln: ln.move_id)
         else:
-            return self.picking_batch_id.move_lines
+            return self.picking_batch_id.move_ids
 
     def update_fields_after_determine_todo(self, move_line):
         self.picking_batch_product_qty = move_line.qty_done
@@ -300,11 +300,9 @@ class WizCandidatePickingBatch(models.TransientModel):
     @api.depends("scan_count")
     def _compute_product_ref_count(self):
         for candidate in self:
-            bp_products = set(
-                candidate.picking_batch_id.move_lines.mapped("product_id")
-            )
+            bp_products = set(candidate.picking_batch_id.move_ids.mapped("product_id"))
             bp_products_pending = set(
-                candidate.picking_batch_id.move_lines.filtered(
+                candidate.picking_batch_id.move_ids.filtered(
                     lambda ln: ln.quantity_done < ln.product_uom_qty
                 ).mapped("product_id")
             )
