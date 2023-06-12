@@ -10,12 +10,17 @@
                     <field
                         name="secondary_uom_id"
                         options="{'no_open': True, 'no_create': True}"
-                        domain="[('product_tmpl_id', '=', product_tmpl_id)]"
+                        domain="['|', ('product_id', '=', product_id),
+                                    '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
+                                             ('product_id', '=', False)]"
                         force_save="1"
                         placeholder="Secondary uom"
                     />
                 </div>
-                <div class="col text-center">
+                <div
+                    class="col text-center"
+                    invisible="context.get('hide_secondary_single_qty', True)"
+                >
                     <div>
                         <field
                             name="product_uom_id"
@@ -34,7 +39,10 @@
                         options="{'auto_select': True}"
                     />
                 </div>
-                <div class="col text-center px-0">
+                <div
+                    class="col text-center px-0"
+                    invisible="context.get('hide_secondary_single_qty', True)"
+                >
                     <field
                         name="secondary_single_qty"
                         force_save="1"
