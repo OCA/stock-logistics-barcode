@@ -123,6 +123,7 @@
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
                 <field name="picking_id" invisible="1" force_save="1" />
+                <field name="show_detailed_operations" invisible="1" />
             </field>
             <group name="location" position="attributes">
                 <attribute
@@ -241,7 +242,7 @@
                 </group>
                 <group
                     string="Detailed operations"
-                    attrs="{'invisible': [('move_line_ids', '=', [])]}"
+                    attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
                 >
                     <field
                         name="move_line_ids"
@@ -301,7 +302,7 @@
                                 <t t-name="kanban-box">
                                     <div t-attf-class="oe_kanban_card">
                                         <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-7">
                                                 <strong>
                                                     <span>
                                                         <field name="product_id" />
@@ -315,7 +316,7 @@
                                                     <field name="qty_done" />
                                                 </span>
                                             </div>
-                                            <div class="col-2 text-right">
+                                            <div class="col-3 text-right">
                                                 <button
                                                     name="action_barcode_detailed_operation_unlink"
                                                     type="object"
@@ -334,11 +335,15 @@
                                             <div class="col-4">
                                                 Lot: <field name="lot_id" />
                                             </div>
-                                            <div class="col-4">
-                                                Package: <field
-                                                    name="result_package_id"
-                                                />
-                                            </div>
+                                            <t
+                                                t-if="record.result_package_id.raw_value"
+                                            >
+                                                <div class="col-4">
+                                                    Package: <field
+                                                        name="result_package_id"
+                                                    />
+                                                </div>
+                                            </t>
                                         </div>
                                     </div>
                                 </t>
