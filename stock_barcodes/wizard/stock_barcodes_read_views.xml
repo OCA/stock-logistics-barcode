@@ -27,7 +27,9 @@
                                 <field name="icon_class" />
                                 <templates>
                                     <t t-name="kanban-box">
-                                        <div class="oe_kanban_details">
+                                        <div
+                                            class="oe_kanban_details oe_kanban_card_full_width"
+                                        >
                                             <button
                                                 name="open_action"
                                                 type="object"
@@ -113,6 +115,7 @@
                         <field name="confirmed_moves" invisible="1" force_save="1" />
                         <field name="qty_available" invisible="1" />
                         <field name="owner_id" invisible="1" force_save="1" />
+                        <field name="keep_result_package" invisible="1" />
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
@@ -185,6 +188,26 @@
                                         icon="fa-plus fa-1x"
                                         title="Create new package"
                                     />
+                                    <!-- Double button to display open or closed padlock -->
+                                    <button
+                                        id="btn_keep_result_package_lock"
+                                        class="btn btn-danger ml2 btn-sm oe_kanban_action_button pull-right mr4"
+                                        type="object"
+                                        name="action_keep_result_package"
+                                        title="If locked keep result package"
+                                        icon="fa-lock"
+                                        attrs="{'invisible': [('keep_result_package', '=', False)]}"
+                                    />
+                                    <button
+                                        id="btn_keep_result_package_unlock"
+                                        class="btn btn-secondary ml2 btn-sm oe_kanban_action_button pull-right mr4 "
+                                        type="object"
+                                        name="action_keep_result_package"
+                                        title="If locked keep result package"
+                                        icon="fa-unlock"
+                                        attrs="{'invisible': [('keep_result_package', '=', True)]}"
+                                    />
+                                    <!-- End padlock -->
                                 </div>
                             </group>
                             <group>
