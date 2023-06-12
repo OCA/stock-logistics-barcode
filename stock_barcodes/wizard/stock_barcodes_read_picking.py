@@ -63,6 +63,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     selected_pending_move_id = fields.Many2one(
         comodel_name="wiz.stock.barcodes.read.todo"
     )
+    show_detailed_operations = fields.Boolean(
+        related="option_group_id.show_detailed_operations"
+    )
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -79,12 +82,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.pending_move_ids = False
 
     def _compute_move_line_ids(self):
-        if self.option_group_id.show_detailed_operations:
-            self.move_line_ids = self.picking_id.move_line_ids.filtered(
-                "qty_done"
-            ).sorted("write_date", reverse=True)
-        else:
-            self.move_line_ids = False
+        self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
+            "write_date", reverse=True
+        )
+
+        # if self.option_group_id.show_detailed_operations:
+        #     self.move_line_ids = self.picking_id.move_line_ids.filtered(
+        #         "qty_done"
+        #     ).sorted("write_date", reverse=True)
+        # else:
+        #     self.move_line_ids = False
 
     def name_get(self):
         return [
@@ -206,7 +213,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
         if self.option_group_id.get_option_value("package_id", "filled_default"):
             self.package_id = move_line.package_id
-        if self.option_group_id.get_option_value("result_package_id", "filled_default"):
+        if not self.keep_result_package and self.option_group_id.get_option_value(
+            "result_package_id", "filled_default"
+        ):
             self.result_package_id = move_line.result_package_id
 
         if self.option_group_id.get_option_value("product_id", "filled_default"):
