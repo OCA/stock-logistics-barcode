@@ -80,6 +80,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         readonly=False,
     )
     display_assign_serial = fields.Boolean(compute="_compute_display_assign_serial")
+    keep_result_package = fields.Boolean()
 
     @api.depends("res_id")
     def _compute_action_ids(self):
@@ -512,14 +513,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         options = self.option_group_id.option_ids
         options_to_clean = options.filtered("clean_after_done")
         for option in options_to_clean:
+            if option.field_name == "result_package_id" and self.keep_result_package:
+                continue
             if option.field_name:
                 setattr(self, option.field_name, False)
         self.action_show_step()
-        # self.product_id = False
-        # self.lot_id = False
-        # self.packaging_id = False
-        # self.package_id = False
-        # self.result_package_id = False
         self.product_qty = 0.0
         self.packaging_qty = 0.0
 
@@ -693,3 +691,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_clean_message(self):
         self.message = False
         self.check_option_required()
+
+    def action_keep_result_package(self):
+        self.keep_result_package = not self.keep_result_package

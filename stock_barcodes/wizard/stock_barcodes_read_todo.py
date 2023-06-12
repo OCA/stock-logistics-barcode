@@ -82,6 +82,71 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             res[quant.product_id] += quant.quantity
         return res
 
+    def _prepare_fill_record_values(self, wiz_barcode, line, position):
+        vals = {
+            "product_id": line.product_id.id,
+            "product_uom_qty": line.product_uom_qty,
+            "name": "To do action",
+            "position_index": position,
+            "picking_code": line.picking_code,
+        }
+        if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
+            package_product_dic = self._get_all_products_quantities_in_package(
+                line.package_id
+            )
+            vals.update(
+                {
+                    "location_id": line.location_id.id,
+                    "location_dest_id": line.location_dest_id.id,
+                    "lot_id": line.lot_id.id,
+                    "package_id": line.package_id.id,
+                    "result_package_id": line.result_package_id.id,
+                    "uom_id": line.product_uom_id.id,
+                    "qty_done": line.qty_done,
+                    "product_qty_reserved": line.product_qty,
+                    "line_ids": [(6, 0, line.ids)],
+                    "stock_move_ids": [(6, 0, line.move_id.ids)],
+                    "package_product_qty": package_product_dic
+                    and package_product_dic[line.product_id]
+                    or 0.0,
+                }
+            )
+        else:
+            vals.update(
+                {
+                    "location_id": (line.move_line_ids[:1] or line).location_id.id,
+                    "location_dest_id": (
+                        line.move_line_ids[:1] or line
+                    ).location_dest_id.id,
+                    "uom_id": line.product_uom.id,
+                    "qty_done": line.quantity_done,
+                    "product_qty_reserved": line.move_line_ids
+                    and sum(line.move_line_ids.mapped("product_qty"))
+                    or line.product_uom_qty,
+                    "line_ids": [(6, 0, line.move_line_ids.ids)],
+                    "stock_move_ids": [(6, 0, line.ids)],
+                }
+            )
+        return vals
+
+    def _update_fill_record_values(self, wiz_barcode, line, vals):
+        vals["product_uom_qty"] += line.product_uom_qty
+        if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
+            vals["product_qty_reserved"] += line.product_qty
+            vals["qty_done"] += line.qty_done
+            vals["line_ids"][0][2].append(line.id)
+            vals["stock_move_ids"][0][2].append(line.move_id.id)
+        else:
+            vals["product_qty_reserved"] += (
+                line.move_line_ids
+                and sum(line.move_line_ids.mapped("product_qty"))
+                or line.product_uom_qty
+            )
+            vals["qty_done"] += line.quantity_done
+            vals["line_ids"][0][2].extend(line.move_line_ids.ids)
+            vals["stock_move_ids"][0][2].extend(line.ids)
+        return vals
+
     @api.model
     def fill_records(self, wiz_barcode, lines_list):
         """
@@ -95,78 +160,14 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             for line in lines:
                 key = self._group_key(wiz_barcode, line)
                 if key not in todo_vals:
-                    vals = {
-                        "product_id": line.product_id.id,
-                        "product_uom_qty": line.product_uom_qty,
-                        "name": "To do action",
-                        "position_index": position,
-                        "picking_code": line.picking_code,
-                    }
-                    if (
-                        wiz_barcode.option_group_id.source_pending_moves
-                        == "move_line_ids"
-                    ):
-                        package_product_dic = (
-                            self._get_all_products_quantities_in_package(
-                                line.package_id
-                            )
-                        )
-                        vals.update(
-                            {
-                                "location_id": line.location_id.id,
-                                "location_dest_id": line.location_dest_id.id,
-                                "lot_id": line.lot_id.id,
-                                "package_id": line.package_id.id,
-                                "result_package_id": line.result_package_id.id,
-                                "uom_id": line.product_uom_id.id,
-                                "qty_done": line.qty_done,
-                                "product_qty_reserved": line.product_qty,
-                                "line_ids": [(6, 0, line.ids)],
-                                "stock_move_ids": [(6, 0, line.move_id.ids)],
-                                "package_product_qty": package_product_dic
-                                and package_product_dic[line.product_id]
-                                or 0.0,
-                            }
-                        )
-                    else:
-                        vals.update(
-                            {
-                                "location_id": (
-                                    line.move_line_ids[:1] or line
-                                ).location_id.id,
-                                "location_dest_id": (
-                                    line.move_line_ids[:1] or line
-                                ).location_dest_id.id,
-                                "uom_id": line.product_uom.id,
-                                "qty_done": line.quantity_done,
-                                "product_qty_reserved": line.move_line_ids
-                                and sum(line.move_line_ids.mapped("product_qty"))
-                                or line.product_uom_qty,
-                                "line_ids": [(6, 0, line.move_line_ids.ids)],
-                                "stock_move_ids": [(6, 0, line.ids)],
-                            }
-                        )
-                    todo_vals[key] = vals
+                    todo_vals[key] = self._prepare_fill_record_values(
+                        wiz_barcode, line, position
+                    )
                     position += 1
                 else:
-                    todo_vals[key]["product_uom_qty"] += line.product_uom_qty
-                    if (
-                        wiz_barcode.option_group_id.source_pending_moves
-                        == "move_line_ids"
-                    ):
-                        todo_vals[key]["product_qty_reserved"] += line.product_qty
-                        todo_vals[key]["qty_done"] += line.qty_done
-                        todo_vals[key]["line_ids"][0][2].append(line.id)
-                        todo_vals[key]["stock_move_ids"][0][2].append(line.move_id.id)
-                    else:
-                        todo_vals[key]["product_qty_reserved"] += (
-                            line.move_line_ids
-                            and sum(line.move_line_ids.mapped("product_qty"))
-                            or line.product_uom_qty
-                        )
-                        todo_vals[key]["qty_done"] += line.quantity_done
-                        todo_vals[key]["line_ids"][0][2].extend(line.move_line_ids.ids)
-                        todo_vals[key]["stock_move_ids"][0][2].extend(line.ids)
+                    todo_vals[key] = self._update_fill_record_values(
+                        wiz_barcode, line, todo_vals[key]
+                    )
         wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
 
     def action_todo_next(self):
@@ -218,18 +219,28 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     @api.model
     def fields_to_fill_from_pending_line(self):
-        return [
+        res = [
             "location_id",
+            "location_dest_id",
             "product_id",
             "lot_id",
             "package_id",
-            "result_package_id",
         ]
+        if not self.wiz_barcode_id.keep_result_package:
+            res.append("result_package_id")
+        return res
 
     def fill_from_pending_line(self):
         self.wiz_barcode_id.selected_pending_move_id = self
         self.wiz_barcode_id.determine_todo_action(forced_todo_line=self)
         for field in self.fields_to_fill_from_pending_line():
             self.wiz_barcode_id[field] = self[field]
+        # Force fill product_qty if filled_default is set
+        if self.wiz_barcode_id.option_group_id.get_option_value(
+            "product_qty", "filled_default"
+        ):
+            self.wiz_barcode_id.product_qty = self.product_uom_qty - sum(
+                self.line_ids.mapped("qty_done")
+            )
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id._set_focus_on_qty_input()
