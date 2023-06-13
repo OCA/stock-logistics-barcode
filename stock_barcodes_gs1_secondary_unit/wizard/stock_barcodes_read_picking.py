@@ -31,4 +31,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 "secondary_uom_id", "filled_default"
             ):
                 self.secondary_uom_id = self.todo_line_id.line_ids[:1].secondary_uom_id
+            if self.option_group_id.get_option_value(
+                "secondary_uom_qty", "filled_default"
+            ):
+                self.secondary_uom_qty = self.todo_line_id.secondary_uom_qty
         return res

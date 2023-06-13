@@ -63,7 +63,7 @@
         <field name="arch" type="xml">
             <!-- Add secondary uom info to pending moves -->
             <xpath
-                expr="//field[@name='pending_move_ids']/tree/button[@name='fill_from_pending_line']"
+                expr="//field[@name='pending_move_ids']/tree/field[@name='product_uom_qty']"
                 position="before"
             >
                 <field name="secondary_uom_qty" optional="show" />
@@ -96,7 +96,7 @@
             </xpath>
             <!-- Add secondary uom info to detailed operations -->
             <xpath
-                expr="//field[@name='move_line_ids']/tree/button[@name='action_barcode_detailed_operation_unlink']"
+                expr="//field[@name='move_line_ids']/tree/field[@name='qty_done']"
                 position="before"
             >
                 <field name="secondary_uom_qty" optional="show" />
