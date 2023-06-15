@@ -12,15 +12,14 @@ class ProductTemplate(models.Model):
     # Related to display product product information if is_product_variant
     barcode_rule_id = fields.Many2one(
         string="Barcode Rule",
-        related="product_variant_ids.barcode_rule_id",
+        compute="_compute_barcode_rule_id",
+        inverse="_inverse_barcode_rule_id",
         comodel_name="barcode.rule",
-        readonly=False,
     )
 
     barcode_base = fields.Integer(
-        string="Barcode Base",
-        related="product_variant_ids.barcode_base",
-        readonly=False,
+        compute="_compute_barcode_base",
+        inverse="_inverse_barcode_base",
     )
 
     generate_type = fields.Selection(
@@ -28,6 +27,37 @@ class ProductTemplate(models.Model):
         related="product_variant_ids.barcode_rule_id.generate_type",
         readonly=True,
     )
+
+    # Compute Section
+    @api.depends("product_variant_ids.barcode_rule_id")
+    def _compute_barcode_rule_id(self):
+        unique_variants = self.filtered(
+            lambda template: len(template.product_variant_ids) == 1
+        )
+        for template in unique_variants:
+            template.barcode_rule_id = template.product_variant_ids.barcode_rule_id
+        for template in self - unique_variants:
+            template.barcode_rule_id = False
+
+    def _inverse_barcode_rule_id(self):
+        for template in self:
+            if len(template.product_variant_ids) == 1:
+                template.product_variant_ids.barcode_rule_id = template.barcode_rule_id
+
+    @api.depends("product_variant_ids.barcode_base")
+    def _compute_barcode_base(self):
+        unique_variants = self.filtered(
+            lambda template: len(template.product_variant_ids) == 1
+        )
+        for template in unique_variants:
+            template.barcode_base = template.product_variant_ids.barcode_base
+        for template in self - unique_variants:
+            template.barcode_base = False
+
+    def _inverse_barcode_base(self):
+        for template in self:
+            if len(template.product_variant_ids) == 1:
+                template.product_variant_ids.barcode_base = template.barcode_base
 
     # View Section
     def generate_base(self):
@@ -42,19 +72,7 @@ class ProductTemplate(models.Model):
         self.generate_type = self.barcode_rule_id.generate_type
 
     # Overload Section
-    @api.model_create_multi
-    def create(self, vals_list):
-        # this is needed to set given values to first variant after creation
-        # these fields should be moved to product as lead to confusion
-        # (Ref. product module feature in Odoo Core)
-        result = self
-        for vals in vals_list:
-            template = super().create(vals)
-            related_vals = {}
-            for field in ["barcode_rule_id", "barcode_base"]:
-                if vals.get(field, False):
-                    related_vals[field] = vals[field]
-            if related_vals:
-                template.write(related_vals)
-            result |= template
-        return result
+    def _get_related_fields_variant_template(self):
+        res = super()._get_related_fields_variant_template()
+        res += ["barcode_rule_id", "barcode_base"]
+        return res
