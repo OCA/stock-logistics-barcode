@@ -4,9 +4,10 @@
 {
     "name": "Generate Barcodes for Packaging",
     "summary": "Generate Barcodes for Product Packaging",
-    "version": "14.0.1.0.1",
+    "version": "16.0.1.0.0",
     "category": "Tools",
-    "author": "LasLabs, " "Odoo Community Association (OCA)",
+    "author": "LasLabs, GRAP, Odoo Community Association (OCA)",
+    "maintainers": ["legalsylvain"],
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "depends": [
@@ -20,6 +21,5 @@
         "demo/ir_sequence.xml",
         "demo/barcode_rule.xml",
         "demo/product_packaging.xml",
-        "demo/function.xml",
     ],
 }
