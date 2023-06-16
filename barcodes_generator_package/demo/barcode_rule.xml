@@ -5,7 +5,7 @@
 -->
 <odoo>
 
-    <record id="product_packaging_generated_barcode" model="barcode.rule">
+    <record id="rule_package" model="barcode.rule">
         <field name="name">Packaging Rule (Generated Barcode)</field>
         <field
             name="barcode_nomenclature_id"
