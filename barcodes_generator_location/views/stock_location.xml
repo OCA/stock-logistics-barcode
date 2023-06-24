@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+    <record id="view_location_form" model="ir.ui.view">
+        <field name="model">stock.location</field>
+        <field name="inherit_id" ref="stock.view_location_form" />
+        <field name="arch" type="xml">
+            <group name="additional_info" position="after">
+                <!-- This view is handled by fields_view_get method of
+                    stock location to add the barcode field to the view
+                    in case it has not been added by the stock_barcodes
+                    module. -->
+                <group name="barcodes_generator_location" string="Barcode">
+                    <field
+                        name="barcode_rule_id"
+                        domain="[('generate_model', '=', 'stock.location')]"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                    />
+                    <field name="generate_type" invisible="1" />
+                    <field
+                        name="barcode_base"
+                        attrs="{
+                                    'invisible': [('barcode_rule_id', '=', False)],
+                                    'readonly': [('generate_type', '!=', 'manual')],
+                                }"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                    />
+                    <button
+                        name="generate_base"
+                        type="object"
+                        string="Generate Base (Using Sequence)"
+                        attrs="{'invisible': ['|',
+                                        ('generate_type', '!=', 'sequence'),
+                                        ('barcode_base', '!=', 0),
+                                    ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                    />
+                    <button
+                        name="generate_barcode"
+                        type="object"
+                        string="Generate Barcode"
+                        attrs="{'invisible': ['|',
+                                    ('barcode_rule_id', '=', False),
+                                    ('barcode_base', '=', 0),
+                                    ]}"
+                        groups="barcodes_generator_abstract.generate_barcode"
+                        colspan="2"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
