@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-02-04 07:30+0000\n"
-"PO-Revision-Date: 2023-06-07 13:12+0000\n"
+"PO-Revision-Date: 2023-07-03 16:09+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (http://www.transifex.com/oca/"
 "OCA-stock-logistics-barcode-8-0/language/it/)\n"
@@ -65,7 +65,7 @@ msgstr ""
 #: code:addons/stock_inventory_barcode/wizard/stock_inventory_barcode.py:96
 #, python-format
 msgid "Error"
-msgstr "Error"
+msgstr "Errore"
 
 #. module: stock_inventory_barcode
 #: field:stock.inventory.barcode,id:0
