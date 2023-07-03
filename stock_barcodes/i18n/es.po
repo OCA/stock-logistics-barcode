@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 11.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-05-11 11:09+0000\n"
-"PO-Revision-Date: 2022-05-11 13:10+0200\n"
+"POT-Creation-Date: 2023-01-26 14:44+0000\n"
+"PO-Revision-Date: 2023-01-26 15:46+0100\n"
 "Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 2.3\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
@@ -730,6 +730,12 @@ msgstr "Interno"
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_inventory
 msgid "Inventory"
 msgstr "Inventario"
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#, python-format
+msgid "Inventory line with more than one unit in serial tracked product"
+msgstr "Línea de inventario con más de una cantidad de un producto con S/N único"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_product_qty

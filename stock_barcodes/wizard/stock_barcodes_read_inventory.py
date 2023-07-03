@@ -65,10 +65,19 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         StockInventoryLine = self.env["stock.inventory.line"]
         line = StockInventoryLine.search(self._prepare_inventory_line_domain(), limit=1)
         if line:
+            if self.product_id.tracking == "serial" and line.product_qty > 0.0:
+                self._set_messagge_info(
+                    "more_match",
+                    _(
+                        "Inventory line with more than one unit in serial tracked product"
+                    ),
+                )
+                return False
             line.write({"product_qty": line.product_qty + self.product_qty})
         else:
             line = StockInventoryLine.create(self._prepare_inventory_line())
         self.inventory_product_qty = line.product_qty
+        return True
 
     def check_lot_contidion(self):
         """ Change valuation condition depends if auto_lot is setted
@@ -91,7 +100,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 if res is not None and not res:
                     return res
             else:
-                self._add_inventory_line()
+                result = self._add_inventory_line()
         return result
 
     def action_manual_entry(self):
