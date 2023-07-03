@@ -735,7 +735,8 @@ msgstr "Inventario"
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "Inventory line with more than one unit in serial tracked product"
-msgstr "Línea de inventario con más de una cantidad de un producto con S/N único"
+msgstr ""
+"Línea de inventario con más de una cantidad de un producto con S/N único"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_product_qty
