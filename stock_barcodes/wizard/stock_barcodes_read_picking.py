@@ -806,17 +806,16 @@ class WizCandidatePicking(models.TransientModel):
         )
         return wiz.action_cancel()
 
+    def _get_picking_to_validate(self):
+        return (
+            self.env["stock.picking"]
+            .browse(self.env.context.get("picking_id", False))
+            .with_context(show_picking_type_action_tree=True)
+        )
+
     def action_validate_picking(self):
-        picking = self.env["stock.picking"].browse(
-            self.env.context.get("picking_id", False)
-        )
-        res = picking.button_validate()
-        if isinstance(res, dict):
-            # backorder wizard
-            return res
-        return self.env["ir.actions.actions"]._for_xml_id(
-            "stock_barcodes.action_stock_barcodes_action"
-        )
+        picking = self._get_picking_to_validate()
+        return picking.button_validate()
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(
