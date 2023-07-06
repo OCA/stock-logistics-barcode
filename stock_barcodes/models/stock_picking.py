@@ -46,4 +46,7 @@ class StockPicking(models.Model):
             and not self.move_line_ids.mapped("result_package_id")
         ):
             self.action_put_in_pack()
-        return super().button_validate()
+        res = super().button_validate()
+        if res is True and self.env.context.get("show_picking_type_action_tree", False):
+            return self[:1].picking_type_id.get_action_picking_tree_ready()
+        return res
