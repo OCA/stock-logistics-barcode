@@ -28,5 +28,15 @@
             name="context"
         >{'search_default_code': 'outgoing', 'search_default_barcode_options': 1}</field>
     </record>
-
+    <!-- Action for inventory based on quants -->
+    <record id="stock_barcodes_action_inventory" model="stock.barcodes.action">
+        <field name="name">Inventory</field>
+        <field name="sequence">40</field>
+        <field
+            name="action_window_id"
+            ref="stock_barcodes.action_stock_barcodes_read_inventory"
+        />
+        <field name="key_char_shortcut">8</field>
+        <field name="context">{'inventory_mode': True}</field>
+    </record>
 </odoo>
