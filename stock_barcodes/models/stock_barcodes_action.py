@@ -28,5 +28,27 @@ class StockBarcodesAction(models.Model):
             ctx.update(action_context)
         if self.context:
             ctx.update(safe_eval(self.context))
+        if action_context.get("inventory_mode", False):
+            return self.open_inventory_action(ctx)
+        action["context"] = ctx
+        return action
+
+    def open_inventory_action(self, ctx):
+        option_group = self.env.ref(
+            "stock_barcodes.stock_barcodes_option_group_inventory"
+        )
+        vals = {
+            "option_group_id": option_group.id,
+            "manual_entry": option_group.manual_entry,
+        }
+        if option_group.get_option_value("location_id", "filled_default"):
+            vals["location_id"] = (
+                self.env["stock.warehouse"].search([])[:1].lot_stock_id.id
+            )
+        wiz = self.env["wiz.stock.barcodes.read.inventory"].create(vals)
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_read_inventory"
+        )
+        action["res_id"] = wiz.id
         action["context"] = ctx
         return action

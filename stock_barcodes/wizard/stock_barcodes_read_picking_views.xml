@@ -106,7 +106,7 @@
                                                     name="action_validate_picking"
                                                     type="object"
                                                     t-att-class="'btn pull-right' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary')"
-                                                    attrs="{'invisible': [('state', 'not in', [ 'assigned', 'confirmed'])]}"
+                                                    attrs="{'invisible': [('state', 'not in', ['draft', 'assigned', 'confirmed'])]}"
                                                     confirm="Are you sure to validate the picking ?"
                                                     context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
                                                 >Validate</button>
