@@ -47,7 +47,7 @@ class ProductTemplate(models.Model):
         # this is needed to set given values to first variant after creation
         # these fields should be moved to product as lead to confusion
         # (Ref. product module feature in Odoo Core)
-        result = self
+        result = self.env['product.template']
         for vals in vals_list:
             template = super().create(vals)
             related_vals = {}
