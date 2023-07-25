@@ -23,7 +23,9 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             quants = self.env["stock.quant"].search(
                 [
                     ("user_id", "=", self.env.user.id),
+                    "|",
                     ("inventory_quantity_set", "=", True),
+                    ("inventory_date", "<=", fields.Date.context_today(self)),
                 ],
                 order="write_date DESC",
             )
@@ -60,20 +62,24 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             if self.product_id.tracking == "serial" and (
                 quant.inventory_quantity > 0.0 or self.product_qty != 1
             ):
-                self._set_messagge_info(
-                    "more_match",
-                    _(
-                        "Inventory line with more than one unit in serial tracked product"
-                    ),
-                )
+                self._serial_tracking_message_fail()
                 return False
             quant.inventory_quantity = self.product_qty
         else:
+            if self.product_id.tracking == "serial" and self.product_qty != 1:
+                self._serial_tracking_message_fail()
+                return False
             quant = StockQuant.with_context(inventory_mode=True).create(
                 self._prepare_stock_quant_values()
             )
         self.inventory_product_qty = quant.quantity
         return True
+
+    def _serial_tracking_message_fail(self):
+        self._set_messagge_info(
+            "more_match",
+            _("Inventory line with more than one unit in serial tracked product"),
+        )
 
     def action_done(self):
         result = super(
