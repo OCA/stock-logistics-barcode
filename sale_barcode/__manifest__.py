@@ -3,7 +3,7 @@
     "version": "14.0.1.0.0",
     "category": "Tools",
     "website": "https://github.com/OCA/stock-logistics-barcode",
-    "author": "Cetmix, Odoo Community Association (OCA)",
+    "author": "Ooops, Cetmix, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
     "summary": "Add Sale line with barcode",
