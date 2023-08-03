@@ -513,7 +513,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     sml_vals.update({"result_package_id": self.package_id.id})
             elif line.result_package_id == line.package_id:
                 sml_vals.update({"result_package_id": False})
-            line.write(sml_vals)
+            self._update_stock_move_line(line, sml_vals)
             if line.qty_done >= line.product_uom_qty:
                 line.barcode_scan_state = "done"
             elif self.env.context.get("done_forced"):
@@ -554,6 +554,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.fill_todo_records()
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
+
+    def _update_stock_move_line(self, line, sml_vals):
+        """Update stock move line with values. Helper method to be inherited"""
+        line.write(sml_vals)
 
     def create_new_stock_move_line(self, moves_todo, available_qty):
         """Create a new stock move line when a sml is not available
