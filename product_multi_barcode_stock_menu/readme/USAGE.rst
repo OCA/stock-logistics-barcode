@@ -1,1 +1,1 @@
-Go to Inventory -> Configuration -> Barcodes to see all barcodes.
+Go to Inventory -> Configuration -> Product -> Product Barcodes to see all barcodes.
