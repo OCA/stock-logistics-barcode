@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-17 17:15+0000\n"
+"PO-Revision-Date: 2023-09-03 13:42+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -95,7 +95,7 @@ msgstr "<i class=\"fa fa-check\" title=\"Riapri\"/>"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<i class=\"fa fa-cubes\" title=\"Put in Pack\"/>"
-msgstr "<i class=\"fa fa-cubes\" title=\"Metti nel pacco\"/>"
+msgstr "<i class=\"fa fa-cubes\" title=\"Metti nella confezione\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
@@ -270,7 +270,8 @@ msgstr "Metti in pacco automatico"
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack before picking validation"
-msgstr "Metti automaticamente nel pacco prima della validazione del prelievo"
+msgstr ""
+"Metti automaticamente nella confezione prima della validazione del prelievo"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
