@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-07-17 17:13+0000\n"
+"PO-Revision-Date: 2023-09-03 13:39+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -96,7 +96,7 @@ msgstr "<i class=\"fa fa-check\" title=\"Riapri\"/>"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<i class=\"fa fa-cubes\" title=\"Put in Pack\"/>"
-msgstr "<i class=\"fa fa-cubes\" title=\"Metti nel pacco\"/>"
+msgstr "<i class=\"fa fa-cubes\" title=\"Metti nella confezione\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
@@ -193,9 +193,9 @@ msgid ""
 "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
 "title=\"Package\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Collo</strong>\n"
+"<strong class=\"d-none d-sm-block\">Confezione</strong>\n"
 "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
-"title=\"Collo\"/>"
+"title=\"Confezione\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -216,10 +216,11 @@ msgid ""
 "                                    <span class=\"fa fa-cubes d-sm-none "
 "oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Collo originario -&gt; Collo risultante</"
-"strong>\n"
+"<strong class=\"d-none d-sm-block\">Confezione originaria -&gt; Confezione "
+"risultante</strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none "
-"oe_span_small_icon\" title=\"Collo originario a Collo risultante\"/>"
+"oe_span_small_icon\" title=\"Confezione originaria a confezione risultante\""
+"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -302,12 +303,13 @@ msgstr "Lotto automatico"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack"
-msgstr "Metti in pacco automatico"
+msgstr "Metti in confezione automaticamente"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack before picking validation"
-msgstr "Metti automaticamente nel pacco prima della validazione del prelievo"
+msgstr ""
+"Metti automaticamente nella confezione prima della validazione del prelievo"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
