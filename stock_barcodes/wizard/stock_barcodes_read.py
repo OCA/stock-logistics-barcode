@@ -643,6 +643,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         res = self.action_done()
         self.refresh()
         self.play_sounds(res)
+        self._set_focus_on_qty_input()
         return res
 
     def play_sounds(self, res):
@@ -655,7 +656,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 "stock_barcodes_sound-{}".format(self.ids[0]), {"sound": "ko"}
             )
 
-    def _set_focus_on_qty_input(self, field_name="product_qty"):
+    def _set_focus_on_qty_input(self, field_name=None):
+        if field_name is None:
+            field_name = "product_qty"
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
         self.env["bus.bus"].sendone(
