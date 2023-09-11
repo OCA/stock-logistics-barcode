@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2016 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="product_packaging_ir_sequence" model="ir.sequence">
+        <field name="name">Packaging Sequence (Generated Barcode)</field>
+        <field name="padding">10</field>
+        <field name="number_next">1</field>
+    </record>
+
+</odoo>
