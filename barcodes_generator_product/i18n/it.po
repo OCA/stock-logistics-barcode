@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 12.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2020-11-25 20:36+0000\n"
+"PO-Revision-Date: 2023-10-09 07:48+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: barcodes_generator_product
 #: model:ir.model.fields,help:barcodes_generator_product.field_product_template__generate_type
@@ -74,7 +74,7 @@ msgstr "Prodotto"
 #. module: barcodes_generator_product
 #: model:ir.model,name:barcodes_generator_product.model_product_template
 msgid "Product Template"
-msgstr "Modello Prodotto"
+msgstr "Modello prodotto"
 
 #. module: barcodes_generator_product
 #: selection:barcode.rule,generate_model:0
