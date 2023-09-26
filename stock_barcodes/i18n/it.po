@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-03 13:39+0000\n"
-"Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
+"PO-Revision-Date: 2023-10-09 07:48+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -950,7 +950,7 @@ msgstr "Nome ubicazione"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__location_dest_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__location_dest_id
 msgid "Location dest."
-msgstr "Ubicazione dest."
+msgstr "Ubicazione destinazione"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_read_log
@@ -1082,7 +1082,7 @@ msgstr "Nuovo movimento:"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
 msgid "New Picking Barcode Option Group"
-msgstr ""
+msgstr "Nuovo gruppo opzione codice a barre prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__not_found
@@ -1526,6 +1526,9 @@ msgid ""
 "This Barcode Option Group will be selected when clicking the 'New' button in "
 "an operation type. It will be used to create a non planned picking."
 msgstr ""
+"Questo gruppo opzione codice a barre verrà selezinato cliccando il pulsante "
+"'Nuovo' in un tipo di operazine. Verrà utilizzato per creare un prelievo non "
+"pianificato."
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_ids
