@@ -2,10 +2,7 @@
 <odoo>
     <record id="stock_batch_picking_form" model="ir.ui.view">
         <field name="model">stock.picking.batch</field>
-        <field
-            name="inherit_id"
-            ref="stock_picking_batch_extended.stock_batch_picking_form"
-        />
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
         <field name="arch" type="xml">
             <div name="button_box" position="inside">
                 <button
@@ -14,7 +11,7 @@
                     icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
-                    states="assigned"
+                    states="in_progress"
                 >
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_text">Scan barcodes</span>
@@ -34,7 +31,7 @@
                     icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
-                    states="assigned"
+                    states="in_progress"
                 >
                     <i class="fa fa-barcode fa-2x" />
                 </button>

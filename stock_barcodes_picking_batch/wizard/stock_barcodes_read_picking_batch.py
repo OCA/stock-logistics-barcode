@@ -58,6 +58,15 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
                 self.env["stock.picking.batch"].browse(picking_batch_id)
             )
 
+    def _compute_move_line_ids(self):
+        if self.picking_mode != "picking_batch":
+            return super(
+                WizStockBarcodesReadPickingBatch, self
+            )._compute_move_line_ids()
+        self.move_line_ids = self.picking_batch_id.move_line_ids.filtered(
+            "qty_done"
+        ).sorted("write_date", reverse=True)
+
     @api.model
     def create(self, vals):
         # When user click any view button the wizard record is create and the
@@ -108,7 +117,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if self.option_group_id.source_pending_moves == "move_line_ids":
             return self.picking_batch_id.move_line_ids.filtered(lambda ln: ln.move_id)
         else:
-            return self.picking_batch_id.move_lines
+            return self.picking_batch_id.move_ids
 
     def update_fields_after_determine_todo(self, move_line):
         self.picking_batch_product_qty = move_line.qty_done
@@ -180,27 +189,12 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             action["views"] = [
                 (
                     self.env.ref(
-                        "stock_barcodes_picking_batch."
-                        "view_stock_barcodes_read_picking_batch_form"
+                        "stock_barcodes_picking_batch.stock_batch_picking_form"
                     ).id,
                     "form",
                 )
             ]
         return action
-
-    # def _prepare_move_line_values(self, candidate_move, available_qty):
-    #     """ When an extra stock move line is created for a batch picking we
-    #         must apply a strategy that allows find what picking will receive
-    #         this new line.
-    #     """
-    #     if self.picking_mode != "picking_batch":
-    #         return super()._prepare_move_line_values(candidate_move, available_qty)
-    #     to_do = self.todo_line_ids.filtered(
-    #         lambda ln:
-    #             ln.barcode_scan_state == 'pending' and
-    #             ln.product_id == self.product_id and
-    #             ln.qty_done < ln.product_uom_qty
-    #     )
 
     def create_new_stock_move_line(self, moves_todo, available_qty):
         if self.picking_mode != "picking_batch" or self.env.context.get(
@@ -220,7 +214,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             moves = to_do.stock_move_ids.filtered(
                 lambda ln: ln.ln.quantity_done < ln.product_uom_qty
             )
-        # TODO: split beetwen all lines
+        # TODO: split between all lines
         sml = self.env["stock.move.line"].browse()
         for move in moves:
             move_qty_done = (
@@ -247,14 +241,21 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
                     assigned_qty,
                 )
             )
+        if available_qty:
+            # What do I do with the extra quantities?
+            # By moment I assign all to the last picking
+            last_move = self.picking_batch_id.move_ids.filtered(
+                lambda mv: mv.product_id == self.product_id
+            )[-1]
+            sml += self.env["stock.move.line"].create(
+                self.with_context(
+                    picking=last_move.picking_id
+                )._prepare_move_line_values(
+                    last_move,
+                    available_qty,
+                )
+            )
         return sml
-        # if moves:
-        #     myself = self.with_context(picking=moves[:1].picking_id)
-        # else:
-        #     myself = self
-        # return super(
-        # WizStockBarcodesReadPickingBatch, myself
-        # ).create_new_stock_move_line(moves_todo, available_qty)
 
 
 class WizCandidatePickingBatch(models.TransientModel):
@@ -300,11 +301,9 @@ class WizCandidatePickingBatch(models.TransientModel):
     @api.depends("scan_count")
     def _compute_product_ref_count(self):
         for candidate in self:
-            bp_products = set(
-                candidate.picking_batch_id.move_lines.mapped("product_id")
-            )
+            bp_products = set(candidate.picking_batch_id.move_ids.mapped("product_id"))
             bp_products_pending = set(
-                candidate.picking_batch_id.move_lines.filtered(
+                candidate.picking_batch_id.move_ids.filtered(
                     lambda ln: ln.quantity_done < ln.product_uom_qty
                 ).mapped("product_id")
             )
