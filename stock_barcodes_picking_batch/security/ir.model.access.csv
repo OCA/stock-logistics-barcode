@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+stock_barcodes_picking_batch.access_wiz_candidate_picking_batch,stock_barcodes_picking_batch.access_wiz_candidate_picking_batch,model_wiz_candidate_picking_batch,base.group_user,1,1,1,1

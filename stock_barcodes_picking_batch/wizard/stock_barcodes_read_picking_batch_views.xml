@@ -115,10 +115,10 @@
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
                 <field name="picking_batch_id" invisible="1" force_save="1" />
+                <field name="show_detailed_operations" invisible="1" />
             </field>
-            <group name="scan_log" position="before">
+            <group name="scan_fields" position="after">
                 <group
-                    colspan="2"
                     string="Pending moves"
                     attrs="{'invisible': [('pending_move_ids', '=', [])]}"
                 >
@@ -129,16 +129,27 @@
                         force_save="1"
                         mode="tree,kanban"
                     >
-                        <tree string="Pending moves">
-                            <field name="state" />
+                        <tree>
+                            <field name="state" invisible="1" />
                             <field name="product_id" />
                             <field name="product_uom_qty" />
+                            <field name="line_ids" invisible="1" />
+                            <field
+                                name="lot_id"
+                                groups="stock.group_production_lot"
+                                optional="hide"
+                            />
+                            <field
+                                name="package_id"
+                                groups="stock.group_tracking_lot"
+                                optional="hide"
+                            />
                             <field name="qty_done" />
                             <button
                                 name="fill_from_pending_line"
                                 type="object"
                                 class="btn"
-                                icon="fa-upload fa-2x"
+                                icon="fa-upload"
                                 context="{'wiz_barcode_id': parent.id}"
                             />
                         </tree>
@@ -159,25 +170,145 @@
                                                 </strong>
                                             </div>
                                             <div class="col-2">
-                                                <span class="pull-right text-right">
+                                                <span
+                                                    class="pull-right text-right text-muted"
+                                                >
                                                     <field name="product_uom_qty" />
                                                 </span>
                                             </div>
                                             <div class="col-2">
-                                                <span class="pull-right text-right">
+                                                <span
+                                                    class="pull-right text-right"
+                                                    t-att-class="qty_done >= product_uom_qty ? 'text-success' : ''"
+                                                >
                                                     <field name="qty_done" />
                                                 </span>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-2 text-right">
                                                 <button
                                                     name="fill_from_pending_line"
                                                     type="object"
                                                     class="btn"
                                                     context="{'wiz_barcode_id': parent.id}"
                                                 >
-                                                    <i class="fa fa-upload fa-2x" />
+                                                    <i
+                                                        class="fa fa-upload"
+                                                        title="Fill from pencil"
+                                                        style="font-size:1.5em"
+                                                    />
                                                 </button>
                                             </div>
+                                        </div>
+                                    </div>
+                                </t>
+                            </templates>
+                        </kanban>
+                    </field>
+                </group>
+                <group
+                    string="Detailed operations"
+                    attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
+                >
+                    <field
+                        name="move_line_ids"
+                        options="{'no_open': True, 'always_reload': True}"
+                        nolabel="1"
+                        force_save="1"
+                        mode="tree,kanban"
+                    >
+                        <tree>
+                            <field name="picking_code" invisible="1" />
+                            <field name="product_id" options="{'no_open': True}" />
+                            <field
+                                name="location_id"
+                                options="{'no_open': True}"
+                                groups="stock.group_stock_multi_locations"
+                                attrs="{'invisible': [('picking_code', '=', 'incoming')]}"
+                                optional="show"
+                            />
+                            <field
+                                name="location_dest_id"
+                                options="{'no_open': True}"
+                                groups="stock.group_stock_multi_locations"
+                                attrs="{'invisible': [('picking_code', '=', 'outgoing')]}"
+                                optional="show"
+                            />
+                            <field
+                                name="lot_id"
+                                groups="stock.group_production_lot"
+                                options="{'no_open': True}"
+                                optional="show"
+                            />
+                            <field
+                                name="result_package_id"
+                                groups="stock.group_tracking_lot"
+                                options="{'no_open': True}"
+                                optional="show"
+                            />
+                            <field name="qty_done" />
+                            <field
+                                name="product_uom_id"
+                                groups="uom.group_uom"
+                                options="{'no_open': True}"
+                            />
+                            <button
+                                name="action_barcode_detailed_operation_unlink"
+                                type="object"
+                                class="btn"
+                                icon="fa-trash"
+                                context="{'wiz_barcode_id': parent.id}"
+                            />
+                        </tree>
+                        <kanban class="o_kanban_mobile">
+                            <field name="product_id" />
+                            <field name="qty_done" />
+                            <field name="product_uom_id" />
+                            <templates>
+                                <t t-name="kanban-box">
+                                    <div t-attf-class="oe_kanban_card">
+                                        <div class="row">
+                                            <div class="col-7">
+                                                <strong>
+                                                    <span>
+                                                        <field name="product_id" />
+                                                    </span>
+                                                </strong>
+                                            </div>
+                                            <div class="col-2">
+                                                <span
+                                                    class="pull-right text-right font-weight-bold"
+                                                >
+                                                    <field name="qty_done" />
+                                                </span>
+                                            </div>
+                                            <div class="col-3 text-right">
+                                                <button
+                                                    name="action_barcode_detailed_operation_unlink"
+                                                    type="object"
+                                                    class="btn mt0"
+                                                    context="{'wiz_barcode_id': parent.id}"
+                                                >
+                                                    <i
+                                                        class="fa fa-trash"
+                                                        title="Remove"
+                                                        style="font-size:1.5em"
+                                                    />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                Lot: <field name="lot_id" />
+                                            </div>
+                                            <t
+                                                t-if="record.result_package_id.raw_value"
+                                            >
+                                                <div class="col-4">
+                                                    Package: <field
+                                                        name="result_package_id"
+                                                    />
+                                                </div>
+                                            </t>
                                         </div>
                                     </div>
                                 </t>
