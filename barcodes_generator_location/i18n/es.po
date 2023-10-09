@@ -20,6 +20,11 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: barcodes_generator_location
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
+msgid "Barcode"
+msgstr ""
+
+#. module: barcodes_generator_location
 #: model:ir.model,name:barcodes_generator_location.model_barcode_rule
 msgid "Barcode Rule"
 msgstr "Regla de código de barras"
@@ -47,17 +52,13 @@ msgstr ""
 "regla."
 
 #. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
-msgid "Partners"
-msgstr "Socios"
-
-#. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
-msgid "Products"
-msgstr "Productos"
-
-#. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
 #: model:ir.model,name:barcodes_generator_location.model_stock_location
+#: model:ir.model.fields.selection,name:barcodes_generator_location.selection__barcode_rule__generate_model__stock_location
 msgid "Stock Location"
 msgstr "Ubicación de existencias"
+
+#~ msgid "Partners"
+#~ msgstr "Socios"
+
+#~ msgid "Products"
+#~ msgstr "Productos"

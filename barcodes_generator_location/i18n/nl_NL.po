@@ -20,6 +20,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: barcodes_generator_location
+#: model_terms:ir.ui.view,arch_db:barcodes_generator_location.view_location_form
+msgid "Barcode"
+msgstr ""
+
+#. module: barcodes_generator_location
 #: model:ir.model,name:barcodes_generator_location.model_barcode_rule
 msgid "Barcode Rule"
 msgstr ""
@@ -45,17 +50,7 @@ msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
 
 #. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
-msgid "Partners"
-msgstr ""
-
-#. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
-msgid "Products"
-msgstr ""
-
-#. module: barcodes_generator_location
-#: selection:barcode.rule,generate_model:0
 #: model:ir.model,name:barcodes_generator_location.model_stock_location
+#: model:ir.model.fields.selection,name:barcodes_generator_location.selection__barcode_rule__generate_model__stock_location
 msgid "Stock Location"
 msgstr ""
