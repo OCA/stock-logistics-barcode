@@ -25,6 +25,7 @@ addon | version | maintainers | summary
 [barcodes_generator_package](barcodes_generator_package/) | 16.0.1.0.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Product Packaging
 [barcodes_generator_product](barcodes_generator_product/) | 16.0.2.0.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Products (Templates and Variants)
 [product_multi_barcode](product_multi_barcode/) | 16.0.1.0.0 |  | Multiple barcodes on products
+[product_multi_barcode_stock_menu](product_multi_barcode_stock_menu/) | 16.0.1.0.0 |  | Multiple barcodes menu
 
 [//]: # (end addons)
 
