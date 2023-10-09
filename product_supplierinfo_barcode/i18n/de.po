@@ -1,6 +1,6 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-#	* product_supplierinfo_barcode
+# 	* product_supplierinfo_barcode
 #
 msgid ""
 msgstr ""
@@ -17,7 +17,7 @@ msgstr ""
 "X-Generator: Weblate 4.3.2\n"
 
 #. module: product_supplierinfo_barcode
-#: sql_constraint:product.supplierinfo:0
+#: model:ir.model.constraint,message:product_supplierinfo_barcode.constraint_product_supplierinfo_barcode_uniq
 msgid "A barcode can only be assigned to one product !"
 msgstr "Ein Strichcode kann nur einem Produkt zugeordnet werden!"
 
