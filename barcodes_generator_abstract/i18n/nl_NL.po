@@ -58,12 +58,12 @@ msgid "Barcode Rule"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_type:0
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__sequence
 msgid "Base managed by Sequence"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_type:0
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__manual
 msgid "Base set Manually"
 msgstr ""
 
@@ -90,7 +90,7 @@ msgid "Generate Barcodes"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:55
+#: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:0
 #, python-format
 msgid ""
 "Generate Base can be used only with barcode rule with 'Generate Type' set to "
@@ -108,7 +108,7 @@ msgid "Generate Sequence"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:104
+#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
 #, python-format
 msgid ""
 "Generate Sequence is possible only if  'Generate Type' is set to 'Base "
@@ -137,12 +137,12 @@ msgid "Last Modified on"
 msgstr "Laatst aangepast op"
 
 #. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_type:0
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__no
 msgid "No generation"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:82
+#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
 #, python-format
 msgid "Only one rule per model can be used for automatic barcode generation."
 msgstr ""
@@ -153,17 +153,7 @@ msgid "Padding"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_model:0
-msgid "Partners"
-msgstr ""
-
-#. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_model:0
-msgid "Products"
-msgstr ""
-
-#. module: barcodes_generator_abstract
-#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:114
+#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
 #, python-format
 msgid "Sequence - %s"
 msgstr ""
@@ -173,11 +163,6 @@ msgstr ""
 #, fuzzy
 msgid "Sequence Id"
 msgstr "Volgorde"
-
-#. module: barcodes_generator_abstract
-#: selection:barcode.rule,generate_model:0
-msgid "Stock Location"
-msgstr ""
 
 #~ msgid "barcode.rule"
 #~ msgstr "barcode.rule"
