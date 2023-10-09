@@ -36,6 +36,24 @@ msgid "Barcode read correctly"
 msgstr "Código de barras leído correctamente"
 
 #. module: stock_barcodes_gs1
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot__display_name
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: stock_barcodes_gs1
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot__id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_barcodes_gs1
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot____last_update
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
