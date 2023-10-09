@@ -122,8 +122,8 @@ msgid ""
 "<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\">-&gt;</"
 "span>"
 msgstr ""
-"<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\""
-">-&gt;</span>"
+"<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\">-&gt;</"
+"span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -197,8 +197,8 @@ msgid ""
 "                                    <span class=\"fa fa-cubes d-sm-none "
 "oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Paquete origen -&gt; Paquete "
-"resultante</strong>\n"
+"<strong class=\"d-none d-sm-block\">Paquete origen -&gt; Paquete resultante</"
+"strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none "
 "oe_span_small_icon\" title=\"Paquete origen a paquete resultante\"/>"
 
@@ -704,12 +704,14 @@ msgstr ""
 msgid ""
 "If it is checked, it will allow the creation of movements that generate "
 "negative stock"
-msgstr "Si está marcado, permitirá crear movimientos que generen stock negativo"
+msgstr ""
+"Si está marcado, permitirá crear movimientos que generen stock negativo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
 msgid "If it is marked, the movement must always be confirmed from a button"
-msgstr "Si está marcado, siempre hay que confirmar el movimiento desde un botón"
+msgstr ""
+"Si está marcado, siempre hay que confirmar el movimiento desde un botón"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__ignore_filled_fields
