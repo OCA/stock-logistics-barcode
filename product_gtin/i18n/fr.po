@@ -23,6 +23,56 @@ msgid "Barcode Gtin check mixin"
 msgstr ""
 
 #. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_company__check_code_type_ean13
+msgid "Check Code Type Ean13"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_company__check_code_type_ean8
+msgid "Check Code Type Ean8"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_company__check_code_type_isbn10
+msgid "Check Code Type Isbn10"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_company__check_code_type_upc
+msgid "Check Code Type Upc"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_config_settings__check_code_type_ean13
+msgid "Check code type Ean13"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_config_settings__check_code_type_ean8
+msgid "Check code type Ean8"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_config_settings__check_code_type_isbn10
+msgid "Check code type Isbn10"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model.fields,field_description:product_gtin.field_res_config_settings__check_code_type_upc
+msgid "Check code type Upc"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model,name:product_gtin.model_res_company
+msgid "Companies"
+msgstr ""
+
+#. module: product_gtin
+#: model:ir.model,name:product_gtin.model_res_config_settings
+msgid "Config Settings"
+msgstr ""
+
+#. module: product_gtin
 #: model:ir.model.fields,field_description:product_gtin.field_barcode_gtin_check_mixin__display_name
 msgid "Display Name"
 msgstr "Nom affiché"
