@@ -219,8 +219,8 @@ msgstr ""
 "<strong class=\"d-none d-sm-block\">Confezione originaria -&gt; Confezione "
 "risultante</strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none "
-"oe_span_small_icon\" title=\"Confezione originaria a confezione risultante\""
-"/>"
+"oe_span_small_icon\" title=\"Confezione originaria a confezione risultante\"/"
+">"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
