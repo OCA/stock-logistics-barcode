@@ -20,9 +20,11 @@ msgstr ""
 #: model:ir.model.fields,help:barcodes_generator_product.field_product_product__generate_type
 #: model:ir.model.fields,help:barcodes_generator_product.field_product_template__generate_type
 msgid ""
-"Allow to generate barcode, including a number  (a base) in the final barcode.\n"
+"Allow to generate barcode, including a number  (a base) in the final "
+"barcode.\n"
 "\n"
-" - 'Base Set Manually' : User should set manually the value of the barcode base\n"
+" - 'Base Set Manually' : User should set manually the value of the barcode "
+"base\n"
 " - 'Base managed by Sequence': System will generate the base via a sequence"
 msgstr ""
 "Permite generar el código de barras, incluyendo un número (una base) en el "
