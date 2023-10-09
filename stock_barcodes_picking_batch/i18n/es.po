@@ -28,19 +28,22 @@ msgid "#Product Ref:"
 msgstr "#Referencias:"
 
 #. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Read:"
-msgstr "#Leído"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Ref:"
-msgstr "#Ref:"
-
-#. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_batch_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
 msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "<span for=\"product_ref_count\">#Ref: </span>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid ""
+"<span> | </span>\n"
+"                                                <span for=\"product_ref_done"
+"\">#Read: </span>"
+msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
@@ -248,6 +251,12 @@ msgid ""
 msgstr ""
 "el estado del grupo de albaranes. El flujo es borrador -> asignado -> "
 "realizado o cancelado"
+
+#~ msgid "#Read:"
+#~ msgstr "#Leído"
+
+#~ msgid "#Ref:"
+#~ msgstr "#Ref:"
 
 #~ msgid "#References done:"
 #~ msgstr "#Leído:"
