@@ -47,6 +47,11 @@ msgid "Barcode Rule"
 msgstr "Règle de code barre"
 
 #. module: barcodes_generator_product
+#: model:product.template.attribute.value,name:barcodes_generator_product.product_variant_2
+msgid "Black"
+msgstr ""
+
+#. module: barcodes_generator_product
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_product_form
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_product.view_product_template_form
 msgid "Generate Barcode (Using Barcode Rule)"
@@ -75,11 +80,6 @@ msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
 
 #. module: barcodes_generator_product
-#: selection:barcode.rule,generate_model:0
-msgid "Partners"
-msgstr ""
-
-#. module: barcodes_generator_product
 #: model:ir.model,name:barcodes_generator_product.model_product_product
 msgid "Product"
 msgstr "Article"
@@ -90,15 +90,10 @@ msgid "Product Template"
 msgstr "Modèle d'article"
 
 #. module: barcodes_generator_product
-#: selection:barcode.rule,generate_model:0
+#: model:ir.model.fields.selection,name:barcodes_generator_product.selection__barcode_rule__generate_model__product_product
 #, fuzzy
 msgid "Products"
 msgstr "Article"
-
-#. module: barcodes_generator_product
-#: selection:barcode.rule,generate_model:0
-msgid "Stock Location"
-msgstr ""
 
 #. module: barcodes_generator_product
 #: model:product.template,name:barcodes_generator_product.product_template_mono_variant
@@ -117,13 +112,10 @@ msgstr "Article avec Code Barre Généré (Multi Variante)"
 #: model:product.product,uom_name:barcodes_generator_product.product_product_variant_2
 #: model:product.template,uom_name:barcodes_generator_product.product_product_variant_1_product_template
 #: model:product.template,uom_name:barcodes_generator_product.product_template_mono_variant
-msgid "Unit(s)"
+msgid "Units"
 msgstr ""
 
 #. module: barcodes_generator_product
-#: model:product.product,weight_uom_name:barcodes_generator_product.product_product_variant_1
-#: model:product.product,weight_uom_name:barcodes_generator_product.product_product_variant_2
-#: model:product.template,weight_uom_name:barcodes_generator_product.product_product_variant_1_product_template
-#: model:product.template,weight_uom_name:barcodes_generator_product.product_template_mono_variant
-msgid "kg"
+#: model:product.template.attribute.value,name:barcodes_generator_product.product_variant_1
+msgid "White"
 msgstr ""
