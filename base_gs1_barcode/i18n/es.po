@@ -222,11 +222,9 @@ msgstr ""
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
 #, python-format
 msgid ""
-"Could not decode barcode: incorrect value for Application Identifer \"%s\" "
-"at position %d"
+"Could not decode barcode: incorrect value for Application Identifer \"%(ai)s"
+"\" at position %(position)d"
 msgstr ""
-"No se ha podido decodificar el código de barras: valor incorrecto para el "
-"identificador de aplicación \"%s\" en la posición %d"
 
 #. module: base_gs1_barcode
 #: code:addons/base_gs1_barcode/models/gs1_barcode.py:0
@@ -379,7 +377,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 
@@ -878,3 +875,11 @@ msgstr ""
 #: model:gs1_barcode,name:base_gs1_barcode.COMPONENTS
 msgid "identification of the components of an item"
 msgstr ""
+
+#, python-format
+#~ msgid ""
+#~ "Could not decode barcode: incorrect value for Application Identifer \"%s"
+#~ "\" at position %d"
+#~ msgstr ""
+#~ "No se ha podido decodificar el código de barras: valor incorrecto para el "
+#~ "identificador de aplicación \"%s\" en la posición %d"
