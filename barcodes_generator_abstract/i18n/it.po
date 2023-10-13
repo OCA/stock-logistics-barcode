@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 08:40+0000\n"
-"PO-Revision-Date: 2023-03-30 14:24+0000\n"
+"PO-Revision-Date: 2023-10-13 16:36+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 4.17\n"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin__generate_type
@@ -39,7 +39,7 @@ msgstr "Generazione Automatica"
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__barcode_base
 msgid "Barcode Base"
-msgstr "Base Barcode"
+msgstr "Base codice a barre"
 
 #. module: barcodes_generator_abstract
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_abstract.view_barcode_rule_form
