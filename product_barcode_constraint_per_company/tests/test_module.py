@@ -1,32 +1,36 @@
-# Copyright (C) 2019 - Today: GRAP (http://www.grap.coop)
-# @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+# Copyright 2023 Camptocamp SA
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from psycopg2 import IntegrityError
 
-from odoo.tests.common import TransactionCase
+from odoo.tests.common import SavepointCase
 from odoo.tools.misc import mute_logger
 
 
-class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
+class TestProductBarcodeConstraint(SavepointCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.env = cls.env(context=dict(cls.env.context, tracking_disable=True))
 
-        self.ResCompany = self.env["res.company"]
-        self.ProductProduct = self.env["product.product"]
-        self.company_1 = self.ResCompany.create({"name": "Company 1"})
-        self.company_2 = self.ResCompany.create({"name": "Company 2"})
+        cls.ProductProduct = cls.env["product.product"]
+        cls.company_1 = cls.env["res.company"].create({"name": "Company 1"})
+        cls.company_2 = cls.env["res.company"].create({"name": "Company 2"})
 
-    # Test Section
     def test_create_same_company(self):
-        self._create_product("Product 1", self.company_1)
+        product_1 = self._create_product("Product 1", self.company_1)
+        self.assertEqual(product_1.company_id, self.company_1)
+        self.assertEqual(product_1.product_tmpl_id.company_id, self.company_1)
 
         with self.assertRaises(IntegrityError), mute_logger("odoo.sql_db"):
             product2 = self._create_product("Product 2", self.company_1)
             product2.flush()
 
     def test_create_different_company(self):
-        self._create_product("Product 1", self.company_1)
-        self._create_product("Product 2", self.company_2)
+        product_1 = self._create_product("Product 1", self.company_1)
+        product_2 = self._create_product("Product 2", self.company_2)
+        self.assertEqual(product_1.company_id, self.company_1)
+        self.assertEqual(product_2.company_id, self.company_2)
+        self.assertEqual(product_2.product_tmpl_id.company_id, self.company_2)
 
     def _create_product(self, name, company):
         vals = {
