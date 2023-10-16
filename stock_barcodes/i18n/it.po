@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-09 08:34+0000\n"
+"PO-Revision-Date: 2023-10-16 16:38+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -1043,7 +1043,7 @@ msgstr "Proprietario"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__package_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__package_id
 msgid "Package"
-msgstr "Collo"
+msgstr "Confezione"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__package_product_qty
@@ -1157,7 +1157,7 @@ msgstr "Movimenti prodotto (riga movimento di magazzino)"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_packaging_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_packaging_ids
 msgid "Product Packages"
-msgstr "Imballaggi prodotto"
+msgstr "Confezioni prodotto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_qty
