@@ -78,7 +78,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
             if custom_code:
                 custom_code = custom_code.replace("." * padding, str_base)
                 barcode_class = barcode.get_barcode_class(item.barcode_rule_id.encoding)
-                item.barcode = barcode_class(custom_code)
+                item.barcode = barcode_class(custom_code).get_fullcode()
 
     # Custom Section
     @api.model
