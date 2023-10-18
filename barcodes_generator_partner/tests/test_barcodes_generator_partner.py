@@ -10,20 +10,24 @@ class Tests(TransactionCase):
     """Tests for 'Barcodes Generate"""
 
     def setUp(self):
-        super(Tests, self).setUp()
-        self.partner_obj = self.env['res.partner']
+        super().setUp()
+        self.partner_obj = self.env["res.partner"]
 
     # Test Section
     def test_01_sequence_generation_partner(self):
-        self.partner = self.partner_obj.browse(self.ref(
-            'barcodes_generator_partner.res_partner_barcode'))
+        self.partner = self.partner_obj.browse(
+            self.ref("barcodes_generator_partner.res_partner_barcode")
+        )
         self.partner.generate_barcode()
         self.assertEqual(
-            self.partner.barcode_base, 1,
-            "Incorrect base Generation (by sequence) for Partner.")
+            self.partner.barcode_base,
+            1,
+            "Incorrect base Generation (by sequence) for Partner.",
+        )
         self.assertEqual(
-            self.partner.barcode, "0420000000013",
+            self.partner.barcode,
+            "0420000000013",
             "Barcode Generation (by sequence) for Partner."
-            "Incorrect EAN13 Generated. Pattern : %s - Base : %s" % (
-                self.partner.barcode_rule_id.pattern,
-                self.partner.barcode_base))
+            "Incorrect EAN13 Generated. Pattern : %s - Base : %s"
+            % (self.partner.barcode_rule_id.pattern, self.partner.barcode_base),
+        )
