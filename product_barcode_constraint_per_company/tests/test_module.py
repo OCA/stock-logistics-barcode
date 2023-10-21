@@ -3,35 +3,60 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from psycopg2 import IntegrityError
 
-from odoo.tests.common import TransactionCase
+from odoo.tests import tagged
 from odoo.tools.misc import mute_logger
 
+from .common import CommonProductBarcodeConstraintPerCompany
 
-class TestModule(TransactionCase):
-    def setUp(self):
-        super().setUp()
 
-        self.ResCompany = self.env["res.company"]
-        self.ProductProduct = self.env["product.product"]
-        self.company_1 = self.ResCompany.create({"name": "Company 1"})
-        self.company_2 = self.ResCompany.create({"name": "Company 2"})
-
-    # Test Section
+@tagged("post_install", "-at_install")
+class TestModule(CommonProductBarcodeConstraintPerCompany):
     def test_create_same_company(self):
-        self._create_product("Product 1", self.company_1)
+        """Verifying the Existence of a Product with the Same Barcode within a Single Company"""
+        # Create the first product in company_1
+        product_1 = self._create_product("Product 1", self.company_1.id)
+        # Check if the company_id of the product matches self.company_1
+        self.assertEqual(
+            product_1.company_id,
+            self.company_1,
+            msg="Product company ID must be equal to ID #{company}".format(
+                company=self.company_1.id
+            ),
+        )
 
-        with self.assertRaises(IntegrityError), mute_logger("odoo.sql_db"):
-            product2 = self._create_product("Product 2", self.company_1)
-            product2.flush()
+        # Check if the company_id of the product_tmpl_id matches self.company_1
+        self.assertEqual(
+            product_1.product_tmpl_id.company_id,
+            self.company_1,
+            msg="Product company ID must be equal to ID # {company}".format(
+                company=self.company_1.id
+            ),
+        )
+
+        with mute_logger("odoo.sql_db"), self.assertRaises(
+            IntegrityError,
+            msg="A barcode can only be assigned to one product per company !",
+        ):
+            self._create_product("Product 2", self.company_1.id)
 
     def test_create_different_company(self):
-        self._create_product("Product 1", self.company_1)
-        self._create_product("Product 2", self.company_2)
+        """Verify creating a product with the same barcode for different companies"""
+        # Create the first product in company_1
+        product_1 = self._create_product("Product 1", self.company_1.id)
 
-    def _create_product(self, name, company):
-        vals = {
-            "name": name,
-            "company_id": company.id,
-            "barcode": "978020137962",
-        }
-        return self.ProductProduct.create(vals)
+        # Create the second product in company_2
+        product_2 = self._create_product("Product 2", self.company_2.id)
+
+        # Check that the products belong to different companies
+        self.assertNotEqual(
+            product_1.company_id,
+            product_2.company_id,
+            msg="Products should belong to different companies",
+        )
+
+        # Check that the products have the same barcode
+        self.assertEqual(
+            product_1.barcode,
+            product_2.barcode,
+            msg="Products should have the same barcode",
+        )
