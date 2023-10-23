@@ -38,3 +38,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         res = super().fields_to_fill_from_pending_line()
         res.extend(["secondary_uom_qty", "secondary_uom_id"])
         return res
+
+    def _group_key(self, wiz, line):
+        key = super()._group_key(wiz, line)
+        key += (line.secondary_uom_id,)
+        return key
