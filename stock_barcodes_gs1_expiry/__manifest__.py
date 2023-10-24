@@ -3,13 +3,15 @@
 {
     "name": "Stock Barcodes GS1 Expiry",
     "summary": "It provides read expiry dates from GS1 barcode on " "stock operations.",
-    "version": "14.0.1.0.1",
+    "version": "15.0.1.0.0",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "category": "Extra Tools",
     "depends": ["stock_barcodes_gs1", "product_expiry"],
-    "data": ["wizard/stock_production_lot_views.xml"],
+    "data": [
+        "wizard/stock_barcodes_read_views.xml",
+    ],
     "installable": True,
     "auto_install": True,
 }
