@@ -9,22 +9,87 @@ from odoo.addons.stock_barcodes_gs1.tests.test_stock_barcodes_gs1 import (
 
 
 class TestStockBarcodesGS1Expiry(TestStockBarcodesGS1):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
         # Barcode with expiry data
-        self.gs1_barcode_01 = "01195011015300001714070410AB-123"
-        self.gs1_barcode_01_use_date = "01195011015300001519070410AB-123"
+        cls.gs1_barcode_01_exiry_date = "01184105252449301714070410AB-123"
+        cls.gs1_barcode_01_use_date = "01184105252449301519070410AB-123"
 
-    def test_wizard_scan_gs1_expiry_life_date(self):
+    def test_wizard_scan_prueba(self):
+        # Create a packaging for product
         self.product_wo_tracking_gs1.tracking = "lot"
-        # Scanning barcode with life date data
-        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
-        self.assertEqual(
-            self.wiz_scan.lot_id.expiration_date, datetime(2014, 7, 4, 0, 0)
+        option_group = self.env["stock.barcodes.option.group"].create(
+            {
+                "name": "option group for tests IN GS1",
+                "create_lot": True,
+                "is_manual_confirm": True,
+                "option_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 1,
+                            "name": "Location",
+                            "field_name": "location_id",
+                            "filled_default": True,
+                            "to_scan": True,
+                            "required": True,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Product",
+                            "field_name": "product_id",
+                            "to_scan": True,
+                            "required": True,
+                            "clean_after_done": True,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Packaging",
+                            "field_name": "packaging_id",
+                            "to_scan": True,
+                            "required": False,
+                            "clean_after_done": True,
+                        },
+                    ),
+                    (
+                        0,
+                        0,
+                        {
+                            "step": 2,
+                            "name": "Lot / Serial",
+                            "field_name": "lot_id",
+                            "to_scan": True,
+                            "required": True,
+                            "clean_after_done": False,
+                        },
+                    ),
+                ],
+            }
         )
 
-    def test_wizard_scan_gs1_expiry_use_date(self):
-        self.product_wo_tracking_gs1.tracking = "lot"
-        # Scanning barcode with use date data
-        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01_use_date)
-        self.assertEqual(self.wiz_scan.lot_id.use_date, datetime(2019, 7, 4, 0, 0))
+        wiz_inventory = self.env["wiz.stock.barcodes.read.inventory"].create(
+            {
+                "location_id": self.env["stock.warehouse"]
+                .search([])[:1]
+                .lot_stock_id.id,
+                "option_group_id": option_group.id,
+                "step": 1,
+            }
+        )
+        self.action_barcode_scanned(wiz_inventory, self.gs1_barcode_01_exiry_date)
+        self.action_barcode_scanned(wiz_inventory, self.gs1_barcode_01_use_date)
+        wiz_inventory.action_confirm()
+        self.assertEqual(
+            wiz_inventory.lot_id.expiration_date, datetime(2014, 7, 4, 0, 0)
+        )
+        self.assertEqual(wiz_inventory.lot_id.use_date, datetime(2019, 7, 4, 0, 0))
