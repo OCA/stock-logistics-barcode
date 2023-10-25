@@ -133,9 +133,10 @@
                 <button
                     name="apply_inventory"
                     type="object"
-                    class="btn-secondary ml-auto oe_kanban_action_button btn-sm"
+                    class="btn-primary ml-auto oe_kanban_action_button btn-sm"
                     attrs="{'invisible': ['|', ('display_menu', '=', True), ('inventory_quant_ids', '=', [])]}"
                     data-hotkey="7"
+                    groups="stock.group_stock_manager"
                 >
                     <span>Apply inventory</span>
                 </button>

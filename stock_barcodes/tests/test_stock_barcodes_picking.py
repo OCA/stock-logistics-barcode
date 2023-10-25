@@ -7,127 +7,128 @@ from .test_stock_barcodes import TestStockBarcodes
 
 @tagged("post_install", "-at_install")
 class TestStockBarcodesPicking(TestStockBarcodes):
-    def setUp(self):
-        super().setUp()
-        self.ScanReadPicking = self.env["wiz.stock.barcodes.read.picking"]
-        self.stock_picking_model = self.env.ref("stock.model_stock_picking")
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ScanReadPicking = cls.env["wiz.stock.barcodes.read.picking"]
+        cls.stock_picking_model = cls.env.ref("stock.model_stock_picking")
 
         # Model Data
-        self.barcode_option_group_out = self._create_barcode_option_group_outgoing()
-        self.barcode_option_group_in = self._create_barcode_option_group_incoming()
+        cls.barcode_option_group_out = cls._create_barcode_option_group_outgoing()
+        cls.barcode_option_group_in = cls._create_barcode_option_group_incoming()
 
-        self.barcode_option_group_out.show_scan_log = True
-        self.barcode_option_group_in.show_scan_log = True
-        self.barcode_option_group_out.barcode_guided_mode = False
-        self.barcode_option_group_in.barcode_guided_mode = False
-        self.partner_agrolite = self.env.ref("base.res_partner_2")
-        self.picking_type_in = self.env.ref("stock.picking_type_in")
-        self.picking_type_in.barcode_option_group_id = self.barcode_option_group_in
-        self.picking_type_out = self.env.ref("stock.picking_type_out")
-        self.picking_type_out.reservation_method = "manual"
-        self.picking_type_out.barcode_option_group_id = self.barcode_option_group_out
-        self.supplier_location = self.env.ref("stock.stock_location_suppliers")
-        self.customer_location = self.env.ref("stock.stock_location_customers")
-        self.stock_location = self.env.ref("stock.stock_location_stock")
-        self.categ_unit = self.env.ref("uom.product_uom_categ_unit")
-        self.categ_kgm = self.env.ref("uom.product_uom_categ_kgm")
-        self.picking_out_01 = (
-            self.env["stock.picking"]
+        cls.barcode_option_group_out.show_scan_log = True
+        cls.barcode_option_group_in.show_scan_log = True
+        cls.barcode_option_group_out.barcode_guided_mode = False
+        cls.barcode_option_group_in.barcode_guided_mode = False
+        cls.partner_agrolite = cls.env.ref("base.res_partner_2")
+        cls.picking_type_in = cls.env.ref("stock.picking_type_in")
+        cls.picking_type_in.barcode_option_group_id = cls.barcode_option_group_in
+        cls.picking_type_out = cls.env.ref("stock.picking_type_out")
+        cls.picking_type_out.reservation_method = "manual"
+        cls.picking_type_out.barcode_option_group_id = cls.barcode_option_group_out
+        cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
+        cls.customer_location = cls.env.ref("stock.stock_location_customers")
+        cls.stock_location = cls.env.ref("stock.stock_location_stock")
+        cls.categ_unit = cls.env.ref("uom.product_uom_categ_unit")
+        cls.categ_kgm = cls.env.ref("uom.product_uom_categ_kgm")
+        cls.picking_out_01 = (
+            cls.env["stock.picking"]
             .with_context(planned_picking=True)
             .create(
                 {
-                    "location_id": self.stock_location.id,
-                    "location_dest_id": self.customer_location.id,
-                    "partner_id": self.partner_agrolite.id,
-                    "picking_type_id": self.picking_type_out.id,
+                    "location_id": cls.stock_location.id,
+                    "location_dest_id": cls.customer_location.id,
+                    "partner_id": cls.partner_agrolite.id,
+                    "picking_type_id": cls.picking_type_out.id,
                     "move_lines": [
                         (
                             0,
                             0,
                             {
-                                "name": self.product_tracking.name,
-                                "product_id": self.product_tracking.id,
+                                "name": cls.product_tracking.name,
+                                "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
-                                "product_uom": self.product_tracking.uom_id.id,
-                                "location_id": self.stock_location.id,
-                                "location_dest_id": self.customer_location.id,
+                                "product_uom": cls.product_tracking.uom_id.id,
+                                "location_id": cls.stock_location.id,
+                                "location_dest_id": cls.customer_location.id,
                             },
                         )
                     ],
                 }
             )
         )
-        self.picking_out_02 = self.picking_out_01.copy()
-        self.picking_in_01 = (
-            self.env["stock.picking"]
+        cls.picking_out_02 = cls.picking_out_01.copy()
+        cls.picking_in_01 = (
+            cls.env["stock.picking"]
             .with_context(planned_picking=True)
             .create(
                 {
-                    "location_id": self.supplier_location.id,
-                    "location_dest_id": self.stock_location.id,
-                    "partner_id": self.partner_agrolite.id,
-                    "picking_type_id": self.picking_type_in.id,
+                    "location_id": cls.supplier_location.id,
+                    "location_dest_id": cls.stock_location.id,
+                    "partner_id": cls.partner_agrolite.id,
+                    "picking_type_id": cls.picking_type_in.id,
                     "move_lines": [
                         (
                             0,
                             0,
                             {
-                                "name": self.product_wo_tracking.name,
-                                "product_id": self.product_wo_tracking.id,
+                                "name": cls.product_wo_tracking.name,
+                                "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 3,
-                                "product_uom": self.product_wo_tracking.uom_id.id,
-                                "location_id": self.supplier_location.id,
-                                "location_dest_id": self.stock_location.id,
+                                "product_uom": cls.product_wo_tracking.uom_id.id,
+                                "location_id": cls.supplier_location.id,
+                                "location_dest_id": cls.stock_location.id,
                             },
                         ),
                         (
                             0,
                             0,
                             {
-                                "name": self.product_wo_tracking.name,
-                                "product_id": self.product_wo_tracking.id,
+                                "name": cls.product_wo_tracking.name,
+                                "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 5,
-                                "product_uom": self.product_wo_tracking.uom_id.id,
-                                "location_id": self.supplier_location.id,
-                                "location_dest_id": self.stock_location.id,
+                                "product_uom": cls.product_wo_tracking.uom_id.id,
+                                "location_id": cls.supplier_location.id,
+                                "location_dest_id": cls.stock_location.id,
                             },
                         ),
                         (
                             0,
                             0,
                             {
-                                "name": self.product_tracking.name,
-                                "product_id": self.product_tracking.id,
+                                "name": cls.product_tracking.name,
+                                "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
-                                "product_uom": self.product_tracking.uom_id.id,
-                                "location_id": self.supplier_location.id,
-                                "location_dest_id": self.stock_location.id,
+                                "product_uom": cls.product_tracking.uom_id.id,
+                                "location_id": cls.supplier_location.id,
+                                "location_dest_id": cls.stock_location.id,
                             },
                         ),
                         (
                             0,
                             0,
                             {
-                                "name": self.product_tracking.name,
-                                "product_id": self.product_tracking.id,
+                                "name": cls.product_tracking.name,
+                                "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 5,
-                                "product_uom": self.product_tracking.uom_id.id,
-                                "location_id": self.supplier_location.id,
-                                "location_dest_id": self.stock_location.id,
+                                "product_uom": cls.product_tracking.uom_id.id,
+                                "location_id": cls.supplier_location.id,
+                                "location_dest_id": cls.stock_location.id,
                             },
                         ),
                     ],
                 }
             )
         )
-        self.picking_in_01.action_confirm()
-        action = self.picking_in_01.action_barcode_scan()
-        self.wiz_scan_picking = self.ScanReadPicking.browse(action["res_id"])
+        cls.picking_in_01.action_confirm()
+        action = cls.picking_in_01.action_barcode_scan()
+        cls.wiz_scan_picking = cls.ScanReadPicking.browse(action["res_id"])
 
         # Create a wizard for outgoing picking
-        self.picking_out_01.action_confirm()
-        action = self.picking_out_01.action_barcode_scan()
-        self.wiz_scan_picking_out = self.ScanReadPicking.browse(action["res_id"])
+        cls.picking_out_01.action_confirm()
+        action = cls.picking_out_01.action_barcode_scan()
+        cls.wiz_scan_picking_out = cls.ScanReadPicking.browse(action["res_id"])
 
     def test_wiz_picking_values(self):
         self.assertEqual(
@@ -296,8 +297,9 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
         self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_3)
 
-    def _create_barcode_option_group_incoming(self):
-        return self.env["stock.barcodes.option.group"].create(
+    @classmethod
+    def _create_barcode_option_group_incoming(cls):
+        return cls.env["stock.barcodes.option.group"].create(
             {
                 "name": "option group incoming for tests",
                 "option_ids": [
@@ -374,8 +376,9 @@ class TestStockBarcodesPicking(TestStockBarcodes):
             }
         )
 
-    def _create_barcode_option_group_outgoing(self):
-        return self.env["stock.barcodes.option.group"].create(
+    @classmethod
+    def _create_barcode_option_group_outgoing(cls):
+        return cls.env["stock.barcodes.option.group"].create(
             {
                 "name": "option group outgoing for tests",
                 "option_ids": [
