@@ -7,10 +7,11 @@ from .test_stock_barcodes_picking import TestStockBarcodesPicking
 
 @tagged("post_install", "-at_install")
 class TestStockBarcodesNewLot(TestStockBarcodesPicking):
-    def setUp(self):
-        super().setUp()
-        self.ScanReadLot = self.env["wiz.stock.barcodes.new.lot"]
-        self.wiz_scan_lot = self.ScanReadLot.new()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ScanReadLot = cls.env["wiz.stock.barcodes.new.lot"]
+        cls.wiz_scan_lot = cls.ScanReadLot.new()
 
     def test_new_lot(self):
         self.action_barcode_scanned(self.wiz_scan_lot, "8433281006850")

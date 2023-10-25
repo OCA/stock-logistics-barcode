@@ -147,10 +147,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             vals["stock_move_ids"][0][2].extend(line.ids)
         return vals
 
-    def todo_values_after_hook(self, todo_vals):
-        """Hook to extend values that will create todo records"""
-        return todo_vals
-
     @api.model
     def fill_records(self, wiz_barcode, lines_list):
         """
@@ -172,7 +168,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     todo_vals[key] = self._update_fill_record_values(
                         wiz_barcode, line, todo_vals[key]
                     )
-        todo_vals = self.todo_values_after_hook(todo_vals)
         wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
 
     def action_todo_next(self):
