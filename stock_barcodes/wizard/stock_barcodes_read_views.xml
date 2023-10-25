@@ -116,6 +116,8 @@
                         <field name="qty_available" invisible="1" />
                         <field name="owner_id" invisible="1" force_save="1" />
                         <field name="keep_result_package" invisible="1" />
+                        <field name="create_lot" invisible="1" />
+                        <field name="lot_id" invisible="1" />
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
@@ -245,11 +247,17 @@
                                         title="Lot S/N"
                                     />
                                     <field
+                                        name="lot_name"
+                                        attrs="{'invisible': [('create_lot', '=', False)]}"
+                                        style="width:60%"
+                                        class="h5"
+                                    />
+                                    <field
                                         name="lot_id"
                                         options="{'no_create': True}"
                                         domain="[('product_id', '=', product_id)]"
                                         context="{'default_product_id': product_id}"
-                                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                                        attrs="{'readonly': [('manual_entry', '=', False)], 'invisible': [('create_lot', '!=', False)]}"
                                         force_save="1"
                                         style="width:60%"
                                         class="h5"
@@ -259,7 +267,7 @@
                                         name="action_clean_lot"
                                         type="object"
                                         icon="fa-trash fa-1x"
-                                        attrs="{'invisible': [('lot_id', '=', False)]}"
+                                        attrs="{'invisible': [('lot_id', '=', False), ('lot_name', '=', False)]}"
                                     />
                                     <button
                                         id="btn_create_lot"
@@ -268,6 +276,7 @@
                                         name="%(action_stock_barcodes_new_lot)d"
                                         icon="fa-plus fa-1x"
                                         context="{'default_product_id': product_id}"
+                                        attrs="{'invisible': [('create_lot', '=', False)]}"
                                         help="Create new lot"
                                     />
                                 </div>

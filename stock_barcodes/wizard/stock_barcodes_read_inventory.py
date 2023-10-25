@@ -88,6 +88,8 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         ).action_done()
         if result:
             result = self._add_inventory_quant()
+            if result:
+                self.action_clean_values()
         return result
 
     def action_manual_entry(self):
