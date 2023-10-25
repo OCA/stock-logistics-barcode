@@ -26,7 +26,7 @@ addon | version | maintainers | summary
 [base_gs1_barcode](base_gs1_barcode/) | 15.0.1.0.0 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_multi_barcode](product_multi_barcode/) | 15.0.1.0.0 |  | Multiple barcodes on products
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 15.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
-[stock_barcodes](stock_barcodes/) | 15.0.1.2.2 |  | It provides read barcode on stock operations.
+[stock_barcodes](stock_barcodes/) | 15.0.2.0.0 |  | It provides read barcode on stock operations.
 [stock_barcodes_gs1](stock_barcodes_gs1/) | 15.0.1.0.0 |  | It provides read GS1 barcode on stock operations.
 [stock_picking_product_barcode_report](stock_picking_product_barcode_report/) | 15.0.2.0.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | It provides a wizard to select how many barcodes print.
 [stock_picking_product_barcode_report_secondary_unit](stock_picking_product_barcode_report_secondary_unit/) | 15.0.1.1.0 | [![CarlosRoca13](https://github.com/CarlosRoca13.png?size=30px)](https://github.com/CarlosRoca13) | Set by default the maximum quantity of labels to print.
