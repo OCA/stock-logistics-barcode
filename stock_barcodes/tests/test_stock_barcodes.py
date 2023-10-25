@@ -6,52 +6,53 @@ from odoo.tests.common import TransactionCase, tagged
 
 @tagged("post_install", "-at_install")
 class TestStockBarcodes(TransactionCase):
-    def setUp(self):
-        super().setUp()
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
 
         # Active group_stock_packaging and group_production_lot for user
-        group_stock_packaging = self.env.ref("product.group_stock_packaging")
-        group_production_lot = self.env.ref("stock.group_production_lot")
-        self.env.user.groups_id = [
+        group_stock_packaging = cls.env.ref("product.group_stock_packaging")
+        group_production_lot = cls.env.ref("stock.group_production_lot")
+        cls.env.user.groups_id = [
             (4, group_stock_packaging.id),
             (4, group_production_lot.id),
         ]
         # models
-        self.StockLocation = self.env["stock.location"]
-        self.Product = self.env["product.product"]
-        self.ProductPackaging = self.env["product.packaging"]
-        self.WizScanReadPicking = self.env["wiz.stock.barcodes.read.picking"]
-        self.StockProductionLot = self.env["stock.production.lot"]
-        self.StockPicking = self.env["stock.picking"]
-        self.StockQuant = self.env["stock.quant"]
+        cls.StockLocation = cls.env["stock.location"]
+        cls.Product = cls.env["product.product"]
+        cls.ProductPackaging = cls.env["product.packaging"]
+        cls.WizScanReadPicking = cls.env["wiz.stock.barcodes.read.picking"]
+        cls.StockProductionLot = cls.env["stock.production.lot"]
+        cls.StockPicking = cls.env["stock.picking"]
+        cls.StockQuant = cls.env["stock.quant"]
 
-        self.company = self.env.company
+        cls.company = cls.env.company
 
         # Option groups for test
-        self.option_group = self._create_barcode_option_group()
+        cls.option_group = cls._create_barcode_option_group()
 
         # warehouse and locations
-        self.warehouse = self.env.ref("stock.warehouse0")
-        self.stock_location = self.env.ref("stock.stock_location_stock")
-        self.location_1 = self.StockLocation.create(
+        cls.warehouse = cls.env.ref("stock.warehouse0")
+        cls.stock_location = cls.env.ref("stock.stock_location_stock")
+        cls.location_1 = cls.StockLocation.create(
             {
                 "name": "Test location 1",
                 "usage": "internal",
-                "location_id": self.stock_location.id,
+                "location_id": cls.stock_location.id,
                 "barcode": "8411322222568",
             }
         )
-        self.location_2 = self.StockLocation.create(
+        cls.location_2 = cls.StockLocation.create(
             {
                 "name": "Test location 2",
                 "usage": "internal",
-                "location_id": self.stock_location.id,
+                "location_id": cls.stock_location.id,
                 "barcode": "8470001809032",
             }
         )
 
         # products
-        self.product_wo_tracking = self.Product.create(
+        cls.product_wo_tracking = cls.Product.create(
             {
                 "name": "Product test wo lot tracking",
                 "type": "product",
@@ -70,7 +71,7 @@ class TestStockBarcodes(TransactionCase):
                 ],
             }
         )
-        self.product_tracking = self.Product.create(
+        cls.product_tracking = cls.Product.create(
             {
                 "name": "Product test with lot tracking",
                 "type": "product",
@@ -85,27 +86,28 @@ class TestStockBarcodes(TransactionCase):
                 ],
             }
         )
-        self.lot_1 = self.StockProductionLot.create(
+        cls.lot_1 = cls.StockProductionLot.create(
             {
                 "name": "8411822222568",
-                "product_id": self.product_tracking.id,
-                "company_id": self.company.id,
+                "product_id": cls.product_tracking.id,
+                "company_id": cls.company.id,
             }
         )
-        self.quant_lot_1 = self.StockQuant.create(
+        cls.quant_lot_1 = cls.StockQuant.create(
             {
-                "product_id": self.product_tracking.id,
-                "lot_id": self.lot_1.id,
-                "location_id": self.stock_location.id,
+                "product_id": cls.product_tracking.id,
+                "lot_id": cls.lot_1.id,
+                "location_id": cls.stock_location.id,
                 "quantity": 100.0,
             }
         )
-        self.wiz_scan = self.WizScanReadPicking.create(
-            {"option_group_id": self.option_group.id, "step": 1}
+        cls.wiz_scan = cls.WizScanReadPicking.create(
+            {"option_group_id": cls.option_group.id, "step": 1}
         )
 
-    def _create_barcode_option_group(self):
-        return self.env["stock.barcodes.option.group"].create(
+    @classmethod
+    def _create_barcode_option_group(cls):
+        return cls.env["stock.barcodes.option.group"].create(
             {
                 "name": "option group for tests",
                 "show_scan_log": True,
@@ -195,6 +197,7 @@ class TestStockBarcodes(TransactionCase):
 
         # Manual entry
         self.wiz_scan.manual_entry = True
+        self.wiz_scan.action_clean_values()
         self.action_barcode_scanned(self.wiz_scan, "5420008510489")
         self.assertEqual(self.wiz_scan.packaging_qty, 0.0)
         self.wiz_scan.packaging_qty = 3.0
