@@ -42,7 +42,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         "Type of Operation",
     )
     # TODO: Check if move_line_ids is used
-    move_line_ids = fields.Many2many(comodel_name="stock.move.line", readonly=True)
+    move_line_ids = fields.One2many(
+        comodel_name="stock.move.line", compute="_compute_move_line_ids"
+    )
     todo_line_ids = fields.One2many(
         string="To Do Lines",
         comodel_name="wiz.stock.barcodes.read.todo",
@@ -58,6 +60,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         comodel_name="wiz.stock.barcodes.read.todo",
         compute="_compute_pending_move_ids",
     )
+    selected_pending_move_id = fields.Many2one(
+        comodel_name="wiz.stock.barcodes.read.todo"
+    )
+    show_detailed_operations = fields.Boolean(
+        related="option_group_id.show_detailed_operations"
+    )
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -72,6 +80,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         else:
             self.pending_move_ids = False
+
+    def _compute_move_line_ids(self):
+        self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
+            "write_date", reverse=True
+        )
+
+        # if self.option_group_id.show_detailed_operations:
+        #     self.move_line_ids = self.picking_id.move_line_ids.filtered(
+        #         "qty_done"
+        #     ).sorted("write_date", reverse=True)
+        # else:
+        #     self.move_line_ids = False
 
     def name_get(self):
         return [
@@ -193,7 +213,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
         if self.option_group_id.get_option_value("package_id", "filled_default"):
             self.package_id = move_line.package_id
-        if self.option_group_id.get_option_value("result_package_id", "filled_default"):
+        if not self.keep_result_package and self.option_group_id.get_option_value(
+            "result_package_id", "filled_default"
+        ):
             self.result_package_id = move_line.result_package_id
 
         if self.option_group_id.get_option_value("product_id", "filled_default"):
@@ -224,8 +246,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             move_dic = self._process_stock_move_line()
             if move_dic:
                 self[self._field_candidate_ids].scan_count += 1
-                if self.option_group_id.barcode_guided_mode == "guided":
-                    self.action_clean_values()
+                self.action_clean_values()
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
@@ -366,6 +387,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     sml_vals.update({"location_dest_id": self.location_dest_id.id})
         return candidate_lines
 
+    def _get_candidate_line_domain(self):
+        """To be extended for other modules"""
+        domain = []
+        if self.env.user.has_group("stock.group_tracking_lot"):
+            domain.extend(
+                [
+                    ("package_id", "=", self.package_id.id),
+                    ("result_package_id", "=", self.result_package_id.id),
+                ]
+            )
+        return domain
+
     def _process_stock_move_line(self):  # noqa: C901
         """
         Search assigned or confirmed stock moves from a picking operation type
@@ -422,20 +455,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 sml_vals.update(
                     {"lot_id": self.lot_id.id, "lot_name": self.lot_id.name}
                 )
+        candidate_domain = self._get_candidate_line_domain()
+        if candidate_domain:
+            lines = lines.filtered_domain(candidate_domain)
         # The new lines scanned has been created without reserved quantity
         if not lines:
             lines = candidate_lines.filtered(
-                lambda l: (
-                    l.lot_id == self.lot_id
-                    and l.product_uom_qty == 0.0
-                    and l.qty_done > 0.0
+                lambda ln: (
+                    ln.lot_id == self.lot_id
+                    and ln.product_uom_qty == 0.0
+                    and ln.qty_done > 0.0
                 )
             )
-        if lines:
-            # Hook: extra filter to be extend by other modules
-            lines = self.filter_sml(candidate_lines, lines, sml_vals)
-        # Determine location depend on picking type code
-        # lines = lines.filtered(lambda ln: )
+            if candidate_domain:
+                lines = lines.filtered_domain(candidate_domain)
         available_qty = self.product_qty
         max_quantity = sum(sm.product_uom_qty - sm.quantity_done for sm in moves_todo)
         if (
@@ -480,7 +513,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     sml_vals.update({"result_package_id": self.package_id.id})
             elif line.result_package_id == line.package_id:
                 sml_vals.update({"result_package_id": False})
-            line.write(sml_vals)
+            self._update_stock_move_line(line, sml_vals)
             if line.qty_done >= line.product_uom_qty:
                 line.barcode_scan_state = "done"
             elif self.env.context.get("done_forced"):
@@ -521,6 +554,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.fill_todo_records()
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
+
+    def _update_stock_move_line(self, line, sml_vals):
+        """Update stock move line with values. Helper method to be inherited"""
+        line.write(sml_vals)
 
     def create_new_stock_move_line(self, moves_todo, available_qty):
         """Create a new stock move line when a sml is not available
@@ -659,6 +696,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_put_in_pack(self):
         self.picking_id.action_put_in_pack()
 
+    def action_clean_values(self):
+        res = super().action_clean_values()
+        self.selected_pending_move_id = False
+        return res
+
 
 class WizCandidatePicking(models.TransientModel):
     """
@@ -716,6 +758,7 @@ class WizCandidatePicking(models.TransientModel):
     # For reload kanban view
     scan_count = fields.Integer()
     is_pending = fields.Boolean(compute="_compute_is_pending")
+    note = fields.Html(related="picking_id.note")
 
     @api.depends("scan_count")
     def _compute_picking_quantity(self):
@@ -767,17 +810,16 @@ class WizCandidatePicking(models.TransientModel):
         )
         return wiz.action_cancel()
 
+    def _get_picking_to_validate(self):
+        return (
+            self.env["stock.picking"]
+            .browse(self.env.context.get("picking_id", False))
+            .with_context(show_picking_type_action_tree=True)
+        )
+
     def action_validate_picking(self):
-        picking = self.env["stock.picking"].browse(
-            self.env.context.get("picking_id", False)
-        )
-        res = picking.button_validate()
-        if isinstance(res, dict):
-            # backorder wizard
-            return res
-        return self.env["ir.actions.actions"]._for_xml_id(
-            "stock_barcodes.action_stock_barcodes_action"
-        )
+        picking = self._get_picking_to_validate()
+        return picking.button_validate()
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(

@@ -24,6 +24,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     product_uom_id = fields.Many2one(comodel_name="uom.uom")
     product_tracking = fields.Selection(related="product_id.tracking", readonly=True)
     lot_id = fields.Many2one(comodel_name="stock.production.lot")
+    lot_name = fields.Char(
+        "Lot/Serial Number Name",
+        compute="_compute_lot_name",
+        readonly=False,
+        store=True,
+    )
     location_id = fields.Many2one(comodel_name="stock.location")
     location_dest_id = fields.Many2one(
         comodel_name="stock.location", string="Location dest."
@@ -79,7 +85,13 @@ class WizStockBarcodesRead(models.AbstractModel):
         store=True,
         readonly=False,
     )
+    create_lot = fields.Boolean(
+        string="Allow create lot",
+        help="Show lot name field",
+        compute="_compute_create_lot",
+    )
     display_assign_serial = fields.Boolean(compute="_compute_display_assign_serial")
+    keep_result_package = fields.Boolean()
 
     @api.depends("res_id")
     def _compute_action_ids(self):
@@ -98,6 +110,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _compute_auto_lot(self):
         for rec in self:
             rec.auto_lot = rec.option_group_id.auto_lot
+
+    @api.depends("option_group_id")
+    def _compute_create_lot(self):
+        for rec in self:
+            rec.create_lot = rec.option_group_id.create_lot
 
     @api.depends("location_id", "product_id", "lot_id")
     def _compute_qty_available(self):
@@ -121,6 +138,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _compute_display_assign_serial(self):
         for rec in self:
             rec.display_assign_serial = rec.product_id.tracking == "serial"
+
+    @api.depends("lot_id")
+    def _compute_lot_name(self):
+        for rec in self:
+            rec.lot_name = rec.lot_id.name
 
     @api.onchange("packaging_qty")
     def onchange_packaging_qty(self):
@@ -221,8 +243,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 and self.product_id.tracking != "none"
                 and self.option_group_id.create_lot
             ):
-                new_lot = self._create_new_lot(self.barcode)
-                self.action_lot_scaned_post(new_lot)
+                self.lot_name = self.barcode
+                self.action_lot_scaned_post(self.lot_name)
                 return True
         return False
 
@@ -363,7 +385,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 ]:
                     self._set_focus_on_qty_input("product_qty")
                 if option.field_name == "lot_id" and (
-                    self.product_id.tracking == "none" or self.auto_lot
+                    self.product_id.tracking == "none" or self.auto_lot or self.lot_name
                 ):
                     continue
                 self._set_messagge_info("info", option.name)
@@ -399,7 +421,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         return True
 
     def check_lot_contidion(self):
-        if self.product_id.tracking != "none" and not self.lot_id:
+        if self.product_id.tracking != "none" and not self.lot_id and not self.lot_name:
             self._set_messagge_info("info", _("Waiting lot"))
             return False
         return True
@@ -463,6 +485,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if not self.env.context.get("_stock_barcodes_skip_read_log"):
             _logger.info("Add scanned log barcode:{}".format(self.barcode))
             self._add_read_log()
+        self.process_lot_before_done()
         return True
 
     def action_cancel(self):
@@ -474,8 +497,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.lot_id = False
         self.product_id = product
         self.product_uom_id = self.product_id.uom_id
-        self.packaging_id = self.product_id.packaging_ids[:1]
-        self.product_qty = 0.0 if self.manual_entry or self.is_manual_qty else 1.0
+        self.set_product_qty()
 
     def action_packaging_scaned_post(self, packaging):
         self.packaging_id = packaging
@@ -485,15 +507,28 @@ class WizStockBarcodesRead(models.AbstractModel):
         ):
             self.lot_id = False
         self.product_id = packaging.product_id
-        self.packaging_qty = 0.0 if self.manual_entry or self.is_manual_qty else 1.0
-        self.product_qty = packaging.qty * self.packaging_qty
+        self.set_product_qty()
 
     def action_lot_scaned_post(self, lot):
-        self.lot_id = lot
-        self.product_qty = 0.0 if self.manual_entry or self.is_manual_qty else 1.0
+        if isinstance(lot, str):
+            self.lot_name = lot
+        else:
+            self.lot_id = lot
+        self.set_product_qty()
+
+    def set_product_qty(self):
+        if self.manual_entry or self.is_manual_qty:
+            return
+        elif self.packaging_id:
+            self.packaging_qty = 1.0
+            self.product_qty = self.packaging_id.qty * self.packaging_qty
+        else:
+            self.packaging_qty = 0.0
+            self.product_qty = 1.0
 
     def action_clean_lot(self):
         self.lot_id = False
+        self.lot_name = False
         self.action_show_step()
 
     def action_clean_product(self):
@@ -512,16 +547,14 @@ class WizStockBarcodesRead(models.AbstractModel):
         options = self.option_group_id.option_ids
         options_to_clean = options.filtered("clean_after_done")
         for option in options_to_clean:
+            if option.field_name == "result_package_id" and self.keep_result_package:
+                continue
             if option.field_name:
                 setattr(self, option.field_name, False)
         self.action_show_step()
-        # self.product_id = False
-        # self.lot_id = False
-        # self.packaging_id = False
-        # self.package_id = False
-        # self.result_package_id = False
         self.product_qty = 0.0
         self.packaging_qty = 0.0
+        self.lot_name = False
 
     def action_manual_entry(self):
         return True
@@ -641,11 +674,21 @@ class WizStockBarcodesRead(models.AbstractModel):
         record.write(self._convert_to_write(self._cache))
         self = record
         res = self.action_done()
-        if res:
-            self.action_clean_values()
         self.refresh()
         self.play_sounds(res)
+        self._set_focus_on_qty_input()
         return res
+
+    def process_lot_before_done(self):
+        if (
+            not self.lot_id
+            and self.lot_name
+            and self.product_id
+            and self.product_id.tracking != "none"
+            and self.option_group_id.create_lot
+        ):
+            self.lot_id = self._create_new_lot()
+        return True
 
     def play_sounds(self, res):
         if res:
@@ -661,7 +704,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 {"sound": "ko"},
             )
 
-    def _set_focus_on_qty_input(self, field_name="product_qty"):
+    def _set_focus_on_qty_input(self, field_name=None):
+        if field_name is None:
+            field_name = "product_qty"
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
         self.env["bus.bus"]._sendone(
@@ -679,19 +724,27 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.manual_entry and self.option_group_id.manual_entry_field_focus:
             self._set_focus_on_qty_input(self.option_group_id.manual_entry_field_focus)
 
-    def _prepare_lot_vals(self, barcode):
+    def _prepare_lot_vals(self):
         return {
-            "name": barcode,
+            "name": self.lot_name,
             "product_id": self.product_id.id,
             "company_id": self.env.company.id,
         }
 
-    def _create_new_lot(self, barcode):
-        new_lot = self.env["stock.production.lot"].create(
-            self._prepare_lot_vals(barcode)
-        )
+    def _create_new_lot(self):
+        StockProductionLot = self.env["stock.production.lot"]
+        lot_domain = [
+            ("name", "=", self.lot_name),
+            ("product_id", "=", self.product_id.id),
+        ]
+        new_lot = StockProductionLot.search(lot_domain)
+        if not new_lot:
+            new_lot = StockProductionLot.create(self._prepare_lot_vals())
         return new_lot
 
     def action_clean_message(self):
         self.message = False
         self.check_option_required()
+
+    def action_keep_result_package(self):
+        self.keep_result_package = not self.keep_result_package
