@@ -16,6 +16,7 @@ class ProductBarcode(models.Model):
     name = fields.Char(
         string="Barcode",
         required=True,
+        index=True,
     )
     sequence = fields.Integer(
         string="Sequence",
@@ -28,6 +29,7 @@ class ProductBarcode(models.Model):
         store=True,
         readonly=False,
         ondelete="cascade",
+        index=True,
     )
     product_tmpl_id = fields.Many2one(
         comodel_name="product.template",
@@ -35,6 +37,7 @@ class ProductBarcode(models.Model):
         store=True,
         readonly=False,
         ondelete="cascade",
+        index=True,
     )
 
     @api.depends("product_id")
