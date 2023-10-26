@@ -32,8 +32,14 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.product_id != secondary_uom.product_tmpl_id.product_variant_id:
             self.lot_id = False
         self.product_id = secondary_uom.product_tmpl_id.product_variant_id
-        self.secondary_uom_qty = 0.0 if self.manual_entry else 1.0
-        self.product_qty = secondary_uom.factor * self.secondary_uom_qty
+        if self.manual_entry or self.is_manual_qty:
+            return
+        elif self.secondary_uom_id:
+            self.secondary_uom_qty = 1.0
+            self.product_qty = self.secondary_uom_id.factor * self.secondary_uom_qty
+        else:
+            self.secondary_uom_qty = 0.0
+            self.product_qty = 1.0
 
     def _prepare_scan_log_values(self, log_detail=False):
         vals = super()._prepare_scan_log_values(log_detail=log_detail)
@@ -50,15 +56,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.secondary_uom_qty = 0
         return res
 
-    def process_barcode_package(self, package_barcode, processed):
+    def _process_ai_01(self, gs1_list):
         secondary_uom = self.env["product.secondary.unit"].search(
-            self._barcode_domain(package_barcode)
+            self._barcode_domain(self.barcode)
         )
         if not secondary_uom:
-            self._set_messagge_info(
-                "not_found", _("Barcode for product secondary uom not found")
-            )
-            return super().process_barcode_package(package_barcode, processed)
+            return super()._process_ai_01(gs1_list)
         else:
             if len(secondary_uom) > 1:
                 self._set_messagge_info(
@@ -66,6 +69,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_secondary_uom_scaned_post(secondary_uom)
+        return True
 
     @api.onchange("product_id")
     def onchange_product_id(self):
