@@ -8,5 +8,6 @@ class ProductSecondaryUnit(models.Model):
 
     barcode = fields.Char(
         copy=False,
+        index=True,
         help="International Article Number used for product identification.",
     )
