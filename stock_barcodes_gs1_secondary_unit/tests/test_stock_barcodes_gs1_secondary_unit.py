@@ -13,20 +13,19 @@ class TestStockBarcodesGS1SecondaryUnit(TestStockBarcodesGS1):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.barcode_secondary_uom = "018412598033094"
         cls.secondary_unit = cls.env["product.secondary.unit"].create(
             {
                 "product_tmpl_id": cls.product_tracking.product_tmpl_id.id,
                 "name": "box 8",
                 "uom_id": cls.product_tracking.uom_id.id,
                 "factor": 8.0,
-                "barcode": "8412598033094",
+                "barcode": "08412598033094",
             }
         )
 
     def test_wizard_scan_gs1_secondary_unit(self):
         # Scanning barcode with package data
-        self.action_barcode_scanned(self.wiz_scan, self.barcode_secondary_uom)
+        self.action_barcode_scanned(self.wiz_scan, "0108412598033094")
         self.assertEqual(self.wiz_scan.secondary_uom_id, self.secondary_unit)
         self.wiz_scan.secondary_uom_qty = 5.0
         self.wiz_scan.onchange_secondary_uom_qty()
