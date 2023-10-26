@@ -42,7 +42,7 @@ class ProductBarcode(models.Model):
         for rec in self.filtered(lambda x: not x.product_tmpl_id and x.product_id):
             rec.product_tmpl_id = rec.product_id.product_tmpl_id
 
-    @api.depends("product_tmpl_id.product_variant_ids")
+    @api.depends("product_tmpl_id")
     def _compute_product(self):
         for rec in self.filtered(
             lambda x: not x.product_id and x.product_tmpl_id.product_variant_ids

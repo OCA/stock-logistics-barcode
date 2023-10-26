@@ -21,6 +21,15 @@ class TestProductMultiBarcode(TransactionCase):
         self.valid_barcode_2 = "9780471117094"
         self.valid_barcode2_2 = "4006381333931"
 
+    def test_create_template(self):
+        tmpl = self.env["product.template"].create(
+            {
+                "name": "Foo",
+                "barcode": self.valid_barcode_1,
+            }
+        )
+        self.assertEqual(tmpl.barcode_ids.product_id, tmpl.product_variant_ids)
+
     def test_set_main_barcode(self):
         self.product_1.barcode = self.valid_barcode_1
         self.assertEqual(len(self.product_1.barcode_ids), 1)
