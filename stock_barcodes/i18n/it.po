@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-29 00:41+0000\n"
+"PO-Revision-Date: 2023-10-29 17:41+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -175,7 +175,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span>Total Qty</span>"
-msgstr "<span>Qtà totale</span>"
+msgstr "<span>Q.tà totale</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -249,9 +249,9 @@ msgid ""
 "                                    <span class=\"fa fa-hashtag d-sm-none "
 "oe_span_small_icon\" title=\"Total Quantity\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Qtà totale</strong>\n"
+"<strong class=\"d-none d-sm-block\">Q.tà totale</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none "
-"oe_span_small_icon\" title=\"Qtà totale\"/>"
+"oe_span_small_icon\" title=\"Q.tà totale\"/>"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__action_ids
@@ -845,7 +845,7 @@ msgstr "E' conferma manuale"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__is_manual_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__is_manual_qty
 msgid "Is Manual Qty"
-msgstr "E' qtà manuale"
+msgstr "È q.tà manuale"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__is_pending
@@ -1190,7 +1190,7 @@ msgstr "Collo"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__package_product_qty
 msgid "Package Product Qty"
-msgstr "Qtà prodotto collo"
+msgstr "Q.tà prodotto collo"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__packaging_qty
@@ -1198,7 +1198,7 @@ msgstr "Qtà prodotto collo"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__packaging_qty
 msgid "Package Qty"
-msgstr "Qta collo"
+msgstr "Q.tà collo"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -1335,7 +1335,7 @@ msgstr "Metti nel collo"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__qty_available
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__qty_available
 msgid "Qty Available"
-msgstr "Qtà disponibile"
+msgstr "Q.tà disponibile"
 
 #. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
