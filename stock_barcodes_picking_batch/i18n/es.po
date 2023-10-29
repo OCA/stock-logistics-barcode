@@ -29,18 +29,33 @@ msgstr "#Referencias:"
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Read:"
-msgstr "#Leído"
+msgid "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "#Ref:"
-msgstr "#Ref:"
+msgid ""
+"<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1.5em"
+"\"/>"
+msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_batch_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
 msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "<span for=\"product_ref_count\">#Ref: </span>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid ""
+"<span> | </span>\n"
+"                                                <span for=\"product_ref_done"
+"\">#Read: </span>"
+msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
@@ -110,6 +125,11 @@ msgid "Customers"
 msgstr "Clientes"
 
 #. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "Detailed operations"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__display_name
 msgid "Display Name"
 msgstr "Nombre a mostrar"
@@ -153,6 +173,11 @@ msgid "Last Updated on"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "Lot:"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
 #: model:ir.model.fields,help:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__name
 msgid "Name of the batch transfer"
 msgstr "Nombre de agrupación de albaranes"
@@ -161,6 +186,11 @@ msgstr "Nombre de agrupación de albaranes"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
 msgid "Open"
 msgstr "Abrir"
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "Package:"
+msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
@@ -240,14 +270,18 @@ msgid "Wizard to read barcode on picking batch"
 msgstr ""
 "Asistente para leer códigos de barras desde las agrupaciones de albaranes"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,help:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__state
-msgid ""
-"the state of the batch picking. Workflow is draft -> in_progress/assigned -> "
-"done or cancel"
-msgstr ""
-"el estado del grupo de albaranes. El flujo es borrador -> asignado -> "
-"realizado o cancelado"
+#~ msgid "#Read:"
+#~ msgstr "#Leído"
+
+#~ msgid "#Ref:"
+#~ msgstr "#Ref:"
+
+#~ msgid ""
+#~ "the state of the batch picking. Workflow is draft -> in_progress/assigned "
+#~ "-> done or cancel"
+#~ msgstr ""
+#~ "el estado del grupo de albaranes. El flujo es borrador -> asignado -> "
+#~ "realizado o cancelado"
 
 #~ msgid "#References done:"
 #~ msgstr "#Leído:"
