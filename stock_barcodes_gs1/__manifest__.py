@@ -8,6 +8,6 @@
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "category": "Extra Tools",
-    "depends": ["stock_barcodes", "base_gs1_barcode"],
+    "depends": ["stock_barcodes", "barcodes_gs1_nomenclature"],
     "installable": True,
 }
