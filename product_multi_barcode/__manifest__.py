@@ -6,7 +6,7 @@
 
 {
     "name": "Multiple barcodes on products",
-    "version": "14.0.1.1.2",
+    "version": "14.0.1.2.0",
     "license": "AGPL-3",
     "author": "Camptocamp, "
     "Trey, "
