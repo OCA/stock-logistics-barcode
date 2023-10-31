@@ -266,11 +266,6 @@ msgid "Action window"
 msgstr "Finestra azione"
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "Actions"
-msgstr "Azioni"
-
-#. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_action
 msgid "Actions for barcode interface"
 msgstr "Azioni per l'interfaccia codice a barre"
@@ -364,7 +359,6 @@ msgstr "Codice a barre non trovato con questi valori a schermo"
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes_option_group
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_tree
 msgid "Barcode options"
 msgstr "Opzioni codice a barre"
 
@@ -1748,6 +1742,9 @@ msgstr "blocca prelievo"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
 msgstr "sblocca prelievo"
+
+#~ msgid "Actions"
+#~ msgstr "Azioni"
 
 #~ msgid ""
 #~ "You can not remove an entry linked to a stock move line in state assigned "

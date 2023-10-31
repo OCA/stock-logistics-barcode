@@ -224,11 +224,6 @@ msgid "Action window"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "Actions"
-msgstr ""
-
-#. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_action
 msgid "Actions for barcode interface"
 msgstr ""
@@ -321,7 +316,6 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes_option_group
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_tree
 msgid "Barcode options"
 msgstr ""
 
