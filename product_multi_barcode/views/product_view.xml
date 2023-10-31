@@ -9,7 +9,7 @@
             </field>
             <field name="barcode" position="after">
                 <field name="barcode_ids">
-                    <tree string="Barcodes" editable="bottom">
+                    <tree editable="bottom">
                         <field name="sequence" widget="handle" />
                         <field name="name" />
                     </tree>
@@ -26,7 +26,7 @@
             </field>
             <field name="barcode" position="after">
                 <field name="barcode_ids">
-                    <tree string="Barcodes" editable="bottom">
+                    <tree editable="bottom">
                         <field name="sequence" widget="handle" />
                         <field name="name" />
                     </tree>
