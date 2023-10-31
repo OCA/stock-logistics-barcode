@@ -19,6 +19,5 @@ msgstr ""
 #. module: product_multi_barcode_stock_menu
 #: model:ir.actions.act_window,name:product_multi_barcode_stock_menu.product_barcodes_action
 #: model:ir.ui.menu,name:product_multi_barcode_stock_menu.menu_product_barcodes
-#: model_terms:ir.ui.view,arch_db:product_multi_barcode_stock_menu.product_barcode_list_view
 msgid "Product Barcodes"
 msgstr "Codici a barre Prodotti"
