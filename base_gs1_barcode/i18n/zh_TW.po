@@ -375,7 +375,6 @@ msgstr ""
 
 #. module: base_gs1_barcode
 #: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_form_view
-#: model_terms:ir.ui.view,arch_db:base_gs1_barcode.gs1_barcode_tree_view
 msgid "GS1-128/GS1-Datamatrix decoding configuration"
 msgstr ""
 
