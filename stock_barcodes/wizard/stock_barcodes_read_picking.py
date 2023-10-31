@@ -180,6 +180,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         move_lines = self.get_sorted_move_lines(self.get_moves_or_move_lines())
         self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
 
+    @api.model
+    def _get_fields_filled_special(self):
+        return [
+            "location_id",
+            "location_dest_id",
+            "package_id",
+            "result_package_id",
+            "product_qty",
+        ]
+
     def determine_todo_action(self, forced_todo_line=False):
         self.visible_force_done = self.env.context.get("visible_force_done", False)
         if not self.option_group_id.barcode_guided_mode == "guided":
@@ -205,33 +215,32 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.location_id = move_line.location_id
         elif self.picking_type_code != "incoming":
             self.location_id = False
-
         if self.option_group_id.get_option_value("location_dest_id", "filled_default"):
             self.location_dest_id = move_line.location_dest_id
         elif self.picking_type_code != "outgoing":
             self.location_dest_id = False
-
         if self.option_group_id.get_option_value("package_id", "filled_default"):
             self.package_id = move_line.package_id
         if not self.keep_result_package and self.option_group_id.get_option_value(
             "result_package_id", "filled_default"
         ):
             self.result_package_id = move_line.result_package_id
-
-        if self.option_group_id.get_option_value("product_id", "filled_default"):
-            self.product_id = move_line.product_id
-        else:
-            self.product_id = False
-        if self.option_group_id.get_option_value("lot_id", "filled_default"):
-            self.lot_id = move_line.lot_id
-        else:
-            self.lot_id = False
         if self.option_group_id.get_option_value("product_qty", "filled_default"):
             self.product_qty = move_line.product_uom_qty - move_line.qty_done
         else:
             if not self.visible_force_done:
                 self.product_qty = 0.0
+        # Try to fill data of any field defined in options
+        processed_fields = self._get_fields_filled_special()
+        for option in self.option_group_id.option_ids:
+            if option.field_name in processed_fields:
+                continue
+            if option.filled_default:
+                self[option.field_name] = move_line[option.field_name]
+            else:
+                self[option.field_name] = False
         self.update_fields_after_determine_todo(move_line)
+        self.action_show_step()
 
     def update_fields_after_determine_todo(self, move_line):
         self.picking_product_qty = move_line.qty_done
@@ -582,10 +591,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         new_move = self.env["stock.move"].create(vals)
         sml.move_id = new_move
 
-    def filter_sml(self, candidate_lines, lines, sml_vals):
-        """Empty method that needs to be implemented in other modules."""
-        return lines
-
     def update_fields_after_process_stock(self, moves):
         self.picking_product_qty = sum(moves.mapped("quantity_done"))
 
@@ -699,6 +704,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_clean_values(self):
         res = super().action_clean_values()
         self.selected_pending_move_id = False
+        self.visible_force_done = False
         return res
 
 
