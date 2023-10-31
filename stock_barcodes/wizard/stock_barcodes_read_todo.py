@@ -243,4 +243,5 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 self.line_ids.mapped("qty_done")
             )
         self.wiz_barcode_id.product_uom_id = self.uom_id
+        self.wiz_barcode_id.action_show_step()
         self.wiz_barcode_id._set_focus_on_qty_input()
