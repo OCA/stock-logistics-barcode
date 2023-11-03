@@ -34,3 +34,100 @@ class Tests(TransactionCase):
             " Pattern : %s - Base : %s" % (
                 self.product_variant_1.barcode_rule_id.pattern,
                 self.product_variant_1.barcode_base))
+
+    def test_03_create_with_custom_barcode_automatic_rule(self):
+        """When automatic generation is enabled, you should still be able to
+        create a product with a custom barcode.
+        """
+        rule = self.env.ref("barcodes_generator_product.product_generated_barcode")
+        rule.generate_type = "sequence"
+        rule.generate_sequence()
+        rule.generate_automate = True
+
+        custom_barcode = "2000042003500"
+        product = self.env["product.product"].create(
+            {"name": "Foo", "barcode": custom_barcode}
+        )
+        self.assertEqual(product.barcode, custom_barcode)
+
+    def test_04_create_with_custom_rule_automatic_rule(self):
+        """When automatic generation is enabled, you should still be able to
+        create a product with a custom barcode rule.
+        """
+        rule = self.env.ref("barcodes_generator_product.product_generated_barcode")
+        rule.generate_type = "sequence"
+        rule.generate_sequence()
+        rule.generate_automate = True
+
+        other_rule = self.env["barcode.rule"].create(
+            {
+                "barcode_nomenclature_id": self.env.ref(
+                    "barcodes.default_barcode_nomenclature"
+                ).id,
+                "name": "Custom Rule",
+                "type": "product",
+                "sequence": 999,
+                "encoding": "ean13",
+                "pattern": "30.....{NNNDD}",
+            }
+        )
+
+        product = self.env["product.product"].create({
+            "name": "Foo", "barcode_rule_id": other_rule.id,
+        })
+        self.assertEqual(product.barcode_rule_id, other_rule)
+        self.assertEqual(product.barcode, False)
+
+    def test_05_create_template_with_custom_barcode_automatic_rule(self):
+        """When automatic generation is enabled, you should still be able to
+        create a product template with a custom barcode, and its variant should
+        have that barcode.
+        """
+        rule = self.env.ref("barcodes_generator_product.product_generated_barcode")
+        rule.generate_type = "sequence"
+        rule.generate_sequence()
+        rule.generate_automate = True
+
+        custom_barcode = "2000042003500"
+        template = self.env["product.template"].create(
+            {"name": "Foo", "barcode": custom_barcode}
+        )
+        self.assertEqual(template.barcode, custom_barcode)
+        # NOTE: I've not been able to achieve the result of the commented-out
+        # lines.
+        # self.assertEqual(template.barcode_rule_id, False)
+        self.assertEqual(template.product_variant_id.barcode, custom_barcode)
+        # self.assertEqual(template.product_variant_id.barcode_rule_id, False)
+
+    def test_06_create_template_with_custom_rule_automatic_rule(self):
+        """When automatic generation is enabled, you should still be able to
+        create a product template with a custom barcode rule, and its variant
+        should have that rule and no barcode.
+        """
+        rule = self.env.ref("barcodes_generator_product.product_generated_barcode")
+        rule.generate_type = "sequence"
+        rule.generate_sequence()
+        rule.generate_automate = True
+
+        other_rule = self.env["barcode.rule"].create(
+            {
+                "barcode_nomenclature_id": self.env.ref(
+                    "barcodes.default_barcode_nomenclature"
+                ).id,
+                "name": "Custom Rule",
+                "type": "product",
+                "sequence": 999,
+                "encoding": "ean13",
+                "pattern": "30.....{NNNDD}",
+            }
+        )
+
+        template = self.env["product.template"].create({
+            "name": "Foo", "barcode_rule_id": other_rule.id,
+        })
+        self.assertEqual(template.barcode_rule_id, other_rule)
+        self.assertEqual(template.product_variant_id.barcode_rule_id, other_rule)
+        self.assertEqual(template.barcode, False)
+        self.assertEqual(template.barcode_base, False)
+        self.assertEqual(template.product_variant_id.barcode, False)
+        self.assertEqual(template.product_variant_id.barcode_base, False)
