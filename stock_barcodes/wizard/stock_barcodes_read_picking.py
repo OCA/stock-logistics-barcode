@@ -83,15 +83,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _compute_move_line_ids(self):
         self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
-            "write_date", reverse=True
+            key=lambda sml: (sml.write_date, sml.create_date), reverse=True
         )
-
-        # if self.option_group_id.show_detailed_operations:
-        #     self.move_line_ids = self.picking_id.move_line_ids.filtered(
-        #         "qty_done"
-        #     ).sorted("write_date", reverse=True)
-        # else:
-        #     self.move_line_ids = False
 
     def name_get(self):
         return [
