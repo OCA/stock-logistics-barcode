@@ -1,0 +1,47 @@
+/* Copyright 2024 Tecnativa - Carlos Roca
+   License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+div.o_boolean_toggle_big.custom-control.custom-checkbox {
+    $line-height-computed: $line-height-base * $font-size-base;
+    $slider-width: $line-height-computed * 2.5;
+    $font-size: $font-size-base * 2;
+
+    display: inline-block;
+    padding-left: $slider-width + 0.25rem;
+
+    > label.custom-control-label {
+        > i {
+            color: white;
+            cursor: pointer;
+            font-size: $font-size;
+            position: absolute;
+            top: 2px;
+            &.fa-times-circle {
+                right: 24px;
+            }
+            &.fa-check-circle {
+                right: 7px;
+            }
+        }
+        &::before,
+        &::after {
+            content: "";
+            top: 0;
+            left: -($slider-width + 0.25rem);
+        }
+        &::before {
+            width: $slider-width;
+            height: 150%;
+            background-color: #a0a0a0 !important;
+            border-radius: 100px;
+            outline: none !important;
+        }
+    }
+    > input.custom-control-input:checked + label.custom-control-label {
+        &::before {
+            background-color: $o-brand-primary !important;
+        }
+        &::after {
+            background-image: none;
+        }
+    }
+}
