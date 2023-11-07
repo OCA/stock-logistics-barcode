@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_read_picking_batch_form" model="ir.ui.view">
+        <field name="name">stock.barcodes.read.picking.batch.form</field>
+        <field name="model">wiz.stock.barcodes.read.picking</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form"
+        />
+        <field name="arch" type="xml">
+            <button name="action_validate_picking_batch" position="after">
+                <div
+                    attrs="{'invisible': [('is_pending', '=', True)]}"
+                    class="float-right"
+                >
+                    <field
+                        name="barcodes_requested_review"
+                        widget="boolean_toggle_big"
+                    />
+                    <label for="barcodes_requested_review">
+                        Review
+                    </label>
+                </div>
+            </button>
+            <group name="scan_fields" position="before">
+                <field name="review_picking_batch" invisible="1" />
+            </group>
+            <div name="info" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </div>
+            <group name="scan_fields" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </group>
+            <!-- Hide detailed operation for reviewers -->
+            <xpath expr="//field[@name='move_line_ids']/.." position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': ['|', '|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False), ('review_picking_batch', '=', True)]}</attribute>
+            </xpath>
+            <!-- Hide todo field for reviewers -->
+            <field name="todo_line_display_ids" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </field>
+            <!-- Hide fill from pending lines button for reviewers -->
+            <xpath
+                expr="//field[@name='pending_move_ids']//tree//field[@name='product_uom_qty']"
+                position="after"
+            >
+                <field name="review_picking_batch" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//tree/button[@name='fill_from_pending_line']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </xpath>
+            <xpath
+                expr="//field[@name='pending_move_ids']//kanban//field[@name='qty_done']"
+                position="after"
+            >
+                <field name="review_picking_batch" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//kanban//button[@name='fill_from_pending_line']"
+                position="attributes"
+            >
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </xpath>
+            <!-- Add button to confirm the review -->
+            <xpath
+                expr="//tree//button[@name='fill_from_pending_line']"
+                position="after"
+            >
+                <button
+                    name="action_confirm_review"
+                    type="object"
+                    class="btn btn-success"
+                    icon="fa-check"
+                    context="{'wiz_barcode_id': parent.id}"
+                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
+                />
+            </xpath>
+            <xpath
+                expr="//kanban//button[@name='fill_from_pending_line']"
+                position="after"
+            >
+                <button
+                    name="action_confirm_review"
+                    type="object"
+                    class="btn btn-success"
+                    context="{'wiz_barcode_id': parent.id}"
+                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
+                >
+                    <i class="fa fa-check" title="Confirm review" />
+                </button>
+            </xpath>
+            <div class="oe_stock_barcodes_bottombar d-flex" position="attributes">
+                <attribute
+                    name="attrs"
+                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+            </div>
+            <div class="oe_stock_barcodes_bottombar d-flex" position="before">
+                <div
+                    class="oe_stock_barcodes_bottombar d-flex"
+                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
+                >
+                    <field name="display_menu" invisible="1" />
+                    <!-- HACK: To avoid inheritance crash -->
+                    <button name="action_manual_entry" invisible="1" />
+                    <!-- // -->
+                    <button
+                        name="action_clean_values"
+                        type="object"
+                        class="btn-warning ml-auto oe_kanban_action_button btn-sm"
+                        attrs="{'invisible': [('display_menu', '=', True)]}"
+                        data-hotkey="7"
+                    >
+                        <i class="fa fa-trash-o" title="Clean Values" />
+                    </button>
+                    <button
+                        name="open_actions"
+                        type="object"
+                        class="ml-auto oe_kanban_action_button btn-sm"
+                        attrs="{'invisible': [('display_menu', '=', True)]}"
+                        data-hotkey="0"
+                    >
+                        <i class="fa fa-bars" title="Open actions" />
+                    </button>
+                </div>
+            </div>
+        </field>
+    </record>
+</odoo>
