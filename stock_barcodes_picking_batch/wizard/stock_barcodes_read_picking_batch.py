@@ -104,13 +104,6 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         )
         return move_lines
 
-    def _get_stock_move_lines_todo(self):
-        move_lines = self.picking_batch_id.move_line_ids.filtered(
-            lambda ml: (not ml.barcode_scan_state or ml.barcode_scan_state == "pending")
-            and ml.qty_done < ml.product_qty
-        )
-        return move_lines
-
     def get_moves_or_move_lines(self):
         if self.picking_mode != "picking_batch":
             return super().get_moves_or_move_lines()
@@ -120,6 +113,8 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             return self.picking_batch_id.move_ids
 
     def update_fields_after_determine_todo(self, move_line):
+        if self.picking_mode != "picking_batch":
+            return super().update_fields_after_determine_todo(move_line)
         self.picking_batch_product_qty = move_line.qty_done
 
     def _prepare_stock_moves_domain(self):
@@ -351,8 +346,10 @@ class WizCandidatePickingBatch(models.TransientModel):
         picking_batch = self.env["stock.picking.batch"].browse(
             self.env.context.get("picking_batch_id", False)
         )
-        picking_batch.action_transfer()
-        return self.env.ref("stock_barcodes.action_stock_barcodes_action").read()[0]
+        picking_batch.action_done()
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_action"
+        )
 
     def action_open_picking_batch(self):
         picking_batch = self.env["stock.picking.batch"].browse(
