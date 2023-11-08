@@ -231,7 +231,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if option.filled_default:
                 self[option.field_name] = move_line[option.field_name]
             else:
-                self[option.field_name] = False
+                if not self.env.context.get("skip_clean_values", False):
+                    self[option.field_name] = False
         self.update_fields_after_determine_todo(move_line)
         self.action_show_step()
 
@@ -248,7 +249,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             move_dic = self._process_stock_move_line()
             if move_dic:
                 self[self._field_candidate_ids].scan_count += 1
-                self.action_clean_values()
+                if not self.env.context.get("skip_clean_values", False):
+                    self.action_clean_values()
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.determine_todo_action()
