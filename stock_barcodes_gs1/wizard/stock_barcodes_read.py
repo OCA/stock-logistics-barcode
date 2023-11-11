@@ -72,6 +72,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
+    def _hook_process_gs1_value(self, gs1_item):
+        """Hook to be extended by other modules"""
+        return gs1_item["value"]
+
     def process_barcode(self, barcode):
         gs1_list = self.env.ref(
             "barcodes_gs1_nomenclature.default_gs1_nomenclature"
@@ -81,7 +85,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         warning_msg_list = []
         self.message = False
         for gs1_item in gs1_list:
-            self.barcode = gs1_item["value"]
+            self.barcode = self._hook_process_gs1_value(gs1_item)
             ai = gs1_item["ai"]
             if hasattr(self, "_process_ai_%s" % ai):
                 res = getattr(self, "_process_ai_%s" % ai[:3])(gs1_list=gs1_list)
@@ -100,7 +104,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if warning_msg_list:
             self.barcode = False
             self._set_messagge_info("info", " ".join(warning_msg_list))
-            return False
+            # TODO: Now message is missed. Check all chained messages
         if not self.check_option_required():
             return False
         if self.is_manual_confirm or self.manual_entry:
