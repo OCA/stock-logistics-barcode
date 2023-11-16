@@ -22,7 +22,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             domain.extend(
                 [
                     ("secondary_uom_id", "=", self.secondary_uom_id.id),
-                    ("state", "=", "pending"),
                 ]
             )
         return domain
