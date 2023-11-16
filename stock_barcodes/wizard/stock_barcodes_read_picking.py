@@ -81,6 +81,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         else:
             self.pending_move_ids = False
 
+    @api.depends("todo_line_ids")
     def _compute_move_line_ids(self):
         self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
             key=lambda sml: (sml.write_date, sml.create_date), reverse=True
@@ -395,6 +396,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         """To be extended for other modules"""
         domain = []
         if self.env.user.has_group("stock.group_tracking_lot"):
+            # Check if sml is created with complete content so we fill result package to
+            # set the complete package
+            if (
+                len(self.package_id.quant_ids) == 1
+                and float_compare(
+                    self.package_id.quant_ids.quantity,
+                    self.product_qty,
+                    precision_rounding=self.product_id.uom_id.rounding,
+                )
+                == 0
+            ):
+                self.result_package_id = self.package_id
             domain.extend(
                 [
                     ("package_id", "=", self.package_id.id),
