@@ -27,14 +27,14 @@ class TestStockBarcodesGS1(TestStockBarcodes):
         cls.gs1_barcode_01_not_found = "011xxx11015300001714070410AB-123"
         cls.gs1_barcode_01_not_lot = "01195011015300001714070410AB-124"
         # Barcode for product and quantities
-        cls.gs1_barcode_02 = "0207010001234567150410183724"
+        cls.gs1_barcode_02 = "0287010001234567150410183724"
         cls.gs1_barcode_02_not_found = "020xxx0001234567150410183724"
         # Barcode not processed
         cls.gs1_barcode_01_not_processed = (
             "01993167101234533101002620130" "5041710ABC123214145354"
         )
         cls.product_wo_tracking_gs1 = cls.product_wo_tracking.with_context({}).copy(
-            {"barcode": "07010001234567", "name": "product_wo_tracking_gs1"}
+            {"barcode": "87010001234567", "name": "product_wo_tracking_gs1"}
         )
         cls.product_tracking_gs1 = cls.product_tracking.with_context({}).copy(
             {"name": "product_tracking_gs1"}
@@ -129,15 +129,15 @@ class TestStockBarcodesGS1(TestStockBarcodes):
     def test_wizard_scan_gs1_product_as_packaging(self):
         self.wiz_scan.location_id = self.location_1.id
         self.wiz_scan.action_show_step()
-        self.product_wo_tracking_gs1.barcode = "X07010001234567Xg"
+        self.product_wo_tracking_gs1.barcode = "X87010001234567Xg"
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
-        self.assertIn("(02)07010001234567 Not found", self.wiz_scan.message)
+        self.assertIn("(02)87010001234567 Not found", self.wiz_scan.message)
         self.ProductPackaging.create(
             {
                 "product_id": self.product_wo_tracking_gs1.id,
                 "name": "Barcode as package",
                 "qty": 2.0,
-                "barcode": "07010001234567",
+                "barcode": "87010001234567",
             }
         )
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
