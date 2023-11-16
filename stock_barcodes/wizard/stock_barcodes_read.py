@@ -293,7 +293,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             # Review conditions
             if not self.location_id and self.option_group_id.code != "IN":
                 self.location_id = quants.location_id
-            if not self.is_manual_qty and self.option_group_id.code not in [
+            if self.option_group_id.code not in [
                 "OUT",
                 "INV",
             ]:
