@@ -436,7 +436,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         result_ok = self.check_lot_contidion()
         if not result_ok:
             return False
-        if not self.product_qty:
+        if (
+            not self.product_qty
+            and not self._name == "wiz.stock.barcodes.read.inventory"
+        ):
             self._set_messagge_info("info", _("Waiting quantities"))
             return False
         if (
