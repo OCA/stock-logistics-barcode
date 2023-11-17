@@ -17,18 +17,20 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     inventory_quant_ids = fields.Many2many(
         comodel_name="stock.quant", compute="_compute_inventory_quant_ids"
     )
+    display_read_quant = fields.Boolean(string="Read items")
 
+    @api.depends("display_read_quant")
     def _compute_inventory_quant_ids(self):
         for wiz in self:
-            quants = self.env["stock.quant"].search(
-                [
-                    ("user_id", "=", self.env.user.id),
-                    "|",
-                    ("inventory_quantity_set", "=", True),
-                    ("inventory_date", "<=", fields.Date.context_today(self)),
-                ],
-                order="write_date DESC",
-            )
+            domain = [
+                ("user_id", "=", self.env.user.id),
+                ("inventory_date", "<=", fields.Date.context_today(self)),
+            ]
+            if self.display_read_quant:
+                domain.append(("inventory_quantity_set", "=", True))
+            else:
+                domain.append(("inventory_quantity_set", "=", False))
+            quants = self.env["stock.quant"].search(domain, order="write_date DESC")
             wiz.inventory_quant_ids = quants
 
     def _prepare_stock_quant_values(self):
