@@ -63,6 +63,14 @@
                                 options="{'no_open': True}"
                             />
                             <button
+                                name="action_barcode_inventory_quant_edit"
+                                type="object"
+                                icon="fa-pencil"
+                                class="btn mt0"
+                                context="{'wiz_barcode_id': parent.id}"
+                            >
+                            </button>
+                            <button
                                 name="action_barcode_inventory_quant_unlink"
                                 type="object"
                                 class="btn"
@@ -93,6 +101,18 @@
                                                 </span>
                                             </div>
                                             <div class="col-3 text-right">
+                                                <button
+                                                    name="action_barcode_inventory_quant_edit"
+                                                    type="object"
+                                                    class="btn mt0"
+                                                    context="{'wiz_barcode_id': parent.id}"
+                                                >
+                                                    <i
+                                                        class="fa fa-pencil"
+                                                        title="Edit inventory quantity"
+                                                        style="font-size:1.5em"
+                                                    />
+                                                </button>
                                                 <button
                                                     name="action_barcode_inventory_quant_unlink"
                                                     type="object"
@@ -129,6 +149,17 @@
                     </field>
                 </group>
             </group>
+            <label for="manual_entry" position="after">
+                <field
+                    name="display_read_quant"
+                    widget="FieldBarcodeBooleanToggle"
+                    attrs="{'invisible': [('display_menu', '=', True)]}"
+                />
+                <label
+                    for="display_read_quant"
+                    attrs="{'invisible': [('display_menu', '=', True)]}"
+                />
+            </label>
             <button name="action_clean_values" position="before">
                 <button
                     name="apply_inventory"
@@ -138,7 +169,7 @@
                     data-hotkey="7"
                     groups="stock.group_stock_manager"
                 >
-                    <span>Apply inventory</span>
+                    <span>Apply</span>
                 </button>
             </button>
         </field>
