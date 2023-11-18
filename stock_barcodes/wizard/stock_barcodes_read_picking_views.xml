@@ -79,14 +79,12 @@
                                                 />
                                             </strong>
                                         </div>
-                                        <t
-                                            t-if="!widget.isHtmlEmpty(record.note.raw_value)"
-                                        >
+                                        <t t-if="record.note.raw_value">
                                             <div
                                                 class="text-danger font-italic font-weight-bold text-center"
                                             >
-                                                <t
-                                                    t-out="record.note.value"
+                                                <field
+                                                    name="note"
                                                     invisible="context.get('hide_note', False)"
                                                 />
                                             </div>

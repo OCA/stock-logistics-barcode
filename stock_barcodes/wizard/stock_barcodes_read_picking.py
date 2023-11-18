@@ -758,7 +758,7 @@ class WizCandidatePicking(models.TransientModel):
     # For reload kanban view
     scan_count = fields.Integer()
     is_pending = fields.Boolean(compute="_compute_is_pending")
-    note = fields.Html(related="picking_id.note")
+    note = fields.Text(related="picking_id.note")
 
     @api.depends("scan_count")
     def _compute_picking_quantity(self):

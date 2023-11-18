@@ -25,7 +25,6 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         cls.picking_type_in = cls.env.ref("stock.picking_type_in")
         cls.picking_type_in.barcode_option_group_id = cls.barcode_option_group_in
         cls.picking_type_out = cls.env.ref("stock.picking_type_out")
-        cls.picking_type_out.reservation_method = "manual"
         cls.picking_type_out.barcode_option_group_id = cls.barcode_option_group_out
         cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
         cls.customer_location = cls.env.ref("stock.stock_location_customers")

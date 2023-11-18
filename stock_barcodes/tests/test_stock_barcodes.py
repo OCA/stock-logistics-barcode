@@ -1,11 +1,11 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
-from odoo.tests.common import TransactionCase, tagged
+from odoo.tests.common import SavepointCase, tagged
 
 
 @tagged("post_install", "-at_install")
-class TestStockBarcodes(TransactionCase):
+class TestStockBarcodes(SavepointCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
