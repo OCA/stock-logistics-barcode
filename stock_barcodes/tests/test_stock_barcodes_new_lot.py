@@ -22,6 +22,4 @@ class TestStockBarcodesNewLot(TestStockBarcodesPicking):
             active_model=self.wiz_scan._name,
             active_id=self.wiz_scan.id,
         ).confirm()
-        self.assertEqual(
-            self.wiz_scan_lot.lot_name, self.wiz_scan.lot_id.name
-        )
+        self.assertEqual(self.wiz_scan_lot.lot_name, self.wiz_scan.lot_id.name)
