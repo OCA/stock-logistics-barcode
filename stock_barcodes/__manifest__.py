@@ -11,8 +11,6 @@
     "depends": ["barcodes", "stock", "web_widget_numeric_step"],
     "data": [
         "security/ir.model.access.csv",
-        "data/stock_barcodes_action.xml",
-        "data/stock_barcodes_option.xml",
         "views/assets.xml",
         "views/stock_barcodes_action_view.xml",
         "views/stock_barcodes_option_view.xml",
@@ -24,7 +22,10 @@
         "wizard/stock_barcodes_read_inventory_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
         "wizard/stock_barcodes_read_todo_view.xml",
+        "wizard/stock_barcodes_read_inventory_views.xml",
         # Keep order
+        "data/stock_barcodes_action.xml",
+        "data/stock_barcodes_option.xml",
         "views/stock_barcodes_menu.xml",
     ],
     "installable": True,
