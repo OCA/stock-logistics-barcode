@@ -81,6 +81,9 @@ class StockBarcodesOptionGroup(models.Model):
     show_detailed_operations = fields.Boolean(
         help="If checked the picking detailed operations are displayed",
     )
+    keep_screen_values = fields.Boolean(
+        help="If checked the wizard values are kept until the pending move is completed",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
