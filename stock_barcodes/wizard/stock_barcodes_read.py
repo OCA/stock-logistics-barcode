@@ -191,7 +191,24 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
-            # self.action_done()
+            if (
+                self.option_group_id.fill_fields_from_lot
+                and self.location_id
+                and self.product_id
+            ):
+                quant_domain = [
+                    ("location_id", "=", self.location_id.id),
+                    ("product_id", "=", product.id),
+                ]
+                if self.lot_id:
+                    quant_domain.append(("lot_id", "=", self.lot_id.id))
+                if self.package_id:
+                    quant_domain.append(("package_id", "=", self.package_id.id))
+                if self.owner_id:
+                    quant_domain.append(("owner_id", "=", self.owner_id.id))
+                quants = self.env["stock.quant"].search(quant_domain)
+                if quants:
+                    self.set_info_from_quants(quants)
             return True
         return False
 
