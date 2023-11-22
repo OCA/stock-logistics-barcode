@@ -67,6 +67,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         related="option_group_id.show_detailed_operations"
     )
     keep_screen_values = fields.Boolean(related="option_group_id.keep_screen_values")
+    # Extended from stock_barcodes_read base model
+    total_product_uom_qty = fields.Float(compute="_compute_total_product")
+    total_product_qty_done = fields.Float(compute="_compute_total_product")
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -87,6 +90,19 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
             key=lambda sml: (sml.write_date, sml.create_date), reverse=True
         )
+
+    @api.depends("picking_id.move_line_ids.qty_done")
+    def _compute_total_product(self):
+        self.total_product_uom_qty = 0.0
+        self.total_product_qty_done = 0.0
+        for rec in self:
+            product_moves = rec.picking_id.move_lines.filtered(
+                lambda ln: ln.product_id.ids == self.product_id.ids
+                and ln.state != "cancel"
+            )
+            for line in product_moves:
+                rec.total_product_uom_qty += line.product_uom_qty
+                rec.total_product_qty_done += line.quantity_done
 
     def name_get(self):
         return [

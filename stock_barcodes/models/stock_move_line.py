@@ -23,14 +23,18 @@ class StockMoveLine(models.Model):
             else:
                 line.barcode_scan_state = "pending"
 
+    def _barcodes_process_line_to_unlink(self):
+        self.qty_done = 0.0
+
     def action_barcode_detailed_operation_unlink(self):
         for sml in self:
             if sml.product_uom_qty:
-                sml.qty_done = 0.0
+                sml._barcodes_process_line_to_unlink()
             else:
                 sml.unlink()
+            # HACK: To force refresh wizard values
             wiz_barcode = self.env["wiz.stock.barcodes.read.picking"].browse(
                 self.env.context.get("wiz_barcode_id", False)
             )
-            if wiz_barcode.option_group_id.show_pending_moves:
-                wiz_barcode.fill_todo_records()
+            if wiz_barcode.option_group_id.barcode_guided_mode == "guided":
+                wiz_barcode.todo_line_id.line_ids = wiz_barcode.todo_line_id.line_ids

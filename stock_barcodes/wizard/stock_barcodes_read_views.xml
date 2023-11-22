@@ -313,7 +313,15 @@
                                         name="total_qty_header"
                                     >
                                         <div>
-                                            <span>Total Qty</span>
+                                            <span>( <field
+                                                    name="total_product_qty_done"
+                                                /> / <field
+                                                    name="total_product_uom_qty"
+                                                /> )</span>
+                                                <field
+                                                name="product_uom_id"
+                                                options="{'no_open': True}"
+                                            />
                                         </div>
                                     </div>
                                 </div>
