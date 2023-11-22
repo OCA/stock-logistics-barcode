@@ -92,6 +92,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     display_assign_serial = fields.Boolean(compute="_compute_display_assign_serial")
     keep_result_package = fields.Boolean()
+    total_product_uom_qty = fields.Float(
+        string="Product Demand", digits="Product Unit of Measure", store=False
+    )
+    total_product_qty_done = fields.Float(
+        string="Product Qty. Done", digits="Product Unit of Measure", store=False
+    )
 
     @api.depends("res_id")
     def _compute_action_ids(self):
