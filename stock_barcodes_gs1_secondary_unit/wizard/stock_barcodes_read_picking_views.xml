@@ -30,6 +30,23 @@
                     </div>
                 </div>
             </div>
+            <xpath expr="//div[@name='total_qty_header']/div" position="before">
+                <div>
+                    <span>
+                        <field name="total_secondary_uom_qty_done" /> / <field
+                            name="total_secondary_uom_qty"
+                        /> <field
+                            name="secondary_uom_id"
+                            domain="['|', ('product_id', '=', product_id),
+                                        '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
+                                                 ('product_id', '=', False)]"
+                            force_save="1"
+                            readonly="1"
+                            options="{'no_open': True, 'no_create': True}"
+                        />
+                    </span>
+                </div>
+            </xpath>
             <div name="total_qty_field" position="before">
                 <div class="col text-center pr-0">
                     <field
