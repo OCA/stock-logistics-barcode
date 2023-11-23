@@ -20,6 +20,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     secondary_single_qty = fields.Float(
         string="Secondary single Qty", digits="Product Unit of Measure"
     )
+    total_secondary_uom_qty = fields.Float(
+        string="Second. Demand", digits="Product Unit of Measure", store=False
+    )
+    total_secondary_uom_qty_done = fields.Float(
+        string="Second. Done", digits="Product Unit of Measure", store=False
+    )
 
     @api.onchange("secondary_uom_id", "secondary_uom_qty", "secondary_single_qty")
     def onchange_secondary_uom_qty(self):
