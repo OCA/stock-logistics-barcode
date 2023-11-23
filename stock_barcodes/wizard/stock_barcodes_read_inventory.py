@@ -28,9 +28,20 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ]
             if self.display_read_quant:
                 domain.append(("inventory_quantity_set", "=", True))
+                order = "write_date DESC"
             else:
                 domain.append(("inventory_quantity_set", "=", False))
-            quants = self.env["stock.quant"].search(domain, order="write_date DESC")
+                order = None
+            quants = self.env["stock.quant"].search(domain, order=order)
+            if order is None:
+                quants = quants.sorted(
+                    lambda q: (
+                        q.location_id.posx,
+                        q.location_id.posy,
+                        q.location_id.posz,
+                        q.location_id.name,
+                    )
+                )
             wiz.inventory_quant_ids = quants
 
     def _prepare_stock_quant_values(self):
