@@ -155,6 +155,17 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
+    @api.onchange(
+        "product_id",
+        "lot_id",
+        "package_id",
+        "result_package_id",
+        "packaging_qty",
+        "product_qty",
+    )
+    def onchange_visible_force_done(self):
+        self.visible_force_done = False
+
     def _set_messagge_info(self, message_type, message):
         """
         Set message type and message description.
