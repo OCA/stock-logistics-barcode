@@ -412,26 +412,54 @@
                             </group>
                     </div>
                     <div class="oe_stock_barcodes_bottombar d-flex">
-                        <field
-                            name="manual_entry"
-                            widget="FieldBarcodeBooleanToggle"
-                            data-hotkey="5"
-                            attrs="{'invisible': [('display_menu', '=', True)]}"
-                        />
                         <field name="display_menu" invisible="1" />
-                        <label
-                            for="manual_entry"
+                        <div
+                            class="btn-group dropup"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                         >
-                            Edit
-                        </label>
+                            <a
+                                type="button"
+                                class="btn btn-secondary dropdown-toggle"
+                                data-toggle="dropdown"
+                                aria-haspopup="true"
+                                aria-expanded="false"
+                            >
+                              <i class="fa fa-cogs" />
+                            </a>
+                            <div
+                                class="dropdown-menu pl-2 pr-2"
+                                style="min-width: 150px"
+                            >
+                                <div name="manual_entry" class="d-flex">
+                                    <field
+                                        name="manual_entry"
+                                        widget="FieldBarcodeBooleanToggle"
+                                        data-hotkey="5"
+                                    />
+                                    <label for="manual_entry">
+                                        Edit
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div
+                            class="d-flex pl-1 pr-1"
+                            style="width: 75px;flex-wrap: wrap;"
+                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                        >
+                            <i
+                                name="manual_entry"
+                                class="fa fa-hand-paper-o text-info mr-1"
+                                attrs="{'invisible': [('manual_entry', '=', False)]}"
+                            />
+                        </div>
                         <!-- HACK: To avoid inheritance crash -->
                         <button name="action_manual_entry" invisible="1" />
                         <!-- // -->
                         <button
                             name="action_clean_values"
                             type="object"
-                            class="btn-warning ml-auto oe_kanban_action_button btn-sm"
+                            class="btn-warning ml-auto oe_kanban_action_button btn-sm pl-3 pr-3"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                             data-hotkey="7"
                         >
@@ -440,7 +468,7 @@
                         <button
                             name="action_confirm"
                             type="object"
-                            class="btn-success ml-auto oe_kanban_action_button btn-sm"
+                            class="btn-success ml-auto oe_kanban_action_button btn-sm pl-3 pr-3"
                             attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
                             data-hotkey="8"
                         >
@@ -451,13 +479,14 @@
                             type="object"
                             icon="fa-check"
                             attrs="{'invisible': [('visible_force_done', '=', False)]}"
-                            class="btn-danger ml-auto oe_kanban_action_button btn-sm"
+                            class="btn-danger ml-auto oe_kanban_action_button btn-sm pl-3 pr-3"
+                            style="width: 50px"
                             data-hotkey="8"
                         />
                         <button
                             name="open_actions"
                             type="object"
-                            class="ml-auto oe_kanban_action_button btn-sm"
+                            class="ml-auto oe_kanban_action_button btn-sm pl-3 pr-3"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                             data-hotkey="0"
                         >
