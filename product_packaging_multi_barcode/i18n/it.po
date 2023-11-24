@@ -1,0 +1,74 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_packaging_multi_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2023-11-24 17:34+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model.fields,help:product_packaging_multi_barcode.field_product_packaging__barcode
+msgid ""
+"Barcode used for packaging identification. Scan this packaging barcode from "
+"a transfer in the Barcode app to move all the contained units"
+msgstr ""
+"Codice a barre utilizzato per l'identificazione dell'imballaggio. Leggere "
+"questo codice a barre imballo da un trasferimento nell'app Barcode pr "
+"movimentare le unità contenute"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model.fields,field_description:product_packaging_multi_barcode.field_product_packaging__barcode_ids
+msgid "Barcodes"
+msgstr "Codici a barre"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model,name:product_packaging_multi_barcode.model_product_barcode
+msgid "Individual item in a product's barcode list"
+msgstr "Singolo oggetto nella lista codici a barre di un prodotto"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model.fields,field_description:product_packaging_multi_barcode.field_product_packaging__barcode
+msgid "Main barcode"
+msgstr "Codice a barre principale"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model.fields,field_description:product_packaging_multi_barcode.field_product_barcode__packaging_id
+msgid "Packaging"
+msgstr "Imballaggio"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model,name:product_packaging_multi_barcode.model_product_packaging
+msgid "Product Packaging"
+msgstr "Imballaggio prodotto"
+
+#. module: product_packaging_multi_barcode
+#. odoo-python
+#: code:addons/product_packaging_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for packaging \"%(name)s\" "
+"in the company %(company_name)s."
+msgstr ""
+"Il codice a barre \"%(barcode_name)s\" esiste già per l'imballo \"%(name)s\" "
+"nell'azienda %(company_name)s."
+
+#. module: product_packaging_multi_barcode
+#. odoo-python
+#: code:addons/product_packaging_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for product "
+"\"%(product_name)s\" in the company %(company_name)s"
+msgstr ""
+"Il codice a barre \"%(barcode_name)s\" esiste già per il prodotto \""
+"%(product_name)s\" nell'azienda %(company_name)s"
