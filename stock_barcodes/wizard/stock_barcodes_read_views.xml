@@ -312,16 +312,20 @@
                                         class="col text-center pr-0"
                                         name="total_qty_header"
                                     >
-                                        <div>
-                                            <span>( <field
+                                        <div
+                                            attrs="{'invisible': [('total_product_uom_qty', '=', 0.0)]}"
+                                        >
+                                            <span>(<field
                                                     name="total_product_qty_done"
+                                                    readonly="1"
                                                 /> / <field
                                                     name="total_product_uom_qty"
-                                                /> )</span>
-                                                <field
-                                                name="product_uom_id"
-                                                options="{'no_open': True}"
-                                            />
+                                                    readonly="1"
+                                                />) <field
+                                                    name="product_uom_id"
+                                                    options="{'no_open': True}"
+                                                    readonly="1"
+                                                /></span>
                                         </div>
                                     </div>
                                 </div>
