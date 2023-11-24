@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 08:40+0000\n"
-"PO-Revision-Date: 2023-10-13 16:37+0000\n"
+"PO-Revision-Date: 2023-11-24 17:34+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: Italian (https://www.transifex.com/oca/teams/23907/it/)\n"
 "Language: it\n"
@@ -30,6 +30,13 @@ msgid ""
 "base\n"
 " - 'Base managed by Sequence': System will generate the base via a sequence"
 msgstr ""
+"Consente di generare un codice a barre, incluso un numero  (una base) nel "
+"codice a barre finale.\n"
+"\n"
+" 'Base impostata manualmente' : l'utente deve impostare manualmente il "
+"valore della base del codice a barre\n"
+" 'Base gestita da sequenza': l'utente utilizzerà un pulsante per generare "
+"una nuova base. Questa base sarà generata da una sequenza"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_automate
@@ -73,6 +80,8 @@ msgid ""
 "Check this to automatically generate a base and a barcode if this rule is "
 "selected."
 msgstr ""
+"Selezionare questa opzione per generare qutomaticamente una base e un codice "
+"a barre se questa regola è selezionata."
 
 #. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin
@@ -82,7 +91,7 @@ msgstr "Genera Codice a barre"
 #. module: barcodes_generator_abstract
 #: model:res.groups,name:barcodes_generator_abstract.generate_barcode
 msgid "Generate Barcodes"
-msgstr "Genera Codici a Barre"
+msgstr "Genera codici a barre"
 
 #. module: barcodes_generator_abstract
 #. odoo-python
@@ -98,13 +107,13 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_model
 msgid "Generate Model"
-msgstr "Genera Modello"
+msgstr "Genera modello"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_type
 msgid "Generate Type"
-msgstr "Genera Tipo"
+msgstr "Genera tipo"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
@@ -115,7 +124,7 @@ msgstr "Sequenza generazione"
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_rule__generate_model
 msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
-"Se 'Genera Tipo' è impostato, menzionare il modello relativo a questa regola."
+"Se 'Genera tipo' è impostato, menzionare il modello relativo a questa regola."
 
 #. module: barcodes_generator_abstract
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_abstract.view_barcode_rule_form
@@ -124,6 +133,9 @@ msgid ""
 "automatically when the barcode rule is saved, based on the padding of the "
 "barcode."
 msgstr ""
+"Se si lascia vuoto il campo sequenza, una sequenza verrà creata "
+"automaticamente quando la regola codice a barre verrà salvata, in base al "
+"riempimento del codice a barre."
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__no
@@ -138,7 +150,7 @@ msgstr "Riempimento"
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin__barcode_rule_id
 msgid "Select a rule to generate a barcode"
-msgstr ""
+msgstr "Selezionare una regola per generare il codice a barre"
 
 #. module: barcodes_generator_abstract
 #. odoo-python
@@ -153,6 +165,8 @@ msgid ""
 "This value is used to generate barcode according to the setting of the "
 "barcode rule."
 msgstr ""
+"Questo valore è utilizzato per generare il codice a barre in accordo alle "
+"impostazioni della regola del codice a barre."
 
 #~ msgid ""
 #~ "Allow to generate barcode, including a number  (a base) in the final "
