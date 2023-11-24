@@ -370,7 +370,7 @@
                     help="Put in pack"
                     type="object"
                     attrs="{'invisible': ['|', ('picking_state', 'in', ('draft', 'done', 'cancel')), ('display_menu', '=', True)]}"
-                    class="ml-auto oe_kanban_action_button btn btn-secondary btn-sm"
+                    class="ml-auto oe_kanban_action_button btn btn-secondary btn-sm pl-3 pr-3"
                     groups="stock.group_tracking_lot"
                     data-hotkey="6"
                 >
