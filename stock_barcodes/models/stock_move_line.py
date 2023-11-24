@@ -38,3 +38,6 @@ class StockMoveLine(models.Model):
             )
             if wiz_barcode.option_group_id.barcode_guided_mode == "guided":
                 wiz_barcode.todo_line_id.line_ids = wiz_barcode.todo_line_id.line_ids
+                if not any(wiz_barcode.todo_line_id.line_ids.mapped("qty_done")):
+                    wiz_barcode.fill_todo_records()
+                    wiz_barcode.determine_todo_action()
