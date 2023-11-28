@@ -41,3 +41,6 @@ class StockMoveLine(models.Model):
                 if not any(wiz_barcode.todo_line_id.line_ids.mapped("qty_done")):
                     wiz_barcode.fill_todo_records()
                     wiz_barcode.determine_todo_action()
+            else:
+                wiz_barcode.fill_todo_records()
+                wiz_barcode.todo_line_id.line_ids = wiz_barcode.todo_line_id.line_ids
