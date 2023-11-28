@@ -41,9 +41,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     qty_done = fields.Float(
         "Done",
         digits="Product Unit of Measure",
-        readonly=False,
         compute="_compute_qty_done",
-        store=True,
     )
     location_id = fields.Many2one(comodel_name="stock.location")
     location_name = fields.Char(related="location_id.name")
@@ -102,7 +100,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     "package_id": line.package_id.id,
                     "result_package_id": line.result_package_id.id,
                     "uom_id": line.product_uom_id.id,
-                    "qty_done": line.qty_done,
                     "product_qty_reserved": line.product_qty,
                     "line_ids": [(6, 0, line.ids)],
                     "stock_move_ids": [(6, 0, line.move_id.ids)],
@@ -119,7 +116,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                         line.move_line_ids[:1] or line
                     ).location_dest_id.id,
                     "uom_id": line.product_uom.id,
-                    "qty_done": line.quantity_done,
                     "product_qty_reserved": line.move_line_ids
                     and sum(line.move_line_ids.mapped("product_qty"))
                     or line.product_uom_qty,
@@ -133,7 +129,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         vals["product_uom_qty"] += line.product_uom_qty
         if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
             vals["product_qty_reserved"] += line.product_qty
-            vals["qty_done"] += line.qty_done
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
         else:
@@ -142,7 +137,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 and sum(line.move_line_ids.mapped("product_qty"))
                 or line.product_uom_qty
             )
-            vals["qty_done"] += line.quantity_done
             vals["line_ids"][0][2].extend(line.move_line_ids.ids)
             vals["stock_move_ids"][0][2].extend(line.ids)
         return vals
