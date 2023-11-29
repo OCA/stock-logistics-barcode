@@ -149,17 +149,15 @@
                     </field>
                 </group>
             </group>
-            <label for="manual_entry" position="after">
-                <field
-                    name="display_read_quant"
-                    widget="FieldBarcodeBooleanToggle"
-                    attrs="{'invisible': [('display_menu', '=', True)]}"
-                />
-                <label
-                    for="display_read_quant"
-                    attrs="{'invisible': [('display_menu', '=', True)]}"
-                />
-            </label>
+            <div name="manual_entry" position="after">
+                <div class="d-flex" name="display_read_quant">
+                    <field
+                        name="display_read_quant"
+                        widget="FieldBarcodeBooleanToggle"
+                    />
+                    <label for="display_read_quant" />
+                </div>
+            </div>
             <button name="action_clean_values" position="before">
                 <button
                     name="apply_inventory"
