@@ -21,7 +21,6 @@ class ProductPrintingQty(models.TransientModel):
         "uom.uom",
         string="Unit of Measure",
         related="move_line_id.product_uom_id",
-        readonly=False,
     )
     lot_id = fields.Many2one("stock.production.lot", string="Lot/Serial Number")
     result_package_id = fields.Many2one(
@@ -29,7 +28,7 @@ class ProductPrintingQty(models.TransientModel):
     )
 
     wizard_id = fields.Many2one("stock.picking.print", string="Wizard")
-    move_line_id = fields.Many2one("stock.move.line", "Move")
+    move_line_id = fields.Many2one("stock.move.line", "Move", readonly=True)
 
 
 class WizStockBarcodeSelectionPrinting(models.TransientModel):
