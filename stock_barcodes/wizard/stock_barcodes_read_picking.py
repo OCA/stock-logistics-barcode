@@ -278,7 +278,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # Now we can add read log with details.
             _logger.info("Add scanned log barcode:{}".format(self.barcode))
             self._add_read_log(log_detail=move_dic)
-            return bool(move_dic)
+            return move_dic
         # Add read log normally.
         _logger.info("Add scanned log barcode:{}".format(self.barcode))
         self._add_read_log()
