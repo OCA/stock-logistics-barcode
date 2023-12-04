@@ -132,11 +132,23 @@
                                     <button
                                         name="action_todo_next"
                                         type="object"
+                                        class="btn btn-warning pull-right btn-sm"
+                                        context="{'wiz_barcode_id': parent.id}"
+                                        data-hotkey="3"
+                                        attrs="{'invisible': [('qty_done', '=', 0.0)]} "
+                                    >
+                                    Ignore rest
+                                    </button>
+                                    <button
+                                        name="action_todo_next"
+                                        type="object"
                                         class="btn btn-danger pull-right btn-sm"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
+                                        attrs="{'invisible': [('qty_done', '!=', 0.0)]} "
+                                        confirm="You have not set any quantity to this operation and it will be removed from pending moves. Are you sure?"
                                     >
-                                    Done
+                                    Ignore rest
                                     </button>
                                 </div>
                                 <div class="col-3">
