@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+
+    <record id="product_barcode_list_view_inherit" model="ir.ui.view">
+        <field name="name">product.barcode.list.inherit</field>
+        <field name="model">product.barcode</field>
+        <field
+            name="inherit_id"
+            ref="product_multi_barcode_stock_menu.product_barcode_list_view"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='name']" position="after">
+                <field name="display_product_id" />
+            </xpath>
+            <xpath expr="//field[@name='product_id']" position="attributes">
+                <attribute name="optional">hide</attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="product_barcode_view_search" model="ir.ui.view">
+        <field name="model">product.barcode</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="display_product_id" />
+                <filter
+                    string="display product"
+                    name="display_product_id"
+                    context="{'group_by': 'display_product_id'}"
+                />
+            </search>
+        </field>
+    </record>
+</odoo>
