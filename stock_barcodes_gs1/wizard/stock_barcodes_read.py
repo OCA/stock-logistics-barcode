@@ -87,8 +87,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         for gs1_item in gs1_list:
             self.barcode = self._hook_process_gs1_value(gs1_item)
             ai = gs1_item["ai"]
-            if hasattr(self, "_process_ai_%s" % ai):
-                res = getattr(self, "_process_ai_%s" % ai[:3])(gs1_list=gs1_list)
+            ai_name = ai[:3]
+            if hasattr(self, "_process_ai_%s" % ai_name):
+                res = getattr(self, "_process_ai_%s" % ai_name)(gs1_list=gs1_list)
                 if not res:
                     warning_msg_list.append(
                         self.message
