@@ -339,15 +339,15 @@ class WizStockBarcodesRead(models.AbstractModel):
             products = quants.mapped("product_id")
             if len(products) == 1:
                 self.action_product_scaned_post(products[0])
-            packages = quants.mapped("package_id")
-            if len(packages) == 1:
-                self.package_id = packages
+            package = quants[0].package_id
+            if not quants.filtered(lambda q: q.package_id != package):
+                self.package_id = package
             lots = quants.mapped("lot_id")
             if len(lots) == 1:
                 self.action_lot_scaned_post(lots[0])
-            owners = quants.mapped("owner_id")
-            if len(owners) == 1:
-                self.owner_id = owners
+            owner = quants[0].owner_id
+            if not quants.filtered(lambda q: q.owner_id != owner):
+                self.owner_id = owner
             locations = quants.mapped("location_id")
             if len(locations) == 1:
                 if not self.location_id and self.option_group_id.code != "IN":
