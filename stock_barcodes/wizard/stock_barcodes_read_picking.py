@@ -495,15 +495,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         candidate_domain = self._get_candidate_line_domain()
         if candidate_domain:
             lines = lines.filtered_domain(candidate_domain)
-        # The new lines scanned has been created without reserved quantity
+        # Take into account all smls to get a line to update
         if not lines:
-            lines = candidate_lines.filtered(
-                lambda ln: (
-                    ln.lot_id == self.lot_id
-                    and ln.product_uom_qty == 0.0
-                    and ln.qty_done > 0.0
-                )
-            )
+            lines = candidate_lines.filtered(lambda ln: (ln.lot_id == self.lot_id))
             if candidate_domain:
                 lines = lines.filtered_domain(candidate_domain)
         available_qty = self.product_qty
