@@ -320,6 +320,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             # All ok
             self.action_product_scaned_post(quants.product_id)
             self.package_id = quants.package_id
+            self.result_package_id = quants.package_id
             if quants.lot_id:
                 self.action_lot_scaned_post(quants.lot_id)
             if quants.owner_id:
