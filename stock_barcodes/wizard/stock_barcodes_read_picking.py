@@ -527,9 +527,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 )
             else:
                 assigned_qty = available_qty
+            # Not increase qty done if user reads a complete package
+            if (
+                self.result_package_id
+                and self.package_id
+                and self.result_package_id == self.package_id
+            ):
+                qty_done = assigned_qty
+            else:
+                qty_done = line.qty_done + assigned_qty
             sml_vals.update(
                 {
-                    "qty_done": line.qty_done + assigned_qty,
+                    "qty_done": qty_done,
                     "result_package_id": self.result_package_id.id,
                 }
             )
