@@ -32,7 +32,7 @@
             </div>
             <xpath expr="//div[@name='total_qty_header']/div" position="before">
                 <div>
-                    <span>
+                    <span attrs="{'invisible': [('secondary_uom_id', '=', False)]}">
                         <field name="total_secondary_uom_qty_done" /> / <field
                             name="total_secondary_uom_qty"
                         /> <field
@@ -48,12 +48,16 @@
                 </div>
             </xpath>
             <div name="total_qty_field" position="before">
-                <div class="col text-center pr-0">
+                <div
+                    class="col text-center pr-0"
+                    attrs="{'invisible': [('secondary_uom_id', '=', False)]}"
+                >
                     <field
                         name="secondary_uom_qty"
                         force_save="1"
                         widget="numeric_step"
                         options="{'auto_select': True}"
+                        attrs="{'invisible': [('secondary_uom_id', '=', False)]}"
                     />
                 </div>
                 <div
