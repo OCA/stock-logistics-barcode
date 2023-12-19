@@ -578,8 +578,21 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         ):
             # Create an extra stock move line if this product has an
             # initial demand.
+            # When the sml is created we need to link to a stock move but user can read
+            # any other product in guided mode so we must ensure that the sm linked to
+            # moves todo records have the same product. If not we search any sm linked
+            # to the picking.
+            moves_to_link = moves_todo.filtered(
+                lambda mv: mv.product_id == self.product_id
+            )
+            move_to_link_in_todo_line = True
+            if not moves_to_link:
+                move_to_link_in_todo_line = False
+                moves_to_link = self.picking_id.move_lines.filtered(
+                    lambda mv: mv.product_id == self.product_id
+                )
             stock_move_lines = self.create_new_stock_move_line(
-                moves_todo, available_qty
+                moves_to_link, available_qty
             )
             for sml in stock_move_lines:
                 if not sml.move_id:
@@ -588,7 +601,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # When create new stock move lines and we are in guided mode we need
             # link this new lines to the todo line details
             if self.option_group_id.barcode_guided_mode == "guided":
-                self.todo_line_id.line_ids = [(4, sml.id) for sml in stock_move_lines]
+                # If user scan a product distinct of the todo line we need link to other
+                # alternative move
+                if move_to_link_in_todo_line:
+                    todo_line = self.todo_line_id
+                else:
+                    todo_line = self.todo_line_ids.filtered(
+                        lambda ln: ln.product_id == self.product_id
+                    )
+                todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
             elif self.option_group_id.show_pending_moves:
                 # TODO: Check performance with a lot records
                 self.fill_todo_records()
