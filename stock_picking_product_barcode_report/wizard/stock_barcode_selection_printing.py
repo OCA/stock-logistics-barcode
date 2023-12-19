@@ -42,6 +42,9 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.picking":
             picking_ids = self.env["stock.picking"].browse(ctx.get("active_ids"))
             res.update({"picking_ids": picking_ids.ids})
+        if ctx.get("active_ids") and ctx.get("active_model") == "stock.move.line":
+            stock_move_lines = self.env["stock.move.line"].browse(ctx.get("active_ids"))
+            res.update({"stock_move_line_ids": stock_move_lines.ids})
         return res
 
     def _default_barcode_report(self):
@@ -70,24 +73,26 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     is_custom_label = fields.Boolean(compute="_compute_is_custom_label")
     html_content = fields.Html()
     label_qty = fields.Integer(default=1)
+    stock_move_line_ids = fields.Many2many("stock.move.line")
 
-    @api.onchange("picking_ids", "barcode_report")
+    @api.onchange("picking_ids", "stock_move_line_ids", "barcode_report")
     def _onchange_picking_ids(self):
         product_print_moves = [(5, 0)]
         line_fields = [f for f in self.env["stock.picking.line.print"]._fields.keys()]
         product_print_moves_data_tmpl = self.env[
             "stock.picking.line.print"
         ].default_get(line_fields)
-        for picking_id in self.picking_ids.ids:
-            picking = self.env["stock.picking"].browse(picking_id)
-            for move_line in self._get_move_lines(picking):
-                product_print_moves_data = dict(product_print_moves_data_tmpl)
-                product_print_moves_data.update(
-                    self._prepare_data_from_move_line(move_line)
-                )
-                if product_print_moves_data:
-                    product_print_moves.append((0, 0, product_print_moves_data))
-        if self.picking_ids:
+        stock_move_lines = self.stock_move_line_ids or self._get_move_lines(
+            self.picking_ids
+        )
+        for move_line in stock_move_lines:
+            product_print_moves_data = dict(product_print_moves_data_tmpl)
+            product_print_moves_data.update(
+                self._prepare_data_from_move_line(move_line)
+            )
+            if product_print_moves_data:
+                product_print_moves.append((0, 0, product_print_moves_data))
+        if self.stock_move_line_ids or self.picking_ids:
             self.product_print_moves = product_print_moves
 
     @api.model
