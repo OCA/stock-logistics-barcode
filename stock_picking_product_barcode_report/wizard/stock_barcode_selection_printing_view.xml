@@ -76,4 +76,12 @@
         <field name="binding_model_id" ref="stock.model_stock_picking" />
         <field name="target">new</field>
     </record>
+    <record id="act_stock_barcode_selection_printing_sml" model="ir.actions.act_window">
+        <field name="name">Print barcode labels</field>
+        <field name="res_model">stock.picking.print</field>
+        <field name="view_mode">form</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="stock.model_stock_move_line" />
+        <field name="target">new</field>
+    </record>
 </odoo>
