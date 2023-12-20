@@ -388,6 +388,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 and l.product_id == self.product_id
             )
         )
+        # Try to reuse existing stock move lines updating locations
         if not candidate_lines:
             location_option = self.option_group_id.option_ids.filtered(
                 lambda op: op.field_name == "location_id"
@@ -397,6 +398,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     lambda l: (
                         l.location_dest_id == self.location_dest_id
                         and l.product_id == self.product_id
+                        and l.location_id == self.picking_location_id
                     )
                 )
                 if candidate_lines and self.location_id:
@@ -410,6 +412,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     lambda l: (
                         l.location_id == self.location_id
                         and l.product_id == self.product_id
+                        and l.location_dest_id == self.picking_location_dest_id
                     )
                 )
                 if candidate_lines and self.location_dest_id:
