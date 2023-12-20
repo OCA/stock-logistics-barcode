@@ -124,6 +124,14 @@
                 <field name="picking_type_code" invisible="1" force_save="1" />
                 <field name="picking_id" invisible="1" force_save="1" />
                 <field name="show_detailed_operations" invisible="1" />
+                <field name="picking_location_id" invisible="1" />
+                <field name="picking_location_dest_id" invisible="1" />
+                <field name="company_id" invisible="1" />
+            </field>
+            <field name="location_id" position="attributes">
+                <attribute
+                    name="domain"
+                >[('id', 'child_of', picking_location_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]</attribute>
             </field>
             <group name="location" position="attributes">
                 <attribute
@@ -148,6 +156,7 @@
                             force_save="1"
                             style="width:85%"
                             class="h5"
+                            domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
                         />
                     </div>
                 </group>
