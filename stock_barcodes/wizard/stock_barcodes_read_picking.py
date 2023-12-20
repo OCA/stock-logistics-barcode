@@ -70,6 +70,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     # Extended from stock_barcodes_read base model
     total_product_uom_qty = fields.Float(compute="_compute_total_product")
     total_product_qty_done = fields.Float(compute="_compute_total_product")
+    # Technical fields to compute locations domain based on picking location
+    picking_location_id = fields.Many2one(related="picking_id.location_id")
+    picking_location_dest_id = fields.Many2one(related="picking_id.location_dest_id")
+    company_id = fields.Many2one(related="picking_id.company_id")
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
