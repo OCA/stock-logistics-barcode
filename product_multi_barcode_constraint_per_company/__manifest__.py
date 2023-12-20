@@ -4,7 +4,7 @@
 
 {
     "name": "Product Multi Barcode Constraint per Company",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "category": "Product",
     "summary": "Glue module for product_multi_barcode and"
     "product_barcode_constraint_per_company",
