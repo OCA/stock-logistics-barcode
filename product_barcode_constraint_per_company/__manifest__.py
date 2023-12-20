@@ -4,7 +4,7 @@
 
 {
     "name": "Product Barcode Constraint per Company",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.0.2",
     "category": "Product",
     "summary": "Change the product barcode constraint"
     ", allowing the same barcode for differents companies",
