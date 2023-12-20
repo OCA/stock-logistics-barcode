@@ -25,6 +25,11 @@
                     />
                 </div>
             </group>
+            <field name="location_id" position="attributes">
+                <attribute
+                    name="domain"
+                >[('usage', 'in', ['internal', 'transit'])]</attribute>
+            </field>
             <group name="scan_fields" position="after">
                 <group
                     string="Inventory quants"
