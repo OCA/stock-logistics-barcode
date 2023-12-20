@@ -10,8 +10,8 @@ msgstr ""
 "POT-Creation-Date: 2017-05-13 08:55+0000\n"
 "PO-Revision-Date: 2023-11-10 15:38+0000\n"
 "Last-Translator: LESTRAT21 <elodie@comptoirdecampagne.fr>\n"
-"Language-Team: French (http://www.transifex.com/oca/"
-"OCA-stock-logistics-barcode-8-0/language/fr/)\n"
+"Language-Team: French (http://www.transifex.com/oca/OCA-stock-logistics-"
+"barcode-8-0/language/fr/)\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -30,6 +30,11 @@ msgstr "Code-barre"
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 msgid "Barcodes"
 msgstr "Codes-barres"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
+msgid "Company"
+msgstr ""
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
@@ -111,8 +116,8 @@ msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for product "
 "\"%(product_name)s\" in the company %(company_name)s"
 msgstr ""
-"Le code-barre \"%(barcode_name)s\" existe déjà pour le produit \""
-"%(product_name)s\" dans la société %(company_name)s"
+"Le code-barre \"%(barcode_name)s\" existe déjà pour le produit "
+"\"%(product_name)s\" dans la société %(company_name)s"
 
 #, fuzzy
 #~ msgid "Product Template"
