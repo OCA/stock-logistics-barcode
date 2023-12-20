@@ -31,6 +31,11 @@ msgid "Barcodes"
 msgstr ""
 
 #. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
+msgid "Company"
+msgstr ""
+
+#. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
 msgid "Created by"
 msgstr "Tạo bởi"
