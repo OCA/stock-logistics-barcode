@@ -289,7 +289,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             ("package_id.name", "=", self.barcode),
             ("quantity", ">", 0.0),
         ]
-        if self.location_id and self._name != "wiz.stock.barcodes.read.inventory":
+        if self.option_group_id.get_option_value("location_id", "forced"):
             quant_domain.append(("location_id", "=", self.location_id.id))
         else:
             quant_domain.append(("location_id.usage", "=", "internal"))
@@ -326,7 +326,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             if quants.owner_id:
                 self.owner_id = quants.owner_id
             # Review conditions
-            if not self.location_id and self.option_group_id.code != "IN":
+            if (
+                not self.option_group_id.get_option_value("location_id", "forced")
+                and self.option_group_id.code != "IN"
+            ):
                 self.location_id = quants.location_id
             if self.option_group_id.code not in [
                 "OUT",
