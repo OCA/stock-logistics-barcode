@@ -3,7 +3,7 @@
 # @author: Ashish Hirpara (ashish.hirapara1995@gmail.com)
 {
     "name": "Barcode Generator product - multi barcode",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "category": "Tools",
     "author": "Ooops, Cetmix, La Louve, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
