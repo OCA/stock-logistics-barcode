@@ -14,21 +14,21 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: barcodes_generator_product_multi_barcode
-#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_barcode_generate_mixin__display_name
+#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_product_product__display_name
 msgid "Display Name"
 msgstr ""
 
 #. module: barcodes_generator_product_multi_barcode
-#: model:ir.model,name:barcodes_generator_product_multi_barcode.model_barcode_generate_mixin
-msgid "Generate Barcode Mixin"
-msgstr ""
-
-#. module: barcodes_generator_product_multi_barcode
-#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_barcode_generate_mixin__id
+#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_product_product__id
 msgid "ID"
 msgstr ""
 
 #. module: barcodes_generator_product_multi_barcode
-#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_barcode_generate_mixin____last_update
+#: model:ir.model.fields,field_description:barcodes_generator_product_multi_barcode.field_product_product____last_update
 msgid "Last Modified on"
+msgstr ""
+
+#. module: barcodes_generator_product_multi_barcode
+#: model:ir.model,name:barcodes_generator_product_multi_barcode.model_product_product
+msgid "Product"
 msgstr ""
