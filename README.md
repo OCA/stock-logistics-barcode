@@ -24,7 +24,7 @@ addon | version | maintainers | summary
 [barcodes_generator_abstract](barcodes_generator_abstract/) | 14.0.1.0.3 |  | Generate Barcodes for Any Models
 [barcodes_generator_location](barcodes_generator_location/) | 14.0.1.0.0 |  | Generate Barcodes for Stock Locations
 [barcodes_generator_package](barcodes_generator_package/) | 14.0.1.0.1 |  | Generate Barcodes for Product Packaging
-[barcodes_generator_product](barcodes_generator_product/) | 14.0.1.2.0 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Products (Templates and Variants)
+[barcodes_generator_product](barcodes_generator_product/) | 14.0.1.2.1 | [![legalsylvain](https://github.com/legalsylvain.png?size=30px)](https://github.com/legalsylvain) | Generate Barcodes for Products (Templates and Variants)
 [barcodes_generator_product_multi_barcode](barcodes_generator_product_multi_barcode/) | 14.0.1.0.1 | [![dessanhemrayev](https://github.com/dessanhemrayev.png?size=30px)](https://github.com/dessanhemrayev) [![CetmixGitDrone](https://github.com/CetmixGitDrone.png?size=30px)](https://github.com/CetmixGitDrone) [![AshishHirapara](https://github.com/AshishHirapara.png?size=30px)](https://github.com/AshishHirapara) | Barcode Generator product - multi barcode
 [base_gs1_barcode](base_gs1_barcode/) | 14.0.1.1.0 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_barcode_constraint_per_company](product_barcode_constraint_per_company/) | 14.0.1.0.1 |  | Change the product barcode constraint, allowing the same barcode for differents companies
