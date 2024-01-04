@@ -65,6 +65,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", self.location_id.id),
             ("lot_id", "=", self.lot_id.id),
+            ("package_id", "=", self.package_id.id),
         ]
 
     def _add_inventory_quant(self):
