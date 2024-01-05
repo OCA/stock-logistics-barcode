@@ -35,6 +35,7 @@
                             <field name="keep_screen_values" />
                             <field name="is_manual_confirm" />
                             <field name="is_manual_qty" />
+                            <field name="accumulate_read_quantity" />
                             <field name="allow_negative_quant" />
                             <field name="fill_fields_from_lot" />
                             <field name="auto_lot" />

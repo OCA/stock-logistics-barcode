@@ -84,6 +84,10 @@ class StockBarcodesOptionGroup(models.Model):
     keep_screen_values = fields.Boolean(
         help="If checked the wizard values are kept until the pending move is completed",
     )
+    accumulate_read_quantity = fields.Boolean(
+        help="If checked quantity will be accumulated to the existing record instead of "
+        "overwrite it with the new quantity value",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
