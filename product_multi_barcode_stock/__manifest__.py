@@ -1,5 +1,5 @@
 {
-    "name": "Multiple barcodes menu",
+    "name": "Multiple barcodes stock",
     "version": "16.0.1.0.0",
     "license": "AGPL-3",
     "author": "Ilyas, Ooops404, Odoo Community Association (OCA)",
