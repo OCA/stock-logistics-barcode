@@ -61,7 +61,6 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 "<=",
                 fields.Date.context_today(self).strftime("%Y-%m-%d"),
             ),
-            ("inventory_quantity_set", "=", True),
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", self.location_id.id),
             ("lot_id", "=", self.lot_id.id),
@@ -78,7 +77,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ):
                 self._serial_tracking_message_fail()
                 return False
-            quant.inventory_quantity = self.product_qty
+            if self.option_group_id.accumulate_read_quantity:
+                quant.inventory_quantity += self.product_qty
+            else:
+                quant.inventory_quantity = self.product_qty
         else:
             if self.product_id.tracking == "serial" and self.product_qty != 1:
                 self._serial_tracking_message_fail()
