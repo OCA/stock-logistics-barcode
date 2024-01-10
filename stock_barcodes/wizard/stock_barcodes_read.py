@@ -291,12 +291,16 @@ class WizStockBarcodesRead(models.AbstractModel):
         ]
         if self.option_group_id.get_option_value("location_id", "forced"):
             quant_domain.append(("location_id", "=", self.location_id.id))
-        else:
-            quant_domain.append(("location_id.usage", "=", "internal"))
         if self.owner_id:
             quant_domain.append(("owner_id", "=", self.owner_id.id))
         quants = self.env["stock.quant"].search(quant_domain)
-        if not quants:
+        internal_quants = quants.filtered(lambda q: q.location_id.usage == "internal")
+        if internal_quants:
+            quants = internal_quants
+        elif quants:
+            self = self.with_context(skip_set_quant_location=True)
+            # self._set_messagge_info("more_match", _("Package located external location"))
+        else:
             # self._set_messagge_info("more_match", _("Package not fount or empty"))
             return False
         self.set_info_from_quants(quants)
@@ -316,6 +320,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         Fill wizard fields from stock quants
         """
+        skip_set_quant_location = self.env.context.get("skip_set_quant_location", False)
         if len(quants) == 1:
             # All ok
             self.action_product_scaned_post(quants.product_id)
@@ -327,7 +332,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.owner_id = quants.owner_id
             # Review conditions
             if (
-                not self.option_group_id.get_option_value("location_id", "forced")
+                not skip_set_quant_location
+                and not self.option_group_id.get_option_value("location_id", "forced")
                 and self.option_group_id.code != "IN"
             ):
                 self.location_id = quants.location_id
@@ -352,10 +358,11 @@ class WizStockBarcodesRead(models.AbstractModel):
             owner = quants[0].owner_id
             if not quants.filtered(lambda q: q.owner_id != owner):
                 self.owner_id = owner
-            locations = quants.mapped("location_id")
-            if len(locations) == 1:
-                if not self.location_id and self.option_group_id.code != "IN":
-                    self.location_id = locations
+            if not skip_set_quant_location:
+                locations = quants.mapped("location_id")
+                if len(locations) == 1:
+                    if not self.location_id and self.option_group_id.code != "IN":
+                        self.location_id = locations
 
     def process_barcode_packaging_id(self):
         domain = self._barcode_domain(self.barcode)
@@ -441,7 +448,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             return False
 
     def _barcode_domain(self, barcode):
-        return [("barcode", "=", barcode)]
+        field_name = self.env.context.get("barcode_domain_field", "barcode")
+        return [(field_name, "=", barcode)]
 
     def _clean_barcode_scanned(self, barcode):
         return barcode.rstrip()
