@@ -37,7 +37,9 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_240(self, gs1_list):
         """Product identification"""
-        return self.process_barcode_product_id()
+        return self.with_context(
+            barcode_domain_field="default_code"
+        ).process_barcode_product_id()
 
     def _process_ai_10(self, gs1_list):
         """Serial/Lot identification"""
