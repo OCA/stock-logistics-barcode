@@ -337,10 +337,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 and self.option_group_id.code != "IN"
             ):
                 self.location_id = quants.location_id
-            if self.option_group_id.code not in [
-                "OUT",
-                "INV",
-            ] and not self.env.context.get("skip_update_quantity_from_lot", False):
+            if self.option_group_id.code != "OUT" and not self.env.context.get(
+                "skip_update_quantity_from_lot", False
+            ):
                 self.product_qty = quants.quantity
         elif len(quants) > 1:
             # More than one record found with same barcode.
