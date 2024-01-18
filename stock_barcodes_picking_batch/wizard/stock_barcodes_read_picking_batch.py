@@ -89,7 +89,6 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             return super().get_sorted_move_lines(move_lines)
         if self.picking_batch_id.picking_ids[:1].picking_type_code in [
             "incoming",
-            "internal",
         ]:
             location_field = "location_dest_id"
         else:
