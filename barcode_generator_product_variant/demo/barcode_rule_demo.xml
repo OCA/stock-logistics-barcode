@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="seq_product_generated_barcode_demo" model="ir.sequence">
+        <field name="name">Sequence - Rule 1</field>
+        <field name="padding">5</field>
+        <field name="number_increment">1</field>
+        <field name="number_next_actual">1</field>
+        <field name="company_id" eval="False" />
+    </record>
+
+    <record id="product_generated_barcode_demo" model="barcode.rule">
+        <field name="name">Rule 1</field>
+        <field
+            name="barcode_nomenclature_id"
+            ref="barcodes.default_barcode_nomenclature"
+        />
+        <field name="type">product</field>
+        <field name="sequence">0</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">8056666.....</field>
+        <field name="generate_type" eval="'sequence'" />
+        <field name="generate_model" eval="'product.product'" />
+        <field name="sequence_id" ref="seq_product_generated_barcode_demo" />
+    </record>
+</odoo>
