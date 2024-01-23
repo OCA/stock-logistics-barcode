@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import _, api, exceptions, fields, models, tools
+from odoo.exceptions import UserError
 
 _GENERATE_TYPE = [
     ("no", "No generation"),
@@ -14,7 +15,6 @@ _GENERATE_TYPE = [
 
 
 class BarcodeRule(models.Model):
-
     _inherit = "barcode.rule"
 
     # Column Section
@@ -48,6 +48,22 @@ class BarcodeRule(models.Model):
         help="Check this to automatically generate a barcode upon creation of "
         "a new record in the mixed model.",
     )
+
+    is_default = fields.Boolean("Is Default Barcode Rule", copy=False)
+
+    @api.constrains("generate_model", "is_default")
+    def _check_is_default(self):
+        for rec in self:
+            if not rec.generate_model:
+                continue
+            default_rules = self.search_count(
+                [
+                    ("is_default", "=", True),
+                    ("generate_model", "=", rec.generate_model),
+                ]
+            )
+            if default_rules > 1:
+                raise UserError(_("Only one rule per model can be set as default."))
 
     # Compute Section
     @api.depends("pattern")
