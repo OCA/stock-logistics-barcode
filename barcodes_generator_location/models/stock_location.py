@@ -13,19 +13,12 @@ class StockLocation(models.Model):
     _inherit = ["stock.location", "barcode.generate.mixin"]
 
     @api.model
-    def fields_view_get(
-        self, view_id=None, view_type="form", toolbar=False, submenu=False
-    ):
+    def get_view(self, view_id=None, view_type="form", **options):
         """The redefinition of this method is intended to manipulating
         the form view of stock.location to add the barcode field to the
         view in case it has not been added by the stock_barcodes module.
         """
-        result = super().fields_view_get(
-            view_id=view_id,
-            view_type=view_type,
-            toolbar=toolbar,
-            submenu=submenu,
-        )
+        result = super().get_view(view_id=view_id, view_type=view_type, **options)
         if view_type == "form":
             doc = etree.XML(result["arch"])
             barcode_field = doc.xpath("//field[@name='barcode']")
