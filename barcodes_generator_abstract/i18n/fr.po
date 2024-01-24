@@ -149,6 +149,11 @@ msgstr ""
 "Si 'Générer Type' est défini, mentionnez le modèle associé à cette règle."
 
 #. module: barcodes_generator_abstract
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__is_default
+msgid "Is Default Barcode Rule"
+msgstr ""
+
+#. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin____last_update
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule____last_update
 msgid "Last Modified on"
@@ -158,6 +163,12 @@ msgstr "Dernière Modification le"
 #: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__no
 msgid "No generation"
 msgstr "Pas de génération"
+
+#. module: barcodes_generator_abstract
+#: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
+#, python-format
+msgid "Only one rule per model can be set as default."
+msgstr ""
 
 #. module: barcodes_generator_abstract
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
