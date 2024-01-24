@@ -1,6 +1,6 @@
 {
     "name": "Barcode Generator Product Variant",
-    "version": "14.0.1.0.0",
+    "version": "14.0.1.0.1",
     "depends": ["barcodes_generator_product"],
     "author": "PyTech SRL, Ooops404, Odoo Community Association (OCA)",
     "maintainers": ["aleuffre", "renda-dev", "PicchiSeba"],
