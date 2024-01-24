@@ -11,6 +11,9 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="model">barcode.rule</field>
         <field name="inherit_id" ref="barcodes.view_barcode_rule_form" />
         <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="is_default" />
+            </field>
             <xpath expr="//form" position="inside">
                 <group
                     string="Barcode Generation"

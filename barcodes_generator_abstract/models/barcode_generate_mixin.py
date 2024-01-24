@@ -17,9 +17,16 @@ class BarcodeGenerateMixin(models.AbstractModel):
     _name = "barcode.generate.mixin"
     _description = "Generate Barcode Mixin"
 
+    def _default_barcode_rule_id(self):
+        return self.env["barcode.rule"].search(
+            [("is_default", "=", True), ("generate_model", "=", self._name)], limit=1
+        )
+
     # Column Section
     barcode_rule_id = fields.Many2one(
-        string="Barcode Rule", comodel_name="barcode.rule"
+        string="Barcode Rule",
+        comodel_name="barcode.rule",
+        default=_default_barcode_rule_id,
     )
 
     barcode_base = fields.Integer(string="Barcode Base", copy=False)

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_product_template_form" model="ir.ui.view">
+        <field name="model">product.template</field>
+        <field
+            name="inherit_id"
+            ref="barcodes_generator_product.view_product_template_form"
+        />
+        <field name="arch" type="xml">
+            <field name="barcode" position="after">
+                <field name="has_missing_barcodes" invisible="1" />
+                <button
+                    name="action_open_variant_barcode_wizard"
+                    type="object"
+                    string="Manage missing barcodes"
+                    attrs="{'invisible': [
+                        ('has_missing_barcodes', '=', False),
+                        ]}"
+                    class="btn btn-primary"
+                    groups="barcodes_generator_abstract.generate_barcode"
+                    colspan="2"
+                />
+            </field>
+            <!-- Hide fields added by barcodes_generator_product -->
+            <field name="barcode_rule_id" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <field name="barcode_base" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </field>
+            <button name="generate_base" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+            <button name="generate_barcode" position="attributes">
+                <attribute name="invisible">1</attribute>
+            </button>
+        </field>
+    </record>
+</odoo>
