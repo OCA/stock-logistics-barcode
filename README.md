@@ -21,10 +21,10 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[barcodes_generator_abstract](barcodes_generator_abstract/) | 12.0.1.0.3 |  | Generate Barcodes for Any Models
+[barcodes_generator_abstract](barcodes_generator_abstract/) | 12.0.1.0.4 |  | Generate Barcodes for Any Models
 [barcodes_generator_location](barcodes_generator_location/) | 12.0.1.0.1 |  | Generate Barcodes for Stock Locations
 [barcodes_generator_partner](barcodes_generator_partner/) | 12.0.1.0.1 |  | Generate Barcodes for Partners
-[barcodes_generator_product](barcodes_generator_product/) | 12.0.1.0.1 |  | Generate Barcodes for Products (Templates and Variants)
+[barcodes_generator_product](barcodes_generator_product/) | 12.0.1.0.2 |  | Generate Barcodes for Products (Templates and Variants)
 [base_gs1_barcode](base_gs1_barcode/) | 12.0.1.1.1 |  | Decoding API for GS1-128 (aka UCC/EAN-128) and GS1-Datamatrix
 [product_barcode_constraint_per_company](product_barcode_constraint_per_company/) | 12.0.1.0.1 |  | Change the product barcode constraint, allowing the same barcode for differents companies
 [product_multi_ean](product_multi_ean/) | 12.0.1.0.3 |  | Multiple EAN13 on products
