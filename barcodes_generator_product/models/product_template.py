@@ -39,18 +39,27 @@ class ProductTemplate(models.Model):
     def onchange_barcode_rule_id(self):
         self.generate_type = self.barcode_rule_id.generate_type
 
-    # Overload Section
-    @api.model
-    def create(self, vals):
-        template = super(ProductTemplate, self).create(vals)
-
-        # this is needed to set given values to first variant after creation
-        # these fields should be moved to product as lead to confusion
-        # (Ref. product module feature in Odoo Core)
-        related_vals = {}
-        for field in ['barcode_rule_id', 'barcode_base']:
-            if vals.get(field, False):
-                related_vals[field] = vals[field]
+    @api.model_create_multi
+    def create(self, vals_list):
+        templates = super().create(vals_list)
+        # This is needed to set given values to first variant after creation
+        # (ref. product module feature in odoo core)
+        for template, vals in zip(templates, vals_list):
+            related_vals = {}
+            if vals.get("barcode_rule_id"):
+                related_vals["barcode_rule_id"] = vals["barcode_rule_id"]
+            if vals.get("barcode_base"):
+                related_vals["barcode_base"] = vals["barcode_base"]
+            # An automatic barcode was generated, but we changed the barcode
+            # rule. We need to revert the barcode.
+            if (
+                not vals.get("barcode")
+                and vals.get("barcode_rule_id")
+                and template.barcode
+            ):
+                related_vals["barcode"] = False
+                related_vals["barcode_base"] = False
             if related_vals:
                 template.write(related_vals)
-        return template
+
+        return templates
