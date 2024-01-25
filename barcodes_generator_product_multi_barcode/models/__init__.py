@@ -1,1 +1,1 @@
-from . import barcode_generate_mixin
+from . import product_product
