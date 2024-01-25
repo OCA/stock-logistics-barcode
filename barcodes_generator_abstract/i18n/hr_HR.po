@@ -91,7 +91,7 @@ msgid "Generate Barcodes"
 msgstr ""
 
 #. module: barcodes_generator_abstract
-#: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:55
+#: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:57
 #, python-format
 msgid ""
 "Generate Base can be used only with barcode rule with 'Generate Type' set to "
