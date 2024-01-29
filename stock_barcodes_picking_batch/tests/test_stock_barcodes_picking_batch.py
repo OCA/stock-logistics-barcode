@@ -1,6 +1,5 @@
 # Copyright 2023 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
-from odoo import Command
 from odoo.tests.common import tagged
 
 from odoo.addons.stock_barcodes.tests.test_stock_barcodes_picking import (
@@ -36,7 +35,6 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         cls.partner_agrolite = cls.env.ref("base.res_partner_2")
         cls.partner_gemini = cls.env.ref("base.res_partner_3")
         cls.picking_type_out = cls.env.ref("stock.picking_type_out")
-        cls.picking_type_out.reservation_method = "manual"
         cls.picking_type_out.barcode_option_group_id = cls.barcode_option_group_out
         cls.customer_location = cls.env.ref("stock.stock_location_customers")
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
@@ -50,7 +48,9 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
                     "partner_id": cls.partner_agrolite.id,
                     "picking_type_id": cls.picking_type_out.id,
                     "move_lines": [
-                        Command.create(
+                        (
+                            0,
+                            0,
                             {
                                 "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_wo_tracking.id,
@@ -58,7 +58,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
                                 "product_uom": cls.product_wo_tracking.uom_id.id,
                                 "location_id": cls.stock_location.id,
                                 "location_dest_id": cls.customer_location.id,
-                            }
+                            },
                         )
                     ],
                 }

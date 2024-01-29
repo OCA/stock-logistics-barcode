@@ -36,6 +36,7 @@
                                         <a
                                             name="action_lock_picking"
                                             type="object"
+                                            title="Lock Picking"
                                             t-if="record.picking_batch_id.raw_value != record.wiz_picking_batch_id.raw_value"
                                             class="fa fa-thumb-tack fa-2x pull-right"
                                             context="{'wiz_barcode_id': parent.id, 'picking_batch_id': picking_batch_id}"
@@ -43,6 +44,7 @@
                                         <a
                                             name="action_unlock_picking"
                                             type="object"
+                                            title="Unlock Picking"
                                             class="pull-right"
                                             t-if="record.picking_batch_id.raw_value == record.wiz_picking_batch_id.raw_value"
                                             context="{'wiz_barcode_id': parent.id}"

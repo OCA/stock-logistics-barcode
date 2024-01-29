@@ -4,20 +4,17 @@
         <field name="model">stock.picking.batch</field>
         <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form" />
         <field name="arch" type="xml">
-            <div name="button_box" position="inside">
+            <xpath expr="//header/button" position="before">
                 <button
                     name="action_barcode_scan"
-                    class="oe_stat_button"
+                    class="oe_highlight"
                     icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
                     states="in_progress"
-                >
-                    <div class="o_form_field o_stat_info">
-                        <span class="o_stat_text">Scan barcodes</span>
-                    </div>
-                </button>
-            </div>
+                    string="Scan Barcodes"
+                />
+            </xpath>
         </field>
     </record>
     <record id="stock_picking_batch_kanban" model="ir.ui.view">
@@ -33,9 +30,19 @@
                     help="Start barcode interface"
                     states="in_progress"
                 >
-                    <i class="fa fa-barcode fa-2x" />
+                    <i class="fa fa-barcode fa-2x" title="Start barcode interface" />
                 </button>
             </xpath>
         </field>
+    </record>
+
+    <record
+        id="stock_picking_batch.stock_picking_batch_action"
+        model="ir.actions.act_window"
+    >
+        <field name="context">{
+            "search_default_draft" : True,
+            "search_default_in_progress" : True
+        }</field>
     </record>
 </odoo>
