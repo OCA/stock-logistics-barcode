@@ -18,14 +18,10 @@ msgstr ""
 
 #. module: product_barcode_constraint_per_company
 #: code:addons/product_barcode_constraint_per_company/models/product_product.py:0
+#: model:ir.model.constraint,message:product_barcode_constraint_per_company.constraint_product_product_barcode_uniq
 #, python-format
 msgid "A barcode can only be assigned to one product per company !"
 msgstr "Un barcode può essere assegnato solo ad un prodotto per azienda!"
-
-#. module: product_barcode_constraint_per_company
-#: model:ir.model.fields,field_description:product_barcode_constraint_per_company.field_product_product__tmpl_company_id
-msgid "Company of the related Template"
-msgstr "Azienda del modello prodotto relazionato"
 
 #. module: product_barcode_constraint_per_company
 #: model:ir.model.fields,field_description:product_barcode_constraint_per_company.field_product_product__display_name
@@ -46,3 +42,6 @@ msgstr "Ultima modifica il"
 #: model:ir.model,name:product_barcode_constraint_per_company.model_product_product
 msgid "Product"
 msgstr "Prodotto"
+
+#~ msgid "Company of the related Template"
+#~ msgstr "Azienda del modello prodotto relazionato"
