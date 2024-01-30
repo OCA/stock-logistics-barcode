@@ -18,6 +18,7 @@ setuptools.setup(
         'odoo14-addon-product_barcode_constraint_per_company',
         'odoo14-addon-product_gs1_barcode',
         'odoo14-addon-product_multi_barcode',
+        'odoo14-addon-product_multi_barcode_constraint_per_company',
         'odoo14-addon-product_multi_barcode_stock_menu',
         'odoo14-addon-product_multi_barcode_supplierinfo',
         'odoo14-addon-product_supplierinfo_barcode',
