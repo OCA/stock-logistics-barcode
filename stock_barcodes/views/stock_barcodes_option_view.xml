@@ -38,6 +38,7 @@
                             <field name="accumulate_read_quantity" />
                             <field name="allow_negative_quant" />
                             <field name="fill_fields_from_lot" />
+                            <field name="ignore_quant_location" />
                             <field name="auto_lot" />
                             <field name="create_lot" />
                         </group>
