@@ -62,6 +62,9 @@ class StockBarcodesOptionGroup(models.Model):
         help="If checked, the fields in the interface will be filled from "
         "the scanned lot"
     )
+    ignore_quant_location = fields.Boolean(
+        help="If it is checked, quant location will be ignored when reading lot/package",
+    )
     group_key_for_todo_records = fields.Char(
         help="You can establish a list of fields that will act as a grouping "
         "key to generate the movements to be process.\n"
