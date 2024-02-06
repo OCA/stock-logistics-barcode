@@ -1,5 +1,6 @@
 # Copyright 2020 Carlos Roca <carlos.roca@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+from math import ceil
 
 from odoo import api, fields, models
 
@@ -108,12 +109,22 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             return picking.move_line_ids.filtered("product_id.barcode")
         return picking.move_line_ids
 
+    def _get_label_qty(self, move_line):
+        label_copies = 1
+        if (
+            move_line.move_id.product_packaging_id
+            and move_line.move_id.product_packaging_id.print_one_label_by_item
+        ):
+            factor = move_line.move_id.product_packaging_id.qty
+            label_copies = ceil(move_line.qty_done / (factor or 1.0))
+        return label_copies
+
     @api.model
     def _prepare_data_from_move_line(self, move_line):
         return {
             "product_id": move_line.product_id.id,
             "quantity": move_line.qty_done,
-            "label_qty": 1,
+            "label_qty": self._get_label_qty(move_line),
             "move_line_id": move_line.id,
             "uom_id": move_line.product_uom_id.id,
             "lot_id": move_line.lot_id.id,
