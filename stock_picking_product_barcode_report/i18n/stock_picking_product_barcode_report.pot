@@ -162,6 +162,13 @@ msgid "ID"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,help:stock_picking_product_barcode_report.field_product_packaging__print_one_label_by_item
+msgid ""
+"If checked, Odoo take into account the units included in the packaging to "
+"compute number of labels"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__is_custom_label
 msgid "Is Custom Label"
 msgstr ""
@@ -246,6 +253,11 @@ msgid "Print"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_product_packaging__print_one_label_by_item
+msgid "Print One Label By Item"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model,name:stock_picking_product_barcode_report.model_stock_picking_line_print
 msgid "Print Picking Line"
 msgstr ""
@@ -258,6 +270,11 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__product_id
 msgid "Product"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_product_packaging
+msgid "Product Packaging"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
