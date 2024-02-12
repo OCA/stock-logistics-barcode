@@ -21,6 +21,7 @@
         "report/report_label_barcode_template.xml",
         "report/report_label_custom.xml",
         "views/ir_actions_report_view.xml",
+        "views/product_views.xml",
     ],
     "installable": True,
 }

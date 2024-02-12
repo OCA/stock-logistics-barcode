@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-05-30 10:08+0000\n"
-"PO-Revision-Date: 2023-05-30 12:13+0200\n"
+"POT-Creation-Date: 2024-02-06 14:20+0000\n"
+"PO-Revision-Date: 2024-02-06 15:22+0100\n"
 "Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
@@ -172,6 +172,15 @@ msgid "ID"
 msgstr "ID"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,help:stock_picking_product_barcode_report.field_product_packaging__print_one_label_by_item
+msgid ""
+"If checked, Odoo take into account the units included in the packaging to "
+"compute number of labels"
+msgstr ""
+"Si está marcado, Odoo tiene en cuenta las unidades incluidas en el paquete "
+"para calcular la cantidad de etiquetas"
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__is_custom_label
 msgid "Is Custom Label"
 msgstr "Es etiqueta personalizada"
@@ -258,6 +267,11 @@ msgid "Print"
 msgstr "Imprimir"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_product_packaging__print_one_label_by_item
+msgid "Print One Label By Item"
+msgstr "Imprimir una etiqueta por elemento"
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model,name:stock_picking_product_barcode_report.model_stock_picking_line_print
 msgid "Print Picking Line"
 msgstr "Imprimir linea de albarán"
@@ -271,6 +285,11 @@ msgstr "Imprimir etiquetas de códigos de barras"
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__product_id
 msgid "Product"
 msgstr "Producto"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model,name:stock_picking_product_barcode_report.model_product_packaging
+msgid "Product Packaging"
+msgstr "Empaquetado del producto"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__quantity
