@@ -1,0 +1,8 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<odoo>
+    <record id="stock_barcodes_action_inventory" model="stock.barcodes.action">
+        <field name="action_window_id" ref="stock.action_inventory_form" />
+        <field name="key_char_shortcut">4</field>
+        <field name="context">{'search_default_confirm': 1}</field>
+    </record>
+</odoo>
