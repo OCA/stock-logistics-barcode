@@ -40,6 +40,7 @@ addon | version | maintainers | summary
 [stock_barcodes_automatic_entry](stock_barcodes_automatic_entry/) | 14.0.1.0.0 | [![AdriaGForgeFlow](https://github.com/AdriaGForgeFlow.png?size=30px)](https://github.com/AdriaGForgeFlow) | This module will automatically trigger the click event on a button with the class 'barcode-automatic-entry' after a barcode scanned has been processed.
 [stock_barcodes_gs1](stock_barcodes_gs1/) | 14.0.2.0.1 |  | It provides read GS1 barcode on stock operations.
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 14.0.1.0.1 |  | It provides read expiry dates from GS1 barcode on stock operations.
+[stock_barcodes_picking_batch](stock_barcodes_picking_batch/) | 14.0.1.0.0 |  | It provides read barcodes on stock operations from batch pickings.
 [stock_inventory_barcode](stock_inventory_barcode/) | 14.0.1.0.0 | [![alexis-via](https://github.com/alexis-via.png?size=30px)](https://github.com/alexis-via) | Add simple barcode interface on inventories
 
 [//]: # (end addons)
