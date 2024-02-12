@@ -36,7 +36,7 @@ addon | version | maintainers | summary
 [product_multi_barcode_supplierinfo](product_multi_barcode_supplierinfo/) | 14.0.1.0.1 |  | Adds supplier pricelist barcode in product barcode
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 14.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
 [sale_input_barcode](sale_input_barcode/) | 14.0.1.1.0 | [![bealdav](https://github.com/bealdav.png?size=30px)](https://github.com/bealdav) | Add Sale line with barcode
-[stock_barcodes](stock_barcodes/) | 14.0.3.0.0 |  | It provides read barcode on stock operations.
+[stock_barcodes](stock_barcodes/) | 14.0.4.0.0 |  | It provides read barcode on stock operations.
 [stock_barcodes_automatic_entry](stock_barcodes_automatic_entry/) | 14.0.1.0.0 | [![AdriaGForgeFlow](https://github.com/AdriaGForgeFlow.png?size=30px)](https://github.com/AdriaGForgeFlow) | This module will automatically trigger the click event on a button with the class 'barcode-automatic-entry' after a barcode scanned has been processed.
 [stock_barcodes_gs1](stock_barcodes_gs1/) | 14.0.2.0.1 |  | It provides read GS1 barcode on stock operations.
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 14.0.1.0.1 |  | It provides read expiry dates from GS1 barcode on stock operations.
