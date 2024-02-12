@@ -1678,8 +1678,8 @@ msgstr "Asistente para leer códigos de barras desde el inventario"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
-msgstr "Asistente para leer códigos de barras desde los albaranes"
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -1754,6 +1754,9 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
 msgstr ""
+
+#~ msgid "Wizard to read barcode on picking"
+#~ msgstr "Asistente para leer códigos de barras desde los albaranes"
 
 #~ msgid "<span>New lot</span>"
 #~ msgstr "<span>Nuevo lote</span>"

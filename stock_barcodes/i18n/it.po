@@ -1741,8 +1741,8 @@ msgstr "Procedura guidata per leggere il codice a barre sull'inventario"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
-msgstr "Procedura guidata per leggere il codice a barre sul prelievo"
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -1824,6 +1824,9 @@ msgstr "blocca prelievo"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
 msgstr "sblocca prelievo"
+
+#~ msgid "Wizard to read barcode on picking"
+#~ msgstr "Procedura guidata per leggere il codice a barre sul prelievo"
 
 #~ msgid ""
 #~ "<i class=\"fa fa-recycle\" title=\"Reset inventory quantity\" style="
