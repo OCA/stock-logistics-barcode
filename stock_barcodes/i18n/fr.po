@@ -109,13 +109,6 @@ msgstr ""
 "                        <small>Nouveau</small>"
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid ""
-"<i class=\"fa fa-recycle\" title=\"Reset inventory quantity\" style=\"font-"
-"size:1.5em\"/>"
-msgstr ""
-
-#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "<i class=\"fa fa-step-backward\" title=\"Previous\"/>"
 msgstr "<i class=\"fa fa-step-backward\" title=\"Précédent\"/>"
@@ -164,11 +157,6 @@ msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
 msgstr "<span class=\"o_stat_text\">Scanner code-barres</span>"
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid "<span>Apply inventory</span>"
-msgstr ""
-
-#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span>Total Qty</span>"
 msgstr "<span>Total qté</span>"
@@ -211,9 +199,12 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Package</strong>\n"
-"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\"/"
-">"
+"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
+"title=\"Package\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">Emballage</strong>\n"
+"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
+"title=\"Package\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -249,6 +240,26 @@ msgstr ""
 "<strong class=\"d-none d-sm-block\">Total qté</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none "
 "oe_span_small_icon\" title=\"Total Quantity\"/>"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "<strong>Date: </strong>"
+msgstr "<strong>Date : </strong>"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "<strong>Locations:</strong>"
+msgstr "<strong>Emplacements :</strong>"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "<strong>Name: </strong>"
+msgstr "<strong>Nom : </strong>"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "<strong>Products:</strong>"
+msgstr "<strong>Articles :</strong>"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__action_ids
@@ -293,6 +304,11 @@ msgstr "Êtes-vous certain de vouloir valider le transfert ?"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Assign Serial Numbers"
 msgstr "Attribuer des numéros de série"
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid "Auto lot"
+msgstr "Lot automatique"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
@@ -375,6 +391,7 @@ msgid "Barcode read with additional info"
 msgstr "Code-barres lu avec des informations supplémentaires"
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Barcode reader"
@@ -579,6 +596,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_assign_serial
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__display_assign_serial
 msgid "Display Assign Serial"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_inventory_ids
+msgid "Display Inventory"
 msgstr ""
 
 #. module: stock_barcodes
@@ -808,29 +830,14 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_inventory
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_id
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_inventory
 msgid "Inventory"
 msgstr ""
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_quant_ids
-msgid "Inventory Quant"
-msgstr ""
-
-#. module: stock_barcodes
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
-#, python-format
-msgid "Inventory line with more than one unit in serial tracked product"
-msgstr ""
-
-#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_product_qty
 msgid "Inventory quantities"
-msgstr ""
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid "Inventory quants"
 msgstr ""
 
 #. module: stock_barcodes
@@ -940,11 +947,6 @@ msgid "List view of lines"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid "Loc:"
-msgstr ""
-
-#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_read_log__location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__location_id
@@ -1001,7 +1003,6 @@ msgid "Lot/Serial Number Name"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Lot:"
 msgstr ""
@@ -1210,7 +1211,6 @@ msgid "Package Qty"
 msgstr ""
 
 #. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Package:"
 msgstr ""
@@ -1576,6 +1576,12 @@ msgid "The product type is not allowed"
 msgstr ""
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#, python-format
+msgid "There is no lots to assign quantities"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
 msgid ""
 "This Barcode Option Group will be selected when clicking the 'New' button in "
@@ -1764,6 +1770,12 @@ msgid "You can not add extra moves if you have not set a picking"
 msgstr ""
 
 #. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
+#, python-format
+msgid "You can not remove a scanning log from an inventory validated"
+msgstr ""
+
+#. module: stock_barcodes
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid ""
@@ -1788,30 +1800,6 @@ msgstr ""
 
 #~ msgid "<i class=\"fa fa-upload fa-2x\" title=\"Fill from pencil\"/>"
 #~ msgstr "<i class=\"fa fa-upload fa-2x\" title=\"Remplir au crayon\"/>"
-
-#~ msgid ""
-#~ "<strong class=\"d-none d-sm-block\">Package</strong>\n"
-#~ "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon"
-#~ "\" title=\"Package\"/>"
-#~ msgstr ""
-#~ "<strong class=\"d-none d-sm-block\">Emballage</strong>\n"
-#~ "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon"
-#~ "\" title=\"Package\"/>"
-
-#~ msgid "<strong>Date: </strong>"
-#~ msgstr "<strong>Date : </strong>"
-
-#~ msgid "<strong>Locations:</strong>"
-#~ msgstr "<strong>Emplacements :</strong>"
-
-#~ msgid "<strong>Name: </strong>"
-#~ msgstr "<strong>Nom : </strong>"
-
-#~ msgid "<strong>Products:</strong>"
-#~ msgstr "<strong>Articles :</strong>"
-
-#~ msgid "Auto lot"
-#~ msgstr "Lot automatique"
 
 #~ msgid "Actions"
 #~ msgstr "Actions"
