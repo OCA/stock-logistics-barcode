@@ -92,6 +92,12 @@ COUNTRY_INITIAL_PROCESSING,Country or countries of initial processing,423,False,
 COUNTRY__PROCESSING,Country of processing,424,True,3,0,False,string
 COUNTRY_DISASSEMBLY,Country of disassembly,425,True,3,0,False,string
 COUNTRY,Country of full process chain,426,True,3,0,False,string
+NATIONAL_CODE_NHRN_1,National Healthcare Reimbursement Number - Germany IFA,710,False,20,1,False,string
+NATIONAL_CODE_NHRN_2,National Healthcare Reimbursement Number - France CIP,711,False,20,1,False,string
+NATIONAL_CODE_NHRN_3,National Healthcare Reimbursement Number - Spain National Code,712,False,20,1,False,string
+NATIONAL_CODE_NHRN_4,National Healthcare Reimbursement Number - Brazil ANVISA,713,False,20,1,False,string
+NATIONAL_CODE_NHRN_5,National Healthcare Reimbursement Number - Portugal INFARMED,714,False,20,1,False,string
+NATIONAL_CODE_NHRN_6,National Healthcare Reimbursement Number - United States of America FDA,715,False,20,1,False,string
 NATO_STOCK,NATO Stock Number (NSN),7001,True,13,0,False,string
 UN_ECE_CLASSIFICATION,UN/ECE Meat Carcasses and cuts classification,7002,False,30,0,False,string
 EXPIRATION_DATE_AND_TIME,expiration date and time,7003,True,10,0,False,string
