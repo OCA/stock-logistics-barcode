@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-01-29 18:36+0000\n"
+"PO-Revision-Date: 2024-02-13 12:34+0000\n"
 "Last-Translator: Francesco Foresti <francesco.foresti@ooops404.com>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -138,6 +138,8 @@ msgid ""
 "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1.5em"
 "\"/>"
 msgstr ""
+"<i class=\"fa fa-upload\" title=\"Riempi da matita\" style=\"font-size:1."
+"5em\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -887,7 +889,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__keep_result_package
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_result_package
 msgid "Keep Result Package"
-msgstr ""
+msgstr "Tieni collo risultante"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__key_char_shortcut
@@ -1488,7 +1490,7 @@ msgstr "Dettagli log di scansione"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__selected_pending_move_id
 msgid "Selected Pending Move"
-msgstr ""
+msgstr "Movimento in sospeso selezionato"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__sequence
@@ -1507,7 +1509,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__show_detailed_operations
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__show_detailed_operations
 msgid "Show Detailed Operations"
-msgstr ""
+msgstr "Visualizza operazioni dettagliate"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__show_scan_log
@@ -1521,7 +1523,7 @@ msgstr "Mostra log scansione"
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__create_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_lot
 msgid "Show lot name field"
-msgstr ""
+msgstr "Mostra campo nome lotto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__show_pending_moves
@@ -1742,7 +1744,7 @@ msgstr "Procedura guidata per leggere il codice a barre sull'inventario"
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
 msgid "Wizard to read barcode on picking batch"
-msgstr ""
+msgstr "Procedura guidata per leggere il codice a barre sul prelievo"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
