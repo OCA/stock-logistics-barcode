@@ -1,6 +1,15 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import logging
+
 from odoo import _, models
+
+logger = logging.getLogger(__name__)
+
+try:
+    import stdnum.gs1_128
+except ImportError:
+    logger.debug("Cannot import stdnum.gs1_128")
 
 
 class WizStockBarcodesRead(models.AbstractModel):
@@ -52,8 +61,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         scanner reads a barcode ok but this one is not precessed.
         """
         try:
-            barcode_decoded = self.env["gs1_barcode"].decode(barcode)
+            barcode_decoded = stdnum.gs1_128.info(barcode)
         except Exception:
+            logger.debug("Barcode %s is not a valid GS1 barcode", barcode)
             return super().process_barcode(barcode)
         processed = False
         package_barcode = barcode_decoded.get("01", False)
@@ -65,6 +75,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             product_barcode = barcode_decoded.get("240", False)
         lot_barcode = barcode_decoded.get("10", False)
         product_qty = barcode_decoded.get("37", False)
+        logger.debug("GS1 product barcode: %s", product_barcode)
+        logger.debug("GS1 package barcode: %s", package_barcode)
         if product_barcode:
             product = self.env["product.product"].search(
                 self._barcode_domain(product_barcode)
@@ -77,6 +89,11 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info("not_found", _("Barcode for product not found"))
                 return False
             else:
+                logger.debug(
+                    "Product %s selected from GS1 product barcode %s",
+                    product.display_name,
+                    product_barcode,
+                )
                 processed = True
                 self.action_product_scaned_post(product)
         if package_barcode:
