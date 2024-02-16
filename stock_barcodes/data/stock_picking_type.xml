@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo noupdate="1">
+
+    <record id="stock.picking_type_in" model="stock.picking.type">
+        <field
+            name="barcode_option_group_id"
+            ref="stock_barcodes_option_group_picking_in"
+        />
+        <field
+            name="new_picking_barcode_option_group_id"
+            ref="stock_barcodes_option_group_picking_in"
+        />
+    </record>
+
+    <record id="stock.picking_type_out" model="stock.picking.type">
+        <field
+            name="barcode_option_group_id"
+            ref="stock_barcodes_option_group_picking_out"
+        />
+    </record>
+
+    <record id="stock.picking_type_internal" model="stock.picking.type">
+        <field
+            name="barcode_option_group_id"
+            ref="stock_barcodes_option_group_picking_internal"
+        />
+    </record>
+
+</odoo>
