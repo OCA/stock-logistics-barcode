@@ -103,6 +103,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         if processed:
             if not self.check_option_required():
                 return False
+            if self.is_manual_confirm or self.manual_entry:
+                self._set_messagge_info("info", _("Review and confirm"))
+                return False
             self.action_confirm()
             self._set_messagge_info("success", _("Barcode read correctly"))
             return True
