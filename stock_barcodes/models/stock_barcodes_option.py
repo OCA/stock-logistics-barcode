@@ -34,6 +34,10 @@ class StockBarcodesOptionGroup(models.Model):
     show_pending_moves = fields.Boolean(
         string="Show pending moves", help="Shows a list of movements to process"
     )
+    show_all_moves = fields.Boolean(
+        string="Show all moves",
+        help="Keep showing moves after they're completed",
+    )
     source_pending_moves = fields.Selection(
         [("move_line_ids", "Detailed operations"), ("move_lines", "Operations")],
         default="move_line_ids",

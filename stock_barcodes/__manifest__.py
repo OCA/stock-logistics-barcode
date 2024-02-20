@@ -26,6 +26,7 @@
         # Keep order
         "data/stock_barcodes_action.xml",
         "data/stock_barcodes_option.xml",
+        "data/stock_picking_type.xml",
         "views/stock_barcodes_menu.xml",
     ],
     "installable": True,

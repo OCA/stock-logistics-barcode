@@ -192,6 +192,18 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             record = self.wiz_barcode_id.todo_line_ids[self.position_index + 1]
             self.wiz_barcode_id.determine_todo_action(forced_todo_line=record)
 
+    def action_qty_done_minus_one(self):
+        self.ensure_one()
+        self.qty_done = self.line_ids.qty_done = max(self.line_ids.qty_done - 1, 0)
+
+    def action_qty_done_plus_one(self):
+        self.ensure_one()
+        self.qty_done = self.line_ids.qty_done = self.line_ids.qty_done + 1
+
+    def action_qty_done_fill(self):
+        self.ensure_one()
+        self.qty_done = self.line_ids.qty_done = self.product_uom_qty
+
     @api.depends("line_ids.qty_done")
     def _compute_qty_done(self):
         for rec in self:

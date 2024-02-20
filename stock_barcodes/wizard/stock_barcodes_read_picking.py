@@ -63,6 +63,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     selected_pending_move_id = fields.Many2one(
         comodel_name="wiz.stock.barcodes.read.todo"
     )
+    show_all_moves = fields.Boolean(related="option_group_id.show_all_moves")
     show_detailed_operations = fields.Boolean(
         related="option_group_id.show_detailed_operations"
     )
