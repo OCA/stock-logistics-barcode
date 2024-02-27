@@ -531,6 +531,16 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_done(self):
         if not self.manual_entry and not self.product_qty and not self.is_manual_qty:
             self.product_qty = 1.0
+        limit_product_qty = float(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("stock_barcodes.limit_product_qty", "999999")
+        )
+        if self.product_qty > limit_product_qty:
+            # HACK: Some times users scan a barcode into input element.
+            # At this time, to prevent this we check that the quantity be realistic.
+            self._set_messagge_info("more_match", _("The quantity is huge"))
+            return False
         if not self.check_done_conditions():
             return False
         if not self.env.context.get("_stock_barcodes_skip_read_log"):
