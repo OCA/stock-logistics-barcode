@@ -11,10 +11,13 @@
                 <field name="inventory_product_qty" invisible="1" />
             </field>
             <!-- hide result package from inventory -->
-            <group name="quant_package" position="replace">
+            <div name="quant_package" position="replace">
                 <div class="mt4">
                     <strong class="d-none d-sm-block">Package</strong>
-                    <span class="fa fa-inbox d-sm-none oe_span_small_icon" />
+                    <span
+                        class="fa fa-inbox d-sm-none oe_span_small_icon"
+                        title="package"
+                    />
                     <field
                         name="package_id"
                         options="{'no_create': True}"
@@ -24,7 +27,7 @@
                         class="h5"
                     />
                 </div>
-            </group>
+            </div>
             <field name="location_id" position="attributes">
                 <attribute
                     name="domain"
@@ -80,6 +83,7 @@
                                 type="object"
                                 class="btn"
                                 icon="fa-recycle"
+                                title="Remove quant"
                                 context="{'wiz_barcode_id': parent.id}"
                             />
                         </tree>
@@ -100,12 +104,12 @@
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="pull-right text-right font-weight-bold"
+                                                    class="float-right text-end font-weight-bold"
                                                 >
                                                     <field name="inventory_quantity" />
                                                 </span>
                                             </div>
-                                            <div class="col-3 text-right">
+                                            <div class="col-3 text-end">
                                                 <button
                                                     name="action_barcode_inventory_quant_edit"
                                                     type="object"
@@ -121,15 +125,11 @@
                                                 <button
                                                     name="action_barcode_inventory_quant_unlink"
                                                     type="object"
+                                                    icon="fa-recycle"
+                                                    title="Reset inventory quantity"
                                                     class="btn mt0"
                                                     context="{'wiz_barcode_id': parent.id}"
-                                                >
-                                                    <i
-                                                        class="fa fa-recycle"
-                                                        title="Reset inventory quantity"
-                                                        style="font-size:1.5em"
-                                                    />
-                                                </button>
+                                                />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -167,7 +167,7 @@
                 <button
                     name="apply_inventory"
                     type="object"
-                    class="btn-primary ml-auto oe_kanban_action_button btn-sm"
+                    class="btn-primary ms-auto oe_kanban_action_button btn-sm"
                     attrs="{'invisible': ['|', ('display_menu', '=', True), ('inventory_quant_ids', '=', [])]}"
                     data-hotkey="7"
                     groups="stock.group_stock_manager"

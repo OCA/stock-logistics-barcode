@@ -28,7 +28,6 @@
                 <button
                     name="action_barcode_scan"
                     class="btn btn-secondary"
-                    icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
                     states="assigned"
@@ -65,7 +64,7 @@
             </xpath>
             <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
                 <div
-                    class="mt8 pull-right"
+                    class="mt8 float-right"
                     t-if="record.default_location_src_id.raw_value and record.default_location_dest_id.raw_value"
                 >
                     <button
