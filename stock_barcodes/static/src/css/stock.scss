@@ -38,6 +38,13 @@
 
     .o_kanban_record {
         padding: 0.3em;
+        flex-basis: 100%;
+
+        .btn-full-width {
+            margin: -9px;
+            width: calc(100% + 18px);
+            height: calc(100% + 18px);
+        }
 
         &.o_kanban_ghost {
             display: none;

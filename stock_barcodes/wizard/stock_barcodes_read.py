@@ -23,7 +23,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     product_uom_id = fields.Many2one(comodel_name="uom.uom")
     product_tracking = fields.Selection(related="product_id.tracking", readonly=True)
-    lot_id = fields.Many2one(comodel_name="stock.production.lot")
+    lot_id = fields.Many2one(comodel_name="stock.lot")
     lot_name = fields.Char(
         "Lot/Serial Number Name",
         compute="_compute_lot_name",
@@ -64,7 +64,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     guided_product_id = fields.Many2one(comodel_name="product.product")
     guided_location_id = fields.Many2one(comodel_name="stock.location")
     guided_location_dest_id = fields.Many2one(comodel_name="stock.location")
-    guided_lot_id = fields.Many2one(comodel_name="stock.production.lot")
+    guided_lot_id = fields.Many2one(comodel_name="stock.lot")
     action_ids = fields.Many2many(
         comodel_name="stock.barcodes.action", compute="_compute_action_ids"
     )
@@ -234,7 +234,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             lot_domain = [("name", "=", self.barcode)]
             if self.product_id:
                 lot_domain.append(("product_id", "=", self.product_id.id))
-            lot = self.env["stock.production.lot"].search(lot_domain)
+            lot = self.env["stock.lot"].search(lot_domain)
             if len(lot) == 1:
                 if self.option_group_id.fill_fields_from_lot:
                     quant_domain = [
@@ -373,11 +373,6 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.env.user.has_group("product.group_stock_packaging"):
             packaging = self.env["product.packaging"].search(domain)
             if packaging:
-                if len(packaging) > 1:
-                    self._set_messagge_info(
-                        "more_match", _("More than one package found")
-                    )
-                    return False
                 self.action_packaging_scaned_post(packaging)
                 return True
         return False
@@ -703,7 +698,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.visible_force_done = False
         return res
 
-    @api.model
+    @api.model_create_multi
     def create(self, vals):
         wiz = super().create(vals)
         wiz.action_show_step()
@@ -754,7 +749,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         record.write(self._convert_to_write(self._cache))
         self = record
         res = self.action_done()
-        self.refresh()
+        self.invalidate_recordset()
         self.play_sounds(res)
         self._set_focus_on_qty_input()
         return res
@@ -773,14 +768,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     def play_sounds(self, res):
         if res:
             self.env["bus.bus"]._sendone(
-                "stock_barcodes-{}".format(self.ids[0]),
-                "stock_barcodes_sound-{}".format(self.ids[0]),
+                "barcode_scan",
+                "stock_barcodes_sound",
                 {"sound": "ok"},
             )
         else:
             self.env["bus.bus"]._sendone(
-                "stock_barcodes-{}".format(self.ids[0]),
-                "stock_barcodes_sound-{}".format(self.ids[0]),
+                "barcode_scan",
+                "stock_barcodes_sound",
                 {"sound": "ko"},
             )
 
@@ -790,9 +785,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
         self.env["bus.bus"]._sendone(
-            "stock_barcodes-{}".format(self.ids[0]),
-            "stock_barcodes_read-{}".format(self.ids[0]),
-            {"action": "focus", "field_name": field_name},
+            "barcode_scan",
+            "stock_barcodes_focus",
+            {"field_name": field_name},
         )
 
     @api.onchange("product_id")

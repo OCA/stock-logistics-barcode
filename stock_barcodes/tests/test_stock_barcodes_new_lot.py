@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.tests.common import tagged
 
-from .test_stock_barcodes_picking import TestStockBarcodesPicking
+from .common import TestCommonStockBarcodes
 
 
 @tagged("post_install", "-at_install")
-class TestStockBarcodesNewLot(TestStockBarcodesPicking):
+class TestStockBarcodesNewLot(TestCommonStockBarcodes):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()

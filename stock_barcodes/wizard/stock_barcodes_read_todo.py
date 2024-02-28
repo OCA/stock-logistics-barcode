@@ -50,7 +50,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         string="Destinatino Name", related="location_dest_id.name"
     )
     product_id = fields.Many2one(comodel_name="product.product")
-    lot_id = fields.Many2one(comodel_name="stock.production.lot")
+    lot_id = fields.Many2one(comodel_name="stock.lot")
     uom_id = fields.Many2one(comodel_name="uom.uom")
     package_id = fields.Many2one(comodel_name="stock.quant.package")
     result_package_id = fields.Many2one(comodel_name="stock.quant.package")
@@ -74,7 +74,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     def _get_all_products_quantities_in_package(self, package):
         res = {}
-        for quant in package._get_contained_quants():
+        for quant in package.quant_ids:
             if quant.product_id not in res:
                 res[quant.product_id] = 0
             res[quant.product_id] += quant.quantity
@@ -100,7 +100,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     "package_id": line.package_id.id,
                     "result_package_id": line.result_package_id.id,
                     "uom_id": line.product_uom_id.id,
-                    "product_qty_reserved": line.product_qty,
+                    "product_qty_reserved": line.reserved_qty,
                     "line_ids": [(6, 0, line.ids)],
                     "stock_move_ids": [(6, 0, line.move_id.ids)],
                     "package_product_qty": package_product_dic
@@ -117,7 +117,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     ).location_dest_id.id,
                     "uom_id": line.product_uom.id,
                     "product_qty_reserved": line.move_line_ids
-                    and sum(line.move_line_ids.mapped("product_qty"))
+                    and sum(line.move_line_ids.mapped("reserved_qty"))
                     or line.product_uom_qty,
                     "line_ids": [(6, 0, line.move_line_ids.ids)],
                     "stock_move_ids": [(6, 0, line.ids)],
@@ -128,14 +128,14 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def _update_fill_record_values(self, wiz_barcode, line, vals):
         vals["product_uom_qty"] += line.product_uom_qty
         if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
-            vals["product_qty_reserved"] += line.product_qty
+            vals["product_qty_reserved"] += line.reserved_qty
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
         else:
             vals["product_qty_reserved"] += (
                 line.move_line_ids
                 and sum(line.move_line_ids.mapped("product_qty"))
-                or line.product_uom_qty
+                or line.reserved_uom_qty
             )
             vals["line_ids"][0][2].extend(line.move_line_ids.ids)
             vals["stock_move_ids"][0][2].extend(line.ids)
@@ -194,7 +194,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     @api.depends(
         "line_ids",
         "line_ids.qty_done",
-        "line_ids.product_uom_qty",
+        "line_ids.reserved_uom_qty",
         "line_ids.barcode_scan_state",
         "qty_done",
         "product_uom_qty",

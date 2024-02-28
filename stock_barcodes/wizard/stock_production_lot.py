@@ -44,12 +44,12 @@ class WizStockBarcodesNewLot(models.TransientModel):
         return action
 
     def confirm(self):
-        ProductionLot = self.env["stock.production.lot"]
+        ProductionLot = self.env["stock.lot"]
         lot = ProductionLot.search(
             [("product_id", "=", self.product_id.id), ("name", "=", self.lot_name)]
         )
         if not lot:
-            lot = self.env["stock.production.lot"].create(self._prepare_lot_values())
+            lot = self.env["stock.lot"].create(self._prepare_lot_values())
         # Assign lot created or found to wizard scanning barcode lot_id field
         wiz = self.get_scan_wizard()
         if wiz:
