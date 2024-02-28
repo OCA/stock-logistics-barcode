@@ -578,7 +578,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.set_product_qty()
 
     def set_product_qty(self):
-        if self.manual_entry or self.is_manual_qty:
+        if (
+            self.manual_entry
+            or self.is_manual_qty
+            or self.option_group_id.get_option_value("product_qty", "filled_default")
+        ):
             return
         elif self.packaging_id:
             self.packaging_qty = 1.0
