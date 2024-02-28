@@ -12,7 +12,7 @@ class StockBarcodesReadLog(models.Model):
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(comodel_name="product.product", index=True)
-    lot_id = fields.Many2one(comodel_name="stock.production.lot", string="Lot scanned")
+    lot_id = fields.Many2one(comodel_name="stock.lot", string="Lot scanned")
     location_id = fields.Many2one(comodel_name="stock.location")
     packaging_id = fields.Many2one(comodel_name="product.packaging")
     packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
