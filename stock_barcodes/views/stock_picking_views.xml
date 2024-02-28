@@ -28,7 +28,6 @@
                 <button
                     name="action_barcode_scan"
                     class="btn btn-secondary"
-                    icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
                     states="assigned"

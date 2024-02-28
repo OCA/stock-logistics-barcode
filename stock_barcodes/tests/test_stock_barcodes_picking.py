@@ -2,11 +2,11 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo.tests.common import tagged
 
-from .test_stock_barcodes import TestStockBarcodes
+from .common import TestCommonStockBarcodes
 
 
 @tagged("post_install", "-at_install")
-class TestStockBarcodesPicking(TestStockBarcodes):
+class TestStockBarcodesPicking(TestCommonStockBarcodes):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -41,7 +41,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
                     "location_dest_id": cls.customer_location.id,
                     "partner_id": cls.partner_agrolite.id,
                     "picking_type_id": cls.picking_type_out.id,
-                    "move_lines": [
+                    "move_ids": [
                         (
                             0,
                             0,
@@ -68,7 +68,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
                     "location_dest_id": cls.stock_location.id,
                     "partner_id": cls.partner_agrolite.id,
                     "picking_type_id": cls.picking_type_in.id,
-                    "move_lines": [
+                    "move_ids": [
                         (
                             0,
                             0,
@@ -97,7 +97,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
                             0,
                             0,
                             {
-                                "name": cls.product_tracking.name,
+                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -109,7 +109,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
                             0,
                             0,
                             {
-                                "name": cls.product_tracking.name,
+                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -215,10 +215,10 @@ class TestStockBarcodesPicking(TestStockBarcodes):
             wiz_barcode_id=self.wiz_scan_picking.id, picking_id=self.picking_out_01.id
         )
         candidate_wiz.with_context(force_create_move=True).action_lock_picking()
-        self.assertEqual(self.picking_out_01.move_lines.quantity_done, 2)
+        self.assertEqual(self.picking_out_01.move_ids.quantity_done, 2)
         self.wiz_scan_picking.product_qty = 2
         self.wiz_scan_picking.with_context(force_create_move=True).action_confirm()
-        self.assertEqual(self.picking_out_01.move_lines.quantity_done, 4)
+        self.assertEqual(self.picking_out_01.move_ids.quantity_done, 4)
 
         # Picking out 3 is in confirmed state, so until confirmed moves has
         # not been activated candidate pickings is 2

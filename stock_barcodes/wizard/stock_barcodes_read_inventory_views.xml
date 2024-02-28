@@ -11,10 +11,13 @@
                 <field name="inventory_product_qty" invisible="1" />
             </field>
             <!-- hide result package from inventory -->
-            <group name="quant_package" position="replace">
+            <div name="quant_package" position="replace">
                 <div class="mt4">
                     <strong class="d-none d-sm-block">Package</strong>
-                    <span class="fa fa-inbox d-sm-none oe_span_small_icon" />
+                    <span
+                        class="fa fa-inbox d-sm-none oe_span_small_icon"
+                        title="package"
+                    />
                     <field
                         name="package_id"
                         options="{'no_create': True}"
@@ -24,7 +27,7 @@
                         class="h5"
                     />
                 </div>
-            </group>
+            </div>
             <group name="scan_fields" position="after">
                 <group
                     string="Inventory quants"
@@ -67,6 +70,7 @@
                                 type="object"
                                 class="btn"
                                 icon="fa-recycle"
+                                title="Remove quant"
                                 context="{'wiz_barcode_id': parent.id}"
                             />
                         </tree>
@@ -96,15 +100,11 @@
                                                 <button
                                                     name="action_barcode_inventory_quant_unlink"
                                                     type="object"
+                                                    icon="fa-recycle"
+                                                    title="Reset inventory quantity"
                                                     class="btn mt0"
                                                     context="{'wiz_barcode_id': parent.id}"
-                                                >
-                                                    <i
-                                                        class="fa fa-recycle"
-                                                        title="Reset inventory quantity"
-                                                        style="font-size:1.5em"
-                                                    />
-                                                </button>
+                                                />
                                             </div>
                                         </div>
                                         <div class="row">
