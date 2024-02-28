@@ -39,14 +39,14 @@
                                             type="object"
                                             title="lock picking"
                                             t-if="record.picking_id.raw_value != record.wiz_picking_id.raw_value"
-                                            class="fa fa-thumb-tack fa-2x pull-right"
+                                            class="fa fa-thumb-tack fa-2x float-right"
                                             context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
                                         />
                                         <a
                                             name="action_unlock_picking"
                                             type="object"
                                             title="unlock picking"
-                                            class="pull-right"
+                                            class="float-right"
                                             t-if="record.picking_id.raw_value == record.wiz_picking_id.raw_value"
                                             context="{'wiz_barcode_id': parent.id}"
                                         >
@@ -74,7 +74,6 @@
                                                 </t>
                                                 <field
                                                     name="scan_count"
-                                                    invisible="1"
                                                     force_save="1"
                                                 />
                                             </strong>
@@ -96,8 +95,9 @@
                                                 <button
                                                     name="action_open_picking"
                                                     type="object"
-                                                    class="btn btn-secondary pull-left"
+                                                    class="btn btn-secondary float-left"
                                                     context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
+                                                    data-hotkey="'shift+o'"
                                                 >Open</button>
                                             </div>
                                             <div class="col">
@@ -105,10 +105,11 @@
                                                 <button
                                                     name="action_validate_picking"
                                                     type="object"
-                                                    t-att-class="'btn pull-right' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary')"
+                                                    t-att-class="'btn float-right' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary')"
                                                     attrs="{'invisible': [('state', 'not in', ['draft', 'assigned', 'confirmed'])]}"
                                                     confirm="Are you sure to validate the picking ?"
                                                     context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
+                                                    data-hotkey="'shift+v'"
                                                 >Validate</button>
                                             </div>
                                         </div>
@@ -133,122 +134,117 @@
                     name="domain"
                 >[('id', 'child_of', picking_location_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]</attribute>
             </field>
-            <group name="location" position="attributes">
+            <div name="location" position="attributes">
                 <attribute
                     name="attrs"
                 >{'readonly': [('manual_entry', '=', False)], 'invisible': [('picking_type_code', '=', 'incoming')]}</attribute>
-            </group>
-            <group name="location" position="after">
-                <group
-                    name="location_dest"
-                    attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}"
-                >
-                    <div>
-                        <strong class=" d-none d-sm-block">Dest. Location</strong>
-                        <span
-                            class="fa fa-share text-center d-sm-none oe_span_small_icon"
-                            title="Destination Location"
-                        />
-                        <field
-                            name="location_dest_id"
-                            options="{'no_create': True}"
-                            attrs="{'readonly': [('manual_entry', '=', False)]}"
-                            force_save="1"
-                            style="width:85%"
-                            class="h5"
-                            domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
-                        />
-                    </div>
-                </group>
-            </group>
+            </div>
+            <div name="location" position="after">
+                <div attrs="{'invisible': [('picking_type_code', '=', 'outgoing')]}">
+                    <strong class=" d-none d-sm-block">Dest. Location</strong>
+                    <span
+                        class="fa fa-share text-center d-sm-none oe_span_small_icon"
+                        title="Destination Location"
+                    />
+                    <field
+                        name="location_dest_id"
+                        options="{'no_create': True}"
+                        attrs="{'readonly': [('manual_entry', '=', False)]}"
+                        force_save="1"
+                        nolabel="1"
+                        style="width:85%"
+                        class="h5"
+                        domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
+                    />
+                </div>
+            </div>
             <group name="scan_fields" position="after">
-                <group
+                <notebook
                     string="Pending moves"
                     attrs="{'invisible': [('pending_move_ids', '=', [])]}"
                 >
-                    <field
-                        name="pending_move_ids"
-                        options="{'no_open': True, 'always_reload': True}"
-                        nolabel="1"
-                        force_save="1"
-                        mode="tree,kanban"
-                    >
-                        <tree>
-                            <field name="state" invisible="1" />
-                            <field name="product_id" />
-                            <field name="product_uom_qty" />
-                            <field name="line_ids" invisible="1" />
-                            <field
-                                name="lot_id"
-                                groups="stock.group_production_lot"
-                                optional="hide"
-                            />
-                            <field
-                                name="package_id"
-                                groups="stock.group_tracking_lot"
-                                optional="hide"
-                            />
-                            <field name="qty_done" />
-                            <button
-                                name="fill_from_pending_line"
-                                type="object"
-                                class="btn"
-                                icon="fa-upload"
-                                context="{'wiz_barcode_id': parent.id}"
-                            />
-                        </tree>
-                        <kanban class="o_kanban_mobile">
-                            <field name="state" />
-                            <field name="product_id" />
-                            <field name="product_uom_qty" />
-                            <field name="qty_done" />
-                            <templates>
-                                <t t-name="kanban-box">
-                                    <div t-attf-class="oe_kanban_card">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <strong>
-                                                    <span>
-                                                        <field name="product_id" />
+                    <page string="Pending moves">
+                        <field
+                            name="pending_move_ids"
+                            options="{'no_open': True, 'always_reload': True}"
+                            nolabel="1"
+                            force_save="1"
+                            mode="tree,kanban"
+                        >
+                            <tree>
+                                <field name="state" invisible="1" />
+                                <field name="product_id" />
+                                <field name="product_uom_qty" />
+                                <field name="line_ids" invisible="1" />
+                                <field
+                                    name="lot_id"
+                                    groups="stock.group_production_lot"
+                                    optional="hide"
+                                />
+                                <field
+                                    name="package_id"
+                                    groups="stock.group_tracking_lot"
+                                    optional="hide"
+                                />
+                                <field name="qty_done" />
+                                <button
+                                    name="fill_from_pending_line"
+                                    type="object"
+                                    class="btn"
+                                    icon="fa-upload"
+                                    title="Fill from pending line"
+                                    context="{'wiz_barcode_id': parent.id}"
+                                />
+                            </tree>
+                            <kanban class="o_kanban_mobile">
+                                <field name="state" />
+                                <field name="product_id" />
+                                <field name="product_uom_qty" />
+                                <field name="qty_done" />
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_card">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <strong>
+                                                        <span>
+                                                            <field name="product_id" />
+                                                        </span>
+                                                    </strong>
+                                                </div>
+                                                <div class="col-2">
+                                                    <span
+                                                        class="float-right text-end text-muted"
+                                                    >
+                                                        <field name="product_uom_qty" />
                                                     </span>
-                                                </strong>
-                                            </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="pull-right text-right text-muted"
-                                                >
-                                                    <field name="product_uom_qty" />
-                                                </span>
-                                            </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="pull-right text-right"
-                                                    t-att-class="qty_done >= product_uom_qty ? 'text-success' : ''"
-                                                >
-                                                    <field name="qty_done" />
-                                                </span>
-                                            </div>
-                                            <div class="col-2 text-right">
-                                                <button
-                                                    name="fill_from_pending_line"
-                                                    type="object"
-                                                    class="btn"
-                                                    context="{'wiz_barcode_id': parent.id}"
-                                                >
-                                                    <i
-                                                        class="fa fa-upload"
+                                                </div>
+                                                <div class="col-2">
+                                                    <span
+                                                        class="float-right text-end"
+                                                        t-att-class="qty_done >= product_uom_qty ? 'text-success' : ''"
+                                                    >
+                                                        <field name="qty_done" />
+                                                    </span>
+                                                </div>
+                                                <div class="col-2 text-end">
+                                                    <button
+                                                        name="fill_from_pending_line"
+                                                        type="object"
+                                                        icon="fa-upload"
                                                         title="Fill from pencil"
-                                                        style="font-size:1.5em"
+                                                        class="btn"
+                                                        context="{'wiz_barcode_id': parent.id}"
                                                     />
-                                                </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </t>
-                            </templates>
-                        </kanban>
-                    </field>
-                </group>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </notebook>
                 <group
                     string="Detailed operations"
                     attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
@@ -300,6 +296,7 @@
                                 type="object"
                                 class="btn"
                                 icon="fa-trash"
+                                title="Remove detailed operation"
                                 context="{'wiz_barcode_id': parent.id}"
                             />
                         </tree>
@@ -320,24 +317,20 @@
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="pull-right text-right font-weight-bold"
+                                                    class="float-right text-end font-weight-bold"
                                                 >
                                                     <field name="qty_done" />
                                                 </span>
                                             </div>
-                                            <div class="col-3 text-right">
+                                            <div class="col-3 text-end">
                                                 <button
                                                     name="action_barcode_detailed_operation_unlink"
                                                     type="object"
+                                                    icon="fa-trash"
+                                                    title="Remove"
                                                     class="btn mt0"
                                                     context="{'wiz_barcode_id': parent.id}"
-                                                >
-                                                    <i
-                                                        class="fa fa-trash"
-                                                        title="Remove"
-                                                        style="font-size:1.5em"
-                                                    />
-                                                </button>
+                                                />
                                             </div>
                                         </div>
                                         <div class="row">
@@ -378,12 +371,13 @@
                     name="action_put_in_pack"
                     help="Put in pack"
                     type="object"
+                    icon="fa-cubes"
+                    title="Put in Pack"
                     attrs="{'invisible': ['|', ('picking_state', 'in', ('draft', 'done', 'cancel')), ('display_menu', '=', True)]}"
-                    class="ml-auto oe_kanban_action_button btn btn-secondary btn-sm pl-3 pr-3"
+                    class="ms-auto oe_kanban_action_button btn btn-secondary btn-sm ps-3 pe-3"
                     groups="stock.group_tracking_lot"
                     data-hotkey="6"
                 >
-                     <i class="fa fa-cubes" title="Put in Pack" />
                 </button>
             </xpath>
         </field>
