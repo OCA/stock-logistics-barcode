@@ -121,9 +121,10 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
 
     @api.model
     def _prepare_data_from_move_line(self, move_line):
+        qty = self.env.context.get("force_quantity_line", move_line.qty_done)
         return {
             "product_id": move_line.product_id.id,
-            "quantity": move_line.qty_done,
+            "quantity": qty,
             "label_qty": self._get_label_qty(move_line),
             "move_line_id": move_line.id,
             "uom_id": move_line.product_uom_id.id,
