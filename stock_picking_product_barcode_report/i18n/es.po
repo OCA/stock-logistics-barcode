@@ -278,6 +278,7 @@ msgstr "Imprimir linea de albarán"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing
+#: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing_sml
 msgid "Print barcode labels"
 msgstr "Imprimir etiquetas de códigos de barras"
 
@@ -320,6 +321,11 @@ msgstr "Selecciona el formato de código de barras"
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Select report for barcode display"
 msgstr "Selecciona el informe para imprimir el código de barras"
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__stock_move_line_ids
+msgid "Stock Move Line"
+msgstr ""
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__uom_id
