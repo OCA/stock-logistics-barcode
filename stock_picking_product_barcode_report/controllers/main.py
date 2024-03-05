@@ -24,7 +24,9 @@ class ReportController(ReportController):
             Gs1_128 = barcode.get_barcode_class("gs1_128")
             writer = SVGWitoutTextWriter(module_max_height=height)
             gs1_128 = Gs1_128(str(value), writer=writer)
-            image = gs1_128.render()
+            image = gs1_128.render(
+                writer_options={"module_width": 0.5, "quiet_zone": 0.5}
+            )
             return request.make_response(
                 image, headers=[("Content-Type", "image/svg+xml")]
             )
