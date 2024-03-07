@@ -54,6 +54,9 @@ class TestStockPickingProductBarcodeReport(TransactionCase):
             }
         )
         self.picking.action_confirm()
+        for move_line in self.picking.move_line_ids:
+            move_line.qty_done = move_line.product_uom_qty
+        self.picking._action_done()
         for move_line_id in self.picking.move_line_ids:
             move_line_id.result_package_id = self.package
         self.wizard = (
@@ -87,3 +90,19 @@ class TestStockPickingProductBarcodeReport(TransactionCase):
         self.assertEqual(line.label_qty, 1)
         self.assertEqual(line.product_id.id, self.product_barcode.id)
         self.wizard.print_labels()
+
+    def test_wizard_quants(self):
+        quant = self.env["stock.quant"].search(
+            [("product_id", "=", self.product_barcode.id), ("quantity", ">", 0)]
+        )
+        quant_wizard = (
+            self.env["stock.picking.print"]
+            .with_context(**{"active_ids": quant.ids, "active_model": "stock.quant"})
+            .create({})
+        )
+        quant_wizard.barcode_report = self.env.ref(
+            "stock_picking_product_barcode_report.action_label_barcode_report"
+        )
+        self.assertEqual(len(quant_wizard.product_print_moves), 1)
+        self.assertEqual(quant_wizard.product_print_moves.quantity, 20)
+        quant_wizard.print_labels()
