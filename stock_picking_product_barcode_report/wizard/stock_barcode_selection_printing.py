@@ -21,7 +21,6 @@ class ProductPrintingQty(models.TransientModel):
     uom_id = fields.Many2one(
         "uom.uom",
         string="Unit of Measure",
-        related="move_line_id.product_uom_id",
     )
     lot_id = fields.Many2one("stock.production.lot", string="Lot/Serial Number")
     result_package_id = fields.Many2one(
@@ -46,6 +45,9 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.move.line":
             stock_move_lines = self.env["stock.move.line"].browse(ctx.get("active_ids"))
             res.update({"stock_move_line_ids": stock_move_lines.ids})
+        if ctx.get("active_ids") and ctx.get("active_model") == "stock.quant":
+            lines = self._get_lines_from_quants()
+            res.update({"product_print_moves": lines})
         return res
 
     def _default_barcode_report(self):
@@ -95,6 +97,26 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
                 product_print_moves.append((0, 0, product_print_moves_data))
         if self.stock_move_line_ids or self.picking_ids:
             self.product_print_moves = product_print_moves
+
+    def _get_lines_from_quants(self):
+        lines = []
+        quants = self.env["stock.quant"].browse(self.env.context["active_ids"])
+        for quant in quants:
+            lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": quant.product_id.id,
+                        "label_qty": 1,
+                        "quantity": quant.quantity,
+                        "uom_id": quant.product_uom_id.id,
+                        "lot_id": quant.lot_id.id,
+                        "result_package_id": quant.package_id.id,
+                    },
+                )
+            )
+        return lines
 
     @api.model
     def _get_move_lines(self, picking):
