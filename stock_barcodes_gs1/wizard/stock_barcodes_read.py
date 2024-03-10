@@ -127,7 +127,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         if warning_msg_list:
             self.barcode = False
             self._set_messagge_info("info", " ".join(warning_msg_list))
-            # TODO: Now message is missed. Check all chained messages
+            for warning_msg in warning_msg_list:
+                self.display_notification(
+                    warning_msg, message_type="danger", title="GS-1 code"
+                )
         if not self.check_option_required():
             return False
         if self.is_manual_confirm or self.manual_entry:
