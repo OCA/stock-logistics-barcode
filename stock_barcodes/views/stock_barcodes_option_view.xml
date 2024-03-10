@@ -13,6 +13,10 @@
                         </group>
                         <group>
                             <field name="code" />
+                            <field
+                                name="display_notification"
+                                widget="boolean_toggle"
+                            />
                         </group>
                     </group>
                     <group string="Behavior settings">

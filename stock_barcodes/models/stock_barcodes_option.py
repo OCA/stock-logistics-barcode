@@ -91,6 +91,9 @@ class StockBarcodesOptionGroup(models.Model):
         help="If checked quantity will be accumulated to the existing record instead of "
         "overwrite it with the new quantity value",
     )
+    display_notification = fields.Boolean(
+        string="Display Odoo notifications",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
