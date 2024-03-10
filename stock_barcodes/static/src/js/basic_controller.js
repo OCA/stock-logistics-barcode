@@ -121,6 +121,16 @@ odoo.define("stock_barcodes.BasicController", function (require) {
                     } else if (message.sound === "ko") {
                         this.$sound_ko[0].play();
                     }
+                } else if (
+                    notif_type ===
+                    "stock_barcodes_notify-" + this.initialState.data.id
+                ) {
+                    this.displayNotification({
+                        title: notif.payload.title,
+                        message: notif.payload.message,
+                        type: notif.payload.type,
+                        sticky: true,
+                    });
                 }
             }
         },
