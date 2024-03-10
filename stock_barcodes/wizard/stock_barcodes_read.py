@@ -321,6 +321,8 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         Fill wizard fields from stock quants
         """
+        if self.env.context.get("skip_set_info_from_quants"):
+            return
         ignore_quant_location = self.env.context.get(
             "ignore_quant_location", self.option_group_id.ignore_quant_location
         )
