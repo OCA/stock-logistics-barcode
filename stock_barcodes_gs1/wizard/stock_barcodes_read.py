@@ -20,6 +20,11 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_02(self, gs1_list):
         """Product identification"""
+        # When the Lot/Serial is included in barcode and 'set_info_from_quants' is
+        # activated we do not want get info from quants when the product is processed
+        # because it will be processed in lot method.
+        if self._is_lot_ai_in_barcode(gs1_list):
+            self = self.with_context(skip_set_info_from_quants=True)
         res = self.process_barcode_product_id()
         # If we did not found a product and we have not a package, maybe we
         # can try to use this product barcode as a packaging barcode
@@ -37,6 +42,11 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_240(self, gs1_list):
         """Product identification"""
+        # When the Lot/Serial is included in barcode and 'set_info_from_quants' is
+        # activated we do not want get info from quants when the product is processed
+        # because it will be processed in lot method.
+        if self._is_lot_ai_in_barcode(gs1_list):
+            self = self.with_context(skip_set_info_from_quants=True)
         return self.with_context(
             barcode_domain_field="default_code"
         ).process_barcode_product_id()
@@ -82,6 +92,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _hook_process_gs1_value(self, gs1_item):
         """Hook to be extended by other modules"""
         return gs1_item["value"]
+
+    @staticmethod
+    def _is_lot_ai_in_barcode(gs1_list):
+        """Helper method to know if the Lot/Serial is included in barcode"""
+        return next(filter(lambda f: f["ai"] == "10", gs1_list), False)
 
     def process_barcode(self, barcode):
         gs1_list = self.env.ref(
