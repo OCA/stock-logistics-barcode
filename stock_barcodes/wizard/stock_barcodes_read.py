@@ -815,3 +815,23 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_keep_result_package(self):
         self.keep_result_package = not self.keep_result_package
+
+    def display_notification(
+        self, message, message_type="warning", title=False, sticky=True
+    ):
+        """Send notifications to web client
+        message_type:
+         [options.type='warning'] 'info', 'success', 'warning', 'danger' or ''
+         See web/static/src/legacy/js/core/service_mixins.js#L241 to implement more
+         options.
+         sticky: Permanent notification until user removes it
+        """
+        if self.option_group_id.display_notification:
+            message = {"message": message, "type": message_type, "sticky": sticky}
+            if title:
+                message["title"] = title
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes-{}".format(self.ids[0]),
+                "stock_barcodes_notify-{}".format(self.ids[0]),
+                message,
+            )
