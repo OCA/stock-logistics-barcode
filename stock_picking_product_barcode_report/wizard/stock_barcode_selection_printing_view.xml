@@ -50,7 +50,12 @@
                                 groups="stock.group_tracking_lot"
                             />
                             <field name="quantity" force_save="1" readonly="1" />
-                            <field name="uom_id" readonly="1" groups="uom.group_uom" />
+                            <field
+                                name="uom_id"
+                                force_save="1"
+                                readonly="1"
+                                groups="uom.group_uom"
+                            />
                             <field name="label_qty" />
                             <field name="move_line_id" invisible="1" force_save="1" />
                         </tree>
@@ -82,6 +87,17 @@
         <field name="view_mode">form</field>
         <field name="binding_type">report</field>
         <field name="binding_model_id" ref="stock.model_stock_move_line" />
+        <field name="target">new</field>
+    </record>
+    <record
+        id="act_stock_barcode_selection_printing_quant"
+        model="ir.actions.act_window"
+    >
+        <field name="name">Print barcode labels</field>
+        <field name="res_model">stock.picking.print</field>
+        <field name="view_mode">form</field>
+        <field name="binding_type">report</field>
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
         <field name="target">new</field>
     </record>
 </odoo>
