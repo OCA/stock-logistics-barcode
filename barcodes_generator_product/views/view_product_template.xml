@@ -19,6 +19,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     groups="barcodes_generator_abstract.generate_barcode"
                     attrs="{'invisible': [('product_variant_count', '&gt;', 1)]}"
                     colspan="2"
+                    widget="selection"
                 />
                 <field name="generate_type" invisible="1" />
                 <label
