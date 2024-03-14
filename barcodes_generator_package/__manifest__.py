@@ -4,7 +4,7 @@
 {
     "name": "Generate Barcodes for Packaging",
     "summary": "Generate Barcodes for Product Packaging",
-    "version": "16.0.1.0.1",
+    "version": "16.0.1.1.0",
     "category": "Tools",
     "author": "LasLabs, GRAP, Odoo Community Association (OCA)",
     "maintainers": ["legalsylvain"],
