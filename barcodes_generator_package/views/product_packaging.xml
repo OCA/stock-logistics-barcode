@@ -17,6 +17,7 @@
                     domain="[('generate_model', '=', 'product.packaging')]"
                     groups="barcodes_generator_abstract.generate_barcode"
                     colspan="2"
+                    widget="selection"
                 />
                 <field name="generate_type" invisible="1" />
                 <label
