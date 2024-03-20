@@ -94,6 +94,9 @@ class StockBarcodesOptionGroup(models.Model):
     display_notification = fields.Boolean(
         string="Display Odoo notifications",
     )
+    use_location_dest_putaway = fields.Boolean(
+        string="Use location dest. putaway",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
