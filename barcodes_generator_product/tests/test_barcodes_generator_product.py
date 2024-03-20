@@ -31,8 +31,7 @@ class Tests(TransactionCase):
             self.template_mono.barcode,
             "2054321000001",
             "Incorrect Manual Barcode Generation for non varianted Template."
-            " Pattern : %s - Base : %s"
-            % (
+            " Pattern : {} - Base : {}".format(
                 self.template_mono.barcode_rule_id.pattern,
                 self.template_mono.barcode_base,
             ),
@@ -55,8 +54,7 @@ class Tests(TransactionCase):
             self.product_variant_1.barcode,
             "2012345000001",
             "Incorrect Manual Barcode Generation for varianted Product."
-            " Pattern : %s - Base : %s"
-            % (
+            " Pattern : {} - Base : {}".format(
                 self.product_variant_1.barcode_rule_id.pattern,
                 self.product_variant_1.barcode_base,
             ),
