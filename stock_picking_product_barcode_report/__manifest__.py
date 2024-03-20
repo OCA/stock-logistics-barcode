@@ -16,6 +16,7 @@
         "views/res_config_settings_view.xml",
         "data/paperformat_label.xml",
         "wizard/stock_barcode_selection_printing_view.xml",
+        "report/report_base_label.xml",
         "report/report_label_barcode.xml",
         "report/report_label_barcode_quant_package_template.xml",
         "report/report_label_barcode_template.xml",

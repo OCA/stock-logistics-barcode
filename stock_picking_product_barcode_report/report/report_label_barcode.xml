@@ -81,4 +81,22 @@
         <field name="is_barcode_label">True</field>
         <field name="is_custom_label">True</field>
     </record>
+
+    <!-- Base report label to be extended by other modules -->
+    <record id="action_report_base_label" model="ir.actions.report">
+        <field name="name">Label report</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.base_label</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.base_label</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label"
+        />
+        <field name="is_barcode_label">True</field>
+    </record>
 </odoo>
