@@ -14,7 +14,6 @@ _GENERATE_TYPE = [
 
 
 class BarcodeRule(models.Model):
-
     _inherit = "barcode.rule"
 
     # Column Section
