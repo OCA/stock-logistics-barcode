@@ -17,7 +17,9 @@ class ProductPrintingQty(models.TransientModel):
         domain="[('id', '=', product_id)]",
     )
     quantity = fields.Float(digits="Product Unit of Measure", required=True)
-    label_qty = fields.Integer("Quantity of Labels")
+    label_qty = fields.Integer(
+        "Quantity of Labels", compute="_compute_label_qty", store=True, readonly=False
+    )
     uom_id = fields.Many2one(
         "uom.uom",
         string="Unit of Measure",
@@ -29,6 +31,20 @@ class ProductPrintingQty(models.TransientModel):
 
     wizard_id = fields.Many2one("stock.picking.print", string="Wizard")
     move_line_id = fields.Many2one("stock.move.line", "Move", readonly=True)
+    product_packaging_id = fields.Many2one(
+        comodel_name="product.packaging",
+        string="Packaging",
+        domain="[('product_id', '=', product_id)]",
+        groups="product.group_stock_packaging",
+        check_company=True,
+    )
+
+    @api.depends("product_packaging_id", "quantity")
+    def _compute_label_qty(self):
+        self.label_qty = 1
+        for line in self.filtered("product_packaging_id.print_one_label_by_item"):
+            factor = line.product_packaging_id.qty
+            line.label_qty = ceil(line.quantity / (factor or 1.0))
 
 
 class WizStockBarcodeSelectionPrinting(models.TransientModel):
@@ -47,6 +63,9 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             res.update({"stock_move_line_ids": stock_move_lines.ids})
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.quant":
             lines = self._get_lines_from_quants()
+            res.update({"product_print_moves": lines})
+        if ctx.get("active_ids") and ctx.get("active_model") == "stock.production.lot":
+            lines = self._get_lines_from_lots()
             res.update({"product_print_moves": lines})
         return res
 
@@ -118,6 +137,25 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             )
         return lines
 
+    def _get_lines_from_lots(self):
+        lines = []
+        lots = self.env["stock.production.lot"].browse(self.env.context["active_ids"])
+        for lot in lots:
+            lines.append(
+                (
+                    0,
+                    0,
+                    {
+                        "product_id": lot.product_id.id,
+                        "label_qty": 1,
+                        "quantity": lot.product_qty,
+                        "uom_id": lot.product_uom_id.id,
+                        "lot_id": lot.id,
+                    },
+                )
+            )
+        return lines
+
     @api.model
     def _get_move_lines(self, picking):
         stock_move_line_to_print_id = self.env.context.get(
@@ -136,27 +174,17 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             return picking.move_line_ids.filtered("product_id.barcode")
         return picking.move_line_ids
 
-    def _get_label_qty(self, move_line):
-        label_copies = 1
-        if (
-            move_line.move_id.product_packaging_id
-            and move_line.move_id.product_packaging_id.print_one_label_by_item
-        ):
-            factor = move_line.move_id.product_packaging_id.qty
-            label_copies = ceil(move_line.qty_done / (factor or 1.0))
-        return label_copies
-
     @api.model
     def _prepare_data_from_move_line(self, move_line):
         qty = self.env.context.get("force_quantity_line", move_line.qty_done)
         return {
             "product_id": move_line.product_id.id,
             "quantity": qty,
-            "label_qty": self._get_label_qty(move_line),
             "move_line_id": move_line.id,
             "uom_id": move_line.product_uom_id.id,
             "lot_id": move_line.lot_id.id,
             "result_package_id": move_line.result_package_id.id,
+            "product_packaging_id": move_line.move_id.product_packaging_id.id,
         }
 
     def print_labels(self):
