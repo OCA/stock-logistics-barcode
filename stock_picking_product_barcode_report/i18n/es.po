@@ -213,6 +213,11 @@ msgid "Label Quant Report"
 msgstr "Informe de etiquetas de paquetes"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.actions.report,name:stock_picking_product_barcode_report.action_report_base_label
+msgid "Label report"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_package
 msgid "Labels package content"
 msgstr "Código de barras del contenido"
@@ -257,6 +262,11 @@ msgid "Moves"
 msgstr "Movimientos"
 
 #. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_line_print__product_packaging_id
+msgid "Packaging"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__picking_ids
 msgid "Picking"
 msgstr "Albarán"
@@ -278,6 +288,7 @@ msgstr "Imprimir linea de albarán"
 
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing
+#: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing_lot
 #: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing_quant
 #: model:ir.actions.act_window,name:stock_picking_product_barcode_report.act_stock_barcode_selection_printing_sml
 msgid "Print barcode labels"
