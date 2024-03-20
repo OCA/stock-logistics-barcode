@@ -45,6 +45,7 @@
                             <field name="ignore_quant_location" />
                             <field name="auto_lot" />
                             <field name="create_lot" />
+                            <field name="use_location_dest_putaway" />
                         </group>
                     </group>
                     <separator string="Steps to scan" />
