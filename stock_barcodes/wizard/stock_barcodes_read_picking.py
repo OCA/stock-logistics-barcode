@@ -605,6 +605,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if not sml.move_id:
                     self.create_new_stock_move(sml)
                 move_lines_dic[sml.id] = sml.qty_done
+            # Ensure that the state of stock_move linked to the sml read is assigned
+            stock_move_lines.move_id.filtered(
+                lambda sm: sm.state == "draft"
+            ).state = "assigned"
             # When create new stock move lines and we are in guided mode we need
             # link this new lines to the todo line details
             if self.option_group_id.barcode_guided_mode == "guided":
@@ -765,6 +769,22 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.selected_pending_move_id = False
         self.visible_force_done = False
         return res
+
+    def _option_required_hook(self, option_required):
+        if (
+            option_required.field_name == "location_dest_id"
+            and self.option_group_id.use_location_dest_putaway
+        ):
+            self.location_dest_id = self.picking_id.location_dest_id.with_context(
+                avoid_location_with_reserve=True
+            )._get_putaway_strategy(
+                self.product_id,
+                self.product_qty,
+                self.result_package_id,
+                self.packaging_id,
+            )
+            return bool(self.location_dest_id)
+        return super()._option_required_hook(option_required)
 
 
 class WizCandidatePicking(models.TransientModel):
