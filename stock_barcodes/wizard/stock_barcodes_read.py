@@ -437,10 +437,16 @@ class WizStockBarcodesRead(models.AbstractModel):
                     self.product_id.tracking == "none" or self.auto_lot or self.lot_name
                 ):
                     continue
+                if self._option_required_hook(option):
+                    continue
                 self._set_messagge_info("info", option.name)
                 self.action_show_step()
                 return False
         return True
+
+    def _option_required_hook(self, option_required):
+        """Hook to evaluate is an option is required"""
+        return False
 
     def _scanned_location(self, barcode):
         location = self.env["stock.location"].search(self._barcode_domain(barcode))
