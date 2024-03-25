@@ -14,7 +14,6 @@
     "depends": [
         "sale_management",
         "barcode_action",
-        "base_gs1_barcode",
     ],
     "data": [
         "views/sale.xml",
