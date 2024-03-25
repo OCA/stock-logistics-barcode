@@ -28,9 +28,7 @@ Sale Input Barcode
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-Create a sale line according to barcode informations given by a barcode/datamatrix device.
-
-This module may also create lot and/or select lot if used in combination with sale_order_lot_selection
+Create a sale order line, finding the product using a barcode scanner
 
 **Table of contents**
 
@@ -40,16 +38,7 @@ This module may also create lot and/or select lot if used in combination with sa
 Configuration
 =============
 
-Optionnaly you may prevent to create unknown lot if you add this code in your custom code.
-
-
-.. code-block:: python
-
-    class SaleOrderLine(models.Model):
-        _inherit = "sale.order.line"
-
-        def _create_unknown_lot(self, barcode):
-            return False
+No specific configuration necessary
 
 Bug Tracker
 ===========
