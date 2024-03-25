@@ -11,11 +11,11 @@ class Test(TransactionCase):
 
     def test_input_line(self):
         self.env = self.env(context=dict(self.env.context, tracking_disable=True))
-        barcode = "01034009338167591714050010B04059A\x1d310500638515140501"
+        barcode = "5156000000030"
         product = self.env["product.product"].create(
             {
                 "name": "barcode test",
-                "barcode": barcode[2:16],
+                "barcode": barcode,
             }
         )
         sale = self.env.ref("sale.sale_order_3")
