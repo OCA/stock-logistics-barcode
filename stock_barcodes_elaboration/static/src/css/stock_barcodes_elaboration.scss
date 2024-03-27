@@ -1,0 +1,14 @@
+.oe_stock_barcordes_form {
+    .o_kanban_view .oe_kanban_card .o_field_many2manytags .o_tag,
+    .o_kanban_view .oe_kanban_card .o_kanban_tags .o_tag,
+    .o_kanban_view .o_kanban_record .o_field_many2manytags .o_tag,
+    .o_kanban_view .o_kanban_record .o_kanban_tags .o_tag {
+        font-size: 12px;
+        font-style: italic;
+        font-weight: bold;
+    }
+    .elaboration {
+        margin-left: -5px;
+        margin-right: -5px;
+    }
+}
