@@ -17,263 +17,229 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 4.17\n"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__product_ref_done
-msgid "#Product Ref done:"
-msgstr "#Referencias realizadas:"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__product_ref_count
-msgid "#Product Ref:"
-msgstr "#Referencias:"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+#. module: stock_barcodes_picking_batch_revision
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
+#, fuzzy
+msgid "<i class=\"fa fa-bars\" title=\"Open actions\"/>"
 msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
 
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid ""
-"<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1.5em"
-"\"/>"
-msgstr ""
-"<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1."
-"5em\"/>"
+#. module: stock_barcodes_picking_batch_revision
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
+#, fuzzy
+msgid "<i class=\"fa fa-check\" title=\"Confirm review\"/>"
+msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
 
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_batch_picking_form
-msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
-msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
+#. module: stock_barcodes_picking_batch_revision
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
+#, fuzzy
+msgid "<i class=\"fa fa-trash-o\" title=\"Clean Values\"/>"
+msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
 
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "<span for=\"product_ref_count\">#Ref: </span>"
-msgstr "<span for=\"product_ref_count\">#Ref: </span>"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid ""
-"<span> | </span>\n"
-"                                                <span for=\"product_ref_done"
-"\">#Read: </span>"
-msgstr ""
-"<span>| </span>\n"
-"                                                <span for=\"product_ref_done"
-"\">#Leer: </span>"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Are you sure to validate the picking batch?"
-msgstr "¿Seguro que quiere validar esta agrupación de albaranes?"
-
-#. module: stock_barcodes_picking_batch
-#: code:addons/stock_barcodes_picking_batch/wizard/stock_barcodes_read_picking_batch.py:0
-#, python-format
-msgid "Barcode reader"
-msgstr "Escaneador"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.actions.act_window,name:stock_barcodes_picking_batch.action_stock_barcodes_read_picking_batch
-msgid "Barcodes Read"
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_stock_move_line__barcodes_is_reviewed
+#, fuzzy
+msgid "Barcodes Is Reviewed"
 msgstr "Lector de códigos de barras"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model,name:stock_barcodes_picking_batch.model_stock_picking_batch
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_stock_picking_batch__barcodes_requested_review
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_candidate_picking_batch__barcodes_requested_review
+#, fuzzy
+msgid "Barcodes Requested Review"
+msgstr "Lector de códigos de barras"
+
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model,name:stock_barcodes_picking_batch_revision.model_stock_picking_batch
 msgid "Batch Transfer"
 msgstr "Agrupación de albaranes"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__name
-msgid "Candidate Picking Batch"
-msgstr "Posibles grupos de albaranes"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__candidate_picking_batch_ids
-msgid "Candidate picking batch"
-msgstr "Posibles grupos de albaranes"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model,name:stock_barcodes_picking_batch.model_wiz_candidate_picking_batch
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_candidate_picking_batch
 msgid "Candidate picking batchs for barcode interface"
 msgstr "Posibles grupos de albaranes para el lector de códigos de barras"
 
-#. module: stock_barcodes_picking_batch
-#: code:addons/stock_barcodes_picking_batch/wizard/stock_barcodes_read_picking_batch.py:0
-#, python-format
-msgid "Click on picking batch pushpin to lock it"
-msgstr "Pinche en la chincheta del grupo para bloquearlo"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__confirmed_moves
-msgid "Confirmed moves"
-msgstr "Movimientos confirmados"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__create_uid
-msgid "Created by"
-msgstr "Creado por"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__create_date
-msgid "Created on"
-msgstr "Creado el"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__date
-msgid "Creation Date"
-msgstr "Fecha de Creación"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_type_code__outgoing
-msgid "Customers"
-msgstr "Clientes"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Detailed operations"
-msgstr "Operaciones detalladas"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__display_name
-msgid "Display Name"
-msgstr "Nombre a mostrar"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__id
-msgid "ID"
-msgstr "ID (identificación)"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
-msgid "Internal"
-msgstr "Interno"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__is_pending
-msgid "Is Pending"
-msgstr "Pendiente"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,help:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__confirmed_moves
-msgid ""
-"It allows to work with movements without reservation (Without detailed "
-"operations)"
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model,name:stock_barcodes_picking_batch_revision.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
 msgstr ""
-"Permite trabajar con movimientos sin reserva (Sin operaciones detalladas)"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch____last_update
-msgid "Last Modified on"
-msgstr "Última Modificación el"
+#. module: stock_barcodes_picking_batch_revision
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
+msgid "Review"
+msgstr ""
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__write_uid
-msgid "Last Updated by"
-msgstr "Última Actualización por"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__write_date
-msgid "Last Updated on"
-msgstr "Última Actualización el"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Lot:"
-msgstr "Lote:"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,help:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__name
-msgid "Name of the batch transfer"
-msgstr "Nombre de agrupación de albaranes"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Open"
-msgstr "Abrir"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Package:"
-msgstr "Empaquetado:"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Pending moves"
-msgstr "Movimientos pendientes"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_batch_id
-msgid "Picking Batch"
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_picking__review_picking_batch
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_todo__review_picking_batch
+#, fuzzy
+msgid "Review Picking Batch"
 msgstr "Grupo de albaranes"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_mode
-msgid "Picking Mode"
-msgstr "Modo de albarán"
+#. module: stock_barcodes_picking_batch_revision
+#: model:stock.barcodes.action,name:stock_barcodes_picking_batch_revision.stock_barcodes_action_picking_batch_revision
+#, fuzzy
+msgid "Review picking batch"
+msgstr "Posibles grupos de albaranes"
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__picking_batch_id
-#: model:stock.barcodes.action,name:stock_barcodes_picking_batch.stock_barcodes_action_picking_batch
-msgid "Picking batch"
-msgstr "Grupo de albaranes"
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model.fields,help:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_picking__review_picking_batch
+#: model:ir.model.fields,help:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_todo__review_picking_batch
+msgid "Technical field to know the context (reviewer or not)"
+msgstr ""
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_mode__picking_batch
-msgid "Picking batch mode"
-msgstr "Modo de recogida por lotes"
+#. module: stock_barcodes_picking_batch_revision
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.stock_picking_batch_filter
+msgid "To review"
+msgstr ""
 
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_batch_product_qty
-msgid "Picking batch quantities"
-msgstr "Cantidades del grupo"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__scan_count
-msgid "Scan Count"
-msgstr "Cantidad de lecturas"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_batch_picking_form
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_picking_batch_kanban
-msgid "Start barcode interface"
-msgstr "Iniciar el lector de códigos de barras"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__state
-msgid "State"
-msgstr "Estado"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_type_code
-msgid "Type of Operation"
-msgstr "Tipo de operación"
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Validate"
-msgstr "Validar"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
-msgid "Vendors"
-msgstr "Proveedores"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__wiz_barcode_id
-msgid "Wiz Barcode"
-msgstr "Asistente de código de barras"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__wiz_picking_batch_id
-msgid "Wizard Picking Batch"
-msgstr "Asistente de Recogida por Lotes"
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model,name:stock_barcodes_picking_batch.model_wiz_stock_barcodes_read_picking
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_stock_barcodes_read_picking
 msgid "Wizard to read barcode on picking batch"
 msgstr ""
 "Asistente para leer códigos de barras desde las agrupaciones de albaranes"
+
+#. module: stock_barcodes_picking_batch_revision
+#: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_stock_barcodes_read_todo
+#, fuzzy
+msgid "Wizard to read barcode todo"
+msgstr ""
+"Asistente para leer códigos de barras desde las agrupaciones de albaranes"
+
+#~ msgid "#Product Ref done:"
+#~ msgstr "#Referencias realizadas:"
+
+#~ msgid "#Product Ref:"
+#~ msgstr "#Referencias:"
+
+#~ msgid ""
+#~ "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-"
+#~ "size:1.5em\"/>"
+#~ msgstr ""
+#~ "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-"
+#~ "size:1.5em\"/>"
+
+#~ msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
+#~ msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
+
+#~ msgid "<span for=\"product_ref_count\">#Ref: </span>"
+#~ msgstr "<span for=\"product_ref_count\">#Ref: </span>"
+
+#~ msgid ""
+#~ "<span> | </span>\n"
+#~ "                                                <span for="
+#~ "\"product_ref_done\">#Read: </span>"
+#~ msgstr ""
+#~ "<span>| </span>\n"
+#~ "                                                <span for="
+#~ "\"product_ref_done\">#Leer: </span>"
+
+#~ msgid "Are you sure to validate the picking batch?"
+#~ msgstr "¿Seguro que quiere validar esta agrupación de albaranes?"
+
+#~ msgid "Barcode reader"
+#~ msgstr "Escaneador"
+
+#~ msgid "Candidate Picking Batch"
+#~ msgstr "Posibles grupos de albaranes"
+
+#~ msgid "Click on picking batch pushpin to lock it"
+#~ msgstr "Pinche en la chincheta del grupo para bloquearlo"
+
+#~ msgid "Confirmed moves"
+#~ msgstr "Movimientos confirmados"
+
+#~ msgid "Created by"
+#~ msgstr "Creado por"
+
+#~ msgid "Created on"
+#~ msgstr "Creado el"
+
+#~ msgid "Creation Date"
+#~ msgstr "Fecha de Creación"
+
+#~ msgid "Customers"
+#~ msgstr "Clientes"
+
+#~ msgid "Detailed operations"
+#~ msgstr "Operaciones detalladas"
+
+#~ msgid "Display Name"
+#~ msgstr "Nombre a mostrar"
+
+#~ msgid "ID"
+#~ msgstr "ID (identificación)"
+
+#~ msgid "Internal"
+#~ msgstr "Interno"
+
+#~ msgid "Is Pending"
+#~ msgstr "Pendiente"
+
+#~ msgid ""
+#~ "It allows to work with movements without reservation (Without detailed "
+#~ "operations)"
+#~ msgstr ""
+#~ "Permite trabajar con movimientos sin reserva (Sin operaciones detalladas)"
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificación el"
+
+#~ msgid "Last Updated by"
+#~ msgstr "Última Actualización por"
+
+#~ msgid "Last Updated on"
+#~ msgstr "Última Actualización el"
+
+#~ msgid "Lot:"
+#~ msgstr "Lote:"
+
+#~ msgid "Name of the batch transfer"
+#~ msgstr "Nombre de agrupación de albaranes"
+
+#~ msgid "Open"
+#~ msgstr "Abrir"
+
+#~ msgid "Package:"
+#~ msgstr "Empaquetado:"
+
+#~ msgid "Pending moves"
+#~ msgstr "Movimientos pendientes"
+
+#~ msgid "Picking Mode"
+#~ msgstr "Modo de albarán"
+
+#~ msgid "Picking batch"
+#~ msgstr "Grupo de albaranes"
+
+#~ msgid "Picking batch mode"
+#~ msgstr "Modo de recogida por lotes"
+
+#~ msgid "Picking batch quantities"
+#~ msgstr "Cantidades del grupo"
+
+#~ msgid "Scan Count"
+#~ msgstr "Cantidad de lecturas"
+
+#~ msgid "Start barcode interface"
+#~ msgstr "Iniciar el lector de códigos de barras"
+
+#~ msgid "State"
+#~ msgstr "Estado"
+
+#~ msgid "Type of Operation"
+#~ msgstr "Tipo de operación"
+
+#~ msgid "Validate"
+#~ msgstr "Validar"
+
+#~ msgid "Vendors"
+#~ msgstr "Proveedores"
+
+#~ msgid "Wiz Barcode"
+#~ msgstr "Asistente de código de barras"
+
+#~ msgid "Wizard Picking Batch"
+#~ msgstr "Asistente de Recogida por Lotes"
 
 #~ msgid "#Read:"
 #~ msgstr "#Leído"
