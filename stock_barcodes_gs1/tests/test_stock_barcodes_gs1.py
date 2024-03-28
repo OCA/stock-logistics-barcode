@@ -250,6 +250,7 @@ class TestStockBarcodesGS1(TestStockBarcodes):
                 .lot_stock_id.id,
                 "option_group_id": option_group.id,
                 "step": 1,
+                "display_read_quant": True,
             }
         )
         self.action_barcode_scanned(wiz_inventory, "010841259800210615240914")
