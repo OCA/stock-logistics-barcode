@@ -7,6 +7,25 @@ class StockQuant(models.Model):
     _inherit = "stock.quant"
 
     def action_barcode_inventory_quant_unlink(self):
+        self.with_context(inventory_mode=True).action_set_inventory_quantity_to_zero()
+
+    def _get_fields_to_edit(self):
+        return [
+            "location_id",
+            "product_id",
+            "product_uom_id",
+            "lot_id",
+            "package_id",
+            "product_qty",
+        ]
+
+    def action_barcode_inventory_quant_edit(self):
+        wiz_barcode_id = self.env.context.get("wiz_barcode_id", False)
+        wiz_barcode = self.env["wiz.stock.barcodes.read.inventory"].browse(
+            wiz_barcode_id
+        )
         for quant in self:
-            # quant.with_context(inventory_mode=True).unlink()
-            quant.with_context(inventory_mode=True).inventory_quantity = 0.0
+            for fname in quant._fields:
+                if fname in self._get_fields_to_edit():
+                    wiz_barcode[fname] = quant[fname]
+            wiz_barcode.product_qty = quant.inventory_quantity

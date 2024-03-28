@@ -55,12 +55,16 @@ class StockPickingType(models.Model):
         return action
 
     def action_barcode_new_picking(self):
-        picking = self.env["stock.picking"].create(
-            {
-                "picking_type_id": self.id,
-                "location_id": self.default_location_src_id.id,
-                "location_dest_id": self.default_location_dest_id.id,
-            }
+        picking = (
+            self.env["stock.picking"]
+            .with_context(default_immediate_transfer=True)
+            .create(
+                {
+                    "picking_type_id": self.id,
+                    "location_id": self.default_location_src_id.id,
+                    "location_dest_id": self.default_location_dest_id.id,
+                }
+            )
         )
         option_group = self.new_picking_barcode_option_group_id
         return picking.action_barcode_scan(option_group=option_group)

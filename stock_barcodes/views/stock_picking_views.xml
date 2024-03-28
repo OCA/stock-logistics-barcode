@@ -99,6 +99,7 @@
         <field name="arch" type="xml">
             <field name="name" position="after">
                 <field name="code" string="Type of operation" />
+                <field name="sequence_code" string="Code" />
                 <filter
                     string="Barcode Options"
                     name="barcode_options"

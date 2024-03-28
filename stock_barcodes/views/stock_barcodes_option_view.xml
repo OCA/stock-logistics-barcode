@@ -13,6 +13,10 @@
                         </group>
                         <group>
                             <field name="code" />
+                            <field
+                                name="display_notification"
+                                widget="boolean_toggle"
+                            />
                         </group>
                     </group>
                     <group string="Behavior settings">
@@ -32,12 +36,16 @@
                         </group>
                         <group>
                             <field name="ignore_filled_fields" />
+                            <field name="keep_screen_values" />
                             <field name="is_manual_confirm" />
                             <field name="is_manual_qty" />
+                            <field name="accumulate_read_quantity" />
                             <field name="allow_negative_quant" />
                             <field name="fill_fields_from_lot" />
+                            <field name="ignore_quant_location" />
                             <field name="auto_lot" />
                             <field name="create_lot" />
+                            <field name="use_location_dest_putaway" />
                         </group>
                     </group>
                     <separator string="Steps to scan" />

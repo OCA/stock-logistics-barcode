@@ -62,6 +62,9 @@ class StockBarcodesOptionGroup(models.Model):
         help="If checked, the fields in the interface will be filled from "
         "the scanned lot"
     )
+    ignore_quant_location = fields.Boolean(
+        help="If it is checked, quant location will be ignored when reading lot/package",
+    )
     group_key_for_todo_records = fields.Char(
         help="You can establish a list of fields that will act as a grouping "
         "key to generate the movements to be process.\n"
@@ -80,6 +83,19 @@ class StockBarcodesOptionGroup(models.Model):
     )
     show_detailed_operations = fields.Boolean(
         help="If checked the picking detailed operations are displayed",
+    )
+    keep_screen_values = fields.Boolean(
+        help="If checked the wizard values are kept until the pending move is completed",
+    )
+    accumulate_read_quantity = fields.Boolean(
+        help="If checked quantity will be accumulated to the existing record instead of "
+        "overwrite it with the new quantity value",
+    )
+    display_notification = fields.Boolean(
+        string="Display Odoo notifications",
+    )
+    use_location_dest_putaway = fields.Boolean(
+        string="Use location dest. putaway",
     )
 
     def get_option_value(self, field_name, attribute):

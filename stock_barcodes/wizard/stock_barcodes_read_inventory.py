@@ -17,18 +17,31 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     inventory_quant_ids = fields.Many2many(
         comodel_name="stock.quant", compute="_compute_inventory_quant_ids"
     )
+    display_read_quant = fields.Boolean(string="Read items")
 
+    @api.depends("display_read_quant")
     def _compute_inventory_quant_ids(self):
         for wiz in self:
-            quants = self.env["stock.quant"].search(
-                [
-                    ("user_id", "=", self.env.user.id),
-                    "|",
-                    ("inventory_quantity_set", "=", True),
-                    ("inventory_date", "<=", fields.Date.context_today(self)),
-                ],
-                order="write_date DESC",
-            )
+            domain = [
+                ("user_id", "=", self.env.user.id),
+                ("inventory_date", "<=", fields.Date.context_today(self)),
+            ]
+            if self.display_read_quant:
+                domain.append(("inventory_quantity_set", "=", True))
+                order = "write_date DESC"
+            else:
+                domain.append(("inventory_quantity_set", "=", False))
+                order = None
+            quants = self.env["stock.quant"].search(domain, order=order)
+            if order is None:
+                quants = quants.sorted(
+                    lambda q: (
+                        q.location_id.posx,
+                        q.location_id.posy,
+                        q.location_id.posz,
+                        q.location_id.name,
+                    )
+                )
             wiz.inventory_quant_ids = quants
 
     def _prepare_stock_quant_values(self):
@@ -48,10 +61,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 "<=",
                 fields.Date.context_today(self).strftime("%Y-%m-%d"),
             ),
-            ("inventory_quantity_set", "=", True),
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", self.location_id.id),
             ("lot_id", "=", self.lot_id.id),
+            ("package_id", "=", self.package_id.id),
         ]
 
     def _add_inventory_quant(self):
@@ -64,7 +77,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ):
                 self._serial_tracking_message_fail()
                 return False
-            quant.inventory_quantity = self.product_qty
+            if self.option_group_id.accumulate_read_quantity:
+                quant.inventory_quantity += self.product_qty
+            else:
+                quant.inventory_quantity = self.product_qty
         else:
             if self.product_id.tracking == "serial" and self.product_qty != 1:
                 self._serial_tracking_message_fail()

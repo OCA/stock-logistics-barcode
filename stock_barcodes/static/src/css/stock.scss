@@ -81,3 +81,20 @@
 .oe_kanban_card_full_width {
     width: 100% !important;
 }
+
+// Dropdown that is desactivated at lg width
+@media (min-width: 992px) {
+    .d-lg-flex-no-dropdown {
+        position: relative !important;
+        display: flex !important;
+        border: none;
+        box-shadow: none;
+        bottom: auto !important;
+        transform: none !important;
+    }
+}
+.dropdown-menu.d-lg-flex-no-dropdown {
+    .d-flex {
+        margin-bottom: 5px;
+    }
+}
