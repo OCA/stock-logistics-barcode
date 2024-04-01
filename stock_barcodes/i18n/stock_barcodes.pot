@@ -72,6 +72,13 @@ msgid "<i class=\"fa fa-cubes\" title=\"Put in Pack\"/>"
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
+msgid ""
+"<i class=\"fa fa-pencil\" title=\"Edit inventory quantity\" style=\"font-"
+"size:1.5em\"/>"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
 msgid ""
 "<i class=\"fa fa-plus\" title=\"Scan new picking \"/>\n"
@@ -139,12 +146,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
-msgid "<span>Apply inventory</span>"
-msgstr ""
-
-#. module: stock_barcodes
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
-msgid "<span>Total Qty</span>"
+msgid "<span>Apply</span>"
 msgstr ""
 
 #. module: stock_barcodes
@@ -194,6 +196,11 @@ msgstr ""
 msgid ""
 "<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none oe_span_small_icon\" title=\"Total Quantity\"/>"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__accumulate_read_quantity
+msgid "Accumulate Read Quantity"
 msgstr ""
 
 #. module: stock_barcodes
@@ -414,7 +421,13 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__code
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Code"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__company_id
+msgid "Company"
 msgstr ""
 
 #. module: stock_barcodes
@@ -515,6 +528,11 @@ msgid "Destinatino Name"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
+msgid "Destination Location"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__source_pending_moves__move_line_ids
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Detailed operations"
@@ -549,6 +567,11 @@ msgid "Display Name"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__display_notification
+msgid "Display Odoo notifications"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__show_scan_log
 msgid "Displays a log of the scans processed"
 msgstr ""
@@ -558,7 +581,6 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__qty_done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done
-#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Done"
 msgstr ""
 
@@ -680,6 +702,13 @@ msgid "Icon Class"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__accumulate_read_quantity
+msgid ""
+"If checked quantity will be accumulated to the existing record instead of "
+"overwrite it with the new quantity value"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__auto_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
@@ -702,6 +731,13 @@ msgid "If checked the picking detailed operations are displayed"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__keep_screen_values
+#: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_screen_values
+msgid ""
+"If checked the wizard values are kept until the pending move is completed"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__fill_fields_from_lot
 msgid ""
 "If checked, the fields in the interface will be filled from the scanned lot"
@@ -721,6 +757,12 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__ignore_quant_location
+msgid ""
+"If it is checked, quant location will be ignored when reading lot/package"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
 msgid "If it is marked, the movement must always be confirmed from a button"
 msgstr ""
@@ -731,8 +773,18 @@ msgid "If locked keep result package"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__ignore_quant_location
+msgid "Ignore Quant Location"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__ignore_filled_fields
 msgid "Ignore filled fields"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
+msgid "Ignore rest"
 msgstr ""
 
 #. module: stock_barcodes
@@ -802,6 +854,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__keep_result_package
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_result_package
 msgid "Keep Result Package"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__keep_screen_values
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_screen_values
+msgid "Keep Screen Values"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1231,6 +1289,13 @@ msgid "Product"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__total_product_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__total_product_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__total_product_uom_qty
+msgid "Product Demand"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
 msgstr ""
@@ -1247,6 +1312,13 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_qty
 msgid "Product Qty"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__total_product_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__total_product_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__total_product_qty_done
+msgid "Product Qty. Done"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1298,6 +1370,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Range"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_read_quant
+msgid "Read items"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1446,6 +1523,11 @@ msgid "Shows a list of movements to process"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_id
+msgid "Source Location"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__source_pending_moves
 msgid "Source Pending Moves"
 msgstr ""
@@ -1494,6 +1576,12 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "The product type is not allowed"
+msgstr ""
+
+#. module: stock_barcodes
+#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "The quantity is huge"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1549,6 +1637,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__uom_id
 msgid "Uom"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__use_location_dest_putaway
+msgid "Use location dest. putaway"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1689,6 +1782,13 @@ msgstr ""
 msgid ""
 "You cannot remove an entry linked to a operation in state new, assigned or "
 "confirmed"
+msgstr ""
+
+#. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
+msgid ""
+"You have not set any quantity to this operation and it will be removed from "
+"pending moves. Are you sure?"
 msgstr ""
 
 #. module: stock_barcodes
