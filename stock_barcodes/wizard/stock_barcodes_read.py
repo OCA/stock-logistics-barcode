@@ -92,6 +92,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
     display_assign_serial = fields.Boolean(compute="_compute_display_assign_serial")
     keep_result_package = fields.Boolean()
+    total_product_uom_qty = fields.Float(
+        string="Product Demand", digits="Product Unit of Measure", store=False
+    )
+    total_product_qty_done = fields.Float(
+        string="Product Qty. Done", digits="Product Unit of Measure", store=False
+    )
 
     @api.depends("res_id")
     def _compute_action_ids(self):
@@ -149,6 +155,17 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
+    @api.onchange(
+        "product_id",
+        "lot_id",
+        "package_id",
+        "result_package_id",
+        "packaging_qty",
+        "product_qty",
+    )
+    def onchange_visible_force_done(self):
+        self.visible_force_done = False
+
     def _set_messagge_info(self, message_type, message):
         """
         Set message type and message description.
@@ -191,7 +208,24 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
-            # self.action_done()
+            if (
+                self.option_group_id.fill_fields_from_lot
+                and self.location_id
+                and self.product_id
+            ):
+                quant_domain = [
+                    ("location_id", "=", self.location_id.id),
+                    ("product_id", "=", product.id),
+                ]
+                if self.lot_id:
+                    quant_domain.append(("lot_id", "=", self.lot_id.id))
+                if self.package_id:
+                    quant_domain.append(("package_id", "=", self.package_id.id))
+                if self.owner_id:
+                    quant_domain.append(("owner_id", "=", self.owner_id.id))
+                quants = self.env["stock.quant"].search(quant_domain)
+                if quants:
+                    self.set_info_from_quants(quants)
             return True
         return False
 
@@ -205,6 +239,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 if self.option_group_id.fill_fields_from_lot:
                     quant_domain = [
                         ("lot_id.name", "=", self.barcode),
+                        ("product_id", "=", self.product_id.id),
                         ("quantity", ">", 0.0),
                     ]
                     if self.location_id:
@@ -255,14 +290,18 @@ class WizStockBarcodesRead(models.AbstractModel):
             ("package_id.name", "=", self.barcode),
             ("quantity", ">", 0.0),
         ]
-        if self.location_id and self._name != "wiz.stock.barcodes.read.inventory":
+        if self.option_group_id.get_option_value("location_id", "forced"):
             quant_domain.append(("location_id", "=", self.location_id.id))
-        else:
-            quant_domain.append(("location_id.usage", "=", "internal"))
         if self.owner_id:
             quant_domain.append(("owner_id", "=", self.owner_id.id))
         quants = self.env["stock.quant"].search(quant_domain)
-        if not quants:
+        internal_quants = quants.filtered(lambda q: q.location_id.usage == "internal")
+        if internal_quants:
+            quants = internal_quants
+        elif quants:
+            self = self.with_context(ignore_quant_location=True)
+            # self._set_messagge_info("more_match", _("Package located external location"))
+        else:
             # self._set_messagge_info("more_match", _("Package not fount or empty"))
             return False
         self.set_info_from_quants(quants)
@@ -282,21 +321,30 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         Fill wizard fields from stock quants
         """
+        if self.env.context.get("skip_set_info_from_quants"):
+            return
+        ignore_quant_location = self.env.context.get(
+            "ignore_quant_location", self.option_group_id.ignore_quant_location
+        )
         if len(quants) == 1:
             # All ok
             self.action_product_scaned_post(quants.product_id)
             self.package_id = quants.package_id
+            self.result_package_id = quants.package_id
             if quants.lot_id:
                 self.action_lot_scaned_post(quants.lot_id)
             if quants.owner_id:
                 self.owner_id = quants.owner_id
             # Review conditions
-            if not self.location_id and self.option_group_id.code != "IN":
+            if (
+                not ignore_quant_location
+                and not self.option_group_id.get_option_value("location_id", "forced")
+                and self.option_group_id.code != "IN"
+            ):
                 self.location_id = quants.location_id
-            if not self.is_manual_qty and self.option_group_id.code not in [
-                "OUT",
-                "INV",
-            ]:
+            if self.option_group_id.code != "OUT" and not self.env.context.get(
+                "skip_update_quantity_from_lot", False
+            ):
                 self.product_qty = quants.quantity
         elif len(quants) > 1:
             # More than one record found with same barcode.
@@ -305,19 +353,20 @@ class WizStockBarcodesRead(models.AbstractModel):
             products = quants.mapped("product_id")
             if len(products) == 1:
                 self.action_product_scaned_post(products[0])
-            packages = quants.mapped("package_id")
-            if len(packages) == 1:
-                self.package_id = packages
+            package = quants[0].package_id
+            if not quants.filtered(lambda q: q.package_id != package):
+                self.package_id = package
             lots = quants.mapped("lot_id")
             if len(lots) == 1:
                 self.action_lot_scaned_post(lots[0])
-            owners = quants.mapped("owner_id")
-            if len(owners) == 1:
-                self.owner_id = owners
-            locations = quants.mapped("location_id")
-            if len(locations) == 1:
-                if not self.location_id and self.option_group_id.code != "IN":
-                    self.location_id = locations
+            owner = quants[0].owner_id
+            if not quants.filtered(lambda q: q.owner_id != owner):
+                self.owner_id = owner
+            if not ignore_quant_location:
+                locations = quants.mapped("location_id")
+                if len(locations) == 1:
+                    if not self.location_id and self.option_group_id.code != "IN":
+                        self.location_id = locations
 
     def process_barcode_packaging_id(self):
         domain = self._barcode_domain(self.barcode)
@@ -388,10 +437,16 @@ class WizStockBarcodesRead(models.AbstractModel):
                     self.product_id.tracking == "none" or self.auto_lot or self.lot_name
                 ):
                     continue
+                if self._option_required_hook(option):
+                    continue
                 self._set_messagge_info("info", option.name)
                 self.action_show_step()
                 return False
         return True
+
+    def _option_required_hook(self, option_required):
+        """Hook to evaluate is an option is required"""
+        return False
 
     def _scanned_location(self, barcode):
         location = self.env["stock.location"].search(self._barcode_domain(barcode))
@@ -403,7 +458,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             return False
 
     def _barcode_domain(self, barcode):
-        return [("barcode", "=", barcode)]
+        field_name = self.env.context.get("barcode_domain_field", "barcode")
+        return [(field_name, "=", barcode)]
 
     def _clean_barcode_scanned(self, barcode):
         return barcode.rstrip()
@@ -436,7 +492,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         result_ok = self.check_lot_contidion()
         if not result_ok:
             return False
-        if not self.product_qty:
+        if (
+            not self.product_qty
+            and not self._name == "wiz.stock.barcodes.read.inventory"
+        ):
             self._set_messagge_info("info", _("Waiting quantities"))
             return False
         if (
@@ -480,6 +539,16 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_done(self):
         if not self.manual_entry and not self.product_qty and not self.is_manual_qty:
             self.product_qty = 1.0
+        limit_product_qty = float(
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param("stock_barcodes.limit_product_qty", "999999")
+        )
+        if self.product_qty > limit_product_qty:
+            # HACK: Some times users scan a barcode into input element.
+            # At this time, to prevent this we check that the quantity be realistic.
+            self._set_messagge_info("more_match", _("The quantity is huge"))
+            return False
         if not self.check_done_conditions():
             return False
         if not self.env.context.get("_stock_barcodes_skip_read_log"):
@@ -517,7 +586,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.set_product_qty()
 
     def set_product_qty(self):
-        if self.manual_entry or self.is_manual_qty:
+        if (
+            self.manual_entry
+            or self.is_manual_qty
+            or self.option_group_id.get_option_value("product_qty", "filled_default")
+        ):
             return
         elif self.packaging_id:
             self.packaging_qty = 1.0
@@ -748,3 +821,23 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_keep_result_package(self):
         self.keep_result_package = not self.keep_result_package
+
+    def display_notification(
+        self, message, message_type="warning", title=False, sticky=True
+    ):
+        """Send notifications to web client
+        message_type:
+         [options.type='warning'] 'info', 'success', 'warning', 'danger' or ''
+         See web/static/src/legacy/js/core/service_mixins.js#L241 to implement more
+         options.
+         sticky: Permanent notification until user removes it
+        """
+        if self.option_group_id.display_notification:
+            message = {"message": message, "type": message_type, "sticky": sticky}
+            if title:
+                message["title"] = title
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes-{}".format(self.ids[0]),
+                "stock_barcodes_notify-{}".format(self.ids[0]),
+                message,
+            )

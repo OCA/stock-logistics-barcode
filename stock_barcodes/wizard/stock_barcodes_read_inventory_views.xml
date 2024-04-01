@@ -25,6 +25,11 @@
                     />
                 </div>
             </group>
+            <field name="location_id" position="attributes">
+                <attribute
+                    name="domain"
+                >[('usage', 'in', ['internal', 'transit'])]</attribute>
+            </field>
             <group name="scan_fields" position="after">
                 <group
                     string="Inventory quants"
@@ -63,6 +68,14 @@
                                 options="{'no_open': True}"
                             />
                             <button
+                                name="action_barcode_inventory_quant_edit"
+                                type="object"
+                                icon="fa-pencil"
+                                class="btn mt0"
+                                context="{'wiz_barcode_id': parent.id}"
+                            >
+                            </button>
+                            <button
                                 name="action_barcode_inventory_quant_unlink"
                                 type="object"
                                 class="btn"
@@ -93,6 +106,18 @@
                                                 </span>
                                             </div>
                                             <div class="col-3 text-right">
+                                                <button
+                                                    name="action_barcode_inventory_quant_edit"
+                                                    type="object"
+                                                    class="btn mt0"
+                                                    context="{'wiz_barcode_id': parent.id}"
+                                                >
+                                                    <i
+                                                        class="fa fa-pencil"
+                                                        title="Edit inventory quantity"
+                                                        style="font-size:1.5em"
+                                                    />
+                                                </button>
                                                 <button
                                                     name="action_barcode_inventory_quant_unlink"
                                                     type="object"
@@ -129,6 +154,15 @@
                     </field>
                 </group>
             </group>
+            <div name="manual_entry" position="after">
+                <div class="d-flex" name="display_read_quant">
+                    <field
+                        name="display_read_quant"
+                        widget="FieldBarcodeBooleanToggle"
+                    />
+                    <label for="display_read_quant" />
+                </div>
+            </div>
             <button name="action_clean_values" position="before">
                 <button
                     name="apply_inventory"
@@ -138,7 +172,7 @@
                     data-hotkey="7"
                     groups="stock.group_stock_manager"
                 >
-                    <span>Apply inventory</span>
+                    <span>Apply</span>
                 </button>
             </button>
         </field>
