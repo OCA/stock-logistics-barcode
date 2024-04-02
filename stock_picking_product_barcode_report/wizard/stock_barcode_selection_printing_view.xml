@@ -17,6 +17,11 @@
                     <br />
                     <field name="barcode_format" />
                 </div>
+                <div>
+                    <strong>Language</strong>
+                    <br />
+                    <field name="lang" />
+                </div>
                 <p
                     attrs="{'invisible': [('is_custom_label', '=', True)]}"
                 >It only appears here products with barcode defined</p>

@@ -52,6 +52,10 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     _description = "Wizard to select how many barcodes have to be printed"
 
     @api.model
+    def _get_lang(self):
+        return self.env["res.lang"].get_installed()
+
+    @api.model
     def default_get(self, fields):
         ctx = self.env.context.copy()
         res = super().default_get(fields)
@@ -96,6 +100,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     html_content = fields.Html()
     label_qty = fields.Integer(default=1)
     stock_move_line_ids = fields.Many2many("stock.move.line")
+    lang = fields.Selection(comodel_name="res.lang", selection=_get_lang)
 
     @api.onchange("picking_ids", "stock_move_line_ids", "barcode_report")
     def _onchange_picking_ids(self):

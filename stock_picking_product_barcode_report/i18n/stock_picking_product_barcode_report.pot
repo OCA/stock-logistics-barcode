@@ -65,6 +65,13 @@ msgid ""
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid ""
+"<strong>Language</strong>\n"
+"                    <br/>"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.report_label_barcode_quant_package
 msgid "Barcode"
@@ -206,6 +213,11 @@ msgstr ""
 #. module: stock_picking_product_barcode_report
 #: model:ir.actions.report,name:stock_picking_product_barcode_report.report_label_barcode_package
 msgid "Labels package content"
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
+#: model:ir.model.fields,field_description:stock_picking_product_barcode_report.field_stock_picking_print__lang
+msgid "Lang"
 msgstr ""
 
 #. module: stock_picking_product_barcode_report
