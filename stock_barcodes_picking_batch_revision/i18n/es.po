@@ -6,47 +6,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-06 21:50+0000\n"
-"PO-Revision-Date: 2023-10-30 21:36+0000\n"
-"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: 2024-04-02 12:37+0200\n"
+"Last-Translator: Carlos Dauden <carlos.dauden@tecnativa.com>\n"
 "Language-Team: \n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.17\n"
+"X-Generator: Poedit 3.0.1\n"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
-#, fuzzy
 msgid "<i class=\"fa fa-bars\" title=\"Open actions\"/>"
-msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+msgstr "<i class=\"fa fa-bars\" title=\"Abrir acciones\"/>"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
-#, fuzzy
 msgid "<i class=\"fa fa-check\" title=\"Confirm review\"/>"
-msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+msgstr "<i class=\"fa fa-check\" title=\"Confirmar revisión\"/>"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
-#, fuzzy
 msgid "<i class=\"fa fa-trash-o\" title=\"Clean Values\"/>"
-msgstr "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+msgstr "<i class=\"fa fa-trash-o\" title=\"Limpiar valores\"/>"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_stock_move_line__barcodes_is_reviewed
-#, fuzzy
 msgid "Barcodes Is Reviewed"
-msgstr "Lector de códigos de barras"
+msgstr "Revisado"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_stock_picking_batch__barcodes_requested_review
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_candidate_picking_batch__barcodes_requested_review
-#, fuzzy
 msgid "Barcodes Requested Review"
-msgstr "Lector de códigos de barras"
+msgstr "Solicitud de revisión código de barras"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model,name:stock_barcodes_picking_batch_revision.model_stock_picking_batch
@@ -56,203 +51,46 @@ msgstr "Agrupación de albaranes"
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_candidate_picking_batch
 msgid "Candidate picking batchs for barcode interface"
-msgstr "Posibles grupos de albaranes para el lector de códigos de barras"
+msgstr "Agrupación de albaranes candidata interfaz de códigos de barras"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model,name:stock_barcodes_picking_batch_revision.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "Movimientos de Producto (Stock Move Line)"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form
 msgid "Review"
-msgstr ""
+msgstr "Revisión"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_picking__review_picking_batch
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_todo__review_picking_batch
-#, fuzzy
 msgid "Review Picking Batch"
-msgstr "Grupo de albaranes"
+msgstr "Revisar agrupación de albaranes"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:stock.barcodes.action,name:stock_barcodes_picking_batch_revision.stock_barcodes_action_picking_batch_revision
-#, fuzzy
 msgid "Review picking batch"
-msgstr "Posibles grupos de albaranes"
+msgstr "Revisar agrupacion de albaranes"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model.fields,help:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_picking__review_picking_batch
 #: model:ir.model.fields,help:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_todo__review_picking_batch
 msgid "Technical field to know the context (reviewer or not)"
-msgstr ""
+msgstr "Campo técnico para conocer el contexto (revisado o no)"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.stock_picking_batch_filter
 msgid "To review"
-msgstr ""
+msgstr "A revisar"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_stock_barcodes_read_picking
 msgid "Wizard to read barcode on picking batch"
-msgstr ""
-"Asistente para leer códigos de barras desde las agrupaciones de albaranes"
+msgstr "Asistente para leer códigos de barras desde las agrupaciones de albaranes"
 
 #. module: stock_barcodes_picking_batch_revision
 #: model:ir.model,name:stock_barcodes_picking_batch_revision.model_wiz_stock_barcodes_read_todo
-#, fuzzy
 msgid "Wizard to read barcode todo"
-msgstr ""
-"Asistente para leer códigos de barras desde las agrupaciones de albaranes"
-
-#~ msgid "#Product Ref done:"
-#~ msgstr "#Referencias realizadas:"
-
-#~ msgid "#Product Ref:"
-#~ msgstr "#Referencias:"
-
-#~ msgid ""
-#~ "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-"
-#~ "size:1.5em\"/>"
-#~ msgstr ""
-#~ "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-"
-#~ "size:1.5em\"/>"
-
-#~ msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
-#~ msgstr "<span class=\"o_stat_text\">Leer Cód. barras</span>"
-
-#~ msgid "<span for=\"product_ref_count\">#Ref: </span>"
-#~ msgstr "<span for=\"product_ref_count\">#Ref: </span>"
-
-#~ msgid ""
-#~ "<span> | </span>\n"
-#~ "                                                <span for="
-#~ "\"product_ref_done\">#Read: </span>"
-#~ msgstr ""
-#~ "<span>| </span>\n"
-#~ "                                                <span for="
-#~ "\"product_ref_done\">#Leer: </span>"
-
-#~ msgid "Are you sure to validate the picking batch?"
-#~ msgstr "¿Seguro que quiere validar esta agrupación de albaranes?"
-
-#~ msgid "Barcode reader"
-#~ msgstr "Escaneador"
-
-#~ msgid "Candidate Picking Batch"
-#~ msgstr "Posibles grupos de albaranes"
-
-#~ msgid "Click on picking batch pushpin to lock it"
-#~ msgstr "Pinche en la chincheta del grupo para bloquearlo"
-
-#~ msgid "Confirmed moves"
-#~ msgstr "Movimientos confirmados"
-
-#~ msgid "Created by"
-#~ msgstr "Creado por"
-
-#~ msgid "Created on"
-#~ msgstr "Creado el"
-
-#~ msgid "Creation Date"
-#~ msgstr "Fecha de Creación"
-
-#~ msgid "Customers"
-#~ msgstr "Clientes"
-
-#~ msgid "Detailed operations"
-#~ msgstr "Operaciones detalladas"
-
-#~ msgid "Display Name"
-#~ msgstr "Nombre a mostrar"
-
-#~ msgid "ID"
-#~ msgstr "ID (identificación)"
-
-#~ msgid "Internal"
-#~ msgstr "Interno"
-
-#~ msgid "Is Pending"
-#~ msgstr "Pendiente"
-
-#~ msgid ""
-#~ "It allows to work with movements without reservation (Without detailed "
-#~ "operations)"
-#~ msgstr ""
-#~ "Permite trabajar con movimientos sin reserva (Sin operaciones detalladas)"
-
-#~ msgid "Last Modified on"
-#~ msgstr "Última Modificación el"
-
-#~ msgid "Last Updated by"
-#~ msgstr "Última Actualización por"
-
-#~ msgid "Last Updated on"
-#~ msgstr "Última Actualización el"
-
-#~ msgid "Lot:"
-#~ msgstr "Lote:"
-
-#~ msgid "Name of the batch transfer"
-#~ msgstr "Nombre de agrupación de albaranes"
-
-#~ msgid "Open"
-#~ msgstr "Abrir"
-
-#~ msgid "Package:"
-#~ msgstr "Empaquetado:"
-
-#~ msgid "Pending moves"
-#~ msgstr "Movimientos pendientes"
-
-#~ msgid "Picking Mode"
-#~ msgstr "Modo de albarán"
-
-#~ msgid "Picking batch"
-#~ msgstr "Grupo de albaranes"
-
-#~ msgid "Picking batch mode"
-#~ msgstr "Modo de recogida por lotes"
-
-#~ msgid "Picking batch quantities"
-#~ msgstr "Cantidades del grupo"
-
-#~ msgid "Scan Count"
-#~ msgstr "Cantidad de lecturas"
-
-#~ msgid "Start barcode interface"
-#~ msgstr "Iniciar el lector de códigos de barras"
-
-#~ msgid "State"
-#~ msgstr "Estado"
-
-#~ msgid "Type of Operation"
-#~ msgstr "Tipo de operación"
-
-#~ msgid "Validate"
-#~ msgstr "Validar"
-
-#~ msgid "Vendors"
-#~ msgstr "Proveedores"
-
-#~ msgid "Wiz Barcode"
-#~ msgstr "Asistente de código de barras"
-
-#~ msgid "Wizard Picking Batch"
-#~ msgstr "Asistente de Recogida por Lotes"
-
-#~ msgid "#Read:"
-#~ msgstr "#Leído"
-
-#~ msgid "#Ref:"
-#~ msgstr "#Ref:"
-
-#~ msgid ""
-#~ "the state of the batch picking. Workflow is draft -> in_progress/assigned "
-#~ "-> done or cancel"
-#~ msgstr ""
-#~ "el estado del grupo de albaranes. El flujo es borrador -> asignado -> "
-#~ "realizado o cancelado"
-
-#~ msgid "#References done:"
-#~ msgstr "#Leído:"
+msgstr "Asistente para leer códigos de barras a realizar"
