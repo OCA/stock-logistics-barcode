@@ -434,12 +434,19 @@ class WizStockBarcodesRead(models.AbstractModel):
                 ]:
                     self._set_focus_on_qty_input("product_qty")
                 if option.field_name == "lot_id" and (
-                    self.product_id.tracking == "none" or self.auto_lot or self.lot_name
+                    self.product_id.tracking == "none"
+                    or self.auto_lot
+                    or (self.lot_name and self.create_lot)
                 ):
                     continue
                 if self._option_required_hook(option):
                     continue
-                self._set_messagge_info("info", option.name)
+                self.display_notification(
+                    _("{name} is required").format(name=option.name),
+                    message_type="danger",
+                    title=_("Empty field"),
+                    sticky=False,
+                )
                 self.action_show_step()
                 return False
         return True
