@@ -89,6 +89,14 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
+    def _process_ai_15(self, gs1_list):
+        """Preferred date identification. To extend by other modules"""
+        return True
+
+    def _process_ai_17(self, gs1_list):
+        """expiration date identification. To extend by other modules"""
+        return True
+
     def _hook_process_gs1_value(self, gs1_item):
         """Hook to be extended by other modules"""
         return gs1_item["value"]
