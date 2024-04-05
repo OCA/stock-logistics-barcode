@@ -1,6 +1,7 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import models
+from odoo.tools.float_utils import float_compare
 
 
 class StockPicking(models.Model):
@@ -46,7 +47,38 @@ class StockPicking(models.Model):
             and not self.move_line_ids.mapped("result_package_id")
         ):
             self.action_put_in_pack()
-        res = super().button_validate()
+        create_backorder = False
+        # Variable initialized as True to optimize break loop
+        skip_backorder = True
+        if self.env.context.get("stock_barcodes_validate_picking", False):
+            # Avoid backorder when all move lines are processed (done or done_forced)
+            prec = self.env["decimal.precision"].precision_get(
+                "Product Unit of Measure"
+            )
+            for move in self.move_ids.filtered(lambda sm: sm.state != "cancel"):
+                if (
+                    float_compare(
+                        move.quantity_done, move.product_uom_qty, precision_digits=prec
+                    )
+                    < 0
+                ):
+                    # In normal conditions backorder will be created
+                    create_backorder = True
+                    if not move.move_line_ids or any(
+                        sml.state in ["pending"] for sml in move.move_line_ids
+                    ):
+                        # If any move are not processed we can not skip backorder
+                        skip_backorder = False
+                        break
+        if create_backorder and skip_backorder:
+            res = super(
+                StockPicking,
+                self.with_context(
+                    picking_ids_not_to_backorder=self.ids, skip_backorder=True
+                ),
+            ).button_validate()
+        else:
+            res = super().button_validate()
         if res is True and self.env.context.get("show_picking_type_action_tree", False):
             return self[:1].picking_type_id.get_action_picking_tree_ready()
         return res
