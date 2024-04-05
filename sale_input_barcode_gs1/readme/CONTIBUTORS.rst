@@ -9,7 +9,3 @@
 * Ooops404 <info@ooops404.com>:
 
     - Francesco Foresti <francesco.foresti@ooops404.com>
-
-* Cetmix <https://cetmix.com>
-
-    - Dessan Hemrayev <dessanhemrayev@mail.com>

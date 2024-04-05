@@ -2,21 +2,19 @@
 # License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html).
 
 {
-    "name": "Sale Input Barcode",
-    "version": "14.0.1.1.0",
+    "name": "Sale Input Barcode GS1",
+    "version": "14.0.1.0.0",
     "category": "Tools",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "author": "Akretion, Odoo Community Association (OCA)",
     "license": "AGPL-3",
     "installable": True,
-    "summary": "Add Sale line with barcode",
+    "summary": "Add Sale line with barcode using GS1 barcodes",
     "maintainers": ["bealdav"],
     "depends": [
-        "sale_management",
-        "barcode_action",
+        "base_gs1_barcode",
+        "sale_input_barcode",
     ],
-    "data": [
-        "views/sale.xml",
-    ],
+    "data": [],
     "demo": [],
 }
