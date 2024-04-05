@@ -14,12 +14,6 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: sale_input_barcode
-#: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
-#, python-format
-msgid "Decoded barcode %s doesn't include a valid segment for GTIN"
-msgstr ""
-
-#. module: sale_input_barcode
 #: model:ir.model.fields,field_description:sale_input_barcode.field_product_barcode_line_mixin__display_name
 #: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order__display_name
 #: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order_line__display_name
