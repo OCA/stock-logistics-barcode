@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_read_picking_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.picking</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_read_picking_form"
+        />
+        <field name="arch" type="xml">
+            <xpath
+                expr="//field[@name='pending_move_ids']/tree/button[@name='fill_from_pending_line']"
+                position="before"
+            >
+                <field name="elaboration_ids" widget="many2many_tags" optional="show" />
+                <field name="elaboration_note" optional="show" />
+            </xpath>
+            <xpath
+                expr="//field[@name='pending_move_ids']/kanban//field[@name='qty_done']"
+                position="after"
+            >
+                <field name="elaboration_ids" invisible="1" />
+            </xpath>
+            <xpath
+                expr="//field[@name='pending_move_ids']/kanban//div[@t-attf-class='oe_kanban_card']"
+                position="inside"
+            >
+                <t t-if="record.elaboration_ids.raw_value.length gt 0">
+                    <div class="row mt8">
+                        <div class="col-12">
+                            <strong><field
+                                    name="elaboration_ids"
+                                    widget="many2many_tags"
+                                /></strong>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+</odoo>
