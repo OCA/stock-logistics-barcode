@@ -16,7 +16,7 @@
                 <t t-if="o.label_qty > 0">
                     <t
                         t-call="stock_picking_product_barcode_report.base_label_document"
-                        t-lang="o.env.user.lang"
+                        t-lang="o.wizard_id.lang or o.env.user.lang"
                     />
                 </t>
             </t>
