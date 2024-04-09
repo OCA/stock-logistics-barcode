@@ -20,6 +20,11 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_02(self, gs1_list):
         """Product identification"""
+        # When the Lot/Serial is included in barcode and 'set_info_from_quants' is
+        # activated we do not want get info from quants when the product is processed
+        # because it will be processed in lot method.
+        if self._is_lot_ai_in_barcode(gs1_list):
+            self = self.with_context(skip_set_info_from_quants=True)
         res = self.process_barcode_product_id()
         # If we did not found a product and we have not a package, maybe we
         # can try to use this product barcode as a packaging barcode
@@ -37,11 +42,23 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_240(self, gs1_list):
         """Product identification"""
-        return self.process_barcode_product_id()
+        # When the Lot/Serial is included in barcode and 'set_info_from_quants' is
+        # activated we do not want get info from quants when the product is processed
+        # because it will be processed in lot method.
+        if self._is_lot_ai_in_barcode(gs1_list):
+            self = self.with_context(skip_set_info_from_quants=True)
+        return self.with_context(
+            barcode_domain_field="default_code"
+        ).process_barcode_product_id()
 
     def _process_ai_10(self, gs1_list):
         """Serial/Lot identification"""
         self.lot_name = self.barcode
+        # Determine if barcode scanned has included the weight to no update product_qty
+        # from lot
+        weight_ai = next(filter(lambda f: f["ai"].startswith("31"), gs1_list), False)
+        if weight_ai:
+            self = self.with_context(skip_update_quantity_from_lot=True)
         return self.process_barcode_lot_id()
 
     def _process_ai_30(self, gs1_list):
@@ -72,6 +89,23 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
+    def _process_ai_15(self, gs1_list):
+        """Preferred date identification. To extend by other modules"""
+        return True
+
+    def _process_ai_17(self, gs1_list):
+        """expiration date identification. To extend by other modules"""
+        return True
+
+    def _hook_process_gs1_value(self, gs1_item):
+        """Hook to be extended by other modules"""
+        return gs1_item["value"]
+
+    @staticmethod
+    def _is_lot_ai_in_barcode(gs1_list):
+        """Helper method to know if the Lot/Serial is included in barcode"""
+        return next(filter(lambda f: f["ai"] == "10", gs1_list), False)
+
     def process_barcode(self, barcode):
         gs1_list = self.env.ref(
             "barcodes_gs1_nomenclature.default_gs1_nomenclature"
@@ -81,10 +115,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         warning_msg_list = []
         self.message = False
         for gs1_item in gs1_list:
-            self.barcode = gs1_item["value"]
+            self.barcode = self._hook_process_gs1_value(gs1_item)
             ai = gs1_item["ai"]
-            if hasattr(self, "_process_ai_%s" % ai):
-                res = getattr(self, "_process_ai_%s" % ai[:3])(gs1_list=gs1_list)
+            ai_name = ai[:3]
+            if hasattr(self, "_process_ai_%s" % ai_name):
+                res = getattr(self, "_process_ai_%s" % ai_name)(gs1_list=gs1_list)
                 if not res:
                     warning_msg_list.append(
                         self.message
@@ -100,7 +135,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         if warning_msg_list:
             self.barcode = False
             self._set_messagge_info("info", " ".join(warning_msg_list))
-            return False
+            for warning_msg in warning_msg_list:
+                self.display_notification(
+                    warning_msg, message_type="danger", title="GS-1 code"
+                )
         if not self.check_option_required():
             return False
         if self.is_manual_confirm or self.manual_entry:
