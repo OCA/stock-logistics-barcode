@@ -1,0 +1,156 @@
+<odoo>
+    <record id="view_stock_barcodes_read_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
+        <field name="groups_id" eval="[(4, ref('uom.group_uom'))]" />
+        <field name="arch" type="xml">
+            <div name="total_qty_header" position="before">
+                <div class="col text-center pr-0">
+                    <field name="product_tmpl_id" invisible="1" />
+                    <field
+                        name="secondary_uom_id"
+                        options="{'no_open': True, 'no_create': True}"
+                        domain="['|', ('product_id', '=', product_id),
+                                    '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
+                                             ('product_id', '=', False)]"
+                        attrs="{'required': [('secondary_uom_qty', '!=', 0.0)]}"
+                        force_save="1"
+                        placeholder="Secondary uom"
+                    />
+                </div>
+                <div
+                    class="col text-center"
+                    invisible="context.get('hide_secondary_single_qty', True)"
+                >
+                    <div>
+                        <field
+                            name="product_uom_id"
+                            domain="[('id', '=', product_uom_id)]"
+                            options="{'no_open': True, 'no_create': True}"
+                        />
+                    </div>
+                </div>
+            </div>
+            <xpath expr="//div[@name='total_qty_header']/div" position="before">
+                <div>
+                    <span attrs="{'invisible': [('secondary_uom_id', '=', False)]}">
+                        <field name="total_secondary_uom_qty_done" /> / <field
+                            name="total_secondary_uom_qty"
+                        /> <field
+                            name="secondary_uom_id"
+                            domain="['|', ('product_id', '=', product_id),
+                                        '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
+                                                 ('product_id', '=', False)]"
+                            attrs="{'required': [('secondary_uom_qty', '!=', 0.0)]}"
+                            force_save="1"
+                            readonly="1"
+                            options="{'no_open': True, 'no_create': True}"
+                        />
+                    </span>
+                </div>
+            </xpath>
+            <div name="total_qty_field" position="before">
+                <div
+                    class="col text-center pr-0"
+                    attrs="{'invisible': [('secondary_uom_id', '=', False)]}"
+                >
+                    <field
+                        name="secondary_uom_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                        attrs="{'invisible': [('secondary_uom_id', '=', False)]}"
+                    />
+                </div>
+                <div
+                    class="col text-center px-0"
+                    invisible="context.get('hide_secondary_single_qty', True)"
+                >
+                    <field
+                        name="secondary_single_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                    />
+                </div>
+            </div>
+        </field>
+    </record>
+
+    <record id="view_stock_barcodes_read_picking_form" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.picking</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_read_picking_form"
+        />
+        <field name="arch" type="xml">
+            <!-- Add secondary uom info to pending moves -->
+            <xpath
+                expr="//field[@name='pending_move_ids']/tree/field[@name='product_uom_qty']"
+                position="before"
+            >
+                <field name="secondary_uom_qty" optional="show" />
+                <field
+                    name="secondary_uom_id"
+                    options="{'no_open': True}"
+                    optional="show"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='pending_move_ids']/kanban//field[@name='qty_done']"
+                position="after"
+            >
+                <field name="secondary_uom_qty" />
+                <field name="secondary_uom_id" />
+            </xpath>
+            <xpath
+                expr="//field[@name='pending_move_ids']/kanban//div[@t-attf-class='oe_kanban_card']"
+                position="inside"
+            >
+                <t t-if="record.secondary_uom_id.raw_value">
+                    <div class="row">
+                        <div class="col-12 font-italic text-success">
+                            <strong><field name="secondary_uom_qty" /> <field
+                                    name="secondary_uom_id"
+                                /></strong>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+            <!-- Add secondary uom info to detailed operations -->
+            <xpath
+                expr="//field[@name='move_line_ids']/tree/field[@name='qty_done']"
+                position="before"
+            >
+                <field name="secondary_uom_qty" optional="show" />
+                <field
+                    name="secondary_uom_id"
+                    options="{'no_open': True}"
+                    optional="show"
+                />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids']/kanban//field[@name='qty_done']"
+                position="after"
+            >
+                <field name="secondary_uom_qty" />
+                <field name="secondary_uom_id" />
+            </xpath>
+            <xpath
+                expr="//field[@name='move_line_ids']/kanban//div[@t-attf-class='oe_kanban_card']"
+                position="inside"
+            >
+                <t t-if="record.secondary_uom_id.raw_value">
+                    <div class="row">
+                        <div class="col-12 font-italic text-success">
+                            <strong><field name="secondary_uom_qty" /> <field
+                                    name="secondary_uom_id"
+                                /></strong>
+                        </div>
+                    </div>
+                </t>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>
