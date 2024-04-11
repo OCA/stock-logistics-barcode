@@ -30,6 +30,7 @@
                                 attrs="{'invisible': [('show_pending_moves', '=', False), ('barcode_guided_mode', '=', False)]}"
                             />
                             <field name="group_key_for_todo_records" />
+                            <field name="location_field_to_sort" />
                             <field name="show_scan_log" />
                             <field name="show_detailed_operations" />
                             <field name="auto_put_in_pack" />

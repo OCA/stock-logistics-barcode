@@ -97,6 +97,12 @@ class StockBarcodesOptionGroup(models.Model):
     use_location_dest_putaway = fields.Boolean(
         string="Use location dest. putaway",
     )
+    location_field_to_sort = fields.Selection(
+        selection=[
+            ("location_id", "Origin Location"),
+            ("location_dest_id", "Destination Location"),
+        ]
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
