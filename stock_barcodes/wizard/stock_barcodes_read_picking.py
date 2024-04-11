@@ -145,10 +145,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.fill_pending_moves()
 
     def get_sorted_move_lines(self, move_lines):
-        if self.picking_id.picking_type_code in ["incoming", "internal"]:
-            location_field = "location_dest_id"
-        else:
-            location_field = "location_id"
+        location_field = self.option_group_id.location_field_to_sort
+        if not location_field:
+            if self.picking_id.picking_type_code in ["incoming", "internal"]:
+                location_field = "location_dest_id"
+            else:
+                location_field = "location_id"
         if self.option_group_id.source_pending_moves == "move_line_ids":
             move_lines = move_lines.sorted(
                 lambda sml: (
