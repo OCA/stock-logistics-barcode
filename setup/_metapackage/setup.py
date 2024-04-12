@@ -16,6 +16,7 @@ setuptools.setup(
         'odoo-addon-stock_barcodes>=15.0dev,<15.1dev',
         'odoo-addon-stock_barcodes_elaboration>=15.0dev,<15.1dev',
         'odoo-addon-stock_barcodes_gs1>=15.0dev,<15.1dev',
+        'odoo-addon-stock_barcodes_gs1_expiry>=15.0dev,<15.1dev',
         'odoo-addon-stock_barcodes_gs1_secondary_unit>=15.0dev,<15.1dev',
         'odoo-addon-stock_barcodes_picking_batch>=15.0dev,<15.1dev',
         'odoo-addon-stock_barcodes_picking_batch_revision>=15.0dev,<15.1dev',
