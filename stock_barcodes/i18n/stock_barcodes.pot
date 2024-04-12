@@ -529,6 +529,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_dest_id
 msgid "Destination Location"
 msgstr ""
 
@@ -945,6 +946,11 @@ msgid "Location Dest"
 msgstr ""
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__location_field_to_sort
+msgid "Location Field To Sort"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_name
 msgid "Location Name"
 msgstr ""
@@ -1160,6 +1166,11 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_option_group
 msgid "Options group for barcode interface"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_id
+msgid "Origin Location"
 msgstr ""
 
 #. module: stock_barcodes
