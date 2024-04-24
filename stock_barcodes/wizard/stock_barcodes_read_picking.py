@@ -100,7 +100,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.total_product_uom_qty = 0.0
         self.total_product_qty_done = 0.0
         for rec in self:
-            product_moves = rec.picking_id.move_lines.filtered(
+            product_moves = rec.picking_id.move_ids.filtered(
                 lambda ln: ln.product_id.ids == self.product_id.ids
                 and ln.state != "cancel"
             )
@@ -600,7 +600,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             move_to_link_in_todo_line = True
             if not moves_to_link:
                 move_to_link_in_todo_line = False
-                moves_to_link = self.picking_id.move_lines.filtered(
+                moves_to_link = self.picking_id.move_ids.filtered(
                     lambda mv: mv.product_id == self.product_id
                 )
             stock_move_lines = self.create_new_stock_move_line(
