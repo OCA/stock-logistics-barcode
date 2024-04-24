@@ -125,6 +125,7 @@
                         <field name="keep_result_package" invisible="1" />
                         <field name="create_lot" invisible="1" />
                         <field name="lot_id" invisible="1" />
+                        <field name="product_packaging_ids" invisible="1" />
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
@@ -432,17 +433,20 @@
                             class="btn-group dropup"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                         >
+                            <!-- FIXME: we can't use buttons of other tpye than object or action. Fix to achieve unfolding effect-->
                             <a
-                                type="button"
+                                role="button"
                                 class="btn btn-secondary dropdown-toggle d-lg-none"
                                 data-toggle="dropdown"
                                 aria-haspopup="true"
                                 aria-expanded="false"
+                                title="Options"
                             >
                               <i class="fa fa-cogs" />
                             </a>
                             <div
                                 class="dropdown-menu pl-2 pr-2 d-lg-flex-no-dropdown"
+                                role="menu"
                                 style="min-width: 200px"
                             >
                                 <div name="manual_entry" class="d-flex">
@@ -460,6 +464,7 @@
                         <div
                             class="d-flex pl-1 pr-1 d-lg-none"
                             style="width: 75px;flex-wrap: wrap;"
+                            title="Manual entry"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
                         >
                             <i
