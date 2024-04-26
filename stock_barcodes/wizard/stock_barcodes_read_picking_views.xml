@@ -39,14 +39,14 @@
                                             type="object"
                                             title="lock picking"
                                             t-if="record.picking_id.raw_value != record.wiz_picking_id.raw_value"
-                                            class="fa fa-thumb-tack fa-2x float-right"
+                                            class="fa fa-thumb-tack fa-2x float-end"
                                             context="{'wiz_barcode_id': parent.id, 'picking_id': picking_id}"
                                         />
                                         <a
                                             name="action_unlock_picking"
                                             type="object"
                                             title="unlock picking"
-                                            class="float-right"
+                                            class="float-end"
                                             t-if="record.picking_id.raw_value == record.wiz_picking_id.raw_value"
                                             context="{'wiz_barcode_id': parent.id}"
                                         >
@@ -74,6 +74,7 @@
                                                 </t>
                                                 <field
                                                     name="scan_count"
+                                                    invisible="1"
                                                     force_save="1"
                                                 />
                                             </strong>
@@ -245,114 +246,113 @@
                         </field>
                     </page>
                 </notebook>
-                <group
-                    string="Detailed operations"
-                    attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
-                >
-                    <field
-                        name="move_line_ids"
-                        options="{'no_open': True, 'always_reload': True}"
-                        nolabel="1"
-                        force_save="1"
-                        mode="tree,kanban"
-                    >
-                        <tree>
-                            <field name="picking_code" invisible="1" />
-                            <field name="product_id" options="{'no_open': True}" />
-                            <field
-                                name="location_id"
-                                options="{'no_open': True}"
-                                groups="stock.group_stock_multi_locations"
-                                attrs="{'invisible': [('picking_code', '=', 'incoming')]}"
-                                optional="show"
-                            />
-                            <field
-                                name="location_dest_id"
-                                options="{'no_open': True}"
-                                groups="stock.group_stock_multi_locations"
-                                attrs="{'invisible': [('picking_code', '=', 'outgoing')]}"
-                                optional="show"
-                            />
-                            <field
-                                name="lot_id"
-                                groups="stock.group_production_lot"
-                                options="{'no_open': True}"
-                                optional="show"
-                            />
-                            <field
-                                name="result_package_id"
-                                groups="stock.group_tracking_lot"
-                                options="{'no_open': True}"
-                                optional="show"
-                            />
-                            <field name="qty_done" />
-                            <field
-                                name="product_uom_id"
-                                groups="uom.group_uom"
-                                options="{'no_open': True}"
-                            />
-                            <button
-                                name="action_barcode_detailed_operation_unlink"
-                                type="object"
-                                class="btn"
-                                icon="fa-trash"
-                                title="Remove detailed operation"
-                                context="{'wiz_barcode_id': parent.id}"
-                            />
-                        </tree>
-                        <kanban class="o_kanban_mobile">
-                            <field name="product_id" />
-                            <field name="qty_done" />
-                            <field name="product_uom_id" />
-                            <templates>
-                                <t t-name="kanban-box">
-                                    <div t-attf-class="oe_kanban_card">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <strong>
-                                                    <span>
-                                                        <field name="product_id" />
+                <notebook>
+                    <page string="Detailed operations">
+                        <field
+                            name="move_line_ids"
+                            options="{'no_open': True, 'always_reload': True}"
+                            nolabel="1"
+                            force_save="1"
+                            mode="tree,kanban"
+                        >
+                            <tree>
+                                <field name="picking_code" invisible="1" />
+                                <field name="product_id" options="{'no_open': True}" />
+                                <field
+                                    name="location_id"
+                                    options="{'no_open': True}"
+                                    groups="stock.group_stock_multi_locations"
+                                    attrs="{'invisible': [('picking_code', '=', 'incoming')]}"
+                                    optional="show"
+                                />
+                                <field
+                                    name="location_dest_id"
+                                    options="{'no_open': True}"
+                                    groups="stock.group_stock_multi_locations"
+                                    attrs="{'invisible': [('picking_code', '=', 'outgoing')]}"
+                                    optional="show"
+                                />
+                                <field
+                                    name="lot_id"
+                                    groups="stock.group_production_lot"
+                                    options="{'no_open': True}"
+                                    optional="show"
+                                />
+                                <field
+                                    name="result_package_id"
+                                    groups="stock.group_tracking_lot"
+                                    options="{'no_open': True}"
+                                    optional="show"
+                                />
+                                <field name="qty_done" />
+                                <field
+                                    name="product_uom_id"
+                                    groups="uom.group_uom"
+                                    options="{'no_open': True}"
+                                />
+                                <button
+                                    name="action_barcode_detailed_operation_unlink"
+                                    type="object"
+                                    class="btn"
+                                    icon="fa-trash"
+                                    title="Remove detailed operation"
+                                    context="{'wiz_barcode_id': parent.id}"
+                                />
+                            </tree>
+                            <kanban class="o_kanban_mobile">
+                                <field name="product_id" />
+                                <field name="qty_done" />
+                                <field name="product_uom_id" />
+                                <templates>
+                                    <t t-name="kanban-box">
+                                        <div t-attf-class="oe_kanban_card">
+                                            <div class="row">
+                                                <div class="col-7">
+                                                    <strong>
+                                                        <span>
+                                                            <field name="product_id" />
+                                                        </span>
+                                                    </strong>
+                                                </div>
+                                                <div class="col-2">
+                                                    <span
+                                                        class="float-right text-end font-weight-bold"
+                                                    >
+                                                        <field name="qty_done" />
                                                     </span>
-                                                </strong>
-                                            </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="float-right text-end font-weight-bold"
-                                                >
-                                                    <field name="qty_done" />
-                                                </span>
-                                            </div>
-                                            <div class="col-3 text-end">
-                                                <button
-                                                    name="action_barcode_detailed_operation_unlink"
-                                                    type="object"
-                                                    icon="fa-trash"
-                                                    title="Remove"
-                                                    class="btn mt0"
-                                                    context="{'wiz_barcode_id': parent.id}"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-4">
-                                                Lot: <field name="lot_id" />
-                                            </div>
-                                            <t
-                                                t-if="record.result_package_id.raw_value"
-                                            >
-                                                <div class="col-4">
-                                                    Package: <field
-                                                        name="result_package_id"
+                                                </div>
+                                                <div class="col-3 text-end">
+                                                    <button
+                                                        name="action_barcode_detailed_operation_unlink"
+                                                        type="object"
+                                                        icon="fa-trash"
+                                                        title="Remove"
+                                                        class="btn mt0"
+                                                        context="{'wiz_barcode_id': parent.id}"
                                                     />
                                                 </div>
-                                            </t>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-4">
+                                                    Lot: <field name="lot_id" />
+                                                </div>
+                                                <t
+                                                    t-if="record.result_package_id.raw_value"
+                                                >
+                                                    <div class="col-4">
+                                                        Package: <field
+                                                            name="result_package_id"
+                                                        />
+                                                    </div>
+                                                </t>
+                                            </div>
                                         </div>
-                                    </div>
-                                </t>
-                            </templates>
-                        </kanban>
-                    </field>
-                </group>
+                                    </t>
+                                </templates>
+                            </kanban>
+                        </field>
+                    </page>
+                </notebook>
             </group>
             <xpath expr="//button[@id='btn_create_lot']" position="after">
                 <field name="display_assign_serial" invisible="1" />
