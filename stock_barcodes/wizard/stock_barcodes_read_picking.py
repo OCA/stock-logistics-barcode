@@ -133,8 +133,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         wiz = super().create(vals)
         if wiz.picking_id:
             wiz._set_candidate_pickings(wiz.picking_id)
-        else:
-            wiz._search_candidate_picking()
         return wiz
 
     @api.onchange("picking_id")
@@ -215,6 +213,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return False
         if not self.todo_line_ids:
             self.fill_todo_records()
+
+        if not self.todo_line_ids:
+            return False
         # When scanning all information in one step (e.g. using GS-1), the
         # status and qty processed might have not been update, we ensure it
         # invalidating the cache.

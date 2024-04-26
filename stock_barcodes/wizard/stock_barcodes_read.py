@@ -208,6 +208,11 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
+
+            if self.option_group_id.scan_product_one_by_one:
+                self.action_done()
+                return True
+
             if (
                 self.option_group_id.fill_fields_from_lot
                 and self.location_id
@@ -716,7 +721,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_reopen_wizard(self):
         return self.get_formview_action()
 
-    @api.onchange("step")
     def action_show_step(self):
         options_required = self.option_group_id.option_ids.filtered("required")
         self.step = 0
