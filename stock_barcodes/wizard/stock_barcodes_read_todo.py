@@ -83,7 +83,6 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def _prepare_fill_record_values(self, wiz_barcode, line, position):
         vals = {
             "product_id": line.product_id.id,
-            "product_uom_qty": line.product_uom_qty,
             "name": "To do action",
             "position_index": position,
             "picking_code": line.picking_code,
@@ -94,6 +93,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             )
             vals.update(
                 {
+                    "product_uom_qty": line.move_id.product_uom_qty,
                     "location_id": line.location_id.id,
                     "location_dest_id": line.location_dest_id.id,
                     "lot_id": line.lot_id.id,
@@ -111,6 +111,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         else:
             vals.update(
                 {
+                    "product_uom_qty": line.move_id.product_uom_qty,
                     "location_id": (line.move_line_ids[:1] or line).location_id.id,
                     "location_dest_id": (
                         line.move_line_ids[:1] or line
