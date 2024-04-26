@@ -11,7 +11,7 @@
         <field name="barcode_guided_mode">guided</field>
         <field name="show_pending_moves">True</field>
         <field name="confirmed_moves">True</field>
-        <field name="source_pending_moves">move_lines</field>
+        <field name="source_pending_moves">move_ids</field>
         <field name="fill_fields_from_lot">True</field>
     </record>
     <record
