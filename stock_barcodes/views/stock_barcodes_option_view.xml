@@ -47,6 +47,7 @@
                             <field name="auto_lot" />
                             <field name="create_lot" />
                             <field name="use_location_dest_putaway" />
+                            <field name="scan_product_one_by_one" />
                         </group>
                     </group>
                     <separator string="Steps to scan" />

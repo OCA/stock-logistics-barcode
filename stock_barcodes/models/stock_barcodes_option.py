@@ -35,7 +35,7 @@ class StockBarcodesOptionGroup(models.Model):
         string="Show pending moves", help="Shows a list of movements to process"
     )
     source_pending_moves = fields.Selection(
-        [("move_line_ids", "Detailed operations"), ("move_lines", "Operations")],
+        [("move_line_ids", "Detailed operations"), ("move_ids", "Operations")],
         default="move_line_ids",
         help="Origin of the data to generate the movements to process",
     )
@@ -102,6 +102,10 @@ class StockBarcodesOptionGroup(models.Model):
             ("location_id", "Origin Location"),
             ("location_dest_id", "Destination Location"),
         ]
+    )
+    scan_product_one_by_one = fields.Boolean(
+        help="Will set the product quantity to one and complete the line",
+        string="Scan product one by one"
     )
 
     def get_option_value(self, field_name, attribute):
