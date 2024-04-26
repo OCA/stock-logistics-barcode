@@ -89,7 +89,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         else:
             self.pending_move_ids = False
 
-    @api.depends("todo_line_ids")
+    @api.depends("todo_line_ids", "_barcode_scanned")
     def _compute_move_line_ids(self):
         self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
             key=lambda sml: (sml.write_date, sml.create_date), reverse=True
@@ -133,8 +133,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         wiz = super().create(vals)
         if wiz.picking_id:
             wiz._set_candidate_pickings(wiz.picking_id)
-        else:
-            wiz._search_candidate_picking()
         return wiz
 
     @api.onchange("picking_id")
@@ -215,6 +213,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return False
         if not self.todo_line_ids:
             self.fill_todo_records()
+
+        if not self.todo_line_ids:
+            return False
         # When scanning all information in one step (e.g. using GS-1), the
         # status and qty processed might have not been update, we ensure it
         # invalidating the cache.
@@ -518,6 +519,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             not self.option_group_id.code == "REL"
             and not self.env.context.get("force_create_move", False)
             and not self.env.context.get("manual_picking", False)
+            and not self.picking_id.picking_type_id.barcode_option_group_id.do_not_check_demand
             and float_compare(
                 available_qty,
                 max_quantity,
@@ -916,7 +918,18 @@ class WizCandidatePicking(models.TransientModel):
 
     def action_validate_picking(self):
         picking = self._get_picking_to_validate()
-        return picking.button_validate()
+        if picking.picking_type_id.barcode_option_group_id.forbid_same_source_and_dest:
+            for sml in picking.move_line_ids:
+                if sml.location_dest_id.id == sml.location_id.id:
+                    self.wiz_barcode_id._set_messagge_info(
+                        "more_match", _("Destination and source can't be the same")
+                    )
+                    return False
+
+        result = picking.button_validate()
+        if result and self.env.context.get("scanning_picking_type", False):
+            return picking.picking_type_id.action_barcode_scan()
+        return result
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(

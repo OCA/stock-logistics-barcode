@@ -192,6 +192,11 @@ class WizStockBarcodesRead(models.AbstractModel):
         location = self.env["stock.location"].search(self._barcode_domain(self.barcode))
         if location:
             self.location_dest_id = location
+            if (
+                self.picking_id.picking_type_id.barcode_option_group_id.forbid_same_source_and_dest
+            ):
+                for sml in self.move_line_ids:
+                    sml.location_dest_id = location
             return True
         return False
 
@@ -208,6 +213,11 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
+
+            if self.option_group_id.scan_product_one_by_one:
+                self.action_done()
+                return True
+
             if (
                 self.option_group_id.fill_fields_from_lot
                 and self.location_id
@@ -394,6 +404,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             option_func = getattr(self, "process_barcode_%s" % option.field_name, False)
             if option_func:
                 res = option_func()
+                self.env["bus.bus"]._sendone(
+                    "barcode_scan", "stock_barcodes_scanned", {}
+                )
                 if option.required:
                     self.play_sounds(res)
                 if res:
@@ -716,7 +729,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_reopen_wizard(self):
         return self.get_formview_action()
 
-    @api.onchange("step")
     def action_show_step(self):
         options_required = self.option_group_id.option_ids.filtered("required")
         self.step = 0

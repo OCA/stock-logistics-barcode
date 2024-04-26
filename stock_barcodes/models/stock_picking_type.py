@@ -49,7 +49,7 @@ class StockPickingType(models.Model):
         wiz.determine_todo_action()
         wiz.fill_pending_moves()
         action = self.env["ir.actions.actions"]._for_xml_id(
-            "stock_barcodes.action_stock_barcodes_read_picking"
+            "stock_barcodes.action_stock_barcodes_read_picking_type"
         )
         action["res_id"] = wiz.id
         return action

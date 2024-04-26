@@ -34,6 +34,8 @@
                             <field name="show_scan_log" />
                             <field name="show_detailed_operations" />
                             <field name="auto_put_in_pack" />
+                            <field name="forbid_same_source_and_dest" />
+                            <field name="update_all_dest_on_dest_update" />
                         </group>
                         <group>
                             <field name="ignore_filled_fields" />
@@ -47,6 +49,8 @@
                             <field name="auto_lot" />
                             <field name="create_lot" />
                             <field name="use_location_dest_putaway" />
+                            <field name="scan_product_one_by_one" />
+                            <field name="do_not_check_demand" />
                         </group>
                     </group>
                     <separator string="Steps to scan" />
