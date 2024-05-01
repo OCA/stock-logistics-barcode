@@ -239,7 +239,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 if self.option_group_id.fill_fields_from_lot:
                     quant_domain = [
                         ("lot_id.name", "=", self.barcode),
-                        ("product_id", "=", self.product_id.id),
+                        ("product_id", "=", lot.product_id.id),
                         ("quantity", ">", 0.0),
                     ]
                     if self.location_id:
