@@ -33,8 +33,9 @@ class TestProductMultiBarcode(TransactionCase):
         # Insert duplicated EAN13
         with self.assertRaisesRegex(
             ValidationError,
-            'The Barcode "%(barcode)s" already exists for product "%(product)s"'
-            % {"barcode": self.valid_barcode_1, "product": self.product_1.name},
+            'The Barcode "{barcode}" already exists for product "{product}"'.format(
+                barcode=self.valid_barcode_1, product=self.product_1.name
+            ),
         ):
             self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
 
@@ -46,7 +47,7 @@ class TestProductMultiBarcode(TransactionCase):
             WHERE id = %s""",
             (self.valid_barcode_1, self.product_1.id),
         )
-        post_init_hook(self.env.cr, self.registry)
+        post_init_hook(self.env)
         self.product_1.invalidate_recordset()
         self.assertEqual(len(self.product_1.barcode_ids), 1)
         self.assertEqual(self.product_1.barcode_ids.name, self.valid_barcode_1)
