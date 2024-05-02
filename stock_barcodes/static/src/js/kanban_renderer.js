@@ -32,11 +32,13 @@ odoo.define("stock_barcodes.KanbanRenderer", function (require) {
          * @override
          */
         _onRecordKeyDown: function (ev) {
-            if (this._is_valid_barcode_model) {
-                if (this._controller_base) {
-                    ev.stopPropagation();
-                    this._controller_base._onDocumentKeyDown(ev);
-                }
+            if (
+                this._is_valid_barcode_model &&
+                this._controller_base &&
+                this._controller_base._onDocumentKeyDown
+            ) {
+                ev.stopPropagation();
+                this._controller_base._onDocumentKeyDown(ev);
             } else {
                 this._super.apply(this, arguments);
             }
