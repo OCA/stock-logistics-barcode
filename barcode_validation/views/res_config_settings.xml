@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2024 Moduon Team S.L.
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl-3.0) -->
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field
+            name="name"
+        >res.config.settings.view.form.inherit.barcode.validation</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="base_setup.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='companies']" position="after">
+                <h2>Barcode Validation</h2>
+                <div
+                    class="row mt16 o_settings_container"
+                    id="product_general_upca_settings"
+                >
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_upca"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_upca"
+                                string="Barcode Validation UPCA"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the UPCA format
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_ean8_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_ean8"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_ean8"
+                                string="Barcode Validation EAN8"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the EAN8 format
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_ean13_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_ean13"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_ean13"
+                                string="Barcode Validation EAN13"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the EAN13 format
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_code128_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_code128"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_code128"
+                                string="Barcode Validation Code128"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the Code128 format
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_datamatrix_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_datamatrix"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_datamatrix"
+                                string="Barcode Validation DataMatrix"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the DataMatrix format
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="col-12 col-lg-6 o_setting_box"
+                        id="barcode_validation_qrcode_setting"
+                    >
+                        <div class="o_setting_left_pane">
+                            <field
+                                name="barcode_validation_qrcode"
+                                class="o_light_label"
+                            />
+                        </div>
+                        <div class="o_setting_right_pane">
+                            <label
+                                for="barcode_validation_qrcode"
+                                string="Barcode Validation QRCode"
+                            />
+                            <div class="text-muted">
+                                When record with barcode are created/updated, Odoo will validate
+                                barcodes with the QRCode format
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

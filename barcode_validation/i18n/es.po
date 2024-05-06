@@ -1,0 +1,157 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* barcode_validation
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 16.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-05-02 11:03+0000\n"
+"PO-Revision-Date: 2024-05-02 13:10+0200\n"
+"Last-Translator: Emilio Pascual <emilio@moduom.team>\n"
+"Language-Team: \n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.4.2\n"
+
+#. module: barcode_validation
+#: model:ir.model,name:barcode_validation.model_barcode_validation_mixin
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation"
+msgstr "Validación código de barras"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_code128
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_code128
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation Code128"
+msgstr "Validación código de barras Code128"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation DataMatrix"
+msgstr "Validación código de barras DataMatrix"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_datamatrix
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_datamatrix
+msgid "Barcode Validation Datamatrix"
+msgstr "Validación código de barras DataMatrix"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation EAN13"
+msgstr "Validación código de barras EAN13"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation EAN8"
+msgstr "Validación código de barras EAN8"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_ean13
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_ean13
+msgid "Barcode Validation Ean13"
+msgstr "Validación código de barras EAN13"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_ean8
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_ean8
+msgid "Barcode Validation Ean8"
+msgstr "Validación código de barras EAN8"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation QRCode"
+msgstr "Validación código de barras Código QR"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_qrcode
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_qrcode
+msgid "Barcode Validation Qrcode"
+msgstr "Validación código de barras Código QR"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid "Barcode Validation UPCA"
+msgstr "Validación código de barras UPCA"
+
+#. module: barcode_validation
+#: model:ir.model.fields,field_description:barcode_validation.field_res_company__barcode_validation_upca
+#: model:ir.model.fields,field_description:barcode_validation.field_res_config_settings__barcode_validation_upca
+msgid "Barcode Validation Upca"
+msgstr "Validación código de barras UPCA"
+
+#. module: barcode_validation
+#: model:ir.model,name:barcode_validation.model_res_company
+msgid "Companies"
+msgstr "Compañías"
+
+#. module: barcode_validation
+#: model:ir.model,name:barcode_validation.model_res_config_settings
+msgid "Config Settings"
+msgstr "Opciones de configuración"
+
+#. module: barcode_validation
+#. odoo-python
+#: code:addons/barcode_validation/models/barcode_validation_mixin.py:0
+#, python-format
+msgid "The barcode %s is not a valid %s barcode."
+msgstr "El código de barras %s no es valido en %s código de barras."
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the Code128 format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato Code128"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the DataMatrix format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato DataMatrix"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the EAN13 format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato EAN13"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the EAN8 format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato EAN8"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the QRCode format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato Código QR"
+
+#. module: barcode_validation
+#: model_terms:ir.ui.view,arch_db:barcode_validation.res_config_settings_view_form
+msgid ""
+"When record with barcode are created/updated, Odoo will validate\n"
+"                                barcodes with the UPCA format"
+msgstr ""
+"Cuando registros con códigos de barras son creados/actualizados, Odoo validará\n"
+"                                el código de barras con el formato UPCA"
