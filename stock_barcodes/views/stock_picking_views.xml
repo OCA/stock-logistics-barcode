@@ -46,10 +46,10 @@
                 <field name="default_location_dest_id" invisible="1" />
             </field>
             <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="inside">
-                <field name="barcode_option_group_id" invisible="1"/>
+                <field name="barcode_option_group_id" invisible="1" />
                 <div
                     class="mt8"
-                    t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) > -1"
+                    t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1"
                     attrs="{'invisible': [('barcode_option_group_id', '=', False)]}"
                 >
                     <button
@@ -66,7 +66,7 @@
             </xpath>
             <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
                 <div
-                    class="mt8 float-right"
+                    class="float-end mt8"
                     t-if="record.default_location_src_id.raw_value and record.default_location_dest_id.raw_value"
                 >
                     <button
