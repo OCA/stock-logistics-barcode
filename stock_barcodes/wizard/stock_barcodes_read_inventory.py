@@ -98,10 +98,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         )
 
     def action_done(self):
-        result = super(
-            WizStockBarcodesReadInventory,
-            self.with_context(_stock_barcodes_skip_read_log=True),
-        ).action_done()
+        result = super().action_done()
         if result:
             result = self._add_inventory_quant()
             if result:

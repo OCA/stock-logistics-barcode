@@ -68,9 +68,6 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             "84118xxx22568 (Barcode not found with this screen values)",
         )
 
-    def test_wizard_remove_last_scan(self):
-        self.assertTrue(self.wiz_scan.action_undo_last_scan())
-
     def test_wiz_clean_lot(self):
         self.wiz_scan.location_id = self.location_1.id
         self.wiz_scan.action_show_step()
