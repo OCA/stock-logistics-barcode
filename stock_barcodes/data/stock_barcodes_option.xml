@@ -445,7 +445,6 @@
         <field name="name">Inventory options</field>
         <field name="code">INV</field>
         <field name="barcode_guided_mode" />
-        <field name="show_scan_log">False</field>
     </record>
     <record
         id="stock_barcodes_option_location_id_inventory"
