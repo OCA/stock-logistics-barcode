@@ -28,7 +28,7 @@ class StockMoveLine(models.Model):
 
     def action_barcode_detailed_operation_unlink(self):
         for sml in self:
-            if sml.product_uom_qty:
+            if sml.reserved_uom_qty:
                 sml._barcodes_process_line_to_unlink()
             else:
                 sml.unlink()

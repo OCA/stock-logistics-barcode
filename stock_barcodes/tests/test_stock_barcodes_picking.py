@@ -17,8 +17,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         cls.barcode_option_group_out = cls._create_barcode_option_group_outgoing()
         cls.barcode_option_group_in = cls._create_barcode_option_group_incoming()
 
-        cls.barcode_option_group_out.show_scan_log = True
-        cls.barcode_option_group_in.show_scan_log = True
         cls.barcode_option_group_out.barcode_guided_mode = False
         cls.barcode_option_group_in.barcode_guided_mode = False
         cls.partner_agrolite = cls.env.ref("base.res_partner_2")
@@ -97,7 +95,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                             0,
                             0,
                             {
-                                "name": cls.product_wo_tracking.name,
+                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -109,7 +107,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                             0,
                             0,
                             {
-                                "name": cls.product_wo_tracking.name,
+                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_tracking.uom_id.id,

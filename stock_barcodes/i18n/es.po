@@ -1216,7 +1216,7 @@ msgstr "Aceptar"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Open"
-msgstr "Abierto"
+msgstr "Abrir"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__source_pending_moves__move_lines
@@ -1249,7 +1249,7 @@ msgstr "Grupo de opciones para el interfaz de códigos de barras"
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_id
 msgid "Origin Location"
-msgstr ""
+msgstr "Ubicación de origen"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__source_pending_moves

@@ -39,9 +39,6 @@ class StockBarcodesOptionGroup(models.Model):
         default="move_line_ids",
         help="Origin of the data to generate the movements to process",
     )
-    show_scan_log = fields.Boolean(
-        string="Show scan log", help="Displays a log of the scans processed"
-    )
     ignore_filled_fields = fields.Boolean(
         string="Ignore filled fields",
     )
@@ -102,10 +99,6 @@ class StockBarcodesOptionGroup(models.Model):
             ("location_id", "Origin Location"),
             ("location_dest_id", "Destination Location"),
         ]
-    )
-    scan_product_one_by_one = fields.Boolean(
-        help="Will set the product quantity to one and complete the line",
-        string="Scan product one by one"
     )
 
     def get_option_value(self, field_name, attribute):

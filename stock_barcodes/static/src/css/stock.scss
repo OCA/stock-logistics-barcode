@@ -32,12 +32,17 @@
         border: 0 !important;
     }
 
+    // In Odoo 16 the flat input styling lacks proper usability
     .o_field_widget {
-        margin-bottom: 0 !important;
+        margin-bottom: 3 !important;
+        .o_input {
+            border-radius: 3px;
+            border-width: 1px;
+            background-color: white;
+        }
     }
 
     .o_kanban_record {
-        padding: 0.3em;
         flex-basis: 100%;
 
         .btn-full-width {
