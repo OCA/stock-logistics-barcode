@@ -267,11 +267,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.picking_product_qty = move_line.qty_done
 
     def action_done(self):
-        # Skip read log creation to be able to pass log_detail when available.
-        res = super(
-            WizStockBarcodesReadPicking,
-            self.with_context(_stock_barcodes_skip_read_log=True),
-        ).action_done()
+        res = super().action_done()
         if res:
             move_dic = self._process_stock_move_line()
             if move_dic:
@@ -284,13 +280,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     self.determine_todo_action()
                 else:
                     self.action_show_step()
-            # Now we can add read log with details.
-            _logger.info("Add scanned log barcode:{}".format(self.barcode))
-            self._add_read_log(log_detail=move_dic)
             return move_dic
-        # Add read log normally.
-        _logger.info("Add scanned log barcode:{}".format(self.barcode))
-        self._add_read_log()
         return res
 
     def action_manual_entry(self):
@@ -734,14 +724,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 log.log_line_ids.mapped("move_line_id.move_id.quantity_done")
             )
             log.unlink()
-
-    def action_undo_last_scan(self):
-        res = super().action_undo_last_scan()
-        log_scan = first(
-            self.scan_log_ids.filtered(lambda x: x.create_uid == self.env.user)
-        )
-        self.remove_scanning_log(log_scan)
-        return res
 
     def get_lot_by_removal_strategy(self):
         quants = first(

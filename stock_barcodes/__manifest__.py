@@ -27,14 +27,12 @@
     ],
     "assets": {
         "web.assets_backend": [
-            "/stock_barcodes/static/src/utils/barcodes_models_utils.esm.js",
-            "/stock_barcodes/static/src/views/kanban_renderer.esm.js",
-            "/stock_barcodes/static/src/views/views.esm.js",
-            "/stock_barcodes/static/src/views/form_view.esm.js",
-            "/stock_barcodes/static/src/views/view_compiler.esm.js",
-            "/stock_barcodes/static/src/widgets/boolean_toggle.esm.js",
-            "/stock_barcodes/static/src/widgets/numeric_step.esm.js",
-            "/stock_barcodes/static/src/widgets/view_button.esm.js",
+            "/stock_barcodes/static/src/**/*.esm.js",
+            (
+                "after",
+                "/web_widget_numeric_step/static/src/numeric_step.xml",
+                "/stock_barcodes/static/src/widgets/numeric_step.xml",
+            ),
             "/stock_barcodes/static/src/widgets/view_button.xml",
             "/stock_barcodes/static/src/css/stock.scss",
         ],

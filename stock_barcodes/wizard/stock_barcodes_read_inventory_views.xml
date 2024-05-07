@@ -11,7 +11,7 @@
                 <field name="inventory_product_qty" invisible="1" />
             </field>
             <!-- hide result package from inventory -->
-            <div name="quant_package" position="replace">
+            <group name="quant_package" position="replace">
                 <div class="mt4">
                     <strong class="d-none d-sm-block">Package</strong>
                     <span
@@ -27,7 +27,7 @@
                         class="h5"
                     />
                 </div>
-            </div>
+            </group>
             <field name="location_id" position="attributes">
                 <attribute
                     name="domain"
@@ -104,7 +104,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="float-right text-end font-weight-bold"
+                                                    class="float-end text-end fw-bold"
                                                 >
                                                     <field name="inventory_quantity" />
                                                 </span>

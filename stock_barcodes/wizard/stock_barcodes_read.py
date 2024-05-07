@@ -45,11 +45,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     confirmed_moves = fields.Boolean(
         string="Confirmed moves", related="option_group_id.confirmed_moves"
     )
-    # Computed field for display all scanning logs from res_model and res_id
-    # when change product_id
-    scan_log_ids = fields.Many2many(
-        comodel_name="stock.barcodes.read.log", compute="_compute_scan_log_ids"
-    )
     message_type = fields.Selection(
         [
             ("info", "Barcode read with additional info"),
@@ -73,7 +68,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     step = fields.Integer()
     is_manual_qty = fields.Boolean(compute="_compute_is_manual_qty")
     is_manual_confirm = fields.Boolean(compute="_compute_is_manual_qty")
-    show_scan_log = fields.Boolean(compute="_compute_is_manual_qty")
     # Technical field to allow use in attrs
     display_menu = fields.Boolean()
     qty_available = fields.Float(compute="_compute_qty_available")
@@ -110,7 +104,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             rec.is_manual_qty = rec.option_group_id.is_manual_qty
             rec.is_manual_confirm = rec.option_group_id.is_manual_confirm
             rec.auto_lot = rec.option_group_id.auto_lot
-            rec.show_scan_log = rec.option_group_id.show_scan_log
 
     @api.depends("option_group_id")
     def _compute_auto_lot(self):
@@ -208,11 +201,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
-
-            if self.option_group_id.scan_product_one_by_one:
-                self.action_done()
-                return True
-
             if (
                 self.option_group_id.fill_fields_from_lot
                 and self.location_id
@@ -558,9 +546,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             return False
         if not self.check_done_conditions():
             return False
-        if not self.env.context.get("_stock_barcodes_skip_read_log"):
-            _logger.info("Add scanned log barcode:{}".format(self.barcode))
-            self._add_read_log()
         self.process_lot_before_done()
         return True
 
@@ -653,34 +638,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             "res_id": self.res_id,
         }
 
-    def _add_read_log(self, log_detail=False):
-        if self.product_qty and not self.env.context.get("force_create_move", False):
-            vals = self._prepare_scan_log_values(log_detail)
-            self.env["stock.barcodes.read.log"].create(vals)
-
-    @api.depends("product_id", "lot_id")
-    def _compute_scan_log_ids(self):
-        if self.option_group_id.show_scan_log:
-            logs = self.env["stock.barcodes.read.log"].search(
-                [
-                    ("res_model_id", "=", self.res_model_id.id),
-                    ("res_id", "=", self.res_id),
-                    # ("location_id", "=", self.location_id.id),
-                    # ("product_id", "=", self.product_id.id),
-                ],
-                limit=10,
-            )
-            self.scan_log_ids = logs
-        else:
-            self.scan_log_ids = False
-
     # TODO: To remove when stock_move_location uses action_clean_values
     def reset_qty(self):
         self.product_qty = 0
         self.packaging_qty = 0
-
-    def action_undo_last_scan(self):
-        return True
 
     def open_actions(self):
         self.display_menu = True
@@ -749,9 +710,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_confirm(self):
         if not self.check_option_required():
             return False
-        record = self.browse(self.ids)
-        record.write(self._convert_to_write(self._cache))
-        self = record
         res = self.action_done()
         self.invalidate_recordset()
         self.play_sounds(res)
@@ -811,7 +769,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         }
 
     def _create_new_lot(self):
-        StockProductionLot = self.env["stock.production.lot"]
+        StockProductionLot = self.env["stock.lot"]
         lot_domain = [
             ("name", "=", self.lot_name),
             ("product_id", "=", self.product_id.id),

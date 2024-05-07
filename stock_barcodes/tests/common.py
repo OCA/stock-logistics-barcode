@@ -109,7 +109,6 @@ class TestCommonStockBarcodes(TransactionCase):
         return cls.env["stock.barcodes.option.group"].create(
             {
                 "name": "option group for tests",
-                "show_scan_log": True,
                 "create_lot": True,
                 "option_ids": [
                     (
