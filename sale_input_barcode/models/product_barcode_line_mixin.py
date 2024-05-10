@@ -26,9 +26,16 @@ class ProductLineMixin(models.AbstractModel):
         Builds a dictionary to use in the `create` function
         Hook for customizations
         """
-        vals = {"product_id": product.id}
+        vals = {
+            "product_id": product.id,
+            "product_uom_qty": 1,
+        }
         if "order_id" in self._fields:
-            vals["order_id"] = self.env.context.get("order_id")
+            order_id = self.env.context.get("order_id")
+            if isinstance(order_id, models.NewId):
+                vals["order_id"] = order_id.origin
+            else:
+                vals["order_id"] = order_id
         return vals
 
     def _process_barcode_on_product_line(self, raw_barcode):
@@ -48,5 +55,4 @@ class ProductLineMixin(models.AbstractModel):
                 _("No product found matching this barcode %s" % barcode_str)
             )
 
-        vals = self._populate_vals(product, barcode_dict)
-        self.create(vals)
+        return self._populate_vals(product, barcode_dict)

@@ -24,6 +24,9 @@
                     context="{'default_model': 'sale.order', 'default_method': 'action_sale_line_barcode', 'default_res_id': active_id}"
                 />
             </xpath>
+            <field name="name" position="after">
+                <field name="_barcode_scanned" widget="barcode_handler" />
+            </field>
         </field>
     </record>
 
