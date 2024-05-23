@@ -13,7 +13,7 @@
                     attrs="{'invisible': [('candidate_picking_ids', '=', [])]}"
                     nolabel="1"
                     force_save="1"
-                    options="{&quot;always_reload&quot;: True}"
+                    options="{'always_reload': True}"
                 >
                     <kanban>
                         <field name="name" />
