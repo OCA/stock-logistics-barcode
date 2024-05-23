@@ -64,7 +64,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         comodel_name="stock.barcodes.action", compute="_compute_action_ids"
     )
     option_group_id = fields.Many2one(comodel_name="stock.barcodes.option.group")
-    visible_force_done = fields.Boolean()
+    visible_force_done = fields.Boolean(
+        compute="_compute_visible_force_done", store=True, readonly=False
+    )
     step = fields.Integer()
     is_manual_qty = fields.Boolean(compute="_compute_is_manual_qty")
     is_manual_confirm = fields.Boolean(compute="_compute_is_manual_qty")
@@ -148,7 +150,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    @api.onchange(
+    @api.depends(
         "product_id",
         "lot_id",
         "package_id",
@@ -156,7 +158,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         "packaging_qty",
         "product_qty",
     )
-    def onchange_visible_force_done(self):
+    def _compute_visible_force_done(self):
         self.visible_force_done = False
 
     def _set_messagge_info(self, message_type, message):
@@ -664,7 +666,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.visible_force_done = False
         return res
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         wiz = super().create(vals)
         wiz.action_show_step()
@@ -682,6 +684,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_reopen_wizard(self):
         return self.get_formview_action()
 
+    @api.onchange("step")
     def action_show_step(self):
         options_required = self.option_group_id.option_ids.filtered("required")
         self.step = 0
@@ -711,7 +714,8 @@ class WizStockBarcodesRead(models.AbstractModel):
         if not self.check_option_required():
             return False
         res = self.action_done()
-        self.invalidate_recordset()
+        # self.invalidate_recordset()
+        self.refresh_data()
         self.play_sounds(res)
         self._set_focus_on_qty_input()
         return res
@@ -805,3 +809,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 "stock_barcodes_notify-{}".format(self.ids[0]),
                 message,
             )
+
+    def refresh_data(self):
+        self.env["bus.bus"]._sendone(
+            "barcode_reload", "stock_barcodes_refresh_data", {}
+        )
