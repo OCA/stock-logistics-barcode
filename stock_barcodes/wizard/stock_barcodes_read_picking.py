@@ -610,19 +610,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             ).state = "assigned"
             # When create new stock move lines and we are in guided mode we need
             # link this new lines to the todo line details
-            if self.option_group_id.barcode_guided_mode == "guided":
-                # If user scan a product distinct of the todo line we need link to other
-                # alternative move
-                if move_to_link_in_todo_line:
-                    todo_line = self.todo_line_id
-                else:
-                    todo_line = self.todo_line_ids.filtered(
-                        lambda ln: ln.product_id == self.product_id
-                    )
-                todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
-            elif self.option_group_id.show_pending_moves:
-                # TODO: Check performance with a lot records
-                self.fill_todo_records()
+            # If user scan a product distinct of the todo line we need link to other
+            # alternative move
+            if move_to_link_in_todo_line and self.todo_line_id:
+                todo_line = self.todo_line_id
+            else:
+                todo_line = self.todo_line_ids.filtered(
+                    lambda ln: ln.product_id == self.product_id
+                )
+            todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
 
