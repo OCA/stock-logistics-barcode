@@ -80,7 +80,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         """Technical field to display only the first record in kanban view"""
         self.todo_line_display_ids = self.todo_line_id
 
-    @api.depends("todo_line_ids", "_barcode_scanned")
+    @api.depends("todo_line_ids", "picking_id.move_line_ids.qty_done")
     def _compute_pending_move_ids(self):
         if self.option_group_id.show_pending_moves:
             self.pending_move_ids = self.todo_line_ids.filtered(
@@ -89,7 +89,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         else:
             self.pending_move_ids = False
 
-    @api.depends("todo_line_ids")
+    @api.depends(
+        "todo_line_ids", "todo_line_ids.qty_done", "picking_id.move_line_ids.qty_done"
+    )
     def _compute_move_line_ids(self):
         self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
             key=lambda sml: (sml.write_date, sml.create_date), reverse=True
@@ -126,7 +128,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if picking_id:
             self._set_candidate_pickings(self.env["stock.picking"].browse(picking_id))
 
-    @api.model_create_multi
+    @api.model
     def create(self, vals):
         # When user click any view button the wizard record is create and the
         # picking candidates have been lost, so we need set it.
@@ -213,9 +215,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return False
         if not self.todo_line_ids:
             self.fill_todo_records()
-
-        if not self.todo_line_ids:
-            return False
         # When scanning all information in one step (e.g. using GS-1), the
         # status and qty processed might have not been update, we ensure it
         # invalidating the cache.
@@ -450,6 +449,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         domain = self._prepare_stock_moves_domain()
         if self.option_group_id.barcode_guided_mode == "guided":
             moves_todo = self.todo_line_id.stock_move_ids
+        elif self.picking_id:
+            moves_todo = self.picking_id.move_ids.filtered(
+                lambda sm: sm.product_id == self.product_id
+            )
         else:
             moves_todo = StockMove.search(domain)
         if not getattr(
