@@ -38,18 +38,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
-                    <button
-                        name="generate_base"
-                        type="object"
-                        string="Generate Base"
-                        help="Generate Base (Using Sequence)"
-                        attrs="{'invisible': ['|',
-                        ('generate_type', '!=', 'sequence'),
-                        ('barcode_base', '!=', 0),
-                        ]}"
-                        groups="barcodes_generator_abstract.generate_barcode"
-                        class="oe_inline"
-                    />
                 </div>
             </field>
 
