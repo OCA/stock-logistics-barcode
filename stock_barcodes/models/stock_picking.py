@@ -65,7 +65,8 @@ class StockPicking(models.Model):
                     # In normal conditions backorder will be created
                     create_backorder = True
                     if not move.move_line_ids or any(
-                        sml.state in ["pending"] for sml in move.move_line_ids
+                        sml.barcode_scan_state in ["pending"]
+                        for sml in move.move_line_ids
                     ):
                         # If any move are not processed we can not skip backorder
                         skip_backorder = False
