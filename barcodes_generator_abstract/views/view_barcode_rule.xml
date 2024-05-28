@@ -14,40 +14,28 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             <xpath expr="//form/group" position="after">
                 <group
                     string="Barcode Generation"
-                    attrs="{'invisible': ['|', ('encoding', '=', 'any'), ('padding', '=', 0)]}"
+                    invisible="encoding == 'any' or not padding"
                 >
                     <field name="generate_type" />
-                    <field
-                        name="padding"
-                        attrs="{'invisible': [('generate_type', '=', 'no')]}"
-                    />
+                    <field name="padding" invisible="generate_type == 'no'" />
                     <field
                         name="generate_model"
-                        attrs="{
-                            'invisible': [('generate_type', '=', 'no')],
-                            'required': [('generate_type', '!=', 'no')]
-                        }"
+                        invisible="generate_type == 'no'"
+                        required="generate_type != 'no'"
                     />
                     <field
                         name="generate_automate"
-                        attrs="{'invisible': [('generate_type', '!=', 'sequence')]}"
+                        invisible="generate_type != 'sequence'"
                     />
                     <div
                         class="alert alert-info oe_button_box"
                         role="alert"
                         colspan="2"
-                        attrs="{'invisible': [
-                            '|',
-                            ('sequence_id', '!=', False),
-                            ('generate_type', '!=', 'sequence')]
-                        }"
+                        invisible="sequence_id or generate_type != 'sequence'"
                     >
                             If you leave the sequence field blank, a sequence will be created automatically when the barcode rule is saved, based on the padding of the barcode.
                     </div>
-                    <field
-                        name="sequence_id"
-                        attrs="{'invisible': [('generate_type', '!=', 'sequence')]}"
-                    />
+                    <field name="sequence_id" invisible="generate_type != 'sequence'" />
                 </group>
             </xpath>
         </field>
