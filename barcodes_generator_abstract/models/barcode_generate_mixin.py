@@ -67,7 +67,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
                         " 'Generate Type' set to 'Base managed by Sequence'"
                     )
                 )
-            else:
+            elif not item.barcode_base:
                 item.barcode_base = item.barcode_rule_id.sequence_id.next_by_id()
 
     def generate_barcode(self):
