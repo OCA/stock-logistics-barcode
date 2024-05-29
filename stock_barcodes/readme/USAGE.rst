@@ -20,6 +20,8 @@ To use the barcode interface on picking operations:
 #. Go to *Inventory*.
 #. Click on scanner button on any operation type.
 #. Start reading barcodes.
+#. The wizard will suggest pickings based on the scanned data (Product, quantity, lot, etc...)
+#. Select a picking by clicking on the pin, and complete the desired operations.
 
 To use the barcode interface on a picking:
 
@@ -35,6 +37,27 @@ can scan:
 #. Product with barcode.
 #. Product Lots (The barcode is name field in this case).
 
+Picking validation with a barcode scanner
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**The following example is based on the "Picking IN options".**
+
+Requirements:
+
+* Everything is based on the default configuration
+* Must have a receipt picking with some products with barcodes
+
+Follow the steps to validate a picking:
+
+#. Go to *Inventory > Transfers*.
+#. Open a **receipt** picking.
+#. Click the "Scan barcodes" smart button.
+#. The wizard interface to scan barcodes will show.
+#. Start scanning the barcode of the currently selected product
+    (Note: Scan the same barcode multiple times to add up quantity)
+#. Repeat for every product in the picking paying attention to the currently selected product
+    (The one in the yellow box)
+#. Once it's all done, click on "Validate"
 
 Automatic operation mode
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -43,7 +66,7 @@ This is the default mode, all screen controls are locked to avoid scan into
 fields.
 
 The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in this
+scanner hardware, the interface read the barcode and do operations in this
 order:
 
 #. Try search a product, if found, is assigned to product_id field and creates
@@ -66,7 +89,7 @@ Manual entry mode
 ~~~~~~~~~~~~~~~~~
 
 You can change to "manual entry" to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be when
+hardware, but hardware scanner still active on, so a use case would be when
 user wants set quantities manually instead increment 1.0 unit peer scan action.
 
 Scan logs

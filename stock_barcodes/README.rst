@@ -41,6 +41,41 @@ doing inventories and picking operations.
 .. contents::
    :local:
 
+Configuration
+=============
+
+Barcodes Actions
+~~~~~~~~~~~~~~~~
+
+The Barcode Actions are selectable from the "Barcode" interface.
+
+These can be personalized by selecting an action window, and apply context.
+
+The purpose of the action is to direct the user towards the records of the models which have integrations with barcodes.
+
+Barcodes Options
+~~~~~~~~~~~~~~~~
+
+Options are used to describe how the barcode interface should behave.
+
+To properly configure these options, look out for the following fields:
+
+* Code: refers to the code in the Picking Type
+
+* Behaviour Settings: check the 'Help Tooltip' by hovering on the fields
+
+* Steps to Scan:
+
+  * Step: Order of the actions to be executed
+  * Name: Significant name to be visualized in the alert on the top of the screen for any information related to that field
+  * Field Name: Name of the field of the wizard (e.g. For pickings the field are in `stock.barcodes.read.picking`) which will be filled
+  * Filled Default: Useful to automatically fill values based on the move line (Can be used on locations, product, lot, quantity, etc...)
+  * Forced: Adds a layer of validation, that doesn't let the user proceed until that field is entered correctly
+  * To Scan: This field will be filled using a barcode scanner, after the scan the barcode will be processed by a method named `_process_barcode_<field_name>()`
+  * Required: Every required field will be checked before confirmation
+  * Clean After Done: These fields will be cleaned after confirmation
+
+
 Usage
 =====
 
@@ -66,6 +101,8 @@ To use the barcode interface on picking operations:
 #. Go to *Inventory*.
 #. Click on scanner button on any operation type.
 #. Start reading barcodes.
+#. The wizard will suggest pickings based on the scanned data (Product, quantity, lot, etc...)
+#. Select a picking by clicking on the pin, and complete the desired operations.
 
 To use the barcode interface on a picking:
 
@@ -81,6 +118,27 @@ can scan:
 #. Product with barcode.
 #. Product Lots (The barcode is name field in this case).
 
+Picking validation with a barcode scanner
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+**The following example is based on the "Picking IN options".**
+
+Requirements:
+
+* Everything is based on the default configuration
+* Must have a receipt picking with some products with barcodes
+
+Follow the steps to validate a picking:
+
+#. Go to *Inventory > Transfers*.
+#. Open a **receipt** picking.
+#. Click the "Scan barcodes" smart button.
+#. The wizard interface to scan barcodes will show.
+#. Start scanning the barcode of the currently selected product
+    (Note: Scan the same barcode multiple times to add up quantity)
+#. Repeat for every product in the picking paying attention to the currently selected product
+    (The one in the yellow box)
+#. Once it's all done, click on "Validate"
 
 Automatic operation mode
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -89,7 +147,7 @@ This is the default mode, all screen controls are locked to avoid scan into
 fields.
 
 The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in this
+scanner hardware, the interface read the barcode and do operations in this
 order:
 
 #. Try search a product, if found, is assigned to product_id field and creates
@@ -112,7 +170,7 @@ Manual entry mode
 ~~~~~~~~~~~~~~~~~
 
 You can change to "manual entry" to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be when
+hardware, but hardware scanner still active on, so a use case would be when
 user wants set quantities manually instead increment 1.0 unit peer scan action.
 
 Scan logs
