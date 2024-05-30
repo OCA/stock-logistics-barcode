@@ -30,11 +30,10 @@ class Tests(TransactionCase):
         self.assertEqual(
             self.template_mono.barcode,
             "2054321000001",
-            "Incorrect Manual Barcode Generation for non varianted Template."
-            " Pattern : %s - Base : %s"
-            % (
-                self.template_mono.barcode_rule_id.pattern,
-                self.template_mono.barcode_base,
+            (
+                "Incorrect Manual Barcode Generation for non varianted Template. "
+                f"Pattern : {self.template_mono.barcode_rule_id.pattern} - "
+                f"Base : {self.template_mono.barcode_base}"
             ),
         )
 
@@ -54,11 +53,10 @@ class Tests(TransactionCase):
         self.assertEqual(
             self.product_variant_1.barcode,
             "2012345000001",
-            "Incorrect Manual Barcode Generation for varianted Product."
-            " Pattern : %s - Base : %s"
-            % (
-                self.product_variant_1.barcode_rule_id.pattern,
-                self.product_variant_1.barcode_base,
+            (
+                "Incorrect Manual Barcode Generation for varianted Product. "
+                f"Pattern : {self.product_variant_1.barcode_rule_id.pattern} - "
+                f"Base : {self.product_variant_1.barcode_base}"
             ),
         )
 
