@@ -25,7 +25,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="attribute_id" ref="product.product_attribute_2" />
         <field
             name="value_ids"
-            eval="[(6, 0, [ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
         />
     </record>
 
@@ -78,14 +78,14 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         <field name="attribute_id" ref="product.product_attribute_2" />
         <field
             name="value_ids"
-            eval="[(6,0,[ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
         />
     </record>
 
     <record id="product_template_multi_variant" model="product.template">
         <field
             name="attribute_line_ids"
-            eval="[(6,0,[ref('product_template_multi_variant_attribute_line')])]"
+            eval="[Command.set([ref('product_template_multi_variant_attribute_line')])]"
         />
     </record>
 </odoo>
