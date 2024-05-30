@@ -32,16 +32,21 @@ This module expands Odoo functionality, allowing user to generate
 barcode depending on a given barcode rule for Products.
 
 For example, a typical pattern for products is "20.....{NNNDD}" that
-means that: \* the EAN13 code will begin by '20' \* followed by 5 digits
-(named Barcode Base in this module) \* and after 5 others digits to
-define the variable price \* a 13 digit control
+means that:
 
-Another common pattern is "8012345....." which means that: \* the EAN13
-code will begin with '8012345' \* followed by 5 digits (named Barcode
-Base in this module) \* and finally the 13th digit is the control digit
+-  the EAN13 code will begin by '20'
+-  followed by 5 digits (named Barcode Base in this module)
+-  and after 5 others digits to define the variable price
+-  a 13 digit control
+
+Another common pattern is "8012345....." which means that:
+
+-  the EAN13 code will begin with '8012345'
+-  followed by 5 digits (named Barcode Base in this module)
+-  and finally the 13th digit is the control digit.
 
 Note that a dot is not necessary in the pattern as the control digit is
-added automatically.
+added automatically
 
 With this module, it is possible to:
 
