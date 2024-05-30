@@ -9,11 +9,12 @@ from odoo.tests.common import TransactionCase
 class Tests(TransactionCase):
     """Tests 'Barcodes Generator for Products'"""
 
-    def setUp(self):
-        super().setUp()
-        self.ProductTemplate = self.env["product.template"]
-        self.ProductProduct = self.env["product.product"]
-        self.barcode_rule_manually = self.env.ref(
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.ProductTemplate = cls.env["product.template"]
+        cls.ProductProduct = cls.env["product.product"]
+        cls.barcode_rule_manually = cls.env.ref(
             "barcodes_generator_product.rule_product_generated_barcode_manually"
         )
 
