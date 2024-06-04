@@ -405,6 +405,12 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info(
                     "not_found", _("Barcode not found with this screen values")
                 )
+            self.display_notification(
+                self.barcode,
+                message_type="danger",
+                title=_("Barcode not found"),
+                sticky=False,
+            )
             return False
         if not self.check_option_required():
             return False
@@ -734,15 +740,15 @@ class WizStockBarcodesRead(models.AbstractModel):
     def play_sounds(self, res):
         if res:
             self.env["bus.bus"]._sendone(
-                "barcode_scan",
+                "stock_barcodes_scan",
                 "stock_barcodes_sound",
-                {"sound": "ok"},
+                {"sound": "ok", "res_model": self._name, "res_id": self.ids[0]},
             )
         else:
             self.env["bus.bus"]._sendone(
-                "barcode_scan",
+                "stock_barcodes_scan",
                 "stock_barcodes_sound",
-                {"sound": "ko"},
+                {"sound": "ko", "res_model": self._name, "res_id": self.ids[0]},
             )
 
     def _set_focus_on_qty_input(self, field_name=None):
@@ -751,9 +757,14 @@ class WizStockBarcodesRead(models.AbstractModel):
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
         self.env["bus.bus"]._sendone(
-            "barcode_scan",
+            "stock_barcodes_scan",
             "stock_barcodes_focus",
-            {"field_name": field_name},
+            {
+                "action": "focus",
+                "field_name": field_name,
+                "res_model": self._name,
+                "res_id": self.ids[0],
+            },
         )
 
     @api.onchange("product_id")
@@ -796,17 +807,21 @@ class WizStockBarcodesRead(models.AbstractModel):
         """Send notifications to web client
         message_type:
          [options.type='warning'] 'info', 'success', 'warning', 'danger' or ''
-         See web/static/src/legacy/js/core/service_mixins.js#L241 to implement more
-         options.
          sticky: Permanent notification until user removes it
         """
         if self.option_group_id.display_notification:
-            message = {"message": message, "type": message_type, "sticky": sticky}
+            message = {
+                "message": message,
+                "type": message_type,
+                "sticky": sticky,
+                "res_model": self._name,
+                "res_id": self.ids[0],
+            }
             if title:
                 message["title"] = title
             self.env["bus.bus"]._sendone(
-                "stock_barcodes-{}".format(self.ids[0]),
-                "stock_barcodes_notify-{}".format(self.ids[0]),
+                "stock_barcodes_scan",
+                "stock_barcodes_notify",
                 message,
             )
 

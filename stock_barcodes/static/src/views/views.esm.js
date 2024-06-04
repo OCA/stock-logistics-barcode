@@ -1,5 +1,6 @@
 /** @odoo-module */
 /* Copyright 2024 Akretion
+/* Copyright 2024 Tecnativa
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
 import {getVisibleElements, isVisible} from "@web/core/utils/ui";
@@ -72,6 +73,7 @@ function setupView() {
     const actionService = useService("action");
     const uiService = useService("ui");
     const busService = useService("bus_service");
+    const notification = useService("notification");
 
     const handleKeys = async (ev) => {
         if (ev.keyCode === 113) {
@@ -106,18 +108,30 @@ function setupView() {
         if (notifications && notifications.length > 0) {
             notifications.forEach((notif) => {
                 const {payload, type} = notif;
-                if (type === "stock_barcodes_sound") {
-                    this.$sound_ok[0].play();
-                }
-                if (type === "stock_barcodes_focus") {
-                    requestIdleCallback(() => {
-                        const input = document.querySelector(
-                            `[name=${payload.field_name}] input`
-                        );
-                        if (input) {
-                            input.focus();
-                        }
-                    });
+                if (
+                    (this.model.root.resModel == payload.res_model) &
+                    (this.model.root.resId == payload.res_id)
+                ) {
+                    if (type === "stock_barcodes_sound") {
+                        this.$sound_ok[0].play();
+                    }
+                    if (type === "stock_barcodes_focus") {
+                        requestIdleCallback(() => {
+                            const input = document.querySelector(
+                                `[name=${payload.field_name}] input`
+                            );
+                            if (input) {
+                                input.focus();
+                            }
+                        });
+                    }
+                    if (type === "stock_barcodes_notify") {
+                        notification.add(notif.payload.message, {
+                            title: notif.payload.title,
+                            type: notif.payload.type,
+                            sticky: notif.payload.sticky,
+                        });
+                    }
                 }
             });
         }
@@ -137,7 +151,7 @@ function setupView() {
         });
         this.$sound_ko.appendTo("body");
 
-        busService.addChannel("barcode_scan");
+        busService.addChannel("stock_barcodes_scan");
 
         busService.addEventListener("notification", handleNotification);
 
@@ -145,7 +159,7 @@ function setupView() {
             this.$sound_ok.remove();
             this.$sound_ko.remove();
             document.body.removeEventListener("keydown", handleKeys);
-            busService.deleteChannel("barcode_scan");
+            busService.deleteChannel("stock_barcodes_scan");
             busService.removeEventListener("notification", handleNotification);
         };
     });
