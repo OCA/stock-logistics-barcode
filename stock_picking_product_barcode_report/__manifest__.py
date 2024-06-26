@@ -3,7 +3,7 @@
 {
     "name": "Stock Picking Product Barcode Report",
     "summary": "It provides a wizard to select how many barcodes print.",
-    "version": "15.0.3.5.0",
+    "version": "15.0.3.6.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
