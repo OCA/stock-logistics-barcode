@@ -203,3 +203,34 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     def _compute_is_custom_label(self):
         for record in self:
             record.is_custom_label = record.barcode_report.is_custom_label
+
+    def create_label_print_wiz_from_move_line(self, report_id, stock_move_lines):
+        """Helper method to create this wizard from other models to print labels"""
+        if isinstance(stock_move_lines, (int, list)):
+            stock_move_lines = self.env["stock.move.line"].browse(stock_move_lines)
+        wiz = self.env["stock.picking.print"].create(
+            {
+                "barcode_report": report_id,
+                "product_print_moves": [
+                    (
+                        0,
+                        0,
+                        {
+                            "product_id": sml.product_id.id,
+                            "quantity": self.env.context.get(
+                                "force_quantity_line", sml.qty_done
+                            ),
+                            "move_line_id": sml.id,
+                            "uom_id": sml.product_uom_id.id,
+                            "lot_id": sml.lot_id.id,
+                            "result_package_id": sml.result_package_id.id,
+                            "product_packaging_id": self.env.context.get(
+                                "packaging_id", False
+                            ),
+                        },
+                    )
+                    for sml in stock_move_lines
+                ],
+            }
+        )
+        return wiz
