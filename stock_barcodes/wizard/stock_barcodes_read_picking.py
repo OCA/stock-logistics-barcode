@@ -211,7 +211,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.visible_force_done = self.env.context.get("visible_force_done", False)
         if not self.option_group_id.barcode_guided_mode == "guided":
             return False
-        if not self.todo_line_ids:
+        if not forced_todo_line and (
+            not self.todo_line_ids or any(self.todo_line_ids.mapped("is_extra_line"))
+        ):
             self.fill_todo_records()
         # When scanning all information in one step (e.g. using GS-1), the
         # status and qty processed might have not been update, we ensure it
@@ -281,6 +283,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     self.determine_todo_action()
                 else:
                     self.action_show_step()
+                    self.fill_todo_records()
             # Now we can add read log with details.
             _logger.info("Add scanned log barcode:{}".format(self.barcode))
             self._add_read_log(log_detail=move_dic)
@@ -615,13 +618,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # link this new lines to the todo line details
             # If user scan a product distinct of the todo line we need link to other
             # alternative move
-            if move_to_link_in_todo_line and self.todo_line_id:
-                todo_line = self.todo_line_id
-            else:
-                todo_line = self.todo_line_ids.filtered(
-                    lambda ln: ln.product_id == self.product_id
-                )
-            todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
+            if self.option_group_id.source_pending_moves != "move_line_ids":
+                if move_to_link_in_todo_line and self.todo_line_id:
+                    todo_line = self.todo_line_id
+                else:
+                    todo_line = self.todo_line_ids.filtered(
+                        lambda ln: ln.product_id == self.product_id
+                    )
+                todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
 

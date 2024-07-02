@@ -1,6 +1,6 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from collections import OrderedDict
+from collections import OrderedDict, defaultdict
 
 from odoo import api, fields, models
 from odoo.tools.safe_eval import safe_eval
@@ -62,6 +62,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     stock_move_ids = fields.Many2many(comodel_name="stock.move")
     position_index = fields.Integer()
     picking_code = fields.Char("Type of Operation")
+    is_extra_line = fields.Boolean()
 
     def _group_key(self, wiz, line):
         group_key_for_todo_records = wiz.option_group_id.group_key_for_todo_records
@@ -88,7 +89,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             "position_index": position,
             "picking_code": line.picking_code,
         }
-        if wiz_barcode.option_group_id.source_pending_moves == "move_line_ids":
+        if line._name == "stock.move.line":
             package_product_dic = self._get_all_products_quantities_in_package(
                 line.package_id
             )
@@ -150,6 +151,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         wiz_barcode.todo_line_ids = self.browse()
         todo_vals = OrderedDict()
         position = 0
+        move_qty_dic = defaultdict(float)
+        is_stock_move_line_origin = lines_list[0]._name == "stock.move.line"
         for lines in lines_list:
             for line in lines:
                 key = self._group_key(wiz_barcode, line)
@@ -162,6 +165,30 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                     todo_vals[key] = self._update_fill_record_values(
                         wiz_barcode, line, todo_vals[key]
                     )
+                if is_stock_move_line_origin:
+                    move_qty_dic[line.move_id] += max(
+                        line.product_uom_qty, line.qty_done
+                    )
+                else:
+                    move_qty_dic[line] += max(line.product_uom_qty, line.quantity_done)
+        for move, qty in move_qty_dic.items():
+            if move.product_uom_qty > qty:
+                vals = self._prepare_fill_record_values(wiz_barcode, move, position)
+                vals.update(
+                    {
+                        "product_uom_qty": move.product_uom_qty - qty,
+                        "product_qty_reserved": 0.0,
+                        "line_ids": False,
+                        "is_extra_line": True,
+                    }
+                )
+                todo_vals[
+                    (
+                        move,
+                        "M",
+                    )
+                ] = vals
+                position += 1
         wiz_barcode.todo_line_ids = self.create(list(todo_vals.values()))
 
     def action_todo_next(self):
@@ -205,7 +232,13 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 rec.wiz_barcode_id.option_group_id.source_pending_moves
                 == "move_line_ids"
                 and rec.line_ids
-                and not any(ln.barcode_scan_state == "pending" for ln in rec.line_ids)
+                and (
+                    sum(rec.stock_move_ids.mapped("quantity_done"))
+                    >= sum(rec.stock_move_ids.mapped("product_uom_qty"))
+                    or not any(
+                        ln.barcode_scan_state == "pending" for ln in rec.line_ids
+                    )
+                )
             ):
                 rec.state = "done"
             else:
