@@ -1,0 +1,35 @@
+<?xml version="1.0" ?>
+<odoo>
+    <!-- Allow use weight ai as units directly for products with unit category uom  -->
+    <record id="view_barcode_gs1_nomenclature_form" model="ir.ui.view">
+        <field name="model">barcode.nomenclature</field>
+        <field
+            name="inherit_id"
+            ref="barcodes_gs1_nomenclature.view_barcode_gs1_nomenclature_form"
+        />
+        <field name="arch" type="xml">
+            <!-- Rules table -->
+            <xpath expr="//field[@name='associated_uom_id']" position="after">
+                <field
+                    name="use_weight_as_unit"
+                    attrs="{'column_invisible': [('parent.is_gs1_nomenclature', '!=', True)], 'invisible': [('gs1_content_type', '!=', 'measure')]}"
+                />
+            </xpath>
+        </field>
+    </record>
+    <record id="view_barcode_gs1_rule_form" model="ir.ui.view">
+        <field name="model">barcode.rule</field>
+        <field
+            name="inherit_id"
+            ref="barcodes_gs1_nomenclature.view_barcode_gs1_rule_form"
+        />
+        <field name="arch" type="xml">
+            <field name="is_gs1_nomenclature" position="before">
+                <field
+                    name="use_weight_as_unit"
+                    attrs="{'invisible': ['|', ('parent.is_gs1_nomenclature', '=', False), ('gs1_content_type', '!=', 'measure')]}"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
