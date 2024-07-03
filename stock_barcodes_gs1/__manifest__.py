@@ -10,4 +10,7 @@
     "category": "Extra Tools",
     "depends": ["stock_barcodes", "barcodes_gs1_nomenclature"],
     "installable": True,
+    "data": [
+        "views/barcodes_view.xml",
+    ],
 }
