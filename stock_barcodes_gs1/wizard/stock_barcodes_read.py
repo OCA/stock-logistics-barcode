@@ -82,12 +82,24 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_310(self, gs1_list):
         """Net Weight"""
-        self.product_qty = self._process_product_qty_gs1(float(self.barcode))
+        weight_ai = next(filter(lambda f: f["ai"].startswith("31"), gs1_list), False)
+        if weight_ai[
+            "use_weight_as_unit"
+        ] or self.product_uom_id.category_id == self.env.ref(
+            "uom.product_uom_categ_kgm"
+        ):
+            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
     def _process_ai_330(self, gs1_list):
         """Gross Weight"""
-        self.product_qty = self._process_product_qty_gs1(float(self.barcode))
+        weight_ai = next(filter(lambda f: f["ai"].startswith("33"), gs1_list), False)
+        if weight_ai[
+            "use_weight_as_unit"
+        ] or self.product_uom_id.category_id == self.env.ref(
+            "uom.product_uom_categ_kgm"
+        ):
+            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
     def _process_ai_15(self, gs1_list):
