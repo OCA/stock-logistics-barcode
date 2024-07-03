@@ -6,6 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 15.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2024-07-09 14:06+0000\n"
+"PO-Revision-Date: 2024-07-09 14:06+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -26,9 +28,24 @@ msgid "AI GS1 ({ai}) Not implemented"
 msgstr ""
 
 #. module: stock_barcodes_gs1
+#: model:ir.model,name:stock_barcodes_gs1.model_barcode_nomenclature
+msgid "Barcode Nomenclature"
+msgstr ""
+
+#. module: stock_barcodes_gs1
+#: model:ir.model,name:stock_barcodes_gs1.model_barcode_rule
+msgid "Barcode Rule"
+msgstr ""
+
+#. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Review and confirm"
+msgstr ""
+
+#. module: stock_barcodes_gs1
+#: model:ir.model.fields,field_description:stock_barcodes_gs1.field_barcode_rule__use_weight_as_unit
+msgid "Use Weight As Unit"
 msgstr ""
 
 #. module: stock_barcodes_gs1
