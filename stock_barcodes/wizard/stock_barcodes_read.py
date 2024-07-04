@@ -373,6 +373,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     def process_barcode_packaging_id(self):
         domain = self._barcode_domain(self.barcode)
         if self.env.user.has_group("product.group_stock_packaging"):
+            domain.append(("product_id", "!=", False))
             packaging = self.env["product.packaging"].search(domain)
             if packaging:
                 if len(packaging) > 1:
