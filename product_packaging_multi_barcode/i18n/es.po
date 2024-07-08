@@ -17,6 +17,15 @@ msgstr ""
 "X-Generator: Weblate 4.17\n"
 
 #. module: product_packaging_multi_barcode
+#. odoo-python
+#: code:addons/product_packaging_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"A packaging already uses the barcode or the barcode is already assigned to "
+"product(s)"
+msgstr ""
+
+#. module: product_packaging_multi_barcode
 #: model:ir.model.fields,help:product_packaging_multi_barcode.field_product_packaging__barcode
 msgid ""
 "Barcode used for packaging identification. Scan this packaging barcode from "
@@ -30,6 +39,11 @@ msgstr ""
 #: model:ir.model.fields,field_description:product_packaging_multi_barcode.field_product_packaging__barcode_ids
 msgid "Barcodes"
 msgstr "Códigos de barras"
+
+#. module: product_packaging_multi_barcode
+#: model:ir.model.fields,field_description:product_packaging_multi_barcode.field_product_barcode__display_product_id
+msgid "Display Product"
+msgstr ""
 
 #. module: product_packaging_multi_barcode
 #: model:ir.model,name:product_packaging_multi_barcode.model_product_barcode
@@ -59,8 +73,8 @@ msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for packaging \"%(name)s\" "
 "in the company %(company_name)s."
 msgstr ""
-"El código de barras \"%(barcode_name)s\" ya existe para empaquetar \"%(name)"
-"s\" en la empresa %(company_name)s."
+"El código de barras \"%(barcode_name)s\" ya existe para empaquetar "
+"\"%(name)s\" en la empresa %(company_name)s."
 
 #. module: product_packaging_multi_barcode
 #. odoo-python
@@ -70,5 +84,10 @@ msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for product "
 "\"%(product_name)s\" in the company %(company_name)s"
 msgstr ""
-"El código de barras \"%(barcode_name)s\" ya existe para el producto \""
-"%(product_name)s\" en la compañía %(company_name)s"
+"El código de barras \"%(barcode_name)s\" ya existe para el producto "
+"\"%(product_name)s\" en la compañía %(company_name)s"
+
+#. module: product_packaging_multi_barcode
+#: model_terms:ir.ui.view,arch_db:product_packaging_multi_barcode.product_barcode_view_search
+msgid "display product"
+msgstr ""
