@@ -10,7 +10,6 @@
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "data": [
         "views/product_packaging_view.xml",
-        "views/product_template_view.xml",
         "views/barcode_view.xml",
     ],
     "installable": True,
