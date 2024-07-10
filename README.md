@@ -29,7 +29,7 @@ addon | version | maintainers | summary
 [product_multi_barcode](product_multi_barcode/) | 16.0.1.0.1 |  | Multiple barcodes on products
 [product_multi_barcode_constraint_per_company](product_multi_barcode_constraint_per_company/) | 16.0.1.0.1 |  | Glue module for product_multi_barcode andproduct_barcode_constraint_per_company
 [product_multi_barcode_stock_menu](product_multi_barcode_stock_menu/) | 16.0.1.0.0 |  | Multiple barcodes menu
-[product_packaging_multi_barcode](product_packaging_multi_barcode/) | 16.0.1.2.0 |  | Multiple barcodes on product packagings
+[product_packaging_multi_barcode](product_packaging_multi_barcode/) | 16.0.1.3.0 |  | Multiple barcodes on product packagings
 
 [//]: # (end addons)
 
