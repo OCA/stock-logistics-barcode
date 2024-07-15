@@ -6,7 +6,7 @@
     "category": "Product Management",
     "depends": [
         "product_packaging_multi_barcode",
-        "product_multi_barcode_stock_menu",
+        "product_multi_barcode_stock",
     ],
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "data": [

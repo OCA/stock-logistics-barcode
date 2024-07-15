@@ -6,7 +6,7 @@
     "license": "AGPL-3",
     "author": "Camptocamp, Odoo Community Association (OCA)",
     "category": "Product Management",
-    "depends": ["product_multi_barcode", "product_multi_barcode_stock_menu"],
+    "depends": ["product_multi_barcode", "product_multi_barcode_stock"],
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "data": [
         "views/product_packaging_view.xml",

@@ -1,6 +1,6 @@
 {
     "name": "Multiple barcodes stock",
-    "version": "16.0.1.0.0",
+    "version": "16.0.1.0.1",
     "license": "AGPL-3",
     "author": "Ilyas, Ooops404, Odoo Community Association (OCA)",
     "category": "Product Management",
