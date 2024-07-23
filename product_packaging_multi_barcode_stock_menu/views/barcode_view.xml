@@ -6,7 +6,7 @@
         <field name="model">product.barcode</field>
         <field
             name="inherit_id"
-            ref="product_multi_barcode_stock_menu.product_barcode_list_view"
+            ref="product_multi_barcode_stock.product_barcode_list_view"
         />
         <field name="arch" type="xml">
             <field name="product_tmpl_id" position="after">
