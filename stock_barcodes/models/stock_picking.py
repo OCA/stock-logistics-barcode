@@ -41,11 +41,13 @@ class StockPicking(models.Model):
         return action
 
     def button_validate(self):
-        if (
-            self.picking_type_id.barcode_option_group_id.auto_put_in_pack
-            and not self.move_line_ids.mapped("result_package_id")
-        ):
-            self.action_put_in_pack()
+        put_in_pack_picks = self.filtered(
+            lambda p: p.picking_type_id.barcode_option_group_id.auto_put_in_pack
+            and not p.move_line_ids.result_package_id
+        )
+        if put_in_pack_picks:
+            put_in_pack_picks.action_put_in_pack()
+        # Variable initialized as True to optimize break loop
         if self.env.context.get("stock_barcodes_validate_picking", False):
             res = super(
                 StockPicking, self.with_context(skip_backorder=True)
