@@ -3,6 +3,7 @@
 import logging
 
 from odoo import _, api, fields, models
+from odoo.tools import float_round
 
 _logger = logging.getLogger(__name__)
 
@@ -139,6 +140,22 @@ class WizStockBarcodesRead(models.AbstractModel):
             domain_quant, ["quantity"], [], orderby="id"
         )
         self.qty_available = groups[0]["quantity"]
+        # Unexpected done quantities must reduce qty_available
+        if self.lot_id:
+            done_move_lines = self.move_line_ids.filtered(
+                lambda m: m.product_id == self.product_id and m.lot_id == self.lot_id
+            )
+        else:
+            done_move_lines = self.move_line_ids.filtered(
+                lambda m: m.product_id == self.product_id
+            )
+        for sml in done_move_lines:
+            over_done_qty = float_round(
+                sml.qty_done - sml.product_uom_qty,
+                precision_rounding=sml.product_uom_id.rounding,
+            )
+            if over_done_qty > 0.0:
+                self.qty_available -= over_done_qty
 
     @api.depends("product_id")
     def _compute_display_assign_serial(self):
