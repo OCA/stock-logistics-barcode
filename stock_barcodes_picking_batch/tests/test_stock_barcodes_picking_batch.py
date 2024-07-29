@@ -49,7 +49,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
                     "location_dest_id": cls.customer_location.id,
                     "partner_id": cls.partner_agrolite.id,
                     "picking_type_id": cls.picking_type_out.id,
-                    "move_lines": [
+                    "move_ids": [
                         Command.create(
                             {
                                 "name": cls.product_wo_tracking.name,
