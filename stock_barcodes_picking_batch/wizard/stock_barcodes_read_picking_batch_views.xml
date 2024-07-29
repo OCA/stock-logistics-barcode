@@ -29,7 +29,7 @@
                         <templates>
                             <t t-name="kanban-box">
                                 <div
-                                    t-att-class="'oe_kanban_color_alert' + (record.is_pending.raw_value == false ? ' bg-success' : '')"
+                                    t-att-class="'oe_kanban_color_alert' + (record.is_pending.raw_value == false ? ' bg-success text-white' : '')"
                                 >
                                     <!-- TODO: Remove if not useful-->
                                     <div invisible="1">
@@ -71,34 +71,40 @@
                                                     />
                                                 </strong>
                                             </div>
-                                            <div class="col text-right">
-                                                <span
-                                                    for="product_ref_count"
-                                                >#Ref: </span>
-                                                <strong>
-                                                    <field name="product_ref_count" />
-                                                </strong>
-                                                <span> | </span>
-                                                <span
-                                                    for="product_ref_done"
-                                                >#Read: </span>
-                                                <strong>
-                                                    <field name="product_ref_done" />
-                                                </strong>
+                                            <div class="col">
+                                                <div class="float-end">
+                                                    <span
+                                                        for="product_ref_count"
+                                                    >#Ref: </span>
+                                                    <strong>
+                                                        <field
+                                                            name="product_ref_count"
+                                                        />
+                                                    </strong>
+                                                    <span> | </span>
+                                                    <span
+                                                        for="product_ref_done"
+                                                    >#Read: </span>
+                                                    <strong>
+                                                        <field
+                                                            name="product_ref_done"
+                                                        />
+                                                    </strong>
+                                                </div>
                                             </div>
                                         </div>
                                         <div>
                                             <button
                                                 name="action_open_picking_batch"
                                                 type="object"
-                                                class="btn btn-secondary pull-left"
+                                                class="btn btn-secondary float-start border"
                                                 context="{'wiz_barcode_id': parent.id, 'picking_batch_id': picking_batch_id}"
                                             >Open</button>
                                             <!-- FIXME:  Fix confirm question -->
                                             <button
                                                 name="action_validate_picking_batch"
                                                 type="object"
-                                                t-att-class="'pull-right btn' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary')"
+                                                t-att-class="'btn float-end' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary border')"
                                                 attrs="{'invisible': [('state', '!=', 'in_progress')]}"
                                                 confirm="Are you sure to validate the picking batch?"
                                                 context="{'wiz_barcode_id': parent.id, 'picking_batch_id': picking_batch_id}"
@@ -126,6 +132,7 @@
                         name="pending_move_ids"
                         options="{'no_open': True, 'always_reload': True}"
                         nolabel="1"
+                        colspan="2"
                         force_save="1"
                         mode="tree,kanban"
                     >
@@ -214,6 +221,7 @@
                         options="{'no_open': True, 'always_reload': True}"
                         nolabel="1"
                         force_save="1"
+                        colspan="2"
                         mode="tree,kanban"
                     >
                         <tree>
