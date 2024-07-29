@@ -31,10 +31,14 @@
                     <br />
                     <field name="label_qty" />
                     <br />
-                    <field name="html_content" nolabel="1" />
+                    <field
+                        name="html_content"
+                        nolabel="1"
+                        placeholder="Fill info of label..."
+                    />
                 </div>
                 <group attrs="{'invisible': [('is_custom_label', '=', True)]}">
-                    <field name="product_print_moves" nolabel="1">
+                    <field name="product_print_moves" nolabel="1" colspan="2">
                         <tree editable="top" create="0">
                             <field
                                 name="product_id"
@@ -114,7 +118,7 @@
         <field name="res_model">stock.picking.print</field>
         <field name="view_mode">form</field>
         <field name="binding_type">report</field>
-        <field name="binding_model_id" ref="stock.model_stock_production_lot" />
+        <field name="binding_model_id" ref="stock.model_stock_lot" />
         <field name="target">new</field>
     </record>
 </odoo>
