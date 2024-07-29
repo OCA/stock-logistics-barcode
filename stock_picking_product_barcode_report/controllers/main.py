@@ -6,7 +6,7 @@ from barcode.writer import SVGWriter  # pylint: disable=missing-manifest-depende
 from odoo import http
 from odoo.http import request
 
-from odoo.addons.web.controllers.main import ReportController
+from odoo.addons.web.controllers.report import ReportController
 
 
 class ReportController(ReportController):

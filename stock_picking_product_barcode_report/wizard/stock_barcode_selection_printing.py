@@ -24,7 +24,7 @@ class ProductPrintingQty(models.TransientModel):
         "uom.uom",
         string="Unit of Measure",
     )
-    lot_id = fields.Many2one("stock.production.lot", string="Lot/Serial Number")
+    lot_id = fields.Many2one("stock.lot", string="Lot/Serial Number")
     result_package_id = fields.Many2one(
         comodel_name="stock.quant.package", string="Dest. package"
     )
@@ -68,7 +68,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.quant":
             lines = self._get_lines_from_quants()
             res.update({"product_print_moves": lines})
-        if ctx.get("active_ids") and ctx.get("active_model") == "stock.production.lot":
+        if ctx.get("active_ids") and ctx.get("active_model") == "stock.lot":
             lines = self._get_lines_from_lots()
             res.update({"product_print_moves": lines})
         return res
@@ -144,7 +144,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
 
     def _get_lines_from_lots(self):
         lines = []
-        lots = self.env["stock.production.lot"].browse(self.env.context["active_ids"])
+        lots = self.env["stock.lot"].browse(self.env.context["active_ids"])
         for lot in lots:
             lines.append(
                 (
