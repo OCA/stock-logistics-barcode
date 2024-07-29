@@ -55,7 +55,7 @@ class TestStockPickingProductBarcodeReport(TransactionCase):
         )
         self.picking.action_confirm()
         for move_line in self.picking.move_line_ids:
-            move_line.qty_done = move_line.product_uom_qty
+            move_line.qty_done = move_line.reserved_uom_qty
         self.picking._action_done()
         for move_line_id in self.picking.move_line_ids:
             move_line_id.result_package_id = self.package
