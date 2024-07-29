@@ -33,7 +33,8 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
     )
     confirmed_moves = fields.Boolean(string="Confirmed moves")
     picking_mode = fields.Selection(
-        selection_add=[("picking_batch", "Picking batch mode")]
+        selection_add=[("picking_batch", "Picking batch mode")],
+        ondelete={"picking_batch": "set picking"},
     )
 
     def name_get(self):
