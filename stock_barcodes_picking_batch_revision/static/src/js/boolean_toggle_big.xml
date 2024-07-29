@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+
+    <t t-name="stock_barcodes_picking_batch_revision.FieldBarcodeBooleanToggleBig" t-inherit="web.BooleanToggleField"
+       t-inherit-mode="primary" owl="1">
+        <xpath expr="//CheckBox" position="attributes">
+            <attribute name="className">'o_field_boolean o_boolean_toggle form-switch o_boolean_toggle_big'</attribute>
+        </xpath>
+    </t>
+
+</templates>

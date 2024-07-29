@@ -11,15 +11,15 @@
             <button name="action_validate_picking_batch" position="after">
                 <div
                     attrs="{'invisible': [('is_pending', '=', True)]}"
-                    class="float-right"
+                    class="float-end"
                 >
+                    <label for="barcodes_requested_review" class="me-2">
+                        Review
+                    </label>
                     <field
                         name="barcodes_requested_review"
                         widget="boolean_toggle_big"
                     />
-                    <label for="barcodes_requested_review">
-                        Review
-                    </label>
                 </div>
             </button>
             <group name="scan_fields" position="before">
