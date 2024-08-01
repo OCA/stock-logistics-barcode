@@ -120,9 +120,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         return next(filter(lambda f: f["ai"] == "10", gs1_list), False)
 
     def process_barcode(self, barcode):
-        gs1_list = self.env.ref(
+        nomenclature = self.env.company.nomenclature_id.filtered("is_gs1_nomenclature") or self.env.ref(
             "barcodes_gs1_nomenclature.default_gs1_nomenclature"
-        ).parse_barcode(barcode)
+        )
+        gs1_list = nomenclature.parse_barcode(barcode)
         if gs1_list is None:
             return super().process_barcode(barcode)
         warning_msg_list = []
