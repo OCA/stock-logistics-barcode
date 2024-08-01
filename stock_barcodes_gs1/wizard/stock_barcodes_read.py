@@ -74,19 +74,32 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _process_ai_37(self, gs1_list):
         """Product Qty"""
         product_qty = self._process_product_qty_gs1(float(self.barcode))
-        # if self.packaging_id:
-        #     product_qty = self.packaging_id.qty * product_qty
+        if self.packaging_id:
+            self.packaging_qty = product_qty
+            product_qty = self.packaging_id.qty * product_qty
         self.product_qty = product_qty
         return True
 
     def _process_ai_310(self, gs1_list):
         """Net Weight"""
-        self.product_qty = self._process_product_qty_gs1(float(self.barcode))
+        weight_ai = next(filter(lambda f: f["ai"].startswith("31"), gs1_list), False)
+        if weight_ai[
+            "use_weight_as_unit"
+        ] or self.product_uom_id.category_id == self.env.ref(
+            "uom.product_uom_categ_kgm"
+        ):
+            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
     def _process_ai_330(self, gs1_list):
         """Gross Weight"""
-        self.product_qty = self._process_product_qty_gs1(float(self.barcode))
+        weight_ai = next(filter(lambda f: f["ai"].startswith("33"), gs1_list), False)
+        if weight_ai[
+            "use_weight_as_unit"
+        ] or self.product_uom_id.category_id == self.env.ref(
+            "uom.product_uom_categ_kgm"
+        ):
+            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
 
     def _process_ai_15(self, gs1_list):
@@ -114,6 +127,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             return super().process_barcode(barcode)
         warning_msg_list = []
         self.message = False
+        # Empty previous packaging wnen barcode contains 30, 37, 310, 330, etc.
+        if next(filter(lambda f: f["ai"][0] == "3", gs1_list), False):
+            self.packaging_id = False
         for gs1_item in gs1_list:
             self.barcode = self._hook_process_gs1_value(gs1_item)
             ai = gs1_item["ai"]
@@ -139,9 +155,13 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.display_notification(
                     warning_msg, message_type="danger", title="GS-1 code"
                 )
-        if not self.check_option_required():
+        if not self.with_context(
+            skip_display_notification=True
+        ).check_option_required():
+            self.play_sounds(False)
             return False
         if self.is_manual_confirm or self.manual_entry:
             self._set_messagge_info("info", _("Review and confirm"))
+            self.play_sounds(True)
             return False
         return self.action_confirm()
