@@ -72,7 +72,8 @@ msgstr "Asistente para leer código de barras"
 #~ msgstr "Se ha encontrado más de un empaquetado"
 
 #~ msgid "Wizard to create new lot from barcode scanner"
-#~ msgstr "Asistente para crear nuevo lote desde el lector de códigos de barras"
+#~ msgstr ""
+#~ "Asistente para crear nuevo lote desde el lector de códigos de barras"
 
 #~ msgid "More than one product found"
 #~ msgstr "Se ha encontrado más de un producto."
