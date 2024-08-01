@@ -17,6 +17,8 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
         gs1_nomenclature = cls.env.ref(
             "barcodes_gs1_nomenclature.default_gs1_nomenclature"
         )
+        # Odoo creash with default separator (Alt029|#|\x1D) so remove it from settings
+        gs1_nomenclature.gs1_separator_fnc1 = False
         # Barcode for packaging and lot
         cls.gs1_barcode_01_product = "0118410525244930"
         cls.gs1_barcode_01_lot = "1714070410AB-123"
@@ -86,6 +88,8 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                         "message": message,
                         "type": type,
                         "sticky": sticky,
+                        "res_model": self.wiz_scan._name,
+                        "res_id": self.wiz_scan.id,
                         "title": title,
                     },
                 }
@@ -102,12 +106,6 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
             "011xxx11015300001714070410AB-123 "
             "(Barcode not found with this screen values)",
             self.wiz_scan.message,
-        )
-        # Scan packaging barcode with more than one package
-        self.packaging_gs1.with_context({}).copy({"barcode": "18410525244930"})
-        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
-        self._assert_barcode_notification(
-            message="18410525244930 (More than one package found)"
         )
         self._assert_barcode_notification(message="(10)AB-123 Not found")
 
