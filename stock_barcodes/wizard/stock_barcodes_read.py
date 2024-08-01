@@ -618,7 +618,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_clean_values(self):
         options = self.option_group_id.option_ids
-        options_to_clean = options.filtered("clean_after_done")
+        options_to_clean = options.filtered(lambda op: op.clean_after_done and op.field_name in self)
         for option in options_to_clean:
             if option.field_name == "result_package_id" and self.keep_result_package:
                 continue
@@ -809,7 +809,9 @@ class WizStockBarcodesRead(models.AbstractModel):
          [options.type='warning'] 'info', 'success', 'warning', 'danger' or ''
          sticky: Permanent notification until user removes it
         """
-        if self.option_group_id.display_notification:
+        if self.option_group_id.display_notification and not self.env.context.get(
+            "skip_display_notification", False
+        ):
             message = {
                 "message": message,
                 "type": message_type,
@@ -820,8 +822,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             if title:
                 message["title"] = title
             self.env["bus.bus"]._sendone(
-                "stock_barcodes_scan",
-                "stock_barcodes_notify",
+                "stock_barcodes-{}".format(self.ids[0]),
+                "stock_barcodes_notify-{}".format(self.ids[0]),
                 message,
             )
 
