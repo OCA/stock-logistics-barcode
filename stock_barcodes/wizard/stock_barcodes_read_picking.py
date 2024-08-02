@@ -275,6 +275,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.fill_todo_records()
                 self.determine_todo_action()
                 self.action_show_step()
+            # Force refresh candidate pickings to show green if not pending moves
+            if not self.pending_move_ids:
+                self._set_candidate_pickings(self.picking_id)
             # Now we can add read log with details.
             _logger.info("Add scanned log barcode:{}".format(self.barcode))
             self._add_read_log(log_detail=move_dic)
