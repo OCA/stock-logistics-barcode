@@ -272,9 +272,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if not self.keep_screen_values or self.todo_line_id.state != "pending":
                     if not self.env.context.get("skip_clean_values", False):
                         self.action_clean_values()
+                    keep_vals = {}
+                else:
+                    keep_vals = self._convert_to_write(self._cache)
                 self.fill_todo_records()
                 self.determine_todo_action()
                 self.action_show_step()
+                if keep_vals:
+                    self.update_keep_values(keep_vals)
             # Force refresh candidate pickings to show green if not pending moves
             if not self.pending_move_ids:
                 self._set_candidate_pickings(self.picking_id)
@@ -286,6 +291,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         _logger.info("Add scanned log barcode:{}".format(self.barcode))
         self._add_read_log()
         return res
+
+    def update_keep_values(self, keep_vals):
+        options = self.option_group_id.option_ids
+        fields_to_keep = options.filtered(
+            lambda op: self._fields[op.field_name].type != "float"
+        ).mapped("field_name")
+        self.update({f_name: keep_vals[f_name] for f_name in fields_to_keep})
 
     def action_manual_entry(self):
         result = super().action_manual_entry()
