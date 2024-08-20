@@ -40,12 +40,12 @@ class ProductLineMixin(models.AbstractModel):
                     _(
                         "These products %s share the same barcode.\n"
                         "Impossible to guess which one to choose."
-                        % [(x.display_name for x in product)]
                     )
+                    % [(x.display_name for x in product)]
                 )
         else:
             raise UserError(
-                _("No product found matching this barcode %s" % barcode_str)
+                _("No product found matching this barcode %s") % barcode_str
             )
 
         vals = self._populate_vals(product, barcode_dict)
