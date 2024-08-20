@@ -13,3 +13,7 @@
 * Cetmix <https://cetmix.com>
 
     - Dessan Hemrayev <dessanhemrayev@mail.com>
+
+* Grupo Isonor <https://www.grupoisonor.es>
+
+    - David Palanca
