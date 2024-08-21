@@ -9,3 +9,7 @@
 * Ooops404 <info@ooops404.com>:
 
     - Francesco Foresti <francesco.foresti@ooops404.com>
+
+* Grupo Isonor <https://www.grupoisonor.es>
+
+    - David Palanca

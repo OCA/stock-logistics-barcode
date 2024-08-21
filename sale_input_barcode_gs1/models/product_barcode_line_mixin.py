@@ -23,10 +23,8 @@ class ProductLineMixin(models.AbstractModel):
         barcode_dict = self.env["gs1_barcode"].decode(raw_barcode)
         if not barcode_dict.get("01"):
             raise UserError(
-                _(
-                    "Decoded barcode %s doesn't include a valid segment for GTIN"
-                    % barcode_dict
-                )
+                _("Decoded barcode %s doesn't include a valid segment for GTIN")
+                % barcode_dict
             )
         return barcode_dict["01"], barcode_dict
 

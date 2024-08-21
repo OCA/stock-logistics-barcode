@@ -5,10 +5,6 @@ from odoo.tests import TransactionCase
 
 
 class Test(TransactionCase):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-
     def test_input_line(self):
         self.env = self.env(context=dict(self.env.context, tracking_disable=True))
         barcode = "01034009338167591714050010B04059A\x1d310500638515140501"
