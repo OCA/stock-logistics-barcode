@@ -27,7 +27,11 @@ class ProductLineMixin(models.AbstractModel):
         Builds a dictionary to use in the `create` function
         Hook for customizations
         """
-        vals = {"product_id": product.id, "name": product.name, "product_uom":product.uom_id.id}
+        vals = {
+            "product_id": product.id,
+            "name": product.name,
+            "product_uom": product.uom_id.id,
+        }
         if "picking_id" in self._fields:
             vals["picking_id"] = self.env.context.get("picking_id")
         if "company_id" in self._fields:
@@ -47,12 +51,15 @@ class ProductLineMixin(models.AbstractModel):
                     _(
                         "These products %s share the same barcode.\n"
                         "Impossible to guess which one to choose."
-                        % [(x.display_name for x in product)]
                     )
+                    % [(x.display_name for x in product)]
                 )
         else:
             raise UserError(
-                _("No product found matching this barcode %s" % barcode_str)
+                _(
+                    "No product found matching this barcode %(barcode)s",
+                    barcode=barcode_str,
+                )
             )
 
         vals = self._populate_vals(product, barcode_dict)
