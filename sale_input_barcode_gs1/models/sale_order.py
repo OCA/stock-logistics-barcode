@@ -4,8 +4,8 @@ from odoo import _, api, models
 from odoo.exceptions import UserError
 
 
-class ProductLineMixin(models.AbstractModel):
-    _inherit = "product.barcode.line.mixin"
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
 
     @api.model
     def _decode_barcode(self, raw_barcode):
@@ -53,7 +53,7 @@ class ProductLineMixin(models.AbstractModel):
         company_id = self.env.context.get("company_id") or self.env.company.id
         lot_vals = {
             "name": barcode_dict["10"],
-            "expiry_date": barcode_dict["17"],
+            "expiration_date": barcode_dict["17"],
             "product_id": product.id,
             "company_id": company_id,
         }
