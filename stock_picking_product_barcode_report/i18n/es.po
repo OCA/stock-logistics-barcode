@@ -163,6 +163,11 @@ msgid "Display Name"
 msgstr "Mostrar Nombre"
 
 #. module: stock_picking_product_barcode_report
+#: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.view_stock_barcode_selection_printing
+msgid "Fill info of label..."
+msgstr ""
+
+#. module: stock_picking_product_barcode_report
 #: model_terms:ir.ui.view,arch_db:stock_picking_product_barcode_report.res_config_settings_view_form
 msgid "Format of the barcode when it is printed."
 msgstr "Formato de impresión de códigos de barras."
