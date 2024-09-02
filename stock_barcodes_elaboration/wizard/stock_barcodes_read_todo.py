@@ -21,8 +21,3 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             line.elaboration_note = ". ".join(
                 m.elaboration_note for m in moves if m.elaboration_note
             )
-
-    def _group_key(self, wiz, line):
-        key = super(WizStockBarcodesReadTodo, self)._group_key(wiz, line)
-        key += (line.elaboration_ids,)
-        return key
