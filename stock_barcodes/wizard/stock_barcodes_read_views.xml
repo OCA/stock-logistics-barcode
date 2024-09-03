@@ -28,7 +28,7 @@
                                 <templates>
                                     <t t-name="kanban-box">
                                         <div
-                                            class="oe_kanban_details oe_kanban_card_full_width"
+                                            class="oe_kanban_details oe_kanban_card_full_width pt-4 pb-4"
                                         >
                                             <t
                                                 t-set="shortcut"
@@ -70,27 +70,27 @@
                         attrs="{'invisible': [('display_menu', '=', True)]}"
                         class="flex-fill oe_stock_barcordes_content"
                     >
-                        <div name="info" class="text-center h3">
+                        <div name="info" class="text-center h3 mb-0">
                             <div
-                                class="alert alert-success"
+                                class="alert alert-success mb-0"
                                 role="status"
                                 attrs="{'invisible': [('message_type', '!=', 'success')]}"
                             >
-                                <field name="message" />
+                                <field name="message" class="mt-2" />
                             </div>
                             <div
-                                class="alert alert-info"
+                                class="alert alert-info mb-0"
                                 role="status"
                                 attrs="{'invisible': [('message_type', '!=', 'info')]}"
                             >
-                                <field name="message" />
+                                <field name="message" class="mt-2" />
                             </div>
                             <div
-                                class="alert alert-danger"
+                                class="alert alert-danger mb-0"
                                 role="status"
                                 attrs="{'invisible': [('message_type', '!=', 'more_match'), ('message_type', '!=', 'not_found')]}"
                             >
-                                <field name="message" />
+                                <field name="message" class="mt-2" />
                                 <button
                                     name="action_clean_message"
                                     class="float-end fa-window-close fa"
@@ -129,9 +129,9 @@
                             widget="barcode_handler"
                             invisible="0"
                         />
-                        <group name="scan_fields" class="bg-light">
-                            <group name="location">
-                                <div class="mt4">
+                        <group name="scan_fields" class="bg-light scan_fields">
+                            <group name="location" col="1">
+                                <div class="mt-1" colspan="2">
                                     <strong
                                         class=" d-none d-sm-block"
                                     >Source Location</strong>
@@ -141,11 +141,11 @@
                                     />
                                     <field
                                         name="location_id"
-                                        options="{'no_create': True}"
+                                        options="{'no_create': True, 'no_open': True}"
                                         attrs="{'readonly': [('manual_entry', '=', False)]}"
                                         force_save="1"
                                         nolabel="1"
-                                        style="width:85%"
+                                        style="width:90%"
                                         class="h5"
                                     />
                                 </div>
@@ -155,7 +155,7 @@
                                 groups="stock.group_tracking_lot"
                                 col="2"
                             >
-                                <div class="mt4" colspan="2">
+                                <div class="m-0" colspan="2">
                                     <strong
                                         class="d-none d-sm-block"
                                     >Source Package -&gt; Result Package</strong>
@@ -176,32 +176,16 @@
                                     >-&gt;</span>
                                     <field
                                         name="result_package_id"
-                                        options="{'no_create': True}"
+                                        options="{'no_create': True, 'no_open': True}"
                                         attrs="{'readonly': [('manual_entry', '=', False)]}"
                                         force_save="1"
                                         class="h5 oe_inline ms-1"
                                         style="width: 35% !important"
                                     />
-                                    <button
-                                        class="btn-sm float-end btn-warning oe_kanban_action_button btn mr4"
-                                        name="action_clean_package"
-                                        type="object"
-                                        icon="fa-trash fa-1x"
-                                        attrs="{'invisible': [('package_id', '=', False), ('result_package_id', '=', False)]}"
-                                        title="Clean package info"
-                                    />
-                                    <button
-                                        id="btn_create_package"
-                                        class="ml2 btn-sm float-end oe_kanban_action_button btn btn-secondary mr4"
-                                        type="object"
-                                        name="action_create_package"
-                                        icon="fa-plus fa-1x"
-                                        title="Create new package"
-                                    />
                                     <!-- Double button to display open or closed padlock -->
                                     <button
                                         id="btn_keep_result_package_lock"
-                                        class="ml2 btn-sm float-end btn-danger oe_kanban_action_button btn mr4"
+                                        class="btn-sm btn-danger oe_kanban_action_button btn boder ms-1"
                                         type="object"
                                         name="action_keep_result_package"
                                         title="If locked keep result package"
@@ -210,7 +194,7 @@
                                     />
                                     <button
                                         id="btn_keep_result_package_unlock"
-                                        class="ml2 btn-sm float-end oe_kanban_action_button btn btn-secondary mr4"
+                                        class="btn-sm oe_kanban_action_button btn btn-secondary border ms-1"
                                         type="object"
                                         name="action_keep_result_package"
                                         title="If locked keep result package"
@@ -218,10 +202,26 @@
                                         attrs="{'invisible': [('keep_result_package', '=', True)]}"
                                     />
                                     <!-- End padlock -->
+                                    <button
+                                        class="btn-sm btn-warning oe_kanban_action_button btn border ms-1"
+                                        name="action_clean_package"
+                                        type="object"
+                                        icon="fa-trash fa-1x"
+                                        attrs="{'invisible': [('package_id', '=', False), ('result_package_id', '=', False)]}"
+                                        title="Clean package info"
+                                    />
+                                    <button
+                                        id="btn_create_package"
+                                        class="btn-sm oe_kanban_action_button btn btn-secondary border ms-1"
+                                        type="object"
+                                        name="action_create_package"
+                                        icon="fa-plus fa-1x"
+                                        title="Create new package"
+                                    />
                                 </div>
                             </group>
                             <group col="2">
-                                <div class="mt4" colspan="2">
+                                <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Product</strong>
                                     <span
                                         class="fa fa-th-list d-sm-none oe_span_small_icon"
@@ -229,10 +229,10 @@
                                     />
                                     <field
                                         name="product_id"
-                                        options="{'no_create': True}"
+                                        options="{'no_create': True, 'no_open': True}"
                                         attrs="{'readonly': [('manual_entry', '=', False)]}"
                                         force_save="1"
-                                        style="width:85%"
+                                        style="width:80%"
                                         class="h5"
                                     />
                                     <button
@@ -250,7 +250,7 @@
                                 col="2"
                                 attrs="{'invisible': [('product_tracking', 'in', [False, 'none'])]}"
                             >
-                                <div class="mt4" colspan="2">
+                                <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Lot S/N</strong>
                                     <span
                                         class="fa fa-tags d-sm-none oe_span_small_icon"
@@ -264,7 +264,7 @@
                                     />
                                     <field
                                         name="lot_id"
-                                        options="{'no_create': True}"
+                                        options="{'no_create': True, 'no_open': True}"
                                         domain="[('product_id', '=', product_id)]"
                                         context="{'default_product_id': product_id}"
                                         attrs="{'readonly': [('manual_entry', '=', False)], 'invisible': [('create_lot', '!=', False)]}"
@@ -283,7 +283,7 @@
                                     />
                                     <button
                                         id="btn_create_lot"
-                                        class="ml2 btn-sm float-end oe_kanban_action_button btn btn-secondary mr4"
+                                        class="btn-sm float-end oe_kanban_action_button btn btn-secondary border"
                                         type="action"
                                         name="%(action_stock_barcodes_new_lot)d"
                                         icon="fa-plus fa-1x"
@@ -299,7 +299,7 @@
                                 attrs="{'invisible': ['|', ('product_id', '=', False),'|', ('is_manual_qty', '=', True), ('manual_entry', '=', True)]}"
                                 col="2"
                             >
-                                <div class="mt4" colspan="2">
+                                <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Total Qty</strong>
                                     <span
                                         class="fa fa-hashtag d-sm-none oe_span_small_icon"
@@ -317,12 +317,12 @@
                             <group
                                 name="option_qty"
                                 attrs="{'invisible': ['|', ('product_id', '=', False),'&amp;', ('is_manual_qty', '=', False), ('manual_entry', '=', False)]}"
-                                col="1"
+                                col="2"
                             >
                                 <div
                                     class="row mt8"
                                     name="option_qty_header"
-                                    colspan="1"
+                                    colspan="2"
                                 >
                                     <div
                                         class="text-center col"
@@ -344,11 +344,16 @@
                                                     class="oe_inline"
                                                     options="{'no_open': True}"
                                                     readonly="1"
+                                                    widget="selection"
                                                 /></span>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col text-center" name="total_qty_field">
+                                <div
+                                    class="col text-center"
+                                    name="total_qty_field"
+                                    colspan="2"
+                                >
                                     <field
                                         name="product_qty"
                                         force_save="1"
@@ -466,33 +471,46 @@
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
         <field name="arch" type="xml">
-            <div name="total_qty_header" position="before">
-                <div
-                    class="col text-center pr-0"
+            <group name="option_qty" position="before">
+                <group name="packaging" col="1">
+                    <div colspan="2" groups="product.group_stock_packaging">
+                        <field name="product_packaging_ids" invisible="1" />
+                        <span
+                            class="fa fa-archive d-sm-none oe_span_small_icon"
+                            title="Source Location"
+                            attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
+                        />
+                        <field
+                            name="packaging_id"
+                            options="{'no_open': True, 'no_create': True}"
+                            domain="[('product_id', '=', product_id)]"
+                            force_save="1"
+                            style="width: 85%"
+                            class="h5"
+                            placeholder="Packaging"
+                            nolabel="1"
+                            attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
+                        />
+                    </div>
+                </group>
+            </group>
+            <xpath
+                expr="//div[@name='total_qty_field']//field[@name='product_qty']"
+                position="before"
+            >
+                <field
+                    name="packaging_qty"
+                    force_save="1"
+                    widget="numeric_step"
+                    options="{'auto_select': True}"
                     groups="product.group_stock_packaging"
-                >
-                    <field name="product_packaging_ids" invisible="1" />
-                    <field
-                        name="packaging_id"
-                        options="{'no_open': True, 'no_create': True}"
-                        domain="[('product_id', '=', product_id)]"
-                        force_save="1"
-                        placeholder="Packaging"
-                        attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
-                    />
-                </div>
-            </div>
-            <div name="total_qty_field" position="before">
+                    attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
+                />
+            </xpath>
+            <!-- <div name="total_qty_field" position="before">
                 <div class="col text-center" groups="product.group_stock_packaging">
-                    <field
-                        name="packaging_qty"
-                        force_save="1"
-                        widget="numeric_step"
-                        options="{'auto_select': True}"
-                        attrs="{'invisible': [('product_packaging_ids', '=', [])]}"
-                    />
                 </div>
-            </div>
+            </div> -->
         </field>
     </record>
     <!--
