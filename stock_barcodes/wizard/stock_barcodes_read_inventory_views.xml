@@ -37,6 +37,7 @@
                 <group
                     string="Inventory quants"
                     attrs="{'invisible': [('inventory_quant_ids', '=', [])]}"
+                    col="1"
                 >
                     <field
                         name="inventory_quant_ids"

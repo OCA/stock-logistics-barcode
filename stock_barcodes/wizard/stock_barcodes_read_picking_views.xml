@@ -13,6 +13,7 @@
                     attrs="{'invisible': [('candidate_picking_ids', '=', [])]}"
                     nolabel="1"
                     force_save="1"
+                    class="o_x2m_control_panel"
                     options="{'always_reload': True}"
                 >
                     <kanban>
@@ -120,7 +121,12 @@
                         </templates>
                     </kanban>
                 </field>
-                <field name="todo_line_display_ids" mode="kanban" force_save="1" />
+                <field
+                    name="todo_line_display_ids"
+                    mode="kanban"
+                    force_save="1"
+                    attrs="{'invisible': [('todo_line_display_ids', '=', [])]}"
+                />
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
@@ -149,11 +155,11 @@
                     />
                     <field
                         name="location_dest_id"
-                        options="{'no_create': True}"
+                        options="{'no_create': True, 'no_open': True}"
                         attrs="{'readonly': [('manual_entry', '=', False)]}"
                         force_save="1"
                         nolabel="1"
-                        style="width:85%"
+                        style="width:90%"
                         class="h5"
                         domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
                     />
