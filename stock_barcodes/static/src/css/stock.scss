@@ -12,15 +12,29 @@
     border-width: 1px 0 0 0;
 }
 
+// Avoid too big small buttons from core
+.o_web_client.o_touch_device {
+    .oe_stock_barcordes_form {
+        .btn {
+            &,
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+            }
+        }
+    }
+}
+
 .oe_stock_barcordes_form {
     padding: 0 !important;
     height: 100%;
-
-    .o_group {
+    // Recover useless space
+    div[name="_barcode_scanned"] {
+        min-height: 0 !important;
+    }
+    .o_group .scan_fields {
         &.o_inner_group {
             margin-bottom: 0 !important;
         }
-
         margin: 0 !important;
     }
 
@@ -34,11 +48,14 @@
 
     // In Odoo 16 the flat input styling lacks proper usability
     .o_field_widget {
-        margin-bottom: 3 !important;
+        margin-bottom: 1px !important;
         .o_input {
             border-radius: 3px;
             border-width: 1px;
             background-color: white;
+        }
+        .o_x2m_control_panel {
+            margin: 0px !important;
         }
     }
 
@@ -92,6 +109,13 @@
 // Display 100% all menu elements
 .oe_kanban_card_full_width {
     width: 100% !important;
+}
+
+// The kanban view adds some pre-styles that we want to be able to tweak
+div[name="menu_actions"] {
+    div[role="article"] {
+        margin-top: 10px !important;
+    }
 }
 
 // Dropdown that is desactivated at lg width

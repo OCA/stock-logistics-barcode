@@ -71,7 +71,10 @@
                                                     class="fa fa-tags"
                                                     title="Lot S/N"
                                                 />
-                                                <field name="lot_id" />
+                                                <field
+                                                    name="lot_id"
+                                                    options="{'no_open': True}"
+                                                />
                                             </span>
                                         </td>
                                         <td class="text-end">
@@ -103,7 +106,7 @@
                                 </div>
                             </div>
                             <div name="action" class="row">
-                                <div class="col-3">
+                                <div class="col-2">
                                     <button
                                         name="action_back_line"
                                         type="object"
@@ -114,22 +117,22 @@
                                         data-hotkey="1"
                                     />
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4 p-0">
                                     <button
                                         name="action_reset_lines"
                                         type="object"
                                         icon="fa-trash"
                                         title="Clean"
-                                        class="btn-sm btn float-end btn-warning"
+                                        class="btn-sm btn mx-auto d-block btn-warning"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="2"
                                     />
                                 </div>
-                                <div class="col-3">
+                                <div class="col-4 p-0">
                                     <button
                                         name="action_todo_next"
                                         type="object"
-                                        class="btn-sm float-end btn-danger btn"
+                                        class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
                                         attrs="{'invisible': [('qty_done', '=', 0.0)]} "
@@ -139,7 +142,7 @@
                                     <button
                                         name="action_todo_next"
                                         type="object"
-                                        class="btn-sm float-end btn-danger btn"
+                                        class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
                                         attrs="{'invisible': [('qty_done', '!=', 0.0)]} "
@@ -147,7 +150,7 @@
                                     >Ignore rest
                                     </button>
                                 </div>
-                                <div class="col-3">
+                                <div class="col-2">
                                     <button
                                         name="action_next_line"
                                         type="object"

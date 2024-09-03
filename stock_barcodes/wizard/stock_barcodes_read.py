@@ -618,7 +618,9 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_clean_values(self):
         options = self.option_group_id.option_ids
-        options_to_clean = options.filtered(lambda op: op.clean_after_done and op.field_name in self)
+        options_to_clean = options.filtered(
+            lambda op: op.clean_after_done and op.field_name in self
+        )
         for option in options_to_clean:
             if option.field_name == "result_package_id" and self.keep_result_package:
                 continue

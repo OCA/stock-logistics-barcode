@@ -6,12 +6,10 @@
         <field name="arch" type="xml">
             <form>
                 <sheet>
-                    <group>
-                        <div class="alert alert-info text-center" role="alert">
-                            <p>1 - Scan or input product barcode</p>
-                            <p>2 - Scan or input product lot barcode</p>
-                        </div>
-                    </group>
+                    <div class="alert alert-info text-center" role="alert">
+                        <p>1 - Scan or input product barcode</p>
+                        <p>2 - Scan or input product lot barcode</p>
+                    </div>
                     <group>
                         <field
                             name="_barcode_scanned"
@@ -21,7 +19,7 @@
                         <field name="product_id" />
                         <field name="lot_name" />
                     </group>
-                    <footer>
+                    <div>
                         <button
                             string="Confirm"
                             name="confirm"
@@ -34,7 +32,7 @@
                             class="btn-default oe_kanban_action_button"
                             type="object"
                         />
-                    </footer>
+                    </div>
                 </sheet>
             </form>
         </field>
