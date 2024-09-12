@@ -22,18 +22,18 @@
                 <field name="generate_type" invisible="1" />
                 <label
                     for="barcode_base"
-                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
+                    invisible="barcode_rule_id == False"
                     groups="barcodes_generator_abstract.generate_barcode"
                 />
                 <div
                     name="div_barcode_base"
                     class="o_row"
-                    attrs="{'invisible': [('barcode_rule_id', '=', False)]}"
+                    invisible="barcode_rule_id == False"
                     groups="barcodes_generator_abstract.generate_barcode"
                 >
                     <field
                         name="barcode_base"
-                        attrs="{'readonly': [('generate_type', '!=', 'manual')]}"
+                        readonly="generate_type != 'manual'"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
@@ -42,10 +42,7 @@
                         type="object"
                         string="Generate Base"
                         help="Generate Base (Using Sequence)"
-                        attrs="{'invisible': ['|',
-                        ('generate_type', '!=', 'sequence'),
-                        ('barcode_base', '!=', 0),
-                        ]}"
+                        invisible="(generate_type != 'sequence') or (barcode_rule_id != 0)"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
@@ -58,17 +55,14 @@
                     <field
                         name="barcode"
                         class="oe_inline"
-                        attrs="{'readonly': [('generate_type', '=', 'sequence')]}"
+                        readonly="generate_type != 'sequence'"
                     />
                     <button
                         name="generate_barcode"
                         type="object"
                         string="Generate Barcode"
                         help="Generate Barcode (Using Barcode Rule)"
-                        attrs="{'invisible': ['|',
-                            ('barcode_rule_id', '=', False),
-                            ('barcode_base', '=', 0),
-                            ]}"
+                        invisible="(barcode_rule_id == False) or (barcode_base == 0)"
                         groups="barcodes_generator_abstract.generate_barcode"
                         class="oe_inline"
                     />
