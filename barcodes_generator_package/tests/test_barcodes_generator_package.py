@@ -16,7 +16,6 @@ class Tests(TransactionCase):
         cls.barcode_rule = cls.env.ref("barcodes_generator_package.rule_package")
 
     def test_barcode_generation_based_on_sequence(self):
-
         self.assertFalse(self.package.barcode_base)
         self.assertFalse(self.package.barcode)
 
