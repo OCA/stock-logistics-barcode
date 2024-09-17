@@ -27,3 +27,9 @@ class StockMove(models.Model):
         return super(StockMove, self - moves_cancel_backorder)._action_done(
             cancel_backorder=cancel_backorder
         )
+
+    def copy_data(self, default=None):
+        vals_list = super().copy_data(default=default)
+        for vals in vals_list:
+            vals.pop("barcode_backorder_action", None)
+        return vals_list

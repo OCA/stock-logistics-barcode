@@ -88,6 +88,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.option_group_id.show_pending_moves:
             self.pending_move_ids = self.todo_line_ids.filtered(
                 lambda t: t.state == "pending"
+                and any(
+                    sm.barcode_backorder_action == "pending" for sm in t.stock_move_ids
+                )
             )
         else:
             self.pending_move_ids = False
@@ -840,6 +843,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     "package_product_qty": package_product_dic
                     and package_product_dic[line.product_id]
                     or 0.0,
+                    "is_stock_move_line_origin": True,
                 }
             )
         else:
@@ -855,6 +859,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     or line.product_uom_qty,
                     "line_ids": [(6, 0, line.move_line_ids.ids)],
                     "stock_move_ids": [(6, 0, line.ids)],
+                    "is_stock_move_line_origin": False,
                 }
             )
         return vals

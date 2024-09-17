@@ -62,6 +62,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     position_index = fields.Integer()
     picking_code = fields.Char("Type of Operation")
     is_extra_line = fields.Boolean()
+    # Used in kanban view
+    is_stock_move_line_origin = fields.Boolean()
 
     def action_todo_next(self):
         self.state = "done_forced"
@@ -69,7 +71,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         for sml in self.line_ids:
             if sml.product_uom_qty != sml.qty_done:
                 sml.product_uom_qty = sml.qty_done
-        if self.is_extra_line:
+        if self.is_extra_line or not self.is_stock_move_line_origin:
             barcode_backorder_action = self.env.context.get(
                 "barcode_backorder_action", "create_backorder"
             )
