@@ -77,5 +77,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _group_key(self, line):
         key = super()._group_key(line)
-        key += (line.secondary_uom_id,)
+        if not self.option_group_id.group_key_for_todo_records:
+            key += (line.secondary_uom_id.id,)
         return key
