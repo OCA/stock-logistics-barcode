@@ -69,7 +69,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.state = "done_forced"
         self.line_ids.barcode_scan_state = "done_forced"
         for sml in self.line_ids:
-            if sml.product_uom_qty != sml.qty_done:
+            if sml.product_uom_qty != sml.qty_done and sml.move_id.state != "waiting":
                 sml.product_uom_qty = sml.qty_done
         if self.is_extra_line or not self.is_stock_move_line_origin:
             barcode_backorder_action = self.env.context.get(

@@ -77,6 +77,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_location_dest_id = fields.Many2one(related="picking_id.location_dest_id")
     company_id = fields.Many2one(related="picking_id.company_id")
     todo_line_is_extra_line = fields.Boolean(related="todo_line_id.is_extra_line")
+    forced_todo_key = fields.Char()
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -281,7 +282,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 else:
                     keep_vals = self._convert_to_write(self._cache)
                 self.fill_todo_records()
-                self.determine_todo_action()
+                if self.forced_todo_key:
+                    self.todo_line_id = self.pending_move_ids.filtered(
+                        lambda ln: str(self._group_key(ln)) == self.forced_todo_key
+                    )[:1]
+                    self.selected_pending_move_id = self.todo_line_id
+                    self.determine_todo_action(self.todo_line_id)
+                else:
+                    self.determine_todo_action()
                 self.action_show_step()
                 if keep_vals:
                     self.update_keep_values(keep_vals)
@@ -804,9 +812,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if group_key_for_todo_records:
             return safe_eval(group_key_for_todo_records, globals_dict={"object": line})
         if self.option_group_id.source_pending_moves == "move_line_ids":
-            return (line.location_id, line.product_id, line.lot_id, line.package_id)
+            return (
+                line.location_id.id,
+                line.product_id.id,
+                line.lot_id.id,
+                line.package_id.id,
+            )
         else:
-            return (line.location_id, line.product_id)
+            return (line.location_id.id, line.product_id.id)
 
     def _get_all_products_quantities_in_package(self, package):
         res = {}
@@ -866,7 +879,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _update_fill_record_values(self, line, vals):
         vals["product_uom_qty"] += line.product_uom_qty
-        if self.option_group_id.source_pending_moves == "move_line_ids":
+        if vals["is_stock_move_line_origin"]:
             vals["product_qty_reserved"] += line.product_qty
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
@@ -886,6 +899,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         :param lines_list: browse list
         :return:
         """
+        self.forced_todo_key = str(
+            self._group_key(self.todo_line_id or self.selected_pending_move_id)
+        )
         self.todo_line_ids.unlink()
         self.todo_line_id = False
         # self.position_index = 0
