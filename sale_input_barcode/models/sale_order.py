@@ -9,11 +9,34 @@ class SaleOrderLine(models.Model):
 
 
 class SaleOrder(models.Model):
-    _inherit = "sale.order"
+    _name = "sale.order"
+    _inherit = ["sale.order", "barcodes.barcode_events_mixin"]
+
+    def on_barcode_scanned(self, barcode):
+        self.process_barcode(barcode)
 
     def action_sale_line_barcode(self, barcode):
         """Create a sale line according barcode information"""
         self.ensure_one()
-        self.env["sale.order.line"].with_context(
-            order_id=self.id, company_id=self.company_id.id
-        )._process_barcode_on_product_line(barcode)
+        self.process_barcode(barcode)
+
+    def process_barcode(self, barcode):
+        barcode = barcode.rstrip()
+        line_vals = (
+            self.env["sale.order.line"]
+            .with_context(order_id=self.id, company_id=self.company_id.id)
+            ._process_barcode_on_product_line(barcode)
+        )
+
+        product_order_line = self.order_line.filtered(
+            lambda x: x.product_id.id == line_vals.get("product_id")
+        )[:1]
+        if product_order_line:
+            product_order_line.product_uom_qty += 1
+        else:
+            product_order_line = self.env["sale.order.line"].new(line_vals)
+            product_order_line.product_id_change()
+            sale_line_vals = product_order_line._convert_to_write(
+                product_order_line._cache
+            )
+            self.write({"order_line": [(0, 0, sale_line_vals)]})
