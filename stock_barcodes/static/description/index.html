@@ -378,34 +378,69 @@ doing inventories and picking operations.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
 <ul class="simple">
-<li><a class="reference internal" href="#usage" id="toc-entry-1">Usage</a><ul>
-<li><a class="reference internal" href="#barcode-interface-for-inventory-operations" id="toc-entry-2">Barcode interface for inventory operations</a></li>
-<li><a class="reference internal" href="#barcode-interface-for-picking-operations" id="toc-entry-3">Barcode interface for picking operations</a></li>
-<li><a class="reference internal" href="#automatic-operation-mode" id="toc-entry-4">Automatic operation mode</a></li>
-<li><a class="reference internal" href="#manual-entry-mode" id="toc-entry-5">Manual entry mode</a></li>
-<li><a class="reference internal" href="#scan-logs" id="toc-entry-6">Scan logs</a></li>
+<li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a><ul>
+<li><a class="reference internal" href="#barcodes-actions" id="toc-entry-2">Barcodes Actions</a></li>
+<li><a class="reference internal" href="#barcodes-options" id="toc-entry-3">Barcodes Options</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-7">Known issues / Roadmap</a></li>
-<li><a class="reference internal" href="#changelog" id="toc-entry-8">Changelog</a><ul>
-<li><a class="reference internal" href="#section-1" id="toc-entry-9">11.0.1.1.0 (2019-09-24)</a></li>
-<li><a class="reference internal" href="#section-2" id="toc-entry-10">13.0.1.1.1 (2021-02-06)</a></li>
-<li><a class="reference internal" href="#section-3" id="toc-entry-11">14.0.1.0.0 (2021-04-05)</a></li>
+<li><a class="reference internal" href="#usage" id="toc-entry-4">Usage</a><ul>
+<li><a class="reference internal" href="#barcode-interface-for-inventory-operations" id="toc-entry-5">Barcode interface for inventory operations</a></li>
+<li><a class="reference internal" href="#barcode-interface-for-picking-operations" id="toc-entry-6">Barcode interface for picking operations</a></li>
+<li><a class="reference internal" href="#picking-validation-with-a-barcode-scanner" id="toc-entry-7">Picking validation with a barcode scanner</a></li>
+<li><a class="reference internal" href="#automatic-operation-mode" id="toc-entry-8">Automatic operation mode</a></li>
+<li><a class="reference internal" href="#manual-entry-mode" id="toc-entry-9">Manual entry mode</a></li>
+<li><a class="reference internal" href="#scan-logs" id="toc-entry-10">Scan logs</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-12">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-13">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-14">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-15">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-16">Maintainers</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-11">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-12">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-13">11.0.1.1.0 (2019-09-24)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-14">13.0.1.1.1 (2021-02-06)</a></li>
+<li><a class="reference internal" href="#section-3" id="toc-entry-15">14.0.1.0.0 (2021-04-05)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-16">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-17">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-18">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-19">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-20">Maintainers</a></li>
 </ul>
 </li>
 </ul>
 </div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
+<div class="section" id="barcodes-actions">
+<h2><a class="toc-backref" href="#toc-entry-2">Barcodes Actions</a></h2>
+<p>The Barcode Actions are selectable from the “Barcode” interface.</p>
+<p>These can be personalized by selecting an action window, and apply context.</p>
+<p>The purpose of the action is to direct the user towards the records of the models which have integrations with barcodes.</p>
+</div>
+<div class="section" id="barcodes-options">
+<h2><a class="toc-backref" href="#toc-entry-3">Barcodes Options</a></h2>
+<p>Options are used to describe how the barcode interface should behave.</p>
+<p>To properly configure these options, look out for the following fields:</p>
+<ul class="simple">
+<li>Code: refers to the code in the Picking Type</li>
+<li>Behaviour Settings: check the ‘Help Tooltip’ by hovering on the fields</li>
+<li>Steps to Scan:<ul>
+<li>Step: Order of the actions to be executed</li>
+<li>Name: Significant name to be visualized in the alert on the top of the screen for any information related to that field</li>
+<li>Field Name: Name of the field of the wizard (e.g. For pickings the field are in <cite>stock.barcodes.read.picking</cite>) which will be filled</li>
+<li>Filled Default: Useful to automatically fill values based on the move line (Can be used on locations, product, lot, quantity, etc…)</li>
+<li>Forced: Adds a layer of validation, that doesn’t let the user proceed until that field is entered correctly</li>
+<li>To Scan: This field will be filled using a barcode scanner, after the scan the barcode will be processed by a method named <cite>_process_barcode_&lt;field_name&gt;()</cite></li>
+<li>Required: Every required field will be checked before confirmation</li>
+<li>Clean After Done: These fields will be cleaned after confirmation</li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
 <div class="section" id="usage">
-<h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-4">Usage</a></h1>
 <div class="section" id="barcode-interface-for-inventory-operations">
-<h2><a class="toc-backref" href="#toc-entry-2">Barcode interface for inventory operations</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-5">Barcode interface for inventory operations</a></h2>
 <p>To use the barcode interface on inventory:</p>
 <ol class="arabic simple">
 <li>Go to <em>Inventory &gt; operations &gt; Inventory Adjustments</em>.</li>
@@ -416,7 +451,7 @@ doing inventories and picking operations.</p>
 </ol>
 </div>
 <div class="section" id="barcode-interface-for-picking-operations">
-<h2><a class="toc-backref" href="#toc-entry-3">Barcode interface for picking operations</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-6">Barcode interface for picking operations</a></h2>
 <p>You can use the barcode interface in a picking or an operation type, the main
 difference is that if you open the barcode interface from a picking, this
 picking is locked and you read products for it.</p>
@@ -425,6 +460,8 @@ picking is locked and you read products for it.</p>
 <li>Go to <em>Inventory</em>.</li>
 <li>Click on scanner button on any operation type.</li>
 <li>Start reading barcodes.</li>
+<li>The wizard will suggest pickings based on the scanned data (Product, quantity, lot, etc…)</li>
+<li>Select a picking by clicking on the pin, and complete the desired operations.</li>
 </ol>
 <p>To use the barcode interface on a picking:</p>
 <ol class="arabic simple">
@@ -441,12 +478,39 @@ can scan:</p>
 <li>Product Lots (The barcode is name field in this case).</li>
 </ol>
 </div>
+<div class="section" id="picking-validation-with-a-barcode-scanner">
+<h2><a class="toc-backref" href="#toc-entry-7">Picking validation with a barcode scanner</a></h2>
+<p><strong>The following example is based on the “Picking IN options”.</strong></p>
+<p>Requirements:</p>
+<ul class="simple">
+<li>Everything is based on the default configuration</li>
+<li>Must have a receipt picking with some products with barcodes</li>
+</ul>
+<p>Follow the steps to validate a picking:</p>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Transfers</em>.</li>
+<li>Open a <strong>receipt</strong> picking.</li>
+<li>Click the “Scan barcodes” smart button.</li>
+<li>The wizard interface to scan barcodes will show.</li>
+<li><dl class="first docutils">
+<dt>Start scanning the barcode of the currently selected product</dt>
+<dd>(Note: Scan the same barcode multiple times to add up quantity)</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt>Repeat for every product in the picking paying attention to the currently selected product</dt>
+<dd>(The one in the yellow box)</dd>
+</dl>
+</li>
+<li>Once it’s all done, click on “Validate”</li>
+</ol>
+</div>
 <div class="section" id="automatic-operation-mode">
-<h2><a class="toc-backref" href="#toc-entry-4">Automatic operation mode</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-8">Automatic operation mode</a></h2>
 <p>This is the default mode, all screen controls are locked to avoid scan into
 fields.</p>
 <p>The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in this
+scanner hardware, the interface read the barcode and do operations in this
 order:</p>
 <ol class="arabic simple">
 <li>Try search a product, if found, is assigned to product_id field and creates
@@ -466,13 +530,13 @@ action will be done with this warehouse location.</li>
 scanning the product.</p>
 </div>
 <div class="section" id="manual-entry-mode">
-<h2><a class="toc-backref" href="#toc-entry-5">Manual entry mode</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-9">Manual entry mode</a></h2>
 <p>You can change to “manual entry” to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be when
+hardware, but hardware scanner still active on, so a use case would be when
 user wants set quantities manually instead increment 1.0 unit peer scan action.</p>
 </div>
 <div class="section" id="scan-logs">
-<h2><a class="toc-backref" href="#toc-entry-6">Scan logs</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-10">Scan logs</a></h2>
 <p>All scanned barcodes are saved into model.
 Barcode scanning interface display 10 last records linked to model, the goal of
 this log is show to user other reads with the same product and location done
@@ -481,7 +545,7 @@ User can remove the last read scan.</p>
 </div>
 </div>
 <div class="section" id="known-issues-roadmap">
-<h1><a class="toc-backref" href="#toc-entry-7">Known issues / Roadmap</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-11">Known issues / Roadmap</a></h1>
 <ul class="simple">
 <li>Excute action_done() method outside onchange environment.</li>
 <li>Allow create product when a barcode has not been found.</li>
@@ -490,23 +554,23 @@ User can remove the last read scan.</p>
 </ul>
 </div>
 <div class="section" id="changelog">
-<h1><a class="toc-backref" href="#toc-entry-8">Changelog</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-12">Changelog</a></h1>
 <div class="section" id="section-1">
-<h2><a class="toc-backref" href="#toc-entry-9">11.0.1.1.0 (2019-09-24)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-13">11.0.1.1.0 (2019-09-24)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature.
 User can uses barcode interface in picking operations.</li>
 </ul>
 </div>
 <div class="section" id="section-2">
-<h2><a class="toc-backref" href="#toc-entry-10">13.0.1.1.1 (2021-02-06)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-14">13.0.1.1.1 (2021-02-06)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature.
 Add option to get lots automatically based on removal strategy in inventory.</li>
 </ul>
 </div>
 <div class="section" id="section-3">
-<h2><a class="toc-backref" href="#toc-entry-11">14.0.1.0.0 (2021-04-05)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-15">14.0.1.0.0 (2021-04-05)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature.
 Add security for users.</li>
@@ -514,7 +578,7 @@ Add security for users.</li>
 </div>
 </div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-12">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-16">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -522,15 +586,15 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-13">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-17">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-14">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-18">Authors</a></h2>
 <ul class="simple">
 <li>Tecnativa</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-15">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-19">Contributors</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
 <li>Sergio Teruel</li>
@@ -554,7 +618,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-16">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-20">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org">
 <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />

@@ -44,6 +44,7 @@ class StockBarcodesOptionGroup(models.Model):
     )
     ignore_filled_fields = fields.Boolean(
         string="Ignore filled fields",
+        help="If checked, already filled fields will be ignored while scanning.",
     )
     auto_put_in_pack = fields.Boolean(
         string="Auto put in pack", help="Auto put in pack before picking validation"
