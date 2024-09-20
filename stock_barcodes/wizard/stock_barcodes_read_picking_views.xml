@@ -116,11 +116,17 @@
                         </templates>
                     </kanban>
                 </field>
-                <field name="todo_line_display_ids" mode="kanban" force_save="1" />
+                <field
+                    name="todo_line_display_ids"
+                    mode="kanban"
+                    force_save="1"
+                    attrs="{'invisible': [('show_all_moves', '=', True)]}"
+                />
             </xpath>
             <field name="location_id" position="before">
                 <field name="picking_type_code" invisible="1" force_save="1" />
                 <field name="picking_id" invisible="1" force_save="1" />
+                <field name="show_all_moves" invisible="1" />
                 <field name="show_detailed_operations" invisible="1" />
             </field>
             <group name="location" position="attributes">
@@ -152,91 +158,41 @@
             </group>
             <group name="scan_fields" position="after">
                 <group
+                    string="All moves"
+                    attrs="{'invisible': [
+                        '|',
+                            ('show_all_moves', '=', False),
+                            ('todo_line_ids', '=', []),
+                    ]}"
+                >
+                    <field
+                        name="todo_line_ids"
+                        options="{'no_open': True, 'always_reload': True}"
+                        context="{'kanban_view_ref':'stock_barcodes.view_stock_barcodes_todo_kanban_multi'}"
+                        nolabel="1"
+                        force_save="1"
+                        mode="kanban"
+                    />
+                </group>
+                <group
                     string="Pending moves"
-                    attrs="{'invisible': [('pending_move_ids', '=', [])]}"
+                    attrs="{'invisible': [
+                        '|',
+                            ('show_all_moves', '=', True),
+                            ('pending_move_ids', '=', [])
+                    ]}"
                 >
                     <field
                         name="pending_move_ids"
                         options="{'no_open': True, 'always_reload': True}"
+                        context="{
+                            'kanban_view_ref':'stock_barcodes.view_stock_barcodes_todo_kanban_embed',
+                            'tree_view_ref':'stock_barcodes.view_stock_barcodes_todo_tree_embed',
+                        }"
                         nolabel="1"
                         force_save="1"
                         mode="tree,kanban"
-                    >
-                        <tree>
-                            <field name="state" invisible="1" />
-                            <field name="product_id" />
-                            <field name="product_uom_qty" />
-                            <field name="line_ids" invisible="1" />
-                            <field
-                                name="lot_id"
-                                groups="stock.group_production_lot"
-                                optional="hide"
-                            />
-                            <field
-                                name="package_id"
-                                groups="stock.group_tracking_lot"
-                                optional="hide"
-                            />
-                            <field name="qty_done" />
-                            <button
-                                name="fill_from_pending_line"
-                                type="object"
-                                class="btn"
-                                icon="fa-upload"
-                                context="{'wiz_barcode_id': parent.id}"
-                            />
-                        </tree>
-                        <kanban class="o_kanban_mobile">
-                            <field name="state" />
-                            <field name="product_id" />
-                            <field name="product_uom_qty" />
-                            <field name="qty_done" />
-                            <templates>
-                                <t t-name="kanban-box">
-                                    <div t-attf-class="oe_kanban_card">
-                                        <div class="row">
-                                            <div class="col-6">
-                                                <strong>
-                                                    <span>
-                                                        <field name="product_id" />
-                                                    </span>
-                                                </strong>
-                                            </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="pull-right text-right text-muted"
-                                                >
-                                                    <field name="product_uom_qty" />
-                                                </span>
-                                            </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="pull-right text-right"
-                                                    t-att-class="qty_done >= product_uom_qty ? 'text-success' : ''"
-                                                >
-                                                    <field name="qty_done" />
-                                                </span>
-                                            </div>
-                                            <div class="col-2 text-right">
-                                                <button
-                                                    name="fill_from_pending_line"
-                                                    type="object"
-                                                    class="btn"
-                                                    context="{'wiz_barcode_id': parent.id}"
-                                                >
-                                                    <i
-                                                        class="fa fa-upload"
-                                                        title="Fill from pencil"
-                                                        style="font-size:1.5em"
-                                                    />
-                                                </button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </t>
-                            </templates>
-                        </kanban>
-                    </field>
+                    />
                 </group>
                 <group
                     string="Detailed operations"

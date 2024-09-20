@@ -22,6 +22,10 @@
                             <field name="confirmed_moves" />
                             <field name="show_pending_moves" />
                             <field
+                                name="show_all_moves"
+                                attrs="{'invisible': [('show_pending_moves', '=', False), ('barcode_guided_mode', '=', False)]}"
+                            />
+                            <field
                                 name="source_pending_moves"
                                 attrs="{'invisible': [('show_pending_moves', '=', False), ('barcode_guided_mode', '=', False)]}"
                             />
