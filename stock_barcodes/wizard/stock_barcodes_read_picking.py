@@ -128,14 +128,15 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if picking_id:
             self._set_candidate_pickings(self.env["stock.picking"].browse(picking_id))
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # When user click any view button the wizard record is create and the
         # picking candidates have been lost, so we need set it.
-        wiz = super().create(vals)
-        if wiz.picking_id:
-            wiz._set_candidate_pickings(wiz.picking_id)
-        return wiz
+        wizards = super().create(vals_list)
+        for wiz in wizards:
+            if wiz.picking_id:
+                wiz._set_candidate_pickings(wiz.picking_id)
+        return wizards
 
     @api.onchange("picking_id")
     def onchange_picking_id(self):
