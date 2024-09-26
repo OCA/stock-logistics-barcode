@@ -674,11 +674,12 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.visible_force_done = False
         return res
 
-    @api.model
-    def create(self, vals):
-        wiz = super().create(vals)
-        wiz.action_show_step()
-        return wiz
+    @api.model_create_multi
+    def create(self, vals_list):
+        wizards = super().create(vals_list)
+        for wiz in wizards:
+            wiz.action_show_step()
+        return wizards
 
     def action_manual_quantity(self):
         action = self.get_formview_action()
