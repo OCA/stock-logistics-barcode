@@ -28,7 +28,7 @@ addon | version | maintainers | summary
 [product_supplierinfo_barcode](product_supplierinfo_barcode/) | 15.0.1.1.0 | [![eLBati](https://github.com/eLBati.png?size=30px)](https://github.com/eLBati) | Add a barcode to supplier pricelist items
 [stock_barcodes](stock_barcodes/) | 15.0.3.1.5 |  | It provides read barcode on stock operations.
 [stock_barcodes_elaboration](stock_barcodes_elaboration/) | 15.0.1.0.0 |  | Extends barcode reader module to show elaboration infointo secondary unit data.
-[stock_barcodes_gs1](stock_barcodes_gs1/) | 15.0.3.1.0 |  | It provides read GS1 barcode on stock operations.
+[stock_barcodes_gs1](stock_barcodes_gs1/) | 15.0.3.1.1 |  | It provides read GS1 barcode on stock operations.
 [stock_barcodes_gs1_expiry](stock_barcodes_gs1_expiry/) | 15.0.1.0.0 |  | It provides read expiry dates from GS1 barcode on stock operations.
 [stock_barcodes_gs1_secondary_unit](stock_barcodes_gs1_secondary_unit/) | 15.0.1.0.2 |  | It provides read package from GS1 barcode stored into secondary unit data.
 [stock_barcodes_picking_batch](stock_barcodes_picking_batch/) | 15.0.1.0.1 |  | It provides read barcodes on stock operations from batch pickings.
