@@ -48,6 +48,14 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertEqual(self.wiz_scan.product_qty, 15.0)
         self.wiz_scan.manual_entry = False
 
+        # Force more than one package with the same lot
+        self.product_wo_tracking.packaging_ids.barcode = "5420008510489"
+        self.action_barcode_scanned(self.wiz_scan, "5420008510489")
+        self.assertEqual(
+            self.wiz_scan.message,
+            "5420008510489 (More than one package found)",
+        )
+
     def test_wizard_scan_lot(self):
         self.wiz_scan.location_id = self.location_1.id
         self.wiz_scan.action_show_step()

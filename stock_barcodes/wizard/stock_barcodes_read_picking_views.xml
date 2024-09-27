@@ -135,6 +135,7 @@
                 <field name="picking_location_id" invisible="1" />
                 <field name="picking_location_dest_id" invisible="1" />
                 <field name="company_id" invisible="1" />
+                <field name="todo_line_is_extra_line" invisible="1" />
             </field>
             <field name="location_id" position="attributes">
                 <attribute
@@ -165,6 +166,12 @@
                     />
                 </div>
             </group>
+            <group name="scan_fields" position="attributes">
+                <!--  hide group scan_fields for extra todo lines -->
+                <attribute
+                    name="attrs"
+                >{'invisible': [('todo_line_is_extra_line', '!=', False)]}</attribute>
+            </group>
             <group name="scan_fields" position="after">
                 <group
                     string="Pending moves"
@@ -179,11 +186,14 @@
                         force_save="1"
                         mode="tree,kanban"
                     >
-                        <tree>
+                        <tree decoration-warning="is_extra_line">
                             <field name="state" invisible="1" />
+                            <field name="is_extra_line" invisible="1" />
                             <field name="product_id" />
                             <field name="product_uom_qty" />
                             <field name="line_ids" invisible="1" />
+                            <field name="location_id" optional="hide" />
+                            <field name="location_dest_id" optional="hide" />
                             <field
                                 name="lot_id"
                                 groups="stock.group_production_lot"
@@ -222,14 +232,14 @@
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="pull-right text-end text-muted"
+                                                    class="float-end text-end text-muted"
                                                 >
                                                     <field name="product_uom_qty" />
                                                 </span>
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="pull-right text-end"
+                                                    class="float-end text-end"
                                                     t-att-class="qty_done &gt;= product_uom_qty ? 'text-success' : ''"
                                                 >
                                                     <field name="qty_done" />
@@ -330,7 +340,7 @@
                                             </div>
                                             <div class="col-2">
                                                 <span
-                                                    class="fw-bold text-end pull-right"
+                                                    class="fw-bold text-end float-end"
                                                 >
                                                     <field name="qty_done" />
                                                 </span>
