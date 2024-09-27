@@ -3,6 +3,7 @@
 import logging
 
 from odoo import _, api, fields, models
+from odoo.tools import float_round
 
 _logger = logging.getLogger(__name__)
 
@@ -64,9 +65,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         comodel_name="stock.barcodes.action", compute="_compute_action_ids"
     )
     option_group_id = fields.Many2one(comodel_name="stock.barcodes.option.group")
-    visible_force_done = fields.Boolean(
-        compute="_compute_visible_force_done", store=True, readonly=False
-    )
+    visible_force_done = fields.Boolean()
     step = fields.Integer()
     is_manual_qty = fields.Boolean(compute="_compute_is_manual_qty")
     is_manual_confirm = fields.Boolean(compute="_compute_is_manual_qty")
@@ -134,6 +133,22 @@ class WizStockBarcodesRead(models.AbstractModel):
             domain_quant, ["quantity"], [], orderby="id"
         )
         self.qty_available = groups[0]["quantity"]
+        # Unexpected done quantities must reduce qty_available
+        if self.lot_id:
+            done_move_lines = self.move_line_ids.filtered(
+                lambda m: m.product_id == self.product_id and m.lot_id == self.lot_id
+            )
+        else:
+            done_move_lines = self.move_line_ids.filtered(
+                lambda m: m.product_id == self.product_id
+            )
+        for sml in done_move_lines:
+            over_done_qty = float_round(
+                sml.qty_done - sml.reserved_uom_qty,
+                precision_rounding=sml.product_uom_id.rounding,
+            )
+            if over_done_qty > 0.0:
+                self.qty_available -= over_done_qty
 
     @api.depends("product_id")
     def _compute_display_assign_serial(self):
@@ -150,7 +165,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.packaging_id:
             self.product_qty = self.packaging_qty * self.packaging_id.qty
 
-    @api.depends(
+    @api.onchange(
         "product_id",
         "lot_id",
         "package_id",
@@ -158,7 +173,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         "packaging_qty",
         "product_qty",
     )
-    def _compute_visible_force_done(self):
+    def onchange_visible_force_done(self):
         self.visible_force_done = False
 
     def _set_messagge_info(self, message_type, message):
@@ -253,6 +268,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                             "more_match",
                             _("No stock available for this lot with screen values"),
                         )
+                        self.lot_id = False
+                        self.lot_name = False
                         return False
                     if quants:
                         self.set_info_from_quants(quants)
@@ -366,8 +383,15 @@ class WizStockBarcodesRead(models.AbstractModel):
     def process_barcode_packaging_id(self):
         domain = self._barcode_domain(self.barcode)
         if self.env.user.has_group("product.group_stock_packaging"):
+            domain.append(("product_id", "!=", False))
             packaging = self.env["product.packaging"].search(domain)
             if packaging:
+                if len(packaging) > 1:
+                    self._set_messagge_info(
+                        "more_match", _("More than one package found")
+                    )
+                    self.packaging_id = False
+                    return False
                 self.action_packaging_scaned_post(packaging)
                 return True
         return False
@@ -389,14 +413,15 @@ class WizStockBarcodesRead(models.AbstractModel):
             option_func = getattr(self, "process_barcode_%s" % option.field_name, False)
             if option_func:
                 res = option_func()
-                if option.required:
-                    self.play_sounds(res)
                 if res:
                     barcode_found = True
+                    self.play_sounds(barcode_found)
                     break
                 elif self.message_type != "success":
+                    self.play_sounds(False)
                     return False
         if not barcode_found:
+            self.play_sounds(barcode_found)
             if self.option_group_id.ignore_filled_fields:
                 self._set_messagge_info(
                     "info", _("Barcode not found or field already filled")
@@ -721,10 +746,13 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_confirm(self):
         if not self.check_option_required():
+            self.play_sounds(False)
             return False
+        record = self.browse(self.ids)
+        record.write(self._convert_to_write(self._cache))
+        self = record
         res = self.action_done()
-        # self.invalidate_recordset()
-        self.refresh_data()
+        self.invalidate_recordset()
         self.play_sounds(res)
         self._set_focus_on_qty_input()
         return res
@@ -829,8 +857,3 @@ class WizStockBarcodesRead(models.AbstractModel):
                 "stock_barcodes_notify-{}".format(self.ids[0]),
                 message,
             )
-
-    def refresh_data(self):
-        self.env["bus.bus"]._sendone(
-            "barcode_reload", "stock_barcodes_refresh_data", {}
-        )
