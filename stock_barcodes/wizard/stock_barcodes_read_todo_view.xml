@@ -20,11 +20,13 @@
                 <field name="qty_done" />
                 <field name="line_ids" invisible="1" />
                 <field name="state" />
+                <field name="is_extra_line" />
+                <field name="is_stock_move_line_origin" />
                 <templates>
                     <t t-name="kanban-box">
                         <div
                             t-attf-class="oe_kanban_content "
-                            style="background-color: #FFF8DC;"
+                            t-attf-style="background-color: {{record.is_extra_line.raw_value == true and '#ffd683' or '#f0f9fb'}};"
                         >
                             <div class="row">
                                 <div class="col">
@@ -103,6 +105,10 @@
                                             t-esc="record.product_uom_qty.value"
                                         /> <t t-esc="record.uom_id.value.slice(0,3)" />
                                     </span>
+                                    <strong
+                                        class="bg-danger"
+                                        t-if="record.is_extra_line.raw_value == true"
+                                    >NOT AVAILABLE</strong>
                                 </div>
                             </div>
                             <div name="action" class="row">
@@ -135,8 +141,9 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': [('qty_done', '=', 0.0)]} "
-                                    >Ignore rest
+                                        attrs="{'invisible': ['|','|', ('qty_done', '=', 0.0), ('is_extra_line', '=', True), ('is_stock_move_line_origin', '=', False)]} "
+                                    >
+                                    Ignore rest
                                     </button>
                                     <!-- Ask for confirmation when we've got done quantities to avoid squashing quantities -->
                                     <button
@@ -145,7 +152,7 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': [('qty_done', '!=', 0.0)]} "
+                                        attrs="{'invisible': ['|', '|', ('qty_done', '!=', 0.0), ('is_extra_line', '=', True), ('is_stock_move_line_origin', '=', False)]} "
                                         confirm="You have not set any quantity to this operation and it will be removed from pending moves. Are you sure?"
                                     >Ignore rest
                                     </button>
@@ -160,6 +167,42 @@
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="4"
                                     />
+                                </div>
+                            </div>
+                            <div name="action_extra" class="row mt-2">
+                                <div class="col-12">
+                                    <button
+                                        name="action_todo_next"
+                                        type="object"
+                                        class="btn btn-warning float-end btn-sm"
+                                        context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'pending'}"
+                                        data-hotkey="3"
+                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                        confirm="This move will be set to pending. Are you sure?"
+                                    >
+                                    Restore to pending
+                                    </button>
+                                    <button
+                                        name="action_todo_next"
+                                        type="object"
+                                        class="btn btn-danger float-end btn-sm me-5"
+                                        context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'skip_backorder'}"
+                                        data-hotkey="3"
+                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                        confirm="Odoo will not create a backorder for this move. Are you sure?"
+                                    >
+                                    No Backorder
+                                    </button>
+                                    <button
+                                        name="action_todo_next"
+                                        type="object"
+                                        class="btn btn-primary float-end btn-sm me-3"
+                                        context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'create_backorder'}"
+                                        data-hotkey="3"
+                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                    >
+                                    Create Backorder
+                                    </button>
                                 </div>
                             </div>
                         </div>

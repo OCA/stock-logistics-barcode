@@ -1,11 +1,13 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
+from collections import OrderedDict, defaultdict
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.fields import first
 from odoo.tools.float_utils import float_compare
+from odoo.tools.safe_eval import safe_eval
 
 _logger = logging.getLogger(__name__)
 
@@ -74,6 +76,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_location_id = fields.Many2one(related="picking_id.location_id")
     picking_location_dest_id = fields.Many2one(related="picking_id.location_dest_id")
     company_id = fields.Many2one(related="picking_id.company_id")
+    todo_line_is_extra_line = fields.Boolean(related="todo_line_id.is_extra_line")
+    forced_todo_key = fields.Char()
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -85,6 +89,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.option_group_id.show_pending_moves:
             self.pending_move_ids = self.todo_line_ids.filtered(
                 lambda t: t.state == "pending"
+                and any(
+                    sm.barcode_backorder_action == "pending" for sm in t.stock_move_ids
+                )
             )
         else:
             self.pending_move_ids = False
@@ -144,8 +151,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         # view, so for create a candidate picking with the same default picking
         # we need create it in this onchange
         self._set_default_picking()
-        self.determine_todo_action()
         self.fill_pending_moves()
+        self.determine_todo_action()
 
     def get_sorted_move_lines(self, move_lines):
         location_field = self.option_group_id.location_field_to_sort
@@ -178,17 +185,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def _get_stock_move_lines_todo(self):
         move_lines = self.picking_id.move_line_ids.filtered(
             lambda ml: (not ml.barcode_scan_state or ml.barcode_scan_state == "pending")
-            and ml.qty_done < ml.product_qty
+            and ml.qty_done < ml.reserved_qty
         )
         return move_lines
 
     def fill_pending_moves(self):
-        if (
-            self.option_group_id.barcode_guided_mode != "guided"
-            and self.option_group_id.show_pending_moves
-            and not self.todo_line_ids
-        ):
-            self.fill_todo_records()
+        # TODO: Unify method
+        self.fill_todo_records()
 
     def get_moves_or_move_lines(self):
         if self.option_group_id.source_pending_moves == "move_line_ids":
@@ -196,9 +199,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         else:
             return self.picking_id.move_ids
 
+    def get_moves(self):
+        return self.picking_id.move_ids
+
     def fill_todo_records(self):
         move_lines = self.get_sorted_move_lines(self.get_moves_or_move_lines())
-        self.env["wiz.stock.barcodes.read.todo"].fill_records(self, [move_lines])
+        self.fill_records([move_lines])
 
     @api.model
     def _get_fields_filled_special(self):
@@ -214,12 +220,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.visible_force_done = self.env.context.get("visible_force_done", False)
         if not self.option_group_id.barcode_guided_mode == "guided":
             return False
-        if not self.todo_line_ids:
-            self.fill_todo_records()
-        # When scanning all information in one step (e.g. using GS-1), the
-        # status and qty processed might have not been update, we ensure it
-        # invalidating the cache.
-        self.todo_line_ids.invalidate_recordset()
         self.todo_line_id = (
             forced_todo_line
             or self.todo_line_ids.filtered(lambda t: t._origin.state == "pending")[:1]
@@ -277,11 +277,33 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if not self.keep_screen_values or self.todo_line_id.state != "pending":
                     if not self.env.context.get("skip_clean_values", False):
                         self.action_clean_values()
-                    self.determine_todo_action()
+                    keep_vals = {}
                 else:
-                    self.action_show_step()
+                    keep_vals = self._convert_to_write(self._cache)
+                self.fill_todo_records()
+                if self.forced_todo_key:
+                    self.todo_line_id = self.pending_move_ids.filtered(
+                        lambda ln: str(self._group_key(ln)) == self.forced_todo_key
+                    )[:1]
+                    self.selected_pending_move_id = self.todo_line_id
+                    self.determine_todo_action(self.todo_line_id)
+                else:
+                    self.determine_todo_action()
+                self.action_show_step()
+                if keep_vals:
+                    self.update_keep_values(keep_vals)
+            # Force refresh candidate pickings to show green if not pending moves
+            if not self.pending_move_ids:
+                self._set_candidate_pickings(self.picking_id)
             return move_dic
         return res
+
+    def update_keep_values(self, keep_vals):
+        options = self.option_group_id.option_ids
+        fields_to_keep = options.filtered(
+            lambda op: self._fields[op.field_name].type != "float"
+        ).mapped("field_name")
+        self.update({f_name: keep_vals[f_name] for f_name in fields_to_keep})
 
     def action_manual_entry(self):
         result = super().action_manual_entry()
@@ -333,11 +355,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _prepare_stock_moves_domain(self):
         domain = [
+            ("product_id", "=", self.product_id.id),
             ("picking_id.picking_type_id.code", "=", self.picking_type_code),
             ("state", "in", self._states_move_allowed()),
         ]
-        if self.product_id:
-            domain.append(("product_id", "=", self.product_id.id))
         if self.picking_id:
             domain.append(("picking_id", "=", self.picking_id.id))
         return domain
@@ -613,13 +634,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # link this new lines to the todo line details
             # If user scan a product distinct of the todo line we need link to other
             # alternative move
-            if move_to_link_in_todo_line and self.todo_line_id:
-                todo_line = self.todo_line_id
-            else:
-                todo_line = self.todo_line_ids.filtered(
-                    lambda ln: ln.product_id == self.product_id
-                )
-            todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
+            if self.option_group_id.source_pending_moves != "move_line_ids":
+                if move_to_link_in_todo_line and self.todo_line_id:
+                    todo_line = self.todo_line_id
+                else:
+                    todo_line = self.todo_line_ids.filtered(
+                        lambda ln: ln.product_id == self.product_id
+                    )
+                todo_line.line_ids = [(4, sml.id) for sml in stock_move_lines]
         self.update_fields_after_process_stock(moves_todo)
         return move_lines_dic
 
@@ -773,6 +795,155 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             return bool(self.location_dest_id)
         return super()._option_required_hook(option_required)
+
+    def _group_key(self, line):
+        group_key_for_todo_records = self.option_group_id.group_key_for_todo_records
+        if group_key_for_todo_records:
+            return safe_eval(group_key_for_todo_records, globals_dict={"object": line})
+        if self.option_group_id.source_pending_moves == "move_line_ids":
+            return (
+                line.location_id.id,
+                line.product_id.id,
+                line.lot_id.id,
+                line.package_id.id,
+            )
+        else:
+            return (line.location_id.id, line.product_id.id)
+
+    def _get_all_products_quantities_in_package(self, package):
+        res = {}
+        # TODO: Check if domain is applied and we must recover _get_contained_quants
+        for quant in package.quant_ids:
+            if quant.product_id not in res:
+                res[quant.product_id] = 0
+            res[quant.product_id] += quant.quantity
+        return res
+
+    def _prepare_fill_record_values(self, line, position):
+        vals = {
+            "wiz_barcode_id": self.id,
+            "product_id": line.product_id.id,
+            "name": "To do action",
+            "position_index": position,
+            "picking_code": line.picking_code,
+        }
+        if line._name == "stock.move.line":
+            package_product_dic = self._get_all_products_quantities_in_package(
+                line.package_id
+            )
+            vals.update(
+                {
+                    "location_id": line.location_id.id,
+                    "location_dest_id": line.location_dest_id.id,
+                    "lot_id": line.lot_id.id,
+                    "package_id": line.package_id.id,
+                    "result_package_id": line.result_package_id.id,
+                    "uom_id": line.product_uom_id.id,
+                    "product_uom_qty": line.reserved_uom_qty,
+                    "product_qty_reserved": line.reserved_qty,
+                    "line_ids": [(6, 0, line.ids)],
+                    "stock_move_ids": [(6, 0, line.move_id.ids)],
+                    "package_product_qty": package_product_dic
+                    and package_product_dic[line.product_id]
+                    or 0.0,
+                    "is_stock_move_line_origin": True,
+                }
+            )
+        else:
+            vals.update(
+                {
+                    "location_id": (line.move_line_ids[:1] or line).location_id.id,
+                    "location_dest_id": (
+                        line.move_line_ids[:1] or line
+                    ).location_dest_id.id,
+                    "uom_id": line.product_uom.id,
+                    "product_uom_qty": line.product_uom_qty,
+                    "product_qty_reserved": line.move_line_ids
+                    # TODO: Use reserved_qty or reserved_uom_qty
+                    and sum(line.move_line_ids.mapped("reserved_qty"))
+                    or line.product_uom_qty,
+                    "line_ids": [(6, 0, line.move_line_ids.ids)],
+                    "stock_move_ids": [(6, 0, line.ids)],
+                    "is_stock_move_line_origin": False,
+                }
+            )
+        return vals
+
+    def _update_fill_record_values(self, line, vals):
+        if vals["is_stock_move_line_origin"]:
+            vals["product_uom_qty"] += line.reserved_uom_qty
+            vals["product_qty_reserved"] += line.reserved_qty
+            vals["line_ids"][0][2].append(line.id)
+            vals["stock_move_ids"][0][2].append(line.move_id.id)
+        else:
+            vals["product_uom_qty"] += line.product_uom_qty
+            vals["product_qty_reserved"] += (
+                line.move_line_ids
+                # TODO: Use reserved_qty or reserved_uom_qty
+                and sum(line.move_line_ids.mapped("reserved_qty"))
+                or line.product_uom_qty
+            )
+            vals["line_ids"][0][2].extend(line.move_line_ids.ids)
+            vals["stock_move_ids"][0][2].extend(line.ids)
+        return vals
+
+    @api.model
+    def fill_records(self, lines_list):
+        """
+        :param lines_list: browse list
+        :return:
+        """
+        self.forced_todo_key = str(
+            self._group_key(self.todo_line_id or self.selected_pending_move_id)
+        )
+        self.todo_line_ids.unlink()
+        self.todo_line_id = False
+        # self.position_index = 0
+        todo_vals = OrderedDict()
+        position = 0
+        move_qty_dic = defaultdict(float)
+        is_stock_move_line_origin = lines_list[0]._name == "stock.move.line"
+        for lines in lines_list:
+            for line in lines:
+                key = self._group_key(line)
+                if key not in todo_vals:
+                    todo_vals[key] = self._prepare_fill_record_values(line, position)
+                    position += 1
+                else:
+                    todo_vals[key] = self._update_fill_record_values(
+                        line, todo_vals[key]
+                    )
+                if is_stock_move_line_origin:
+                    move_qty_dic[line.move_id] += max(
+                        line.reserved_uom_qty, line.qty_done
+                    )
+                else:
+                    move_qty_dic[line] += max(line.product_uom_qty, line.quantity_done)
+        for move in self.get_moves():
+            qty = move_qty_dic[move]
+            if (
+                move.barcode_backorder_action == "pending"
+                and move.product_uom_qty > qty
+            ):
+                vals = self._prepare_fill_record_values(move, position)
+                vals.update(
+                    {
+                        "product_uom_qty": move.product_uom_qty - qty,
+                        "product_qty_reserved": 0.0,
+                        "line_ids": False,
+                        "is_extra_line": True,
+                    }
+                )
+                todo_vals[
+                    (
+                        move,
+                        "M",
+                    )
+                ] = vals
+                position += 1
+        self.todo_line_ids = self.env["wiz.stock.barcodes.read.todo"].create(
+            list(todo_vals.values())
+        )
 
 
 class WizCandidatePicking(models.TransientModel):
