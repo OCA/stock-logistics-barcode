@@ -258,6 +258,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                             "more_match",
                             _("No stock available for this lot with screen values"),
                         )
+                        self.lot_id = False
+                        self.lot_name = False
                         return False
                     if quants:
                         self.set_info_from_quants(quants)
@@ -371,12 +373,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     def process_barcode_packaging_id(self):
         domain = self._barcode_domain(self.barcode)
         if self.env.user.has_group("product.group_stock_packaging"):
+            domain.append(("product_id", "!=", False))
             packaging = self.env["product.packaging"].search(domain)
             if packaging:
                 if len(packaging) > 1:
                     self._set_messagge_info(
                         "more_match", _("More than one package found")
                     )
+                    self.packaging_id = False
                     return False
                 self.action_packaging_scaned_post(packaging)
                 return True
@@ -399,14 +403,15 @@ class WizStockBarcodesRead(models.AbstractModel):
             option_func = getattr(self, "process_barcode_%s" % option.field_name, False)
             if option_func:
                 res = option_func()
-                if option.required:
-                    self.play_sounds(res)
                 if res:
                     barcode_found = True
+                    self.play_sounds(barcode_found)
                     break
                 elif self.message_type != "success":
+                    self.play_sounds(False)
                     return False
         if not barcode_found:
+            self.play_sounds(barcode_found)
             if self.option_group_id.ignore_filled_fields:
                 self._set_messagge_info(
                     "info", _("Barcode not found or field already filled")
@@ -749,6 +754,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_confirm(self):
         if not self.check_option_required():
+            self.play_sounds(False)
             return False
         record = self.browse(self.ids)
         record.write(self._convert_to_write(self._cache))
@@ -839,7 +845,9 @@ class WizStockBarcodesRead(models.AbstractModel):
          options.
          sticky: Permanent notification until user removes it
         """
-        if self.option_group_id.display_notification:
+        if self.option_group_id.display_notification and not self.env.context.get(
+            "skip_display_notification", False
+        ):
             message = {"message": message, "type": message_type, "sticky": sticky}
             if title:
                 message["title"] = title
