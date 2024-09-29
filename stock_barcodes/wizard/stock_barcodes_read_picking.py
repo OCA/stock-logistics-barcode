@@ -478,6 +478,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         domain = self._prepare_stock_moves_domain()
         if self.option_group_id.barcode_guided_mode == "guided":
             moves_todo = self.todo_line_id.stock_move_ids
+        elif self.picking_id:
+            moves_todo = self.picking_id.move_lines.filtered(
+                lambda sm: sm.product_id == self.product_id
+            )
         else:
             moves_todo = StockMove.search(domain)
         if not getattr(
