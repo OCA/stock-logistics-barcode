@@ -18,7 +18,7 @@ class StockPicking(models.Model):
         }
         if self.picking_type_id.code == "outgoing":
             vals["location_dest_id"] = self.location_dest_id.id
-        if self.picking_type_id.code == "incoming":
+        elif self.picking_type_id.code == "incoming":
             vals["location_id"] = self.location_id.id
 
         if option_group.get_option_value("location_id", "filled_default"):
@@ -47,7 +47,6 @@ class StockPicking(models.Model):
         )
         if put_in_pack_picks:
             put_in_pack_picks.action_put_in_pack()
-        # Variable initialized as True to optimize break loop
         if self.env.context.get("stock_barcodes_validate_picking", False):
             res = super(
                 StockPicking, self.with_context(skip_backorder=True)
