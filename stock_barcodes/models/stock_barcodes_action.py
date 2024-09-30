@@ -43,7 +43,7 @@ class StockBarcodesAction(models.Model):
         }
         if option_group.get_option_value("location_id", "filled_default"):
             vals["location_id"] = (
-                self.env["stock.warehouse"].search([])[:1].lot_stock_id.id
+                self.env["stock.warehouse"].search([], limit=1).lot_stock_id.id
             )
         wiz = self.env["wiz.stock.barcodes.read.inventory"].create(vals)
         action = self.env["ir.actions.actions"]._for_xml_id(
