@@ -413,6 +413,17 @@
                         </div>
                         <!-- HACK: To avoid inheritance crash -->
                         <button name="action_manual_entry" invisible="1" />
+                        <!-- Hide button in view to allow do onclick in JS. Use d-none instead of
+                             invisible attribute to be allocated by jquery selector
+                         -->
+                        <button
+                            name="dummy_on_barcode_scanned"
+                            id="dummy_on_barcode_scanned"
+                            type="object"
+                            data-hotkey="99"
+                            invisible="0"
+                            class="d-none"
+                        />
                         <!-- // -->
                         <button
                             name="action_clean_values"
