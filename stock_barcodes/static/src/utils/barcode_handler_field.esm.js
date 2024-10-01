@@ -9,6 +9,7 @@ patch(BarcodeHandlerField.prototype, "stock_barcodes.BarcodeHandlerField", {
     setup() {
         this._super(...arguments);
         const busService = useService("bus_service");
+        this.orm = useService("orm");
         const notifyChanges = async ({detail: notifications}) => {
             for (const {payload, type} of notifications) {
                 if (type === "stock_barcodes_refresh_data") {
@@ -25,5 +26,11 @@ patch(BarcodeHandlerField.prototype, "stock_barcodes.BarcodeHandlerField", {
                 busService.removeEventListener("notification", notifyChanges);
             };
         });
+    },
+    onBarcodeScanned(event) {
+        this._super(...arguments);
+        if (this.props.record.resModel.includes("wiz.stock.barcodes.read")) {
+            $("#dummy_on_barcode_scanned").click();
+        }
     },
 });
