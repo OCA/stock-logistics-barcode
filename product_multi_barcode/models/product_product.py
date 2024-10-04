@@ -55,7 +55,7 @@ class ProductProduct(models.Model):
     def _search(self, domain, *args, **kwargs):
         for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
             domain = self._get_barcode_domain(sub_domain, domain)
-        return super(ProductProduct, self)._search(domain, *args, **kwargs)
+        return super()._search(domain, *args, **kwargs)
 
     def _get_barcode_domain(self, sub_domain, domain):
         barcode_operator = sub_domain[1]
@@ -64,9 +64,11 @@ class ProductProduct(models.Model):
             [("name", barcode_operator, barcode_value)]
         )
         domain = [
-            ("barcode_ids", "in", barcodes.ids)
-            if x[0] == "barcode" and x[2] == barcode_value
-            else x
+            (
+                ("barcode_ids", "in", barcodes.ids)
+                if x[0] == "barcode" and x[2] == barcode_value
+                else x
+            )
             for x in domain
         ]
         return domain

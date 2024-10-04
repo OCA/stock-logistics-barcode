@@ -33,8 +33,8 @@ class TestProductMultiBarcode(TransactionCase):
         # Insert duplicated EAN13
         with self.assertRaisesRegex(
             ValidationError,
-            'The Barcode "%(barcode)s" already exists for product "%(product)s"'
-            % {"barcode": self.valid_barcode_1, "product": self.product_1.name},
+            f'The Barcode "{self.valid_barcode_1}s" already exists for product '
+            + f'"{self.product_1.name}s"',
         ):
             self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
 
