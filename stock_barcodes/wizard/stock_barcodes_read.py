@@ -662,20 +662,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_manual_entry(self):
         return True
 
-    def _prepare_scan_log_values(self, log_detail=False):
-        return {
-            "name": self.barcode,
-            "location_id": self.location_id.id,
-            "product_id": self.product_id.id,
-            "packaging_id": self.packaging_id.id,
-            "lot_id": self.lot_id.id,
-            "packaging_qty": self.packaging_qty,
-            "product_qty": self.product_qty,
-            "manual_entry": self.manual_entry,
-            "res_model_id": self.res_model_id.id,
-            "res_id": self.res_id,
-        }
-
     # TODO: To remove when stock_move_location uses action_clean_values
     def reset_qty(self):
         self.product_qty = 0
