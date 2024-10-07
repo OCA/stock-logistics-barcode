@@ -715,38 +715,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return False
         return res
 
-    def _prepare_scan_log_values(self, log_detail=False):
-        # Store in read log line each line added with the quantities assigned
-        vals = super()._prepare_scan_log_values(log_detail=log_detail)
-        vals["picking_id"] = self.picking_id.id
-        if log_detail:
-            vals["log_line_ids"] = [
-                (0, 0, {"move_line_id": x[0], "product_qty": x[1]})
-                for x in log_detail.items()
-            ]
-        return vals
-
-    def remove_scanning_log(self, scanning_log):
-        for log in scanning_log:
-            for log_scan_line in log.log_line_ids:
-                sml = log_scan_line.move_line_id
-                if sml.state not in ["draft", "assigned", "confirmed"]:
-                    raise ValidationError(
-                        _(
-                            "You cannot remove an entry linked to a operation "
-                            "in state new, assigned or confirmed"
-                        )
-                    )
-                qty = sml.qty_done - log_scan_line.product_qty
-                log_scan_line.move_line_id.qty_done = max(qty, 0.0)
-                if sml.state == "draft" and sml.move_id.quantity_done == 0.0:
-                    # This move has been created by the last scan, remove it.
-                    sml.move_id.unlink()
-            self.picking_product_qty = sum(
-                log.log_line_ids.mapped("move_line_id.move_id.quantity_done")
-            )
-            log.unlink()
-
     def get_lot_by_removal_strategy(self):
         quants = first(
             self.env["stock.quant"]._gather(self.product_id, self.location_id)
