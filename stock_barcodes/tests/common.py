@@ -162,3 +162,6 @@ class TestCommonStockBarcodes(TransactionCase):
     def action_barcode_scanned(self, wizard, barcode):
         wizard._barcode_scanned = barcode
         wizard._on_barcode_scanned()
+        # Method to call all methods outside of onchange environment for pickings read
+        if wizard._name != "wiz.stock.barcodes.new.lot":
+            wizard.dummy_on_barcode_scanned()
