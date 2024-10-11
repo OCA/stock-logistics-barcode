@@ -82,6 +82,7 @@ class TestBarcodesGeneratorAbstract(TransactionCase, FakeModelLoader):
         self.user_fake.generate_barcode()
         self.assertEqual(self.user_fake.barcode, "2000001000007")
 
+        self.user_fake.barcode_base = False
         self.user_fake.generate_base()
         self.assertEqual(self.user_fake.barcode_base, 2)
         self.user_fake.generate_barcode()
