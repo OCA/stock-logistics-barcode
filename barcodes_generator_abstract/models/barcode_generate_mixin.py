@@ -38,7 +38,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
             rule = rec.barcode_rule_id
             if rule and rule.generate_automate and rule.generate_type == "sequence":
                 rec.generate_base()
-                rec.generate_barcode()
+                if not rec.barcode:
+                    rec.generate_barcode()
         return records
 
     def write(self, vals):
@@ -50,7 +51,8 @@ class BarcodeGenerateMixin(models.AbstractModel):
             if rule.generate_automate and rule.generate_type == "sequence":
                 for rec in self:
                     rec.generate_base()
-                    rec.generate_barcode()
+                    if not rec.barcode:
+                        rec.generate_barcode()
         return res
 
     # View Section
