@@ -1,0 +1,13 @@
+/* Copyright 2024 Tecnativa - Carlos Roca
+   Copyright 2024 Tecnativa - Sergio Teruel
+   License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). */
+.o_boolean_toggle_big input.form-check-input {
+    width: 4em;
+    height: 2em;
+}
+
+.text-white {
+    .o_boolean_toggle_big input.form-check-input {
+        border-color: white;
+    }
+}
