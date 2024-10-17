@@ -7,6 +7,7 @@ from odoo import fields, models
 class BarcodesMultilineDemoWizard(models.TransientModel):
     _name = "barcodes_multiline.demo_wizard"
     _inherit = "barcodes.barcode_events_mixin"
+    _description = "Barcodes Multiline Demo Wizard"
 
     text = fields.Text()
 

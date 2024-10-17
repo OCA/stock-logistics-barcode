@@ -7,18 +7,17 @@ odoo.define("barcodes_multiline.tour", function (require) {
     var _t = core._t;
 
     tour.register(
-        "barcodes_multiline.tour",
+        "barcodes_multiline_tour",
         {
+            test: true,
             url: "/web",
         },
         [
-            tour.STEPS.MENU_MORE,
+            tour.stepUtils.showAppsMenuItem(),
             {
                 content: _t("Go to Settings."),
-                trigger:
-                    '.o_app[data-menu-xmlid="base.menu_administration"], ' +
-                    '.oe_menu_toggler[data-menu-xmlid="base.menu_administration"]',
-                position: "bottom",
+                trigger: 'a[data-menu-xmlid="base.menu_administration"]',
+                run: "click",
             },
             {
                 content: _t("Edit barcode-sensitive Odoo record."),
