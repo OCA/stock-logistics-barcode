@@ -294,6 +294,7 @@ class TestStockBarcodesPicking(TestStockBarcodes):
         self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
             "stock.removal_lifo"
         )
+        self.wiz_scan_picking_out.action_clean_values()
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
         self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_3)
 

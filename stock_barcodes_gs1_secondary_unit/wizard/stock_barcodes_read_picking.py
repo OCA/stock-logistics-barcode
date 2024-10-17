@@ -1,6 +1,7 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 from odoo import api, fields, models
+from odoo.tools import float_compare
 
 
 class WizStockBarcodesReadPicking(models.TransientModel):
@@ -51,3 +52,31 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 line.secondary_uom_qty + self.secondary_uom_qty
             )
         return super()._update_stock_move_line(line, sml_vals)
+
+    def _prepare_fill_record_values(self, line, position):
+        vals = super()._prepare_fill_record_values(line, position)
+        vals["secondary_uom_id"] = line.secondary_uom_id.id
+        if line._name == "stock.move.line":
+            move = line.move_id
+            # Set secondary qty when stock.move full match with stock.move.line
+            if not (move.move_line_ids - line) and not float_compare(
+                move.product_uom_qty,
+                line.product_uom_qty,
+                precision_rounding=line.product_uom_id.rounding,
+            ):
+                vals["secondary_uom_qty"] = move.secondary_uom_qty
+        elif line._name == "stock.move":
+            # Set secondary qty when stock.move all quantity is available
+            if not float_compare(
+                line.reserved_availability,
+                line.product_uom_qty,
+                precision_rounding=line.product_uom.rounding,
+            ):
+                vals["secondary_uom_qty"] = line.secondary_uom_qty
+        return vals
+
+    def _group_key(self, line):
+        key = super()._group_key(line)
+        if not self.option_group_id.group_key_for_todo_records:
+            key += (line.secondary_uom_id.id,)
+        return key

@@ -26,17 +26,15 @@ class StockPickingType(models.Model):
             "picking_mode": "picking",
         }
         if self.code == "outgoing":
-            location_dest_id = (
+            vals["location_dest_id"] = (
                 self.default_location_dest_id.id
                 or self.env.ref("stock.stock_location_customers").id
             )
-            vals["location_dest_id"] = location_dest_id
-        if self.code == "incoming":
-            location_src_id = (
+        elif self.code == "incoming":
+            vals["location_id"] = (
                 self.default_location_src_id.id
                 or self.env.ref("stock.stock_location_suppliers").id
             )
-            vals["location_id"] = location_src_id
         if self.barcode_option_group_id.get_option_value(
             "location_id", "filled_default"
         ):
@@ -46,8 +44,8 @@ class StockPickingType(models.Model):
         ):
             vals["location_dest_id"] = self.default_location_dest_id.id
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
-        wiz.determine_todo_action()
         wiz.fill_pending_moves()
+        wiz.determine_todo_action()
         action = self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_read_picking"
         )
@@ -55,6 +53,7 @@ class StockPickingType(models.Model):
         return action
 
     def action_barcode_new_picking(self):
+        self.ensure_one()
         picking = (
             self.env["stock.picking"]
             .with_context(default_immediate_transfer=True)
