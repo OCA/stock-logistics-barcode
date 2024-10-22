@@ -61,6 +61,15 @@ class WizStockBarcodesRead(models.AbstractModel):
             self = self.with_context(skip_update_quantity_from_lot=True)
         return self.process_barcode_lot_id()
 
+    def _process_ai_21(self, gs1_list):
+        """Serial number identification"""
+        # If lot (10) is set in gs1 avoid reprocess
+        # else process serial number (21) as lot
+        lot_ai = next(filter(lambda f: f["ai"].startswith("10"), gs1_list), False)
+        if lot_ai:
+            return True
+        return self._process_ai_10(gs1_list=gs1_list)
+
     def _process_ai_30(self, gs1_list):
         """Variable Qty"""
         product_qty = self._process_product_qty_gs1(float(self.barcode))
@@ -120,9 +129,9 @@ class WizStockBarcodesRead(models.AbstractModel):
         return next(filter(lambda f: f["ai"] == "10", gs1_list), False)
 
     def process_barcode(self, barcode):
-        nomenclature = self.env.company.nomenclature_id.filtered("is_gs1_nomenclature") or self.env.ref(
-            "barcodes_gs1_nomenclature.default_gs1_nomenclature"
-        )
+        nomenclature = self.env.company.nomenclature_id.filtered(
+            "is_gs1_nomenclature"
+        ) or self.env.ref("barcodes_gs1_nomenclature.default_gs1_nomenclature")
         gs1_list = nomenclature.parse_barcode(barcode)
         if gs1_list is None:
             return super().process_barcode(barcode)
