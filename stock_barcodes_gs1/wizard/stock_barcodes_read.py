@@ -1,6 +1,9 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import _, models
+from odoo import _, api, models
+from odoo.tools import check_barcode_encoding
+
+BARCODE_ENCODING = ["ean8", "ean13", "gtin14", "upca", "sscc"]
 
 
 class WizStockBarcodesRead(models.AbstractModel):
@@ -128,11 +131,23 @@ class WizStockBarcodesRead(models.AbstractModel):
         """Helper method to know if the Lot/Serial is included in barcode"""
         return next(filter(lambda f: f["ai"] == "10", gs1_list), False)
 
+    @api.model
+    def _ean_barcode_valid(self, barcode):
+        """Check if barcode is valid and not GS1"""
+        for encoding in BARCODE_ENCODING:
+            if check_barcode_encoding(barcode, encoding):
+                return True
+        return False
+
     def process_barcode(self, barcode):
         nomenclature = self.env.company.nomenclature_id.filtered(
             "is_gs1_nomenclature"
         ) or self.env.ref("barcodes_gs1_nomenclature.default_gs1_nomenclature")
-        gs1_list = nomenclature.parse_barcode(barcode)
+        gs1_list = None
+        if nomenclature.gs1_separator_fnc1 in barcode or not self._ean_barcode_valid(
+            barcode
+        ):
+            gs1_list = nomenclature.parse_barcode(barcode)
         if gs1_list is None:
             return super().process_barcode(barcode)
         warning_msg_list = []
