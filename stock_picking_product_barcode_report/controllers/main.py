@@ -55,9 +55,9 @@ class SVGWitoutTextWriter(SVGWriter):
         if color != self.background:
             element = self._document.createElement("rect")
             attributes = {
-                "x": "{:.3f}mm".format(xpos),
-                "y": "{:.3f}mm".format(ypos),
-                "width": "{:.3f}mm".format(width),
+                "x": f"{xpos:.3f}mm",
+                "y": f"{ypos:.3f}mm",
+                "width": f"{width:.3f}mm",
                 "height": str(self.module_max_height),
                 "style": f"fill:{color}",
             }
