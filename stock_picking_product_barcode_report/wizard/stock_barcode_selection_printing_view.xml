@@ -12,7 +12,7 @@
                     <br />
                     <field name="barcode_report" />
                 </div>
-                <div attrs="{'invisible': [('is_custom_label', '=', True)]}">
+                <div invisible="is_custom_label">
                     <strong>Barcode Format</strong>
                     <br />
                     <field name="barcode_format" />
@@ -23,9 +23,9 @@
                     <field name="lang" />
                 </div>
                 <p
-                    attrs="{'invisible': [('is_custom_label', '=', True)]}"
+                    invisible="is_custom_label"
                 >It only appears here products with barcode defined</p>
-                <div attrs="{'invisible': [('is_custom_label', '=', False)]}">
+                <div invisible="is_custom_label">
                     <field name="is_custom_label" invisible="1" />
                     <strong>Label Quantity</strong>
                     <br />
@@ -37,7 +37,7 @@
                         placeholder="Fill info of label..."
                     />
                 </div>
-                <group attrs="{'invisible': [('is_custom_label', '=', True)]}">
+                <group invisible="is_custom_label">
                     <field name="product_print_moves" nolabel="1" colspan="2">
                         <tree editable="top" create="0">
                             <field
@@ -70,7 +70,12 @@
                                 options="{'no_create': True}"
                             />
                             <field name="label_qty" />
-                            <field name="move_line_id" invisible="1" force_save="1" />
+                            <field
+                                name="move_line_id"
+                                column_invisible="1"
+                                force_save="1"
+                            />
+                            <field name="company_id" column_invisible="1" />
                         </tree>
                     </field>
                 </group>

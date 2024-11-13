@@ -3,6 +3,7 @@
 from math import ceil
 
 from odoo import api, fields, models
+from odoo.fields import Command
 
 
 class ProductPrintingQty(models.TransientModel):
@@ -38,6 +39,7 @@ class ProductPrintingQty(models.TransientModel):
         groups="product.group_stock_packaging",
         check_company=True,
     )
+    company_id = fields.Many2one(related="wizard_id.company_id")
 
     @api.depends("product_packaging_id", "quantity")
     def _compute_label_qty(self):
@@ -61,7 +63,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
         res = super().default_get(fields)
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.picking":
             picking_ids = self.env["stock.picking"].browse(ctx.get("active_ids"))
-            res.update({"picking_ids": picking_ids.ids})
+            res.update({"picking_ids": [Command.link(p.id) for p in picking_ids]})
         if ctx.get("active_ids") and ctx.get("active_model") == "stock.move.line":
             stock_move_lines = self.env["stock.move.line"].browse(ctx.get("active_ids"))
             res.update({"stock_move_line_ids": stock_move_lines.ids})
@@ -101,10 +103,11 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
     label_qty = fields.Integer(default=1)
     stock_move_line_ids = fields.Many2many("stock.move.line")
     lang = fields.Selection(comodel_name="res.lang", selection=_get_lang)
+    company_id = fields.Many2one("res.company", default=lambda self: self.env.company)
 
     @api.onchange("picking_ids", "stock_move_line_ids", "barcode_report")
     def _onchange_picking_ids(self):
-        product_print_moves = [(5, 0)]
+        product_print_moves = [(Command.clear())]
         line_fields = [f for f in self.env["stock.picking.line.print"]._fields.keys()]
         product_print_moves_data_tmpl = self.env[
             "stock.picking.line.print"
@@ -181,7 +184,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
 
     @api.model
     def _prepare_data_from_move_line(self, move_line):
-        qty = self.env.context.get("force_quantity_line", move_line.qty_done)
+        qty = self.env.context.get("force_quantity_line", move_line.quantity)
         return {
             "product_id": move_line.product_id.id,
             "quantity": qty,
@@ -206,7 +209,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
 
     def create_label_print_wiz_from_move_line(self, report_id, stock_move_lines):
         """Helper method to create this wizard from other models to print labels"""
-        if isinstance(stock_move_lines, (int, list)):
+        if isinstance(stock_move_lines, (int | list)):
             stock_move_lines = self.env["stock.move.line"].browse(stock_move_lines)
         wiz = self.env["stock.picking.print"].create(
             {
@@ -218,7 +221,7 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
                         {
                             "product_id": sml.product_id.id,
                             "quantity": self.env.context.get(
-                                "force_quantity_line", sml.qty_done
+                                "force_quantity_line", sml.quantity
                             ),
                             "move_line_id": sml.id,
                             "uom_id": sml.product_uom_id.id,

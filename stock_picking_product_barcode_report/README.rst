@@ -83,6 +83,10 @@ Contributors
   - Carlos Roca
   - Sergio Teruel
 
+- `360ERP <https://www.360erp.com>`__:
+
+  - Kevin Khao
+
 Maintainers
 -----------
 
