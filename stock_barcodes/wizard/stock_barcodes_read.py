@@ -3,7 +3,6 @@
 import logging
 
 from odoo import _, api, fields, models
-from odoo.tools import float_round
 
 _logger = logging.getLogger(__name__)
 
@@ -71,7 +70,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     is_manual_confirm = fields.Boolean(compute="_compute_is_manual_qty")
     # Technical field to allow use in attrs
     display_menu = fields.Boolean()
-    qty_available = fields.Float(compute="_compute_qty_available")
     auto_lot = fields.Boolean(
         string="Get lots automatically",
         help="If checked the lot will be set automatically with the same "
@@ -115,40 +113,6 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _compute_create_lot(self):
         for rec in self:
             rec.create_lot = rec.option_group_id.create_lot
-
-    @api.depends("location_id", "product_id", "lot_id")
-    def _compute_qty_available(self):
-        if not self.product_id or self.location_id.usage != "internal":
-            self.qty_available = 0.0
-            return
-        domain_quant = [
-            ("product_id", "=", self.product_id.id),
-            ("location_id", "=", self.location_id.id),
-        ]
-        if self.lot_id:
-            domain_quant.append(("lot_id", "=", self.lot_id.id))
-        # if self.package_id:
-        #     domain_quant.append(('package_id', '=', self.package_id.id))
-        groups = self.env["stock.quant"].read_group(
-            domain_quant, ["quantity"], [], orderby="id"
-        )
-        self.qty_available = groups[0]["quantity"]
-        # Unexpected done quantities must reduce qty_available
-        if self.lot_id:
-            done_move_lines = self.move_line_ids.filtered(
-                lambda m: m.product_id == self.product_id and m.lot_id == self.lot_id
-            )
-        else:
-            done_move_lines = self.move_line_ids.filtered(
-                lambda m: m.product_id == self.product_id
-            )
-        for sml in done_move_lines:
-            over_done_qty = float_round(
-                sml.qty_done - sml.reserved_uom_qty,
-                precision_rounding=sml.product_uom_id.rounding,
-            )
-            if over_done_qty > 0.0:
-                self.qty_available -= over_done_qty
 
     @api.depends("product_id")
     def _compute_display_assign_serial(self):

@@ -136,6 +136,7 @@
                 <field name="picking_location_dest_id" invisible="1" />
                 <field name="company_id" invisible="1" />
                 <field name="todo_line_is_extra_line" invisible="1" />
+                <field name="qty_available" invisible="1" />
             </field>
             <field name="location_id" position="attributes">
                 <attribute
