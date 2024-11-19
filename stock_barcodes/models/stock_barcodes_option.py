@@ -100,6 +100,7 @@ class StockBarcodesOptionGroup(models.Model):
             ("location_dest_id", "Destination Location"),
         ]
     )
+    display_read_quant = fields.Boolean(string="Read items on inventory mode")
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
