@@ -40,6 +40,7 @@ class StockBarcodesAction(models.Model):
         vals = {
             "option_group_id": option_group.id,
             "manual_entry": option_group.manual_entry,
+            "display_read_quant": option_group.display_read_quant,
         }
         if option_group.get_option_value("location_id", "filled_default"):
             vals["location_id"] = (
