@@ -37,12 +37,13 @@
                 <group
                     string="Inventory quants"
                     attrs="{'invisible': [('inventory_quant_ids', '=', [])]}"
-                    col="1"
+                    col="2"
                 >
                     <field
                         name="inventory_quant_ids"
                         options="{'no_open': True}"
                         nolabel="1"
+                        colspan="2"
                         mode="tree,kanban"
                     >
                         <tree>
@@ -157,10 +158,7 @@
             </group>
             <div name="manual_entry" position="after">
                 <div class="d-flex" name="display_read_quant">
-                    <field
-                        name="display_read_quant"
-                        widget="FieldBarcodeBooleanToggle"
-                    />
+                    <field name="display_read_quant" widget="barcode_boolean_toggle" />
                     <label for="display_read_quant" />
                 </div>
             </div>

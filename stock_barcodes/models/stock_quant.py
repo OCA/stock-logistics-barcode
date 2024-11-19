@@ -16,7 +16,6 @@ class StockQuant(models.Model):
             "product_uom_id",
             "lot_id",
             "package_id",
-            "product_qty",
         ]
 
     def action_barcode_inventory_quant_edit(self):
@@ -25,7 +24,7 @@ class StockQuant(models.Model):
             wiz_barcode_id
         )
         for quant in self:
-            for fname in quant._fields:
-                if fname in self._get_fields_to_edit():
-                    wiz_barcode[fname] = quant[fname]
+            # Try to assign fields with the same name between quant and the scan wizard
+            for fname in self._get_fields_to_edit():
+                wiz_barcode[fname] = quant[fname]
             wiz_barcode.product_qty = quant.inventory_quantity
