@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-20 11:06+0000\n"
+"PO-Revision-Date: 2024-11-20 11:13+0000\n"
 "Last-Translator: Houzéfa Abbasbhay <houzefa.abba@xcg-consulting.fr>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -1683,7 +1683,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__to_scan
 msgid "To Scan"
-msgstr ""
+msgstr "À scanner"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_id
@@ -1700,28 +1700,28 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Tracking"
-msgstr ""
+msgstr "Suivi"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "Transfert"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_type_code
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__picking_code
 msgid "Type of Operation"
-msgstr ""
+msgstr "Type d'opération"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Type of operation"
-msgstr ""
+msgstr "Type d'opération"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__uom_id
 msgid "Uom"
-msgstr ""
+msgstr "UdM"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__use_location_dest_putaway
@@ -1731,7 +1731,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Validate"
-msgstr ""
+msgstr "Valider"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_new_lot___barcode_scanned
@@ -1739,12 +1739,12 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
 msgid "Value of the last barcode scanned."
-msgstr ""
+msgstr "Valeur du dernier code-barres scanné."
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
 msgid "Vendors"
-msgstr ""
+msgstr "Fournisseurs"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__visible_force_done
@@ -1758,14 +1758,14 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting location"
-msgstr ""
+msgstr "En attente de l'emplacement"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting lot"
-msgstr ""
+msgstr "En attente du lot"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1773,14 +1773,14 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
-msgstr ""
+msgstr "En attente du produit"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting quantities"
-msgstr ""
+msgstr "En attente des quantités"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__barcode_guided_mode
@@ -1830,21 +1830,21 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong location"
-msgstr ""
+msgstr "Emplacement invalide"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong location dest"
-msgstr ""
+msgstr "Emplacement de dest invalide"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong lot"
-msgstr ""
+msgstr "Lot invalide"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1852,7 +1852,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Wrong product"
-msgstr ""
+msgstr "Produit invalide"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
@@ -1868,6 +1868,8 @@ msgstr ""
 #, python-format
 msgid "You can not add extra moves if you have not set a picking"
 msgstr ""
+"Vous ne pouvez pas ajouter de mouvements additionnels sans avoir au "
+"préalable défini le transfert qui doit les contenir"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -1875,20 +1877,22 @@ msgid ""
 "You have not set any quantity to this operation and it will be removed from "
 "pending moves. Are you sure?"
 msgstr ""
+"Vous n'avez pas défini de quantité pour cette opération ; elle sera "
+"supprimée des mouvements en attente. Êtes-vous sûr ?"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "lock picking"
-msgstr ""
+msgstr "bloquer le transfert"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
-msgstr ""
+msgstr "débloquer le transfert"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "{name} is required"
-msgstr ""
+msgstr "{name} est requis"
