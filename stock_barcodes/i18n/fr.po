@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2024-11-20 11:13+0000\n"
+"PO-Revision-Date: 2024-11-21 09:33+0000\n"
 "Last-Translator: Houzéfa Abbasbhay <houzefa.abba@xcg-consulting.fr>\n"
 "Language-Team: none\n"
 "Language: fr\n"
@@ -115,7 +115,7 @@ msgstr "<span class=\"fa fa-tags\" title=\"N° série du lot\"/>"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
-msgstr "<span class=\"o_stat_text\">Scanner les codes-barres</span>"
+msgstr "<span class=\"o_stat_text\">Scan codes-barres</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -241,12 +241,12 @@ msgstr "Assigner des numéros de série"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack"
-msgstr ""
+msgstr "Mise en colis auto"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack before picking validation"
-msgstr ""
+msgstr "Mise en colis auto avant validation du transfert"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -1148,7 +1148,7 @@ msgstr "Nouveau mouvement :"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
 msgid "New Picking Barcode Option Group"
-msgstr ""
+msgstr "Code-barres - Groupe d'options pour nouveau transfert"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -1641,7 +1641,7 @@ msgstr "Étape"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
 msgid "Steps to scan"
-msgstr "Étapes à scanner"
+msgstr "Étapes du scan"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_move
@@ -1669,6 +1669,8 @@ msgid ""
 "This Barcode Option Group will be selected when clicking the 'New' button in"
 " an operation type. It will be used to create a non planned picking."
 msgstr ""
+"Ce groupe d'options CB sera sélectionné à partir du bouton 'Nouveau' pour ce "
+"type d'opération - pour enregistrer un transfert non planifié."
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
