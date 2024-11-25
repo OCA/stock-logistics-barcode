@@ -113,7 +113,11 @@ function setupView() {
                     (this.model.root.resId == payload.res_id)
                 ) {
                     if (type === "stock_barcodes_sound") {
-                        this.$sound_ok[0].play();
+                        if (payload.sound === "ko") {
+                            this.$sound_ko[0].play();
+                        } else {
+                            this.$sound_ok[0].play();
+                        }
                     }
                     if (type === "stock_barcodes_focus") {
                         requestIdleCallback(() => {
