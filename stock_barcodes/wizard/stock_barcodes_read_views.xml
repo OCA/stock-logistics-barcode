@@ -113,7 +113,6 @@
                         <field name="res_id" invisible="1" />
                         <field name="option_group_id" invisible="1" force_save="1" />
                         <field name="confirmed_moves" invisible="1" force_save="1" />
-                        <field name="qty_available" invisible="1" />
                         <field name="owner_id" invisible="1" force_save="1" />
                         <field name="keep_result_package" invisible="1" />
                         <field name="create_lot" invisible="1" />

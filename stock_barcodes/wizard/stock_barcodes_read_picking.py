@@ -74,6 +74,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_location_id = fields.Many2one(related="picking_id.location_id")
     picking_location_dest_id = fields.Many2one(related="picking_id.location_dest_id")
     company_id = fields.Many2one(related="picking_id.company_id")
+    qty_available = fields.Float(compute="_compute_qty_available")
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -107,6 +108,24 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             for line in product_moves:
                 rec.total_product_uom_qty += line.product_uom_qty
                 rec.total_product_qty_done += line.quantity_done
+
+    @api.depends("location_id", "product_id", "lot_id")
+    def _compute_qty_available(self):
+        if not self.product_id or self.location_id.usage != "internal":
+            self.qty_available = 0.0
+            return
+        domain_quant = [
+            ("product_id", "=", self.product_id.id),
+            ("location_id", "=", self.location_id.id),
+        ]
+        if self.lot_id:
+            domain_quant.append(("lot_id", "=", self.lot_id.id))
+        # if self.package_id:
+        #     domain_quant.append(('package_id', '=', self.package_id.id))
+        groups = self.env["stock.quant"].read_group(
+            domain_quant, ["quantity"], [], orderby="id"
+        )
+        self.qty_available = groups[0]["quantity"]
 
     def name_get(self):
         return [
