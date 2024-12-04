@@ -29,6 +29,11 @@ msgid "Elaborations"
 msgstr ""
 
 #. module: stock_barcodes_elaboration
+#: model:ir.model,name:stock_barcodes_elaboration.model_wiz_stock_barcodes_read_picking
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
+
+#. module: stock_barcodes_elaboration
 #: model:ir.model,name:stock_barcodes_elaboration.model_wiz_stock_barcodes_read_todo
 msgid "Wizard to read barcode todo"
 msgstr ""
