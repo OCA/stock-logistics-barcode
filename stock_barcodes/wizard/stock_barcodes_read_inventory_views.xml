@@ -84,7 +84,7 @@
                                 name="action_barcode_inventory_quant_unlink"
                                 type="object"
                                 class="btn"
-                                icon="fa-recycle"
+                                icon="fa-trash"
                                 title="Remove quant"
                                 context="{'wiz_barcode_id': parent.id}"
                             />
@@ -127,7 +127,7 @@
                                                 <button
                                                     name="action_barcode_inventory_quant_unlink"
                                                     type="object"
-                                                    icon="fa-recycle"
+                                                    icon="fa-trash"
                                                     title="Reset inventory quantity"
                                                     class="btn mt0"
                                                     context="{'wiz_barcode_id': parent.id}"
