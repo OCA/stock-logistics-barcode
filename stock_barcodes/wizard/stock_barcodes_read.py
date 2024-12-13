@@ -176,6 +176,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             return True
         return False
 
+    def _hook_process_barcode_product(self, product):
+        return True
+
     def process_barcode_product_id(self):
         domain = self._barcode_domain(self.barcode)
         product = self.env["product.product"].search(domain)
@@ -187,6 +190,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info(
                     "not_found", _("The product type is not allowed")
                 )
+                return False
+            res_hook = self._hook_process_barcode_product(product)
+            if res_hook is False:
                 return False
             self.action_product_scaned_post(product)
             # self.action_done()

@@ -9,6 +9,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _name = "wiz.stock.barcodes.read.inventory"
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on inventory"
+    _allowed_product_types = ["product"]
 
     inventory_id = fields.Many2one(comodel_name="stock.inventory", readonly=True)
     inventory_product_qty = fields.Float(
@@ -165,3 +166,18 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def _onchange_lot_id(self):
         if self.lot_id and not self.env.context.get("keep_auto_lot"):
             self.auto_lot = False
+
+    def _hook_process_barcode_product(self, product):
+        if (
+            self.inventory_id.product_ids
+            and product.id not in self.inventory_id.product_ids.ids
+        ):
+            self._set_messagge_info(
+                "not_found",
+                _(
+                    "This inventory is filtered on products and product '%s' is not part of it."
+                )
+                % product.display_name,
+            )
+            return False
+        return super()._hook_process_barcode_product(product)
