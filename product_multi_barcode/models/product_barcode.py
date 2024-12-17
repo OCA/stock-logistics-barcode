@@ -16,6 +16,7 @@ class ProductBarcode(models.Model):
     name = fields.Char(
         string="Barcode",
         required=True,
+        index="trigram",
     )
     sequence = fields.Integer(
         default=0,
