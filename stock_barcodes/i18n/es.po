@@ -1859,8 +1859,9 @@ msgstr "Asistente para leer códigos de barras desde el inventario"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
-msgstr "Asistente para leer códigos de barras desde los albaranes"
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
+"Asistente para leer códigos de barras desde las agrupaciones de albaranes"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -1939,6 +1940,9 @@ msgstr "desbloquear el albarán"
 #, python-format
 msgid "{name} is required"
 msgstr ""
+
+#~ msgid "Wizard to read barcode on picking"
+#~ msgstr "Asistente para leer códigos de barras desde los albaranes"
 
 #~ msgid "<i class=\"fa fa-bars\" title=\"Open actions\"/>"
 #~ msgstr "<i class=\"fa fa-bars\" title=\"Abrir acciones\"/>"
@@ -2030,10 +2034,6 @@ msgstr ""
 
 #~ msgid "Stock move lines"
 #~ msgstr "Movimiento de existencias"
-
-#~ msgid "Wizard to read barcode on picking batch"
-#~ msgstr ""
-#~ "Asistente para leer códigos de barras desde las agrupaciones de albaranes"
 
 #, python-format
 #~ msgid ""
