@@ -21,13 +21,18 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_state
 msgid ""
 " * Draft: The transfer is not confirmed yet. Reservation doesn't apply.\n"
-" * Waiting another operation: This transfer is waiting for another operation before being ready.\n"
+" * Waiting another operation: This transfer is waiting for another operation "
+"before being ready.\n"
 " * Waiting: The transfer is waiting for the availability of some products.\n"
-"(a) The shipping policy is \"As soon as possible\": no product could be reserved.\n"
-"(b) The shipping policy is \"When all products are ready\": not all the products could be reserved.\n"
+"(a) The shipping policy is \"As soon as possible\": no product could be "
+"reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": not all the "
+"products could be reserved.\n"
 " * Ready: The transfer is ready to be processed.\n"
-"(a) The shipping policy is \"As soon as possible\": at least one product has been reserved.\n"
-"(b) The shipping policy is \"When all products are ready\": all product have been reserved.\n"
+"(a) The shipping policy is \"As soon as possible\": at least one product has "
+"been reserved.\n"
+"(b) The shipping policy is \"When all products are ready\": all product have "
+"been reserved.\n"
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
@@ -62,8 +67,8 @@ msgid ""
 "<i class=\"fa fa-pencil\" title=\"Edit inventory quantity\" style=\"font-"
 "size:1.5em\"/>"
 msgstr ""
-"<i class=\"fa fa-pencil\" title=\"Modifier quantité inventaire\" style"
-"=\"font-size:1.5em\"/>"
+"<i class=\"fa fa-pencil\" title=\"Modifier quantité inventaire\" "
+"style=\"font-size:1.5em\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
@@ -82,14 +87,16 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
-msgid "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1.5em\"/>"
+msgid ""
+"<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-"
+"size:1.5em\"/>"
 msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
-"<span attrs=\"{'invisible': [('result_package_id', '=', "
-"False)]}\">-&gt;</span>"
+"<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\">-&gt;</"
+"span>"
 msgstr ""
 
 #. module: stock_barcodes
@@ -98,9 +105,9 @@ msgid ""
 "<span class=\"fa fa-archive d-sm-none oe_span_small_icon\" title=\"Source "
 "Location\" attrs=\"{'invisible': [('product_packaging_ids', '=', [])]}\"/>"
 msgstr ""
-"<span class=\"fa fa-archive d-sm-none oe_span_small_icon\" title="
-"\"Emplacement d'origine\" attrs=\"{'invisible': [('product_packaging_ids', "
-"'=', [])]}\"/>"
+"<span class=\"fa fa-archive d-sm-none oe_span_small_icon\" "
+"title=\"Emplacement d'origine\" attrs=\"{'invisible': "
+"[('product_packaging_ids', '=', [])]}\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -126,7 +133,8 @@ msgstr "<span>Appliquer</span>"
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid ""
 "<strong class=\" d-none d-sm-block\">Dest. Location</strong>\n"
-"                    <span class=\"fa fa-share text-center d-sm-none oe_span_small_icon\" title=\"Destination Location\"/>"
+"                    <span class=\"fa fa-share text-center d-sm-none "
+"oe_span_small_icon\" title=\"Destination Location\"/>"
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Empl. dest.</strong>\n"
 "                    <span class=\"fa fa-share text-center d-sm-none "
@@ -136,7 +144,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\" d-none d-sm-block\">Source Location</strong>\n"
-"                                    <span class=\"fa fa-map-marker d-sm-none oe_span_small_icon\" title=\"Source Location\"/>"
+"                                    <span class=\"fa fa-map-marker d-sm-none "
+"oe_span_small_icon\" title=\"Source Location\"/>"
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Empl. origine</strong>\n"
 "                                    <span class=\"fa fa-map-marker d-sm-none "
@@ -146,7 +155,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Lot S/N</strong>\n"
-"                                    <span class=\"fa fa-tags d-sm-none oe_span_small_icon\" title=\"Lot S/N\"/>"
+"                                    <span class=\"fa fa-tags d-sm-none "
+"oe_span_small_icon\" title=\"Lot S/N\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">N° série lot</strong>\n"
 "                                    <span class=\"fa fa-tags d-sm-none "
@@ -156,7 +166,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Package</strong>\n"
-"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" title=\"package\"/>"
+"                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
+"title=\"package\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Colis</strong>\n"
 "                    <span class=\"fa fa-inbox d-sm-none oe_span_small_icon\" "
@@ -166,7 +177,8 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Product</strong>\n"
-"                                    <span class=\"fa fa-th-list d-sm-none oe_span_small_icon\" title=\"Product\"/>"
+"                                    <span class=\"fa fa-th-list d-sm-none "
+"oe_span_small_icon\" title=\"Product\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Produit</strong>\n"
 "                                    <span class=\"fa fa-th-list d-sm-none "
@@ -175,15 +187,18 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
-"<strong class=\"d-none d-sm-block\">Source Package -&gt; Result Package</strong>\n"
-"                                    <span class=\"fa fa-cubes d-sm-none oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
+"<strong class=\"d-none d-sm-block\">Source Package -&gt; Result Package</"
+"strong>\n"
+"                                    <span class=\"fa fa-cubes d-sm-none "
+"oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
 msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid ""
 "<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
-"                                    <span class=\"fa fa-hashtag d-sm-none oe_span_small_icon\" title=\"Total Quantity\"/>"
+"                                    <span class=\"fa fa-hashtag d-sm-none "
+"oe_span_small_icon\" title=\"Total Quantity\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Qté totale</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none "
@@ -439,7 +454,6 @@ msgstr "Vider le produit"
 
 #. module: stock_barcodes
 #. odoo-python
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Click on picking pushpin to lock it"
@@ -1666,8 +1680,8 @@ msgstr "La quantité est très grande"
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
 msgid ""
-"This Barcode Option Group will be selected when clicking the 'New' button in"
-" an operation type. It will be used to create a non planned picking."
+"This Barcode Option Group will be selected when clicking the 'New' button in "
+"an operation type. It will be used to create a non planned picking."
 msgstr ""
 "Ce groupe d'options CB sera sélectionné à partir du bouton 'Nouveau' pour ce "
 "type d'opération - pour enregistrer un transfert non planifié."
@@ -1772,7 +1786,6 @@ msgstr "En attente du lot"
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
-#: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
 msgstr "En attente du produit"
@@ -1819,7 +1832,7 @@ msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
+msgid "Wizard to read barcode on picking batch"
 msgstr ""
 
 #. module: stock_barcodes
@@ -1859,7 +1872,8 @@ msgstr "Produit invalide"
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
 msgid ""
-"You can establish a list of fields that will act as a grouping key to generate the movements to be process.\n"
+"You can establish a list of fields that will act as a grouping key to "
+"generate the movements to be process.\n"
 "The object variable is used to refer to the source record\n"
 "For example, object.location_id,object.product_id,object.lot_id"
 msgstr ""
