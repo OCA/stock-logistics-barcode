@@ -3,7 +3,7 @@
 {
     "name": "Stock Barcodes Picking Batch",
     "summary": "It provides read barcodes on stock operations from batch pickings.",
-    "version": "16.0.1.0.0",
+    "version": "16.0.2.0.0",
     "author": "Tecnativa, Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
