@@ -2,14 +2,14 @@
 /* Copyright 2022 Tecnativa - Alexandre D. Díaz
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
+import {onPatched, useEffect, useRef} from "@odoo/owl";
+import {useBus, useService} from "@web/core/utils/hooks";
 import {KanbanRenderer} from "@web/views/kanban/kanban_renderer";
-import {isAllowedBarcodeModel} from "../utils/barcodes_models_utils.esm";
+import {isAllowedBarcodeModel} from "../../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
-import {useBus} from "@web/core/utils/hooks";
 import {useHotkey} from "@web/core/hotkeys/hotkey_hook";
-import {useRef} from "@odoo/owl";
 
-patch(KanbanRenderer.prototype, "add hotkey", {
+patch(KanbanRenderer.prototype, "stock_barcodes.KanbanRenderer", {
     setup() {
         const rootRef = useRef("root");
         useHotkey(
@@ -40,6 +40,34 @@ patch(KanbanRenderer.prototype, "add hotkey", {
         );
 
         this._super(...arguments);
+        this.ormService = useService("orm");
+        this.action = useService("action");
+        const busService = useService("bus_service");
+        this.enableCurrentOperation = 0;
+        const handleNotification = ({detail: notifications}) => {
+            if (notifications && notifications.length > 0) {
+                notifications.forEach((notif) => {
+                    const {payload, type} = notif;
+                    if (type === "enable_operations" && payload) {
+                        this.enableCurrentOperation = payload.id;
+                    }
+                });
+            }
+        };
+        useEffect(() => {
+            busService.addChannel("stock_barcodes_kanban_update");
+            busService.addEventListener("notification", handleNotification);
+            return () => {
+                busService.deleteChannel("stock_barcodes_kanban_update");
+                busService.removeEventListener("notification", handleNotification);
+            };
+        });
+
+        onPatched(() => {
+            $("div.oe_kanban_operations-" + this.enableCurrentOperation).removeClass(
+                "d-none"
+            );
+        });
 
         if (isAllowedBarcodeModel(this.props.list.resModel)) {
             if (this.env.searchModel) {
@@ -63,6 +91,36 @@ patch(KanbanRenderer.prototype, "add hotkey", {
                 });
             }
         }
+
+        this.showMessageScanProductPackage =
+            this.props.list.resModel === "stock.picking";
+    },
+
+    getNextCard(direction, iCard, cards, iGroup, isGrouped) {
+        let nextCard = null;
+        switch (direction) {
+            case "down":
+                nextCard = iCard < cards[iGroup].length - 1 && cards[iGroup][iCard + 1];
+                break;
+            case "up":
+                nextCard = iCard > 0 && cards[iGroup][iCard - 1];
+                break;
+            case "right":
+                if (isGrouped) {
+                    nextCard = iGroup < cards.length - 1 && cards[iGroup + 1][0];
+                } else {
+                    nextCard = iCard < cards[0].length - 1 && cards[0][iCard + 1];
+                }
+                break;
+            case "left":
+                if (isGrouped) {
+                    nextCard = iGroup > 0 && cards[iGroup - 1][0];
+                } else {
+                    nextCard = iCard > 0 && cards[0][iCard - 1];
+                }
+                break;
+        }
+        return nextCard;
     },
 
     // eslint-disable-next-line complexity
@@ -77,6 +135,8 @@ patch(KanbanRenderer.prototype, "add hotkey", {
      *
      * @param {Node} area
      * @param {String} direction
+     *
+     * @returns {String/Boolean}
      */
     focusNextCard(area, direction) {
         const {isGrouped} = this.props.list;
@@ -117,33 +177,24 @@ patch(KanbanRenderer.prototype, "add hotkey", {
             iGroup = 0;
         }
         // Find next card to focus
-        let nextCard = null;
-        switch (direction) {
-            case "down":
-                nextCard = iCard < cards[iGroup].length - 1 && cards[iGroup][iCard + 1];
-                break;
-            case "up":
-                nextCard = iCard > 0 && cards[iGroup][iCard - 1];
-                break;
-            case "right":
-                if (isGrouped) {
-                    nextCard = iGroup < cards.length - 1 && cards[iGroup + 1][0];
-                } else {
-                    nextCard = iCard < cards[0].length - 1 && cards[0][iCard + 1];
-                }
-                break;
-            case "left":
-                if (isGrouped) {
-                    nextCard = iGroup > 0 && cards[iGroup - 1][0];
-                } else {
-                    nextCard = iCard > 0 && cards[0][iCard - 1];
-                }
-                break;
-        }
+        const nextCard = this.getNextCard(direction, iCard, cards, iGroup, isGrouped);
 
         if (nextCard && nextCard instanceof HTMLElement) {
             nextCard.focus();
             return true;
         }
     },
+
+    async openBarcodeScanner() {
+        if (this.showMessageScanProductPackage) {
+            const action = await this.ormService.call(
+                "stock.picking",
+                "action_barcode_scan",
+                [false, false]
+            );
+            this.action.doAction(action);
+        }
+    },
 });
+
+KanbanRenderer.template = "stock_barcodes.BarcodeKanbanRenderer";

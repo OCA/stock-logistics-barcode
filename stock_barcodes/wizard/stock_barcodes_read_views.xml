@@ -3,101 +3,39 @@
         <field name="name">stock.barcodes.read.form</field>
         <field name="model">wiz.stock.barcodes.read</field>
         <field name="arch" type="xml">
-            <form string="Barcodes" class="oe_stock_barcordes_form">
-                <div class="d-flex flex-column h-100">
-                    <div
-                        name="menu_actions"
-                        attrs="{'invisible': [('display_menu', '=', False)]}"
-                    >
-                        <field
-                            name="action_ids"
-                            options="{'no_open': True}"
-                            nolabel="1"
-                            mode="kanban"
-                            context="{'context_display_menu': display_menu}"
-                        >
-                            <tree>
-                                <field name="name" />
-                            </tree>
-                            <kanban class="o_kanban_mobile">
-                                <field name="name" />
-                                <field name="action_window_id" />
-                                <field name="key_shortcut" />
-                                <field name="key_char_shortcut" />
-                                <field name="icon_class" />
-                                <templates>
-                                    <t t-name="kanban-box">
-                                        <div
-                                            class="oe_kanban_details oe_kanban_card_full_width pt-4 pb-4"
-                                        >
-                                            <t
-                                                t-set="shortcut"
-                                                t-value="record.key_char_shortcut"
-                                            />
-                                            <t
-                                                t-set="hotkey"
-                                                t-value="context.context_display_menu &amp;&amp; record.key_char_shortcut.raw_value || ''"
-                                            />
-                                            <button
-                                                name="open_action"
-                                                type="object"
-                                                class="float-end btn-full-width btn"
-                                                style="width:100%"
-                                                data-hotkey="hotkey"
-                                            >
-                                                <div class="row">
-                                                    <div class="col-1">
-                                                        <i
-                                                            t-attf-class="text-end #{record.icon_class.raw_value}"
-                                                        />
-                                                    </div>
-                                                    <div class="col">
-                                                        <strong>
-                                                            <span>
-                                                                <field name="name" />
-                                                            </span>
-                                                        </strong>
-                                                    </div>
-                                                </div>
-                                            </button>
-                                        </div>
-                                    </t>
-                                </templates>
-                            </kanban>
-                        </field>
-                    </div>
+            <form
+                string="Barcodes"
+                class="oe_stock_barcordes_form h-100"
+                js_class="stock_barcodes_form"
+            >
+                <div
+                    class="d-flex flex-column h-100"
+                    attrs="{'invisible': [('display_menu', '=', True)]}"
+                >
                     <div
                         attrs="{'invisible': [('display_menu', '=', True)]}"
                         class="flex-fill oe_stock_barcordes_content"
                     >
-                        <div name="info" class="text-center h3 mb-0">
+                        <div name="info" class="text-center h3 mb-2">
                             <div
-                                class="alert alert-success mb-0"
+                                class="alert barcode-info text-white mb-0 d-flex"
                                 role="status"
-                                attrs="{'invisible': [('message_type', '!=', 'success')]}"
                             >
-                                <field name="message" class="mt-2" />
-                            </div>
-                            <div
-                                class="alert alert-info mb-0"
-                                role="status"
-                                attrs="{'invisible': [('message_type', '!=', 'info')]}"
-                            >
-                                <field name="message" class="mt-2" />
-                            </div>
-                            <div
-                                class="alert alert-danger mb-0"
-                                role="status"
-                                attrs="{'invisible': [('message_type', '!=', 'more_match'), ('message_type', '!=', 'not_found')]}"
-                            >
-                                <field name="message" class="mt-2" />
                                 <button
-                                    name="action_clean_message"
-                                    class="float-end fa-window-close fa"
+                                    name="open_actions"
                                     type="object"
-                                    title="Clean message"
-                                />
+                                    class="ms-auto oe_kanban_action_button btn-sm"
+                                    title="Open actions"
+                                    attrs="{'invisible': [('display_menu', '=', True)]}"
+                                    data-hotkey="0"
+                                >
+                                    <i class="fa fa-chevron-left fa-2x text-white" />
+                                </button>
+                                <field name="message" class="mt-3 h3 text-white" />
+                                <span class="fa fa-barcode fa-2x mt-2 mx-3" />
+
                             </div>
+
                         </div>
                         <field name="message_type" invisible="1" />
                         <field name="barcode" invisible="1" force_save="1" />
@@ -128,14 +66,16 @@
                             widget="barcode_handler"
                             invisible="0"
                         />
-                        <group name="scan_fields" class="bg-light scan_fields">
+                        <group
+                            name="scan_fields"
+                            class="bg-light scan_fields p-2 d-none"
+                        >
                             <group name="location" col="1">
                                 <div class="mt-1" colspan="2">
-                                    <strong
-                                        class=" d-none d-sm-block"
-                                    >Source Location</strong>
+                                    <strong class=" d-none d-sm-block">Source Location
+                                    </strong>
                                     <span
-                                        class="fa fa-map-marker d-sm-none oe_span_small_icon"
+                                        class="fa fa-map-marker fa-2x d-sm-none oe_span_small_icon"
                                         title="Source Location"
                                     />
                                     <field
@@ -157,7 +97,8 @@
                                 <div class="m-0" colspan="2">
                                     <strong
                                         class="d-none d-sm-block"
-                                    >Source Package -&gt; Result Package</strong>
+                                    >Source Package -&gt; Result Package
+                                    </strong>
                                     <span
                                         class="fa fa-cubes d-sm-none oe_span_small_icon"
                                         title="Source Package to Result Package"
@@ -172,7 +113,8 @@
                                     />
                                     <span
                                         attrs="{'invisible': [('result_package_id', '=', False)]}"
-                                    >-&gt;</span>
+                                    >-&gt;
+                                    </span>
                                     <field
                                         name="result_package_id"
                                         options="{'no_create': True, 'no_open': True}"
@@ -223,7 +165,7 @@
                                 <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Product</strong>
                                     <span
-                                        class="fa fa-th-list d-sm-none oe_span_small_icon"
+                                        class="fa fa-th-list fa-2x d-sm-none oe_span_small_icon"
                                         title="Product"
                                     />
                                     <field
@@ -252,7 +194,7 @@
                                 <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Lot S/N</strong>
                                     <span
-                                        class="fa fa-tags d-sm-none oe_span_small_icon"
+                                        class="fa fa-tags fa-2x d-sm-none oe_span_small_icon"
                                         title="Lot S/N"
                                     />
                                     <field
@@ -268,14 +210,13 @@
                                         context="{'default_product_id': product_id}"
                                         attrs="{'readonly': [('manual_entry', '=', False)], 'invisible': [('create_lot', '!=', False)]}"
                                         force_save="1"
-                                        style="width:60%"
                                         class="h5"
                                     />
                                     <button
                                         class="btn-sm float-end btn-warning oe_kanban_action_button btn mr4"
                                         name="action_clean_lot"
                                         type="object"
-                                        icon="fa-trash fa-1x"
+                                        icon="fa-trash fa-1x ml-2"
                                         attrs="{'invisible': [('lot_id', '=', False), ('lot_name', '=', False)]}"
                                         title="Clean lot"
                                         data-hotkey="G"
@@ -330,21 +271,25 @@
                                         <div
                                             attrs="{'invisible': [('total_product_uom_qty', '=', 0.0)]}"
                                         >
-                                            <span>(<field
+                                            <span>(
+                                                <field
                                                     name="total_product_qty_done"
                                                     class="oe_inline"
                                                     readonly="1"
-                                                /> / <field
+                                                />
+                                                /<field
                                                     name="total_product_uom_qty"
                                                     class="oe_inline"
                                                     readonly="1"
-                                                />) <field
+                                                />)
+                                                <field
                                                     name="product_uom_id"
                                                     class="oe_inline"
                                                     options="{'no_open': True}"
                                                     readonly="1"
                                                     widget="selection"
-                                                /></span>
+                                                />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -364,52 +309,22 @@
                             </group>
                         </group>
                     </div>
-                    <div class="oe_stock_barcodes_bottombar d-flex">
+                    <div
+                        class="oe_stock_barcodes_bottombar d-flex"
+                        attrs="{'invisible': ['|',('display_menu', '=', True), ('enable_add_product', '=', False)]}"
+                    >
                         <field name="display_menu" invisible="1" />
+                        <field name="enable_add_product" invisible="1" />
+                        <field
+                            name="manual_entry"
+                            widget="barcode_boolean_toggle"
+                            class="d-none"
+                        />
                         <div
                             class="btn-group dropup"
                             attrs="{'invisible': [('display_menu', '=', True)]}"
-                        >
-                            <!-- FIXME: we can't use buttons of other tpye than object or action. Fix to achieve unfolding effect-->
-                            <a
-                                role="button"
-                                class="btn btn-secondary dropdown-toggle d-lg-none"
-                                data-bs-toggle="dropdown"
-                                aria-haspopup="true"
-                                aria-expanded="false"
-                                title="Options"
-                            >
-                              <i class="fa fa-cogs" />
-                            </a>
-                            <div
-                                class="d-lg-flex-no-dropdown ps-2 dropdown-menu"
-                                role="menu"
-                                style="min-width: 200px"
-                            >
-                                <div name="manual_entry" class="d-flex">
-                                    <field
-                                        name="manual_entry"
-                                        widget="barcode_boolean_toggle"
-                                        data-hotkey="5"
-                                    />
-                                    <label for="manual_entry">
-                                        Edit
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        <div
-                            class="d-flex d-lg-none ps-1"
-                            style="width: 75px;flex-wrap: wrap;"
-                            title="Manual entry"
-                            attrs="{'invisible': [('display_menu', '=', True)]}"
-                        >
-                            <i
-                                name="manual_entry"
-                                class="fa-hand-paper-o fa text-info me-1"
-                                attrs="{'invisible': [('manual_entry', '=', False)]}"
-                            />
-                        </div>
+                        />
+
                         <!-- HACK: To avoid inheritance crash -->
                         <button name="action_manual_entry" invisible="1" />
                         <!-- Hide button in view to allow do onclick in JS. Use d-none instead of
@@ -423,54 +338,56 @@
                             invisible="0"
                             class="d-none"
                         />
+
+                        <button
+                            name="action_add_scan_manual"
+                            type="object"
+                            title="ADD PRODUCT"
+                            icon="fa-plus fa-2x"
+                            class="btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
+                            d-flex justify-content-center align-items-center"
+                            attrs="{'invisible': ['|',('display_menu', '=', True), ('enable_add_product', '=', False)]}"
+                            style="width: 50px"
+                            data-hotkey="8"
+                        >
+                            <span class="fs-1 d-none d-lg-block">Product</span>
+                        </button>
                         <!-- // -->
                         <button
                             name="action_clean_values"
                             type="object"
-                            icon="fa-trash-o"
+                            icon="fa-trash-o fa-2x"
                             title="Clean Values"
-                            class="btn-warning ms-auto oe_kanban_action_button btn-sm ps-3 pe-3"
-                            attrs="{'invisible': [('display_menu', '=', True)]}"
+                            class="btn-warning w-100 oe_kanban_action_button btn-sm ps-3 pe-3 mx-1
+                                        text-uppercase d-flex justify-content-center align-items-center"
+                            attrs="{'invisible': ['|',('display_menu', '=', True), ('manual_entry', '=', False)]}"
                             data-hotkey="7"
                         >
+                            <span class="fs-1 d-none d-lg-block">Clean Values</span>
                         </button>
                         <button
                             name="action_confirm"
                             type="object"
-                            icon="fa-check"
+                            icon="fa-check fa-2x"
                             title="Confirm"
-                            class="btn-success ms-auto oe_kanban_action_button btn-sm ps-3 pe-3"
+                            class="btn-success w-100 oe_kanban_action_button btn-sm ps-3 pe-3 text-uppercase d-flex justify-content-center align-items-center"
                             attrs="{'invisible': ['|', '|','&amp;', ('is_manual_confirm', '=', False), ('manual_entry', '=', False), ('display_menu', '=', True), ('visible_force_done', '=', True)]}"
                             data-hotkey="8"
-                        />
+                        >
+                            <span class="fs-1 d-none d-lg-block">Confirm</span>
+                        </button>
                         <button
                             name="action_force_done"
                             type="object"
-                            icon="fa-check"
+                            icon="fa-check fa-2x"
                             title="Force done"
                             attrs="{'invisible': [('visible_force_done', '=', False)]}"
-                            class="btn-danger ms-auto oe_kanban_action_button btn-sm ps-3 pe-3"
+                            class="btn-danger w-100 oe_kanban_action_button btn-sm ps-3 pe-3 text-uppercase d-flex justify-content-center align-items-center"
                             style="width: 50px"
                             data-hotkey="8"
-                        />
-                        <button
-                            name="open_actions"
-                            type="object"
-                            class="ms-auto oe_kanban_action_button btn-sm ps-3 pe-3"
-                            icon="fa-bars"
-                            title="Open actions"
-                            attrs="{'invisible': [('display_menu', '=', True)]}"
-                            data-hotkey="0"
-                        />
-                        <button
-                            name="action_back"
-                            type="object"
-                            string="Back"
-                            class="btn-secondary ms-auto oe_kanban_action_button btn-sm"
-                            icon="fa-backward"
-                            attrs="{'invisible': [('display_menu', '=', False)]}"
-                            data-hotkey="7"
-                        />
+                        >
+                            <span class="fs-1 d-none d-lg-block">Confirm</span>
+                        </button>
                     </div>
                 </div>
             </form>
@@ -533,7 +450,7 @@
         <field name="view_mode">form</field>
         <field name="context">{}</field>
         <field name="view_id" ref="view_stock_barcodes_read_form" />
-        <field name="target">current</field>
+        <field name="target">fullscreen</field>
     </record>
     <record id="view_stock_barcodes_read_form_manual_qty" model="ir.ui.view">
         <field name="name">stock.barcodes.read.form.manual_qty</field>
