@@ -39,4 +39,12 @@
         <field name="key_char_shortcut">8</field>
         <field name="context">{'inventory_mode': True}</field>
     </record>
+
+    <record id="stock_barcodes_action_barcode_operations" model="stock.barcodes.action">
+        <field name="name">Operations</field>
+        <field name="sequence">40</field>
+        <field name="action_window_id" ref="stock.stock_picking_type_action" />
+        <field name="key_char_shortcut">9</field>
+        <field name="context">{'operations_mode': True}</field>
+    </record>
 </odoo>

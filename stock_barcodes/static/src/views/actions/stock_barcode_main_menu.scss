@@ -1,0 +1,74 @@
+@keyframes o_barcode_scanner_intro {
+    25% {
+        top: 75%;
+    }
+    50% {
+        top: 0;
+    }
+    75% {
+        top: 100%;
+    }
+    100% {
+        top: 50%;
+    }
+}
+
+div.o_action_manager {
+    &:has(div.stock-barcodes-main-menu) {
+        overflow-y: scroll !important;
+        background-color: $o-community-color !important;
+        @include media-breakpoint-down(sm) {
+            overflow: scroll !important;
+        }
+    }
+}
+
+div.stock-barcodes-main-menu {
+    background-color: white !important;
+    margin: 0 10% 5% 10% !important;
+    border-radius: 5px !important;
+    min-height: 90% !important;
+    @include media-breakpoint-down(sm) {
+        margin: 0 !important;
+    }
+
+    img {
+        height: 220px !important;
+    }
+
+    div.o_stock_barcode_functions {
+        margin-top: 5rem;
+        @include media-breakpoint-down(sm) {
+            margin-top: 3.6rem;
+        }
+    }
+
+    div.o_stock_barcode_buttons {
+        button {
+            padding: 1.5rem 1.5rem !important;
+        }
+    }
+
+    span.o_stock_barcode_laser {
+        @include o-position-absolute(33%, -15px, auto, -15px);
+        height: 5px;
+        background: rgba(red, 0.6);
+        box-shadow: 0 1px 10px 1px rgba(red, 0.8);
+        animation: o_barcode_scanner_intro 1s cubic-bezier(0.6, -0.28, 0.735, 0.045)
+            0.4s;
+        width: 26%;
+        margin-left: 38%;
+        @include media-breakpoint-down(sm) {
+            @include o-position-absolute(35%, -15px, auto, -15px);
+            width: 95%;
+            margin-left: 6%;
+        }
+    }
+
+    div.o_stock_barcode_header_home {
+        padding-right: 45% !important;
+        @include media-breakpoint-down(sm) {
+            padding-right: 27% !important;
+        }
+    }
+}

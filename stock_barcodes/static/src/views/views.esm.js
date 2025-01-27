@@ -7,6 +7,7 @@ import {getVisibleElements, isVisible} from "@web/core/utils/ui";
 import {FormController} from "@web/views/form/form_controller";
 import {KanbanController} from "@web/views/kanban/kanban_controller";
 import {ListController} from "@web/views/list/list_controller";
+import {_t} from "@web/core/l10n/translation";
 import {isAllowedBarcodeModel} from "../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
 import {useEffect} from "@odoo/owl";
@@ -94,7 +95,7 @@ function setupView() {
         } else if (ev.keyCode === 123 || ev.keyCode === 115) {
             // F12 or F4
             await actionService.doAction(
-                "stock_barcodes.action_stock_barcodes_action",
+                "stock_barcodes.action_stock_barcodes_action_client",
                 {
                     name: "Barcode wizard menu",
                     res_model: "wiz.stock.barcodes.read.picking",
@@ -109,8 +110,8 @@ function setupView() {
             notifications.forEach((notif) => {
                 const {payload, type} = notif;
                 if (
-                    (this.model.root.resModel == payload.res_model) &
-                    (this.model.root.resId == payload.res_id)
+                    (this.model.root.resModel === payload.res_model) &
+                    (this.model.root.resId === payload.res_id)
                 ) {
                     if (type === "stock_barcodes_sound") {
                         if (payload.sound === "ko") {
@@ -118,8 +119,7 @@ function setupView() {
                         } else {
                             this.$sound_ok[0].play();
                         }
-                    }
-                    if (type === "stock_barcodes_focus") {
+                    } else if (type === "stock_barcodes_focus") {
                         requestIdleCallback(() => {
                             const input = document.querySelector(
                                 `[name=${payload.field_name}] input`
@@ -128,14 +128,42 @@ function setupView() {
                                 input.focus();
                             }
                         });
-                    }
-                    if (type === "stock_barcodes_notify") {
+                    } else if (type === "stock_barcodes_notify") {
                         notification.add(notif.payload.message, {
                             title: notif.payload.title,
                             type: notif.payload.type,
                             sticky: notif.payload.sticky,
                         });
                     }
+                }
+
+                if (type === "stock_barcodes_edit_manual") {
+                    if (payload.manual_entry) {
+                        this.env.bus.trigger("enableFormEditBarcode");
+                    } else if (!payload.manual_entry) {
+                        this.env.bus.trigger("disableFormEditBarcode");
+                    }
+                } else if (type === "actions_barcode") {
+                    if (payload.valid_picking) {
+                        notification.add(_t("The transfer has been validated"), {
+                            type: "success",
+                        });
+                    } else if (payload.apply_inventory) {
+                        actionService.doAction(
+                            "stock_barcodes.action_stock_barcodes_action_client"
+                        );
+                        notification.add(
+                            _t("The inventory adjustment has been validated"),
+                            {
+                                type: "success",
+                            }
+                        );
+                    }
+                } else if (type === "actions_barcode_notification") {
+                    notification.add(_t(payload.message), {
+                        type: payload.message_type,
+                        sticky: payload.sticky,
+                    });
                 }
             });
         }

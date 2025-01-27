@@ -1,0 +1,135 @@
+@mixin barcode-decoration() {
+    i.fa-barcode {
+        font-size: 2em !important;
+        @include media-breakpoint-down(sm) {
+            font-size: 3em !important;
+        }
+    }
+}
+
+div.o_kanban_renderer {
+    button[name="action_barcode_scan"] {
+        @include barcode-decoration;
+    }
+}
+
+div.o_kanban_stock_barcodes {
+    padding: 10px !important;
+
+    button.o_stock_mobile_barcode {
+        @include barcode-decoration;
+    }
+
+    button.o_stock_mobile_barcode:focus {
+        box-shadow: none !important;
+    }
+}
+
+div.alert.barcode-info {
+    background-color: $o-community-color !important;
+
+    span.fa-barcode {
+        margin: 0.5rem 1rem 0 1rem !important;
+
+        @include media-breakpoint-down(sm) {
+            margin: 0 0 0 5px !important;
+            font-size: 1em !important;
+        }
+    }
+}
+
+.inventory_quant_ids_with_form {
+    height: 710px !important;
+    @include media-breakpoint-down(sm) {
+        height: 500px !important;
+    }
+}
+
+.inventory_quant_ids_without_form {
+    height: 822px !important;
+    @include media-breakpoint-down(sm) {
+        height: 648px !important;
+    }
+}
+
+div.oe_kanban_picking_done {
+    background-color: #353840 !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 230px !important;
+}
+
+div[name="inventory_quant_ids"],
+div[name="pending_move_ids"],
+div[name="move_line_ids"] {
+    div.o_kanban_renderer {
+        padding: 0 !important;
+
+        &:has(div.oe_kanban_picking_done) {
+            height: 50% !important;
+        }
+
+        div.o_kanban_record {
+            box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px !important;
+
+            i.fa-pencil,
+            i.fa-trash {
+                font-size: 3.5em !important;
+            }
+
+            img,
+            span.text-end.fw-bold {
+                margin-right: 5% !important;
+            }
+
+            div.indent {
+                text-indent: 5px !important;
+            }
+        }
+
+        button.btn-op-rest,
+        button.btn-op-sum {
+            background-color: $o-community-color !important;
+            min-width: 55px !important;
+            height: 60px !important;
+            padding: 12px 8px !important;
+            border-radius: 8px !important;
+            line-height: 16px !important;
+            font-size: 16px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-transform: none;
+        }
+    }
+}
+
+button[name="action_clean_product"],
+button[name="action_clean_lot"],
+button#btn_create_lot {
+    width: 5% !important;
+    padding: 0.9rem !important;
+    @include media-breakpoint-down(sm) {
+        width: 95% !important;
+        margin-top: 0.5em !important;
+        padding: 0.3rem !important;
+        i.o_button_icon {
+            font-size: 1.5em !important;
+        }
+    }
+}
+
+div.stock_barcodes_action_kanban {
+    div.o_kanban_record {
+        div.oe_kanban_content {
+            padding: 1.5rem 1.5rem 1.5rem 0.5rem !important;
+
+            div.count-elements {
+                border: 1px solid;
+                padding: 1px 4px 1px 4px !important;
+                border-radius: 40% !important;
+                background-color: lightgray !important;
+            }
+        }
+    }
+}

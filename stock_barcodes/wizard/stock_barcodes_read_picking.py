@@ -29,13 +29,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_ids = fields.Many2many(
         comodel_name="stock.picking", string="Pickings", readonly=True
     )
+    candidate_picking_id = fields.Many2one(
+        comodel_name="stock.picking", related="candidate_picking_ids.picking_id"
+    )
     candidate_picking_ids = fields.One2many(
         comodel_name="wiz.candidate.picking",
         inverse_name="wiz_barcode_id",
         string="Candidate pickings",
         readonly=True,
     )
-    # TODO: Remove this field
+
     picking_product_qty = fields.Float(
         string="Picking quantities", digits="Product Unit of Measure", readonly=True
     )
@@ -43,7 +46,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         [("incoming", "Vendors"), ("outgoing", "Customers"), ("internal", "Internal")],
         "Type of Operation",
     )
-    # TODO: Check if move_line_ids is used
+
     move_line_ids = fields.One2many(
         comodel_name="stock.move.line", compute="_compute_move_line_ids"
     )
@@ -66,7 +69,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         comodel_name="wiz.stock.barcodes.read.todo"
     )
     show_detailed_operations = fields.Boolean(
-        related="option_group_id.show_detailed_operations"
+        related="option_group_id.show_detailed_operations", default=True, store=True
     )
     keep_screen_values = fields.Boolean(related="option_group_id.keep_screen_values")
     # Extended from stock_barcodes_read base model
@@ -79,6 +82,16 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     todo_line_is_extra_line = fields.Boolean(related="todo_line_id.is_extra_line")
     forced_todo_key = fields.Char()
     qty_available = fields.Float(compute="_compute_qty_available")
+    partner_id = fields.Many2one("res.partner", related="picking_id.partner_id")
+    enable_add_product = fields.Boolean(compute="_compute_enable_add_product")
+
+    def action_show_detailed_operations(self):
+        self.show_detailed_operations = not self.show_detailed_operations
+
+    @api.depends("picking_state")
+    def _compute_enable_add_product(self):
+        for rec in self:
+            rec.enable_add_product = rec.picking_state != "done"
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
@@ -95,7 +108,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 )
             )
         else:
-            self.pending_move_ids = False
+            self.pending_move_ids = self.todo_line_ids
 
     @api.depends(
         "todo_line_ids", "todo_line_ids.qty_done", "picking_id.move_line_ids.qty_done"
@@ -225,7 +238,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return move_lines
 
     def fill_pending_moves(self):
-        # TODO: Unify method
         self.fill_todo_records()
 
     def get_moves_or_move_lines(self):
@@ -304,7 +316,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_done(self):
         res = super().action_done()
         if res:
-            move_dic = self._process_stock_move_line()
+            move_dic = self.with_context(**self.env.context)._process_stock_move_line()
             if move_dic:
                 self[self._field_candidate_ids].scan_count += 1
                 if self.env.context.get("force_create_move"):
@@ -353,7 +365,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         picking = self.env.context.get("picking", self.picking_id)
         if not picking:
             raise ValidationError(
-                _("You can not add extra moves if you have " "not set a picking")
+                _("You can not add extra moves if you have not set a picking")
             )
         # If we move all package units the result package is the same
         if (
@@ -512,10 +524,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         else:
             moves_todo = StockMove.search(domain)
-        if not getattr(
-            self,
-            "_search_candidate_%s" % self.picking_mode,
-        )(moves_todo):
+        try:
+            getattr(
+                self,
+                "_search_candidate_%s" % self.picking_mode,
+            )(moves_todo)
+        except AttributeError:
             return False
         sml_vals = {}
         candidate_lines = self._get_candidate_stock_move_lines(moves_todo, sml_vals)
@@ -583,6 +597,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self._set_focus_on_qty_input("product_qty")
             return False
         move_lines_dic = {}
+        context = self.env.context
         for line in lines:
             if line.reserved_uom_qty and len(lines) > 1:
                 assigned_qty = min(
@@ -597,6 +612,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 and self.result_package_id == self.package_id
             ):
                 qty_done = assigned_qty
+            elif context.get("no_increase_qty_done", False) and assigned_qty > 0:
+                # Do not increase the quantity, if the quantity is > 0
+                qty_done = assigned_qty
             else:
                 qty_done = line.qty_done + assigned_qty
             sml_vals.update(
@@ -605,7 +623,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     "result_package_id": self.result_package_id.id,
                 }
             )
-            # Add or remove result_package_id
+            # Add or remove result_pselfackage_id
             package_qty_available = sum(
                 self.package_id.quant_ids.filtered(
                     lambda q: q.lot_id == self.lot_id
@@ -660,6 +678,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             for sml in stock_move_lines:
                 if not sml.move_id:
                     self.create_new_stock_move(sml)
+                elif sml.move_id and context.get("force_create_move", False):
+                    sml.move_id.product_uom_qty = self.product_qty
                 move_lines_dic[sml.id] = sml.qty_done
             # Ensure that the state of stock_move linked to the sml read is assigned
             stock_move_lines.move_id.filtered(
@@ -775,12 +795,22 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         raise ValidationError(_("No pending lines for this product"))
 
     def action_put_in_pack(self):
-        self.picking_id.action_put_in_pack()
+        for picking in self.mapped("picking_id"):
+            picking.action_put_in_pack()
 
     def action_clean_values(self):
         res = super().action_clean_values()
         self.selected_pending_move_id = False
         self.visible_force_done = False
+        # Hide Form Edit
+        self.manual_entry = False
+        self.send_bus_done(
+            "stock_barcodes_scan",
+            "stock_barcodes_edit_manual",
+            {
+                "manual_entry": False,
+            },
+        )
         return res
 
     def _option_required_hook(self, option_required):
@@ -948,138 +978,44 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             list(todo_vals.values())
         )
 
-
-class WizCandidatePicking(models.TransientModel):
-    """
-    TODO: explain
-    """
-
-    _name = "wiz.candidate.picking"
-    _description = "Candidate pickings for barcode interface"
-    # To prevent remove the record wizard until 2 days old
-    _transient_max_hours = 48
-
-    wiz_barcode_id = fields.Many2one(
-        comodel_name="wiz.stock.barcodes.read.picking", readonly=True
-    )
-    picking_id = fields.Many2one(
-        comodel_name="stock.picking", string="Picking", readonly=True
-    )
-    wiz_picking_id = fields.Many2one(
-        comodel_name="stock.picking",
-        related="wiz_barcode_id.picking_id",
-        string="Wizard Picking",
-        readonly=True,
-    )
-    name = fields.Char(
-        related="picking_id.name", readonly=True, string="Candidate Picking"
-    )
-    partner_id = fields.Many2one(
-        comodel_name="res.partner",
-        related="picking_id.partner_id",
-        readonly=True,
-        string="Partner",
-    )
-    state = fields.Selection(related="picking_id.state", readonly=True)
-    date = fields.Datetime(
-        related="picking_id.date", readonly=True, string="Creation Date"
-    )
-    product_qty_reserved = fields.Float(
-        "Reserved",
-        compute="_compute_picking_quantity",
-        digits="Product Unit of Measure",
-        readonly=True,
-    )
-    product_uom_qty = fields.Float(
-        "Demand",
-        compute="_compute_picking_quantity",
-        digits="Product Unit of Measure",
-        readonly=True,
-    )
-    product_qty_done = fields.Float(
-        "Done",
-        compute="_compute_picking_quantity",
-        digits="Product Unit of Measure",
-        readonly=True,
-    )
-    # For reload kanban view
-    scan_count = fields.Integer()
-    is_pending = fields.Boolean(compute="_compute_is_pending")
-    note = fields.Html(related="picking_id.note")
-
-    @api.depends("scan_count")
-    def _compute_picking_quantity(self):
-        for candidate in self:
-            qty_reserved = 0
-            qty_demand = 0
-            qty_done = 0
-            candidate.product_qty_reserved = sum(
-                candidate.picking_id.mapped("move_ids.reserved_availability")
-            )
-            for move in candidate.picking_id.move_ids:
-                qty_reserved += move.reserved_availability
-                qty_demand += move.product_uom_qty
-                qty_done += move.quantity_done
-            candidate.update(
-                {
-                    "product_qty_reserved": qty_reserved,
-                    "product_uom_qty": qty_demand,
-                    "product_qty_done": qty_done,
-                }
-            )
-
-    @api.depends("scan_count")
-    def _compute_is_pending(self):
-        for rec in self:
-            rec.is_pending = bool(rec.wiz_barcode_id.pending_move_ids)
-
-    def _get_wizard_barcode_read(self):
-        return self.env["wiz.stock.barcodes.read.picking"].browse(
-            self.env.context["wiz_barcode_id"]
-        )
-
-    def action_lock_picking(self):
-        wiz = self._get_wizard_barcode_read()
-        picking_id = self.env.context["picking_id"]
-        wiz.picking_id = picking_id
-        wiz._set_candidate_pickings(wiz.picking_id)
-        return wiz.action_confirm()
-
-    def action_unlock_picking(self):
-        wiz = self._get_wizard_barcode_read()
-        wiz.update(
-            {
-                "picking_id": False,
-                "candidate_picking_ids": False,
-                "message_type": False,
-                "message": False,
-            }
-        )
-        return wiz.action_cancel()
-
-    def _get_picking_to_validate(self):
-        """Inject context show_picking_type_action_tree to redirect to picking list
-        after validate picking in barcodes environment.
-        The stock_barcodes_validate_picking key allows to know when a picking has been
-        validated from stock barcodes interface.
-        """
-        return (
-            self.env["stock.picking"]
-            .browse(self.env.context.get("picking_id", False))
-            .with_context(
-                show_picking_type_action_tree=True, stock_barcodes_validate_picking=True
-            )
-        )
-
     def action_validate_picking(self):
-        picking = self._get_picking_to_validate()
-        return picking.button_validate()
+        # for candidate_picking in self.candidate_picking_ids:
+        valid, result = self.candidate_picking_ids.with_context(
+            wiz_barcode_id=self.id,
+            picking_id=self.picking_id.id,
+            skip_sms=True,
+            skip_immediate=True,
+        ).action_validate_picking()
+        if not valid:
+            return result
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.stock_barcodes_action_picking_tree_ready"
+        )
+
+        if self.picking_id and self.picking_id.picking_type_id:
+            context = self.env.context.copy()
+            context.update(safe_eval(action["context"]))
+            context.update(
+                {"search_default_picking_type_id": self.picking_id.picking_type_id.id}
+            )
+            action["context"] = context
+
+        return action
 
     def action_open_picking(self):
-        picking = self.env["stock.picking"].browse(
-            self.env.context.get("picking_id", False)
-        )
-        return picking.with_context(control_panel_hidden=False).get_formview_action()
+        for candidate_picking in self.candidate_picking_ids:
+            candidate_picking.with_context(
+                wiz_barcode_id=self.id, picking_id=self.picking_id.id
+            ).action_open_picking()
 
-    def action_put_in_pack(self):
-        self.picking_id.action_put_in_pack()
+    def action_unlock_picking(self):
+        for candidate_picking in self.candidate_picking_ids:
+            candidate_picking.with_context(
+                wiz_barcode_id=self.id
+            ).action_unlock_picking()
+
+    def action_lock_picking(self):
+        for candidate_picking in self.candidate_picking_ids:
+            candidate_picking.with_context(
+                wiz_barcode_id=self.id, picking_id=self.picking_id.id
+            ).action_lock_picking()

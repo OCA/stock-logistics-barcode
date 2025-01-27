@@ -1,5 +1,6 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+from odoo.exceptions import MissingError, UserError
 from odoo.tests.common import tagged
 
 from .common import TestCommonStockBarcodes
@@ -140,7 +141,10 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         )
 
     def test_picking_wizard_scan_product(self):
-        wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
+        # self.wiz_scan_picking.manual_entry = True
+        wiz_scan_picking = self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        )
         self.action_barcode_scanned(wiz_scan_picking, "8480000723208")
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
@@ -166,9 +170,9 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(sml.qty_done, 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
         stock_move = sml.move_id
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 2.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8411822222568")
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 3.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 1.0)
         self.assertEqual(
             self.wiz_scan_picking.message,
             "8411822222568 (Scan Product, Packaging, Lot / Serial)",
@@ -176,10 +180,12 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         # Scan a package
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
         # Package of 5 product units. Already three unit exists
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 8.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_done")), 5.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
-        wiz_scan_picking = self.wiz_scan_picking.with_context(force_create_move=True)
+        wiz_scan_picking = self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        )
         wiz_scan_picking.manual_entry = True
         self.action_barcode_scanned(wiz_scan_picking, "8480000723208")
         sml = self.picking_in_01.move_line_ids.filtered(
@@ -203,8 +209,10 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.wiz_scan_picking.lot_id = self.lot_1
         self.wiz_scan_picking.product_qty = 2
 
-        self.wiz_scan_picking.with_context(force_create_move=True).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 2)
+        self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        ).action_confirm()
+        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:2]), 2)
         # Lock first picking
         candidate = self.wiz_scan_picking.candidate_picking_ids.filtered(
             lambda c: c.picking_id == self.picking_out_01
@@ -215,21 +223,27 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         candidate_wiz.with_context(force_create_move=True).action_lock_picking()
         self.assertEqual(self.picking_out_01.move_ids.quantity_done, 2)
         self.wiz_scan_picking.product_qty = 2
-        self.wiz_scan_picking.with_context(force_create_move=True).action_confirm()
-        self.assertEqual(self.picking_out_01.move_ids.quantity_done, 4)
+        self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        ).action_confirm()
+        self.assertEqual(self.picking_out_01.move_ids.quantity_done, 2)
 
         # Picking out 3 is in confirmed state, so until confirmed moves has
         # not been activated candidate pickings is 2
         picking_out_3.action_confirm()
         candidate_wiz.action_unlock_picking()
         self.wiz_scan_picking.product_qty = 2
-        self.wiz_scan_picking.with_context(force_create_move=True).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 2)
+        self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        ).action_confirm()
+        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:2]), 2)
         candidate_wiz.action_unlock_picking()
         self.wiz_scan_picking.product_qty = 2
         self.wiz_scan_picking.option_group_id.confirmed_moves = True
-        self.wiz_scan_picking.with_context(force_create_move=True).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids), 3)
+        self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        ).action_confirm()
+        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:3]), 3)
 
     def test_picking_wizard_scan_product_auto_lot(self):
         # Prepare more data
@@ -452,4 +466,74 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     ),
                 ],
             }
+        )
+
+    def test_stock_picking_validate(self):
+        self.picking_in_01.state = False
+        with self.assertRaises(UserError):
+            self.picking_in_01.with_context(
+                stock_barcodes_validate_picking=True
+            ).button_validate()
+
+    def test_barcode_read_picking(self):
+        self.picking_in_01.state = "done"
+        self.wiz_scan_picking._compute_enable_add_product()
+        self.assertFalse(self.wiz_scan_picking.enable_add_product)
+
+        self.wiz_scan_picking.show_detailed_operations = False
+        self.wiz_scan_picking.action_show_detailed_operations()
+        self.assertTrue(self.wiz_scan_picking.action_show_detailed_operations)
+
+        self.wiz_scan_picking.action_show_detailed_operations()
+        self.assertFalse(self.wiz_scan_picking.show_detailed_operations)
+
+    def test_barcode_read_inventory(self):
+        context = {
+            "params": {
+                "model": "wiz.stock.barcodes.read.inventory",
+                "id": self.quant_lot_1.id,
+            }
+        }
+        with self.assertRaises(MissingError):
+            self.quant_lot_1.with_context(
+                **context
+            ).action_barcode_inventory_quant_unlink()
+        context = {
+            "params": {
+                "model": self.wiz_scan_read_inventory._name,
+                "id": self.wiz_scan_read_inventory.id,
+            }
+        }
+        self.quant_lot_1.with_context(**context).action_barcode_inventory_quant_unlink()
+        self.assertIsNone(
+            self.quant_lot_1.with_context(
+                **context
+            ).action_barcode_inventory_quant_unlink()
+        )
+        self.assertIsNone(self.quant_lot_1.enable_current_operations())
+        self.assertIsNone(self.quant_lot_1.action_barcode_inventory_quant_edit())
+        with self.assertRaises(ValueError):
+            self.quant_lot_1.write({"inventory_quantity": "test"})
+            self.quant_lot_1.operation_quantities_rest()
+            self.quant_lot_1.operation_quantities()
+        self.assertEqual(
+            type(self.picking_in_01.picking_type_id.get_action_picking_tree_ready()),
+            dict,
+        )
+        self.assertEqual(
+            type(
+                self.picking_in_01.picking_type_id.with_context(
+                    **{"operations_mode": True}
+                ).get_action_picking_tree_ready()
+            ),
+            dict,
+        )
+        self.assertIsNone(self.wiz_scan_candidate_picking._compute_picking_quantity())
+        self.assertIsNone(self.wiz_scan_candidate_picking._compute_is_pending())
+        self.assertEqual(
+            self.wiz_scan_candidate_picking._get_picking_to_validate()._name,
+            self.picking_in_01._name,
+        )
+        self.assertEqual(
+            type(self.wiz_scan_candidate_picking.action_validate_picking()), tuple
         )

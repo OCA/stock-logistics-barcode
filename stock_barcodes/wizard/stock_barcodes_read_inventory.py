@@ -17,7 +17,18 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     inventory_quant_ids = fields.Many2many(
         comodel_name="stock.quant", compute="_compute_inventory_quant_ids"
     )
-    display_read_quant = fields.Boolean(string="Read items")
+    count_inventory_quants = fields.Integer(
+        compute="_compute_count_inventory_quants", store=True
+    )
+    display_read_quant = fields.Boolean(string="Read items", default=True)
+
+    def action_display_read_quant(self):
+        self.display_read_quant = not self.display_read_quant
+
+    @api.depends("inventory_quant_ids")
+    def _compute_count_inventory_quants(self):
+        for wiz in self:
+            wiz.count_inventory_quants = len(wiz.inventory_quant_ids)
 
     @api.depends("display_read_quant")
     def _compute_inventory_quant_ids(self):
@@ -26,7 +37,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                 ("user_id", "=", self.env.user.id),
                 ("inventory_date", "<=", fields.Date.context_today(self)),
             ]
-            if self.display_read_quant:
+            if wiz.display_read_quant:
                 domain.append(("inventory_quantity_set", "=", True))
                 order = "write_date DESC"
             else:
@@ -43,6 +54,13 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                     )
                 )
             wiz.inventory_quant_ids = quants
+
+            # UPDATE: Count elements for apply in inventory
+            wiz.send_bus_done(
+                "stock_barcodes_form_update",
+                "count_apply_inventory",
+                {"count": wiz.count_inventory_quants},
+            )
 
     def _prepare_stock_quant_values(self):
         return {
@@ -114,6 +132,16 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def action_clean_values(self):
         res = super().action_clean_values()
         self.inventory_product_qty = 0.0
+        self.package_id = False
+        # Hide Form Edit
+        self.manual_entry = False
+        self.send_bus_done(
+            "stock_barcodes_scan",
+            "stock_barcodes_edit_manual",
+            {
+                "manual_entry": False,
+            },
+        )
         return res
 
     @api.onchange("product_id")

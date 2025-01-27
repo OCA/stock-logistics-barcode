@@ -14,6 +14,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     name = fields.Char()
     wiz_barcode_id = fields.Many2one(comodel_name="wiz.stock.barcodes.read.picking")
+    picking_state = fields.Selection(related="wiz_barcode_id.picking_state")
     partner_id = fields.Many2one(
         comodel_name="res.partner",
         readonly=True,
@@ -42,6 +43,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         digits="Product Unit of Measure",
         compute="_compute_qty_done",
     )
+    qty_done_rest = fields.Float(compute="_compute_qty_done_rest", store=True)
     location_id = fields.Many2one(comodel_name="stock.location")
     location_name = fields.Char(related="location_id.name")
     location_dest_id = fields.Many2one(comodel_name="stock.location")
@@ -64,6 +66,11 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     is_extra_line = fields.Boolean()
     # Used in kanban view
     is_stock_move_line_origin = fields.Boolean()
+
+    @api.depends("qty_done", "product_uom_qty")
+    def _compute_qty_done_rest(self):
+        for rec in self:
+            rec.qty_done_rest = rec.product_uom_qty - rec.qty_done
 
     def action_todo_next(self):
         self.state = "done_forced"
@@ -176,3 +183,41 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id.action_show_step()
         self.wiz_barcode_id._set_focus_on_qty_input()
+
+    def operation_quantities(self):
+        self.wiz_barcode_id.manual_entry = True
+        self.wiz_barcode_id.product_qty = self.product_qty_reserved
+        self.wiz_barcode_id.product_id = self.product_id.id
+        if self.wiz_barcode_id.picking_id.picking_type_id.code != "incoming":
+            self.wiz_barcode_id.qty_available = self.product_qty_reserved
+            self.wiz_barcode_id.product_id = self.product_id.id
+            self.wiz_barcode_id.location_id = self.location_id.id
+        self.wiz_barcode_id.with_context(manual_picking=True).action_confirm()
+
+    def _get_fields_to_edit(self):
+        return [
+            "location_dest_id",
+            "location_id",
+            "product_id",
+            "lot_id",
+            "package_id",
+        ]
+
+    def action_barcode_inventory_quant_edit(self):
+        wiz_barcode_id = self.env.context.get("wiz_barcode_id", False)
+        wiz_barcode = self.env["wiz.stock.barcodes.read.picking"].browse(wiz_barcode_id)
+        for quant in self:
+            # Try to assign fields with the same name between quant and the scan wizard
+            for fname in self._get_fields_to_edit():
+                if hasattr(wiz_barcode, fname):
+                    wiz_barcode[fname] = quant[fname]
+            wiz_barcode.product_qty = quant.qty_done
+
+        wiz_barcode.manual_entry = True
+        self.env["bus.bus"]._sendone(
+            "stock_barcodes_scan",
+            "stock_barcodes_edit_manual",
+            {
+                "manual_entry": True,
+            },
+        )

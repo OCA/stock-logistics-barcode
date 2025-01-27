@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<templates xml:space="preserve">
+
+    <t
+        t-name="stock_barcodes.BarcodeKanbanRenderer"
+        t-inherit="web.KanbanRenderer"
+        owl="1"
+    >
+        <xpath expr="//div[hasclass('o_kanban_renderer')]" position="before">
+            <div
+                t-if="showMessageScanProductPackage"
+                class="o_kanban_stock_barcodes text-white w-100 mt-1 mb-1 d-flex align-items-center justify-content-center bg-dark"
+            >
+                <span t-if="packageEnabled">Scan a <b>transfer</b>, a <b
+                    >product</b> or a <b>lot</b> to filter your records</span>
+                <span t-else="">Scan a <b>transfer</b> or a <b
+                    >product</b> to filter your records</span>
+                <button
+                    class="o_stock_mobile_barcode btn"
+                    t-on-click="openBarcodeScanner"
+                >
+                    <i class="fa fa-barcode" />
+                </button>
+            </div>
+        </xpath>
+    </t>
+
+</templates>

@@ -28,7 +28,11 @@ class StockPicking(models.Model):
         return vals
 
     def action_barcode_scan(self, option_group=False):
-        option_group = option_group or self.picking_type_id.barcode_option_group_id
+        option_group = (
+            option_group
+            or self.picking_type_id.barcode_option_group_id
+            or self.env.ref("stock_barcodes.stock_barcodes_option_group_operation")
+        )
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(
             self._prepare_barcode_wiz_vals(option_group)
         )
@@ -52,7 +56,18 @@ class StockPicking(models.Model):
                 StockPicking, self.with_context(skip_backorder=True)
             ).button_validate()
         else:
+            pickings_to_backorder = self._check_backorder()
+            if pickings_to_backorder:
+                return pickings_to_backorder._action_generate_backorder_wizard(
+                    show_transfers=self._should_show_transfers()
+                )
             res = super().button_validate()
         if res is True and self.env.context.get("show_picking_type_action_tree", False):
-            return self[:1].picking_type_id.get_action_picking_tree_ready()
+            res = self[:1].picking_type_id.get_action_picking_tree_ready()
+
+        if self.state == "done":
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes_scan", "actions_barcode", {"valid_picking": True}
+            )
+
         return res

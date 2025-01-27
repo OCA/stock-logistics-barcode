@@ -6,6 +6,8 @@ from odoo import _, api, fields, models
 
 _logger = logging.getLogger(__name__)
 
+TYPE_ERROR = ["more_match", "not_found"]
+
 
 class WizStockBarcodesRead(models.AbstractModel):
     _name = "wiz.stock.barcodes.read"
@@ -14,6 +16,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     # To prevent remove the record wizard until 2 days old
     _transient_max_hours = 48
     _allowed_product_types = ["product", "consu"]
+    _rec_name = "barcode"
 
     barcode = fields.Char()
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
@@ -48,6 +51,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     message_type = fields.Selection(
         [
             ("info", "Barcode read with additional info"),
+            ("info_page", "Info page"),
             ("not_found", "No barcode found"),
             ("more_match", "More than one matches found"),
             ("success", "Barcode read correctly"),
@@ -92,9 +96,13 @@ class WizStockBarcodesRead(models.AbstractModel):
         string="Product Qty. Done", digits="Product Unit of Measure", store=False
     )
 
+    enable_add_product = fields.Boolean(default=True)
+
     @api.depends("res_id")
     def _compute_action_ids(self):
-        actions = self.env["stock.barcodes.action"].search([])
+        actions = self.env["stock.barcodes.action"].search(
+            [("action_window_id", "!=", False)]
+        )
         self.action_ids = actions
 
     @api.depends("option_group_id")
@@ -146,14 +154,36 @@ class WizStockBarcodesRead(models.AbstractModel):
         For manual entry mode barcode is not set so is not displayed
         """
         self.message_type = message_type
-        # TODO: Uncomment this line when the tests of all modules have been adapted
         # if self.barcode and self.message_type in ["more_match", "not_found"]:
         if self.barcode:
             self.message = _(
                 "%(barcode)s (%(message)s)", barcode=self.barcode, message=message
             )
         else:
-            self.message = "%s" % message
+            if message_type in TYPE_ERROR:
+                self.manual_entry = True
+                self.send_bus_done(
+                    "stock_barcodes_scan",
+                    "actions_barcode_notification",
+                    {
+                        "message": message,
+                        "sticky": True,
+                        "message_type": "danger"
+                        if message_type in TYPE_ERROR
+                        else message_type,
+                    },
+                )
+            elif message_type != "info_page":
+                self.send_bus_done(
+                    "stock_barcodes_scan",
+                    "actions_barcode_notification",
+                    {
+                        "message": message,
+                        "message_type": message_type,
+                    },
+                )
+            else:
+                self.message = "%s" % message
 
     def process_barcode_location_id(self):
         location = self.env["stock.location"].search(self._barcode_domain(self.barcode))
@@ -361,52 +391,73 @@ class WizStockBarcodesRead(models.AbstractModel):
         return False
 
     def process_barcode(self, barcode):
-        self._set_messagge_info("success", _("OK"))
-        options = self.option_group_id.option_ids
-        barcode_found = False
-        options_to_scan = options.filtered("to_scan")
-        options_required = options.filtered("required")
-        options_to_scan = options_to_scan.filtered(lambda op: op.step == self.step)
-        for option in options_to_scan:
-            if (
-                self.option_group_id.ignore_filled_fields
-                and option in options_required
-                and getattr(self, option.field_name, False)
-            ):
-                continue
-            option_func = getattr(self, "process_barcode_%s" % option.field_name, False)
-            if option_func:
-                res = option_func()
-                if res:
-                    barcode_found = True
-                    self.play_sounds(barcode_found)
-                    break
-                elif self.message_type != "success":
-                    self.play_sounds(False)
-                    return False
-        if not barcode_found:
-            self.play_sounds(barcode_found)
-            if self.option_group_id.ignore_filled_fields:
-                self._set_messagge_info(
-                    "info", _("Barcode not found or field already filled")
-                )
-            else:
-                self._set_messagge_info(
-                    "not_found", _("Barcode not found with this screen values")
-                )
-            self.display_notification(
-                self.barcode,
-                message_type="danger",
-                title=_("Barcode not found"),
-                sticky=False,
+        if not self:
+            barcode_action = self.env["stock.barcodes.action"].search(
+                [
+                    ("action_window_id", "!=", False),
+                    ("barcode", "=", barcode),
+                ],
+                limit=1,
             )
-            return False
-        if not self.check_option_required():
-            return False
-        if self.is_manual_confirm or self.manual_entry:
-            self._set_messagge_info("info", _("Review and confirm"))
-            return False
-        return self.action_confirm()
+
+            self.env["bus.bus"]._sendone(
+                "stock_barcodes_scan",
+                "actions_main_menu_barcode",
+                {
+                    "action_ok": len(barcode_action) > 0,
+                    "action": barcode_action.open_action() if barcode_action else "",
+                    "barcode": barcode,
+                },
+            )
+        else:
+            self._set_messagge_info("success", _("OK"))
+            options = self.option_group_id.option_ids
+            barcode_found = False
+            options_to_scan = options.filtered("to_scan")
+            options_required = options.filtered("required")
+            options_to_scan = options_to_scan.filtered(lambda op: op.step == self.step)
+            for option in options_to_scan:
+                if (
+                    self.option_group_id.ignore_filled_fields
+                    and option in options_required
+                    and getattr(self, option.field_name, False)
+                ):
+                    continue
+                option_func = getattr(
+                    self, "process_barcode_%s" % option.field_name, False
+                )
+                if option_func:
+                    res = option_func()
+                    if res:
+                        barcode_found = True
+                        self.play_sounds(barcode_found)
+                        break
+                    elif self.message_type != "success":
+                        self.play_sounds(False)
+                        return False
+            if not barcode_found:
+                self.play_sounds(barcode_found)
+                if self.option_group_id.ignore_filled_fields:
+                    self._set_messagge_info(
+                        "not_found", _("Barcode not found or field already filled")
+                    )
+                else:
+                    self._set_messagge_info(
+                        "not_found", _("Barcode not found with this screen values")
+                    )
+                self.display_notification(
+                    self.barcode,
+                    message_type="danger",
+                    title=_("Barcode not found"),
+                    sticky=False,
+                )
+                return False
+            if not self.check_option_required():
+                return False
+            if self.is_manual_confirm or self.manual_entry:
+                self._set_messagge_info("info", _("Review and confirm"))
+                return False
+            return self.action_confirm()
 
     def check_option_required(self):
         options = self.option_group_id.option_ids
@@ -626,16 +677,18 @@ class WizStockBarcodesRead(models.AbstractModel):
     def action_manual_entry(self):
         return True
 
-    # TODO: To remove when stock_move_location uses action_clean_values
     def reset_qty(self):
         self.product_qty = 0
         self.packaging_qty = 0
 
     def open_actions(self):
         self.display_menu = True
+        return self.env.ref(
+            "stock_barcodes.action_stock_barcodes_action_client"
+        ).read()[0]
 
     def action_back(self):
-        self.display_menu = False
+        return self.env.ref("stock.stock_picking_type_action").read()[0]
 
     def open_records(self):
         action = self.action_ids
@@ -688,7 +741,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             lambda op: op.step == self.step and op.to_scan
         )
         self._set_messagge_info(
-            "info", _("Scan {}").format(", ".join(options.mapped("name")))
+            "info_page", _("Scan {}").format(", ".join(options.mapped("name")))
         )
 
     @api.onchange("package_id")
@@ -704,11 +757,49 @@ class WizStockBarcodesRead(models.AbstractModel):
         record = self.browse(self.ids)
         record.write(self._convert_to_write(self._cache))
         self = record
-        res = self.action_done()
+        no_increase_qty_done, force_create_move = False, False
+        context = dict(self.env.context)
+        if self._name == "wiz.stock.barcodes.read.picking":
+            no_increase_qty_done = (
+                context.get("no_increase_qty_done", False) or self.manual_entry
+            )
+            force_create_move = context.get("force_create_move", False)
+        res = self.with_context(
+            no_increase_qty_done=no_increase_qty_done,
+            force_create_move=force_create_move,
+        ).action_done()
         self.invalidate_recordset()
         self.play_sounds(res)
         self._set_focus_on_qty_input()
+
+        if force_create_move:
+            # Hide Form Edit
+            self.manual_entry = False
+            self.send_bus_done(
+                "stock_barcodes_scan",
+                "stock_barcodes_edit_manual",
+                {
+                    "manual_entry": False,
+                },
+            )
+
+            # Count elements for apply in inventory
+            if self._name == "wiz.stock.barcodes.read.inventory":
+                self.display_read_quant = True
+                self._compute_count_inventory_quants()
+                self.send_bus_done(
+                    "stock_barcodes_form_update",
+                    "count_apply_inventory",
+                    {"count": self.count_inventory_quants},
+                )
+
         return res
+
+    def action_add_scan_manual(self):
+        self.manual_entry = True
+        self.send_bus_done(
+            "stock_barcodes_scan", "stock_barcodes_edit_manual", {"manual_entry": True}
+        )
 
     def process_lot_before_done(self):
         if (
@@ -723,13 +814,14 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def play_sounds(self, res):
         if res:
-            self.env["bus.bus"]._sendone(
+            self.send_bus_done(
                 "stock_barcodes_scan",
                 "stock_barcodes_sound",
                 {"sound": "ok", "res_model": self._name, "res_id": self.ids[0]},
             )
+
         else:
-            self.env["bus.bus"]._sendone(
+            self.send_bus_done(
                 "stock_barcodes_scan",
                 "stock_barcodes_sound",
                 {"sound": "ko", "res_model": self._name, "res_id": self.ids[0]},
@@ -740,7 +832,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             field_name = "product_qty"
         if field_name == "product_qty" and self.packaging_id:
             field_name = "packaging_qty"
-        self.env["bus.bus"]._sendone(
+
+        self.send_bus_done(
             "stock_barcodes_scan",
             "stock_barcodes_focus",
             {
@@ -805,7 +898,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             }
             if title:
                 message["title"] = title
-            self.env["bus.bus"]._sendone(
+            self.send_bus_done(
                 "stock_barcodes-{}".format(self.ids[0]),
                 "stock_barcodes_notify-{}".format(self.ids[0]),
                 message,

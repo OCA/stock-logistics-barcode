@@ -15,7 +15,7 @@
                 <div class="mt4">
                     <strong class="d-none d-sm-block">Package</strong>
                     <span
-                        class="fa fa-inbox d-sm-none oe_span_small_icon"
+                        class="fa fa-inbox fa-2x d-sm-none oe_span_small_icon"
                         title="package"
                     />
                     <field
@@ -29,89 +29,48 @@
                 </div>
             </group>
             <field name="location_id" position="attributes">
-                <attribute
-                    name="domain"
-                >[('usage', 'in', ['internal', 'transit'])]</attribute>
+                <attribute name="domain">[('usage', 'in', ['internal', 'transit'])]
+                </attribute>
             </field>
             <group name="scan_fields" position="after">
                 <group
                     string="Inventory quants"
                     attrs="{'invisible': [('inventory_quant_ids', '=', [])]}"
                     col="2"
+                    class="px-3"
                 >
                     <field
                         name="inventory_quant_ids"
                         options="{'no_open': True}"
                         nolabel="1"
                         colspan="2"
-                        mode="tree,kanban"
+                        mode="kanban"
                     >
-                        <tree>
-                            <field name="product_id" options="{'no_open': True}" />
-                            <field
-                                name="location_id"
-                                options="{'no_open': True}"
-                                groups="stock.group_stock_multi_locations"
-                                optional="show"
-                            />
-                            <field
-                                name="lot_id"
-                                groups="stock.group_production_lot"
-                                options="{'no_open': True}"
-                                optional="show"
-                            />
-                            <field
-                                name="package_id"
-                                groups="stock.group_tracking_lot"
-                                options="{'no_open': True}"
-                                optional="show"
-                            />
-                            <field name="inventory_quantity" />
-                            <field
-                                name="product_uom_id"
-                                groups="uom.group_uom"
-                                options="{'no_open': True}"
-                            />
-                            <button
-                                name="action_barcode_inventory_quant_edit"
-                                type="object"
-                                icon="fa-pencil"
-                                class="btn mt0"
-                                context="{'wiz_barcode_id': parent.id}"
-                            >
-                            </button>
-                            <button
-                                name="action_barcode_inventory_quant_unlink"
-                                type="object"
-                                class="btn"
-                                icon="fa-trash"
-                                title="Remove quant"
-                                context="{'wiz_barcode_id': parent.id}"
-                            />
-                        </tree>
-                        <kanban class="o_kanban_mobile">
+                        <kanban
+                            class="o_kanban_mobile"
+                            js_class="stock_barcodes_kanban"
+                        >
                             <field name="product_id" />
                             <field name="inventory_quantity" />
                             <field name="product_uom_id" />
                             <templates>
                                 <t t-name="kanban-box">
-                                    <div t-attf-class="oe_kanban_card">
-                                        <div class="row">
-                                            <div class="col-7">
-                                                <strong>
-                                                    <span>
-                                                        <field name="product_id" />
-                                                    </span>
-                                                </strong>
+                                    <div t-on-click="onCustomGlobalClick">
+                                        <div class="row w-auto">
+                                            <div class="col-8 col-md-10">
+                                                <field name="product_id" class="h2" />
                                             </div>
-                                            <div class="col-2">
-                                                <span
-                                                    class="float-end text-end fw-bold"
-                                                >
-                                                    <field name="inventory_quantity" />
-                                                </span>
-                                            </div>
-                                            <div class="col-3 text-end">
+                                            <div
+                                                class="col-4 col-md-2 d-flex justify-content-end align-items-center"
+                                            >
+                                                <img
+                                                    t-att-src="kanban_image('product.product', 'image_128', record.product_id.raw_value)"
+                                                    role="img"
+                                                    t-att-title="record.product_id.value"
+                                                    height="40"
+                                                    width="40"
+                                                    t-att-alt="record.product_id.value"
+                                                />
                                                 <button
                                                     name="action_barcode_inventory_quant_edit"
                                                     type="object"
@@ -121,33 +80,62 @@
                                                     <i
                                                         class="fa fa-pencil"
                                                         title="Edit inventory quantity"
-                                                        style="font-size:1.5em"
                                                     />
                                                 </button>
-                                                <button
-                                                    name="action_barcode_inventory_quant_unlink"
-                                                    type="object"
-                                                    icon="fa-trash"
-                                                    title="Reset inventory quantity"
-                                                    class="btn mt0"
-                                                    context="{'wiz_barcode_id': parent.id}"
-                                                />
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div class="col-4">
-                                                Loc: <field name="location_id" />
+                                            <div
+                                                class="col-8 col-md-10 d-flex justify-content-start align-items-center"
+                                            >
+                                                <span
+                                                    t-if="record.lot_id.raw_value"
+                                                    class="h3"
+                                                >Lot S/N:&#32;&#32;</span>
+                                                <field
+                                                    t-if="record.lot_id.raw_value"
+                                                    name="lot_id"
+                                                    class="h2"
+                                                />
                                             </div>
-                                            <t t-if="record.lot_id.raw_value">
-                                                <div class="col-4">
-                                                    Lot: <field name="lot_id" />
-                                                </div>
-                                            </t>
-                                            <t t-if="record.package_id.raw_value">
-                                                <div class="col-4">
-                                                    Package: <field name="package_id" />
-                                                </div>
-                                            </t>
+                                            <div
+                                                class="col-4 col-md-2 d-flex justify-content-end align-items-center"
+                                            >
+                                                <span class="fw-bold mx-3">
+                                                    <field name="inventory_quantity" />
+                                                </span>
+                                                <button
+                                                    name="action_barcode_inventory_quant_unlink"
+                                                    type="object"
+                                                    class="btn mt0"
+                                                    context="{'wiz_barcode_id': parent.id}"
+                                                >
+                                                    <i
+                                                        class="fa fa-trash"
+                                                        title="Reset inventory quantity"
+                                                    />
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div
+                                            t-attf-class="row oe_kanban_operations oe_kanban_operations-#{record.id.raw_value} d-none"
+                                        >
+                                            <div
+                                                class="d-flex justify-content-end align-items-center"
+                                            >
+                                                <button
+                                                    name="operation_quantities_rest"
+                                                    type="object"
+                                                    class="btn btn-lg btn-op-rest text-white ms-2 ms-sm-4 mx-2"
+                                                >-1
+                                                </button>
+                                                <button
+                                                    name="operation_quantities"
+                                                    type="object"
+                                                    class="btn btn-lg btn-op-sum text-white"
+                                                >+1
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
                                 </t>
@@ -156,22 +144,43 @@
                     </field>
                 </group>
             </group>
-            <div name="manual_entry" position="after">
-                <div class="d-flex" name="display_read_quant">
-                    <field name="display_read_quant" widget="barcode_boolean_toggle" />
-                    <label for="display_read_quant" />
-                </div>
-            </div>
+            <xpath
+                expr="//div[hasclass('oe_stock_barcodes_bottombar')]//div[hasclass('dropup')]"
+                position="inside"
+            >
+                <field
+                    name="display_read_quant"
+                    widget="barcode_boolean_toggle"
+                    class="d-none"
+                />
+                <button
+                    name="action_display_read_quant"
+                    type="object"
+                    title="Read items"
+                    icon="fa-eye fa-2x"
+                    attrs="{'invisible': [('display_read_quant', '=', True)]}"
+                />
+
+                <button
+                    name="action_display_read_quant"
+                    type="object"
+                    title="Read items"
+                    icon="fa-eye-slash fa-2x"
+                    attrs="{'invisible': [('display_read_quant', '=', False)]}"
+                />
+            </xpath>
             <button name="action_clean_values" position="before">
                 <button
                     name="apply_inventory"
                     type="object"
-                    class="btn-primary ms-auto oe_kanban_action_button btn-sm"
-                    attrs="{'invisible': ['|', ('display_menu', '=', True), ('inventory_quant_ids', '=', [])]}"
+                    icon="fa-check fa-2x"
+                    class="btn-primary w-100 oe_kanban_action_button btn-sm  d-flex justify-content-center align-items-center fs-1"
+                    attrs="{'invisible': ['|', '|',('display_menu', '=', True), ('inventory_quant_ids', '=', []), ('display_read_quant', '=', False)]}"
                     data-hotkey="7"
                     groups="stock.group_stock_manager"
                 >
-                    <span>Apply</span>
+                    <span class="d-none d-lg-block">Apply</span>
+                    (<span class="count_apply_inventory" />)
                 </button>
             </button>
         </field>
@@ -190,6 +199,6 @@
                                }
         </field>
         <field name="view_id" ref="view_stock_barcodes_read_inventory_form" />
-        <field name="target">current</field>
+        <field name="target">fullscreen</field>
     </record>
 </odoo>
