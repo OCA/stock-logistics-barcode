@@ -1,0 +1,285 @@
+@mixin margin-form-edit-sm($margin) {
+    @include media-breakpoint-down(sm) {
+        margin: $margin !important;
+    }
+}
+
+.oe_stock_scan_button {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.oe_stock_barcodes_bottombar {
+    bottom: 0;
+    background-color: $o-view-background-color;
+    border-width: 1px 0 0 0 solid $border-color;
+    box-shadow: 0 -3px 10px #c9ccd2;
+    height: 60px !important;
+}
+
+// Avoid too big small buttons from core
+.o_web_client.o_touch_device {
+    .oe_stock_barcordes_form {
+        .btn {
+            &,
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+            }
+        }
+    }
+}
+
+.oe_stock_barcordes_form {
+    padding: 0 !important;
+    height: 100%;
+    // Recover useless space
+    div[name="_barcode_scanned"] {
+        min-height: 0 !important;
+    }
+
+    div[name="package_id"],
+    div[name="product_id"],
+    div[name="lot_id"] {
+        width: 90% !important;
+    }
+
+    div[name="product_id"],
+    div[name="package_id"],
+    div[name="lot_name"] {
+        @include margin-form-edit-sm(0 0 0 1%);
+    }
+
+    div[name="location_dest_id"] {
+        @include margin-form-edit-sm(0 0 1% 1%);
+    }
+
+    div.widget_numeric_step {
+        font-size: 1.5rem !important;
+    }
+
+    input#location_id,
+    input#location_dest_id,
+    input#package_id,
+    input#product_id,
+    input#lot_id_1,
+    input#lot_name {
+        border-radius: 0.5rem !important;
+        padding: 0.375rem 0.75rem !important;
+        height: 40px !important;
+        font-size: 1.5rem !important;
+
+        & + ul.o-autocomplete--dropdown-menu {
+            li {
+                font-size: 1.5rem !important;
+            }
+        }
+    }
+
+    div[name="candidate_picking_ids"] {
+        div.oe_kanban_color_alert {
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+
+        div.o_kanban_ungrouped.o_kanban_renderer {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        @include media-breakpoint-down(sm) {
+            div.o_kanban_renderer {
+                margin: 2% 1% 2% 1% !important;
+            }
+        }
+    }
+
+    div.scan_fields {
+        width: 100% !important;
+        margin: 0 !important;
+
+        div.o-autocomplete.dropdown {
+            + a.o_dropdown_button {
+                display: none !important;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 2% 0 2% !important;
+            width: 100% !important;
+        }
+
+        > div.o_inner_group.grid.col-lg-6 {
+            div.o_cell {
+                width: 100% !important;
+            }
+        }
+
+        div.mt4.col-lg-6 {
+            @include media-breakpoint-down(sm) {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
+        &:has(button[name="action_clean_lot"]) {
+            div[name="lot_name"] {
+                width: 88% !important;
+                @include media-breakpoint-down(sm) {
+                    width: 90% !important;
+                }
+            }
+            button[name="action_clean_lot"] {
+                margin-left: 5px !important;
+            }
+        }
+    }
+
+    .o_group .scan_fields {
+        &.o_inner_group {
+            margin-bottom: 0 !important;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 2% 0 2% 0 !important;
+        }
+        margin: 0 !important;
+    }
+
+    .o_form_sheet,
+    .o_form_sheet_bg {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        border: 0 !important;
+    }
+
+    // In Odoo 16 the flat input styling lacks proper usability
+    .o_field_widget {
+        margin-bottom: 1px !important;
+
+        .o_input {
+            border-radius: 3px;
+            border-width: 1px;
+            background-color: white;
+        }
+
+        .o_x2m_control_panel {
+            margin: 0px !important;
+        }
+    }
+
+    .o_kanban_record {
+        flex-basis: 100%;
+
+        .btn-full-width {
+            margin: -9px;
+            width: calc(100% + 18px);
+            height: calc(100% + 18px);
+        }
+
+        &.o_kanban_ghost {
+            display: none;
+        }
+    }
+
+    .alert {
+        //position: fixed;
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 0;
+        min-height: 50px;
+        z-index: 999;
+    }
+
+    .oe_stock_barcordes_content {
+        overflow-y: overlay !important;
+
+        div.g-col-sm-2 {
+            &:has(div.o_horizontal_separator) {
+                display: none !important;
+            }
+        }
+
+        div.o_inner_group.grid.px-3 {
+            padding: 0 !important;
+        }
+
+        div[name="picking_id"] {
+            > a.o_form_uri {
+                span {
+                    color: white !important;
+                }
+            }
+        }
+
+        div[name="action_unlock_picking"] {
+            span {
+                color: white !important;
+            }
+        }
+    }
+
+    div[name="info"] {
+        div.alert {
+            display: flex !important;
+            @include media-breakpoint-down(sm) {
+                display: block !important;
+                text-align: center !important;
+            }
+        }
+
+        div.barcode-danger {
+            background-color: #dc3545 !important;
+        }
+    }
+}
+
+.o_kanban_barcode {
+    .o_kanban_record.oe_kanban_details {
+        @extend .btn;
+        @extend .btn-secondary;
+        padding: 0.6em 0;
+        margin-bottom: 0.5em;
+    }
+}
+
+.oe_kanban_action_button:focus {
+    background-color: lightgray;
+}
+
+// Left icon in small screens
+.oe_span_small_icon {
+    width: 25px;
+    text-align: center;
+}
+
+// Display 100% all menu elements
+.oe_kanban_card_full_width {
+    width: 100% !important;
+}
+
+// The kanban view adds some pre-styles that we want to be able to tweak
+div[name="menu_actions"] {
+    div[role="article"] {
+        margin-top: 10px !important;
+    }
+}
+
+// Dropdown that is desactivated at lg width
+@media (min-width: 992px) {
+    .d-lg-flex-no-dropdown {
+        position: relative !important;
+        display: flex !important;
+        border: none;
+        box-shadow: none;
+        bottom: auto !important;
+        transform: none !important;
+    }
+}
+
+.dropdown-menu.d-lg-flex-no-dropdown {
+    .d-flex {
+        margin-bottom: 5px;
+    }
+}
