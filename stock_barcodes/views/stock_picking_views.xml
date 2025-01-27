@@ -24,16 +24,14 @@
         <field name="model">stock.picking</field>
         <field name="inherit_id" ref="stock.stock_picking_kanban" />
         <field name="arch" type="xml">
-            <xpath expr="//t[@t-name='kanban-box']/div" position="inside">
-                <button
-                    name="action_barcode_scan"
-                    class="btn btn-secondary"
-                    type="object"
-                    help="Start barcode interface"
-                    states="assigned"
-                >
-                    <i class="fa fa-barcode fa-2x" title="Start barcode interface" />
-                </button>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="type">object</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="action">action_barcode_scan</attribute>
+            </xpath>
+            <xpath expr="//kanban" position="attributes">
+                <attribute name="js_class">stock_barcodes_kanban</attribute>
             </xpath>
         </field>
     </record>
@@ -107,6 +105,27 @@
                     domain="[('barcode_option_group_id','!=',False)]"
                 />
             </field>
+        </field>
+    </record>
+
+
+    <record id="stock_barcodes_action_picking_tree_ready" model="ir.actions.act_window">
+        <field name="name">Operations</field>
+        <field name="res_model">stock.picking</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="view_mode">kanban</field>
+        <field
+            name="context"
+        >{'contact_display': 'partner_address', 'search_default_available': 1}
+        </field>
+        <field name="search_view_id" ref="stock.view_picking_internal_search" />
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                No transfer found. Let's create one!
+            </p>
+            <p>
+                Transfers allow you to move products from one location to another.
+            </p>
         </field>
     </record>
 </odoo>

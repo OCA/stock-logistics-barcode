@@ -21,9 +21,12 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.Product = cls.env["product.product"]
         cls.ProductPackaging = cls.env["product.packaging"]
         cls.WizScanReadPicking = cls.env["wiz.stock.barcodes.read.picking"]
+        cls.WizScanReadInventory = cls.env["wiz.stock.barcodes.read.inventory"]
+        cls.WizCandidatePicking = cls.env["wiz.candidate.picking"]
         cls.StockProductionLot = cls.env["stock.lot"]
         cls.StockPicking = cls.env["stock.picking"]
         cls.StockQuant = cls.env["stock.quant"]
+        cls.StockBarcodeAction = cls.env["stock.barcodes.action"]
 
         cls.company = cls.env.company
 
@@ -102,6 +105,28 @@ class TestCommonStockBarcodes(TransactionCase):
         )
         cls.wiz_scan = cls.WizScanReadPicking.create(
             {"option_group_id": cls.option_group.id, "step": 1}
+        )
+        cls.wiz_scan_read_inventory = cls.WizScanReadInventory.create(
+            {"option_group_id": cls.option_group.id, "step": 1}
+        )
+
+        cls.wiz_scan_candidate_picking = cls.WizCandidatePicking.create(
+            {"wiz_barcode_id": cls.wiz_scan.id}
+        )
+
+        # Barcode actions
+        cls.barcode_action_valid = cls.StockBarcodeAction.create(
+            {
+                "name": "Barcode action valid",
+                "action_window_id": cls.env.ref("stock.stock_picking_type_action").id,
+                "context": "{'search_default_barcode_options': 1}",
+            }
+        )
+
+        cls.barcode_action_invalid = cls.StockBarcodeAction.create(
+            {
+                "name": "Barcode action valid",
+            }
         )
 
     @classmethod
