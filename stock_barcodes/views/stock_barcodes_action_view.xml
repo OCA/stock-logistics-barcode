@@ -1,6 +1,99 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
+    <!-- Actions inside the menu -->
+    <record id="view_stock_barcodes_action_tree" model="ir.ui.view">
+        <field name="name">stock.barcodes.action.tree</field>
+        <field name="model">stock.barcodes.action</field>
+        <field name="arch" type="xml">
+            <tree editable="top">
+                <header>
+                    <button
+                        string="Print barcodes"
+                        type="object"
+                        name="print_barcodes"
+                    />
+                </header>
+                <field name="sequence" widget="handle" />
+                <field name="name" />
+                <field name="action_window_id" />
+                <field name="context" />
+                <field name="key_shortcut" />
+                <field name="key_char_shortcut" />
+                <field name="active" widget="boolean_toggle" />
+                <field name="barcode" />
+                <field name="icon_class" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_stock_barcodes">
+        <field name="res_model">stock.barcodes.action</field>
+        <field name="name">Barcodes actions</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+
+    <record id="view_stock_barcodes_action_kanban" model="ir.ui.view">
+        <field name="name">stock.barcodes.action.kanban</field>
+        <field name="model">stock.barcodes.action</field>
+        <field name="arch" type="xml">
+            <kanban
+                class="o_kanban_mobile stock_barcodes_action_kanban"
+                create="0"
+                edit="0"
+                delete="0"
+                action="open_action"
+                type="object"
+            >
+                <field name="name" />
+                <field name="action_window_id" />
+                <field name="key_shortcut" />
+                <field name="key_char_shortcut" />
+                <field name="icon_class" />
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="oe_kanban_card oe_kanban_content">
+                            <t t-set="shortcut" t-value="record.key_char_shortcut" />
+                            <t
+                                t-set="hotkey"
+                                t-value="context.context_display_menu &amp;&amp; record.key_char_shortcut.raw_value || ''"
+                            />
+                            <div class="d-flex justify-content-between">
+                                <div>
+                                    <i
+                                        t-if="record.icon_class.raw_value != false"
+                                        t-attf-class="mx-2 #{record.icon_class.raw_value}"
+                                    />
+                                    <field name="name" />
+                                </div>
+                                <div class="rounded-circle count-elements">
+                                    <field name="count_elements" />
+                                </div>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+
     <!-- Main menu from scan wizard -->
+    <record id="action_stock_barcodes_action_kanban" model="ir.actions.act_window">
+        <field name="res_model">stock.barcodes.action</field>
+        <field name="name">Barcodes</field>
+        <field name="view_mode">kanban</field>
+        <field name="view_id" ref="view_stock_barcodes_action_kanban" />
+        <field name="domain">[('action_window_id', '!=', False)]</field>
+        <field name="target">fullscreen</field>
+    </record>
+
+    <record id="action_stock_barcodes_action_client" model="ir.actions.client">
+        <field name="name">Barcodes</field>
+        <field name="tag">stock_barcodes_main_menu</field>
+        <field name="target">fullscreen</field>
+    </record>
+
     <record model="ir.actions.act_window" id="action_stock_barcodes_action">
         <field name="res_model">wiz.stock.barcodes.read.picking</field>
         <field name="name">Barcodes actions</field>
@@ -9,28 +102,7 @@
             name="context"
         >{'control_panel_hidden': True, 'default_display_menu': True}</field>
     </record>
-    <!-- Actions inside the menu -->
-    <record id="view_stock_barcodes_action_tree" model="ir.ui.view">
-        <field name="name">stock.barcodes.action.tree</field>
-        <field name="model">stock.barcodes.action</field>
-        <field name="arch" type="xml">
-            <tree editable="top">
-                <field name="sequence" widget="handle" />
-                <field name="name" />
-                <field name="action_window_id" />
-                <field name="context" />
-                <field name="key_shortcut" />
-                <field name="key_char_shortcut" />
-                <field name="active" widget="boolean_toggle" />
-                <field name="icon_class" />
-            </tree>
-        </field>
-    </record>
-    <record model="ir.actions.act_window" id="action_stock_barcodes">
-        <field name="res_model">stock.barcodes.action</field>
-        <field name="name">Barcodes actions</field>
-        <field name="view_mode">tree</field>
-    </record>
+
     <menuitem
         action="action_stock_barcodes"
         id="menu_action_stock_barcodes"
@@ -39,4 +111,6 @@
         parent="stock.menu_product_in_config_stock"
         sequence="100"
     />
+
+
 </odoo>
