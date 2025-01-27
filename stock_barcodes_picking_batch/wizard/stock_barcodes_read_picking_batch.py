@@ -348,7 +348,7 @@ class WizCandidatePickingBatch(models.TransientModel):
         )
         picking_batch.action_done()
         return self.env["ir.actions.actions"]._for_xml_id(
-            "stock_barcodes.action_stock_barcodes_action"
+            "stock_barcodes.action_stock_barcodes_action_client"
         )
 
     def action_open_picking_batch(self):
