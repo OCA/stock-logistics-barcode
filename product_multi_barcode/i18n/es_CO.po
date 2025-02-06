@@ -66,11 +66,6 @@ msgid "International Article Number used for product identification."
 msgstr ""
 
 #. module: product_multi_barcode
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
-msgid "Last Modified on"
-msgstr "Última Modificación el"
-
-#. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_uid
 msgid "Last Updated by"
 msgstr "Actualizado por"
@@ -109,8 +104,10 @@ msgstr "Secuencia"
 #. module: product_multi_barcode
 #. odoo-python
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
-#, python-format
 msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for product "
 "\"%(product_name)s\" in the company %(company_name)s"
 msgstr ""
+
+#~ msgid "Last Modified on"
+#~ msgstr "Última Modificación el"
