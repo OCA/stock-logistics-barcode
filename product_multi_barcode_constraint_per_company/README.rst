@@ -57,6 +57,13 @@ Authors
 
 * akretion
 
+Contributors
+------------
+
+-  Sylvain Le Gal
+-  Sulivan Lominchar
+-  Kevin Khao <kevinkhao@gmail.com>
+
 Maintainers
 -----------
 
