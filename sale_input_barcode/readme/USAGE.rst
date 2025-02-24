@@ -10,5 +10,10 @@ Alternatively,
 If a product is found using the barcode,
 a new line with that product will be added to the Sales Order.
 
-If a product is already inside the sale order lines,
-the quantity will be updated.
+By default, each product scan adds a new line to the sales order.
+However, you can change this behavior in the sales settings.
+To have the system increase the quantity of an existing product line
+instead of creating a new one, follow these steps:
+#. Go to the Sales Settings section.
+#. Locate the option labeled "Increase quantity instead of creating a new line".
+#. Check the box to activate this option and save to apply the changes.

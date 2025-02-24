@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_res_config_settings_sale_input_barcode" model="ir.ui.view">
+        <field name="name">res.config.settings.sale.input.barcode</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="sale.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@id='no_edit_order']" position="inside">
+                <div class="o_setting_left_pane">
+                  <field name="sale_barcode_update_existing_line" />
+                </div>
+                <div class="o_setting_right_pane">
+                    <label for="sale_barcode_update_existing_line" />
+                    <div class="text-muted">
+                        Instead of creating a new sale order line it increases the quantity for each barcode scan
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>

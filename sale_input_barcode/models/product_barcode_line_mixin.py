@@ -29,6 +29,8 @@ class ProductLineMixin(models.AbstractModel):
         vals = {
             "product_id": product.id,
             "product_uom_qty": 1,
+            "name": product.name,
+            "price_unit": product.list_price,
         }
         if "order_id" in self._fields:
             order_id = self.env.context.get("order_id")

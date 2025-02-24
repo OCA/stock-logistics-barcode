@@ -31,7 +31,15 @@ class SaleOrder(models.Model):
         product_order_line = self.order_line.filtered(
             lambda x: x.product_id.id == line_vals.get("product_id")
         )[:1]
-        if product_order_line:
+        sale_barcode_update_existing_line = (
+            self.env["ir.config_parameter"]
+            .sudo()
+            .get_param(
+                "sale_input_barcode.sale_barcode_update_existing_line",
+            )
+        )
+
+        if product_order_line and sale_barcode_update_existing_line:
             product_order_line.product_uom_qty += 1
         else:
             product_order_line = self.env["sale.order.line"].new(line_vals)

@@ -15,8 +15,6 @@
         "sale_management",
         "barcode_action",
     ],
-    "data": [
-        "views/sale.xml",
-    ],
+    "data": ["views/sale.xml", "views/sale_input_settings_view.xml"],
     "demo": [],
 }
