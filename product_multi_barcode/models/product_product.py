@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.osv.expression import OR
 
 
 class ProductProduct(models.Model):
@@ -53,8 +54,12 @@ class ProductProduct(models.Model):
 
     @api.model
     def _search(self, domain, *args, **kwargs):
-        for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
+        for sub_domain in list(
+            filter(lambda x: x[0] in ["barcode", "display_name"], domain)
+        ):
             domain = self._get_barcode_domain(sub_domain, domain)
+            if sub_domain[0] == "display_name":
+                domain = OR([domain, [("display_name", sub_domain[1], sub_domain[2])]])
         return super()._search(domain, *args, **kwargs)
 
     def _get_barcode_domain(self, sub_domain, domain):
@@ -65,7 +70,7 @@ class ProductProduct(models.Model):
         )
         domain = [
             ("barcode_ids", "in", barcodes.ids)
-            if x[0] == "barcode" and x[2] == barcode_value
+            if x[0] in ["barcode", "display_name"] and x[2] == barcode_value
             else x
             for x in domain
         ]
