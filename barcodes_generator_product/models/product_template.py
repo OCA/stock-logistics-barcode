@@ -65,6 +65,8 @@ class ProductTemplate(models.Model):
 
     def generate_barcode(self):
         self.ensure_one()
+        if self.generate_type == "sequence":
+            self.generate_base()
         self.product_variant_ids.generate_barcode()
 
     @api.onchange("barcode_rule_id")

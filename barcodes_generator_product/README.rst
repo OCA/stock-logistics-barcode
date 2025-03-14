@@ -130,6 +130,10 @@ Contributors
 
    -  Ilyas <irazor147@gmail.com>
 
+-  `APSL-Nagarro <https://apsl.tech>`__:
+
+   -  Antoni Marroig <amarroig@apsl.net>
+
 Other credits
 -------------
 
