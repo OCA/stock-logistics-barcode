@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-03-21 21:06+0000\n"
+"Last-Translator: İsmail Çağan Yılmaz <ismail.cagan.yilmaz@gmail.com>\n"
 "Language-Team: none\n"
 "Language: tr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.2\n"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
@@ -29,18 +31,33 @@ msgid ""
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
+" * Taslak: Transfer henüz onaylanmadı. Rezervasyon geçerli değildir.\n"
+" * Başka bir işlem bekleniyor: Bu transfer hazır olmadan önce başka bir "
+"işlemi bekliyor.\n"
+" * Bekliyor: Transfer bazı ürünlerin kullanılabilirliğini bekliyor.\n"
+"(a) Gönderim politikası \"Mümkün olan en kısa sürede\" şeklindedir: hiçbir "
+"ürün rezerve edilemez.\n"
+"(b) Gönderim politikası \"Tüm ürünler hazır olduğunda\" şeklindedir: tüm "
+"ürünler rezerve edilemez.\n"
+" * Hazır: Aktarım işlenmeye hazır.\n"
+"(a) Gönderim politikası \"Mümkün olan en kısa sürede\" şeklindedir: en az "
+"bir ürün rezerve edilmiştir.\n"
+"(b) Gönderim politikası \"Tüm ürünler hazır olduğunda\" şeklindedir: tüm "
+"ürünler rezerve edilmiştir.\n"
+" * Bitti: Aktarım işlendi.\n"
+" * İptal Edildi: Transfer iptal edildi."
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "%(barcode)s (%(message)s)"
-msgstr ""
+msgstr "%(barcode)s (%(message)s)"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "1 - Scan or input product barcode"
-msgstr ""
+msgstr "1 - Ürün barkodunu tarayın veya girin"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
