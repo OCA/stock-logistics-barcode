@@ -18,7 +18,7 @@
                                     t-value="'02' + barcode + '10' + lot.name"
                                 />
                                 <img
-                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
+                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
                                     style="width:100%;height:70px;margin: 0px 0px -25px 0px"
                                     alt="Barcode"
                                 />
@@ -30,7 +30,7 @@
                             <t t-else="">
                                 <t t-set="value" t-value="'02' + barcode" />
                                 <img
-                                    t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
+                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
                                     style="width:100%;height:70px;margin: 0px 0px -25px 0px"
                                     alt="Barcode"
                                 />
@@ -43,19 +43,19 @@
                         <t t-else="">
                             <img
                                 t-if="len(doc.product_id.barcode) == 13"
-                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', doc.product_id.barcode, 600, 100)"
+                                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN13', doc.product_id.barcode, 600, 100)"
                                 style="width:100%;height:35px"
                                 alt="Barcode"
                             />
                             <img
                                 t-elif="len(doc.product_id.barcode) == 8"
-                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', doc.product_id.barcode, 600, 100)"
+                                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('EAN8', doc.product_id.barcode, 600, 100)"
                                 style="width:100%;height:35px"
                                 alt="Barcode"
                             />
                             <img
                                 t-else=""
-                                t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.product_id.barcode, 600, 100)"
+                                t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % ('Code128', doc.product_id.barcode, 600, 100)"
                                 style="width:100%;height:35px"
                                 alt="Barcode"
                             />
