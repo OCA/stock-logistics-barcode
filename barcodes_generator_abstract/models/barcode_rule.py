@@ -4,7 +4,7 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 _GENERATE_TYPE = [
     ("no", "No generation"),
@@ -84,6 +84,6 @@ class BarcodeRule(models.Model):
     @api.model
     def _prepare_sequence(self, rule):
         return {
-            "name": _("Sequence - %s") % rule.name,
+            "name": self.env._("Sequence - %s", rule.name),
             "padding": rule.padding,
         }

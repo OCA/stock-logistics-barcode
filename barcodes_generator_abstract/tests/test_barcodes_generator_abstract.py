@@ -4,10 +4,11 @@
 from odoo_test_helper import FakeModelLoader
 
 from odoo.exceptions import UserError
-from odoo.tests import TransactionCase
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestBarcodesGeneratorAbstract(TransactionCase, FakeModelLoader):
+class TestBarcodesGeneratorAbstract(BaseCommon, FakeModelLoader):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
