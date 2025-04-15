@@ -4,3 +4,5 @@
   - Carlos Roca
 - [Ooops404](https://www.ooops404.com):
   - Ilyas \<<irazor147@gmail.com>\>
+- [Trobz](https://trobz.com):
+  - Khoi (Kien Kim) \<<khoikk@trobz.com>\>

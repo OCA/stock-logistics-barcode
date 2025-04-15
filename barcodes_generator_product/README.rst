@@ -130,6 +130,10 @@ Contributors
 
    -  Ilyas <irazor147@gmail.com>
 
+-  `Trobz <https://trobz.com>`__:
+
+   -  Khoi (Kien Kim) <khoikk@trobz.com>
+
 Other credits
 -------------
 
@@ -142,6 +146,11 @@ Images
 -  Product tag by `Zlatko
    Najdenovski <https://www.iconfinder.com/zlaten>`__ and is licensed
    under `CC BY 3.0 <https://creativecommons.org/licenses/by/3.0/>`__.
+
+The migration of this module from 17.0 to 18.0 was financially supported
+by:
+
+-  Camptocamp
 
 Maintainers
 -----------
