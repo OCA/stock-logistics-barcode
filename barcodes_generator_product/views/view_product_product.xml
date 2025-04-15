@@ -6,7 +6,6 @@ Copyright (C) 2016-Today GRAP (http://www.lalouve.net)
 License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 -->
 <odoo>
-
     <record id="view_product_product_form" model="ir.ui.view">
         <field name="model">product.product</field>
         <field name="inherit_id" ref="product.product_normal_form_view" />
@@ -72,7 +71,6 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                     />
                 </div>
             </field>
-
         </field>
     </record>
 
@@ -146,5 +144,4 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             </field>
         </field>
     </record>
-
 </odoo>
