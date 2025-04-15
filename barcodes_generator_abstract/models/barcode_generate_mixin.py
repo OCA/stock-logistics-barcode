@@ -6,7 +6,7 @@
 
 import barcode
 
-from odoo import _, api, exceptions, fields, models
+from odoo import api, exceptions, fields, models
 
 
 class BarcodeGenerateMixin(models.AbstractModel):
@@ -62,7 +62,7 @@ class BarcodeGenerateMixin(models.AbstractModel):
         for item in self:
             if item.generate_type != "sequence":
                 raise exceptions.UserError(
-                    _(
+                    self.env._(
                         "Generate Base can be used only with barcode rule with"
                         " 'Generate Type' set to 'Base managed by Sequence'"
                     )
