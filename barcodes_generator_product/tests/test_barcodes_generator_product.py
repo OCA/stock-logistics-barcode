@@ -3,10 +3,10 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo.tests.common import TransactionCase
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class Tests(TransactionCase):
+class Tests(BaseCommon):
     """Tests 'Barcodes Generator for Products'"""
 
     @classmethod
