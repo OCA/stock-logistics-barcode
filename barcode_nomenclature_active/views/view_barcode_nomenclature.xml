@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Copyright (C) 2025-Today: Sylvain LE GAL, GRAP (http://www.grap.coop)
+License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="view_barcode_nomenclature_form" model="ir.ui.view">
+        <field name="model">barcode.nomenclature</field>
+        <field name="inherit_id" ref="barcodes.view_barcode_nomenclature_form" />
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet/group[1]" position="before">
+                <widget
+                    name="web_ribbon"
+                    title="Archived"
+                    bg_color="bg-danger"
+                    attrs="{'invisible': [('active', '=', True)]}"
+                />
+                <field name="active" invisible="1" />
+            </xpath>
+            <xpath expr="//field[@name='rule_ids']/tree" position="attributes">
+                <attribute name="decoration-muted">(not active)</attribute>
+            </xpath>
+            <field name="pattern" position="before">
+                <field name="active" optional="hide" />
+            </field>
+        </field>
+    </record>
+
+</odoo>
