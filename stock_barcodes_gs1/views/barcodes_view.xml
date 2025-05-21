@@ -12,7 +12,8 @@
             <xpath expr="//field[@name='associated_uom_id']" position="after">
                 <field
                     name="use_weight_as_unit"
-                    attrs="{'column_invisible': [('parent.is_gs1_nomenclature', '!=', True)], 'invisible': [('gs1_content_type', '!=', 'measure')]}"
+                    column_invisible="not parent.is_gs1_nomenclature"
+                    invisible="gs1_content_type != 'measure'"
                 />
             </xpath>
         </field>
@@ -27,7 +28,7 @@
             <field name="is_gs1_nomenclature" position="before">
                 <field
                     name="use_weight_as_unit"
-                    attrs="{'invisible': ['|', ('parent.is_gs1_nomenclature', '=', False), ('gs1_content_type', '!=', 'measure')]}"
+                    invisible="not parent.is_gs1_nomenclature or gs1_content_type != 'measure'"
                 />
             </field>
         </field>

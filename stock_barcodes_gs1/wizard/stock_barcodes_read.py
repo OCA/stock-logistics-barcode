@@ -144,8 +144,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             "is_gs1_nomenclature"
         ) or self.env.ref("barcodes_gs1_nomenclature.default_gs1_nomenclature")
         gs1_list = None
-        if nomenclature.gs1_separator_fnc1 in barcode or not self._ean_barcode_valid(
-            barcode
+        if (
+            nomenclature.gs1_separator_fnc1
+            and nomenclature.gs1_separator_fnc1 in barcode
+            or not self._ean_barcode_valid(barcode)
         ):
             gs1_list = nomenclature.parse_barcode(barcode)
         if gs1_list is None:
