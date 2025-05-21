@@ -1,6 +1,9 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from unittest.mock import patch
+
+from odoo.fields import Command
 from odoo.tests import common
 
 from odoo.addons.mail.tests.common import MailCommon
@@ -77,7 +80,7 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
         self.assertEqual(self.wiz_scan.product_qty, 10)
 
     def _assert_barcode_notification(
-        self, message, title="GS-1 code", sticky=True, type="danger"
+        self, message, title="GS-1 code", sticky=True, notif_type="danger"
     ):
         self.assertBusNotifications(
             [[self.cr.dbname, f"stock_barcodes-{self.wiz_scan.id}"]],
@@ -86,7 +89,7 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                     "type": f"stock_barcodes_notify-{self.wiz_scan.id}",
                     "payload": {
                         "message": message,
-                        "type": type,
+                        "type": notif_type,
                         "sticky": sticky,
                         "res_model": self.wiz_scan._name,
                         "res_id": self.wiz_scan.id,
@@ -207,9 +210,7 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                 "create_lot": True,
                 "is_manual_confirm": True,
                 "option_ids": [
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "step": 1,
                             "name": "Location",
@@ -217,11 +218,9 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                             "filled_default": True,
                             "to_scan": True,
                             "required": True,
-                        },
+                        }
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "step": 2,
                             "name": "Product",
@@ -229,11 +228,9 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                             "to_scan": True,
                             "required": True,
                             "clean_after_done": True,
-                        },
+                        }
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "step": 2,
                             "name": "Packaging",
@@ -241,11 +238,9 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                             "to_scan": True,
                             "required": False,
                             "clean_after_done": True,
-                        },
+                        }
                     ),
-                    (
-                        0,
-                        0,
+                    Command.create(
                         {
                             "step": 2,
                             "name": "Lot / Serial",
@@ -253,7 +248,7 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                             "to_scan": True,
                             "required": True,
                             "clean_after_done": True,
-                        },
+                        }
                     ),
                 ],
             }
@@ -282,3 +277,37 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
 
         wiz_inventory.action_confirm()
         self.assertEqual(wiz_inventory.inventory_quant_ids.lot_id.name, "LOTEG01")
+
+    def test_process_ai(self):
+        gs1_list = [{"ai": "10", "value": "L123"}]
+        result = self.wiz_scan._process_ai_21(gs1_list)
+        self.assertTrue(result)
+        self.wiz_scan._process_ai_240(gs1_list)
+
+        gs1_list = [{"ai": "110", "value": "L123"}]
+        with patch.object(
+            type(self.wiz_scan), "_process_ai_10", return_value=False
+        ) as mock_process_ai_10:
+            self.wiz_scan._process_ai_21(gs1_list)
+            mock_process_ai_10.assert_called_once()
+
+        self.wiz_scan.barcode = "159753258456"
+        self.wiz_scan.packaging_id = self.packaging_gs1.id
+        self.wiz_scan._process_ai_37(gs1_list)
+        self.assertEqual(self.wiz_scan.packaging_qty, float(self.wiz_scan.barcode))
+        self.assertEqual(
+            self.wiz_scan.product_qty,
+            self.packaging_gs1.qty * float(self.wiz_scan.barcode),
+        )
+
+        gs1_list = [{"ai": "33", "value": "L123", "use_weight_as_unit": True}]
+        with patch.object(
+            type(self.wiz_scan), "_process_product_qty_gs1"
+        ) as mock_process_product_qty_gs1:
+            result = self.wiz_scan._process_ai_330(gs1_list)
+            self.assertTrue(result)
+
+            gs1_list = [{"ai": "31", "value": "L123", "use_weight_as_unit": True}]
+            result = self.wiz_scan._process_ai_310(gs1_list)
+            self.assertTrue(result)
+            self.assertEqual(mock_process_product_qty_gs1.call_count, 2)
