@@ -80,10 +80,10 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
         self, message, title="GS-1 code", sticky=True, type="danger"
     ):
         self.assertBusNotifications(
-            [[self.cr.dbname, "stock_barcodes-{}".format(self.wiz_scan.id)]],
+            [[self.cr.dbname, f"stock_barcodes-{self.wiz_scan.id}"]],
             [
                 {
-                    "type": "stock_barcodes_notify-{}".format(self.wiz_scan.id),
+                    "type": f"stock_barcodes_notify-{self.wiz_scan.id}",
                     "payload": {
                         "message": message,
                         "type": type,
