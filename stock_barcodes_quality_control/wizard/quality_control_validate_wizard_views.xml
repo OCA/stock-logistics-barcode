@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Binhex <https://www.binhex.cloud>-->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="quality_control_validate_wizard_view_form" model="ir.ui.view">
+        <field name="name">quality_control_validate_wizard_view_form</field>
+        <field name="model">quality.control.validate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Quality Control">
+                <h5>
+                    Do you want to perform quality control validations before continuing?
+                </h5>
+                <footer>
+                    <button
+                        string="OK"
+                        name="action_validate_quality_control"
+                        type="object"
+                        context="{'go_validate_quality_control': True}"
+                        class="oe_highlight"
+                    />
+                    <button
+                        string="Cancel"
+                        name="action_validate_quality_control"
+                        type="object"
+                        class="oe_highlight"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="quality_control_validate_wizard_action" model="ir.actions.act_window">
+        <field name="name">Quality control validate</field>
+        <field name="res_model">quality.control.validate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+</odoo>

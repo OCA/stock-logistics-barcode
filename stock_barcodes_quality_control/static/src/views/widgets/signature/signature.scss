@@ -1,0 +1,14 @@
+button.o_sign_button_barcode {
+    border: none !important;
+
+    &:hover,
+    &:focus {
+        box-shadow: none !important;
+    }
+    span.o_sign_label {
+        color: #66598f !important;
+    }
+    span.badge {
+        padding: 0 !important;
+    }
+}
