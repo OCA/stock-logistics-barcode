@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2025 Binhex <https://www.binhex.cloud>-->
+<!-- License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).-->
+<odoo>
+    <record id="view_stock_barcodes_read_picking_form_inherit" model="ir.ui.view">
+        <field
+            name="name"
+        >stock.barcodes.read.picking.form.stock_barcodes_quality_control
+        </field>
+        <field name="model">wiz.stock.barcodes.read.picking</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_read_picking_form"
+        />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('oe_kanban_picking_done')]" position="after">
+                <field name="show_quantity_control" invisible="1" />
+                <button
+                    name="open_show_control_quality_control"
+                    type="object"
+                    icon="fa-check-square-o fa-2x"
+                    class="mt-4 btn btn-secondary w-100 btn-sm text-uppercase d-flex align-items-center justify-content-center fs-2"
+                    attrs="{
+                        'invisible': [('show_quantity_control', '!=', True)]
+                        }"
+                >
+                    <span class="d-none d-lg-block">Quality Control</span>
+                </button>
+            </xpath>
+            <xpath expr="//button[@name='action_validate_picking']" position="after">
+                <field name="is_enable_signature" invisible="1" />
+                <button
+                    name="open_show_control_quality_control"
+                    type="object"
+                    icon="fa-check-square-o fa-2x"
+                    class="btn btn-secondary w-100 btn-sm text-uppercase d-flex align-items-center justify-content-center fs-2"
+                    attrs="{
+                        'invisible': [('show_quantity_control', '!=', True)]
+                        }"
+                >
+                    <span class="d-none d-lg-block">Quality Control</span>
+                </button>
+                <widget
+                    name="signature"
+                    string="Sign"
+                    attrs="{'invisible': [('is_enable_signature', '!=', True)]}"
+                    full_name="partner_id"
+                    barcodeView="1"
+                    addClassName="mt-2 o_sign_button_barcode btn btn-secondary w-100 btn-sm text-uppercase align-items-center d-flex justify-content-center fs-2 bg-white"
+                    labelClassName="fs-1 badge badge-light d-none d-lg-block"
+                    groups="stock.group_stock_sign_delivery"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!--Copyright 2025 Binhex <https://www.binhex.cloud>-->
+<!--License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).-->
+<odoo noupdate="1">
+
+    <record id="stock_barcodes_action_inspection_ready" model="stock.barcodes.action">
+        <field name="name">Inspections ready</field>
+        <field name="sequence">20</field>
+        <field name="action_window_id" ref="quality_control_oca.action_qc_inspection" />
+        <field name="key_char_shortcut">1</field>
+        <field name="context">{'search_default_state': 'ready'}</field>
+    </record>
+</odoo>

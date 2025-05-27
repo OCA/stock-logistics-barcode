@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<template>
+    <t t-inherit="web.SignatureWidget" t-inherit-mode="extension">
+        <xpath expr="//button" position="attributes">
+            <attribute
+                name="t-attf-class"
+            >btn o_sign_button #{props.addClassName} #{props.highlight ? 'btn-primary' : 'btn-secondary'}</attribute>
+        </xpath>
+        <xpath expr="//button//span" position="before">
+            <i t-if="props.barcodeView" class="fa fa-pencil fa-2x me-2" />
+        </xpath>
+        <xpath expr="//button//span" position="replace">
+            <span
+                t-if="props.barcodeView"
+                t-attf-class="o_sign_label #{props.labelClassName}"
+            >
+                <t t-esc="props.string" /> <t t-esc="state.countSignDelivery" />
+            </span>
+            <span t-else="" class="o_sign_label" t-esc="props.string" />
+        </xpath>
+    </t>
+</template>
