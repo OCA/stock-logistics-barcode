@@ -4,7 +4,6 @@
     <div
         t-name="stock_barcodes.MainMenu"
         class="d-flex flex-column stock-barcodes-main-menu align-items-center p-4"
-        owl="1"
     >
         <div
             class="d-flex o_stock_barcode_header_home justify-content-between align-items-center w-100"

@@ -46,8 +46,78 @@ This module provides configuring barcodes for barcode actions.
 Usage
 =====
 
+Barcode Configuration for Warehouse Locations
+---------------------------------------------
+
+   1. To see the following menu you must have the permission assigned:
+      *Manage Multiple Stock Locations*.
+
+..
+
+   |Warehouse location access|
+
+   2. Go to *Inventory > Configuration > Locations*.
+   3. Select the location you want to associate with the barcode.
+   4. Go to the Barcode field and assign the corresponding field.
+
+..
+
+   |Warehouse location barcode|
+
+   5. Save the data.
+
+Barcode Configuration for Product Packings
+------------------------------------------
+
+   1. To see the following menu you must have the permission assigned:
+      *Manage Product Packaging*.
+
+..
+
+   |Product packaging barcode|
+
+   2. Go to *Inventory > Configuration > Product Packings*.
+   3. Create a new or select product packaging.
+   4. Go to the Barcode field and assign the corresponding field.
+
+..
+
+   |image1|
+
+   5. Save the data.
+
+Barcode Configuration for Product
+---------------------------------
+
+   1. Go to *Inventory > Products > Products*.
+   2. Create a new product.
+   3. Go to the Barcode field and assign the corresponding field.
+
+..
+
+   |image2|
+
+   4. Save the data.
+
+Barcode Configuration for Product lot
+-------------------------------------
+
+   1. Go to *Inventory > Products > Lots/Serial Numbers*.
+   2. Create a new lot.
+   3. In this case, the barcode matches the lot name, so when you name
+      the lot, you already have the barcode configured.
+
+..
+
+   |Product lot barcode|
+
+   4. Save the data.
+
 Barcode interface for inventory operations
 ------------------------------------------
+
+Please note that the picking is marked with the entire quantity
+requested by default in the ready state.
 
 Option 1: To use the barcode interface on inventory
 
@@ -69,8 +139,8 @@ application
 
 1. Start scanning barcodes.
 
-| Actions
-| # Press the *+ Product* button to display the form for the new item.
+Actions # Press the *+ Product* button to display the form for the new
+item.
 
    |Add product|
 
@@ -90,12 +160,12 @@ added and the form is closed. # When the eye icon is closed, the created
 items greater than zero are displayed, and if not, those less than or
 equal to zero.
 
-   |image1|
+   |image3|
 
 # In the list, the trash can icon allows you to reset the quantity to
 zero and the edit icon allows you to change the item values.
 
-   |image2|
+   |image4|
 
 # The *Apply* button is only displayed if there are items with
 quantities greater than zero, regardless of whether they were scanned or
@@ -145,45 +215,41 @@ displayed, select the one you want to start scanning.
 
 ..
 
-   |image3|
+   |image5|
 
-| Actions
-| # All the items that have been configured for the selected picking are
-  listed.
+Actions # All the items that have been configured for the selected
+picking are listed.
 
-   |image4|
+   |image6|
 
 # The edit icon in the list allows you to modify the data.
 
    |Edit picking|
 
-| # The button that contains a *+120* (in this case), allows you to
-  define all the
-| remaining quantities. Once defined, this button disappears and if you
-  want to change the quantities, press the edit button.
+# The button that contains a *+120* (in this case), allows you to define
+all the remaining quantities. Once defined, this button disappears and
+if you want to change the quantities, press the edit button.
 
 |Quantity picking|
 
-| # If there is at least one item with a quantity already defined, an
-  eye icon is displayed,
-| which if closed shows the items and their quantities already scanned.
+# If there is at least one item with a quantity already defined, an eye
+icon is displayed, which if closed shows the items and their quantities
+already scanned.
 
 |Picking scanned|
 
-| # When you press the *Validate* button, a wizard will be displayed to
-  confirm the action.
-| If everything is correct, it is validated and you return to the
-  picking list mentioned above.
+# When you press the *Validate* button, a wizard will be displayed to
+confirm the action. If everything is correct, it is validated and you
+return to the picking list mentioned above.
 
-|image5|
+|image7|
 
-| # If there is an item whose quantity is zero, a wizard will be
-  displayed after the one mentioned
-| above, to confirm if you want to process all the quantities. If
-  positive, you will proceed and be directed to the list mentioned above
-  in the previous point.
+# If there is an item whose quantity is zero, a wizard will be displayed
+after the one mentioned above, to confirm if you want to process all the
+quantities. If positive, you will proceed and be directed to the list
+mentioned above in the previous point.
 
-|image6|
+|image8|
 
 # Press the *+ Product* button to display the form for the new item.
 
@@ -268,30 +334,36 @@ To use the barcode interface for actions:
 1. Select the barcode actions you want to use, a button (PRINT BARCODES)
    will appear that allows you to print the configured barcodes to PDF.
 
-|image7|
+|image9|
 
 1. Go to *Barcodes*.
 2. Start scanning barcodes from actions.
 
+.. |Warehouse location access| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_warehouse_location.png
+.. |Warehouse location barcode| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_warehouse_location.png
+.. |Product packaging barcode| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_product_packaging.png
+.. |image1| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_packaging.png
+.. |image2| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product.png
+.. |Product lot barcode| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_lot.png
 .. |Inventory barcode action| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png
 .. |Add product| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png
 .. |Add quantity product| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png
 .. |Reset data form| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png
-.. |image1| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png
-.. |image2| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png
+.. |image3| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png
+.. |image4| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png
 .. |Apply inventory| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory.png
 .. |Apply inventory reason| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory_reason.png
 .. |Operation barcode action| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png
 .. |List picking| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_picking.png
-.. |image3| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png
-.. |image4| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png
+.. |image5| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png
+.. |image6| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png
 .. |Edit picking| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_edit.png
 .. |Quantity picking| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_quantity.png
 .. |Picking scanned| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_scanned.png
-.. |image5| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png
-.. |image6| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png
+.. |image7| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png
+.. |image8| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png
 .. |Print barcodes| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/create_barcode_action.png
-.. |image7| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png
+.. |image9| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png
 
 Known issues / Roadmap
 ======================

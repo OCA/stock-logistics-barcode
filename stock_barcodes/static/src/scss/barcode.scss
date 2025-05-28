@@ -7,6 +7,10 @@
     }
 }
 
+.w-15 {
+    width: 15% !important;
+}
+
 div.o_kanban_renderer {
     button[name="action_barcode_scan"] {
         @include barcode-decoration;

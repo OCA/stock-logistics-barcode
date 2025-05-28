@@ -46,7 +46,9 @@ class StockBarcodesAction(models.Model):
     @api.constrains("barcode")
     def _constrains_barcode(self):
         for action in self:
-            if not re.match(REGEX.get("barcode", False), action.barcode):
+            if action.barcode and not re.match(
+                REGEX.get("barcode", False), action.barcode
+            ):
                 raise ValidationError(
                     _(
                         " The barcode {} is not correct."
@@ -90,7 +92,6 @@ class StockBarcodesAction(models.Model):
             raise ValidationError(_("There can be no spaces at the beginning or end."))
 
     def _count_elements(self):
-        domain = []
         if self.context:
             context_values = self.context.strip("{}").split(",")
 
