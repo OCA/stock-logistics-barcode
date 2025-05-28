@@ -1,33 +1,31 @@
-/** @odoo-module */
-/* Copyright 2018-2019 Sergio Teruel <sergio.teruel@tecnativa.com>.
- * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
-
+/** @odoo-module **/
 import {BooleanToggleField} from "@web/views/fields/boolean_toggle/boolean_toggle_field";
 import {onMounted} from "@odoo/owl";
 import {registry} from "@web/core/registry";
 import {useBus} from "@web/core/utils/hooks";
 
-class BarcodeBooleanToggleField extends BooleanToggleField {
+export class BarcodeBooleanToggle extends BooleanToggleField {
     setup() {
         super.setup();
+
         onMounted(() => {
             this.enableFormEdit(this.props.value, true);
         });
 
-        useBus(this.env.bus, "enableFormEditBarcode", () =>
-            this.enableFormEdit(true, true)
-        );
-        useBus(this.env.bus, "disableFormEditBarcode", () =>
-            this.enableFormEdit(false, true)
-        );
+        useBus(this.env.bus, "enableFormEditBarcode", () => {
+            this.enableFormEdit(true, true);
+        });
+        useBus(this.env.bus, "disableFormEditBarcode", () => {
+            this.enableFormEdit(false, true);
+        });
     }
 
     /*
-    This is needed because, whenever we click the checkbox to enter data
-    manually, the checkbox will be focused causing that when we scan the
-    barcode afterwards, it will not perform the python on_barcode_scanned
-    function.
-    */
+  This is needed because, whenever we click the checkbox to enter data
+  manually, the checkbox will be focused causing that when we scan the
+  barcode afterwards, it will not perform the python on_barcode_scanned
+  function.
+  */
     onChange(newValue) {
         super.onChange(newValue);
         // We can't blur an element on its onchange event
@@ -69,4 +67,13 @@ class BarcodeBooleanToggleField extends BooleanToggleField {
     }
 }
 
-registry.category("fields").add("barcode_boolean_toggle", BarcodeBooleanToggleField);
+const booleanToggle = {
+    displayName: "",
+    component: BarcodeBooleanToggle,
+    supportedTypes: [""],
+    extractProps: ({attrs}) => ({
+        name: attrs.name,
+    }),
+};
+
+registry.category("fields").add("barcode_boolean_toggle", booleanToggle);

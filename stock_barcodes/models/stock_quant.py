@@ -10,7 +10,7 @@ class StockQuant(models.Model):
     _inherit = ["stock.quant", "barcodes.barcode_events_mixin"]
 
     def action_barcode_inventory_quant_unlink(self):
-        self.with_context(inventory_mode=True).action_set_inventory_quantity_to_zero()
+        self.with_context(inventory_mode=True).action_clear_inventory_quantity()
         context = dict(self.env.context)
         params = context.get("params", {})
         res_model = params.get("model", False)

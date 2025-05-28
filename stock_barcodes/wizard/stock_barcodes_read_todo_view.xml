@@ -35,21 +35,15 @@
                                         title="Location name"
                                     />
                                     <strong>
-                                        <span
-                                            attrs="{'invisible': [('picking_code', '!=', 'incoming')]}"
-                                        >
+                                        <span invisible="picking_code != 'incoming'">
                                             <field name="location_dest_name" />
                                         </span>
-                                        <span
-                                            attrs="{'invisible': [('picking_code', '!=', 'internal')]}"
-                                        >
+                                        <span invisible="picking_code != 'internal'">
                                             <field name="location_name" /> ⇨ <field
                                                 name="location_dest_name"
                                             />
                                         </span>
-                                        <span
-                                            attrs="{'invisible': [('picking_code', '!=', 'outgoing')]}"
-                                        >
+                                        <span invisible="picking_code != 'outgoing'">
                                             <field name="location_name" />
                                         </span>
                                     </strong>
@@ -141,7 +135,7 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': ['|','|', ('qty_done', '=', 0.0), ('is_extra_line', '=', True), ('is_stock_move_line_origin', '=', False)]} "
+                                        invisible="qty_done == 0.0 or is_extra_line or not is_stock_move_line_origin"
                                     >
                                     Ignore rest
                                     </button>
@@ -152,7 +146,7 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': ['|', '|', ('qty_done', '!=', 0.0), ('is_extra_line', '=', True), ('is_stock_move_line_origin', '=', False)]} "
+                                        invisible="qty_done != 0.0 or is_extra_line or not is_stock_move_line_origin"
                                         confirm="You have not set any quantity to this operation and it will be removed from pending moves. Are you sure?"
                                     >Ignore rest
                                     </button>
@@ -177,7 +171,7 @@
                                         class="btn btn-warning float-end btn-sm"
                                         context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'pending'}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                        invisible="not is_extra_line and is_stock_move_line_origin"
                                         confirm="This move will be set to pending. Are you sure?"
                                     >
                                     Restore to pending
@@ -188,7 +182,7 @@
                                         class="btn btn-danger float-end btn-sm me-5"
                                         context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'skip_backorder'}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                        invisible="not is_extra_line and is_stock_move_line_origin"
                                         confirm="Odoo will not create a backorder for this move. Are you sure?"
                                     >
                                     No Backorder
@@ -199,7 +193,7 @@
                                         class="btn btn-primary float-end btn-sm me-3"
                                         context="{'wiz_barcode_id': parent.id, 'barcode_backorder_action': 'create_backorder'}"
                                         data-hotkey="3"
-                                        attrs="{'invisible': [('is_extra_line', '=', False), ('is_stock_move_line_origin', '=', True)]} "
+                                        invisible="not is_extra_line and is_stock_move_line_origin"
                                     >
                                     Create Backorder
                                     </button>
