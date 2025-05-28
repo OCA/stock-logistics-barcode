@@ -60,7 +60,10 @@ class StockBarcodesOptionGroup(models.Model):
         "the scanned lot"
     )
     ignore_quant_location = fields.Boolean(
-        help="If it is checked, quant location will be ignored when reading lot/package",
+        help="""
+            If it is checked, quant location will
+            be ignored when reading lot/package
+        """,
     )
     group_key_for_todo_records = fields.Char(
         help="You can establish a list of fields that will act as a grouping "
@@ -75,18 +78,26 @@ class StockBarcodesOptionGroup(models.Model):
     )
     create_lot = fields.Boolean(
         string="Create lots if not match",
-        help="If checked the lot will created automatically with the scanned barcode "
-        "if not exists ",
+        help="""
+            If checked the lot will created automatically with
+            the scanned barcode if not exists
+        """,
     )
     show_detailed_operations = fields.Boolean(
         help="If checked the picking detailed operations are displayed",
     )
     keep_screen_values = fields.Boolean(
-        help="If checked the wizard values are kept until the pending move is completed",
+        help="""
+            If checked the wizard values are kept until
+            the pending move is completed
+        """,
     )
     accumulate_read_quantity = fields.Boolean(
-        help="If checked quantity will be accumulated to the existing record instead of "
-        "overwrite it with the new quantity value",
+        help="""
+            If checked quantity will be accumulated to the
+            existing record instead of overwrite it with
+            the new quantity value
+        """,
     )
     display_notification = fields.Boolean(
         string="Display Odoo notifications",
@@ -101,6 +112,12 @@ class StockBarcodesOptionGroup(models.Model):
         ]
     )
     display_read_quant = fields.Boolean(string="Read items on inventory mode")
+    show_all_quantities = fields.Boolean(
+        string="Show all quantities",
+        default=False,
+        help="Allows you to display the quantities on hand, counted, "
+        "and the difference of each product from the inventory adjustment.",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]

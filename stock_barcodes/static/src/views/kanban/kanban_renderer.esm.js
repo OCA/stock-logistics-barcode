@@ -9,7 +9,7 @@ import {isAllowedBarcodeModel} from "../../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
 import {useHotkey} from "@web/core/hotkeys/hotkey_hook";
 
-patch(KanbanRenderer.prototype, "stock_barcodes.KanbanRenderer", {
+patch(KanbanRenderer.prototype, {
     setup() {
         const rootRef = useRef("root");
         useHotkey(
@@ -39,10 +39,10 @@ patch(KanbanRenderer.prototype, "stock_barcodes.KanbanRenderer", {
             {area: () => rootRef.el}
         );
 
-        this._super(...arguments);
+        super.setup();
         this.ormService = useService("orm");
         this.action = useService("action");
-        const busService = useService("bus_service");
+        const busService = this.env.services.bus_service;
         this.enableCurrentOperation = 0;
         const handleNotification = ({detail: notifications}) => {
             if (notifications && notifications.length > 0) {
@@ -192,7 +192,7 @@ patch(KanbanRenderer.prototype, "stock_barcodes.KanbanRenderer", {
                 "action_barcode_scan",
                 [false, false]
             );
-            this.action.doAction(action);
+            return this.action.doAction(action);
         }
     },
 });
