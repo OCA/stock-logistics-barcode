@@ -369,12 +369,12 @@ ul.auto-toc {
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 !! source digest: sha256:e7ccaa03134ef9bad1cb0e83f96ba7617e6ff97f7b09ded6510b4c5a74404a79
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
-<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes"><img alt="OCA/stock-logistics-barcode" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-barcode-16-0/stock-logistics-barcode-16-0-stock_barcodes"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&amp;target_branch=16.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes"><img alt="OCA/stock-logistics-barcode" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-barcode-17-0/stock-logistics-barcode-17-0-stock_barcodes"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
 <p>This module provides a barcode reader interface for stock module.</p>
 <p>This module contains a base wizard read barcode that can be extended by
 other modules.</p>
-<p>This module also makes use of this wizard for providing barcode support for
-doing inventories and picking operations.</p>
+<p>This module also makes use of this wizard for providing barcode support
+for doing inventories and picking operations.</p>
 <p>This module provides configuring barcodes for barcode actions.</p>
 <p><strong>Table of contents</strong></p>
 <div class="contents local topic" id="contents">
@@ -419,55 +419,58 @@ doing inventories and picking operations.</p>
 <li>Start reading barcodes.</li>
 </ol>
 </blockquote>
-<dl class="docutils">
-<dt>Option 2: Use the barcode interface inventory directly from the Barcodes application</dt>
-<dd><ol class="first arabic simple">
+<p>Option 2: Use the barcode interface inventory directly from the Barcodes
+application</p>
+<ol class="arabic simple">
 <li>Go to <em>Barcodes</em>.</li>
 <li>Select the <em>Inventory</em> option.</li>
 </ol>
+<!--  -->
 <blockquote>
-<img alt="Inventory barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<ol class="last arabic simple">
+<img alt="Inventory barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></blockquote>
+<ol class="arabic simple">
 <li>Start scanning barcodes.</li>
 </ol>
-</dd>
-<dt>Actions</dt>
-<dd><p class="first"># Press the <em>+ Product</em> button to display the form for the new item.</p>
+<div class="line-block">
+<div class="line">Actions</div>
+<div class="line"># Press the <em>+ Product</em> button to display the form for the new item.</div>
+</div>
 <blockquote>
-<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># When you select a product, a numeric field is displayed to add the quantity.</p>
+<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" /></blockquote>
+<p># When you select a product, a numeric field is displayed to add the
+quantity.</p>
 <blockquote>
-<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.</p>
+<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" /></blockquote>
+<p># When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.</p>
 <blockquote>
-<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># When you press the <em>Clean values</em> button, all fields are reset and the form is closed.
-# When you press the <em>Confirm</em> button, the new item is added and the form is closed.
-# When the eye icon is closed, the created items greater than zero are displayed, and if not, those less than or equal to zero.</p>
+<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" /></blockquote>
+<p># When you press the <em>Clean values</em> button, all fields are reset and the
+form is closed. # When you press the <em>Confirm</em> button, the new item is
+added and the form is closed. # When the eye icon is closed, the created
+items greater than zero are displayed, and if not, those less than or
+equal to zero.</p>
 <blockquote>
-<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># In the list, the trash can icon allows you to reset the quantity to zero and the edit icon allows you to change the item values.</p>
+<img alt="image1" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png" /></blockquote>
+<p># In the list, the trash can icon allows you to reset the quantity to
+zero and the edit icon allows you to change the item values.</p>
 <blockquote>
-<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png" style="width: 200px; height: 100px;" />
+<img alt="image2" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png" /></blockquote>
+<p># The <em>Apply</em> button is only displayed if there are items with
+quantities greater than zero, regardless of whether they were scanned or
+entered manually; If you press all the defined quantities will be
+processed after defining the reason for the inventory adjustment and
+then the main barcode menu will be displayed.</p>
+<blockquote>
+<p><img alt="Apply inventory" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory.png" /></p>
+<p><img alt="Apply inventory reason" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory_reason.png" /></p>
 </blockquote>
-<p># The <em>Apply</em> button is only displayed if there are items with quantities greater than zero, regardless of whether they were scanned or entered manually; If you press all the defined quantities will be processed after defining the reason for the inventory adjustment and then the main barcode menu will be displayed.</p>
-<blockquote class="last">
-<img alt="Apply inventory" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory.png" style="width: 200px; height: 100px;" />
-<img alt="Apply inventory reason" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory_reason.png" style="width: 200px; height: 100px;" />
-</blockquote>
-</dd>
-</dl>
 </div>
 <div class="section" id="barcode-interface-for-picking-operations">
 <h2><a class="toc-backref" href="#toc-entry-3">Barcode interface for picking operations</a></h2>
-<p>You can use the barcode interface in a picking or an operation type, the main
-difference is that if you open the barcode interface from a picking, this
-picking is locked and you read products for it.</p>
+<p>You can use the barcode interface in a picking or an operation type, the
+main difference is that if you open the barcode interface from a
+picking, this picking is locked and you read products for it.</p>
 <p>To use the barcode interface on picking operations:</p>
 <ol class="arabic simple">
 <li>Go to <em>Inventory</em>.</li>
@@ -482,75 +485,81 @@ picking is locked and you read products for it.</p>
 <li>Start reading barcodes.</li>
 </ol>
 </blockquote>
-<dl class="docutils">
-<dt>Option 2: Use the barcode interface picking directly from the Barcodes application</dt>
-<dd><ol class="first arabic simple">
+<p>Option 2: Use the barcode interface picking directly from the Barcodes
+application</p>
+<ol class="arabic simple">
 <li>Go to <em>Barcodes</em>.</li>
 <li>Select the option <em>OPERATIONS</em>.</li>
 </ol>
+<!--  -->
 <blockquote>
-<img alt="Operation barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># Select the type of picking.
-# The pickings in ready status are displayed, select the one you want to start scanning.</p>
+<img alt="Operation barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></blockquote>
+<p># Select the type of picking. # The pickings in ready status are
+displayed, select the one you want to start scanning.</p>
 <blockquote>
-<img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_picking.png" style="width: 200px; height: 100px;" />
-</blockquote>
+<img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_picking.png" /></blockquote>
 <ol class="arabic simple">
 <li>Start scanning barcodes.</li>
 </ol>
-<blockquote class="last">
-<img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png" style="width: 200px; height: 100px;" />
-</blockquote>
-</dd>
-<dt>Actions</dt>
-<dd><p class="first"># All the items that have been configured for the selected picking are listed.</p>
+<!--  -->
 <blockquote>
-<img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png" style="width: 200px; height: 100px;" />
-</blockquote>
+<img alt="image3" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png" /></blockquote>
+<div class="line-block">
+<div class="line">Actions</div>
+<div class="line"># All the items that have been configured for the selected picking are
+listed.</div>
+</div>
+<blockquote>
+<img alt="image4" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png" /></blockquote>
 <p># The edit icon in the list allows you to modify the data.</p>
 <blockquote>
-<img alt="Edit picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_edit.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<dl class="docutils">
-<dt># The button that contains a <em>+120</em> (in this case), allows you to define all the</dt>
-<dd><p class="first">remaining quantities. Once defined, this button disappears and if you want to change the
-quantities, press the edit button.</p>
-<img alt="Quantity picking" class="last" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_quantity.png" style="width: 200px; height: 100px;" />
-</dd>
-<dt># If there is at least one item with a quantity already defined, an eye icon is displayed,</dt>
-<dd><p class="first">which if closed shows the items and their quantities already scanned.</p>
-<img alt="Picking scanned" class="last" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_scanned.png" style="width: 200px; height: 100px;" />
-</dd>
-<dt># When you press the <em>Validate</em> button, a wizard will be displayed to confirm the action.</dt>
-<dd><p class="first">If everything is correct, it is validated and you return to the picking list mentioned above.</p>
-<img alt="Picking scanned" class="last" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png" style="width: 200px; height: 100px;" />
-</dd>
-<dt># If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned</dt>
-<dd><p class="first">above, to confirm if you want to process all the quantities. If positive, you will proceed
-and be directed to the list mentioned above in the previous point.</p>
-<img alt="Picking scanned" class="last" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png" style="width: 200px; height: 100px;" />
-</dd>
-</dl>
+<img alt="Edit picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_edit.png" /></blockquote>
+<div class="line-block">
+<div class="line"># The button that contains a <em>+120</em> (in this case), allows you to
+define all the</div>
+<div class="line">remaining quantities. Once defined, this button disappears and if you
+want to change the quantities, press the edit button.</div>
+</div>
+<p><img alt="Quantity picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_quantity.png" /></p>
+<div class="line-block">
+<div class="line"># If there is at least one item with a quantity already defined, an
+eye icon is displayed,</div>
+<div class="line">which if closed shows the items and their quantities already scanned.</div>
+</div>
+<p><img alt="Picking scanned" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_scanned.png" /></p>
+<div class="line-block">
+<div class="line"># When you press the <em>Validate</em> button, a wizard will be displayed to
+confirm the action.</div>
+<div class="line">If everything is correct, it is validated and you return to the
+picking list mentioned above.</div>
+</div>
+<p><img alt="image5" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png" /></p>
+<div class="line-block">
+<div class="line"># If there is an item whose quantity is zero, a wizard will be
+displayed after the one mentioned</div>
+<div class="line">above, to confirm if you want to process all the quantities. If
+positive, you will proceed and be directed to the list mentioned above
+in the previous point.</div>
+</div>
+<p><img alt="image6" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png" /></p>
 <p># Press the <em>+ Product</em> button to display the form for the new item.</p>
 <blockquote>
-<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># When you select a product, a numeric field is displayed to add the quantity.</p>
+<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" /></blockquote>
+<p># When you select a product, a numeric field is displayed to add the
+quantity.</p>
 <blockquote>
-<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p># When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.</p>
+<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" /></blockquote>
+<p># When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.</p>
 <blockquote>
-<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" style="width: 200px; height: 100px;" />
-</blockquote>
-<p class="last"># When you press the <em>Clean values</em> button, all fields are reset and the form is closed.
-# When you press the <em>Confirm</em> button, the new item is added and the form is closed.
-# When adding the new item all the quantities are assigned to it, if you want to modify it, press the edit icon.</p>
-</dd>
-</dl>
-<p>The barcode scanner interface has two operation modes. In both of them user
-can scan:</p>
+<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" /></blockquote>
+<p># When you press the <em>Clean values</em> button, all fields are reset and the
+form is closed. # When you press the <em>Confirm</em> button, the new item is
+added and the form is closed. # When adding the new item all the
+quantities are assigned to it, if you want to modify it, press the edit
+icon.</p>
+<p>The barcode scanner interface has two operation modes. In both of them
+user can scan:</p>
 <ol class="arabic simple">
 <li>Warehouse locations with barcode.</li>
 <li>Product packaging with barcode.</li>
@@ -560,40 +569,40 @@ can scan:</p>
 </div>
 <div class="section" id="automatic-operation-mode">
 <h2><a class="toc-backref" href="#toc-entry-4">Automatic operation mode</a></h2>
-<p>This is the default mode, all screen controls are locked to avoid scan into
-fields.</p>
+<p>This is the default mode, all screen controls are locked to avoid scan
+into fields.</p>
 <p>The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in this
-order:</p>
+scanner hardward, the interface read the barcode and do operations in
+this order:</p>
 <ol class="arabic simple">
-<li>Try search a product, if found, is assigned to product_id field and creates
-or update inventory line with 1.0 unit. (If product has tracking by lots
-the interface wait for a lot to be scanned).</li>
-<li>Try search a product packaging, if found, the product_id related is set,
-product quantities are updated and create or update inventory line with
-product quantities defined in the product packaging.</li>
-<li>Try search a lot (The product is mandatory in this case so you first scan a
-product and then scann a lot), this lot field is not erased until that
-product change, so for each product scann the interface add or update a
-inventory line with this lot.</li>
-<li>Try to search a location, if found the field location is set and next scan
-action will be done with this warehouse location.</li>
+<li>Try search a product, if found, is assigned to product_id field and
+creates or update inventory line with 1.0 unit. (If product has
+tracking by lots the interface wait for a lot to be scanned).</li>
+<li>Try search a product packaging, if found, the product_id related is
+set, product quantities are updated and create or update inventory
+line with product quantities defined in the product packaging.</li>
+<li>Try search a lot (The product is mandatory in this case so you first
+scan a product and then scann a lot), this lot field is not erased
+until that product change, so for each product scann the interface
+add or update a inventory line with this lot.</li>
+<li>Try to search a location, if found the field location is set and next
+scan action will be done with this warehouse location.</li>
 </ol>
-<p>If barcode has not found, when message is displayed you can create this lot
-scanning the product.</p>
+<p>If barcode has not found, when message is displayed you can create this
+lot scanning the product.</p>
 </div>
 <div class="section" id="manual-entry-mode">
 <h2><a class="toc-backref" href="#toc-entry-5">Manual entry mode</a></h2>
 <p>You can change to “manual entry” to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be when
-user wants set quantities manually instead increment 1.0 unit peer scan action.</p>
+hardware, but hardward scanner still active on, so a use case would be
+when user wants set quantities manually instead increment 1.0 unit peer
+scan action.</p>
 </div>
 <div class="section" id="scan-logs">
 <h2><a class="toc-backref" href="#toc-entry-6">Scan logs</a></h2>
-<p>All scanned barcodes are saved into model.
-Barcode scanning interface display 10 last records linked to model, the goal of
-this log is show to user other reads with the same product and location done
-by other users.
+<p>All scanned barcodes are saved into model. Barcode scanning interface
+display 10 last records linked to model, the goal of this log is show to
+user other reads with the same product and location done by other users.
 User can remove the last read scan.</p>
 </div>
 <div class="section" id="barcode-interface-for-barcode-actions">
@@ -603,11 +612,12 @@ User can remove the last read scan.</p>
 <li>Go to <em>Inventory &gt; Configuration &gt; Barcode Actions</em>.</li>
 <li>Create a new barcode action and configure the barcode.</li>
 </ol>
-<img alt="Print barcodes" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/create_barcode_action.png" style="width: 200px; height: 100px;" />
+<p><img alt="Print barcodes" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/create_barcode_action.png" /></p>
 <ol class="arabic simple">
-<li>Select the barcode actions you want to use, a button (PRINT BARCODES) will appear that allows you to print the configured barcodes to PDF.</li>
+<li>Select the barcode actions you want to use, a button (PRINT BARCODES)
+will appear that allows you to print the configured barcodes to PDF.</li>
 </ol>
-<img alt="Print barcodes" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png" style="width: 200px; height: 100px;" />
+<p><img alt="image7" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png" /></p>
 <ol class="arabic simple">
 <li>Go to <em>Barcodes</em>.</li>
 <li>Start scanning barcodes from actions.</li>
@@ -628,34 +638,31 @@ User can remove the last read scan.</p>
 <div class="section" id="section-1">
 <h2><a class="toc-backref" href="#toc-entry-10">11.0.1.1.0 (2019-09-24)</a></h2>
 <ul class="simple">
-<li>[ADD] New feature.
-User can uses barcode interface in picking operations.</li>
+<li>[ADD] New feature. User can uses barcode interface in picking
+operations.</li>
 </ul>
 </div>
 <div class="section" id="section-2">
 <h2><a class="toc-backref" href="#toc-entry-11">13.0.1.1.1 (2021-02-06)</a></h2>
 <ul class="simple">
-<li>[ADD] New feature.
-Add option to get lots automatically based on removal strategy in inventory.</li>
+<li>[ADD] New feature. Add option to get lots automatically based on
+removal strategy in inventory.</li>
 </ul>
 </div>
 <div class="section" id="section-3">
 <h2><a class="toc-backref" href="#toc-entry-12">14.0.1.0.0 (2021-04-05)</a></h2>
 <ul class="simple">
-<li>[ADD] New feature.
-Add security for users.</li>
+<li>[ADD] New feature. Add security for users.</li>
 </ul>
 </div>
 <div class="section" id="section-4">
 <h2><a class="toc-backref" href="#toc-entry-13">16.0.1.0.0 (2025-01-23)</a></h2>
 <ul class="simple">
-<li>[IMP]
-Improved views to optimize navigation and functionality.
-Intuitive and mobile-friendly views.
-Visual improvement of the main view accessed from the Barcodes menu.</li>
-<li>[ADD] New feature.
-Barcode reading to barcode actions.
-Generate PDF document for the barcodes of the selected barcode actions.</li>
+<li>[IMP] Improved views to optimize navigation and functionality.
+Intuitive and mobile-friendly views. Visual improvement of the main
+view accessed from the Barcodes menu.</li>
+<li>[ADD] New feature. Barcode reading to barcode actions. Generate PDF
+document for the barcodes of the selected barcode actions.</li>
 </ul>
 </div>
 </div>
@@ -664,7 +671,7 @@ Generate PDF document for the barcodes of the selected barcode actions.</li>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-<a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
@@ -713,7 +720,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.</p>
-<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes">OCA/stock-logistics-barcode</a> project on GitHub.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes">OCA/stock-logistics-barcode</a> project on GitHub.</p>
 <p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
 </div>
 </div>
