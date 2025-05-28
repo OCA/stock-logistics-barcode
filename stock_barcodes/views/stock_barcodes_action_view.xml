@@ -88,6 +88,7 @@
         <field name="target">fullscreen</field>
     </record>
 
+
     <record id="action_stock_barcodes_action_client" model="ir.actions.client">
         <field name="name">Barcodes</field>
         <field name="tag">stock_barcodes_main_menu</field>

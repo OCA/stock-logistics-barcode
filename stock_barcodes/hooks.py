@@ -3,15 +3,15 @@
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
 
-def pre_init_hook(cr):
-    cr.execute(
+def pre_init_hook(env):
+    env.cr.execute(
         """
         ALTER TABLE stock_move_line
             ADD COLUMN IF NOT EXISTS barcode_scan_state VARCHAR DEFAULT 'pending';
         ALTER TABLE stock_move_line ALTER COLUMN barcode_scan_state DROP DEFAULT;
         """,
     )
-    cr.execute(
+    env.cr.execute(
         """
         ALTER TABLE stock_move
             ADD COLUMN IF NOT EXISTS barcode_backorder_action VARCHAR DEFAULT 'pending';

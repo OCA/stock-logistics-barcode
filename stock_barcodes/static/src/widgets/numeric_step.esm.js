@@ -6,7 +6,7 @@ import {NumericStep} from "@web_widget_numeric_step/numeric_step.esm";
 import {isAllowedBarcodeModel} from "../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
 
-patch(NumericStep.prototype, "Adds barcode event handling and focus", {
+patch(NumericStep.prototype, {
     _onFocus() {
         if (isAllowedBarcodeModel(this.props.record.resModel)) {
             // Auto select all content when user enters into fields with this
@@ -35,6 +35,6 @@ patch(NumericStep.prototype, "Adds barcode event handling and focus", {
                 return;
             }
         }
-        this._super(...arguments);
+        super._onKeyDown(...arguments);
     },
 });

@@ -4,11 +4,11 @@ import {patch} from "@web/core/utils/patch";
 import {useService} from "@web/core/utils/hooks";
 const {useEffect} = owl;
 
-patch(BarcodeHandlerField.prototype, "stock_barcodes.BarcodeHandlerField", {
+patch(BarcodeHandlerField.prototype, {
     /* eslint-disable no-unused-vars */
     setup() {
-        this._super(...arguments);
-        const busService = useService("bus_service");
+        super.setup();
+        const busService = this.env.services.bus_service;
         this.orm = useService("orm");
         const notifyChanges = async ({detail: notifications}) => {
             for (const {payload, type} of notifications) {
@@ -28,7 +28,7 @@ patch(BarcodeHandlerField.prototype, "stock_barcodes.BarcodeHandlerField", {
         });
     },
     onBarcodeScanned(event) {
-        this._super(...arguments);
+        super.onBarcodeScanned(...arguments);
         if (this.props.record.resModel.includes("wiz.stock.barcodes.read")) {
             $("#dummy_on_barcode_scanned").click();
         }

@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
 
-    <t
-        t-name="stock_barcodes.BarcodeKanbanRenderer"
-        t-inherit="web.KanbanRenderer"
-        owl="1"
-    >
+    <t t-name="stock_barcodes.BarcodeKanbanRenderer" t-inherit="web.KanbanRenderer">
         <xpath expr="//div[hasclass('o_kanban_renderer')]" position="before">
             <div
                 t-if="showMessageScanProductPackage"

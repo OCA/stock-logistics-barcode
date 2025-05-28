@@ -12,9 +12,10 @@ export class StockBarcodesMainMenu extends Component {
         super.setup();
         this.actionService = useService("action");
         this.ormService = useService("orm");
-        const busService = useService("bus_service");
+        const busService = this.env.services.bus_service;
         const notification = useService("notification");
         this.modelBarcodeAction = "stock.barcodes.action";
+        this.homeMenuService = null;
         if (this.hasService("home_menu"))
             this.homeMenuService = useService("home_menu");
         onWillStart(async () => {
@@ -27,15 +28,14 @@ export class StockBarcodesMainMenu extends Component {
                     const {payload, type} = notif;
                     if (type === "actions_main_menu_barcode") {
                         if (payload.action_ok && payload.action) {
-                            this.actionService.doAction(payload.action);
-                        } else {
-                            notification.add(
-                                _t("No action found with barcode: " + payload.barcode),
-                                {
-                                    type: "danger",
-                                }
-                            );
+                            return this.actionService.doAction(payload.action);
                         }
+                        notification.add(
+                            _t("No action found with barcode: " + payload.barcode),
+                            {
+                                type: "danger",
+                            }
+                        );
                     }
                 });
             }
@@ -56,12 +56,12 @@ export class StockBarcodesMainMenu extends Component {
 
     mainMenuHome() {
         // Enterprise
-        if (this.hasService("home_menu")) {
+        if (this.homeMenuService && this.hasService("home_menu")) {
             this.homeMenuService.toggle(true);
         } else {
             // Community
-            this.actionService.doAction("mail.action_discuss");
             browser.setTimeout(() => browser.location.reload(), 100);
+            return this.actionService.doAction("mail.action_discuss");
         }
     }
 
@@ -72,7 +72,7 @@ export class StockBarcodesMainMenu extends Component {
             [action_id]
         );
         action.help = markup(_t(action.help));
-        this.actionService.doAction(action);
+        return this.actionService.doAction(action);
     }
 
     async getBarcodeActions() {
