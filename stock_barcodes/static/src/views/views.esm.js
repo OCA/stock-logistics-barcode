@@ -73,7 +73,7 @@ export function barcodeAddHotkeyOverlays(activeElement) {
 function setupView() {
     const actionService = useService("action");
     const uiService = useService("ui");
-    const busService = useService("bus_service");
+    const busService = this.env.services.bus_service;
     const notification = useService("notification");
 
     const handleKeys = async (ev) => {
@@ -149,14 +149,14 @@ function setupView() {
                             type: "success",
                         });
                     } else if (payload.apply_inventory) {
-                        actionService.doAction(
-                            "stock_barcodes.action_stock_barcodes_action_client"
-                        );
                         notification.add(
                             _t("The inventory adjustment has been validated"),
                             {
                                 type: "success",
                             }
+                        );
+                        return actionService.doAction(
+                            "stock_barcodes.action_stock_barcodes_action_client"
                         );
                     }
                 } else if (type === "actions_barcode_notification") {
@@ -184,7 +184,6 @@ function setupView() {
         this.$sound_ko.appendTo("body");
 
         busService.addChannel("stock_barcodes_scan");
-
         busService.addEventListener("notification", handleNotification);
 
         return () => {
@@ -197,27 +196,27 @@ function setupView() {
     });
 }
 
-patch(KanbanController.prototype, "add hotkeys to kanban", {
+patch(KanbanController.prototype, {
     setup() {
-        this._super(...arguments);
+        super.setup();
         if (isAllowedBarcodeModel(this.props.resModel)) {
             setupView.call(this);
         }
     },
 });
 
-patch(FormController.prototype, "add hotkeys to form", {
+patch(FormController.prototype, {
     setup() {
-        this._super(...arguments);
+        super.setup();
         if (isAllowedBarcodeModel(this.props.resModel)) {
             setupView.call(this);
         }
     },
 });
 
-patch(ListController.prototype, "add hotkeys to list", {
+patch(ListController.prototype, {
     setup() {
-        this._super(...arguments);
+        super.setup();
         if (isAllowedBarcodeModel(this.props.resModel)) {
             setupView.call(this);
         }

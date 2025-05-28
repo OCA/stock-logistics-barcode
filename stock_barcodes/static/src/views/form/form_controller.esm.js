@@ -9,7 +9,7 @@ import {useService} from "@web/core/utils/hooks";
 export class StockBarcodesFormController extends FormController {
     setup() {
         super.setup();
-        const busService = useService("bus_service");
+        const busService = this.env.services.bus_service;
         const ormService = useService("orm");
         this.enableApplyCount = false;
         // Adds support to use control_pannel_hidden from the

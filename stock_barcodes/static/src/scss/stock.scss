@@ -15,7 +15,6 @@
     background-color: $o-view-background-color;
     border-width: 1px 0 0 0 solid $border-color;
     box-shadow: 0 -3px 10px #c9ccd2;
-    height: 60px !important;
 }
 
 // Avoid too big small buttons from core
@@ -36,6 +35,10 @@
     // Recover useless space
     div[name="_barcode_scanned"] {
         min-height: 0 !important;
+    }
+
+    div.o_form_nosheet {
+        display: contents !important;
     }
 
     div[name="package_id"],
@@ -128,6 +131,7 @@
                     width: 90% !important;
                 }
             }
+
             button[name="action_clean_lot"] {
                 margin-left: 5px !important;
             }
@@ -194,6 +198,7 @@
 
     .oe_stock_barcordes_content {
         overflow-y: overlay !important;
+        padding: 7px !important;
 
         div.g-col-sm-2 {
             &:has(div.o_horizontal_separator) {

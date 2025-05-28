@@ -1,22 +1,75 @@
+## Barcode Configuration for Warehouse Locations
+
+> 1. To see the following menu you must have the permission assigned: *Manage Multiple Stock Locations*.
+
+> ![Warehouse location access](/stock_barcodes/static/src/img/access_menu_warehouse_location.png)
+
+> 2. Go to *Inventory \> Configuration \> Locations*.
+> 3. Select the location you want to associate with the barcode.
+> 4. Go to the Barcode field and assign the corresponding field.
+
+> ![Warehouse location barcode](/stock_barcodes/static/src/img/barcode_warehouse_location.png)
+
+> 5. Save the data.
+
+## Barcode Configuration for Product Packings
+
+> 1. To see the following menu you must have the permission assigned: *Manage Product Packaging*.
+
+> ![Product packaging barcode](/stock_barcodes/static/src/img/access_menu_product_packaging.png)
+
+> 2. Go to *Inventory \> Configuration \> Product Packings*.
+> 3. Create a new or select product packaging.
+> 4. Go to the Barcode field and assign the corresponding field.
+
+> ![Product packaging barcode](/stock_barcodes/static/src/img/barcode_product_packaging.png)
+
+> 5. Save the data.
+
+## Barcode Configuration for Product
+
+> 1. Go to *Inventory \> Products \> Products*.
+> 2. Create a new product.
+> 3. Go to the Barcode field and assign the corresponding field.
+
+> ![Product packaging barcode](/stock_barcodes/static/src/img/barcode_product.png)
+
+> 4. Save the data.
+
+## Barcode Configuration for Product lot
+
+> 1. Go to *Inventory \> Products \> Lots/Serial Numbers*.
+> 2. Create a new lot.
+> 3. In this case, the barcode matches the lot name, so when you name the lot, you already have the barcode configured.
+
+> ![Product lot barcode](/stock_barcodes/static/src/img/barcode_product_lot.png)
+
+> 4. Save the data.
+
 ## Barcode interface for inventory operations
+
+Please note that the picking is marked with the entire
+quantity requested by default in the ready state.
+
 
 Option 1: To use the barcode interface on inventory
 
-> 1.  Go to *Inventory \> operations \> Inventory Adjustments*.
-> 2.  Create new inventory with "Select products manually" option.
-> 3.  Start inventory.
-> 4.  Click to "Scan barcodes" smart button.
-> 5.  Start reading barcodes.
+> 1. Go to *Inventory \> operations \> Inventory Adjustments*.
+> 2. Create new inventory with "Select products manually" option.
+> 3. Start inventory.
+> 4. Click to "Scan barcodes" smart button.
+> 5. Start reading barcodes.
 
-Option 2: Use the barcode interface inventory directly from the Barcodes application  
-1.  Go to *Barcodes*.
-2.  Select the *Inventory* option.
+Option 2: Use the barcode interface inventory directly from the Barcodes application
+
+1. Go to *Barcodes*.
+2. Select the *Inventory* option.
 
 > ![Inventory barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
 
-1.  Start scanning barcodes.
+1. Start scanning barcodes.
 
-Actions  
+Actions
 \# Press the *+ Product* button to display the form for the new item.
 
 > ![Add product](/stock_barcodes/static/src/img/add_product.png)
@@ -62,19 +115,20 @@ picking, this picking is locked and you read products for it.
 
 To use the barcode interface on picking operations:
 
-1.  Go to *Inventory*.
-2.  Click on scanner button on any operation type.
-3.  Start reading barcodes.
+1. Go to *Inventory*.
+2. Click on scanner button on any operation type.
+3. Start reading barcodes.
 
 Option 1: To use the barcode interface on a picking:
 
-> 1.  Go to *Inventory \> Transfers*.
-> 2.  Click to "Scan barcodes" smart button.
-> 3.  Start reading barcodes.
+> 1. Go to *Inventory \> Transfers*.
+> 2. Click to "Scan barcodes" smart button.
+> 3. Start reading barcodes.
 
-Option 2: Use the barcode interface picking directly from the Barcodes application  
-1.  Go to *Barcodes*.
-2.  Select the option *OPERATIONS*.
+Option 2: Use the barcode interface picking directly from the Barcodes application
+
+1. Go to *Barcodes*.
+2. Select the option *OPERATIONS*.
 
 > ![Operation barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
 
@@ -83,11 +137,11 @@ displayed, select the one you want to start scanning.
 
 > ![List picking](/stock_barcodes/static/src/img/list_picking.png)
 
-1.  Start scanning barcodes.
+1. Start scanning barcodes.
 
 > ![List picking](/stock_barcodes/static/src/img/barcode_interface_picking.png)
 
-Actions  
+Actions
 \# All the items that have been configured for the selected picking are
 listed.
 
@@ -97,24 +151,24 @@ listed.
 
 > ![Edit picking](/stock_barcodes/static/src/img/list_items_picking_edit.png)
 
-\# The button that contains a *+120* (in this case), allows you to define all the  
+\# The button that contains a *+120* (in this case), allows you to define all the
 remaining quantities. Once defined, this button disappears and if you
 want to change the quantities, press the edit button.
 
 ![Quantity picking](/stock_barcodes/static/src/img/list_items_picking_quantity.png)
 
-\# If there is at least one item with a quantity already defined, an eye icon is displayed,  
+\# If there is at least one item with a quantity already defined, an eye icon is displayed,
 which if closed shows the items and their quantities already scanned.
 
 ![Picking scanned](/stock_barcodes/static/src/img/list_items_picking_scanned.png)
 
-\# When you press the *Validate* button, a wizard will be displayed to confirm the action.  
+\# When you press the *Validate* button, a wizard will be displayed to confirm the action.
 If everything is correct, it is validated and you return to the picking
 list mentioned above.
 
 ![Picking scanned](/stock_barcodes/static/src/img/confirm_items_picking.png)
 
-\# If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned  
+\# If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned
 above, to confirm if you want to process all the quantities. If
 positive, you will proceed and be directed to the list mentioned above
 in the previous point.
@@ -144,10 +198,10 @@ icon.
 The barcode scanner interface has two operation modes. In both of them
 user can scan:
 
-1.  Warehouse locations with barcode.
-2.  Product packaging with barcode.
-3.  Product with barcode.
-4.  Product Lots (The barcode is name field in this case).
+1. Warehouse locations with barcode.
+2. Product packaging with barcode.
+3. Product with barcode.
+4. Product Lots (The barcode is name field in this case).
 
 ## Automatic operation mode
 
@@ -158,18 +212,18 @@ The user only has to scan barcode in physical warehouse locations with a
 scanner hardward, the interface read the barcode and do operations in
 this order:
 
-1.  Try search a product, if found, is assigned to product_id field and
-    creates or update inventory line with 1.0 unit. (If product has
-    tracking by lots the interface wait for a lot to be scanned).
-2.  Try search a product packaging, if found, the product_id related is
-    set, product quantities are updated and create or update inventory
-    line with product quantities defined in the product packaging.
-3.  Try search a lot (The product is mandatory in this case so you first
-    scan a product and then scann a lot), this lot field is not erased
-    until that product change, so for each product scann the interface
-    add or update a inventory line with this lot.
-4.  Try to search a location, if found the field location is set and
-    next scan action will be done with this warehouse location.
+1. Try search a product, if found, is assigned to product_id field and
+   creates or update inventory line with 1.0 unit. (If product has
+   tracking by lots the interface wait for a lot to be scanned).
+2. Try search a product packaging, if found, the product_id related is
+   set, product quantities are updated and create or update inventory
+   line with product quantities defined in the product packaging.
+3. Try search a lot (The product is mandatory in this case so you first
+   scan a product and then scann a lot), this lot field is not erased
+   until that product change, so for each product scann the interface
+   add or update a inventory line with this lot.
+4. Try to search a location, if found the field location is set and
+   next scan action will be done with this warehouse location.
 
 If barcode has not found, when message is displayed you can create this
 lot scanning the product.
@@ -192,16 +246,16 @@ User can remove the last read scan.
 
 To use the barcode interface for actions:
 
-1.  Go to *Inventory \> Configuration \> Barcode Actions*.
-2.  Create a new barcode action and configure the barcode.
+1. Go to *Inventory \> Configuration \> Barcode Actions*.
+2. Create a new barcode action and configure the barcode.
 
 ![Print barcodes](/stock_barcodes/static/src/img/create_barcode_action.png)
 
-1.  Select the barcode actions you want to use, a button (PRINT
-    BARCODES) will appear that allows you to print the configured
-    barcodes to PDF.
+1. Select the barcode actions you want to use, a button (PRINT
+   BARCODES) will appear that allows you to print the configured
+   barcodes to PDF.
 
 ![Print barcodes](/stock_barcodes/static/src/img/print_barcodes.png)
 
-1.  Go to *Barcodes*.
-2.  Start scanning barcodes from actions.
+1. Go to *Barcodes*.
+2. Start scanning barcodes from actions.

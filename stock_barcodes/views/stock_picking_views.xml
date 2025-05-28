@@ -11,7 +11,7 @@
                     icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
-                    states="confirmed,assigned"
+                    invisible="state not in ('confirmed', 'assigned')"
                 >
                     <div class="o_form_field o_stat_info">
                         <span class="o_stat_text">Scan barcodes</span>
@@ -48,7 +48,7 @@
                 <div
                     class="mt8"
                     t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1"
-                    attrs="{'invisible': [('barcode_option_group_id', '=', False)]}"
+                    invisible="barcode_option_group_id==False"
                 >
                     <button
                         name="action_barcode_scan"
@@ -127,5 +127,9 @@
                 Transfers allow you to move products from one location to another.
             </p>
         </field>
+    </record>
+
+    <record id="stock.action_picking_tree_ready" model="ir.actions.act_window">
+        <field name="view_mode">kanban,tree,form,calendar</field>
     </record>
 </odoo>

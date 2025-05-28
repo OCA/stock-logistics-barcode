@@ -64,12 +64,12 @@ class WizCandidatePicking(models.TransientModel):
             qty_demand = 0
             qty_done = 0
             candidate.product_qty_reserved = sum(
-                candidate.picking_id.mapped("move_ids.reserved_availability")
+                candidate.picking_id.mapped("move_ids.quantity")
             )
             for move in candidate.picking_id.move_ids:
-                qty_reserved += move.reserved_availability
+                qty_reserved += move.quantity
                 qty_demand += move.product_uom_qty
-                qty_done += move.quantity_done
+                qty_done += move.quantity
             candidate.update(
                 {
                     "product_qty_reserved": qty_reserved,
@@ -124,18 +124,15 @@ class WizCandidatePicking(models.TransientModel):
     def action_validate_picking(self):
         context = dict(self.env.context)
         picking = self._get_picking_to_validate()
-        if picking._check_immediate():
-            return False, picking.with_context(
-                button_validate_picking_ids=picking.ids, operations_mode=True
-            )._action_generate_immediate_wizard(
-                show_transfers=picking._should_show_transfers()
-            )
-        return (
-            True,
-            picking.with_context(
-                skip_sms=context.get("skip_sms", False)
-            ).button_validate(),
-        )
+        result_btn_validate = picking.with_context(
+            skip_sms=context.get("skip_sms", False)
+        ).button_validate()
+        if (
+            isinstance(result_btn_validate, dict)
+            and result_btn_validate.get("type", "") == "ir.actions.act_window"
+        ):
+            return False, result_btn_validate
+        return True, result_btn_validate
 
     def action_open_picking(self):
         picking = self.env["stock.picking"].browse(

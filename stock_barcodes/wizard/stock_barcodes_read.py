@@ -306,7 +306,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             quants = internal_quants
         elif quants:
             self = self.with_context(ignore_quant_location=True)
-            # self._set_messagge_info("more_match", _("Package located external location"))
+            # self._set_messagge_info("more_match",
+            # _("Package located external location"))
         else:
             # self._set_messagge_info("more_match", _("Package not fount or empty"))
             return False
@@ -792,7 +793,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                     "count_apply_inventory",
                     {"count": self.count_inventory_quants},
                 )
-
         return res
 
     def action_add_scan_manual(self):
