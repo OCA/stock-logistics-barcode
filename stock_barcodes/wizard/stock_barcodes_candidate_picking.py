@@ -4,7 +4,6 @@ from odoo import api, fields, models
 
 
 class WizCandidatePicking(models.TransientModel):
-
     _name = "wiz.candidate.picking"
     _description = "Candidate pickings for barcode interface"
     # To prevent remove the record wizard until 2 days old
