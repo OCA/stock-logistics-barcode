@@ -24,7 +24,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         vals = super()._update_fill_record_values(line, vals)
         if not line.elaboration_ids:
             return vals
-        elaboration_ids = vals.get("elaboration_ids", [(6, 0, [])])[2]
+        elaboration_ids = vals.get("elaboration_ids", [(6, 0, [])])[0][2]
         for elaboration_id in line.elaboration_ids.ids:
             if elaboration_id not in elaboration_ids:
                 elaboration_ids.append(elaboration_id)
