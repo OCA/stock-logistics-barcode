@@ -1,6 +1,7 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import _, models
+from odoo.exceptions import UserError
 
 
 class StockPicking(models.Model):
@@ -33,6 +34,14 @@ class StockPicking(models.Model):
             or self.picking_type_id.barcode_option_group_id
             or self.env.ref("stock_barcodes.stock_barcodes_option_group_operation")
         )
+        if not option_group:
+            raise UserError(
+                _(
+                    "Barcode Option Group is not configured on "
+                    "Operation Type '%(pick_type)s'.",
+                    pick_type=self.picking_type_id.display_name,
+                )
+            )
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(
             self._prepare_barcode_wiz_vals(option_group)
         )
