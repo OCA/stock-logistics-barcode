@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="res_config_settings_view_form" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.barcode.format</field>
+        <field name="model">res.config.settings</field>
+        <field name="inherit_id" ref="stock.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <app name="stock" position="inside">
+                <block title="Barcode format">
+                    <setting title="Select format of barcode display">
+                        <label for="barcode_report_default_format" />
+                        <div class="text-muted">
+                            Format of the barcode when it is printed.
+                        </div>
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field
+                                    name="barcode_report_default_format"
+                                    class="o_light_label"
+                                    widget="selection"
+                                />
+                            </div>
+                        </div>
+                    </setting>
+                    <setting title="Select report for barcode display">
+                        <label for="barcode_default_report" />
+                        <div class="content-group">
+                            <div class="mt16">
+                                <field name="barcode_default_report" />
+                            </div>
+                        </div>
+                    </setting>
+                </block>
+            </app>
+        </field>
+    </record>
+</odoo>

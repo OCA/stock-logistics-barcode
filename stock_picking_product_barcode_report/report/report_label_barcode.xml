@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="action_label_barcode_report" model="ir.actions.report">
+        <field name="name">Label Impresion</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label"
+        />
+        <field name="is_barcode_label">True</field>
+    </record>
+    <record id="action_label_barcode_report_quant_package" model="ir.actions.report">
+        <field name="name">Label Quant Package</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
+        />
+        <field name="is_barcode_label">True</field>
+    </record>
+    <record id="report_label_barcode_quant" model="ir.actions.report">
+        <field name="name">Label Quant Report</field>
+        <field name="model">stock.quant</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
+        />
+        <field name="binding_model_id" ref="stock.model_stock_quant" />
+    </record>
+    <record id="report_label_barcode_package" model="ir.actions.report">
+        <field name="name">Labels package content</field>
+        <field name="model">stock.quant.package</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_barcode_report_package_content</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_barcode_report_package_content</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
+        />
+        <field name="binding_model_id" ref="stock.model_stock_quant_package" />
+    </record>
+    <record id="action_label_custom_report" model="ir.actions.report">
+        <field name="name">Custom Label Impresion</field>
+        <field name="model">stock.picking.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.label_custom_report</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.label_custom_report</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_custom_label"
+        />
+        <field name="is_barcode_label">True</field>
+        <field name="is_custom_label">True</field>
+    </record>
+
+    <!-- Base report label to be extended by other modules -->
+    <record id="action_report_base_label" model="ir.actions.report">
+        <field name="name">Label report</field>
+        <field name="model">stock.picking.line.print</field>
+        <field name="report_type">qweb-pdf</field>
+        <field
+            name="report_file"
+        >stock_picking_product_barcode_report.base_label</field>
+        <field
+            name="report_name"
+        >stock_picking_product_barcode_report.base_label</field>
+        <field
+            name="paperformat_id"
+            ref="stock_picking_product_barcode_report.paperformat_label"
+        />
+        <field name="is_barcode_label">True</field>
+    </record>
+</odoo>

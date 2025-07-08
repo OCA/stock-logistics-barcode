@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <!-- Base barcode label to be extended for other modules -->
+    <template id="base_label_document">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="o.label_qty" t-as="i">
+                    <p style="page-break-after:always;" />
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="base_label">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="o">
+                <t t-if="o.label_qty > 0">
+                    <t
+                        t-call="stock_picking_product_barcode_report.base_label_document"
+                        t-lang="o.wizard_id.lang or o.env.user.lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

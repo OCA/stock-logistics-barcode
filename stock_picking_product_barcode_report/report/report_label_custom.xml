@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <template id="report_label_custom">
+        <t t-call="web.basic_layout">
+            <div class="page">
+                <t t-foreach="doc.label_qty" t-as="i">
+                    <div t-field="doc.html_content" />
+                    <p style="page-break-after:always;" />
+                </t>
+            </div>
+        </t>
+    </template>
+    <template id="label_custom_report">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-if="doc.label_qty > 0">
+                    <t
+                        t-call="stock_picking_product_barcode_report.report_label_custom"
+                        t-lang="doc.wizard_id.lang or doc.env.user.lang"
+                    />
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>
