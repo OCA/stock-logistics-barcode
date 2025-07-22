@@ -6,7 +6,7 @@
                 <t t-foreach="doc.label_qty" t-as="i">
                     <div class="text-center">
                         <t t-if="doc.wizard_id.barcode_format == 'gs1_128'">
-                            <t t-set="type" t-value="'gs1_128'" />
+                            <t t-set="barcode_type" t-value="'gs1_128'" />
                             <t
                                 t-set="barcode"
                                 t-value="doc.product_id.barcode.zfill(14)"
@@ -18,7 +18,7 @@
                                     t-value="'02' + barcode + '10' + lot.name"
                                 />
                                 <img
-                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
+                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (barcode_type, value, 600, 60)"
                                     style="width:100%;height:70px;margin: 0px 0px -25px 0px"
                                     alt="Barcode"
                                 />
@@ -30,7 +30,7 @@
                             <t t-else="">
                                 <t t-set="value" t-value="'02' + barcode" />
                                 <img
-                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (type, value, 600, 60)"
+                                    t-att-src="'/report/barcode/?barcode_type=%s&amp;value=%s&amp;width=%s&amp;height=%s' % (barcode_type, value, 600, 60)"
                                     style="width:100%;height:70px;margin: 0px 0px -25px 0px"
                                     alt="Barcode"
                                 />
