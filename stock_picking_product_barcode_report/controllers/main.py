@@ -13,14 +13,14 @@ class ReportController(ReportController):
     @http.route()
     def report_barcode(
         self,
-        type,  # pylint: disable=redefined-builtin
+        barcode_type,
         value,
         width=600,
         height=100,
         humanreadable=0,
         quiet=1,
     ):
-        if type == "gs1_128":
+        if barcode_type == "gs1_128":
             Gs1_128 = barcode.get_barcode_class("gs1_128")
             writer = SVGWitoutTextWriter(module_max_height=height)
             gs1_128 = Gs1_128(str(value), writer=writer)
@@ -31,7 +31,7 @@ class ReportController(ReportController):
                 image, headers=[("Content-Type", "image/svg+xml")]
             )
         return super().report_barcode(
-            type,
+            barcode_type,
             value,
             width=width,
             height=height,
