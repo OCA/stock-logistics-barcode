@@ -1,0 +1,149 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# * product_multi_ean
+#
+# Translators:
+# Eduardo Rodríguez Crespo <erocre@gmail.com>, 2016
+msgid ""
+msgstr ""
+"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-05-08 15:26+0000\n"
+"PO-Revision-Date: 2023-12-21 23:58+0000\n"
+"Last-Translator: Ivorra78 <informatica@totmaterial.es>\n"
+"Language-Team: Spanish (http://www.transifex.com/oca/"
+"OCA-stock-logistics-barcode-8-0/language/es/)\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 4.17\n"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
+msgid "Barcode"
+msgstr "Código de Barras"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
+#: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
+msgid "Barcodes"
+msgstr "Códigos de barras"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
+msgid "Company"
+msgstr "Companía"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_date
+msgid "Created on"
+msgstr "Creado en"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_barcode
+msgid "Individual item in a product's barcode list"
+msgstr "Artículo individual en la lista de códigos de barras de un producto"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
+msgid "International Article Number used for product identification."
+msgstr ""
+"Número de artículo internacional usado para la identificación de producto."
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_date
+msgid "Last Updated on"
+msgstr "Última actualización en"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
+msgid "Main barcode"
+msgstr "Código de barras principal"
+
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_template
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_id
+msgid "Product"
+msgstr "Producto"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
+msgid "Product Tmpl"
+msgstr "Plantilla de producto"
+
+#. module: product_multi_barcode
+#: model:ir.model,name:product_multi_barcode.model_product_product
+msgid "Product Variant"
+msgstr "Variante de producto"
+
+#. module: product_multi_barcode
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
+msgid "Sequence"
+msgstr "Secuencia"
+
+#. module: product_multi_barcode
+#. odoo-python
+#: code:addons/product_multi_barcode/models/product_barcode.py:0
+#, python-format
+msgid ""
+"The Barcode \"%(barcode_name)s\" already exists for product "
+"\"%(product_name)s\" in the company %(company_name)s"
+msgstr ""
+"El código de barras \"%(barcode_name)s\" ya existe para el producto "
+"\"%(product_name)s\" en la compañía %(company_name)s"
+
+#, fuzzy
+#~ msgid "Product Template"
+#~ msgstr "Producto"
+
+#, fuzzy, python-format
+#~ msgid "The Barcode \"%s\" already exists for product \"%s\""
+#~ msgstr "El código EAN13 \"%s\" ya existe para el producto \"%s\""
+
+#~ msgid "EAN13"
+#~ msgstr "EAN13"
+
+#~ msgid "List of EAN13 for a product."
+#~ msgstr "Lista de EAN13 para un producto."
+
+#, fuzzy
+#~ msgid "Main EAN13"
+#~ msgstr "EAN13"
+
+#~ msgid ""
+#~ "You provided an invalid \"EAN13 Barcode\" reference. You may use the "
+#~ "\"Internal Reference\" field instead."
+#~ msgstr ""
+#~ "El \"código EAN13\" es inválido. Tal vez deba usar el campo \"Referencia "
+#~ "interna\" en su lugar."
+
+#~ msgid "True"
+#~ msgstr "True"
