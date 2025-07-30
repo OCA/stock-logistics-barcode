@@ -1,10 +1,11 @@
 [project]
 name = "odoo-addons-oca-stock-logistics-barcode"
-version = "17.0.20250708.0"
+version = "17.0.20250730.0"
 dependencies = [
     "odoo-addon-barcodes_generator_abstract>=17.0dev,<17.1dev",
     "odoo-addon-barcodes_generator_location>=17.0dev,<17.1dev",
     "odoo-addon-barcodes_generator_product>=17.0dev,<17.1dev",
+    "odoo-addon-product_multi_barcode>=17.0dev,<17.1dev",
     "odoo-addon-stock_picking_product_barcode_report>=17.0dev,<17.1dev",
 ]
 classifiers=[
