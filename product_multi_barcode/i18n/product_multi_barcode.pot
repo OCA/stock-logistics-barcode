@@ -4,7 +4,7 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 17.0\n"
 "Report-Msgid-Bugs-To: \n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -58,11 +58,6 @@ msgstr ""
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
 msgid "International Article Number used for product identification."
-msgstr ""
-
-#. module: product_multi_barcode
-#: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode____last_update
-msgid "Last Modified on"
 msgstr ""
 
 #. module: product_multi_barcode
