@@ -8,7 +8,7 @@ class Tests(TransactionCase):
     """Tests 'Barcodes Generator for Packages'"""
 
     @classmethod
-    def setUp(cls):
+    def setUpClass(cls):
         super().setUpClass()
         cls.package = cls.env.ref(
             "barcodes_generator_package.demo_package",
