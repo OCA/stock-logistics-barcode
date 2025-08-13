@@ -123,6 +123,10 @@ class StockBarcodesOptionGroup(models.Model):
         help="Allows you to define whether partial delivery is "
         "performed directly or through the wizard.",
     )
+    show_stock = fields.Boolean(
+        default=False,
+        help="If checked the stock will be displayed",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
