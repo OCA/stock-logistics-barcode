@@ -125,7 +125,8 @@ class WizCandidatePicking(models.TransientModel):
         context = dict(self.env.context)
         picking = self._get_picking_to_validate()
         result_btn_validate = picking.with_context(
-            skip_sms=context.get("skip_sms", False)
+            skip_sms=context.get("skip_sms", False),
+            skip_backorder=picking.picking_type_id.barcode_option_group_id.allow_direct_partial_delivery,
         ).button_validate()
         if (
             isinstance(result_btn_validate, dict)
