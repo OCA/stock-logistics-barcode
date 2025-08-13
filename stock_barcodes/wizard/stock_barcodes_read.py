@@ -97,6 +97,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
 
     enable_add_product = fields.Boolean(default=True)
+    product_in_stock = fields.Float(related="product_id.qty_available")
+    show_stock = fields.Boolean(related="option_group_id.show_stock")
 
     @api.depends("res_id")
     def _compute_action_ids(self):

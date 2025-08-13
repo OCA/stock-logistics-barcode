@@ -35,6 +35,7 @@
                             <field name="auto_put_in_pack" />
                             <field name="display_read_quant" />
                             <field name="allow_direct_partial_delivery" />
+                            <field name="show_stock" />
                         </group>
                         <group>
                             <field name="ignore_filled_fields" />

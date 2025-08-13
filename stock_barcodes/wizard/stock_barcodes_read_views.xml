@@ -295,6 +295,13 @@
                                     name="total_qty_field"
                                     colspan="2"
                                 >
+                                    <field name="show_stock" invisible="1" />
+                                    <field
+                                        name="product_in_stock"
+                                        nolabel="1"
+                                        invisible="not show_stock"
+                                        readonly="1"
+                                    />
                                     <field
                                         name="product_qty"
                                         force_save="1"
