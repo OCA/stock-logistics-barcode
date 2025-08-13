@@ -118,6 +118,11 @@ class StockBarcodesOptionGroup(models.Model):
         help="Allows you to display the quantities on hand, counted, "
         "and the difference of each product from the inventory adjustment.",
     )
+    allow_direct_partial_delivery = fields.Boolean(
+        default=True,
+        help="Allows you to define whether partial delivery is "
+        "performed directly or through the wizard.",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
