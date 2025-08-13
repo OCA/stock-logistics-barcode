@@ -51,9 +51,13 @@ class StockPicking(models.Model):
         )
         if put_in_pack_picks:
             put_in_pack_picks.action_put_in_pack()
-        if self.env.context.get("stock_barcodes_validate_picking", False):
+        context = self.env.context
+        if not context.get("picking_ids_not_to_backorder", False) and context.get(
+            "skip_backorder", False
+        ):
             res = super(
-                StockPicking, self.with_context(skip_backorder=True)
+                StockPicking,
+                self.with_context(skip_backorder=context.get("skip_backorder", False)),
             ).button_validate()
         else:
             res = super().button_validate()
