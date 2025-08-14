@@ -314,6 +314,9 @@
                                     colspan="2"
                                 >
                                     <field name="show_stock" invisible="1" />
+                                    <span
+                                        class="f-weight-900 d-none d-sm-block my-2"
+                                    >Stock Quantity</span>
                                     <field
                                         name="product_in_stock"
                                         nolabel="1"
@@ -442,16 +445,25 @@
             </group>
             <xpath
                 expr="//div[@name='total_qty_field']//field[@name='product_qty']"
-                position="before"
+                position="after"
             >
-                <field
-                    name="packaging_qty"
-                    force_save="1"
-                    widget="numeric_step"
-                    options="{'auto_select': True}"
-                    groups="product.group_stock_packaging"
-                    invisible="product_packaging_ids == False"
-                />
+                <field name="product_packaging_ids" invisible="1" />
+                <div
+                    class="d-flex flex-column"
+                    id="packaging_qty_field"
+                    invisible="not product_packaging_ids"
+                >
+                    <span
+                        class="f-weight-900 d-none d-sm-block my-2"
+                    >Package Quantity</span>
+                    <field
+                        name="packaging_qty"
+                        force_save="1"
+                        widget="numeric_step"
+                        options="{'auto_select': True}"
+                        groups="product.group_stock_packaging"
+                    />
+                </div>
             </xpath>
             <!-- <div name="total_qty_field" position="before">
                 <div class="col text-center" groups="product.group_stock_packaging">
