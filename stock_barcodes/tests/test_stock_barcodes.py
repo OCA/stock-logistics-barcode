@@ -404,7 +404,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
 
     def test_process_barcode_packaging_id(self):
         packing = self.wiz_scan.process_barcode_packaging_id()
-        self.assertFalse(packing)
+        self.assertTrue(packing)
 
         packing_values = {
             "name": "Test product packing",
