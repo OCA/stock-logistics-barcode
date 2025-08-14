@@ -1,6 +1,6 @@
 # Copyright 2023 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import models
+from odoo import api, models
 
 MODEL_UPDATE_INVENTORY = ["wiz.stock.barcodes.read.inventory"]
 
@@ -77,4 +77,11 @@ class StockQuant(models.Model):
             "actions_barcode",
             {"apply_inventory": True},
         )
+        return res
+
+    @api.model
+    def _get_forbidden_fields_write(self):
+        res = super()._get_forbidden_fields_write()
+        if self.env.context.get("allow_edit_owner"):
+            res.remove("owner_id")
         return res

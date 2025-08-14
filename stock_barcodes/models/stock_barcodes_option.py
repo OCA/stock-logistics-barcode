@@ -125,7 +125,11 @@ class StockBarcodesOptionGroup(models.Model):
     )
     show_stock = fields.Boolean(
         default=False,
-        help="If checked the stock will be displayed",
+        help="If checked, the stock will be displayed in the inventory settings view.",
+    )
+    show_owner = fields.Boolean(
+        default=False,
+        help="If checked, the owner will be displayed in the inventory settings view.",
     )
 
     def get_option_value(self, field_name, attribute):

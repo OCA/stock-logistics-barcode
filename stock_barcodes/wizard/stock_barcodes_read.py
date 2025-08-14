@@ -97,8 +97,21 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
 
     enable_add_product = fields.Boolean(default=True)
-    product_in_stock = fields.Float(related="product_id.qty_available")
+    product_in_stock = fields.Float(compute="_compute_product_in_stock")
     show_stock = fields.Boolean(related="option_group_id.show_stock")
+    show_owner = fields.Boolean(related="option_group_id.show_owner")
+
+    @api.depends("product_id", "owner_id", "package_id")
+    def _compute_product_in_stock(self):
+        StockQuant = self.env["stock.quant"]
+        for rec in self:
+            rec.product_in_stock = StockQuant._get_available_quantity(
+                product_id=rec.product_id,
+                location_id=rec.location_id,
+                package_id=rec.package_id,
+                owner_id=rec.owner_id,
+                allow_negative=True,
+            )
 
     @api.depends("res_id")
     def _compute_action_ids(self):
