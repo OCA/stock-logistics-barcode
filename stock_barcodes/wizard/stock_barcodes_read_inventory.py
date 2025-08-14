@@ -35,7 +35,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         for wiz in self:
             domain = [
                 ("user_id", "=", self.env.user.id),
-                # ("inventory_date", "<=", fields.Date.context_today(self)),
+                ("inventory_date", "<=", fields.Date.context_today(self)),
             ]
             if wiz.display_read_quant:
                 domain.append(("inventory_quantity_set", "=", True))
@@ -52,6 +52,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
                         q.location_id.posz,
                         q.location_id.name,
                     )
+                )
+            if self.show_owner and self.owner_id:
+                quants.with_context(allow_edit_owner=True).write(
+                    {"owner_id": self.owner_id.id}
                 )
             wiz.inventory_quant_ids = quants
 
