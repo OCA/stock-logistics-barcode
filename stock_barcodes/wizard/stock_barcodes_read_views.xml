@@ -57,10 +57,10 @@
                         <field name="res_id" invisible="1" />
                         <field name="option_group_id" invisible="1" force_save="1" />
                         <field name="confirmed_moves" invisible="1" force_save="1" />
-                        <field name="owner_id" invisible="1" force_save="1" />
                         <field name="keep_result_package" invisible="1" />
                         <field name="create_lot" invisible="1" />
                         <field name="lot_id" invisible="1" />
+                        <field name="show_owner" invisible="1" />
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
@@ -181,6 +181,24 @@
                                         icon="fa-trash fa-1x"
                                         title="Clean product"
                                         invisible="product_id == False"
+                                    />
+                                </div>
+                                <div
+                                    class="m-0"
+                                    colspan="2"
+                                    invisible="not product_id or not show_owner"
+                                >
+                                    <strong class="d-none d-sm-block">Owner</strong>
+                                    <span
+                                        class="fa fa-th-list fa-2x d-sm-none oe_span_small_icon"
+                                        title="Owner"
+                                    />
+                                    <field
+                                        name="owner_id"
+                                        options="{'no_create': True, 'no_open': True}"
+                                        force_save="1"
+                                        style="width:80%"
+                                        class="h5"
                                     />
                                 </div>
                             </group>
