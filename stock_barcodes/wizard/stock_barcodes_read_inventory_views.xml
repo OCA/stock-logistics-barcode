@@ -104,27 +104,27 @@
                                                 class="col-4 col-md-2 d-flex justify-content-end align-items-center"
                                             >
                                                 <div
-                                                    class="d-flex flex-column align-items-center"
+                                                    class="d-flex flex-column align-items-start"
                                                 >
-                                                    <span class="fw-bold mx-3">
+                                                    <span class="fw-bold mx-3 w-100">
                                                         <i
-                                                            class="fa fa-hand-spock-o"
+                                                            class="fa fa-cubes"
                                                             aria-hidden="true"
                                                             title="On hand quantity"
                                                         />&#32;&#32;<field
                                                             name="quantity"
                                                         />
                                                     </span>
-                                                    <span class="fw-bold mx-3">
+                                                    <span class="fw-bold mx-3 w-100">
                                                         <i
-                                                            class="fa fa-refresh"
+                                                            class="fa fa-hourglass-half"
                                                             aria-hidden="true"
                                                             title="Counted quantity"
                                                         />&#32;&#32;<field
                                                             name="inventory_quantity"
                                                         />
                                                     </span>
-                                                    <span class="fw-bold mx-3">
+                                                    <span class="fw-bold mx-3 w-100">
                                                         <i
                                                             class="fa fa-minus"
                                                             aria-hidden="true"
