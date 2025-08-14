@@ -136,6 +136,13 @@
                 margin-left: 5px !important;
             }
         }
+
+        div#packaging_qty_field {
+            div.o_kanban_renderer {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
     }
 
     .o_group .scan_fields {
