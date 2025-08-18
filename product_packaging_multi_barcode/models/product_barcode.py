@@ -55,8 +55,8 @@ class ProductBarcode(models.Model):
                     product = barcode.sudo().product_id
                     raise ValidationError(
                         _(
-                            'The Barcode "%(barcode_name)s" already exists for '
-                            'product "%(product_name)s" in the company %(company_name)s',
+                            'The Barcode "%(barcode_name)s" already exists for product '
+                            '"%(product_name)s" in the company %(company_name)s',
                             barcode_name=record.name,
                             product_name=product.name,
                             company_name=product.company_id.name,

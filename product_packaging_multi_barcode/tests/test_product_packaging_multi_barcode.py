@@ -64,7 +64,7 @@ class TestProductPackagingMultiBarcode(TransactionCase):
             WHERE id = %s""",
             (self.valid_barcode_1, self.product_packaging_1.id),
         )
-        post_init_hook(self.env.cr, self.registry)
+        post_init_hook(self.env)
         self.product_packaging_1.invalidate_recordset()
         self.assertEqual(len(self.product_packaging_1.barcode_ids), 1)
         self.assertEqual(
