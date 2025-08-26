@@ -17,7 +17,7 @@
                     <br />
                     <field name="barcode_format" />
                 </div>
-                <div>
+                <div attrs="{'invisible': [('is_custom_label', '=', True)]}">
                     <strong>Language</strong>
                     <br />
                     <field name="lang" />

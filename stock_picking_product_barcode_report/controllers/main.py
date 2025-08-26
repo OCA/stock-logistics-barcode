@@ -59,7 +59,7 @@ class SVGWitoutTextWriter(SVGWriter):
                 "y": "{:.3f}mm".format(ypos),
                 "width": "{:.3f}mm".format(width),
                 "height": str(self.module_max_height),
-                "style": f"fill:{color}",
+                "style": f"fill: {color}",
             }
             for key, value in attributes.items():
                 element.setAttribute(key, value)
