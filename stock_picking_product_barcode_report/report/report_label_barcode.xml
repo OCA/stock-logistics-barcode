@@ -16,16 +16,17 @@
         />
         <field name="is_barcode_label">True</field>
     </record>
+    <!--  Use distinct report_file because model is taken from first definition  -->
     <record id="action_label_barcode_report_quant_package" model="ir.actions.report">
         <field name="name">Label Quant Package</field>
         <field name="model">stock.picking.line.print</field>
         <field name="report_type">qweb-pdf</field>
         <field
             name="report_file"
-        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package_wiz</field>
         <field
             name="report_name"
-        >stock_picking_product_barcode_report.label_barcode_report_quant_package</field>
+        >stock_picking_product_barcode_report.label_barcode_report_quant_package_wiz</field>
         <field
             name="paperformat_id"
             ref="stock_picking_product_barcode_report.paperformat_label_quant_package"
