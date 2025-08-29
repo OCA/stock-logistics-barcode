@@ -13,7 +13,7 @@ Option 2: Use the barcode interface inventory directly from the Barcodes applica
   #. Go to *Barcodes*.
   #. Select the *Inventory* option.
 
-    .. image:: /stock_barcodes/static/src/img/inventory_barcode_action.png
+    .. image:: ../static/src/img/inventory_barcode_action.png
        :height: 100
        :width: 200
        :alt: Inventory barcode action
@@ -23,21 +23,21 @@ Option 2: Use the barcode interface inventory directly from the Barcodes applica
 Actions
   # Press the *+ Product* button to display the form for the new item.
 
-    .. image:: /stock_barcodes/static/src/img/add_product.png
+    .. image:: ../static/src/img/add_product.png
        :height: 100
        :width: 200
        :alt: Add product
 
   # When you select a product, a numeric field is displayed to add the quantity.
 
-    .. image:: /stock_barcodes/static/src/img/form_add_product_quantity.png
+    .. image:: ../static/src/img/form_add_product_quantity.png
        :height: 100
        :width: 200
        :alt: Add quantity product
 
   # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
 
-    .. image:: /stock_barcodes/static/src/img/form_add_product_reset.png
+    .. image:: ../static/src/img/form_add_product_reset.png
        :height: 100
        :width: 200
        :alt: Reset data form
@@ -46,25 +46,26 @@ Actions
   # When you press the *Confirm* button, the new item is added and the form is closed.
   # When the eye icon is closed, the created items greater than zero are displayed, and if not, those less than or equal to zero.
 
-    .. image:: /stock_barcodes/static/src/img/list_items.png
+    .. image:: ../static/src/img/list_items.png
        :height: 100
        :width: 200
        :alt: Reset data form
 
   # In the list, the trash can icon allows you to reset the quantity to zero and the edit icon allows you to change the item values.
 
-    .. image:: /stock_barcodes/static/src/img/list_action_items.png
+    .. image:: ../static/src/img/list_action_items.png
        :height: 100
        :width: 200
        :alt: Reset data form
 
   # The *Apply* button is only displayed if there are items with quantities greater than zero, regardless of whether they were scanned or entered manually; If you press all the defined quantities will be processed after defining the reason for the inventory adjustment and then the main barcode menu will be displayed.
 
-    .. image:: /stock_barcodes/static/src/img/apply_inventory.png
+    .. image:: ../static/src/img/apply_inventory.png
        :height: 100
        :width: 200
        :alt: Apply inventory
-    .. image:: /stock_barcodes/static/src/img/apply_inventory_reason.png
+
+    .. image:: ../static/src/img/apply_inventory_reason.png
        :height: 100
        :width: 200
        :alt: Apply inventory reason
@@ -92,7 +93,7 @@ Option 2: Use the barcode interface picking directly from the Barcodes applicati
   #. Go to *Barcodes*.
   #. Select the option *OPERATIONS*.
 
-    .. image:: /stock_barcodes/static/src/img/inventory_barcode_action.png
+    .. image:: ../static/src/img/inventory_barcode_action.png
        :height: 100
        :width: 200
        :alt: Operation barcode action
@@ -100,14 +101,14 @@ Option 2: Use the barcode interface picking directly from the Barcodes applicati
   # Select the type of picking.
   # The pickings in ready status are displayed, select the one you want to start scanning.
 
-    .. image:: /stock_barcodes/static/src/img/list_picking.png
+    .. image:: ../static/src/img/list_picking.png
        :height: 100
        :width: 200
        :alt: List picking
 
   #. Start scanning barcodes.
 
-    .. image:: /stock_barcodes/static/src/img/barcode_interface_picking.png
+    .. image:: ../static/src/img/barcode_interface_picking.png
        :height: 100
        :width: 200
        :alt: List picking
@@ -115,14 +116,14 @@ Option 2: Use the barcode interface picking directly from the Barcodes applicati
 Actions
   # All the items that have been configured for the selected picking are listed.
 
-    .. image:: /stock_barcodes/static/src/img/list_items_picking.png
+    .. image:: ../static/src/img/list_items_picking.png
        :height: 100
        :width: 200
        :alt: List picking
 
   # The edit icon in the list allows you to modify the data.
 
-    .. image:: /stock_barcodes/static/src/img/list_items_picking_edit.png
+    .. image:: ../static/src/img/list_items_picking_edit.png
        :height: 100
        :width: 200
        :alt: Edit picking
@@ -131,7 +132,7 @@ Actions
     remaining quantities. Once defined, this button disappears and if you want to change the
     quantities, press the edit button.
 
-    .. image:: /stock_barcodes/static/src/img/list_items_picking_quantity.png
+    .. image:: ../static/src/img/list_items_picking_quantity.png
        :height: 100
        :width: 200
        :alt: Quantity picking
@@ -139,7 +140,7 @@ Actions
   # If there is at least one item with a quantity already defined, an eye icon is displayed,
     which if closed shows the items and their quantities already scanned.
 
-    .. image:: /stock_barcodes/static/src/img/list_items_picking_scanned.png
+    .. image:: ../static/src/img/list_items_picking_scanned.png
        :height: 100
        :width: 200
        :alt: Picking scanned
@@ -147,7 +148,7 @@ Actions
   # When you press the *Validate* button, a wizard will be displayed to confirm the action.
     If everything is correct, it is validated and you return to the picking list mentioned above.
 
-    .. image:: /stock_barcodes/static/src/img/confirm_items_picking.png
+    .. image:: ../static/src/img/confirm_items_picking.png
        :height: 100
        :width: 200
        :alt: Picking scanned
@@ -156,28 +157,28 @@ Actions
     above, to confirm if you want to process all the quantities. If positive, you will proceed
     and be directed to the list mentioned above in the previous point.
 
-    .. image:: /stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png
+    .. image:: ../static/src/img/confirm_all_quantity_items_picking.png
        :height: 100
        :width: 200
        :alt: Picking scanned
 
   # Press the *+ Product* button to display the form for the new item.
 
-    .. image:: /stock_barcodes/static/src/img/add_product.png
+    .. image:: ../static/src/img/add_product.png
        :height: 100
        :width: 200
        :alt: Add product
 
   # When you select a product, a numeric field is displayed to add the quantity.
 
-    .. image:: /stock_barcodes/static/src/img/form_add_product_quantity.png
+    .. image:: ../static/src/img/form_add_product_quantity.png
        :height: 100
        :width: 200
        :alt: Add quantity product
 
   # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
 
-    .. image:: /stock_barcodes/static/src/img/form_add_product_reset.png
+    .. image:: ../static/src/img/form_add_product_reset.png
        :height: 100
        :width: 200
        :alt: Reset data form
@@ -244,14 +245,14 @@ To use the barcode interface for actions:
 #. Go to *Inventory > Configuration > Barcode Actions*.
 #. Create a new barcode action and configure the barcode.
 
-.. image:: /stock_barcodes/static/src/img/create_barcode_action.png
+.. image:: ../static/src/img/create_barcode_action.png
    :height: 100
    :width: 200
    :alt: Print barcodes
 
 #. Select the barcode actions you want to use, a button (PRINT BARCODES) will appear that allows you to print the configured barcodes to PDF.
 
-.. image:: /stock_barcodes/static/src/img/print_barcodes.png
+.. image:: ../static/src/img/print_barcodes.png
    :height: 100
    :width: 200
    :alt: Print barcodes
