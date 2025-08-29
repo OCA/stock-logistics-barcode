@@ -33,7 +33,7 @@ addon | version | maintainers | summary
 [stock_barcodes_gs1_secondary_unit](stock_barcodes_gs1_secondary_unit/) | 15.0.1.1.0 |  | It provides read package from GS1 barcode stored into secondary unit data.
 [stock_barcodes_picking_batch](stock_barcodes_picking_batch/) | 15.0.1.1.0 |  | It provides read barcodes on stock operations from batch pickings.
 [stock_barcodes_picking_batch_revision](stock_barcodes_picking_batch_revision/) | 15.0.1.0.1 |  | It provides batch pickings revision from other users.
-[stock_picking_product_barcode_report](stock_picking_product_barcode_report/) | 15.0.3.6.1 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | It provides a wizard to select how many barcodes print.
+[stock_picking_product_barcode_report](stock_picking_product_barcode_report/) | 15.0.3.6.2 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | It provides a wizard to select how many barcodes print.
 [stock_picking_product_barcode_report_secondary_unit](stock_picking_product_barcode_report_secondary_unit/) | 15.0.1.1.0 | <a href='https://github.com/CarlosRoca13'><img src='https://github.com/CarlosRoca13.png' width='32' height='32' style='border-radius:50%;' alt='CarlosRoca13'/></a> | Set by default the maximum quantity of labels to print.
 
 [//]: # (end addons)
