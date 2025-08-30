@@ -174,6 +174,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         for field in self.fields_to_fill_from_pending_line():
             self.wiz_barcode_id[field] = self[field]
         # Force fill product_qty if filled_default is set
+        self.wiz_barcode_id.product_qty = 0.0
         if self.wiz_barcode_id.option_group_id.get_option_value(
             "product_qty", "filled_default"
         ):
@@ -185,12 +186,11 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.wiz_barcode_id._set_focus_on_qty_input()
 
     def operation_quantities(self):
+        self.fill_from_pending_line()
         self.wiz_barcode_id.manual_entry = True
         self.wiz_barcode_id.product_qty = self.product_qty_reserved
-        self.wiz_barcode_id.product_id = self.product_id.id
         if self.wiz_barcode_id.picking_id.picking_type_id.code != "incoming":
             self.wiz_barcode_id.qty_available = self.product_qty_reserved
-            self.wiz_barcode_id.product_id = self.product_id.id
             self.wiz_barcode_id.location_id = self.location_id.id
         self.wiz_barcode_id.with_context(manual_picking=True).action_confirm()
 
@@ -206,14 +206,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def action_barcode_inventory_quant_edit(self):
         wiz_barcode_id = self.env.context.get("wiz_barcode_id", False)
         wiz_barcode = self.env["wiz.stock.barcodes.read.picking"].browse(wiz_barcode_id)
-        for quant in self:
-            # Try to assign fields with the same name between quant and the scan wizard
-            for fname in self._get_fields_to_edit():
-                if hasattr(wiz_barcode, fname):
-                    wiz_barcode[fname] = quant[fname]
-            wiz_barcode.product_qty = quant.qty_done
-
         wiz_barcode.manual_entry = True
+        self.fill_from_pending_line()
         self.env["bus.bus"]._sendone(
             "stock_barcodes_scan",
             "stock_barcodes_edit_manual",
