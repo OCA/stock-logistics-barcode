@@ -155,12 +155,15 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         # TODO: split between all lines
         sml = self.env["stock.move.line"].browse()
         for move in moves:
-            move_qty_done = (
-                "qty_done" if move._name == "stock.move.line" else "quantity_done"
-            )
-            if move.product_uom_qty:
+            if move._name == "stock.move.line":
+                move_qty_done = "qty_done"
+                move_demand = move.move_id.product_uom_qty
+            else:
+                move_qty_done = "quantity_done"
+                move_demand = move.product_uom_qty
+            if move_demand:
                 assigned_qty = min(
-                    max(move.product_uom_qty - move[move_qty_done], 0.0), available_qty
+                    max(move_demand - move[move_qty_done], 0.0), available_qty
                 )
             else:
                 assigned_qty = available_qty
