@@ -131,6 +131,9 @@ class StockBarcodesOptionGroup(models.Model):
         default=False,
         help="If checked, the owner will be displayed in the inventory settings view.",
     )
+    no_increase_qty_done = fields.Boolean(
+        string="Do not increase qty done on each scan",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
