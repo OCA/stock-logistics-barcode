@@ -10,7 +10,6 @@
     "category": "Extra Tools",
     "depends": ["stock_barcodes", "stock_picking_batch"],
     "data": [
-        "security/ir.model.access.csv",
         "data/stock_barcodes_action.xml",
         "views/stock_picking_batch_views.xml",
         "wizard/stock_barcodes_read_picking_batch_views.xml",
