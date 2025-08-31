@@ -17,11 +17,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on picking"
 
-    @property
-    @api.depends("picking_mode")
-    def _field_candidate_ids(self):
-        return "candidate_%s_ids" % self.picking_mode
-
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
     )
@@ -29,16 +24,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     picking_ids = fields.Many2many(
         comodel_name="stock.picking", string="Pickings", readonly=True
     )
-    candidate_picking_id = fields.Many2one(
-        comodel_name="stock.picking", related="candidate_picking_ids.picking_id"
-    )
-    candidate_picking_ids = fields.One2many(
-        comodel_name="wiz.candidate.picking",
-        inverse_name="wiz_barcode_id",
-        string="Candidate pickings",
-        readonly=True,
-    )
-
     picking_product_qty = fields.Float(
         string="Picking quantities", digits="Product Unit of Measure", readonly=True
     )
@@ -178,27 +163,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             for rec in self
         ]
 
-    def _set_default_picking(self):
-        picking_id = self.env.context.get("default_picking_id", False)
-        if picking_id:
-            self._set_candidate_pickings(self.env["stock.picking"].browse(picking_id))
-
-    @api.model_create_multi
-    def create(self, vals_list):
-        # When user click any view button the wizard record is create and the
-        # picking candidates have been lost, so we need set it.
-        wizards = super().create(vals_list)
-        for wiz in wizards:
-            if wiz.picking_id:
-                wiz._set_candidate_pickings(wiz.picking_id)
-        return wizards
-
     @api.onchange("picking_id")
     def onchange_picking_id(self):
-        # Add to candidate pickings the default picking. We are in a wizard
-        # view, so for create a candidate picking with the same default picking
-        # we need create it in this onchange
-        self._set_default_picking()
         self.fill_pending_moves()
         self.determine_todo_action()
 
@@ -318,7 +284,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if res:
             move_dic = self.with_context(**self.env.context)._process_stock_move_line()
             if move_dic:
-                self[self._field_candidate_ids].scan_count += 1
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 if not self.keep_screen_values or self.todo_line_id.state != "pending":
@@ -341,7 +306,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     self.update_keep_values(keep_vals)
             # Force refresh candidate pickings to show green if not pending moves
             if not self.pending_move_ids:
-                self._set_candidate_pickings(self.picking_id)
+                pass
+                # TODO: Make more visible when picking is done
             return move_dic
         return res
 
@@ -409,28 +375,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.picking_id:
             domain.append(("picking_id", "=", self.picking_id.id))
         return domain
-
-    def _set_candidate_pickings(self, candidate_pickings):
-        vals = [(5, 0, 0)]
-        vals.extend([(0, 0, {"picking_id": p.id}) for p in candidate_pickings])
-        self.candidate_picking_ids = vals
-
-    def _search_candidate_picking(self, moves_todo=False):
-        if not moves_todo:
-            moves_todo = self.env["stock.move"].search(
-                self._prepare_stock_moves_domain()
-            )
-        if not self.picking_id:
-            candidate_pickings = moves_todo.mapped("picking_id")
-            candidate_pickings_count = len(candidate_pickings)
-            if candidate_pickings_count > 1:
-                self._set_candidate_pickings(candidate_pickings)
-                return False
-            if candidate_pickings_count == 1:
-                self.picking_id = candidate_pickings
-                self._set_candidate_pickings(candidate_pickings)
-            _logger.info("No picking assigned")
-        return True
 
     def _check_guided_restrictions(self):
         # Check restrictions in guided mode
@@ -524,13 +468,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         else:
             moves_todo = StockMove.search(domain)
-        try:
-            getattr(
-                self,
-                "_search_candidate_%s" % self.picking_mode,
-            )(moves_todo)
-        except AttributeError:
-            return False
         sml_vals = {}
         candidate_lines = self._get_candidate_stock_move_lines(moves_todo, sml_vals)
         lines = candidate_lines.filtered(
@@ -730,12 +667,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def update_fields_after_process_stock(self, moves):
         self.picking_product_qty = sum(moves.mapped("quantity_done"))
 
-    def _candidate_picking_selected(self):
-        if len(self.candidate_picking_ids) == 1:
-            return self.candidate_picking_ids.picking_id
-        else:
-            return self.env["stock.picking"].browse()
-
     def check_done_conditions(self):
         res = super().check_done_conditions()
         if (
@@ -760,13 +691,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.picking_mode == "picking_batch":
             return res
         if not self.picking_id:
-            if not self._search_candidate_picking():
-                self._set_messagge_info(
-                    "info", _("Click on picking pushpin to lock it")
-                )
-                return False
-        if self.picking_id and self.picking_id != self._candidate_picking_selected():
-            self._set_messagge_info("info", _("Click on picking pushpin to lock it"))
+            self._set_messagge_info("info", _("No picking selected"))
             return False
         return res
 
@@ -978,44 +903,33 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             list(todo_vals.values())
         )
 
-    def action_validate_picking(self):
-        # for candidate_picking in self.candidate_picking_ids:
-        valid, result = self.candidate_picking_ids.with_context(
-            wiz_barcode_id=self.id,
-            picking_id=self.picking_id.id,
-            skip_sms=True,
-            skip_immediate=True,
-        ).action_validate_picking()
-        if not valid:
-            return result
-        action = self.env["ir.actions.actions"]._for_xml_id(
-            "stock_barcodes.stock_barcodes_action_picking_tree_ready"
+    def action_open_picking(self):
+        return self.picking_id.with_context(
+            control_panel_hidden=False
+        ).get_formview_action()
+
+    def _get_picking_to_validate(self):
+        """Inject context show_picking_type_action_tree to redirect to picking list
+        after validate picking in barcodes environment.
+        The stock_barcodes_validate_picking key allows to know when a picking has been
+        validated from stock barcodes interface.
+        """
+        return self.picking_id.with_context(
+            show_picking_type_action_tree=True, stock_barcodes_validate_picking=True
         )
 
-        if self.picking_id and self.picking_id.picking_type_id:
-            context = self.env.context.copy()
-            context.update(safe_eval(action["context"]))
-            context.update(
-                {"search_default_picking_type_id": self.picking_id.picking_type_id.id}
+    def action_validate_picking(self):
+        context = dict(self.env.context)
+        picking = self._get_picking_to_validate()
+        if picking._check_immediate():
+            return False, picking.with_context(
+                button_validate_picking_ids=picking.ids, operations_mode=True
+            )._action_generate_immediate_wizard(
+                show_transfers=picking._should_show_transfers()
             )
-            action["context"] = context
-
-        return action
-
-    def action_open_picking(self):
-        for candidate_picking in self.candidate_picking_ids:
-            candidate_picking.with_context(
-                wiz_barcode_id=self.id, picking_id=self.picking_id.id
-            ).action_open_picking()
-
-    def action_unlock_picking(self):
-        for candidate_picking in self.candidate_picking_ids:
-            candidate_picking.with_context(
-                wiz_barcode_id=self.id
-            ).action_unlock_picking()
-
-    def action_lock_picking(self):
-        for candidate_picking in self.candidate_picking_ids:
-            candidate_picking.with_context(
-                wiz_barcode_id=self.id, picking_id=self.picking_id.id
-            ).action_lock_picking()
+        return (
+            True,
+            picking.with_context(
+                skip_sms=context.get("skip_sms", False)
+            ).button_validate(),
+        )
