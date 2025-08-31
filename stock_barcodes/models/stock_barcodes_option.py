@@ -101,6 +101,9 @@ class StockBarcodesOptionGroup(models.Model):
         ]
     )
     display_read_quant = fields.Boolean(string="Read items on inventory mode")
+    no_increase_qty_done = fields.Boolean(
+        string="Do not increase qty done on each scan",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
