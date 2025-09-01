@@ -761,7 +761,8 @@ class WizStockBarcodesRead(models.AbstractModel):
         context = dict(self.env.context)
         if self._name == "wiz.stock.barcodes.read.picking":
             no_increase_qty_done = (
-                context.get("no_increase_qty_done", False) or self.manual_entry
+                context.get("no_increase_qty_done", False)
+                or self.option_group_id.no_increase_qty_done
             )
             force_create_move = context.get("force_create_move", False)
         res = self.with_context(
