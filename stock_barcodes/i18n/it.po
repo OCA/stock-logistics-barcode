@@ -215,9 +215,8 @@ msgid ""
 "oe_span_small_icon\" title=\"Destination Location\"/>"
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Ubicazione dest.</strong>\n"
-"                    <span class="
-"\"fa fa-2x fa-share text-center d-sm-none oe_span_small_icon\" title="
-"\"Destination Location\"/>"
+"                    <span class=\"fa fa-2x fa-share text-center d-sm-none "
+"oe_span_small_icon\" title=\"Destination Location\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -229,9 +228,8 @@ msgid ""
 msgstr ""
 "<strong class=\" d-none d-sm-block\">Ubicazione origine\n"
 "                                    </strong>\n"
-"                                    <span class="
-"\"fa fa-map-marker fa-2x d-sm-none oe_span_small_icon\" title="
-"\"Ubicazione origine\"/>"
+"                                    <span class=\"fa fa-map-marker fa-2x d-"
+"sm-none oe_span_small_icon\" title=\"Ubicazione origine\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -241,8 +239,8 @@ msgid ""
 "oe_span_small_icon\" title=\"Lot S/N\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Lotto N/S</strong>\n"
-"                                    <span class="
-"\"fa fa-tags fa-2x d-sm-none oe_span_small_icon\" title=\"Lotto N/S\"/>"
+"                                    <span class=\"fa fa-tags fa-2x d-sm-none "
+"oe_span_small_icon\" title=\"Lotto N/S\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -252,8 +250,8 @@ msgid ""
 "oe_span_small_icon\" title=\"package\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Colli</strong>\n"
-"                    <span class="
-"\"fa fa-inbox fa-2x d-sm-none oe_span_small_icon\" title=\"Colli\"/>"
+"                    <span class=\"fa fa-inbox fa-2x d-sm-none "
+"oe_span_small_icon\" title=\"Colli\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -263,8 +261,8 @@ msgid ""
 "none oe_span_small_icon\" title=\"Product\"/>"
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Prodotto</strong>\n"
-"                                    <span class="
-"\"fa fa-th-list fa-2x d-sm-none oe_span_small_icon\" title=\"Prodotto\"/>"
+"                                    <span class=\"fa fa-th-list fa-2x d-sm-"
+"none oe_span_small_icon\" title=\"Prodotto\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -276,9 +274,8 @@ msgid ""
 msgstr ""
 "<strong class=\"d-none d-sm-block\">Collo origine -&gt; Collo risultato\n"
 "                                    </strong>\n"
-"                                    <span class="
-"\"fa fa-cubes d-sm-none oe_span_small_icon\" title="
-"\"Da collo origine a collo risultato\"/>"
+"                                    <span class=\"fa fa-cubes d-sm-none "
+"oe_span_small_icon\" title=\"Da collo origine a collo risultato\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -739,6 +736,11 @@ msgstr "Nome visualizzato"
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__display_notification
 msgid "Display Odoo notifications"
 msgstr "Visualizza notifiche Odoo"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__no_increase_qty_done
+msgid "Do not increase qty done on each scan"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_done
@@ -1922,7 +1924,8 @@ msgstr "Trasferimento"
 #. module: stock_barcodes
 #: model_terms:ir.actions.act_window,help:stock_barcodes.stock_barcodes_action_picking_tree_ready
 msgid "Transfers allow you to move products from one location to another."
-msgstr "I trasferimento consentono di movimentare i prodotti tra le ubicazioni."
+msgstr ""
+"I trasferimento consentono di movimentare i prodotti tra le ubicazioni."
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_type_code
