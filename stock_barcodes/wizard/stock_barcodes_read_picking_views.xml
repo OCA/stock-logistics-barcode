@@ -238,17 +238,17 @@
                         </kanban>
                     </field>
                 </group>
-                <h3
-                    class="mt-4 w-100 px-4"
-                    invisible="move_line_ids == False or not show_detailed_operations"
-                >
-                    Detailed operations
-                </h3>
                 <group
                     string="Detailed operations"
                     col="2"
                     invisible="move_line_ids == False or not show_detailed_operations"
                 >
+                    <h3
+                        class="mt-4 w-100 px-4"
+                        invisible="move_line_ids == False or not show_detailed_operations"
+                    >
+                        Detailed operations
+                    </h3>
                     <field
                         name="move_line_ids"
                         options="{'no_open': True, 'always_reload': True}"
