@@ -129,16 +129,16 @@
                         </kanban>
                     </field>
                 </group>
-                <h3
-                    class="mt-4 w-100 px-4"
-                    attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
-                >
-                    Detailed operations
-                </h3>
                 <group
                     string="Detailed operations"
                     attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
                 >
+                    <h3
+                        class="mt-4 w-100 px-4"
+                        attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
+                    >
+                        Detailed operations
+                    </h3>
                     <field
                         name="move_line_ids"
                         options="{'no_open': True, 'always_reload': True}"
@@ -204,14 +204,13 @@
             <xpath expr="//button[@name='action_clean_values']" position="before">
                 <field name="picking_batch_state" invisible="1" />
                 <field name="picking_batch_show_validate" invisible="1" />
-                <field name="picking_batch_show_check_availability" invisible="1" />
                 <button
                     name="action_validate_picking_batch"
                     type="object"
                     icon="fa-check fa-2x"
                     class="btn btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
                     d-flex justify-content-center align-items-center fs-2"
-                    attrs="{'invisible': ['|',('picking_batch_state', '!=', 'in_progress'),'|',('picking_batch_show_check_availability', '=', False),('picking_batch_show_validate', '=', False)]}"
+                    attrs="{'invisible': ['|',('picking_batch_state', '!=', 'in_progress'), ('picking_batch_show_validate', '=', False)]}"
                     confirm="Are you sure to validate the picking ?"
                     data-hotkey="'shift+v'"
                 >
