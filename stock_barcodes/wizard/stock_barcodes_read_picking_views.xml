@@ -241,17 +241,17 @@
                         </kanban>
                     </field>
                 </group>
-                <h3
-                    class="mt-4 w-100 px-4"
-                    attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
-                >
-                    Detailed operations
-                </h3>
                 <group
                     string="Detailed operations"
                     col="2"
                     attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
                 >
+                    <h3
+                        class="mt-4 w-100 px-4"
+                        attrs="{'invisible': ['|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False)]}"
+                    >
+                        Detailed operations
+                    </h3>
                     <field
                         name="move_line_ids"
                         options="{'no_open': True, 'always_reload': True}"
