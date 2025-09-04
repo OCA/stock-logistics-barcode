@@ -202,9 +202,11 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         return self.picking_batch_id.get_formview_action()
 
     def action_validate_picking_batch(self):
-        res = self.picking_batch_id.action_done()
+        res = self.picking_batch_id.with_context(
+            stock_barcodes_validate_picking=True, show_picking_type_action_tree=True
+        ).action_done()
         if res:
-            return self.env["ir.actions.actions"]._for_xml_id(
-                "stock_barcodes.action_stock_barcodes_action"
-            )
-        return res
+            return res
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_action"
+        )
