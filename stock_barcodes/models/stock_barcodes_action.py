@@ -2,10 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import base64
 import re
-from io import BytesIO
-
-import barcode
-from barcode.writer import ImageWriter
 
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
@@ -66,13 +62,9 @@ class StockBarcodesAction(models.Model):
                 )
 
     def _generate_barcode(self):
-        barcode_type = barcode.get_barcode_class("code128")
-        buffer = BytesIO()
-        barcode_instance = barcode_type(self.barcode, writer=ImageWriter())
-        barcode_instance.write(buffer)
-        buffer.seek(0)
-        image_base64 = base64.b64encode(buffer.getvalue())
-        return image_base64
+        return base64.b64encode(
+            self.env["ir.actions.report"].barcode("Code128", self.barcode)
+        )
 
     @api.depends("barcode")
     def _compute_barcode_image(self):
