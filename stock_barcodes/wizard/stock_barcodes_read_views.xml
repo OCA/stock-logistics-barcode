@@ -61,15 +61,13 @@
                         <field name="keep_result_package" invisible="1" />
                         <field name="create_lot" invisible="1" />
                         <field name="lot_id" invisible="1" />
+                        <field name="show_form_scan" invisible="1" />
                         <field
                             name="_barcode_scanned"
                             widget="barcode_handler"
                             invisible="0"
                         />
-                        <group
-                            name="scan_fields"
-                            class="bg-light scan_fields p-2 d-none"
-                        >
+                        <group name="scan_fields" class="bg-light scan_fields p-2">
                             <group name="location" col="1">
                                 <div class="mt-1" colspan="2">
                                     <strong class=" d-none d-sm-block">Source Location
