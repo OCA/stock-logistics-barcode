@@ -104,6 +104,7 @@ class StockBarcodesOptionGroup(models.Model):
     no_increase_qty_done = fields.Boolean(
         string="Do not increase qty done on each scan",
     )
+    show_form_scan = fields.Boolean(default=True)
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
