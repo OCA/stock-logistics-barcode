@@ -152,6 +152,15 @@ class TestStockBarcodes(TestCommonStockBarcodes):
                 }
             )
 
+    def test_compute_show_form_scan(self):
+        option_group_id = self.env["stock.barcodes.option.group"].create(
+            {"name": "Option Group Visibility"}
+        )
+        self.wiz_scan_inv = self.WizScanReadInventory.create(
+            {"option_group_id": option_group_id.id, "step": 1}
+        )
+        self.assertTrue(self.wiz_scan_inv.show_form_scan)
+
     def test_duplicate_barcode(self):
         self.StockBarcodeAction.create(
             {
