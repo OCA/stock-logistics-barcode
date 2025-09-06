@@ -18,6 +18,8 @@ export class BarcodeBooleanToggle extends BooleanToggleField {
         useBus(this.env.bus, "disableFormEditBarcode", () => {
             this.enableFormEdit(false, true);
         });
+        this.data = this.env.model.root.data;
+        this.show_form_scan = this.data.show_form_scan;
     }
 
     /*
@@ -44,7 +46,7 @@ export class BarcodeBooleanToggle extends BooleanToggleField {
             const $div_inventory_quant_ids = $("div[name='inventory_quant_ids']").find(
                 "div.o_kanban_renderer"
             );
-            if ($form_edit.length > 0) {
+            if ($form_edit.length > 0 && !this.show_form_scan) {
                 if (newValue) {
                     $form_edit.removeClass("d-none");
                     $div_inventory_quant_ids.addClass("inventory_quant_ids_with_form");

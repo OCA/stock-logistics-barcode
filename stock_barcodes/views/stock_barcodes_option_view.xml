@@ -37,6 +37,7 @@
                             <field name="allow_direct_partial_delivery" />
                             <field name="show_stock" />
                             <field name="no_increase_qty_done" />
+                            <field name="show_form_scan" />
                         </group>
                         <group>
                             <field name="ignore_filled_fields" />
