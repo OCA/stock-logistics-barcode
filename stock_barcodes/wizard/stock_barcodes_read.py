@@ -97,6 +97,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     )
 
     enable_add_product = fields.Boolean(default=True)
+    show_form_scan = fields.Boolean(compute="_compute_show_form_scan")
+
+    def _compute_show_form_scan(self):
+        for barcode in self:
+            barcode.show_form_scan = barcode.option_group_id.show_form_scan
 
     @api.depends("res_id")
     def _compute_action_ids(self):
