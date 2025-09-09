@@ -1,0 +1,8 @@
+- [Numérigraphe](http://numerigraphe.com):
+  - Lionel Sausin \<ls@numerigraphe.fr\>
+- [Therp](http://therp.nl):
+  - Stefan Rijnhart \<stefan@therp.nl\>
+- [Tecnativa](https://www.tecnativa.com):
+  - Sergio Teruel \<sergio.teruel@tecnativa.com\>
+- [Initos Gmbh](https://www.initos.com/):
+  - Foram Shah \<foram.shah@initos.com\>

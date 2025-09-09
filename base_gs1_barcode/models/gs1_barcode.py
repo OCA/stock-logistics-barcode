@@ -103,10 +103,10 @@ class GS1Barcode(models.Model):
         # and then use it. Some scanners are able to pass this group separator,
         # and others are not able. If a user works with both devices,
         # this is becomes the most effective mechanism to ensure co-existence.
-        if "\x1D" in barcode_string:
-            separator = "\x1D"
+        if "\x1d" in barcode_string:
+            separator = "\x1d"
         else:
-            separator = self.env.user.gs1_barcode_separator or "\x1D"
+            separator = self.env.user.gs1_barcode_separator or "\x1d"
         prefix = self.env.user.gs1_barcode_prefix or ""
         if not barcode_string.startswith(prefix):
             raise exceptions.ValidationError(
@@ -162,7 +162,7 @@ class GS1Barcode(models.Model):
         position = len(prefix)
         while position < len(barcode_string):
             # Search for a known Application Identifier
-            for (ai, regexp) in list(ai_regexps.items()):
+            for ai, regexp in list(ai_regexps.items()):
                 match = regexp.match(barcode_string, position)
                 if not match:
                     continue

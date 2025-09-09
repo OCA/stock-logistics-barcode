@@ -17,32 +17,33 @@ GS1 Barcode API
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-barcode/tree/15.0/base_gs1_barcode
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/18.0/base_gs1_barcode
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-15-0/stock-logistics-barcode-15-0-base_gs1_barcode
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-18-0/stock-logistics-barcode-18-0-base_gs1_barcode
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=15.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
 GS1 Barcodes
-============
+------------
 
-This module provides an API to decoding the content of structured barcodes
-like GS1-128 or GS1-Datamatrix.
+This module provides an API to decoding the content of structured
+barcodes like GS1-128 or GS1-Datamatrix.
 
-GS1-128 (formerly known as UCC-128, EAN 128 or UCC/EAN-128), and GS1-Datamatrix
-are standards for encoding item identification and logistics data.
-Physically, GS1-128 is represented as a 1-dimension Code-128 barcode and
-GS1-Datamtrix is represented as a 2-dimensions Datamatrix barcode.
+GS1-128 (formerly known as UCC-128, EAN 128 or UCC/EAN-128), and
+GS1-Datamatrix are standards for encoding item identification and
+logistics data. Physically, GS1-128 is represented as a 1-dimension
+Code-128 barcode and GS1-Datamtrix is represented as a 2-dimensions
+Datamatrix barcode.
 
-When those barcodes are read, their content can be decode into multiple values
-using a set of standard "Application Identifiers". For example, most pharmacy
-items have a GS1-Datamatrix barcode containg their GTIN, lot number and
-expiry date.
+When those barcodes are read, their content can be decode into multiple
+values using a set of standard "Application Identifiers". For example,
+most pharmacy items have a GS1-Datamatrix barcode containg their GTIN,
+lot number and expiry date.
 
 This module does not directly allow you to print or scan barcodes.
 Instead, the focus of this module is on decoding the data contained in
@@ -57,22 +58,23 @@ Identifiers and the associated data types.
 Usage
 =====
 
-You can use the functionality provided by this module in your own customization
-or other OCA modules.
+You can use the functionality provided by this module in your own
+customization or other OCA modules.
 
 Known issues / Roadmap
 ======================
 
 Group separator
-===============
+---------------
 
-When an "Application Identifiers" has variable-length data,
-the barcodes must contain a special character (<GS>, group separator)
-but as this is not an ASCII character. Some barcode readers will not include
-this character: decoding the structured data will then be impossible. Other
-readers will translate GS1 to ASCII character 29, but this character is not
-printable, and some applications may not record it. Yet other readers will
-let you configure how to map <GS>, which may help improve compatibility.
+When an "Application Identifiers" has variable-length data, the barcodes
+must contain a special character (<GS>, group separator) but as this is
+not an ASCII character. Some barcode readers will not include this
+character: decoding the structured data will then be impossible. Other
+readers will translate GS1 to ASCII character 29, but this character is
+not printable, and some applications may not record it. Yet other
+readers will let you configure how to map <GS>, which may help improve
+compatibility.
 
 Bug Tracker
 ===========
@@ -80,7 +82,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20base_gs1_barcode%0Aversion:%2015.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20base_gs1_barcode%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -88,31 +90,31 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Numérigraphe
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Numérigraphe <http://numerigraphe.com>`_:
+- `Numérigraphe <http://numerigraphe.com>`__:
 
-  * Lionel Sausin <ls@numerigraphe.fr>
+  - Lionel Sausin <ls@numerigraphe.fr>
 
-* `Therp <http://therp.nl>`_:
+- `Therp <http://therp.nl>`__:
 
-  * Stefan Rijnhart <stefan@therp.nl>
+  - Stefan Rijnhart <stefan@therp.nl>
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-  * Sergio Teruel <sergio.teruel@tecnativa.com>
+  - Sergio Teruel <sergio.teruel@tecnativa.com>
 
-* `Initos Gmbh <https://www.initos.com/>`_:
+- `Initos Gmbh <https://www.initos.com/>`__:
 
-  * Foram Shah <foram.shah@initos.com>
+  - Foram Shah <foram.shah@initos.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -124,6 +126,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/15.0/base_gs1_barcode>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/18.0/base_gs1_barcode>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

@@ -10,7 +10,7 @@ _logger = logging.getLogger(__name__)
 
 class TestGS1Barcode(common.TransactionCase):
     def test_decode(self):
-        GS = "\x1D"
+        GS = "\x1d"
         PREFIX = ""
         # AI 01 (GTIN, fixed length)
         gtin = "03400933816759"
