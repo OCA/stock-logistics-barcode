@@ -56,11 +56,6 @@ class StockPicking(models.Model):
                 StockPicking, self.with_context(skip_backorder=True)
             ).button_validate()
         else:
-            pickings_to_backorder = self._check_backorder()
-            if pickings_to_backorder:
-                return pickings_to_backorder._action_generate_backorder_wizard(
-                    show_transfers=self._should_show_transfers()
-                )
             res = super().button_validate()
         if res is True and self.env.context.get("show_picking_type_action_tree", False):
             res = self[:1].picking_type_id.get_action_picking_tree_ready()
