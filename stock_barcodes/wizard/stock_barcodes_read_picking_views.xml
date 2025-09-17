@@ -276,17 +276,13 @@
                                                     class="d-flex justify-content-start align-items-center indent h4 pt-3"
                                                 >
                                                     <t t-if="record.lot_id.raw_value">
-                                                        Lot:
-                                                        <span
-                                                            t-esc="record.lot_id.raw_value"
-                                                        />
+                                                        Lot: <field name="lot_id" />
                                                     </t>
                                                     <t
                                                         t-if="record.result_package_id.raw_value"
                                                     >
-                                                        Package:
-                                                        <span
-                                                            t-esc="record.result_package_id.raw_value"
+                                                        Package: <field
+                                                            name="result_package_id"
                                                         />
                                                     </t>
                                                 </div>
@@ -294,11 +290,7 @@
                                             <div
                                                 class="col-4 col-md-4 d-flex justify-content-end align-items-center"
                                             >
-                                                <span
-                                                    class="h3"
-                                                    t-esc="record.qty_done.raw_value"
-                                                />
-
+                                                <field class="h3" name="qty_done" />
                                                 <button
                                                     name="action_barcode_detailed_operation_unlink"
                                                     type="object"
