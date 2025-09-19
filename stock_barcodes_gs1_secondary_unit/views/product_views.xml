@@ -11,7 +11,12 @@
         <field name="groups_id" eval="[(4, ref('uom.group_uom'))]" />
         <field name="arch" type="xml">
             <field name="factor" position="after">
-                <field name="barcode" />
+                <field name="packaging_indicator" optional="show" />
+                <field
+                    name="barcode"
+                    attrs="{'readonly': [('packaging_indicator', 'not in', (False, ''))]}"
+                    optional="show"
+                />
             </field>
         </field>
     </record>
