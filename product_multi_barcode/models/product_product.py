@@ -14,6 +14,7 @@ class ProductProduct(models.Model):
         comodel_name="product.barcode",
         inverse_name="product_id",
         string="Barcodes",
+        auto_join=True,
     )
     barcode = fields.Char(
         string="Main barcode",
@@ -60,11 +61,8 @@ class ProductProduct(models.Model):
     def _get_barcode_domain(self, sub_domain, domain):
         barcode_operator = sub_domain[1]
         barcode_value = sub_domain[2]
-        barcodes = self.env["product.barcode"].search(
-            [("name", barcode_operator, barcode_value)]
-        )
         domain = [
-            ("barcode_ids", "in", barcodes.ids)
+            ("barcode_ids.name", barcode_operator, barcode_value)
             if x[0] == "barcode" and x[2] == barcode_value
             else x
             for x in domain
