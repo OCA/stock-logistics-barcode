@@ -26,6 +26,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     total_secondary_uom_qty_done = fields.Float(
         string="Second. Done", digits="Product Unit of Measure", store=False
     )
+    # TODO: Move to stock_barcodes in 18.0
+    qty_field_to_set_ai37 = fields.Selection(
+        selection=[("secondary_uom_qty", "Secondary unit qty")],
+        help="Technical field to establish the field that will indicate the appropriate"
+        " quantity field when processing AI 37.",
+    )
 
     @api.onchange("secondary_uom_id", "secondary_uom_qty", "secondary_single_qty")
     def onchange_secondary_uom_qty(self):
@@ -83,6 +89,30 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.action_secondary_uom_scaned_post(secondary_uom)
         return True
 
+    def _process_ai_02(self, gs1_list):
+        secondary_uom = self.env["product.secondary.unit"].search(
+            self._barcode_domain(self.barcode)
+        )
+        if not secondary_uom:
+            self.qty_field_to_set_ai37 = False
+            return super()._process_ai_02(gs1_list)
+        else:
+            if len(secondary_uom) > 1:
+                self._set_messagge_info(
+                    "more_match", _("More than one secondary uom found")
+                )
+                return False
+            self.qty_field_to_set_ai37 = "secondary_uom_qty"
+            self.action_secondary_uom_scaned_post(secondary_uom)
+        return True
+
+    def _process_ai_37(self, gs1_list):
+        if self.qty_field_to_set_ai37 != "secondary_uom_qty":
+            return super()._process_ai_37(gs1_list)
+        self.secondary_uom_qty = self._process_product_qty_gs1(float(self.barcode))
+        self.onchange_secondary_uom_qty()
+        return True
+
     @api.onchange("product_id")
     def onchange_product_id(self):
         res = super().onchange_product_id()
@@ -98,4 +128,5 @@ class WizStockBarcodesRead(models.AbstractModel):
         res = super().action_clean_values()
         self.secondary_uom_qty = 0.0
         self.secondary_single_qty = 0.0
+        self.qty_field_to_set_ai37 = False
         return res
