@@ -35,9 +35,15 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_secondary_uom_scaned_post(self, secondary_uom):
         self.secondary_uom_id = secondary_uom
-        if self.product_id != secondary_uom.product_tmpl_id.product_variant_id:
+        # TODO: Add restrictions in model to require product_id to set barcode
+        secondary_uom_product = secondary_uom.product_id or (
+            secondary_uom.product_tmpl_id.product_variant_count == 1
+            and secondary_uom.product_tmpl_id.product_variant_id
+            or False
+        )
+        if self.product_id != secondary_uom_product:
             self.lot_id = False
-        self.product_id = secondary_uom.product_tmpl_id.product_variant_id
+        self.product_id = secondary_uom_product
         if self.manual_entry or self.is_manual_qty:
             return
         elif self.secondary_uom_id:
