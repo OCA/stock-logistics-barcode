@@ -18,11 +18,14 @@ class WizStockBarcodesRead(models.AbstractModel):
     _allowed_product_types = ["product", "consu"]
     _rec_name = "barcode"
 
+    def _get_product_domain(self):
+        return [("type", "in", self._allowed_product_types)]
+
     barcode = fields.Char()
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(
-        comodel_name="product.product", domain=[("type", "in", _allowed_product_types)]
+        comodel_name="product.product", domain=_get_product_domain
     )
     product_uom_id = fields.Many2one(comodel_name="uom.uom")
     product_tracking = fields.Selection(related="product_id.tracking", readonly=True)
