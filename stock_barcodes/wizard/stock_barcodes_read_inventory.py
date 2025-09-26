@@ -7,10 +7,13 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     _name = "wiz.stock.barcodes.read.inventory"
     _inherit = "wiz.stock.barcodes.read"
     _description = "Wizard to read barcode on inventory"
-    _allowed_product_types = ["product"]
+    _allowed_product_types = ["consu"]
+
+    def _get_product_domain(self):
+        return [("type", "in", self._allowed_product_types), ("is_storable", "=", True)]
 
     # Overwrite is needed to take into account new domain values
-    product_id = fields.Many2one(domain=[("type", "in", _allowed_product_types)])
+    product_id = fields.Many2one(domain=_get_product_domain)
     inventory_product_qty = fields.Float(
         string="Inventory quantities", digits="Product Unit of Measure", readonly=True
     )
