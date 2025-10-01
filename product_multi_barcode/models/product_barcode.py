@@ -4,7 +4,7 @@
 # © 2018 Xavier Jimenez (QubiQ)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
@@ -71,11 +71,9 @@ class ProductBarcode(models.Model):
                 # so we may not have the access right on the product
                 product = duplicate[0].sudo().product_id
                 raise ValidationError(
-                    _(
+                    self.env._(
                         'The Barcode "%(barcode_name)s" already exists for '
-                        'product "%(product_name)s" in the company %(company_name)s'
-                    )
-                    % dict(
+                        'product "%(product_name)s" in the company %(company_name)s',
                         barcode_name=record.name,
                         product_name=product.name,
                         company_name=product.company_id.name,

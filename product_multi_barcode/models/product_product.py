@@ -14,7 +14,7 @@ class ProductProduct(models.Model):
         comodel_name="product.barcode",
         inverse_name="product_id",
         string="Barcodes",
-        auto_join=True,
+        bypass_search_access=True,
     )
     barcode = fields.Char(
         string="Main barcode",
