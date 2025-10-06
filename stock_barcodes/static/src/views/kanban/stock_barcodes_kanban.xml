@@ -8,9 +8,9 @@
                 class="o_kanban_stock_barcodes text-white w-100 mt-1 mb-1 d-flex align-items-center justify-content-center bg-dark"
             >
                 <span t-if="packageEnabled">Scan a <b>transfer</b>, a <b
-                    >product</b> or a <b>lot</b> to filter your records</span>
+                >product</b> or a <b>lot</b> to filter your records</span>
                 <span t-else="">Scan a <b>transfer</b> or a <b
-                    >product</b> to filter your records</span>
+                >product</b> to filter your records</span>
                 <button
                     class="o_stock_mobile_barcode btn"
                     t-on-click="openBarcodeScanner"

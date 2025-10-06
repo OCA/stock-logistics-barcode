@@ -551,9 +551,11 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             mock_msg.assert_not_called()
 
     def test_onchange_picking_id(self):
-        with patch.object(type(self.wiz_scan), "_set_default_picking"), patch.object(
-            type(self.wiz_scan), "fill_pending_moves"
-        ), patch.object(type(self.wiz_scan), "determine_todo_action") as mock_msg:
+        with (
+            patch.object(type(self.wiz_scan), "_set_default_picking"),
+            patch.object(type(self.wiz_scan), "fill_pending_moves"),
+            patch.object(type(self.wiz_scan), "determine_todo_action") as mock_msg,
+        ):
             self.wiz_scan.onchange_picking_id()
             mock_msg.assert_called_once()
 
@@ -561,9 +563,10 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         result = self.wiz_scan.determine_todo_action()
         self.assertFalse(result)
 
-        with patch.object(
-            type(self.wiz_scan), "update_fields_after_determine_todo"
-        ), patch.object(type(self.wiz_scan), "action_show_step") as mock_msg:
+        with (
+            patch.object(type(self.wiz_scan), "update_fields_after_determine_todo"),
+            patch.object(type(self.wiz_scan), "action_show_step") as mock_msg,
+        ):
             self.wiz_scan_option_guided.determine_todo_action()
             self.assertEqual(
                 self.wiz_scan_option_guided.location_id,
@@ -613,11 +616,14 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         with self.assertRaises(ValidationError):
             self.wiz_scan.action_assign_serial()
 
-        with patch.object(type(self.StockMove), "action_assign_serial"), patch.object(
-            type(self.wiz_scan),
-            "_prepare_stock_moves_domain",
-            return_value=[("id", "in", [self.stock_move_test.id])],
-        ) as mock_msg:
+        with (
+            patch.object(type(self.StockMove), "action_assign_serial"),
+            patch.object(
+                type(self.wiz_scan),
+                "_prepare_stock_moves_domain",
+                return_value=[("id", "in", [self.stock_move_test.id])],
+            ) as mock_msg,
+        ):
             self.wiz_scan.product_id = self.product_tracking.id
             self.wiz_scan.action_assign_serial()
             mock_msg.assert_called_once()

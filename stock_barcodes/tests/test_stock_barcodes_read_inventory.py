@@ -26,11 +26,12 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
         result = self.wiz_scan_read_inventory._add_inventory_quant()
         self.assertTrue(result)
 
-        with patch.object(
-            type(self.wiz_scan_read_inventory), "_add_inventory_quant"
-        ), patch.object(
-            type(self.wiz_scan_read_inventory), "action_clean_values"
-        ) as mock_msg:
+        with (
+            patch.object(type(self.wiz_scan_read_inventory), "_add_inventory_quant"),
+            patch.object(
+                type(self.wiz_scan_read_inventory), "action_clean_values"
+            ) as mock_msg,
+        ):
             self.wiz_scan_read_inventory.action_done()
             mock_msg.assert_called_once()
 
