@@ -18,11 +18,14 @@ class TestbarcodeActionsReport(TestCommonStockBarcodes):
                 "barcode": "1597536243",
             }
         )
-        with patch.object(type(self.StockBarcodeAction), "search_read"), patch.object(
-            type(self.env["report.stock_barcodes.report_barcode_actions"]),
-            "_get_report_values",
-            return_value={"barcodes": barcode_action},
-        ) as mock_msg:
+        with (
+            patch.object(type(self.StockBarcodeAction), "search_read"),
+            patch.object(
+                type(self.env["report.stock_barcodes.report_barcode_actions"]),
+                "_get_report_values",
+                return_value={"barcodes": barcode_action},
+            ) as mock_msg,
+        ):
             result = self.env[
                 "report.stock_barcodes.report_barcode_actions"
             ]._get_report_values(
