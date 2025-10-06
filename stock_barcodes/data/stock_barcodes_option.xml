@@ -534,7 +534,6 @@
         />
     </record>
 
-
     <!-- Option group for Operations -->
     <record
         id="stock_barcodes_option_group_operation"

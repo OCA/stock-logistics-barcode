@@ -111,16 +111,20 @@
                                                             class="fa fa-cubes"
                                                             aria-hidden="true"
                                                             title="On hand quantity"
-                                                        />&#32;&#32;<field
-                                                            name="quantity"
                                                         />
+                                                        &#32;
+                                                        &#32;
+                                                        <field name="quantity" />
                                                     </span>
                                                     <span class="fw-bold mx-3 w-100">
                                                         <i
                                                             class="fa fa-hourglass-half"
                                                             aria-hidden="true"
                                                             title="Counted quantity"
-                                                        />&#32;&#32;<field
+                                                        />
+                                                        &#32;
+                                                        &#32;
+                                                        <field
                                                             name="inventory_quantity"
                                                         />
                                                     </span>
@@ -129,7 +133,10 @@
                                                             class="fa fa-minus"
                                                             aria-hidden="true"
                                                             title="Difference quantity"
-                                                        />&#32;&#32; <field
+                                                        />
+                                                        &#32;
+                                                        &#32;
+                                                        <field
                                                             name="inventory_diff_quantity"
                                                         />
                                                     </span>
