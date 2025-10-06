@@ -420,11 +420,14 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertTrue(result)
 
     def test_scanned_location(self):
-        with patch.object(
-            type(self.wiz_scan),
-            "_barcode_domain",
-            return_value=[("barcode", "=", "8411322222111")],
-        ), patch.object(type(self.wiz_scan), "_set_messagge_info") as mock_msg:
+        with (
+            patch.object(
+                type(self.wiz_scan),
+                "_barcode_domain",
+                return_value=[("barcode", "=", "8411322222111")],
+            ),
+            patch.object(type(self.wiz_scan), "_set_messagge_info") as mock_msg,
+        ):
             result = self.wiz_scan._scanned_location("8411322222111")
             self.assertTrue(result)
             self.assertEqual(self.wiz_scan.location_id, self.stock_location_internal)
@@ -456,11 +459,13 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             result = self.wiz_scan.check_done_conditions()
             self.assertFalse(result)
 
-        with patch.object(
-            type(self.wiz_scan), "check_location_contidion", return_value=True
-        ), patch.object(
-            type(self.wiz_scan), "check_lot_contidion", return_value=True
-        ), patch.object(type(self.wiz_scan), "_set_messagge_info") as mock_msg:
+        with (
+            patch.object(
+                type(self.wiz_scan), "check_location_contidion", return_value=True
+            ),
+            patch.object(type(self.wiz_scan), "check_lot_contidion", return_value=True),
+            patch.object(type(self.wiz_scan), "_set_messagge_info") as mock_msg,
+        ):
             self.wiz_scan.product_qty = 0
             self.wiz_scan.product_id = self.product_tracking.id
             result = self.wiz_scan.check_done_conditions()

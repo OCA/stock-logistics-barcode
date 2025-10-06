@@ -10,9 +10,11 @@ from .common import TestCommonStockBarcodes
 @tagged("post_install", "-at_install")
 class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
     def test_action_reset_lines(self):
-        with patch.object(type(self.wiz_scan), "action_clean_values"), patch.object(
-            type(self.wiz_scan), "fill_todo_records"
-        ), patch.object(type(self.wiz_scan), "determine_todo_action") as mock_msg:
+        with (
+            patch.object(type(self.wiz_scan), "action_clean_values"),
+            patch.object(type(self.wiz_scan), "fill_todo_records"),
+            patch.object(type(self.wiz_scan), "determine_todo_action") as mock_msg,
+        ):
             self.wiz_scan_read_todo.action_reset_lines()
             self.wiz_scan_read_todo.line_ids._compute_barcode_scan_state()
             self.assertEqual(self.wiz_scan_read_todo.state, "pending")

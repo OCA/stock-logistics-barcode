@@ -6,8 +6,8 @@
         t-inherit="web.views.ViewButton"
         t-inherit-mode="extension"
     >
-      <xpath expr="//t[@t-tag]" position="attributes">
-          <attribute name="t-att-data-hotkey">props.hotkey</attribute>
-      </xpath>
-  </t>
+        <xpath expr="//t[@t-tag]" position="attributes">
+            <attribute name="t-att-data-hotkey">props.hotkey</attribute>
+        </xpath>
+    </t>
 </templates>

@@ -33,9 +33,7 @@
                                     title="Barcode"
                                     class="fa fa-barcode fa-2x mt-2 mx-3"
                                 />
-
                             </div>
-
                         </div>
                         <field name="message_type" invisible="1" />
                         <field name="barcode" invisible="1" force_save="1" />
@@ -288,22 +286,22 @@
                                         <div invisible="total_product_uom_qty == 0.0">
                                             <span>(
                                                 <field
-                                                    name="total_product_qty_done"
-                                                    class="oe_inline"
-                                                    readonly="1"
-                                                />
+                                                name="total_product_qty_done"
+                                                class="oe_inline"
+                                                readonly="1"
+                                            />
                                                 /<field
-                                                    name="total_product_uom_qty"
-                                                    class="oe_inline"
-                                                    readonly="1"
-                                                />)
+                                                name="total_product_uom_qty"
+                                                class="oe_inline"
+                                                readonly="1"
+                                            />)
                                                 <field
-                                                    name="product_uom_id"
-                                                    class="oe_inline"
-                                                    options="{'no_open': True}"
-                                                    readonly="1"
-                                                    widget="selection"
-                                                />
+                                                name="product_uom_id"
+                                                class="oe_inline"
+                                                options="{'no_open': True}"
+                                                readonly="1"
+                                                widget="selection"
+                                            />
                                             </span>
                                         </div>
                                     </div>

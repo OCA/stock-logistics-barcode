@@ -12,13 +12,15 @@ from .common import TestCommonStockBarcodes
 class TestStockMove(TestCommonStockBarcodes):
     def test_action_barcode_detailed_operation_unlink(self):
         self.env.context = dict(self.env.context, wiz_barcode_id=self.wiz_scan.id)
-        with patch.object(
-            type(self.StockMove), "_action_assign"
-        ) as mock_action_assign, patch.object(
-            type(self.WizScanReadPicking), "fill_todo_records"
-        ) as mock_fill_todo, patch.object(
-            type(self.WizScanReadPicking), "determine_todo_action"
-        ) as mock_determine_todo_action:
+        with (
+            patch.object(type(self.StockMove), "_action_assign") as mock_action_assign,
+            patch.object(
+                type(self.WizScanReadPicking), "fill_todo_records"
+            ) as mock_fill_todo,
+            patch.object(
+                type(self.WizScanReadPicking), "determine_todo_action"
+            ) as mock_determine_todo_action,
+        ):
             self.stock_move_test.move_line_ids[
                 0
             ].action_barcode_detailed_operation_unlink()

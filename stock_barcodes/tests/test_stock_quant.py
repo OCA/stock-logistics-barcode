@@ -22,8 +22,11 @@ class TestStockQuant(TestCommonStockBarcodes):
 
             self.assertEqual(mock_operation.call_count, 2)
 
-        with patch.object(type(self.quant_lot_1), "send_bus_done"), patch.object(
-            type(self.quant_lot_1), "action_apply_inventory"
-        ) as mock_operation:
+        with (
+            patch.object(type(self.quant_lot_1), "send_bus_done"),
+            patch.object(
+                type(self.quant_lot_1), "action_apply_inventory"
+            ) as mock_operation,
+        ):
             self.quant_lot_1.action_apply_inventory()
             self.assertTrue(mock_operation.called)
