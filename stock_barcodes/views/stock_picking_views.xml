@@ -111,7 +111,6 @@
     <record id="stock_barcodes_action_picking_tree_ready" model="ir.actions.act_window">
         <field name="name">Operations</field>
         <field name="res_model">stock.picking</field>
-        <field name="type">ir.actions.act_window</field>
         <field name="view_mode">kanban</field>
         <field
             name="context"
