@@ -32,7 +32,6 @@
         <field name="view_mode">tree</field>
     </record>
 
-
     <record id="view_stock_barcodes_action_kanban" model="ir.ui.view">
         <field name="name">stock.barcodes.action.kanban</field>
         <field name="model">stock.barcodes.action</field>
@@ -77,7 +76,6 @@
         </field>
     </record>
 
-
     <!-- Main menu from scan wizard -->
     <record id="action_stock_barcodes_action_kanban" model="ir.actions.act_window">
         <field name="res_model">stock.barcodes.action</field>
@@ -111,6 +109,4 @@
         parent="stock.menu_product_in_config_stock"
         sequence="100"
     />
-
-
 </odoo>

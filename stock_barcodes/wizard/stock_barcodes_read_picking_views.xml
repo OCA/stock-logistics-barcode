@@ -17,9 +17,9 @@
                 </button>
                 <t t-if="partner_id">
                     [<field
-                        name="partner_id"
-                        invisible="context.get('hide_partner', False)"
-                    />]
+                    name="partner_id"
+                    invisible="context.get('hide_partner', False)"
+                />]
                 </t>
                 <field name="candidate_picking_id" invisible="1" />
 
@@ -193,23 +193,22 @@
                                                     class="d-flex justify-content-start align-items-center indent h4 pt-3"
                                                 >
                                                     <span
-                                                        t-esc="record.qty_done.raw_value"
-                                                    />
+                                                    t-esc="record.qty_done.raw_value"
+                                                />
                                                     &#32;/&#32;
                                                     <span
-                                                        t-esc="record.product_uom_qty.raw_value"
-                                                    />
+                                                    t-esc="record.product_uom_qty.raw_value"
+                                                />
 
                                                     <span
-                                                        t-if="record.uom_id"
-                                                        t-esc="record.uom_id.value"
-                                                    />
+                                                    t-if="record.uom_id"
+                                                    t-esc="record.uom_id.value"
+                                                />
                                                 </div>
                                             </div>
                                             <div
                                                 class="col-4 col-md-4 d-flex justify-content-end align-items-center"
                                             >
-
                                                 <button
                                                     name="action_barcode_inventory_quant_edit"
                                                     type="object"
@@ -229,9 +228,9 @@
                                                 >
                                                     +
                                                     <span
-                                                        class="text-white"
-                                                        t-esc="record.qty_done_rest.raw_value"
-                                                    />
+                                                    class="text-white"
+                                                    t-esc="record.qty_done_rest.raw_value"
+                                                />
                                                 </button>
                                             </div>
                                         </div>
@@ -282,8 +281,8 @@
                                                         t-if="record.result_package_id.raw_value"
                                                     >
                                                         Package: <field
-                                                            name="result_package_id"
-                                                        />
+                                                        name="result_package_id"
+                                                    />
                                                     </t>
                                                 </div>
                                             </div>

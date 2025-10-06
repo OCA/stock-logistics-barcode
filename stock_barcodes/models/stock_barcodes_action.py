@@ -102,7 +102,7 @@ class StockBarcodesAction(models.Model):
                         FIELDS_NAME.get(field_name, field_name),
                     ):
                         return (
-                            "{}".format(FIELDS_NAME.get(field_name, field_name)),
+                            f"{FIELDS_NAME.get(field_name, field_name)}",
                             "=",
                             field_value,
                         )

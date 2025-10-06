@@ -123,7 +123,7 @@ patch(KanbanRenderer.prototype, "stock_barcodes.KanbanRenderer", {
         return nextCard;
     },
 
-    // eslint-disable-next-line complexity
+
     // This is copied from the base kanban_renderer.
     // We want to only focus card with barcode when isAllowedBarcodeModel returns true
     // Since there is no way to hook and change the candidate cards that are selectable

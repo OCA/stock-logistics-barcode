@@ -1,7 +1,3 @@
-.. image:: https://odoo-community.org/readme-banner-image
-   :target: https://odoo-community.org/get-involved?utm_source=readme
-   :alt: Odoo Community Association
-
 ==============
 Stock Barcodes
 ==============
@@ -17,17 +13,17 @@ Stock Barcodes
 .. |badge1| image:: https://img.shields.io/badge/maturity-Beta-yellow.png
     :target: https://odoo-community.org/page/development-status
     :alt: Beta
-.. |badge2| image:: https://img.shields.io/badge/license-AGPL--3-blue.png
+.. |badge2| image:: https://img.shields.io/badge/licence-AGPL--3-blue.png
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-16-0/stock-logistics-barcode-16-0-stock_barcodes
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-18-0/stock-logistics-barcode-18-0-stock_barcodes
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -37,12 +33,10 @@ This module provides a barcode reader interface for stock module.
 This module contains a base wizard read barcode that can be extended by
 other modules.
 
-This module also makes use of this wizard for providing barcode support for
-doing inventories and picking operations.
+This module also makes use of this wizard for providing barcode support
+for doing inventories and picking operations.
 
 This module provides configuring barcodes for barcode actions.
-
-
 
 **Table of contents**
 
@@ -53,307 +47,288 @@ Usage
 =====
 
 Barcode interface for inventory operations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------
 
 Option 1: To use the barcode interface on inventory
 
-  #. Go to *Inventory > operations > Inventory Adjustments*.
-  #. Create new inventory with "Select products manually" option.
-  #. Start inventory.
-  #. Click to "Scan barcodes" smart button.
-  #. Start reading barcodes.
+   1. Go to *Inventory > operations > Inventory Adjustments*.
+   2. Create new inventory with "Select products manually" option.
+   3. Start inventory.
+   4. Click to "Scan barcodes" smart button.
+   5. Start reading barcodes.
 
-Option 2: Use the barcode interface inventory directly from the Barcodes application
-  #. Go to *Barcodes*.
-  #. Select the *Inventory* option.
+Option 2: Use the barcode interface inventory directly from the Barcodes
+application
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/inventory_barcode_action.png
-       :height: 100
-       :width: 200
-       :alt: Inventory barcode action
+1. Go to *Barcodes*.
+2. Select the *Inventory* option.
 
-  #. Start scanning barcodes.
+..
 
-Actions
-  # Press the *+ Product* button to display the form for the new item.
+   |Inventory barcode action|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/add_product.png
-       :height: 100
-       :width: 200
-       :alt: Add product
+1. Start scanning barcodes.
 
-  # When you select a product, a numeric field is displayed to add the quantity.
+| Actions
+| # Press the *+ Product* button to display the form for the new item.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/form_add_product_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Add quantity product
+   |Add product|
 
-  # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
+# When you select a product, a numeric field is displayed to add the
+quantity.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/form_add_product_reset.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+   |Add quantity product|
 
-  # When you press the *Clean values* button, all fields are reset and the form is closed.
-  # When you press the *Confirm* button, the new item is added and the form is closed.
-  # When the eye icon is closed, the created items greater than zero are displayed, and if not, those less than or equal to zero.
+# When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_items.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+   |Reset data form|
 
-  # In the list, the trash can icon allows you to reset the quantity to zero and the edit icon allows you to change the item values.
+# When you press the *Clean values* button, all fields are reset and the
+form is closed. # When you press the *Confirm* button, the new item is
+added and the form is closed. # When the eye icon is closed, the created
+items greater than zero are displayed, and if not, those less than or
+equal to zero.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_action_items.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+   |image1|
 
-  # The *Apply* button is only displayed if there are items with quantities greater than zero, regardless of whether they were scanned or entered manually; If you press all the defined quantities will be processed after defining the reason for the inventory adjustment and then the main barcode menu will be displayed.
+# In the list, the trash can icon allows you to reset the quantity to
+zero and the edit icon allows you to change the item values.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/apply_inventory.png
-       :height: 100
-       :width: 200
-       :alt: Apply inventory
+   |image2|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/apply_inventory_reason.png
-       :height: 100
-       :width: 200
-       :alt: Apply inventory reason
+# The *Apply* button is only displayed if there are items with
+quantities greater than zero, regardless of whether they were scanned or
+entered manually; If you press all the defined quantities will be
+processed after defining the reason for the inventory adjustment and
+then the main barcode menu will be displayed.
 
+   |Apply inventory|
+
+   |Apply inventory reason|
 
 Barcode interface for picking operations
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-You can use the barcode interface in a picking or an operation type, the main
-difference is that if you open the barcode interface from a picking, this
-picking is locked and you read products for it.
+----------------------------------------
+
+You can use the barcode interface in a picking or an operation type, the
+main difference is that if you open the barcode interface from a
+picking, this picking is locked and you read products for it.
 
 To use the barcode interface on picking operations:
 
-#. Go to *Inventory*.
-#. Click on scanner button on any operation type.
-#. Start reading barcodes.
+1. Go to *Inventory*.
+2. Click on scanner button on any operation type.
+3. Start reading barcodes.
 
 Option 1: To use the barcode interface on a picking:
 
-  #. Go to *Inventory > Transfers*.
-  #. Click to "Scan barcodes" smart button.
-  #. Start reading barcodes.
+   1. Go to *Inventory > Transfers*.
+   2. Click to "Scan barcodes" smart button.
+   3. Start reading barcodes.
 
-Option 2: Use the barcode interface picking directly from the Barcodes application
-  #. Go to *Barcodes*.
-  #. Select the option *OPERATIONS*.
+Option 2: Use the barcode interface picking directly from the Barcodes
+application
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/inventory_barcode_action.png
-       :height: 100
-       :width: 200
-       :alt: Operation barcode action
+1. Go to *Barcodes*.
+2. Select the option *OPERATIONS*.
 
-  # Select the type of picking.
-  # The pickings in ready status are displayed, select the one you want to start scanning.
+..
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+   |Operation barcode action|
 
-  #. Start scanning barcodes.
+# Select the type of picking. # The pickings in ready status are
+displayed, select the one you want to start scanning.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/barcode_interface_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+   |List picking|
 
-Actions
-  # All the items that have been configured for the selected picking are listed.
+1. Start scanning barcodes.
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+..
 
-  # The edit icon in the list allows you to modify the data.
+   |image3|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_items_picking_edit.png
-       :height: 100
-       :width: 200
-       :alt: Edit picking
+| Actions
+| # All the items that have been configured for the selected picking are
+  listed.
 
-  # The button that contains a *+120* (in this case), allows you to define all the
-    remaining quantities. Once defined, this button disappears and if you want to change the
-    quantities, press the edit button.
+   |image4|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_items_picking_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Quantity picking
+# The edit icon in the list allows you to modify the data.
 
-  # If there is at least one item with a quantity already defined, an eye icon is displayed,
-    which if closed shows the items and their quantities already scanned.
+   |Edit picking|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/list_items_picking_scanned.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+| # The button that contains a *+120* (in this case), allows you to
+  define all the
+| remaining quantities. Once defined, this button disappears and if you
+  want to change the quantities, press the edit button.
 
-  # When you press the *Validate* button, a wizard will be displayed to confirm the action.
-    If everything is correct, it is validated and you return to the picking list mentioned above.
+|Quantity picking|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/confirm_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+| # If there is at least one item with a quantity already defined, an
+  eye icon is displayed,
+| which if closed shows the items and their quantities already scanned.
 
-  # If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned
-    above, to confirm if you want to process all the quantities. If positive, you will proceed
-    and be directed to the list mentioned above in the previous point.
+|Picking scanned|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+| # When you press the *Validate* button, a wizard will be displayed to
+  confirm the action.
+| If everything is correct, it is validated and you return to the
+  picking list mentioned above.
 
-  # Press the *+ Product* button to display the form for the new item.
+|image5|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/add_product.png
-       :height: 100
-       :width: 200
-       :alt: Add product
+| # If there is an item whose quantity is zero, a wizard will be
+  displayed after the one mentioned
+| above, to confirm if you want to process all the quantities. If
+  positive, you will proceed and be directed to the list mentioned above
+  in the previous point.
 
-  # When you select a product, a numeric field is displayed to add the quantity.
+|image6|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/form_add_product_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Add quantity product
+# Press the *+ Product* button to display the form for the new item.
 
-  # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
+   |Add product|
 
-    .. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/form_add_product_reset.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+# When you select a product, a numeric field is displayed to add the
+quantity.
 
-  # When you press the *Clean values* button, all fields are reset and the form is closed.
-  # When you press the *Confirm* button, the new item is added and the form is closed.
-  # When adding the new item all the quantities are assigned to it, if you want to modify it, press the edit icon.
+   |Add quantity product|
 
-The barcode scanner interface has two operation modes. In both of them user
-can scan:
+# When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.
 
-#. Warehouse locations with barcode.
-#. Product packaging with barcode.
-#. Product with barcode.
-#. Product Lots (The barcode is name field in this case).
+   |Reset data form|
 
+# When you press the *Clean values* button, all fields are reset and the
+form is closed. # When you press the *Confirm* button, the new item is
+added and the form is closed. # When adding the new item all the
+quantities are assigned to it, if you want to modify it, press the edit
+icon.
+
+The barcode scanner interface has two operation modes. In both of them
+user can scan:
+
+1. Warehouse locations with barcode.
+2. Product packaging with barcode.
+3. Product with barcode.
+4. Product Lots (The barcode is name field in this case).
 
 Automatic operation mode
-~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------
 
-This is the default mode, all screen controls are locked to avoid scan into
-fields.
+This is the default mode, all screen controls are locked to avoid scan
+into fields.
 
 The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in this
-order:
+scanner hardward, the interface read the barcode and do operations in
+this order:
 
-#. Try search a product, if found, is assigned to product_id field and creates
-   or update inventory line with 1.0 unit. (If product has tracking by lots
-   the interface wait for a lot to be scanned).
-#. Try search a product packaging, if found, the product_id related is set,
-   product quantities are updated and create or update inventory line with
-   product quantities defined in the product packaging.
-#. Try search a lot (The product is mandatory in this case so you first scan a
-   product and then scann a lot), this lot field is not erased until that
-   product change, so for each product scann the interface add or update a
-   inventory line with this lot.
-#. Try to search a location, if found the field location is set and next scan
-   action will be done with this warehouse location.
+1. Try search a product, if found, is assigned to product_id field and
+   creates or update inventory line with 1.0 unit. (If product has
+   tracking by lots the interface wait for a lot to be scanned).
+2. Try search a product packaging, if found, the product_id related is
+   set, product quantities are updated and create or update inventory
+   line with product quantities defined in the product packaging.
+3. Try search a lot (The product is mandatory in this case so you first
+   scan a product and then scann a lot), this lot field is not erased
+   until that product change, so for each product scann the interface
+   add or update a inventory line with this lot.
+4. Try to search a location, if found the field location is set and next
+   scan action will be done with this warehouse location.
 
-If barcode has not found, when message is displayed you can create this lot
-scanning the product.
+If barcode has not found, when message is displayed you can create this
+lot scanning the product.
 
 Manual entry mode
-~~~~~~~~~~~~~~~~~
+-----------------
 
 You can change to "manual entry" to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be when
-user wants set quantities manually instead increment 1.0 unit peer scan action.
+hardware, but hardward scanner still active on, so a use case would be
+when user wants set quantities manually instead increment 1.0 unit peer
+scan action.
 
 Scan logs
-~~~~~~~~~
+---------
 
-All scanned barcodes are saved into model.
-Barcode scanning interface display 10 last records linked to model, the goal of
-this log is show to user other reads with the same product and location done
-by other users.
+All scanned barcodes are saved into model. Barcode scanning interface
+display 10 last records linked to model, the goal of this log is show to
+user other reads with the same product and location done by other users.
 User can remove the last read scan.
 
 Barcode interface for barcode actions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+-------------------------------------
+
 To use the barcode interface for actions:
 
-#. Go to *Inventory > Configuration > Barcode Actions*.
-#. Create a new barcode action and configure the barcode.
+1. Go to *Inventory > Configuration > Barcode Actions*.
+2. Create a new barcode action and configure the barcode.
 
-.. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/create_barcode_action.png
-   :height: 100
-   :width: 200
-   :alt: Print barcodes
+|Print barcodes|
 
-#. Select the barcode actions you want to use, a button (PRINT BARCODES) will appear that allows you to print the configured barcodes to PDF.
+1. Select the barcode actions you want to use, a button (PRINT BARCODES)
+   will appear that allows you to print the configured barcodes to PDF.
 
-.. image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/16.0/stock_barcodes/static/src/img/print_barcodes.png
-   :height: 100
-   :width: 200
-   :alt: Print barcodes
+|image7|
 
-#. Go to *Barcodes*.
-#. Start scanning barcodes from actions.
+1. Go to *Barcodes*.
+2. Start scanning barcodes from actions.
+
+.. |Inventory barcode action| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/inventory_barcode_action.png
+.. |Add product| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/add_product.png
+.. |Add quantity product| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/form_add_product_quantity.png
+.. |Reset data form| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/form_add_product_reset.png
+.. |image1| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_items.png
+.. |image2| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_action_items.png
+.. |Apply inventory| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/apply_inventory.png
+.. |Apply inventory reason| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/apply_inventory_reason.png
+.. |Operation barcode action| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/inventory_barcode_action.png
+.. |List picking| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_picking.png
+.. |image3| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/barcode_interface_picking.png
+.. |image4| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_items_picking.png
+.. |Edit picking| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_items_picking_edit.png
+.. |Quantity picking| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_items_picking_quantity.png
+.. |Picking scanned| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/list_items_picking_scanned.png
+.. |image5| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/confirm_items_picking.png
+.. |image6| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png
+.. |Print barcodes| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/create_barcode_action.png
+.. |image7| image:: https://raw.githubusercontent.com/OCA/stock-logistics-barcode/18.0/stock_barcodes/static/src/img/print_barcodes.png
 
 Known issues / Roadmap
 ======================
 
-* Excute action_done() method outside onchange environment.
-* Allow create product when a barcode has not been found.
-* Allow to select picking reading its barcode.
-* Allow to select multiple pickings to process scanned products.
+- Excute action_done() method outside onchange environment.
+- Allow create product when a barcode has not been found.
+- Allow to select picking reading its barcode.
+- Allow to select multiple pickings to process scanned products.
 
 Changelog
 =========
 
 11.0.1.1.0 (2019-09-24)
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
-* [ADD] New feature.
-  User can uses barcode interface in picking operations.
+- [ADD] New feature. User can uses barcode interface in picking
+  operations.
 
 13.0.1.1.1 (2021-02-06)
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
-* [ADD] New feature.
-  Add option to get lots automatically based on removal strategy in inventory.
+- [ADD] New feature. Add option to get lots automatically based on
+  removal strategy in inventory.
 
 14.0.1.0.0 (2021-04-05)
-~~~~~~~~~~~~~~~~~~~~~~~
+-----------------------
 
-* [ADD] New feature.
-  Add security for users.
+- [ADD] New feature. Add security for users.
 
 16.0.1.0.0 (2025-01-23)
-~~~~~~~~~~~~~~~~~~~~~~~
-* [IMP]
-  Improved views to optimize navigation and functionality.
-  Intuitive and mobile-friendly views.
-  Visual improvement of the main view accessed from the Barcodes menu.
+-----------------------
 
-* [ADD] New feature.
-  Barcode reading to barcode actions.
-  Generate PDF document for the barcodes of the selected barcode actions.
-
+- [IMP] Improved views to optimize navigation and functionality.
+  Intuitive and mobile-friendly views. Visual improvement of the main
+  view accessed from the Barcodes menu.
+- [ADD] New feature. Barcode reading to barcode actions. Generate PDF
+  document for the barcodes of the selected barcode actions.
 
 Bug Tracker
 ===========
@@ -361,7 +336,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -369,41 +344,39 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Tecnativa
 
 Contributors
-~~~~~~~~~~~~
+------------
 
+- `Tecnativa <https://www.tecnativa.com>`__:
 
-* `Tecnativa <https://www.tecnativa.com>`_:
+  - Sergio Teruel
+  - Carlos Dauden
+  - Pedro M. Baeza
+  - Alexandre D. Díaz
 
-  * Sergio Teruel
-  * Carlos Dauden
-  * Pedro M. Baeza
-  * Alexandre D. Díaz
+- `Onestein <https://www.onestein.eu>`__:
 
-* `Onestein <https://www.onestein.eu>`_:
+  - Andrea Stirpe
 
-  * Andrea Stirpe
+- `InitOS <https://www.initos.com>`__:
 
-* `InitOS <https://www.initos.com>`_:
+  - Foram Shah
 
-  * Foram Shah
+- `ForgeFlow <https://www.forgeflow.com>`__:
 
-* `ForgeFlow <https://www.forgeflow.com>`_:
+  - Lois Rilo
 
-  * Lois Rilo
+- Enric Tobella
+- `Binhex <https://www.binhex.cloud/>`__:
 
-* Enric Tobella
-
-* `Binhex <https://www.binhex.cloud/>`_:
-
-  * Edilio Escalona Almira
+  - Edilio Escalona Almira
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -415,6 +388,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.

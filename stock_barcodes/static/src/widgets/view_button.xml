@@ -7,8 +7,8 @@
         t-inherit-mode="extension"
         owl="1"
     >
-      <xpath expr="//t[@t-tag]" position="attributes">
-          <attribute name="t-att-data-hotkey">props.hotkey</attribute>
-      </xpath>
-  </t>
+        <xpath expr="//t[@t-tag]" position="attributes">
+            <attribute name="t-att-data-hotkey">props.hotkey</attribute>
+        </xpath>
+    </t>
 </templates>

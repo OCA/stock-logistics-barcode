@@ -44,8 +44,8 @@
                                             attrs="{'invisible': [('picking_code', '!=', 'internal')]}"
                                         >
                                             <field name="location_name" /> ⇨ <field
-                                                name="location_dest_name"
-                                            />
+                                            name="location_dest_name"
+                                        />
                                         </span>
                                         <span
                                             attrs="{'invisible': [('picking_code', '!=', 'outgoing')]}"
@@ -84,10 +84,10 @@
                                             <span>
                                                 <field name="package_id" />
                                                 <t t-if="record.package_id">(<span
-                                                        t-esc="record.package_product_qty.value"
-                                                    /> <t
-                                                        t-esc="record.uom_id.value.slice(0,3)"
-                                                    />)</t>
+                                                    t-esc="record.package_product_qty.value"
+                                                /> <t
+                                                    t-esc="record.uom_id.value.slice(0,3)"
+                                                />)</t>
                                             </span>
                                             <span>
                                                 <field name="result_package_id" />
@@ -100,10 +100,10 @@
                                 <div class="col-12">
                                     <span>
                                         <span class="fw-bold">
-                                            <t t-esc="record.qty_done.value" />
-                                        </span> / <t
-                                            t-esc="record.product_uom_qty.value"
-                                        /> <t t-esc="record.uom_id.value.slice(0,3)" />
+                                        <t t-esc="record.qty_done.value" />
+                                    </span> / <t
+                                        t-esc="record.product_uom_qty.value"
+                                    /> <t t-esc="record.uom_id.value.slice(0,3)" />
                                     </span>
                                     <strong
                                         class="bg-danger"

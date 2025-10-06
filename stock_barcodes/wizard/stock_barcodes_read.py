@@ -905,7 +905,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             if title:
                 message["title"] = title
             self.send_bus_done(
-                "stock_barcodes-{}".format(self.ids[0]),
-                "stock_barcodes_notify-{}".format(self.ids[0]),
+                f"stock_barcodes-{self.ids[0]}",
+                f"stock_barcodes_notify-{self.ids[0]}",
                 message,
             )
