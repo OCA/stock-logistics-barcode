@@ -1,4 +1,3 @@
-/** @odoo-module */
 /* Copyright 2021 Tecnativa - Alexandre D. Díaz
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
