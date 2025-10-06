@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import {BarcodeHandlerField} from "@barcodes/barcode_handler_field";
 import {patch} from "@web/core/utils/patch";
 import {useService} from "@web/core/utils/hooks";

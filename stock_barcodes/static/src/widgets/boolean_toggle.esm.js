@@ -1,4 +1,3 @@
-/** @odoo-module **/
 import {BooleanToggleField} from "@web/views/fields/boolean_toggle/boolean_toggle_field";
 import {onMounted} from "@odoo/owl";
 import {registry} from "@web/core/registry";

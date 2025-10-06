@@ -203,7 +203,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                     },
                 )
             else:
-                self.message = "%s" % message
+                self.message = f"{message}"
 
     def process_barcode_location_id(self):
         location = self.env["stock.location"].search(self._barcode_domain(self.barcode))
@@ -445,7 +445,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 ):
                     continue
                 option_func = getattr(
-                    self, "process_barcode_%s" % option.field_name, False
+                    self, f"process_barcode_{option.field_name}", False
                 )
                 if option_func:
                     res = option_func()

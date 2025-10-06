@@ -20,7 +20,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     @property
     @api.depends("picking_mode")
     def _field_candidate_ids(self):
-        return "candidate_%s_ids" % self.picking_mode
+        return f"candidate_{self.picking_mode}_ids"
 
     picking_id = fields.Many2one(
         comodel_name="stock.picking", string="Picking", readonly=True
@@ -530,7 +530,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         try:
             getattr(
                 self,
-                "_search_candidate_%s" % self.picking_mode,
+                f"_search_candidate_{self.picking_mode}",
             )(moves_todo)
         except AttributeError:
             return False

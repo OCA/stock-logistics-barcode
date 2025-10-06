@@ -1,5 +1,3 @@
-/** @odoo-module */
-
 import {ViewCompiler} from "@web/views/view_compiler";
 import {patch} from "@web/core/utils/patch";
 
