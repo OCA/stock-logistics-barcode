@@ -56,7 +56,7 @@
                     </group>
                     <separator string="Steps to scan" />
                     <field name="option_ids">
-                        <tree editable="bottom">
+                        <list editable="bottom">
                             <field name="step" />
                             <field name="sequence" widget="handle" />
                             <field name="name" />
@@ -69,7 +69,7 @@
                             <field name="to_scan" />
                             <field name="required" />
                             <field name="clean_after_done" />
-                        </tree>
+                        </list>
                     </field>
                 </sheet>
             </form>
@@ -79,7 +79,7 @@
         <field name="name">stock.barcodes.option.tree</field>
         <field name="model">stock.barcodes.option</field>
         <field name="arch" type="xml">
-            <tree editable="bottom">
+            <list editable="bottom">
                 <field name="sequence" />
                 <field name="name" />
                 <field
@@ -92,7 +92,7 @@
                 <field name="to_scan" />
                 <field name="required" />
                 <field name="clean_after_done" />
-            </tree>
+            </list>
         </field>
     </record>
     <record model="ir.actions.act_window" id="action_stock_barcodes_option">
