@@ -99,7 +99,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         """Technical field to display only the first record in kanban view"""
         self.todo_line_display_ids = self.todo_line_id
 
-    @api.depends("todo_line_ids", "picking_id.move_line_ids.qty_done")
+    @api.depends("todo_line_ids", "picking_id.move_line_ids.qty_picked")
     def _compute_pending_move_ids(self):
         if self.option_group_id.show_pending_moves:
             self.pending_move_ids = self.todo_line_ids.filtered(
@@ -114,14 +114,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
 
     @api.depends(
-        "todo_line_ids", "todo_line_ids.qty_done", "picking_id.move_line_ids.qty_done"
+        "todo_line_ids", "todo_line_ids.qty_done", "picking_id.move_line_ids.qty_picked"
     )
     def _compute_move_line_ids(self):
-        self.move_line_ids = self.picking_id.move_line_ids.filtered("qty_done").sorted(
-            key=lambda sml: (sml.write_date, sml.create_date), reverse=True
-        )
+        self.move_line_ids = self.picking_id.move_line_ids.filtered(
+            "qty_picked"
+        ).sorted(key=lambda sml: (sml.write_date, sml.create_date), reverse=True)
 
-    @api.depends("picking_id.move_line_ids.qty_done")
+    @api.depends("picking_id.move_line_ids.qty_picked")
     def _compute_total_product(self):
         self.total_product_uom_qty = 0.0
         self.total_product_qty_done = 0.0
@@ -236,7 +236,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def _get_stock_move_lines_todo(self):
         move_lines = self.picking_id.move_line_ids.filtered(
             lambda ml: (not ml.barcode_scan_state or ml.barcode_scan_state == "pending")
-            and ml.qty_done < ml.quantity
+            and ml.qty_picked < ml.quantity
         )
         return move_lines
 
@@ -380,7 +380,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         vals = {
             "picking_id": picking.id,
             "move_id": candidate_move.id,
-            "qty_done": available_qty,
+            "qty_picked": available_qty,
             "product_uom_id": candidate_move.product_uom.id or self.product_id.uom_id.id
             if not self.packaging_id
             else self.packaging_id.product_uom_id.id,
@@ -547,7 +547,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 lambda sml: (
                     sml.lot_id == self.lot_id or sml.lot_name == self.lot_id.name
                 )
-                and sml.qty_done >= 1.0
+                and sml.qty_picked >= 1.0
             )
             if serial_lines:
                 self._set_messagge_info("more_match", _("S/N Already in picking"))
@@ -628,7 +628,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 qty_done = line.qty_done + assigned_qty
             sml_vals.update(
                 {
-                    "qty_done": qty_done,
+                    "qty_picked": qty_done,
                     "quantity": qty_done,
                     "result_package_id": self.result_package_id.id,
                 }
@@ -639,13 +639,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     lambda q: q.lot_id == self.lot_id
                 ).mapped("quantity")
             )
-            if sml_vals["qty_done"] >= package_qty_available:
+            if sml_vals["qty_picked"] >= package_qty_available:
                 if not self.result_package_id:
                     sml_vals.update({"result_package_id": self.package_id.id})
             elif line.result_package_id == line.package_id:
                 sml_vals.update({"result_package_id": False})
             self._update_stock_move_line(line, sml_vals)
-            if line.qty_done >= line.quantity:
+            if line.qty_picked >= line.quantity:
                 line.barcode_scan_state = "done"
             elif self.env.context.get("done_forced"):
                 line.barcode_scan_state = "done_forced"
@@ -690,7 +690,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     self.create_new_stock_move(sml)
                 elif sml.move_id and context.get("force_create_move", False):
                     sml.move_id.product_uom_qty = self.product_qty
-                move_lines_dic[sml.id] = sml.qty_done
+                move_lines_dic[sml.id] = sml.qty_picked
             # Ensure that the state of stock_move linked to the sml read is assigned
             stock_move_lines.move_id.filtered(
                 lambda sm: sm.state == "draft"
@@ -726,7 +726,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         vals = {
             "name": _("New Move:") + sml.product_id.display_name,
             "product_uom": sml.product_uom_id.id,
-            "product_uom_qty": sml.qty_done,
+            "product_uom_qty": sml.qty_picked,
             "state": "assigned",
             "additional": True,
             "product_id": sml.product_id.id,
