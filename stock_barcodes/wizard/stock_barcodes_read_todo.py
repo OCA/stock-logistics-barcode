@@ -85,7 +85,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 == 0
             ):
                 continue
-            if sml.move_id.state == "confirmed" and sml.qty_done:
+            if sml.move_id.state == "confirmed" and sml.qty_picked:
                 sml.move_id.state = "partially_available"
             if sml.move_id.state in ["partially_available", "assigned"]:
                 sml.quantity_product_uom = sml.quantity
@@ -105,7 +105,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def action_reset_lines(self):
         self.state = "pending"
         self.line_ids.barcode_scan_state = "pending"
-        self.line_ids.qty_done = 0.0
+        self.line_ids.qty_picked = 0.0
         self.wiz_barcode_id.action_clean_values()
         self.wiz_barcode_id.fill_todo_records()
         self.wiz_barcode_id.determine_todo_action()
@@ -120,14 +120,14 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             record = self.wiz_barcode_id.todo_line_ids[self.position_index + 1]
             self.wiz_barcode_id.determine_todo_action(forced_todo_line=record)
 
-    @api.depends("line_ids.qty_done")
+    @api.depends("line_ids.qty_picked")
     def _compute_qty_done(self):
         for rec in self:
-            rec.qty_done = sum(ln.quantity for ln in rec.line_ids)
+            rec.qty_done = sum(ln.qty_picked for ln in rec.line_ids)
 
     @api.depends(
         "line_ids",
-        "line_ids.qty_done",
+        "line_ids.qty_picked",
         "line_ids.quantity_product_uom",
         "line_ids.barcode_scan_state",
         "qty_done",
@@ -144,7 +144,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 == "move_line_ids"
                 and rec.line_ids
                 and (
-                    sum(rec.stock_move_ids.mapped("quantity"))
+                    sum(rec.line_ids.mapped("qty_picked"))
                     >= sum(rec.stock_move_ids.mapped("product_uom_qty"))
                     or not any(
                         ln.barcode_scan_state == "pending" for ln in rec.line_ids
@@ -179,7 +179,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             "product_qty", "filled_default"
         ):
             self.wiz_barcode_id.product_qty = self.product_uom_qty - sum(
-                self.line_ids.mapped("qty_done")
+                self.line_ids.mapped("qty_picked")
             )
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id.action_show_step()

@@ -5,7 +5,7 @@
         <field name="name">stock.barcodes.action.tree</field>
         <field name="model">stock.barcodes.action</field>
         <field name="arch" type="xml">
-            <tree editable="top">
+            <list editable="top">
                 <header>
                     <button
                         string="Print barcodes"
@@ -22,7 +22,7 @@
                 <field name="active" widget="boolean_toggle" />
                 <field name="barcode" />
                 <field name="icon_class" />
-            </tree>
+            </list>
         </field>
     </record>
 
