@@ -1,6 +1,8 @@
+/** @odoo-module **/
 import {ViewButton} from "@web/views/view_button/view_button";
 import {patch} from "@web/core/utils/patch";
 
 patch(ViewButton, {
-    props: [...ViewButton.props, "hotkey?"],
+    // Allow both optional props
+    props: [...ViewButton.props, "data-hotkey?", "accesskey?"],
 });

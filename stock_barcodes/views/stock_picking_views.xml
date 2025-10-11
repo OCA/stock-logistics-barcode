@@ -43,7 +43,7 @@
                 <field name="default_location_src_id" invisible="1" />
                 <field name="default_location_dest_id" invisible="1" />
             </field>
-            <xpath expr="//div[hasclass('o_kanban_primary_left')]" position="inside">
+            <xpath expr="//field[@name='count_picking_ready']" position="inside">
                 <field name="barcode_option_group_id" invisible="1" />
                 <div
                     class="mt8"
@@ -61,8 +61,6 @@
                         />
                     </button>
                 </div>
-            </xpath>
-            <xpath expr="//div[hasclass('o_kanban_primary_right')]" position="inside">
                 <div
                     class="float-end mt8"
                     t-if="record.default_location_src_id.raw_value and record.default_location_dest_id.raw_value"
@@ -129,6 +127,6 @@
     </record>
 
     <record id="stock.action_picking_tree_ready" model="ir.actions.act_window">
-        <field name="view_mode">kanban,tree,form,calendar</field>
+        <field name="view_mode">kanban,list,form,calendar</field>
     </record>
 </odoo>

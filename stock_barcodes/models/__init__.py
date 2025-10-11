@@ -1,5 +1,6 @@
 from . import stock_barcodes_action
 from . import stock_barcodes_option
+from . import stock_barcodes_sound_mixin
 from . import stock_move
 from . import stock_move_line
 from . import stock_picking

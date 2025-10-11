@@ -1,35 +1,72 @@
-import {BarcodeHandlerField} from "@barcodes/barcode_handler_field";
-import {patch} from "@web/core/utils/patch";
+/* @odoo-module */
+
+import {useEffect} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
-const {useEffect} = owl;
+import {patch} from "@web/core/utils/patch";
+import {BarcodeHandlerField} from "@barcodes/barcode_handler_field";
+
+const _origSetup = BarcodeHandlerField.prototype.setup;
+const _origOnBarcodeScanned = BarcodeHandlerField.prototype.onBarcodeScanned;
 
 patch(BarcodeHandlerField.prototype, {
-    /* eslint-disable no-unused-vars */
     setup() {
-        super.setup();
-        const busService = this.env.services.bus_service;
+        if (typeof _origSetup === "function") {
+            _origSetup.call(this, ...arguments);
+        }
+
+        // Services en 18.0
+        this.busService = useService("bus_service");
         this.orm = useService("orm");
-        const notifyChanges = async ({detail: notifications}) => {
-            for (const {payload, type} of notifications) {
+
+        // Handler estable (misma referencia para subscribe/unsubscribe)
+        this._onBusNotification = async (notifications = []) => {
+            for (const {type} of notifications) {
                 if (type === "stock_barcodes_refresh_data") {
-                    await this.env.model.root.load();
-                    this.env.model.notify();
+                    const model = this.env?.model || this.props?.record?.model;
+                    const rootModel = model?.root || this.env?.model?.root;
+                    if (rootModel?.load) {
+                        await rootModel.load();
+                    }
+                    if (model?.notify) {
+                        model.notify();
+                    }
                 }
             }
         };
-        useEffect(() => {
-            busService.addChannel("barcode_reload");
-            busService.addEventListener("notification", notifyChanges);
-            return () => {
-                busService.deleteChannel("barcode_reload");
-                busService.removeEventListener("notification", notifyChanges);
-            };
-        });
+
+        // Importante en OWL v2: deps como función que devuelve []
+        useEffect(
+            () => {
+                // Suscribir al canal y al evento correcto
+                this.busService.addChannel("barcode_reload");
+                this.busService.addEventListener(
+                    "notification",
+                    this._onBusNotification
+                );
+
+                // Limpieza
+                return () => {
+                    this.busService.deleteChannel("barcode_reload");
+                    this.busService.removeEventListener(
+                        "notification",
+                        this._onBusNotification
+                    );
+                };
+            },
+            () => []
+        );
     },
+
     onBarcodeScanned(event) {
-        super.onBarcodeScanned(...arguments);
-        if (this.props.record.resModel.includes("wiz.stock.barcodes.read")) {
-            $("#dummy_on_barcode_scanned").click();
+        if (typeof _origOnBarcodeScanned === "function") {
+            _origOnBarcodeScanned.call(this, event);
+        }
+        const resModel = this.props?.record?.resModel || "";
+        if (resModel.includes("wiz.stock.barcodes.read")) {
+            const btn = document.getElementById("dummy_on_barcode_scanned");
+            if (btn instanceof HTMLElement) {
+                btn.click();
+            }
         }
     },
 });

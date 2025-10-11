@@ -190,14 +190,9 @@
                                                 <div
                                                     class="d-flex justify-content-start align-items-center indent h4 pt-3"
                                                 >
-                                                    <span
-                                                    t-esc="record.qty_done.raw_value"
-                                                />
+                                                    <field name="qty_done" />
                                                     &#32;/&#32;
-                                                    <span
-                                                    t-esc="record.product_uom_qty.raw_value"
-                                                />
-
+                                                    <field name="product_uom_qty" />
                                                     <span
                                                     t-if="record.uom_id"
                                                     t-esc="record.uom_id.value"
@@ -259,7 +254,8 @@
                     >
                         <kanban class="o_kanban_mobile">
                             <field name="product_id" />
-                            <field name="qty_done" />
+                            <field name="qty_picked" />
+                            <field name="quantity" />
                             <field name="product_uom_id" />
                             <field name="lot_id" />
                             <field name="result_package_id" />
@@ -287,7 +283,7 @@
                                             <div
                                                 class="col-4 col-md-4 d-flex justify-content-end align-items-center"
                                             >
-                                                <field class="h3" name="qty_done" />
+                                                <field class="h3" name="qty_picked" />
                                                 <button
                                                     name="action_barcode_detailed_operation_unlink"
                                                     type="object"

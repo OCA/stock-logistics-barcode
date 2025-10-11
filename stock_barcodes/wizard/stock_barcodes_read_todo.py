@@ -123,7 +123,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     @api.depends("line_ids.qty_picked")
     def _compute_qty_done(self):
         for rec in self:
-            rec.qty_done = sum(ln.qty_picked for ln in rec.line_ids)
+            rec.qty_done = sum(rec.line_ids.mapped("qty_picked"))
 
     @api.depends(
         "line_ids",
@@ -188,9 +188,9 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def operation_quantities(self):
         self.fill_from_pending_line()
         self.wiz_barcode_id.manual_entry = True
-        self.wiz_barcode_id.product_qty = self.product_uom_qty
+        self.wiz_barcode_id.product_qty = self.qty_done_rest
         if self.wiz_barcode_id.picking_id.picking_type_id.code != "incoming":
-            self.wiz_barcode_id.qty_available = self.product_uom_qty
+            self.wiz_barcode_id.qty_available = self.qty_done_rest
             self.wiz_barcode_id.location_id = self.location_id.id
         self.wiz_barcode_id.with_context(manual_picking=True).action_confirm()
 

@@ -184,22 +184,26 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.manual_entry = True
                 self.send_bus_done(
                     "stock_barcodes_scan",
-                    "actions_barcode_notification",
                     {
-                        "message": message,
-                        "sticky": True,
-                        "message_type": "danger"
-                        if message_type in TYPE_ERROR
-                        else message_type,
+                        "type": "actions_barcode_notification",
+                        "payload": {
+                            "message": message,
+                            "sticky": True,
+                            "message_type": "danger"
+                            if message_type in TYPE_ERROR
+                            else message_type,
+                        },
                     },
                 )
             elif message_type != "info_page":
                 self.send_bus_done(
                     "stock_barcodes_scan",
-                    "actions_barcode_notification",
                     {
-                        "message": message,
-                        "message_type": message_type,
+                        "type": "actions_barcode_notification",
+                        "payload": {
+                            "message": message,
+                            "message_type": message_type,
+                        },
                     },
                 )
             else:
@@ -799,9 +803,11 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.manual_entry = False
             self.send_bus_done(
                 "stock_barcodes_scan",
-                "stock_barcodes_edit_manual",
                 {
-                    "manual_entry": False,
+                    "type": "stock_barcodes_edit_manual",
+                    "payload": {
+                        "manual_entry": False,
+                    },
                 },
             )
 
@@ -811,15 +817,18 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._compute_count_inventory_quants()
                 self.send_bus_done(
                     "stock_barcodes_form_update",
-                    "count_apply_inventory",
-                    {"count": self.count_inventory_quants},
+                    {
+                        "type": "count_apply_inventory",
+                        "payload": {"count": self.count_inventory_quants},
+                    },
                 )
         return res
 
     def action_add_scan_manual(self):
         self.manual_entry = True
         self.send_bus_done(
-            "stock_barcodes_scan", "stock_barcodes_edit_manual", {"manual_entry": True}
+            "stock_barcodes_scan",
+            {"type": "stock_barcodes_edit_manual", "payload": {"manual_entry": True}},
         )
 
     def process_lot_before_done(self):
@@ -833,19 +842,31 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.lot_id = self._create_new_lot()
         return True
 
-    def play_sounds(self, res):
+    def play_sounds(self, res=False):
         if res:
             self.send_bus_done(
                 "stock_barcodes_scan",
-                "stock_barcodes_sound",
-                {"sound": "ok", "res_model": self._name, "res_id": self.ids[0]},
+                {
+                    "type": "stock_barcodes_sound",
+                    "payload": {
+                        "sound": "ok",
+                        "res_model": self._name,
+                        "res_id": self.ids[0],
+                    },
+                },
             )
 
         else:
             self.send_bus_done(
                 "stock_barcodes_scan",
-                "stock_barcodes_sound",
-                {"sound": "ko", "res_model": self._name, "res_id": self.ids[0]},
+                {
+                    "type": "stock_barcodes_sound",
+                    "payload": {
+                        "sound": "ko",
+                        "res_model": self._name,
+                        "res_id": self.ids[0],
+                    },
+                },
             )
 
     def _set_focus_on_qty_input(self, field_name=None):
@@ -856,12 +877,14 @@ class WizStockBarcodesRead(models.AbstractModel):
 
         self.send_bus_done(
             "stock_barcodes_scan",
-            "stock_barcodes_focus",
             {
-                "action": "focus",
-                "field_name": field_name,
-                "res_model": self._name,
-                "res_id": self.ids[0],
+                "type": "stock_barcodes_focus",
+                "payload": {
+                    "action": "focus",
+                    "field_name": field_name,
+                    "res_model": self._name,
+                    "res_id": self.ids[0],
+                },
             },
         )
 
@@ -921,6 +944,5 @@ class WizStockBarcodesRead(models.AbstractModel):
                 message["title"] = title
             self.send_bus_done(
                 f"stock_barcodes-{self.ids[0]}",
-                f"stock_barcodes_notify-{self.ids[0]}",
-                message,
+                {"type": f"stock_barcodes_notify-{self.ids[0]}", "payload": message},
             )

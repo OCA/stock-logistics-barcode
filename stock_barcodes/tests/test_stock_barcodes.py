@@ -22,8 +22,8 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         super().setUpClass()
         cls.send_bus_done_calls = []
 
-    def fake_send_bus_done(self, channel, notif_type, data):
-        self.send_bus_done_calls.append((channel, notif_type, data))
+    def fake_send_bus_done(self, channel, data):
+        self.send_bus_done_calls.append((channel, data))
 
     def test_wizard_scan_location(self):
         self.action_barcode_scanned(self.wiz_scan, "8411322222568")
@@ -307,17 +307,19 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.wiz_scan.manual_entry = False
         self.wiz_scan._set_messagge_info(message_type, message)
         self.fake_send_bus_done(
-            "stock_barcodes_scan", "actions_barcode_notification", bus_data
+            "stock_barcodes_scan",
+            {"type": "actions_barcode_notification", "payload": bus_data},
         )
 
         self.assertTrue(self.wiz_scan.manual_entry)
         self.assertEqual(len(self.send_bus_done_calls), 1)
-        channel, notif_type, data = self.send_bus_done_calls[0]
+        channel, data = self.send_bus_done_calls[0]
         self.assertEqual(channel, "stock_barcodes_scan")
-        self.assertEqual(notif_type, "actions_barcode_notification")
-        self.assertEqual(data["message"], message)
-        self.assertTrue(data.get("sticky", False))
-        self.assertEqual(data["message_type"], "danger")
+        self.assertEqual(data["type"], "actions_barcode_notification")
+        payload = data["payload"]
+        self.assertEqual(payload["message"], message)
+        self.assertTrue(payload.get("sticky", False))
+        self.assertEqual(payload["message_type"], "danger")
 
     def test_process_barcode_location_dest_id(self):
         self.wiz_scan.barcode = "8411322222568"
