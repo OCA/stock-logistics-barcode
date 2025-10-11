@@ -20,8 +20,10 @@ class StockQuant(models.Model):
             wiz_id._compute_count_inventory_quants()
             wiz_id.send_bus_done(
                 "stock_barcodes_form_update",
-                "count_apply_inventory",
-                {"count": wiz_id.count_inventory_quants},
+                {
+                    "type": "count_apply_inventory",
+                    "payload": {"count": wiz_id.count_inventory_quants},
+                },
             )
 
     def _get_fields_to_edit(self):
@@ -47,18 +49,22 @@ class StockQuant(models.Model):
         wiz_barcode.manual_entry = True
         self.send_bus_done(
             "stock_barcodes_scan",
-            "stock_barcodes_edit_manual",
             {
-                "manual_entry": True,
+                "type": "stock_barcodes_edit_manual",
+                "payload": {
+                    "manual_entry": True,
+                },
             },
         )
 
     def enable_current_operations(self):
         self.send_bus_done(
             "stock_barcodes_kanban_update",
-            "enable_operations",
             {
-                "id": self.id,
+                "type": "enable_operations",
+                "payload": {
+                    "id": self.id,
+                },
             },
         )
 
@@ -74,8 +80,7 @@ class StockQuant(models.Model):
         res = super().action_apply_inventory()
         self.send_bus_done(
             "stock_barcodes_scan",
-            "actions_barcode",
-            {"apply_inventory": True},
+            {"type": "actions_barcode", "payload": {"apply_inventory": True}},
         )
         return res
 

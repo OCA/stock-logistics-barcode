@@ -132,7 +132,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             for line in product_moves:
                 rec.total_product_uom_qty += line.product_uom_qty
-                rec.total_product_qty_done += line.quantity
+                rec.total_product_qty_done += line.qty_picked
 
     @api.depends("location_id", "product_id", "lot_id")
     def _compute_qty_available(self):
@@ -585,7 +585,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         available_qty = self.product_qty
         max_quantity = sum(
             sm.product_uom_qty
-            - (sm.quantity if sm.quantity != sm.product_uom_qty else 0)
+            - (sm.qty_picked if sm.qty_picked != sm.product_uom_qty else 0)
             for sm in moves_todo
         )
         if (
@@ -625,11 +625,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 # Do not increase the quantity, if the quantity is > 0
                 qty_done = assigned_qty
             else:
-                qty_done = line.qty_done + assigned_qty
+                qty_done = line.qty_picked + assigned_qty
             sml_vals.update(
                 {
                     "qty_picked": qty_done,
-                    "quantity": qty_done,
+                    # "quantity": qty_done,
                     "result_package_id": self.result_package_id.id,
                 }
             )
@@ -689,7 +689,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if not sml.move_id:
                     self.create_new_stock_move(sml)
                 elif sml.move_id and context.get("force_create_move", False):
-                    sml.move_id.product_uom_qty = self.product_qty
+                    pass
+                    # TODO: Review this scenario
+                    # sml.move_id.product_uom_qty = self.product_qty
                 move_lines_dic[sml.id] = sml.qty_picked
             # Ensure that the state of stock_move linked to the sml read is assigned
             stock_move_lines.move_id.filtered(
@@ -816,9 +818,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.manual_entry = False
         self.send_bus_done(
             "stock_barcodes_scan",
-            "stock_barcodes_edit_manual",
             {
-                "manual_entry": False,
+                "type": "stock_barcodes_edit_manual",
+                "payload": {
+                    "manual_entry": False,
+                },
             },
         )
         return res
@@ -914,7 +918,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _update_fill_record_values(self, line, vals):
         if vals["is_stock_move_line_origin"]:
-            vals["product_uom_qty"] += line.quantity_product_uom
+            vals["product_uom_qty"] += sum(line.mapped("move_id.product_uom_qty"))
             vals["product_qty_reserved"] += line.quantity
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
@@ -956,12 +960,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     todo_vals[key] = self._update_fill_record_values(
                         line, todo_vals[key]
                     )
+                # Max between the reserved and picked..
+                # Ups!! in 18.0 not reserved quantities on sml... so???
                 if is_stock_move_line_origin:
                     move_qty_dic[line.move_id] += max(
-                        line.quantity_product_uom, line.quantity
+                        sum(line.mapped("move_id.product_uom_qty")), line.qty_picked
                     )
                 else:
-                    move_qty_dic[line] += max(line.product_uom_qty, line.quantity)
+                    move_qty_dic[line] += max(line.product_uom_qty, line.qty_picked)
         for move in self.get_moves():
             qty = move_qty_dic[move]
             if (

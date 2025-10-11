@@ -1,13 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" ?>
 <templates xml:space="preserve">
-
-  <t
-        t-name="views.ViewButton"
-        t-inherit="web.views.ViewButton"
-        t-inherit-mode="extension"
-    >
-        <xpath expr="//t[@t-tag]" position="attributes">
-            <attribute name="t-att-data-hotkey">props.hotkey</attribute>
+    <t t-inherit="web.ViewButton" t-inherit-mode="extension">
+        <xpath expr="//button" position="attributes">
+            <attribute name="t-att-accesskey">props['accesskey']</attribute>
+            <attribute name="t-att-data-hotkey">props['data-hotkey']</attribute>
         </xpath>
     </t>
 </templates>
