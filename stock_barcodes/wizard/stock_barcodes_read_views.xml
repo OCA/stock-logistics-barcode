@@ -312,6 +312,7 @@
                                     <field name="show_stock" invisible="1" />
                                     <span
                                         class="f-weight-900 d-none d-sm-block my-2"
+                                        invisible="not show_stock"
                                     >Stock Quantity</span>
                                     <field
                                         name="product_in_stock"

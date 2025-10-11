@@ -11,6 +11,7 @@ import {isAllowedBarcodeModel} from "../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
 import {useEffect} from "@odoo/owl";
 import {useService} from "@web/core/utils/hooks";
+import {waitVisibleElement} from "../utils/wait_visible_elment_helper.esm";
 
 let barcodeOverlaysVisible = false;
 
@@ -72,7 +73,7 @@ export function barcodeAddHotkeyOverlays(activeElement) {
 function setupView() {
     const actionService = useService("action");
     const uiService = useService("ui");
-    const busService = this.env.services.bus_service;
+    const busService = useService("bus_service");
     const notification = useService("notification");
 
     const handleKeys = async (ev) => {
@@ -104,120 +105,119 @@ function setupView() {
         }
     };
 
-    const handleNotification = ({detail: notifications}) => {
-        if (notifications && notifications.length > 0) {
-            notifications.forEach((notif) => {
-                const {payload, type} = notif;
-                if (
-                    (this.model.root.resModel === payload.res_model) &
-                    (this.model.root.resId === payload.res_id)
-                ) {
-                    if (type === "stock_barcodes_sound") {
-                        if (payload.sound === "ko") {
-                            this.$sound_ko[0].play();
-                        } else {
-                            this.$sound_ok[0].play();
-                        }
-                    } else if (type === "stock_barcodes_focus") {
-                        requestIdleCallback(() => {
-                            const input = document.querySelector(
-                                `[name=${payload.field_name}] input`
-                            );
-                            if (input) {
-                                input.focus();
-                            }
-                        });
-                    } else if (type === "stock_barcodes_notify") {
-                        notification.add(notif.payload.message, {
-                            title: notif.payload.title,
-                            type: notif.payload.type,
-                            sticky: notif.payload.sticky,
-                        });
-                    }
-                }
+    // Helpers: safe audio playback and idle callback fallback
+    const safePlay = (audio) => {
+        if (!audio) return;
+        audio.play();
+    };
 
-                if (type === "stock_barcodes_edit_manual") {
-                    if (payload.manual_entry) {
-                        this.env.bus.trigger("enableFormEditBarcode");
-                    } else if (!payload.manual_entry) {
-                        this.env.bus.trigger("disableFormEditBarcode");
-                    }
-                } else if (type === "actions_barcode") {
-                    if (payload.valid_picking) {
-                        notification.add(_t("The transfer has been validated"), {
-                            type: "success",
-                        });
-                    } else if (payload.apply_inventory) {
-                        notification.add(
-                            _t("The inventory adjustment has been validated"),
-                            {
-                                type: "success",
-                            }
-                        );
-                        return actionService.doAction(
-                            "stock_barcodes.action_stock_barcodes_action_client"
-                        );
-                    }
-                } else if (type === "actions_barcode_notification") {
-                    notification.add(_t(payload.message), {
-                        type: payload.message_type,
-                        sticky: payload.sticky,
-                    });
+    const handleNotification = (notif) => {
+        const {payload, type} = notif;
+        if (
+            (this.model.root.resModel == payload.res_model) &
+            (this.model.root.resId == payload.res_id)
+        ) {
+            if (type === "stock_barcodes_sound") {
+                if (payload?.sound === "ko") {
+                    safePlay(this.soundKo);
+                } else {
+                    safePlay(this.soundOk);
                 }
+            } else if (type === "stock_barcodes_focus") {
+                requestIdleCallback(() => {
+                    // Build a robust selector: [name="..."] input
+                    let selector = "";
+                    if (window.CSS && typeof CSS.escape === "function") {
+                        selector = `[name="${CSS.escape(payload.field_name)}"] input`;
+                    } else {
+                        // Basic fallback (works si no hay caracteres especiales)
+                        selector = `[name="${payload.field_name}"] input`;
+                    }
+                    waitVisibleElement(selector, 5000)
+                        .then((input) => {
+                            input.focus();
+                        })
+                        .catch((err) => console.warn(err.message));
+                });
+            } else if (type === "stock_barcodes_notify") {
+                notification.add(payload?.message || "", {
+                    title: payload?.title,
+                    type: payload?.type,
+                    sticky: Boolean(payload?.sticky),
+                });
+            }
+        }
+
+        // Global (no limitados al record actual)
+        if (type === "stock_barcodes_edit_manual") {
+            if (payload?.manual_entry) {
+                this.env.bus.trigger("enableFormEditBarcode");
+            } else {
+                this.env.bus.trigger("disableFormEditBarcode");
+            }
+        } else if (type === "actions_barcode") {
+            if (payload?.valid_picking) {
+                notification.add(_t("The transfer has been validated"), {
+                    type: "success",
+                });
+            } else if (payload?.apply_inventory) {
+                actionService.doAction(
+                    "stock_barcodes.action_stock_barcodes_action_client"
+                );
+                notification.add(_t("The inventory adjustment has been validated"), {
+                    type: "success",
+                });
+            }
+        } else if (type === "actions_barcode_notification") {
+            notification.add(_t(payload?.message || ""), {
+                type: payload?.message_type,
+                sticky: Boolean(payload?.sticky),
             });
         }
     };
-
+    busService.subscribe("stock_barcodes_scan", handleNotification);
     useEffect(() => {
-        document.body.addEventListener("keydown", handleKeys);
+        // Keydown handler
+        const onKeyDown = handleKeys;
 
-        this.$sound_ok = $("<audio>", {
-            src: "/stock_barcodes/static/src/sounds/bell.wav",
-            preload: "auto",
-        });
-        this.$sound_ok.appendTo("body");
-        this.$sound_ko = $("<audio>", {
-            src: "/stock_barcodes/static/src/sounds/error.wav",
-            preload: "auto",
-        });
-        this.$sound_ko.appendTo("body");
+        // Create audio elements without jQuery
+        // (not needed to append to DOM to play)
+        const soundOk = new Audio("/stock_barcodes/static/src/sounds/bell.wav");
+        soundOk.preload = "auto";
+        const soundKo = new Audio("/stock_barcodes/static/src/sounds/error.wav");
+        soundKo.preload = "auto";
 
-        busService.addChannel("stock_barcodes_scan");
-        busService.addEventListener("notification", handleNotification);
+        // Store references on the component instance
+        this.soundOk = soundOk;
+        this.soundKo = soundKo;
 
+        // DOM event
+        document.body.addEventListener("keydown", onKeyDown);
+
+        // Cleanup
         return () => {
-            this.$sound_ok.remove();
-            this.$sound_ko.remove();
-            document.body.removeEventListener("keydown", handleKeys);
-            busService.deleteChannel("stock_barcodes_scan");
-            busService.removeEventListener("notification", handleNotification);
+            document.body.removeEventListener("keydown", onKeyDown);
+
+            // Drop references (not appended, so no DOM removal needed)
+            this.soundOk = null;
+            this.soundKo = null;
         };
     });
 }
 
-patch(KanbanController.prototype, {
-    setup() {
-        super.setup();
-        if (isAllowedBarcodeModel(this.props.resModel)) {
-            setupView.call(this);
-        }
-    },
-});
-
-patch(FormController.prototype, {
-    setup() {
-        super.setup();
-        if (isAllowedBarcodeModel(this.props.resModel)) {
-            setupView.call(this);
-        }
-    },
-});
-
-patch(ListController.prototype, {
-    setup() {
-        super.setup();
-        if (isAllowedBarcodeModel(this.props.resModel)) {
-            setupView.call(this);
-        }
-    },
-});
+function patchControllerSetup(Controller) {
+    patch(Controller.prototype, {
+        setup() {
+            super.setup(...arguments);
+            // Guard por si props aún no están listas
+            const resModel = this?.props?.resModel;
+            if (resModel && isAllowedBarcodeModel(resModel)) {
+                // Ejecuta tu wiring (useEffect, bus, etc.)
+                setupView.call(this);
+            }
+        },
+    });
+}
+patchControllerSetup(KanbanController);
+patchControllerSetup(FormController);
+patchControllerSetup(ListController);
