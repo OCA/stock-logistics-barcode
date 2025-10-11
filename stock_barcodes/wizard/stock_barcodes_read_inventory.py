@@ -62,8 +62,10 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             # UPDATE: Count elements for apply in inventory
             wiz.send_bus_done(
                 "stock_barcodes_form_update",
-                "count_apply_inventory",
-                {"count": wiz.count_inventory_quants},
+                {
+                    "type": "count_apply_inventory",
+                    "payload": {"count": wiz.count_inventory_quants},
+                },
             )
 
     def _prepare_stock_quant_values(self):
@@ -141,9 +143,11 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         self.manual_entry = False
         self.send_bus_done(
             "stock_barcodes_scan",
-            "stock_barcodes_edit_manual",
             {
-                "manual_entry": False,
+                "type": "stock_barcodes_edit_manual",
+                "payload": {
+                    "manual_entry": False,
+                },
             },
         )
         return res

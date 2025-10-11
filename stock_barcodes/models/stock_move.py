@@ -1,7 +1,7 @@
 # Copyright 2024 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
 
-from odoo import fields, models
+from odoo import api, fields, models
 
 
 class StockMove(models.Model):
@@ -16,6 +16,16 @@ class StockMove(models.Model):
         string="Backorder action",
         default="pending",
     )
+    qty_picked = fields.Float(
+        "Quantity picked",
+        digits="Product Unit of Measure",
+        compute="_compute_qty_picked",
+    )
+
+    @api.depends("move_line_ids.qty_picked")
+    def _compute_qty_picked(self):
+        for move in self:
+            move.qty_picked = sum(move.mapped("move_line_ids.qty_picked"))
 
     def _action_done(self, cancel_backorder=False):
         moves_cancel_backorder = self.browse()
