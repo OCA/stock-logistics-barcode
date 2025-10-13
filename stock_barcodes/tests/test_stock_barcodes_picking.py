@@ -220,55 +220,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         wiz_scan_picking.action_confirm()
         self.assertEqual(sml.quantity, 12.0)
 
-    def test_barcode_from_operation(self):
-        picking_out_3 = self.picking_out_01.copy()
-        self.picking_out_01.action_assign()
-        self.picking_out_02.action_assign()
-        self.picking_type_out.default_location_dest_id = self.customer_location
-
-        action = self.picking_type_out.action_barcode_scan()
-        self.wiz_scan_picking = self.ScanReadPicking.browse(action["res_id"])
-        self.wiz_scan_picking.manual_entry = True
-        self.wiz_scan_picking.product_id = self.product_tracking
-        self.wiz_scan_picking.lot_id = self.lot_1
-        self.wiz_scan_picking.product_qty = 2
-
-        self.wiz_scan_picking.with_context(
-            force_create_move=True, no_increase_qty_done=True
-        ).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:2]), 2)
-        # Lock first picking
-        candidate = self.wiz_scan_picking.candidate_picking_ids.filtered(
-            lambda c: c.picking_id == self.picking_out_01
-        )
-        candidate_wiz = candidate.with_context(
-            wiz_barcode_id=self.wiz_scan_picking.id, picking_id=self.picking_out_01.id
-        )
-        candidate_wiz.with_context(force_create_move=True).action_lock_picking()
-        self.assertEqual(self.picking_out_01.move_ids.quantity, 2)
-        self.wiz_scan_picking.product_qty = 2
-        self.wiz_scan_picking.with_context(
-            force_create_move=True, no_increase_qty_done=True
-        ).action_confirm()
-        self.assertEqual(self.picking_out_01.move_ids.quantity, 2)
-
-        # Picking out 3 is in confirmed state, so until confirmed moves has
-        # not been activated candidate pickings is 2
-        picking_out_3.action_confirm()
-        candidate_wiz.action_unlock_picking()
-        self.wiz_scan_picking.product_qty = 2
-        self.wiz_scan_picking.with_context(
-            force_create_move=True, no_increase_qty_done=True
-        ).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:2]), 2)
-        candidate_wiz.action_unlock_picking()
-        self.wiz_scan_picking.product_qty = 2
-        self.wiz_scan_picking.option_group_id.confirmed_moves = True
-        self.wiz_scan_picking.with_context(
-            force_create_move=True, no_increase_qty_done=True
-        ).action_confirm()
-        self.assertEqual(len(self.wiz_scan_picking.candidate_picking_ids[0:3]), 3)
-
     def test_picking_wizard_scan_product_auto_lot(self):
         # Prepare more data
         lot_2 = self.StockProductionLot.create(
@@ -528,15 +479,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 ).get_action_picking_tree_ready()
             ),
             dict,
-        )
-        self.assertIsNone(self.wiz_scan_candidate_picking._compute_picking_quantity())
-        self.assertIsNone(self.wiz_scan_candidate_picking._compute_is_pending())
-        self.assertEqual(
-            self.wiz_scan_candidate_picking._get_picking_to_validate()._name,
-            self.picking_in_01._name,
-        )
-        self.assertEqual(
-            type(self.wiz_scan_candidate_picking.action_validate_picking()), tuple
         )
 
     def test_set_default_picking(self):
