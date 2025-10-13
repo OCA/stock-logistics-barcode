@@ -9,7 +9,7 @@ class StockPickingBatch(models.Model):
     barcodes_requested_review = fields.Boolean()
 
     def write(self, vals):
-        res = super(StockPickingBatch, self).write(vals)
+        res = super().write(vals)
         # Set not assigned batch picking to allow to be assigned to other user to review
         if vals.get("barcodes_requested_review", False):
             self.user_id = False
