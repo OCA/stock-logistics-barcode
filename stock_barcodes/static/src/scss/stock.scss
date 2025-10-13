@@ -79,24 +79,6 @@
         }
     }
 
-    div[name="candidate_picking_ids"] {
-        div.oe_kanban_color_alert {
-            padding: 0 !important;
-            margin: 0 !important;
-        }
-
-        div.o_kanban_ungrouped.o_kanban_renderer {
-            margin: 0 !important;
-            padding: 0 !important;
-        }
-
-        @include media-breakpoint-down(sm) {
-            div.o_kanban_renderer {
-                margin: 2% 1% 2% 1% !important;
-            }
-        }
-    }
-
     div.scan_fields {
         width: 100% !important;
         margin: 0 !important;
