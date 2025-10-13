@@ -4,4 +4,4 @@
 
 import {barcodeModels} from "@stock_barcodes/utils/barcodes_models_utils.esm";
 
-barcodeModels.push("stock.picking.batch", "wiz.candidate.picking.batch");
+barcodeModels.push("stock.picking.batch");
