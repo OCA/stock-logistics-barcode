@@ -11,7 +11,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     @api.depends(
         "line_ids",
-        "line_ids.qty_done",
+        "line_ids.qty_picked",
         "line_ids.product_uom_qty",
         "line_ids.barcode_scan_state",
         "qty_done",

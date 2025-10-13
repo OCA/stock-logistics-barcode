@@ -10,6 +10,9 @@ class WizStockBarcodesReadPickingBatchRevision(models.TransientModel):
     review_picking_batch = fields.Boolean(
         help="Technical field to know the context (reviewer or not)"
     )
+    barcodes_requested_review = fields.Boolean(
+        related="picking_batch_id.barcodes_requested_review", readonly=False
+    )
 
     def _get_stock_move_lines_todo(self):
         if self.picking_mode != "picking_batch" or not self.review_picking_batch:
@@ -26,10 +29,5 @@ class WizStockBarcodesReadPickingBatchRevision(models.TransientModel):
             return super().action_clean_values()
         self.picking_batch_id.move_line_ids.barcodes_is_reviewed = False
 
-
-class WizCandidatePickingBatch(models.TransientModel):
-    _inherit = "wiz.candidate.picking.batch"
-
-    barcodes_requested_review = fields.Boolean(
-        related="picking_batch_id.barcodes_requested_review", readonly=False
-    )
+    def action_barcodes_requested_review(self):
+        self.barcodes_requested_review = not self.barcodes_requested_review
