@@ -55,9 +55,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
 
     def _compute_move_line_ids(self):
         if self.picking_mode != "picking_batch":
-            return super(
-                WizStockBarcodesReadPickingBatch, self
-            )._compute_move_line_ids()
+            return super()._compute_move_line_ids()
         self.move_line_ids = self.picking_batch_id.move_line_ids.filtered(
             "qty_done"
         ).sorted("write_date", reverse=True)
