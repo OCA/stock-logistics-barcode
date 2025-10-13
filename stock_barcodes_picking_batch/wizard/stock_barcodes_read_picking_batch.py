@@ -31,9 +31,6 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         ondelete={"picking_batch": "set picking"},
     )
     picking_batch_state = fields.Selection(related="picking_batch_id.state")
-    picking_batch_show_validate = fields.Boolean(
-        related="picking_batch_id.show_validate"
-    )
     picking_batch_show_check_availability = fields.Boolean(
         related="picking_batch_id.show_check_availability"
     )
@@ -57,7 +54,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if self.picking_mode != "picking_batch":
             return super()._compute_move_line_ids()
         self.move_line_ids = self.picking_batch_id.move_line_ids.filtered(
-            "qty_done"
+            "qty_picked"
         ).sorted("write_date", reverse=True)
 
     @api.onchange("picking_batch_id")
@@ -106,7 +103,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
     def update_fields_after_process_stock(self, moves):
         if self.picking_mode != "picking_batch":
             return super().update_fields_after_process_stock(moves)
-        self.picking_batch_product_qty = sum(moves.mapped("quantity_done"))
+        self.picking_batch_product_qty = sum(moves.mapped("quantity"))
 
     def check_done_conditions(self):
         res = super().check_done_conditions()
@@ -148,20 +145,18 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             )
         else:
             moves = to_do.stock_move_ids.filtered(
-                lambda ln: ln.ln.quantity_done < ln.product_uom_qty
+                lambda ln: ln.quantity < ln.product_uom_qty
             )
         # TODO: split between all lines
         sml = self.env["stock.move.line"].browse()
         for move in moves:
             if move._name == "stock.move.line":
-                move_qty_done = "qty_done"
                 move_demand = move.move_id.product_uom_qty
             else:
-                move_qty_done = "quantity_done"
                 move_demand = move.product_uom_qty
             if move_demand:
                 assigned_qty = min(
-                    max(move_demand - move[move_qty_done], 0.0), available_qty
+                    max(move_demand - move.qty_picked, 0.0), available_qty
                 )
             else:
                 assigned_qty = available_qty
