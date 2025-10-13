@@ -25,7 +25,7 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
         # Barcode for packaging and lot
         cls.gs1_barcode_01_product = "0118410525244930"
         cls.gs1_barcode_01_lot = "1714070410AB-123"
-        cls.gs1_separator = gs1_nomenclature.gs1_separator_fnc1 or "\x1D"
+        cls.gs1_separator = gs1_nomenclature.gs1_separator_fnc1 or "\x1d"
         cls.gs1_barcode_unit_01 = cls.gs1_separator + "301"
         cls.gs1_barcode_unit_02 = cls.gs1_separator + "302"
         cls.gs1_barcode_unit_03 = cls.gs1_separator + "373"
