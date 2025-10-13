@@ -23,79 +23,8 @@
                         invisible="context.get('hide_partner', False)"
                     />
                 </span>
-                <field name="candidate_picking_id" invisible="1" />
-
-                <button
-                    name="action_unlock_picking"
-                    type="object"
-                    title="unlock picking"
-                    invisible="candidate_picking_id == picking_id"
-                    class="float-end"
-                >
-                    <span class="fa-stack fa-lg">
-                        <!-- FIXME: Use fa-thumbtack fa-stack-2x on v13 with FA v5.4 -->
-                        <i class="fa fa-thumb-tack fa-stack-1x" />
-                        <!-- FIXME: Use fa-slash on v13 with FA v5.4 -->
-                        <i class="fa fa-ban fa-stack-2x" />
-                    </span>
-                </button>
-                <button
-                    name="action_lock_picking"
-                    type="object"
-                    title="lock picking"
-                    invisible="candidate_picking_id != picking_id"
-                    class="fa fa-thumb-tack fa-2x float-end"
-                />
             </xpath>
             <xpath expr="//field[@name='message_type']" position="before">
-                <field
-                    name="candidate_picking_ids"
-                    invisible="candidate_picking_ids == False"
-                    mode="kanban"
-                    nolabel="1"
-                    force_save="1"
-                    class="o_x2m_control_panel"
-                    options="{'always_reload': True}"
-                >
-                    <kanban>
-                        <field name="name" />
-                        <field name="partner_id" />
-                        <field name="date" />
-                        <field name="state" />
-                        <field name="picking_id" />
-                        <field name="wiz_picking_id" />
-                        <field name="product_qty_reserved" />
-                        <field name="product_uom_qty" />
-                        <field name="product_qty_done" />
-                        <field name="scan_count" />
-                        <field name="is_pending" />
-                        <field name="note" />
-                        <templates>
-                            <t t-name="kanban-box">
-                                <div
-                                    t-if="!widget.isHtmlEmpty(record.note.raw_value)"
-                                    t-att-class="'oe_kanban_color_alert' + (record.is_pending.raw_value == false ? ' bg-success' : '')"
-                                >
-                                    <div class="oe_kanban_details p-2">
-                                        <field
-                                            name="scan_count"
-                                            invisible="1"
-                                            force_save="1"
-                                        />
-                                        <div
-                                            class="fw-bold text-center text-danger fst-italic"
-                                        >
-                                            <t
-                                                t-out="record.note.value"
-                                                invisible="context.get('hide_note', False)"
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-                            </t>
-                        </templates>
-                    </kanban>
-                </field>
                 <field
                     name="todo_line_display_ids"
                     mode="kanban"
