@@ -442,7 +442,7 @@
             </group>
             <xpath
                 expr="//div[@name='total_qty_field']//field[@name='product_qty']"
-                position="after"
+                position="before"
             >
                 <field name="product_packaging_ids" invisible="1" />
                 <div
