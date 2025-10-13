@@ -101,7 +101,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         )
         self.assertEqual(self.wiz_scan_picking_batch.res_id, self.picking_batch.id)
         self.assertIn(
-            "Barcode reader - %s - " % (self.picking_batch.name),
+            f"Barcode reader - {self.picking_batch.name} - ",
             self.wiz_scan_picking_batch.display_name,
         )
 
@@ -115,7 +115,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         sml = self.picking_batch.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(sum(sml.mapped("qty_done")), 1.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 1.0)
 
     def test_picking_batch_wizard_scan_more_product_than_needed(self):
         self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
@@ -140,7 +140,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         sml = self.picking_batch.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(sum(sml.mapped("qty_done")), 6.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 6.0)
 
         # Check that all qty's have included in pickings
         self.action_barcode_scanned(wiz_scan_picking_batch, "8480000723208")
@@ -151,4 +151,4 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         sml = self.picking_batch.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(sum(sml.mapped("qty_done")), 15.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 15.0)
