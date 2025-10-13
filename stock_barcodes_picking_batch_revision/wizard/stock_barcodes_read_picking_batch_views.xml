@@ -8,136 +8,116 @@
             ref="stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form"
         />
         <field name="arch" type="xml">
-            <button name="action_validate_picking_batch" position="after">
-                <div
-                    attrs="{'invisible': [('is_pending', '=', True)]}"
-                    class="float-end"
-                >
-                    <label for="barcodes_requested_review" class="me-2">
-                        Review
-                    </label>
-                    <field
-                        name="barcodes_requested_review"
-                        widget="boolean_toggle_big"
-                    />
-                </div>
-            </button>
+            <xpath
+                expr="//div[hasclass('oe_stock_barcodes_bottombar')]//div[hasclass('dropup')]"
+                position="inside"
+            >
+                <field
+                    name="barcodes_requested_review"
+                    widget="barcode_boolean_toggle"
+                    class="d-none"
+                />
+                <button
+                    name="action_barcodes_requested_review"
+                    type="object"
+                    title="Request review"
+                    icon="fa-calendar-check-o fa-2x"
+                    invisible="barcodes_requested_review"
+                />
+                <button
+                    name="action_barcodes_requested_review"
+                    type="object"
+                    title="Cancel requested review"
+                    icon="fa-calendar-times-o fa-2x"
+                    invisible="not barcodes_requested_review"
+                />
+            </xpath>
             <group name="scan_fields" position="before">
                 <field name="review_picking_batch" invisible="1" />
             </group>
             <div name="info" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+                <attribute name="invisible">review_picking_batch</attribute>
+            </div>
+            <div name="info" position="after">
+                <h3
+                    class="text-center mt-4"
+                    invisible="not review_picking_batch"
+                >Review all products</h3>
             </div>
             <group name="scan_fields" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+                <attribute name="invisible">review_picking_batch</attribute>
             </group>
             <!-- Hide detailed operation for reviewers -->
             <xpath expr="//field[@name='move_line_ids']/.." position="attributes">
                 <attribute
-                    name="attrs"
-                >{'invisible': ['|', '|', ('move_line_ids', '=', []), ('show_detailed_operations', '=', False), ('review_picking_batch', '=', True)]}</attribute>
+                    name="invisible"
+                >review_picking_batch or not show_detailed_operations or not move_line_ids</attribute>
             </xpath>
             <!-- Hide todo field for reviewers -->
             <field name="todo_line_display_ids" position="attributes">
                 <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
+                    name="invisible"
+                >review_picking_batch or not todo_line_display_ids</attribute>
             </field>
             <!-- Hide fill from pending lines button for reviewers -->
-            <xpath
-                expr="//field[@name='pending_move_ids']//tree//field[@name='product_uom_qty']"
-                position="after"
-            >
-                <field name="review_picking_batch" invisible="1" />
-            </xpath>
-            <xpath
-                expr="//tree/button[@name='fill_from_pending_line']"
-                position="attributes"
-            >
-                <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
-            </xpath>
             <xpath
                 expr="//field[@name='pending_move_ids']//kanban//field[@name='qty_done']"
                 position="after"
             >
                 <field name="review_picking_batch" invisible="1" />
             </xpath>
-            <xpath
-                expr="//kanban//button[@name='fill_from_pending_line']"
-                position="attributes"
-            >
-                <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
-            </xpath>
             <!-- Add button to confirm the review -->
             <xpath
-                expr="//tree//button[@name='fill_from_pending_line']"
-                position="after"
-            >
-                <button
-                    name="action_confirm_review"
-                    type="object"
-                    class="btn btn-success"
-                    icon="fa-check"
-                    context="{'wiz_barcode_id': parent.id}"
-                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
-                />
-            </xpath>
-            <xpath
-                expr="//kanban//button[@name='fill_from_pending_line']"
-                position="after"
+                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
+                position="before"
             >
                 <button
                     name="action_confirm_review"
                     type="object"
                     class="btn btn-success"
                     context="{'wiz_barcode_id': parent.id}"
-                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
+                    invisible="not review_picking_batch"
                 >
                     <i class="fa fa-check" title="Confirm review" />
                 </button>
             </xpath>
-            <div class="oe_stock_barcodes_bottombar d-flex" position="attributes">
-                <attribute
-                    name="attrs"
-                >{'invisible': [('review_picking_batch', '=', True)]}</attribute>
-            </div>
-            <div class="oe_stock_barcodes_bottombar d-flex" position="before">
+            <xpath
+                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
+                position="attributes"
+            >
+                <attribute name="invisible">review_picking_batch</attribute>
+            </xpath>
+
+            <xpath
+                expr="//div[hasclass('oe_stock_barcodes_bottombar')]"
+                position="after"
+            >
                 <div
                     class="oe_stock_barcodes_bottombar d-flex"
-                    attrs="{'invisible': [('review_picking_batch', '=', False)]}"
+                    invisible="not review_picking_batch or pending_move_ids"
                 >
-                    <field name="display_menu" invisible="1" />
-                    <!-- HACK: To avoid inheritance crash -->
-                    <button name="action_manual_entry" invisible="1" />
-                    <!-- // -->
                     <button
-                        name="action_clean_values"
+                        name="action_validate_picking_batch"
                         type="object"
-                        class="btn-warning ml-auto oe_kanban_action_button btn-sm"
-                        attrs="{'invisible': [('display_menu', '=', True)]}"
-                        data-hotkey="7"
+                        icon="fa-check fa-2x"
+                        class="btn btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
+                            d-flex justify-content-center align-items-center fs-2"
+                        invisible="picking_batch_state != 'in_progress'"
+                        confirm="Are you sure to validate the picking ?"
+                        data-hotkey="'shift+v'"
                     >
-                        <i class="fa fa-trash-o" title="Clean Values" />
-                    </button>
-                    <button
-                        name="open_actions"
-                        type="object"
-                        class="ml-auto oe_kanban_action_button btn-sm"
-                        attrs="{'invisible': [('display_menu', '=', True)]}"
-                        data-hotkey="0"
-                    >
-                        <i class="fa fa-bars" title="Open actions" />
+                        <span class="d-lg-block">Validate</span>
                     </button>
                 </div>
-            </div>
+            </xpath>
+            <xpath
+                expr="//div[hasclass('oe_stock_barcodes_bottombar')]"
+                position="attributes"
+            >
+                <attribute name="invisible">
+                    review_picking_batch
+                </attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
