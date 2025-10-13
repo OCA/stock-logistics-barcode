@@ -27,7 +27,6 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.WizScanReadInventory = cls.env["wiz.stock.barcodes.read.inventory"]
         cls.WizScanReadTodo = cls.env["wiz.stock.barcodes.read.todo"]
         cls.WizStockBarcodeRead = cls.env["wiz.stock.barcodes.read"]
-        cls.WizCandidatePicking = cls.env["wiz.candidate.picking"]
         cls.StockProductionLot = cls.env["stock.lot"]
         cls.StockPicking = cls.env["stock.picking"]
         cls.StockQuant = cls.env["stock.quant"]
@@ -386,10 +385,6 @@ class TestCommonStockBarcodes(TransactionCase):
 
         cls.wiz_scan_read_inventory = cls.WizScanReadInventory.create(
             {"option_group_id": cls.option_group.id, "step": 1}
-        )
-
-        cls.wiz_scan_candidate_picking = cls.WizCandidatePicking.create(
-            {"wiz_barcode_id": cls.wiz_scan.id}
         )
 
         # Barcode actions
