@@ -38,12 +38,12 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         digits="Product Unit of Measure",
         readonly=True,
     )
-    qty_done = fields.Float(
+    qty_picked = fields.Float(
         "Done",
         digits="Product Unit of Measure",
-        compute="_compute_qty_done",
+        compute="_compute_qty_picked",
     )
-    qty_done_rest = fields.Float(compute="_compute_qty_done_rest", store=True)
+    qty_picked_rest = fields.Float(compute="_compute_qty_picked_rest", store=True)
     location_id = fields.Many2one(comodel_name="stock.location")
     location_name = fields.Char(related="location_id.name")
     location_dest_id = fields.Many2one(comodel_name="stock.location")
@@ -67,10 +67,10 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     # Used in kanban view
     is_stock_move_line_origin = fields.Boolean()
 
-    @api.depends("qty_done", "product_uom_qty")
-    def _compute_qty_done_rest(self):
+    @api.depends("qty_picked", "product_uom_qty")
+    def _compute_qty_picked_rest(self):
         for rec in self:
-            rec.qty_done_rest = rec.product_uom_qty - rec.qty_done
+            rec.qty_picked_rest = rec.product_uom_qty - rec.qty_picked
 
     def action_todo_next(self):
         self.state = "done_forced"
@@ -85,7 +85,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 == 0
             ):
                 continue
-            if sml.move_id.state == "confirmed" and sml.qty_done:
+            if sml.move_id.state == "confirmed" and sml.qty_picked:
                 sml.move_id.state = "partially_available"
             if sml.move_id.state in ["partially_available", "assigned"]:
                 sml.quantity_product_uom = sml.quantity
@@ -105,7 +105,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def action_reset_lines(self):
         self.state = "pending"
         self.line_ids.barcode_scan_state = "pending"
-        self.line_ids.qty_done = 0.0
+        self.line_ids.qty_picked = 0.0
         self.wiz_barcode_id.action_clean_values()
         self.wiz_barcode_id.fill_todo_records()
         self.wiz_barcode_id.determine_todo_action()
@@ -120,23 +120,23 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             record = self.wiz_barcode_id.todo_line_ids[self.position_index + 1]
             self.wiz_barcode_id.determine_todo_action(forced_todo_line=record)
 
-    @api.depends("line_ids.qty_done")
-    def _compute_qty_done(self):
+    @api.depends("line_ids.qty_picked")
+    def _compute_qty_picked(self):
         for rec in self:
-            rec.qty_done = sum(ln.quantity for ln in rec.line_ids)
+            rec.qty_picked = sum(ln.qty_picked for ln in rec.line_ids)
 
     @api.depends(
         "line_ids",
-        "line_ids.qty_done",
+        "line_ids.qty_picked",
         "line_ids.quantity_product_uom",
         "line_ids.barcode_scan_state",
-        "qty_done",
+        "qty_picked",
         "product_uom_qty",
     )
     def _compute_state(self):
         for rec in self:
             if float_compare(
-                rec.qty_done,
+                rec.qty_picked,
                 rec.product_uom_qty,
                 precision_rounding=rec.uom_id.rounding,
             ) > -1 or (
@@ -178,7 +178,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             "product_qty", "filled_default"
         ):
             self.wiz_barcode_id.product_qty = self.product_uom_qty - sum(
-                self.line_ids.mapped("qty_done")
+                self.line_ids.mapped("qty_picked")
             )
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id.action_show_step()
@@ -211,7 +211,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             for fname in self._get_fields_to_edit():
                 if hasattr(wiz_barcode, fname):
                     wiz_barcode[fname] = quant[fname]
-            wiz_barcode.product_qty = quant.qty_done
+            wiz_barcode.product_qty = quant.qty_picked
 
         wiz_barcode.manual_entry = True
         self.env["bus.bus"]._sendone(

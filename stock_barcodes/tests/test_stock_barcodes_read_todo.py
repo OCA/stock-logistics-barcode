@@ -16,7 +16,7 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
             self.wiz_scan_read_todo.action_reset_lines()
             self.wiz_scan_read_todo.line_ids._compute_barcode_scan_state()
             self.assertEqual(self.wiz_scan_read_todo.state, "pending")
-            self.assertEqual(self.wiz_scan_read_todo.line_ids.qty_done, 0)
+            self.assertEqual(self.wiz_scan_read_todo.line_ids.qty_picked, 0)
             mock_msg.assert_called_once_with()
 
     def test_fields_to_fill_from_pending_line(self):

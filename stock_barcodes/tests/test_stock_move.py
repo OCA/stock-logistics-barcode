@@ -34,6 +34,6 @@ class TestStockMove(TestCommonStockBarcodes):
         line.quantity = 5
         line._compute_barcode_scan_state()
         self.assertEqual(line.barcode_scan_state, "pending")
-        line.qty_done = 15
+        line.qty_picked = 15
         line._compute_barcode_scan_state()
         self.assertEqual(line.barcode_scan_state, "done")

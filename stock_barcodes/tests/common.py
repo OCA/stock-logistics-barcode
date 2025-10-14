@@ -369,7 +369,7 @@ class TestCommonStockBarcodes(TransactionCase):
                             "location_id": cls.location_1.id,
                             "location_dest_id": cls.location_1.id,
                             "quantity_product_uom": 15,
-                            "qty_done": 10,
+                            "qty_picked": 10,
                         }
                     ),
                 ],

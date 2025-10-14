@@ -14,23 +14,23 @@ class StockMoveLine(models.Model):
         readonly=False,
         store=True,
     )
-    qty_done = fields.Float(compute="_compute_qty_done", store=True)
+    qty_picked = fields.Float(compute="_compute_qty_picked", store=True)
 
     @api.depends("picked", "quantity")
-    def _compute_qty_done(self):
+    def _compute_qty_picked(self):
         for line in self:
-            line.qty_done = line.quantity if line.picked else 0
+            line.qty_picked = line.quantity if line.picked else 0
 
-    @api.depends("qty_done", "quantity_product_uom")
+    @api.depends("qty_picked", "quantity_product_uom")
     def _compute_barcode_scan_state(self):
         for line in self:
-            if line.qty_done >= line.quantity_product_uom:
+            if line.qty_picked >= line.quantity_product_uom:
                 line.barcode_scan_state = "done"
             else:
                 line.barcode_scan_state = "pending"
 
     def _barcodes_process_line_to_unlink(self):
-        self.qty_done = 0.0
+        self.qty_picked = 0.0
 
     def action_barcode_detailed_operation_unlink(self):
         for sml in self:

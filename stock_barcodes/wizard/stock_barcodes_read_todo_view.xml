@@ -17,7 +17,7 @@
                 <field name="result_package_id" />
                 <field name="package_product_qty" />
                 <field name="product_uom_qty" />
-                <field name="qty_done" />
+                <field name="qty_picked" />
                 <field name="line_ids" invisible="1" />
                 <field name="state" />
                 <field name="is_extra_line" />
@@ -94,7 +94,7 @@
                                 <div class="col-12">
                                     <span>
                                         <span class="fw-bold">
-                                            <t t-esc="record.qty_done.value" />
+                                            <t t-esc="record.qty_picked.value" />
                                         </span> / <t
                                             t-esc="record.product_uom_qty.value"
                                         /> <t t-esc="record.uom_id.value.slice(0,3)" />
@@ -135,7 +135,7 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        invisible="qty_done == 0.0 or is_extra_line or not is_stock_move_line_origin"
+                                        invisible="qty_picked == 0.0 or is_extra_line or not is_stock_move_line_origin"
                                     >
                                     Ignore rest
                                     </button>
@@ -146,7 +146,7 @@
                                         class="btn-sm mx-auto d-block btn-danger btn"
                                         context="{'wiz_barcode_id': parent.id}"
                                         data-hotkey="3"
-                                        invisible="qty_done != 0.0 or is_extra_line or not is_stock_move_line_origin"
+                                        invisible="qty_picked != 0.0 or is_extra_line or not is_stock_move_line_origin"
                                         confirm="You have not set any quantity to this operation and it will be removed from pending moves. Are you sure?"
                                     >Ignore rest
                                     </button>

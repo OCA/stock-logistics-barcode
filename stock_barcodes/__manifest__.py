@@ -8,7 +8,15 @@
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "category": "Extra Tools",
-    "depends": ["base", "barcodes", "stock", "web_widget_numeric_step", "web", "mail"],
+    "depends": [
+        "base",
+        "barcodes",
+        "stock",
+        "web_widget_numeric_step",
+        "web",
+        "mail",
+        "stock_move_line_qty_picked",
+    ],
     "data": [
         "security/ir.model.access.csv",
         "views/stock_barcodes_action_view.xml",
@@ -44,5 +52,4 @@
     },
     "installable": True,
     "pre_init_hook": "pre_init_hook",
-    "external_dependencies": {"python": ["python-barcode"]},
 }
