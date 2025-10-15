@@ -134,7 +134,7 @@
                                                 <button
                                                     name="action_barcode_inventory_quant_edit"
                                                     type="object"
-                                                    class="btn mt0"
+                                                    class="btn btn-op-big btn-outline-secondary mt0 me-2"
                                                     context="{'wiz_barcode_id': parent.id}"
                                                 >
                                                     <i
@@ -145,7 +145,7 @@
                                                 <button
                                                     name="operation_quantities"
                                                     type="object"
-                                                    class="btn btn-lg btn-primary btn-op-sum"
+                                                    class="btn btn-lg btn-primary btn-op-big"
                                                     t-if="record.qty_done_rest.raw_value > 0"
                                                 >
                                                     +
@@ -212,11 +212,14 @@
                                             <div
                                                 class="col-4 col-md-4 d-flex justify-content-end align-items-center"
                                             >
-                                                <field class="h3" name="qty_picked" />
+                                                <field
+                                                    class="h3 me-2"
+                                                    name="qty_picked"
+                                                />
                                                 <button
                                                     name="action_barcode_detailed_operation_unlink"
                                                     type="object"
-                                                    class="btn mt0"
+                                                    class="btn btn-op-big btn-outline-secondary mt0"
                                                     context="{'wiz_barcode_id': parent.id}"
                                                 >
                                                     <i
@@ -264,7 +267,7 @@
                 <button
                     name="action_validate_picking"
                     type="object"
-                    icon="fa-check fa-2x"
+                    icon="fa-check"
                     class="btn btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
                     d-flex justify-content-center align-items-center fs-2"
                     invisible="picking_state not in ('draft', 'assigned', 'confirmed')"
@@ -287,16 +290,18 @@
                     name="action_show_detailed_operations"
                     type="object"
                     title="Detailed operations"
-                    icon="fa-eye fa-2x"
+                    icon="fa-eye"
                     invisible="move_line_ids == False or show_detailed_operations"
+                    class="fs-2"
                 />
 
                 <button
                     name="action_show_detailed_operations"
                     type="object"
                     title="Detailed operations"
-                    icon="fa-eye-slash fa-2x"
+                    icon="fa-eye-slash"
                     invisible="move_line_ids == False or not show_detailed_operations"
+                    class="fs-2"
                 />
             </xpath>
         </field>
