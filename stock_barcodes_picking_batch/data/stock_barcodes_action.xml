@@ -9,7 +9,7 @@
         />
         <field
             name="context"
-        >{"search_default_my_batch": 1, 'search_default_state': 'assigned'}</field>
+        >{"search_default_my_batch": 1, "search_default_draft": False}</field>
         <field name="key_char_shortcut">5</field>
     </record>
 </odoo>
