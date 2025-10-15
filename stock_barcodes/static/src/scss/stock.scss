@@ -41,10 +41,13 @@
         display: contents !important;
     }
 
-    div[name="package_id"],
+    div[name="package_id"] {
+        width: 90% !important;
+    }
+
     div[name="product_id"],
     div[name="lot_id"] {
-        width: 90% !important;
+        width: 80% !important;
     }
 
     div[name="product_id"],
@@ -55,28 +58,6 @@
 
     div[name="location_dest_id"] {
         @include margin-form-edit-sm(0 0 1% 1%);
-    }
-
-    div.widget_numeric_step {
-        font-size: 1.5rem !important;
-    }
-
-    input#location_id,
-    input#location_dest_id,
-    input#package_id,
-    input#product_id,
-    input#lot_id_1,
-    input#lot_name {
-        border-radius: 0.5rem !important;
-        padding: 0.375rem 0.75rem !important;
-        height: 40px !important;
-        font-size: 1.5rem !important;
-
-        & + ul.o-autocomplete--dropdown-menu {
-            li {
-                font-size: 1.5rem !important;
-            }
-        }
     }
 
     div.scan_fields {
@@ -199,14 +180,6 @@
             padding: 0 !important;
         }
 
-        div[name="picking_id"] {
-            > a.o_form_uri {
-                span {
-                    color: white !important;
-                }
-            }
-        }
-
         div[name="action_unlock_picking"] {
             span {
                 color: white !important;
@@ -225,6 +198,13 @@
 
         div.barcode-danger {
             background-color: #dc3545 !important;
+        }
+        .o_field_many2one {
+            > a.o_form_uri {
+                span {
+                    color: white !important;
+                }
+            }
         }
     }
 }

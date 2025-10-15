@@ -25,13 +25,19 @@
         <field name="inherit_id" ref="stock.stock_picking_kanban" />
         <field name="arch" type="xml">
             <xpath expr="//kanban" position="attributes">
-                <attribute name="type">object</attribute>
-            </xpath>
-            <xpath expr="//kanban" position="attributes">
-                <attribute name="action">action_barcode_scan</attribute>
-            </xpath>
-            <xpath expr="//kanban" position="attributes">
                 <attribute name="js_class">stock_barcodes_kanban</attribute>
+            </xpath>
+            <xpath expr="//footer" position="after">
+                <div class="row">
+                    <div class="col-6">
+                        <button
+                            name="action_barcode_scan"
+                            type="object"
+                            icon="fa-barcode"
+                            class="btn btn-secondary"
+                        />
+                    </div>
+                </div>
             </xpath>
         </field>
     </record>

@@ -21,7 +21,8 @@ import {useEffect} from "@odoo/owl";
 export class StockBarcodesFormController extends FormController {
     setup() {
         super.setup();
-
+        // Needed to hide the odoo's navbar
+        this.display = {...this.display, controlPanel: false};
         // Public services (safe across 16/17/18)
         this.notification = useService("notification");
         this.action = useService("action");

@@ -935,17 +935,5 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         )
 
     def action_validate_picking(self):
-        context = dict(self.env.context)
         picking = self._get_picking_to_validate()
-        if picking._check_immediate():
-            return False, picking.with_context(
-                button_validate_picking_ids=picking.ids, operations_mode=True
-            )._action_generate_immediate_wizard(
-                show_transfers=picking._should_show_transfers()
-            )
-        return (
-            True,
-            picking.with_context(
-                skip_sms=context.get("skip_sms", False)
-            ).button_validate(),
-        )
+        return picking.button_validate()

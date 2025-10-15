@@ -133,11 +133,14 @@ function setupView() {
                         // Basic fallback (works si no hay caracteres especiales)
                         selector = `[name="${payload.field_name}"] input`;
                     }
-                    waitVisibleElement(selector, 5000)
-                        .then((input) => {
-                            input.focus();
-                        })
-                        .catch((err) => console.warn(err.message));
+                    setTimeout(() => {
+                        waitVisibleElement(selector, 5000)
+                            .then((input) => {
+                                input.focus();
+                                input.select();
+                            })
+                            .catch((err) => console.warn(err.message));
+                    }, 300);
                 });
             } else if (type === "stock_barcodes_notify") {
                 notification.add(payload?.message || "", {
@@ -175,7 +178,7 @@ function setupView() {
             });
         }
     };
-    busService.subscribe("stock_barcodes_scan", handleNotification);
+
     useEffect(() => {
         // Keydown handler
         const onKeyDown = handleKeys;
@@ -191,13 +194,14 @@ function setupView() {
         this.soundOk = soundOk;
         this.soundKo = soundKo;
 
+        busService.subscribe("stock_barcodes_scan", handleNotification);
         // DOM event
         document.body.addEventListener("keydown", onKeyDown);
 
         // Cleanup
         return () => {
+            busService.unsubscribe("stock_barcodes_scan", handleNotification);
             document.body.removeEventListener("keydown", onKeyDown);
-
             // Drop references (not appended, so no DOM removal needed)
             this.soundOk = null;
             this.soundKo = null;
