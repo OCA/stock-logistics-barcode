@@ -6,62 +6,64 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2025-10-15 11:42+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode for product not found"
-msgstr ""
+msgstr "Codice a barre del prodotto non trovato"
 
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode for product packaging not found"
-msgstr ""
+msgstr "Codice a barre per l'imballaggio del prodotto non trovato"
 
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode read correctly"
-msgstr ""
+msgstr "Codice a barre letto correttamente"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot__display_name
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "Nome visualizzato"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot__id
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_new_lot____last_update
 #: model:ir.model.fields,field_description:stock_barcodes_gs1.field_wiz_stock_barcodes_read____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "Ultima modifica il"
 
 #. module: stock_barcodes_gs1
 #: code:addons/stock_barcodes_gs1/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
-msgstr ""
+msgstr "Più di un collo trovato"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_new_lot
 msgid "Wizard to create new lot from barcode scanner"
-msgstr ""
+msgstr "Procedura guidata per creare un nuovo lotto dal lettore codice a barre"
 
 #. module: stock_barcodes_gs1
 #: model:ir.model,name:stock_barcodes_gs1.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
-msgstr ""
+msgstr "Procedura guidata per leggere il codice a barre"
