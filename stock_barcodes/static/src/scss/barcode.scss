@@ -91,9 +91,7 @@ div[name="move_line_ids"] {
             }
         }
 
-        button.btn-op-rest,
-        button.btn-op-sum {
-            background-color: $o-community-color !important;
+        button.btn-op-big {
             min-width: 55px !important;
             height: 60px !important;
             padding: 12px 8px !important;
@@ -104,21 +102,6 @@ div[name="move_line_ids"] {
             text-overflow: ellipsis;
             white-space: nowrap;
             text-transform: none;
-        }
-    }
-}
-
-button[name="action_clean_product"],
-button[name="action_clean_lot"],
-button#btn_create_lot {
-    width: 5% !important;
-    padding: 0.9rem !important;
-    @include media-breakpoint-down(sm) {
-        width: 95% !important;
-        margin-top: 0.5em !important;
-        padding: 0.3rem !important;
-        i.o_button_icon {
-            font-size: 1.5em !important;
         }
     }
 }

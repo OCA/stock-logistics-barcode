@@ -9,32 +9,32 @@
                 js_class="stock_barcodes_form"
             >
                 <div class="d-flex flex-column h-100" invisible="display_menu">
+                    <div name="info" class="text-center h3 mb-2">
+                        <div
+                            class="alert barcode-info text-white mb-0 d-flex"
+                            role="status"
+                        >
+                            <button
+                                name="open_actions"
+                                type="object"
+                                class="ms-auto oe_kanban_action_button btn-sm"
+                                title="Open actions"
+                                invisible="display_menu"
+                                data-hotkey="0"
+                            >
+                                <i class="fa fa-chevron-left fa-2x text-white" />
+                            </button>
+                            <field name="message" class="mt-3 h3 text-white" />
+                            <span
+                                title="Barcode"
+                                class="fa fa-barcode fa-2x mt-2 mx-3"
+                            />
+                        </div>
+                    </div>
                     <div
                         invisible="display_menu"
                         class="flex-fill oe_stock_barcordes_content"
                     >
-                        <div name="info" class="text-center h3 mb-2">
-                            <div
-                                class="alert barcode-info text-white mb-0 d-flex"
-                                role="status"
-                            >
-                                <button
-                                    name="open_actions"
-                                    type="object"
-                                    class="ms-auto oe_kanban_action_button btn-sm"
-                                    title="Open actions"
-                                    invisible="display_menu"
-                                    data-hotkey="0"
-                                >
-                                    <i class="fa fa-chevron-left fa-2x text-white" />
-                                </button>
-                                <field name="message" class="mt-3 h3 text-white" />
-                                <span
-                                    title="Barcode"
-                                    class="fa fa-barcode fa-2x mt-2 mx-3"
-                                />
-                            </div>
-                        </div>
                         <field name="message_type" invisible="1" />
                         <field name="barcode" invisible="1" force_save="1" />
                         <field name="step" invisible="1" force_save="1" />
@@ -362,50 +362,50 @@
                             name="action_add_scan_manual"
                             type="object"
                             title="ADD PRODUCT"
-                            icon="fa-plus fa-2x"
+                            icon="fa-plus"
                             class="btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
-                            d-flex justify-content-center align-items-center"
+                            d-flex justify-content-center align-items-center fs-2"
                             invisible="display_menu or not enable_add_product"
                             style="width: 50px"
                             data-hotkey="8"
                         >
-                            <span class="fs-1 d-none d-lg-block">Product</span>
+                            <span class="d-none d-lg-block">Product</span>
                         </button>
                         <!-- // -->
                         <button
                             name="action_clean_values"
                             type="object"
-                            icon="fa-trash-o fa-2x"
+                            icon="fa-trash-o"
                             title="Clean Values"
                             class="btn-warning w-100 oe_kanban_action_button btn-sm ps-3 pe-3 mx-1
-                                        text-uppercase d-flex justify-content-center align-items-center"
+                                        text-uppercase d-flex justify-content-center align-items-center fs-2"
                             invisible="display_menu or not manual_entry"
                             data-hotkey="7"
                         >
-                            <span class="fs-1 d-none d-lg-block">Clean Values</span>
+                            <span class="d-none d-lg-block">Clean Values</span>
                         </button>
                         <button
                             name="action_confirm"
                             type="object"
-                            icon="fa-check fa-2x"
+                            icon="fa-check"
                             title="Confirm"
-                            class="btn-success w-100 oe_kanban_action_button btn-sm ps-3 pe-3  text-uppercase d-flex justify-content-center align-items-center"
+                            class="btn-success w-100 oe_kanban_action_button btn-sm ps-3 pe-3  text-uppercase d-flex justify-content-center align-items-center fs-2"
                             invisible="((not is_manual_confirm and not manual_entry) or display_menu) or visible_force_done"
                             data-hotkey="8"
                         >
-                            <span class="fs-1 d-none d-lg-block">Confirm</span>
+                            <span class="d-none d-lg-block">Confirm</span>
                         </button>
                         <button
                             name="action_force_done"
                             type="object"
-                            icon="fa-check fa-2x"
+                            icon="fa-check"
                             title="Force done"
                             invisible="not visible_force_done"
                             class="btn-danger w-100 oe_kanban_action_button btn-sm ps-3 pe-3 text-uppercase d-flex justify-content-center align-items-center"
                             style="width: 50px"
                             data-hotkey="8"
                         >
-                            <span class="fs-1 d-none d-lg-block">Confirm</span>
+                            <span class="d-none d-lg-block">Confirm</span>
                         </button>
                     </div>
                 </div>
