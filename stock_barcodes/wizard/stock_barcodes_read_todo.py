@@ -188,7 +188,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def operation_quantities(self):
         self.fill_from_pending_line()
         self.wiz_barcode_id.manual_entry = True
-        self.wiz_barcode_id.product_qty = self.product_qty_reserved
+        self.wiz_barcode_id.product_qty = self.qty_done_rest
         if self.wiz_barcode_id.picking_id.picking_type_id.code != "incoming":
             self.wiz_barcode_id.qty_available = self.product_qty_reserved
             self.wiz_barcode_id.location_id = self.location_id.id
