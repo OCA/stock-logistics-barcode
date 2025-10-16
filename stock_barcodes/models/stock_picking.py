@@ -44,7 +44,13 @@ class StockPicking(models.Model):
         action["res_id"] = wiz.id
         return action
 
+    def set_quantity_from_picked(self):
+        for sml in self.move_line_ids:
+            sml.quantity = sml.qty_picked
+
     def button_validate(self):
+        if self.env.context.get("stock_barcodes_validate_picking", False):
+            self.set_quantity_from_picked()
         put_in_pack_picks = self.filtered(
             lambda p: p.picking_type_id.barcode_option_group_id.auto_put_in_pack
             and not p.move_line_ids.result_package_id

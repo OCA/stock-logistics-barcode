@@ -11,7 +11,7 @@
     "depends": [
         "base",
         "barcodes",
-        "stock_move_line_qty_picked",
+        "stock",
         "web_widget_numeric_step",
         "web",
         "mail",
