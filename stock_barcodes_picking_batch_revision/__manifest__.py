@@ -15,11 +15,4 @@
         "wizard/stock_barcodes_read_picking_batch_views.xml",
     ],
     "installable": True,
-    "assets": {
-        "web.assets_backend": [
-            "stock_barcodes_picking_batch_revision/static/src/js/boolean_toggle_big.esm.js",
-            "stock_barcodes_picking_batch_revision/static/src/js/boolean_toggle_big.xml",
-            "stock_barcodes_picking_batch_revision/static/src/scss/boolean_toggle_big.scss",
-        ],
-    },
 }
