@@ -761,9 +761,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 avoid_location_with_reserve=True
             )._get_putaway_strategy(
                 self.product_id,
-                self.product_qty,
-                self.result_package_id,
-                self.packaging_id,
+                quantity=self.product_qty,
+                package=self.result_package_id,
+                packaging=self.packaging_id,
             )
             return bool(self.location_dest_id)
         return super()._option_required_hook(option_required)
