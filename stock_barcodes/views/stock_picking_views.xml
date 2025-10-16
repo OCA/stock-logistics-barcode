@@ -49,7 +49,7 @@
                 <field name="default_location_src_id" invisible="1" />
                 <field name="default_location_dest_id" invisible="1" />
             </field>
-            <xpath expr="//field[@name='count_picking_ready']" position="inside">
+            <xpath expr="//div[hasclass('stock-overview-links')]" position="inside">
                 <field name="barcode_option_group_id" invisible="1" />
                 <div
                     class="mt8"
