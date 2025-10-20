@@ -26,6 +26,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     total_secondary_uom_qty_done = fields.Float(
         string="Second. Done", digits="Product Unit of Measure", store=False
     )
+    total_secondary_uom_name = fields.Char(store=False)
     # TODO: Move to stock_barcodes in 18.0
     qty_field_to_set_ai37 = fields.Selection(
         selection=[("secondary_uom_qty", "Secondary unit qty")],
