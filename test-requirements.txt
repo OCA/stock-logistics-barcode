@@ -1,1 +1,2 @@
 odoo_test_helper
+odoo-addon-quality_control_oca @ git+https://github.com/OCA/manufacture.git@refs/pull/1475/head#subdirectory=setup/quality_control_oca
