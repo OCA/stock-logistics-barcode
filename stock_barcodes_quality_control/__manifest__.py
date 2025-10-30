@@ -4,7 +4,7 @@
 {
     "name": "Stock Barcodes Quality Control",
     "summary": """Allows quality control to be integrated with barcode scanning.""",
-    "version": "16.0.1.0.0",
+    "version": "17.0.1.0.0",
     "license": "AGPL-3",
     "author": "Edilio Escalona Almira - Binhexteam,Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",

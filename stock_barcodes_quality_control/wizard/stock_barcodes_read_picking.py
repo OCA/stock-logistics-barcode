@@ -50,7 +50,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             and self.option_group_id.show_quality_control
             and test_ids
             and all(val.active is True for val in test_ids)
-            and len(picking_id._check_immediate()) == 0
         )
 
     def _action_quality_control_validate(self):

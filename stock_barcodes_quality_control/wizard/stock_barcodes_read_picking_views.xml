@@ -20,9 +20,7 @@
                     type="object"
                     icon="fa-check-square-o fa-2x"
                     class="mt-4 btn btn-secondary w-100 btn-sm text-uppercase d-flex align-items-center justify-content-center fs-2"
-                    attrs="{
-                        'invisible': [('show_quantity_control', '!=', True)]
-                        }"
+                    invisible="not show_quantity_control"
                 >
                     <span class="d-none d-lg-block">Quality Control</span>
                 </button>
@@ -34,19 +32,17 @@
                     type="object"
                     icon="fa-check-square-o fa-2x"
                     class="btn btn-secondary w-100 btn-sm text-uppercase d-flex align-items-center justify-content-center fs-2"
-                    attrs="{
-                        'invisible': [('show_quantity_control', '!=', True)]
-                        }"
+                    invisible="not show_quantity_control"
                 >
                     <span class="d-none d-lg-block">Quality Control</span>
                 </button>
                 <widget
                     name="signature"
                     string="Sign"
-                    attrs="{'invisible': [('is_enable_signature', '!=', True)]}"
+                    invisible="not is_enable_signature"
                     full_name="partner_id"
                     barcodeView="1"
-                    addClassName="mt-2 o_sign_button_barcode btn btn-secondary w-100 btn-sm text-uppercase align-items-center d-flex justify-content-center fs-2 bg-white"
+                    addClassName="o_sign_button_barcode btn btn-secondary w-100 btn-sm text-uppercase align-items-center d-flex justify-content-center fs-2"
                     labelClassName="fs-1 badge badge-light d-none d-lg-block"
                     groups="stock.group_stock_sign_delivery"
                 />

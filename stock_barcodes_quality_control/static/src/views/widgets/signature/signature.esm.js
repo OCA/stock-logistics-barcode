@@ -1,12 +1,12 @@
 /** @odoo-module */
 
+import {SignatureWidget, signatureWidget} from "@web/views/widgets/signature/signature";
 import {onWillStart, useState} from "@odoo/owl";
 import {useBus, useService} from "@web/core/utils/hooks";
-import {SignatureWidget} from "@web/views/widgets/signature/signature";
 import {patch} from "@web/core/utils/patch";
 
-const _extractProps = SignatureWidget.extractProps;
-SignatureWidget.extractProps = ({attrs, field}) => {
+const _extractProps = signatureWidget.extractProps;
+signatureWidget.extractProps = ({attrs, field}) => {
     return Object.assign(_extractProps({attrs, field}), {
         addClassName: attrs.addClassName,
         labelClassName: attrs.labelClassName,
@@ -21,9 +21,9 @@ SignatureWidget.props = {
     barcodeView: {type: Boolean, optional: true, default: false},
 };
 
-patch(SignatureWidget.prototype, "stock_barcodes_quality_control.SignatureWidget", {
+patch(SignatureWidget.prototype, {
     setup() {
-        this._super();
+        super.setup();
         this.orm = useService("orm");
         this.state = useState({
             countSignDelivery: "",

@@ -4,7 +4,7 @@
         <xpath expr="//button" position="attributes">
             <attribute
                 name="t-attf-class"
-            >btn o_sign_button #{props.addClassName} #{props.highlight ? 'btn-primary' : 'btn-secondary'}</attribute>
+            >btn o_sign_button #{props?.addClassName ?? ''} #{props.highlight ? 'btn-primary' : 'btn-secondary'}</attribute>
         </xpath>
         <xpath expr="//button//span" position="before">
             <i t-if="props.barcodeView" class="fa fa-pencil fa-2x me-2" />
