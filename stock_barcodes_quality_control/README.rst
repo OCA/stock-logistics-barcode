@@ -17,13 +17,13 @@ Stock Barcodes Quality Control
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes_quality_control
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes_quality_control
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-16-0/stock-logistics-barcode-16-0-stock_barcodes_quality_control
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-17-0/stock-logistics-barcode-17-0-stock_barcodes_quality_control
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=16.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=17.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
@@ -42,50 +42,61 @@ Usage
 =====
 
 Enable quality control
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#. Go to *Inventory > Configuration > Barcode options*.
-#. Select the barcode options for operations and check the *Show quality control* field.
+----------------------
 
-    .. image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/show_quality_control.png
-       :height: 100
-       :width: 200
-       :alt: Show quality control
+1. Go to *Inventory > Configuration > Barcode options*.
 
-#. Save.
-#. Go to *Barcodes*.
-#. Select the action for receptions and verify that it has the previously configured barcode options associated with it.
-#. When validating the reception, a wizard will be displayed so that you can decide whether to perform the quality controls at that time or continue the reception process.
+2. Select the barcode options for operations and check the *Show quality
+   control* field.
 
-    .. image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/wizard_show_quality_control.png
-       :height: 100
-       :width: 200
-       :alt: Wizard show quality control
+      |Show quality control|
+
+3. Save.
+
+4. Go to *Barcodes*.
+
+5. Select the action for receptions and verify that it has the
+   previously configured barcode options associated with it.
+
+6. When validating the reception, a wizard will be displayed so that you
+   can decide whether to perform the quality controls at that time or
+   continue the reception process.
+
+      |Wizard show quality control|
 
 Sign delivery orders from the barcode app
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-#. Go to *Inventory > Configuration > Barcode options*.
-#. Select the Signature check box.
-#. Save.
-#. Go to *Barcodes*.
-#. Select a delivery receipt.
-#. At the bottom right, there is a button that displays the wizard for signing
-   the document (the number shown in the image is the number of signatures generated;
-   if not, only the text will be displayed).
+-----------------------------------------
 
-    .. image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/button_sign_barcode.png
-       :height: 100
-       :width: 200
-       :alt: Wizard sign document
+1. Go to *Inventory > Configuration > Barcode options*.
 
-#. When you press the button, a wizard will be displayed to enter the signature.
+2. Select the Signature check box.
 
-    .. image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/wizard_sign_barcode.png
-       :height: 100
-       :width: 200
-       :alt: Wizard sign document
+3. Save.
 
-#. Enter your signature in the wizard.
-#. When you press the *Adopt & Sign* button, the signature will be saved.
+4. Go to *Barcodes*.
+
+5. Select a delivery receipt.
+
+6. At the bottom right, there is a button that displays the wizard for
+   signing the document (the number shown in the image is the number of
+   signatures generated; if not, only the text will be displayed).
+
+      |Wizard sign document|
+
+7. When you press the button, a wizard will be displayed to enter the
+   signature.
+
+      |image1|
+
+8. Enter your signature in the wizard.
+
+9. When you press the *Adopt & Sign* button, the signature will be
+   saved.
+
+.. |Show quality control| image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/show_quality_control.png
+.. |Wizard show quality control| image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/wizard_show_quality_control.png
+.. |Wizard sign document| image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/button_sign_barcode.png
+.. |image1| image:: https://raw.githubusercontent.com/stock_barcodes_quality_control/static/src/img/wizard_sign_barcode.png
 
 Bug Tracker
 ===========
@@ -93,7 +104,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes_quality_control%0Aversion:%2016.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes_quality_control%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -101,19 +112,19 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Edilio Escalona Almira - Binhexteam
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* `Binhex Cloud <https://www.binhex.cloud/>`_:
+- `Binhex Cloud <https://www.binhex.cloud/>`__:
 
-  * Edilio Escalona Almira
+  - Edilio Escalona Almira
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -125,6 +136,6 @@ OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
 
-This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/16.0/stock_barcodes_quality_control>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes_quality_control>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
