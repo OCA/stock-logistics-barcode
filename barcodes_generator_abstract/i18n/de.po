@@ -9,15 +9,15 @@ msgstr ""
 "Project-Id-Version: Odoo Server 9.0c\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-11-25 08:40+0000\n"
-"PO-Revision-Date: 2020-08-04 12:59+0000\n"
-"Last-Translator: André Volksdorf <volksdorf@smartpage.de>\n"
+"PO-Revision-Date: 2025-11-06 23:42+0000\n"
+"Last-Translator: Peter Schubert <psc@saco.info>\n"
 "Language-Team: German (https://www.transifex.com/oca/teams/23907/de/)\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 3.10\n"
+"X-Generator: Weblate 5.10.4\n"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin__generate_type
@@ -30,6 +30,13 @@ msgid ""
 "base\n"
 " - 'Base managed by Sequence': System will generate the base via a sequence"
 msgstr ""
+"Barcode generieren, einschließlich einer Nummer  (einer Basis) im "
+"endgültigen Barcode.\n"
+"\n"
+" - 'Basis manuell einstellen' : Der Benutzer sollte den Wert der Barcode-"
+"Basis manuell einstellen.\n"
+" - 'Basis verwaltet von einer Sequenz': Das System generiert die Basis über "
+"eine Sequenz"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_automate
@@ -60,12 +67,12 @@ msgstr "Strichcode-Regeln"
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__sequence
 msgid "Base managed by Sequence"
-msgstr ""
+msgstr "Basis verwaltet von einer Sequenz"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__manual
 msgid "Base set Manually"
-msgstr ""
+msgstr "Bais manuell einstellen"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_rule__generate_automate
@@ -73,16 +80,18 @@ msgid ""
 "Check this to automatically generate a base and a barcode if this rule is "
 "selected."
 msgstr ""
+"Aktivieren Sie diese Option, um automatisch eine Basis und einen Barcode zu "
+"generieren, wenn diese Regel ausgewählt ist."
 
 #. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin
 msgid "Generate Barcode Mixin"
-msgstr ""
+msgstr "Barcode-Mixin generieren"
 
 #. module: barcodes_generator_abstract
 #: model:res.groups,name:barcodes_generator_abstract.generate_barcode
 msgid "Generate Barcodes"
-msgstr ""
+msgstr "Barcodes generieren"
 
 #. module: barcodes_generator_abstract
 #. odoo-python
@@ -92,27 +101,31 @@ msgid ""
 "Generate Base can be used only with barcode rule with 'Generate Type' set to "
 "'Base managed by Sequence'"
 msgstr ""
+"„Basis generieren“ kann nur mit Barcode-Regeln verwendet werden, bei denen „"
+"Typ generieren“ auf „Basis verwaltet von einer Sequenz“ eingestellt ist"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_model
 msgid "Generate Model"
-msgstr ""
+msgstr "Modell generieren"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__generate_type
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__generate_type
 msgid "Generate Type"
-msgstr ""
+msgstr "Typ generieren"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 msgid "Generation Sequence"
-msgstr ""
+msgstr "Sequenz generieren"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_rule__generate_model
 msgid "If 'Generate Type' is set, mention the model related to this rule."
 msgstr ""
+"Wenn „Typ generieren“ eingestellt ist, geben Sie das Modell an, das mit "
+"dieser Regel in Zusammenhang steht."
 
 #. module: barcodes_generator_abstract
 #: model_terms:ir.ui.view,arch_db:barcodes_generator_abstract.view_barcode_rule_form
@@ -121,11 +134,14 @@ msgid ""
 "automatically when the barcode rule is saved, based on the padding of the "
 "barcode."
 msgstr ""
+"Wenn Sie das Feld „Sequenz“ leer lassen, wird beim Speichern der Barcode-"
+"Regel automatisch eine Sequenz erstellt, die auf der Auffüllung des Barcodes "
+"basiert."
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_type__no
 msgid "No generation"
-msgstr ""
+msgstr "Keine Generierung"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__padding
@@ -135,7 +151,7 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin__barcode_rule_id
 msgid "Select a rule to generate a barcode"
-msgstr ""
+msgstr "Wählen Sie eine Regel aus, um einen Barcode zu generieren."
 
 #. module: barcodes_generator_abstract
 #. odoo-python
