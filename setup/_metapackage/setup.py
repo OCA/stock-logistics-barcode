@@ -20,6 +20,7 @@ setuptools.setup(
         'odoo-addon-stock_barcodes>=16.0dev,<16.1dev',
         'odoo-addon-stock_barcodes_picking_batch>=16.0dev,<16.1dev',
         'odoo-addon-stock_picking_product_barcode_report>=16.0dev,<16.1dev',
+        'odoo-addon-stock_picking_product_barcode_report_secondary_unit>=16.0dev,<16.1dev',
     ],
     classifiers=[
         'Programming Language :: Python',
