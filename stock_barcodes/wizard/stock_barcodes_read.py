@@ -688,12 +688,14 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def open_actions(self):
         self.display_menu = True
-        return self.env.ref(
+        return self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_action_client"
-        ).read()[0]
+        )
 
     def action_back(self):
-        return self.env.ref("stock.stock_picking_type_action").read()[0]
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock.stock_picking_type_action"
+        )
 
     def open_records(self):
         action = self.action_ids
