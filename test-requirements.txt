@@ -1,1 +1,4 @@
 odoo_test_helper
+odoo-addon-stock_barcodes @ git+https://github.com/OCA/stock-logistics-barcode.git@refs/pull/677/head#subdirectory=stock_barcodes
+odoo-addon-stock_barcodes_gs1 @ git+https://github.com/OCA/stock-logistics-barcode.git@refs/pull/687/head#subdirectory=stock_barcodes_gs1
+odoo-addon-stock_move_line_qty_picked @ git+https://github.com/OCA/stock-logistics-workflow.git@refs/pull/2132/head#subdirectory=stock_move_line_qty_picked
