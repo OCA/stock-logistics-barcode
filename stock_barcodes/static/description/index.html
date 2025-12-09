@@ -1,0 +1,804 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>Stock Barcodes</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="stock-barcodes">
+<h1 class="title">Stock Barcodes</h1>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:e7ccaa03134ef9bad1cb0e83f96ba7617e6ff97f7b09ded6510b4c5a74404a79
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes"><img alt="OCA/stock-logistics-barcode" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-barcode-17-0/stock-logistics-barcode-17-0-stock_barcodes"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&amp;target_branch=17.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module provides a barcode reader interface for stock module.</p>
+<p>This module contains a base wizard read barcode that can be extended by
+other modules.</p>
+<p>This module also makes use of this wizard for providing barcode support
+for doing inventories and picking operations.</p>
+<p>This module provides configuring barcodes for barcode actions.</p>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#usage" id="toc-entry-1">Usage</a><ul>
+<li><a class="reference internal" href="#barcode-configuration-for-warehouse-locations" id="toc-entry-2">Barcode Configuration for Warehouse Locations</a></li>
+<li><a class="reference internal" href="#barcode-configuration-for-product-packings" id="toc-entry-3">Barcode Configuration for Product Packings</a></li>
+<li><a class="reference internal" href="#barcode-configuration-for-product" id="toc-entry-4">Barcode Configuration for Product</a></li>
+<li><a class="reference internal" href="#barcode-configuration-for-product-lot" id="toc-entry-5">Barcode Configuration for Product lot</a></li>
+<li><a class="reference internal" href="#barcode-interface-for-inventory-operations" id="toc-entry-6">Barcode interface for inventory operations</a></li>
+<li><a class="reference internal" href="#barcode-interface-for-picking-operations" id="toc-entry-7">Barcode interface for picking operations</a></li>
+<li><a class="reference internal" href="#automatic-operation-mode" id="toc-entry-8">Automatic operation mode</a></li>
+<li><a class="reference internal" href="#manual-entry-mode" id="toc-entry-9">Manual entry mode</a></li>
+<li><a class="reference internal" href="#scan-logs" id="toc-entry-10">Scan logs</a></li>
+<li><a class="reference internal" href="#barcode-interface-for-barcode-actions" id="toc-entry-11">Barcode interface for barcode actions</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-12">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-13">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-14">11.0.1.1.0 (2019-09-24)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-15">13.0.1.1.1 (2021-02-06)</a></li>
+<li><a class="reference internal" href="#section-3" id="toc-entry-16">14.0.1.0.0 (2021-04-05)</a></li>
+<li><a class="reference internal" href="#section-4" id="toc-entry-17">16.0.1.0.0 (2025-01-23)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-18">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-19">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-20">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-21">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-22">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
+<div class="section" id="barcode-configuration-for-warehouse-locations">
+<h2><a class="toc-backref" href="#toc-entry-2">Barcode Configuration for Warehouse Locations</a></h2>
+<blockquote>
+<ol class="arabic simple">
+<li>To see the following menu you must have the permission assigned:
+<em>Manage Multiple Stock Locations</em>.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="Warehouse location access" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_warehouse_location.png" /></p>
+<ol class="arabic simple" start="2">
+<li>Go to <em>Inventory &gt; Configuration &gt; Locations</em>.</li>
+<li>Select the location you want to associate with the barcode.</li>
+<li>Go to the Barcode field and assign the corresponding field.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="Warehouse location barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_warehouse_location.png" /></p>
+<ol class="arabic simple" start="5">
+<li>Save the data.</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="barcode-configuration-for-product-packings">
+<h2><a class="toc-backref" href="#toc-entry-3">Barcode Configuration for Product Packings</a></h2>
+<blockquote>
+<ol class="arabic simple">
+<li>To see the following menu you must have the permission assigned:
+<em>Manage Product Packaging</em>.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="Product packaging barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_product_packaging.png" /></p>
+<ol class="arabic simple" start="2">
+<li>Go to <em>Inventory &gt; Configuration &gt; Product Packings</em>.</li>
+<li>Create a new or select product packaging.</li>
+<li>Go to the Barcode field and assign the corresponding field.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="image1" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_packaging.png" /></p>
+<ol class="arabic simple" start="5">
+<li>Save the data.</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="barcode-configuration-for-product">
+<h2><a class="toc-backref" href="#toc-entry-4">Barcode Configuration for Product</a></h2>
+<blockquote>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Products &gt; Products</em>.</li>
+<li>Create a new product.</li>
+<li>Go to the Barcode field and assign the corresponding field.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="image2" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product.png" /></p>
+<ol class="arabic simple" start="4">
+<li>Save the data.</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="barcode-configuration-for-product-lot">
+<h2><a class="toc-backref" href="#toc-entry-5">Barcode Configuration for Product lot</a></h2>
+<blockquote>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Products &gt; Lots/Serial Numbers</em>.</li>
+<li>Create a new lot.</li>
+<li>In this case, the barcode matches the lot name, so when you name
+the lot, you already have the barcode configured.</li>
+</ol>
+</blockquote>
+<!--  -->
+<blockquote>
+<p><img alt="Product lot barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_lot.png" /></p>
+<ol class="arabic simple" start="4">
+<li>Save the data.</li>
+</ol>
+</blockquote>
+</div>
+<div class="section" id="barcode-interface-for-inventory-operations">
+<h2><a class="toc-backref" href="#toc-entry-6">Barcode interface for inventory operations</a></h2>
+<p>Please note that the picking is marked with the entire quantity
+requested by default in the ready state.</p>
+<p>Option 1: To use the barcode interface on inventory</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; operations &gt; Inventory Adjustments</em>.</li>
+<li>Create new inventory with “Select products manually” option.</li>
+<li>Start inventory.</li>
+<li>Click to “Scan barcodes” smart button.</li>
+<li>Start reading barcodes.</li>
+</ol>
+</blockquote>
+<p>Option 2: Use the barcode interface inventory directly from the Barcodes
+application</p>
+<ol class="arabic simple">
+<li>Go to <em>Barcodes</em>.</li>
+<li>Select the <em>Inventory</em> option.</li>
+</ol>
+<!--  -->
+<blockquote>
+<img alt="Inventory barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></blockquote>
+<ol class="arabic simple">
+<li>Start scanning barcodes.</li>
+</ol>
+<p>Actions # Press the <em>+ Product</em> button to display the form for the new
+item.</p>
+<blockquote>
+<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" /></blockquote>
+<p># When you select a product, a numeric field is displayed to add the
+quantity.</p>
+<blockquote>
+<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" /></blockquote>
+<p># When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.</p>
+<blockquote>
+<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" /></blockquote>
+<p># When you press the <em>Clean values</em> button, all fields are reset and the
+form is closed. # When you press the <em>Confirm</em> button, the new item is
+added and the form is closed. # When the eye icon is closed, the created
+items greater than zero are displayed, and if not, those less than or
+equal to zero.</p>
+<blockquote>
+<img alt="image3" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png" /></blockquote>
+<p># In the list, the trash can icon allows you to reset the quantity to
+zero and the edit icon allows you to change the item values.</p>
+<blockquote>
+<img alt="image4" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png" /></blockquote>
+<p># The <em>Apply</em> button is only displayed if there are items with
+quantities greater than zero, regardless of whether they were scanned or
+entered manually; If you press all the defined quantities will be
+processed after defining the reason for the inventory adjustment and
+then the main barcode menu will be displayed.</p>
+<blockquote>
+<p><img alt="Apply inventory" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory.png" /></p>
+<p><img alt="Apply inventory reason" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory_reason.png" /></p>
+</blockquote>
+</div>
+<div class="section" id="barcode-interface-for-picking-operations">
+<h2><a class="toc-backref" href="#toc-entry-7">Barcode interface for picking operations</a></h2>
+<p>You can use the barcode interface in a picking or an operation type, the
+main difference is that if you open the barcode interface from a
+picking, this picking is locked and you read products for it.</p>
+<p>To use the barcode interface on picking operations:</p>
+<ol class="arabic simple">
+<li>Go to <em>Inventory</em>.</li>
+<li>Click on scanner button on any operation type.</li>
+<li>Start reading barcodes.</li>
+</ol>
+<p>Option 1: To use the barcode interface on a picking:</p>
+<blockquote>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Transfers</em>.</li>
+<li>Click to “Scan barcodes” smart button.</li>
+<li>Start reading barcodes.</li>
+</ol>
+</blockquote>
+<p>Option 2: Use the barcode interface picking directly from the Barcodes
+application</p>
+<ol class="arabic simple">
+<li>Go to <em>Barcodes</em>.</li>
+<li>Select the option <em>OPERATIONS</em>.</li>
+</ol>
+<!--  -->
+<blockquote>
+<img alt="Operation barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></blockquote>
+<p># Select the type of picking. # The pickings in ready status are
+displayed, select the one you want to start scanning.</p>
+<blockquote>
+<img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_picking.png" /></blockquote>
+<ol class="arabic simple">
+<li>Start scanning barcodes.</li>
+</ol>
+<!--  -->
+<blockquote>
+<img alt="image5" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png" /></blockquote>
+<p>Actions # All the items that have been configured for the selected
+picking are listed.</p>
+<blockquote>
+<img alt="image6" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png" /></blockquote>
+<p># The edit icon in the list allows you to modify the data.</p>
+<blockquote>
+<img alt="Edit picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_edit.png" /></blockquote>
+<p># The button that contains a <em>+120</em> (in this case), allows you to define
+all the remaining quantities. Once defined, this button disappears and
+if you want to change the quantities, press the edit button.</p>
+<p><img alt="Quantity picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_quantity.png" /></p>
+<p># If there is at least one item with a quantity already defined, an eye
+icon is displayed, which if closed shows the items and their quantities
+already scanned.</p>
+<p><img alt="Picking scanned" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_scanned.png" /></p>
+<p># When you press the <em>Validate</em> button, a wizard will be displayed to
+confirm the action. If everything is correct, it is validated and you
+return to the picking list mentioned above.</p>
+<p><img alt="image7" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png" /></p>
+<p># If there is an item whose quantity is zero, a wizard will be displayed
+after the one mentioned above, to confirm if you want to process all the
+quantities. If positive, you will proceed and be directed to the list
+mentioned above in the previous point.</p>
+<p><img alt="image8" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png" /></p>
+<p># Press the <em>+ Product</em> button to display the form for the new item.</p>
+<blockquote>
+<img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" /></blockquote>
+<p># When you select a product, a numeric field is displayed to add the
+quantity.</p>
+<blockquote>
+<img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" /></blockquote>
+<p># When you press the button with the trash can icon, the values of the
+form are reset (except for the location) without closing it.</p>
+<blockquote>
+<img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" /></blockquote>
+<p># When you press the <em>Clean values</em> button, all fields are reset and the
+form is closed. # When you press the <em>Confirm</em> button, the new item is
+added and the form is closed. # When adding the new item all the
+quantities are assigned to it, if you want to modify it, press the edit
+icon.</p>
+<p>The barcode scanner interface has two operation modes. In both of them
+user can scan:</p>
+<ol class="arabic simple">
+<li>Warehouse locations with barcode.</li>
+<li>Product packaging with barcode.</li>
+<li>Product with barcode.</li>
+<li>Product Lots (The barcode is name field in this case).</li>
+</ol>
+</div>
+<div class="section" id="automatic-operation-mode">
+<h2><a class="toc-backref" href="#toc-entry-8">Automatic operation mode</a></h2>
+<p>This is the default mode, all screen controls are locked to avoid scan
+into fields.</p>
+<p>The user only has to scan barcode in physical warehouse locations with a
+scanner hardward, the interface read the barcode and do operations in
+this order:</p>
+<ol class="arabic simple">
+<li>Try search a product, if found, is assigned to product_id field and
+creates or update inventory line with 1.0 unit. (If product has
+tracking by lots the interface wait for a lot to be scanned).</li>
+<li>Try search a product packaging, if found, the product_id related is
+set, product quantities are updated and create or update inventory
+line with product quantities defined in the product packaging.</li>
+<li>Try search a lot (The product is mandatory in this case so you first
+scan a product and then scann a lot), this lot field is not erased
+until that product change, so for each product scann the interface
+add or update a inventory line with this lot.</li>
+<li>Try to search a location, if found the field location is set and next
+scan action will be done with this warehouse location.</li>
+</ol>
+<p>If barcode has not found, when message is displayed you can create this
+lot scanning the product.</p>
+</div>
+<div class="section" id="manual-entry-mode">
+<h2><a class="toc-backref" href="#toc-entry-9">Manual entry mode</a></h2>
+<p>You can change to “manual entry” to allow to select data without scanner
+hardware, but hardward scanner still active on, so a use case would be
+when user wants set quantities manually instead increment 1.0 unit peer
+scan action.</p>
+</div>
+<div class="section" id="scan-logs">
+<h2><a class="toc-backref" href="#toc-entry-10">Scan logs</a></h2>
+<p>All scanned barcodes are saved into model. Barcode scanning interface
+display 10 last records linked to model, the goal of this log is show to
+user other reads with the same product and location done by other users.
+User can remove the last read scan.</p>
+</div>
+<div class="section" id="barcode-interface-for-barcode-actions">
+<h2><a class="toc-backref" href="#toc-entry-11">Barcode interface for barcode actions</a></h2>
+<p>To use the barcode interface for actions:</p>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Configuration &gt; Barcode Actions</em>.</li>
+<li>Create a new barcode action and configure the barcode.</li>
+</ol>
+<p><img alt="Print barcodes" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/create_barcode_action.png" /></p>
+<ol class="arabic simple">
+<li>Select the barcode actions you want to use, a button (PRINT BARCODES)
+will appear that allows you to print the configured barcodes to PDF.</li>
+</ol>
+<p><img alt="image9" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png" /></p>
+<ol class="arabic simple">
+<li>Go to <em>Barcodes</em>.</li>
+<li>Start scanning barcodes from actions.</li>
+</ol>
+</div>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h1><a class="toc-backref" href="#toc-entry-12">Known issues / Roadmap</a></h1>
+<ul class="simple">
+<li>Excute action_done() method outside onchange environment.</li>
+<li>Allow create product when a barcode has not been found.</li>
+<li>Allow to select picking reading its barcode.</li>
+<li>Allow to select multiple pickings to process scanned products.</li>
+</ul>
+</div>
+<div class="section" id="changelog">
+<h1><a class="toc-backref" href="#toc-entry-13">Changelog</a></h1>
+<div class="section" id="section-1">
+<h2><a class="toc-backref" href="#toc-entry-14">11.0.1.1.0 (2019-09-24)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. User can uses barcode interface in picking
+operations.</li>
+</ul>
+</div>
+<div class="section" id="section-2">
+<h2><a class="toc-backref" href="#toc-entry-15">13.0.1.1.1 (2021-02-06)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. Add option to get lots automatically based on
+removal strategy in inventory.</li>
+</ul>
+</div>
+<div class="section" id="section-3">
+<h2><a class="toc-backref" href="#toc-entry-16">14.0.1.0.0 (2021-04-05)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. Add security for users.</li>
+</ul>
+</div>
+<div class="section" id="section-4">
+<h2><a class="toc-backref" href="#toc-entry-17">16.0.1.0.0 (2025-01-23)</a></h2>
+<ul class="simple">
+<li>[IMP] Improved views to optimize navigation and functionality.
+Intuitive and mobile-friendly views. Visual improvement of the main
+view accessed from the Barcodes menu.</li>
+<li>[ADD] New feature. Barcode reading to barcode actions. Generate PDF
+document for the barcodes of the selected barcode actions.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h1><a class="toc-backref" href="#toc-entry-18">Bug Tracker</a></h1>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2017.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h1><a class="toc-backref" href="#toc-entry-19">Credits</a></h1>
+<div class="section" id="authors">
+<h2><a class="toc-backref" href="#toc-entry-20">Authors</a></h2>
+<ul class="simple">
+<li>Tecnativa</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h2><a class="toc-backref" href="#toc-entry-21">Contributors</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
+<li>Sergio Teruel</li>
+<li>Carlos Dauden</li>
+<li>Pedro M. Baeza</li>
+<li>Alexandre D. Díaz</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.onestein.eu">Onestein</a>:<ul>
+<li>Andrea Stirpe</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.initos.com">InitOS</a>:<ul>
+<li>Foram Shah</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.forgeflow.com">ForgeFlow</a>:<ul>
+<li>Lois Rilo</li>
+</ul>
+</li>
+<li>Enric Tobella</li>
+<li><a class="reference external" href="https://www.binhex.cloud/">Binhex Cloud</a>:<ul>
+<li>Edilio Escalona Almira</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2><a class="toc-backref" href="#toc-entry-22">Maintainers</a></h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/tree/17.0/stock_barcodes">OCA/stock-logistics-barcode</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>
