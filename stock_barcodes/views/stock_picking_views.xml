@@ -49,39 +49,41 @@
                 <field name="default_location_src_id" invisible="1" />
                 <field name="default_location_dest_id" invisible="1" />
             </field>
-            <xpath expr="//div[hasclass('stock-overview-links')]" position="inside">
+            <field name="warehouse_id" position="after">
                 <field name="barcode_option_group_id" invisible="1" />
-                <div
-                    class="mt8"
-                    t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1"
-                    invisible="barcode_option_group_id==False"
-                >
-                    <button
-                        name="action_barcode_scan"
-                        type="object"
-                        class="btn btn-secondary"
+                <div class="row mt-3">
+                    <div
+                        class="col-6 text-center"
+                        t-if="['incoming', 'outgoing', 'internal'].indexOf(record.code.raw_value) &gt; -1"
+                        invisible="barcode_option_group_id==False"
                     >
-                        <i
-                            class="fa fa-barcode fa-2x"
-                            title="Start barcode interface"
-                        />
-                    </button>
-                </div>
-                <div
-                    class="float-end mt8"
-                    t-if="record.default_location_src_id.raw_value and record.default_location_dest_id.raw_value"
-                >
-                    <button
-                        name="action_barcode_new_picking"
-                        type="object"
-                        class="btn btn-secondary"
-                        context="{'default_immediate_transfer': True, 'manual_picking': True}"
+                        <button
+                            name="action_barcode_scan"
+                            type="object"
+                            class="btn btn-secondary"
+                        >
+                            <i
+                                class="fa fa-barcode fa-2x"
+                                title="Start barcode interface"
+                            />
+                        </button>
+                    </div>
+                    <div
+                        class="col-6 text-center"
+                        t-if="record.default_location_src_id.raw_value and record.default_location_dest_id.raw_value"
                     >
-                        <i class="fa fa-plus" title="Scan new picking " />
-                        <small>New</small>
-                    </button>
+                        <button
+                            name="action_barcode_new_picking"
+                            type="object"
+                            class="btn btn-secondary"
+                            context="{'default_immediate_transfer': True, 'manual_picking': True}"
+                        >
+                            <i class="fa fa-plus" title="Scan new picking " />
+                            <small>New</small>
+                        </button>
+                    </div>
                 </div>
-            </xpath>
+            </field>
         </field>
     </record>
     <record id="view_picking_type_form" model="ir.ui.view">
