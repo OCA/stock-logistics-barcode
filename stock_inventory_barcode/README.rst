@@ -84,6 +84,7 @@ Contributors
 ------------
 
 - Alexis de Lattre <alexis.delattre@akretion.com>
+- Jacques-Etienne Baudoux (BCIM) <je@bcim.be>
 
 Maintainers
 -----------
