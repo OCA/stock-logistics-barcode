@@ -5,4 +5,6 @@ enter the inventory quantity (or update the inventory quantity, in case
 the product is found a second time at a different place during the
 inventory).
 
-The wizard screen is automatically adapted when the product is tracked by lot or serial, and if the inventory is made across several stock locations.
+The wizard screen is automatically adapted when the product is tracked
+by lot or serial, and if the inventory is made across several stock
+locations.

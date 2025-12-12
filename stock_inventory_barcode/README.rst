@@ -17,26 +17,31 @@ Barcode Input for Inventories
     :target: http://www.gnu.org/licenses/agpl-3.0-standalone.html
     :alt: License: AGPL-3
 .. |badge3| image:: https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github
-    :target: https://github.com/OCA/stock-logistics-barcode/tree/14.0/stock_inventory_barcode
+    :target: https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_inventory_barcode
     :alt: OCA/stock-logistics-barcode
 .. |badge4| image:: https://img.shields.io/badge/weblate-Translate%20me-F47D42.png
-    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-14-0/stock-logistics-barcode-14-0-stock_inventory_barcode
+    :target: https://translation.odoo-community.org/projects/stock-logistics-barcode-18-0/stock-logistics-barcode-18-0-stock_inventory_barcode
     :alt: Translate me on Weblate
 .. |badge5| image:: https://img.shields.io/badge/runboat-Try%20me-875A7B.png
-    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=14.0
+    :target: https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&target_branch=18.0
     :alt: Try me on Runboat
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-The interface provided by Odoo in the official *stock* module to make an inventory has 2 limitations:
+The interface provided by Odoo in the official *stock* module to make an
+inventory has 2 limitations:
 
-* it is not easy/fast to use when you have several thousand products
+- it is not easy/fast to use when you have several thousand products
+- you cannot use a barcode reader to scan the products
 
-* you cannot use a barcode reader to scan the products
+Other community modules such as *stock_barcodes* or
+*mobile_app_inventory* propose a mobile interface to operate inventories
+using smartphones with barcode scanners. This is the most advanced
+solution, but it requires special hardware and these modules are have a
+lot of lines of code.
 
-Other community modules such as *stock_barcodes* or *mobile_app_inventory* propose a mobile interface to operate inventories using smartphones with barcode scanners. This is the most advanced solution, but it requires special hardware and these modules are have a lot of lines of code.
-
-This module is a small-and-simple module to make an inventory using the regular web interface of Odoo with a barcode reader.
+This module is a small-and-simple module to make an inventory using the
+regular web interface of Odoo with a barcode reader.
 
 **Table of contents**
 
@@ -53,7 +58,9 @@ enter the inventory quantity (or update the inventory quantity, in case
 the product is found a second time at a different place during the
 inventory).
 
-The wizard screen is automatically adapted when the product is tracked by lot or serial, and if the inventory is made across several stock locations.
+The wizard screen is automatically adapted when the product is tracked
+by lot or serial, and if the inventory is made across several stock
+locations.
 
 Bug Tracker
 ===========
@@ -61,7 +68,7 @@ Bug Tracker
 Bugs are tracked on `GitHub Issues <https://github.com/OCA/stock-logistics-barcode/issues>`_.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
-`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_inventory_barcode%0Aversion:%2014.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
+`feedback <https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_inventory_barcode%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**>`_.
 
 Do not contact contributors directly about support or help with technical issues.
 
@@ -69,17 +76,17 @@ Credits
 =======
 
 Authors
-~~~~~~~
+-------
 
 * Akretion
 
 Contributors
-~~~~~~~~~~~~
+------------
 
-* Alexis de Lattre <alexis.delattre@akretion.com>
+- Alexis de Lattre <alexis.delattre@akretion.com>
 
 Maintainers
-~~~~~~~~~~~
+-----------
 
 This module is maintained by the OCA.
 
@@ -99,6 +106,6 @@ Current `maintainer <https://odoo-community.org/page/maintainer-role>`__:
 
 |maintainer-alexis-via| 
 
-This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/14.0/stock_inventory_barcode>`_ project on GitHub.
+This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_inventory_barcode>`_ project on GitHub.
 
 You are welcome to contribute. To learn how please visit https://odoo-community.org/page/Contribute.
