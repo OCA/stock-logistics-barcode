@@ -55,6 +55,8 @@ class StockInventoryBarcode(models.TransientModel):
         related="quant_id.inventory_quantity",
         readonly=True,
     )
+    zero_count = fields.Boolean(default=1)
+    auto_save = fields.Boolean(default=1)
     change_qty = fields.Float(
         string="Change Real Quantity", digits="Product Unit of Measure"
     )
@@ -97,27 +99,41 @@ class StockInventoryBarcode(models.TransientModel):
     @api.onchange("product_code")
     def product_code_change(self):
         if self.product_code:
-            products = self.env["product.product"].search(
+            product = self.env["product.product"].search(
                 [
-                    "|",
                     ("barcode", "=", self.product_code),
-                    ("default_code", "=ilike", self.product_code),
-                    ("type", "=", "product"),
+                    ("is_storable", "=", True),
                 ]
             )
-            if len(products) == 1:
-                product = products[0]
+            if not product:
+                product = self.env["product.product"].search(
+                    [
+                        ("default_code", "=ilike", self.product_code),
+                        ("is_storable", "=", True),
+                    ]
+                )
+            if len(product) == 1:
                 self.product_id = product
-            elif len(products) > 1:
+                if product:
+                    self.product_code = False
+                if (
+                    self.zero_count
+                    and self.quant_id
+                    and self.product_id == self.quant_id.product_id
+                    and self.lot_id == self.quant_id.lot_id
+                    and self.location_id == self.quant_id.location_id
+                ):
+                    self.add_qty += 1
+            elif len(product) > 1:
                 return {
                     "warning": {
                         "title": self.env._("Error"),
                         "message": self.env._(
                             "Several stockable products have been found "
-                            "with this code as Barcode or Internal Reference:\n %s"
+                            "with this code as Internal Reference:\n %s"
                             "\nYou should select the right product manually."
                         )
-                        % "\n".join([product.display_name for product in products]),
+                        % "\n".join([p.display_name for p in product]),
                     }
                 }
             else:
@@ -134,14 +150,27 @@ class StockInventoryBarcode(models.TransientModel):
 
     @api.onchange("product_id")
     def product_id_change(self):
+        if (
+            self.auto_save
+            and self.quant_id
+            and self.product_id != self.quant_id.product_id
+        ):
+            self.save()
         if self.product_id:
             self.product_tracking = self.product_id.tracking
             if not self.product_tracking or self.product_tracking == "none":
                 self.lot_id = False
+            self._set_location()
         else:
             self.product_tracking = False
             self.lot_id = False
             self.note = False
+
+    def _set_location(self):
+        location = self.inventory_id.location_ids
+        if len(location) != 1:
+            return
+        self.location_id = location._get_putaway_strategy(self.product_id)
 
     @api.onchange("product_id", "location_id", "lot_id")
     def product_lot_loc_change(self):
@@ -163,17 +192,26 @@ class StockInventoryBarcode(models.TransientModel):
         return res
 
     def update_wiz_screen(self, res):
-        quant = self.inventory_id.stock_quant_ids.filtered_domain(
+        if (
+            self.zero_count
+            and self.quant_id
+            and self.product_id == self.quant_id.product_id
+            and self.lot_id == self.quant_id.lot_id
+            and self.location_id == self.quant_id.location_id
+        ):
+            return
+
+        locations = self.inventory_id.location_ids or self.location_id
+        product_quants = self.inventory_id.stock_quant_ids.filtered_domain(
             [
                 ("product_id", "=", self.product_id.id),
-                ("location_id", "=", self.location_id.id),
-                ("lot_id", "=", self.lot_id and self.lot_id.id or False),
+                ("location_id", "child_of", locations.ids),
             ]
         )
-        if len(quant) == 1:
-            self.quant_id = quant
-            self.change_qty = self.product_qty
-        elif len(quant) > 1:
+        quant = product_quants.filtered(
+            lambda q: q.location_id == self.location_id and q.lot_id == self.lot_id
+        )
+        if len(quant) > 1:
             res["warning"] = {
                 "title": self.env._("Error"),
                 "message": self.env._(
@@ -183,7 +221,8 @@ class StockInventoryBarcode(models.TransientModel):
                     "but this scenario is not supported for the moment."
                 ),
             }
-        else:
+            quant = quant[0]
+        if not quant:
             quant = self.env["stock.quant"].create(
                 {
                     "product_id": self.product_id.id,
@@ -239,9 +278,11 @@ class StockInventoryBarcode(models.TransientModel):
                 % self.inventory_id.display_name
             )
         prec = self.env["decimal.precision"].precision_get("Product Unit of Measure")
-        if not float_is_zero(self.add_qty, precision_digits=prec):
+        if self.zero_count and not float_is_zero(self.add_qty, precision_digits=prec):
             self.quant_id.inventory_quantity += self.add_qty
-        elif float_compare(self.change_qty, self.product_qty, precision_digits=prec):
+        elif not self.zero_count and float_compare(
+            self.change_qty, self.product_qty, precision_digits=prec
+        ):
             self.quant_id.inventory_quantity = self.change_qty
         action = {
             "name": self.env._("Stock Inventory Barcode Wizard"),

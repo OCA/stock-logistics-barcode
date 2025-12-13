@@ -8,3 +8,14 @@ inventory).
 The wizard screen is automatically adapted when the product is tracked
 by lot or serial, and if the inventory is made across several stock
 locations.
+
+In zero count mode, scan each article to increase its quantity by 1.
+By default, each quantity change will be automatically saved as soon as another
+product is identified.
+
+In zero count and when the inventory is for a single location, the product
+location will be automatically filled in according to the put-away strategy.
+If the product is also located in another location and no quantity has been
+inventoried, the quantity will be reset to 0 on that other location.
+This allows you to put back the product on the right shelf during the
+inventory.

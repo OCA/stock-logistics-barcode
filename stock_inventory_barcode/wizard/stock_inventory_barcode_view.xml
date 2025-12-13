@@ -10,11 +10,20 @@
         <field name="model">stock.inventory.barcode</field>
         <field name="arch" type="xml">
             <form string="Inventory Barcode Wizard">
+                <group name="mode" string="Select Mode">
+                    <group>
+                        <field name="zero_count" />
+                    </group>
+                    <group>
+                        <field name="auto_save" />
+                    </group>
+                    <field name="quant_id" invisible="1" force_save="1" />
+                </group>
                 <group name="product" string="Select Product">
                     <field name="inventory_id" invisible="1" />
                     <field name="multi_stock_location" invisible="1" />
                     <field name="company_id" invisible="1" />
-                    <field name="product_code" />
+                    <field name="product_code" autofocus="1" />
                     <field name="product_id" />
                     <field name="product_tracking" invisible="1" />
                     <field
@@ -28,35 +37,32 @@
                         invisible="not multi_stock_location"
                         options="{'no_create': True, 'no_create_edit': True}"
                     />
-                    <field name="uom_id" invisible="1" />
-                    <label for="theoretical_qty" />
-                    <div name="theoretical_qty">
-                        <field name="theoretical_qty" class="oe_inline" />
-                        <field name="uom_name" />
-                    </div>
-                    <label for="product_qty" />
-                    <div name="product_qty">
-                        <field name="product_qty" class="oe_inline" />
-                        <field name="uom_name" />
-                    </div>
                 </group>
                 <group name="qty" string="Update Quantity">
-                    <label for="change_qty" />
-                    <div name="change_qty">
-                        <field name="change_qty" class="oe_inline" />
-                        <field name="uom_name" />
-                    </div>
-                    <label
-                        string="OR"
-                        colspan="2"
-                        for="inventory_id"
-                        invisible="not product_qty"
-                    />
-                    <label for="add_qty" invisible="not product_qty" />
-                    <div name="add_qty" invisible="not product_qty">
-                        <field name="add_qty" class="oe_inline" />
-                        <field name="uom_name" />
-                    </div>
+                    <group>
+                        <label for="change_qty" invisible="zero_count" />
+                        <div name="change_qty" invisible="zero_count" class="o_row">
+                            <field name="change_qty" />
+                            <field name="uom_name" groups="uom.group_uom" />
+                        </div>
+                        <label for="add_qty" invisible="not zero_count" />
+                        <div name="add_qty" invisible="not zero_count" class="o_row">
+                            <field name="add_qty" />
+                            <field name="uom_name" groups="uom.group_uom" />
+                        </div>
+                    </group>
+                    <group>
+                        <label for="theoretical_qty" />
+                        <div name="theoretical_qty" class="o_row">
+                            <field name="theoretical_qty" />
+                            <field name="uom_name" groups="uom.group_uom" />
+                        </div>
+                        <label for="product_qty" />
+                        <div name="product_qty" class="o_row">
+                            <field name="product_qty" />
+                            <field name="uom_name" groups="uom.group_uom" />
+                        </div>
+                    </group>
                 </group>
                 <group
                     name="note"
