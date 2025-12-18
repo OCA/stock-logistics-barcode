@@ -22,13 +22,10 @@
                                 invisible="display_menu"
                                 data-hotkey="0"
                             >
-                                <i class="fa fa-chevron-left fa-2x text-white" />
+                                <i class="fa fa-chevron-left text-white" />
                             </button>
                             <field name="message" class="mt-3 h3 text-white" />
-                            <span
-                                title="Barcode"
-                                class="fa fa-barcode fa-2x mt-2 mx-3"
-                            />
+                            <span title="Barcode" class="fa fa-barcode mt-2 mx-3" />
                         </div>
                     </div>
                     <div
@@ -71,7 +68,7 @@
                                     <strong class=" d-none d-sm-block">Source Location
                                     </strong>
                                     <span
-                                        class="fa fa-map-marker fa-2x d-sm-none oe_span_small_icon"
+                                        class="fa fa-map-marker d-sm-none oe_span_small_icon"
                                         title="Source Location"
                                     />
                                     <field
@@ -101,11 +98,11 @@
                                     />
                                     <field
                                         name="package_id"
-                                        options="{'no_create': True}"
+                                        options="{'no_create': True, 'no_open': True}"
                                         readonly="not manual_entry"
                                         force_save="1"
                                         class="h5 oe_inline"
-                                        style="width: 35% !important"
+                                        style="max-width: 21% !important"
                                     />
                                     <span invisible="result_package_id == False">-&gt;
                                     </span>
@@ -115,7 +112,7 @@
                                         readonly="not manual_entry"
                                         force_save="1"
                                         class="h5 oe_inline ms-1"
-                                        style="width: 35% !important"
+                                        style="max-width: 21% !important"
                                     />
                                     <!-- Double button to display open or closed padlock -->
                                     <button
@@ -159,7 +156,7 @@
                                 <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Product</strong>
                                     <span
-                                        class="fa fa-th-list fa-2x d-sm-none oe_span_small_icon"
+                                        class="fa fa-th-list d-sm-none oe_span_small_icon"
                                         title="Product"
                                     />
                                     <field
@@ -167,7 +164,7 @@
                                         options="{'no_create': True, 'no_open': True}"
                                         readonly="not manual_entry"
                                         force_save="1"
-                                        style="width:80%"
+                                        style="max-width:75%"
                                         class="h5"
                                     />
                                     <button
@@ -186,7 +183,7 @@
                                 >
                                     <strong class="d-none d-sm-block">Owner</strong>
                                     <span
-                                        class="fa fa-th-list fa-2x d-sm-none oe_span_small_icon"
+                                        class="fa fa-th-list d-sm-none oe_span_small_icon"
                                         title="Owner"
                                     />
                                     <field
@@ -206,13 +203,13 @@
                                 <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Lot S/N</strong>
                                     <span
-                                        class="fa fa-tags fa-2x d-sm-none oe_span_small_icon"
+                                        class="fa fa-tags d-sm-none oe_span_small_icon"
                                         title="Lot S/N"
                                     />
                                     <field
                                         name="lot_name"
                                         invisible="not create_lot"
-                                        style="width:60%"
+                                        style="max-width:60%"
                                         class="h5"
                                     />
                                     <field
@@ -377,7 +374,7 @@
                             type="object"
                             icon="fa-trash-o"
                             title="Clean Values"
-                            class="btn-warning w-100 oe_kanban_action_button btn-sm ps-3 pe-3 mx-1
+                            class="btn-warning w-100 oe_kanban_action_button btn-sm
                                         text-uppercase d-flex justify-content-center align-items-center fs-2"
                             invisible="display_menu or not manual_entry"
                             data-hotkey="7"
@@ -389,7 +386,7 @@
                             type="object"
                             icon="fa-check"
                             title="Confirm"
-                            class="btn-success w-100 oe_kanban_action_button btn-sm ps-3 pe-3  text-uppercase d-flex justify-content-center align-items-center fs-2"
+                            class="btn-success w-100 oe_kanban_action_button btn-sm text-uppercase d-flex justify-content-center align-items-center fs-2"
                             invisible="((not is_manual_confirm and not manual_entry) or display_menu) or visible_force_done"
                             data-hotkey="8"
                         >
@@ -401,7 +398,7 @@
                             icon="fa-check"
                             title="Force done"
                             invisible="not visible_force_done"
-                            class="btn-danger w-100 oe_kanban_action_button btn-sm ps-3 pe-3 text-uppercase d-flex justify-content-center align-items-center"
+                            class="btn-danger w-100 oe_kanban_action_button btn-sm text-uppercase d-flex justify-content-center align-items-center"
                             style="width: 50px"
                             data-hotkey="8"
                         >

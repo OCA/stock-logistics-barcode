@@ -58,7 +58,7 @@
                 <div>
                     <strong class=" d-none d-sm-block">Dest. Location</strong>
                     <span
-                        class="fa fa-2x fa-share text-center d-sm-none oe_span_small_icon"
+                        class="fa fa-share text-center d-sm-none oe_span_small_icon"
                         title="Destination Location"
                     />
                     <field

@@ -54,6 +54,9 @@
     div[name="package_id"],
     div[name="lot_name"] {
         @include margin-form-edit-sm(0 0 0 1%);
+        input {
+            min-height: 35px;
+        }
     }
 
     div[name="location_dest_id"] {
@@ -61,8 +64,9 @@
     }
 
     div.scan_fields {
-        width: 100% !important;
-        margin: 0 !important;
+        div {
+            margin-bottom: 2px;
+        }
 
         div.o-autocomplete.dropdown {
             + a.o_dropdown_button {
@@ -72,7 +76,6 @@
 
         @include media-breakpoint-down(sm) {
             padding: 0 2% 0 2% !important;
-            width: 100% !important;
         }
 
         > div.o_inner_group.grid.col-lg-6 {
@@ -116,7 +119,6 @@
         @include media-breakpoint-down(sm) {
             padding: 2% 0 2% 0 !important;
         }
-        margin: 0 !important;
     }
 
     .o_form_sheet,
