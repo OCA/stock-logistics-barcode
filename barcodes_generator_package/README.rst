@@ -112,6 +112,8 @@ Contributors
 
 - Sylvain LE GAL (https://twitter.com/legalsylvain)
 
+- Miquel Alzanillas <miquel.alzanillas@nagarro.com>
+
 Other credits
 -------------
 

@@ -8,12 +8,17 @@ class Tests(TransactionCase):
     """Tests 'Barcodes Generator for Packages'"""
 
     @classmethod
-    def setUp(cls):
+    def setUpClass(cls):
         super().setUpClass()
         cls.package = cls.env.ref(
             "barcodes_generator_package.demo_package",
         )
         cls.barcode_rule = cls.env.ref("barcodes_generator_package.rule_package")
+        # Reset sequence to ensure consistent test results
+        cls.sequence = cls.env.ref(
+            "barcodes_generator_package.product_packaging_ir_sequence"
+        )
+        cls.sequence.number_next = 1
 
     def test_barcode_generation_based_on_sequence(self):
         self.assertFalse(self.package.barcode_base)
