@@ -22,10 +22,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         model="product.template.attribute.line"
     >
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
-        <field name="attribute_id" ref="product.product_attribute_2" />
+        <field name="attribute_id" ref="product.pa_size" />
         <field
             name="value_ids"
-            eval="[Command.set([ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.pav_size_s'), ref('product.pav_size_m')])]"
         />
     </record>
 
@@ -75,10 +75,10 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
         model="product.template.attribute.line"
     >
         <field name="product_tmpl_id" ref="product_template_multi_variant" />
-        <field name="attribute_id" ref="product.product_attribute_2" />
+        <field name="attribute_id" ref="product.pa_size" />
         <field
             name="value_ids"
-            eval="[Command.set([ref('product.product_attribute_value_3'), ref('product.product_attribute_value_4')])]"
+            eval="[Command.set([ref('product.pav_size_s'), ref('product.pav_size_m')])]"
         />
     </record>
 
