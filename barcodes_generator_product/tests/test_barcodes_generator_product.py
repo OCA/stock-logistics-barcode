@@ -14,8 +14,28 @@ class Tests(BaseCommon):
         super().setUpClass()
         cls.ProductTemplate = cls.env["product.template"]
         cls.ProductProduct = cls.env["product.product"]
-        cls.barcode_rule_manually = cls.env.ref(
-            "barcodes_generator_product.rule_product_generated_barcode_manually"
+        cls.barcode_sequence = cls.env["ir.sequence"].create(
+            {
+                "name": "Barcode Seq.",
+                "code": "bar.seq",
+                "prefix": "0",
+                "padding": 0,
+                "company_id": False,
+            }
+        )
+        cls.barcode_rule_manually = cls.env["barcode.rule"].create(
+            {
+                "name": "Rule - Generate Manually",
+                "barcode_nomenclature_id": cls.env.ref(
+                    "barcodes.default_barcode_nomenclature"
+                ).id,
+                "type": "product",
+                "sequence": 998,
+                "encoding": "ean13",
+                "pattern": "20.....{NNNDD}",
+                "generate_type": "manual",
+                "generate_model": "product.product",
+            }
         )
 
     # Test Section
@@ -66,12 +86,8 @@ class Tests(BaseCommon):
             {"name": "Template Test Auto Gen"}
         )
         self.assertFalse(self.template_auto_gen.barcode)
-        rule = self.env.ref(
-            "barcodes_generator_product.rule_product_generated_barcode_manually"
-        )
-        rule.sequence_id = self.env.ref(
-            "barcodes_generator_product.seq_product_generated_barcode"
-        )
+        rule = self.barcode_rule_manually
+        rule.sequence_id = self.barcode_sequence
         rule.generate_automate = True
         rule.generate_type = "sequence"
         self.template_auto_gen.barcode_rule_id = rule
