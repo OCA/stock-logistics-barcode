@@ -1,27 +1,27 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # Copyright 2023-Today GRAP (http://www.grap.coop)
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo_test_helper import FakeModelLoader
-
 from odoo.exceptions import UserError
+from odoo.orm.model_classes import add_to_registry
 
 from odoo.addons.base.tests.common import BaseCommon
 
+from .models import BarcodeGeneratorUserFake, BarcodeRuleUserFake
 
-class TestBarcodesGeneratorAbstract(BaseCommon, FakeModelLoader):
+
+class TestBarcodesGeneratorAbstract(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
-        from .models import BarcodeGeneratorUserFake, BarcodeRuleUserFake
 
-        cls.loader.update_registry(
-            (
-                BarcodeGeneratorUserFake,
-                BarcodeRuleUserFake,
-            )
-        )
+        add_to_registry(cls.registry, BarcodeGeneratorUserFake)
+        add_to_registry(cls.registry, BarcodeRuleUserFake)
+        test_models = ["res.users.tester", "barcode.rule"]
+
+        cls.registry._setup_models__(cls.env.cr, test_models)
+        cls.registry.init_models(cls.env.cr, test_models, {"models_to_check": True})
+        cls.addClassCleanup(cls.registry.__delitem__, "res.users.tester")
+
         cls.barcode_rule_fake = cls.env["barcode.rule"].create(
             {
                 "name": "User rule",
@@ -33,20 +33,16 @@ class TestBarcodesGeneratorAbstract(BaseCommon, FakeModelLoader):
                 "encoding": "ean13",
                 "pattern": "20.....{NNNDD}",
                 "generate_type": "manual",
-                "generate_model": "res.users",
+                "generate_model": "res.users.tester",
             }
         )
-        cls.user_fake = cls.env["res.users"].create(
+
+        cls.user_fake = cls.env["res.users.tester"].create(
             {
                 "name": "Test user",
                 "login": "testing_01",
             }
         )
-
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
 
     def test_generate_sequence_manually(self):
         self.user_fake.barcode_rule_id = self.barcode_rule_fake
