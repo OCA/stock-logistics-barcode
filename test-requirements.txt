@@ -1,0 +1,1 @@
+odoo-addon-barcodes_generator_abstract @ git+https://github.com/OCA/stock-logistics-barcode.git@refs/pull/739/head#subdirectory=barcodes_generator_abstract
