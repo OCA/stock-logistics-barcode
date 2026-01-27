@@ -110,18 +110,48 @@
                             <field name="uom_id" />
                             <field name="product_qty_reserved" />
                             <field name="picking_state" />
+                            <field name="is_stock_move_line_origin" />
                             <templates>
                                 <t t-name="kanban-box">
                                     <div class="oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-8 col-md-8">
                                                 <field name="product_id" class="h2" />
+                                                <t
+                                                    t-if="record.is_stock_move_line_origin.raw_value"
+                                                >
+                                                    <br />
+                                                    <field name="location_id" /> -->
+                                                    <field name="lot_id" />
+                                                    <t
+                                                    t-if="record.package_id.raw_value or record.result_package_id.raw_value"
+                                                >
+                                                    <br />
+                                                    <field name="package_id" />
+                                                    <t
+                                                        t-if="record.result_package_id.raw_value"
+                                                    >
+                                                            --> <field
+                                                        name="result_package_id"
+                                                    />
+                                                        </t>
+                                                </t>
+                                                </t>
                                                 <div
                                                     class="d-flex justify-content-start align-items-center indent h4 pt-3"
                                                 >
                                                     <field name="qty_done" />
                                                     &#32;/&#32;
+                                                    <t
+                                                    t-if="record.is_stock_move_line_origin.raw_value"
+                                                >
+                                                    <field
+                                                        name="product_qty_reserved"
+                                                    />
+                                                </t>
+                                                    <t t-else="">
                                                     <field name="product_uom_qty" />
+                                                </t>
                                                     <span
                                                     t-if="record.uom_id"
                                                     t-esc="record.uom_id.value"
