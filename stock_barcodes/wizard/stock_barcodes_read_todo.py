@@ -70,7 +70,10 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     @api.depends("qty_done", "product_uom_qty")
     def _compute_qty_done_rest(self):
         for rec in self:
-            rec.qty_done_rest = rec.product_uom_qty - rec.qty_done
+            if rec.is_stock_move_line_origin:
+                rec.qty_done_rest = rec.product_qty_reserved - rec.qty_done
+            else:
+                rec.qty_done_rest = rec.product_uom_qty - rec.qty_done
 
     def action_todo_next(self):
         self.state = "done_forced"
@@ -178,9 +181,15 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         if self.wiz_barcode_id.option_group_id.get_option_value(
             "product_qty", "filled_default"
         ):
-            self.wiz_barcode_id.product_qty = self.product_uom_qty - sum(
-                self.line_ids.mapped("qty_picked")
-            )
+            if self.is_stock_move_line_origin:
+                pending_qty = self.product_qty_reserved - sum(
+                    self.line_ids.mapped("qty_picked")
+                )
+            else:
+                pending_qty = self.product_uom_qty - sum(
+                    self.line_ids.mapped("qty_picked")
+                )
+            self.wiz_barcode_id.product_qty = pending_qty
         self.wiz_barcode_id.product_uom_id = self.uom_id
         self.wiz_barcode_id.action_show_step()
         self.wiz_barcode_id._set_focus_on_qty_input()

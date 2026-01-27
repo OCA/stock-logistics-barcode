@@ -95,9 +95,16 @@
                                     <span>
                                         <span class="fw-bold">
                                         <t t-esc="record.qty_done.value" />
-                                    </span> / <t
-                                        t-esc="record.product_uom_qty.value"
-                                    /> <t t-esc="record.uom_id.value.slice(0,3)" />
+                                    </span> /
+                                        <t
+                                        t-if="record.is_stock_move_line_origin.raw_value"
+                                    >
+                                        <field name="product_qty_reserved" />
+                                    </t>
+                                        <t t-else="">
+                                        <field name="product_uom_qty" />
+                                    </t>
+                                        <field name="uom_id" />
                                     </span>
                                     <strong
                                         class="bg-danger"
