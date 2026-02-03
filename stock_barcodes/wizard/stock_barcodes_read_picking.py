@@ -262,7 +262,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         ):
             self.result_package_id = move_line.result_package_id
         if self.option_group_id.get_option_value("product_qty", "filled_default"):
-            self.product_qty = move_line.product_uom_qty - move_line.qty_done
+            qty_picked = sum(move_line.line_ids.mapped("qty_picked"))
+            if move_line.is_stock_move_line_origin:
+                pending_qty = move_line.product_qty_reserved - qty_picked
+            else:
+                pending_qty = move_line.product_uom_qty - qty_picked
+            self.product_qty = pending_qty
         else:
             if not self.visible_force_done:
                 self.product_qty = 0.0
