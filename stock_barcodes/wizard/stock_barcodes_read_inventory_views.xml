@@ -86,20 +86,23 @@
                                             </div>
                                         </div>
                                         <div class="row">
-                                            <div
-                                                class="col-8 col-md-10 d-flex justify-content-start align-items-center"
-                                            >
-                                                <span
-                                                    t-if="record.lot_id.raw_value"
-                                                    class="h3"
-                                                >Lot S/N:&#32;&#32;</span>
-                                                <field
-                                                    t-if="record.lot_id.raw_value"
-                                                    name="lot_id"
-                                                    class="h2"
-                                                />
+                                            <div class="col-8">
+                                                <span>Location:<strong>
+                                                    <field name="location_id" />
+                                                </strong></span>
+                                                <t t-if="record.lot_id.raw_value">
+                                                    <br />
+                                                    <span>Lot S/N:<strong>
+                                                        <field name="lot_id" />
+                                                    </strong></span>
+                                                </t>
+                                                <t t-if="record.package_id.raw_value">
+                                                    <br />
+                                                    <span>Package:<strong>
+                                                        <field name="package_id" />
+                                                    </strong></span>
+                                                </t>
                                             </div>
-
                                             <div
                                                 class="col-4 col-md-2 d-flex justify-content-end align-items-center"
                                             >
