@@ -552,7 +552,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         for line in lines:
             if line.quantity_product_uom and len(lines) > 1:
                 assigned_qty = min(
-                    max(line.quantity_product_uom - line.quantity, 0.0), available_qty
+                    max(line.quantity_product_uom - line.qty_picked, 0.0), available_qty
                 )
             else:
                 assigned_qty = available_qty
@@ -613,27 +613,67 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # initial demand.
             # When the sml is created we need to link to a stock move but user can read
             # any other product in guided mode so we must ensure that the sm linked to
-            # moves todo records have the same product. If not we search any sm linked
+            # moves to do records have the same product. If not we search any sm linked
             # to the picking.
             moves_to_link = moves_todo.filtered(
                 lambda mv: mv.product_id == self.product_id
             )
+            # It's possible that there are more than on stock.move with the same product
+            # and lot to assign read done, for example, a sale order with two lines with
+            # the same product, one of their with a price to zero, in this case we have
+            # two equals stock moves and we try to do a repartition between existing
+            # stock move lines.
+            stock_move_lines = self.env["stock.move.line"].browse()
+            more_than_one_move = len(moves_to_link) > 1
+            for move_to_link in moves_to_link:
+                if more_than_one_move:
+                    reserved_qty = sum(
+                        move_to_link.move_line_ids.mapped("quantity_product_uom")
+                    )
+                    qty_picked = sum(move_to_link.move_line_ids.mapped("qty_picked"))
+                    assigned_qty = min(
+                        max(reserved_qty - qty_picked, 0.0), available_qty
+                    )
+                else:
+                    assigned_qty = available_qty
+                if (
+                    float_compare(
+                        assigned_qty,
+                        0,
+                        precision_rounding=self.product_id.uom_id.rounding,
+                    )
+                    > 0
+                ):
+                    stock_move_lines += self.create_new_stock_move_line(
+                        move_to_link, assigned_qty
+                    )
+                    available_qty -= assigned_qty
+                if (
+                    float_compare(
+                        available_qty,
+                        0,
+                        precision_rounding=self.product_id.uom_id.rounding,
+                    )
+                    < 0
+                ):
+                    break
+            if (
+                float_compare(
+                    available_qty, 0, precision_rounding=self.product_id.uom_id.rounding
+                )
+                > 0
+            ):
+                # After distributing the amount read, I still have an amount to
+                # distribute, and I assign it to the first movement.
+                stock_move_lines += self.create_new_stock_move_line(
+                    moves_to_link[:1], available_qty
+                )
             move_to_link_in_todo_line = True
             if not moves_to_link:
                 move_to_link_in_todo_line = False
-                moves_to_link = self.picking_id.move_ids.filtered(
-                    lambda mv: mv.product_id == self.product_id
-                )
-            stock_move_lines = self.create_new_stock_move_line(
-                moves_to_link, available_qty
-            )
             for sml in stock_move_lines:
                 if not sml.move_id:
                     self.create_new_stock_move(sml)
-                elif sml.move_id and context.get("force_create_move", False):
-                    pass
-                    # TODO: Review this scenario
-                    # sml.move_id.product_uom_qty = self.product_qty
                 move_lines_dic[sml.id] = sml.qty_picked
             # Ensure that the state of stock_move linked to the sml read is assigned
             stock_move_lines.move_id.filtered(
