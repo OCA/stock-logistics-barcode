@@ -4,6 +4,8 @@
 # @author: Sylvain LE GAL (https://twitter.com/legalsylvain)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+import re
+
 import barcode
 
 from odoo import _, api, exceptions, fields, models
@@ -86,17 +88,23 @@ class BarcodeGenerateMixin(models.AbstractModel):
         """
         If the pattern is '23.....{NNNDD}'
         this function will return '23.....00000'
+        Only replace N and D inside braces, and remove the braces in the result.
         Note : Overload _get_replacement_char to have another char
         instead that replace 'N' and 'D' char.
         """
         if not item.barcode_rule_id:
             return False
 
-        # Define barcode
-        custom_code = item.barcode_rule_id.pattern
-        custom_code = custom_code.replace("{", "").replace("}", "")
-        custom_code = custom_code.replace("D", self._get_replacement_char("D"))
-        return custom_code.replace("N", self._get_replacement_char("N"))
+        pattern = item.barcode_rule_id.pattern
+
+        def _replace_inside_braces(match):
+            content = match.group(1)
+            content = content.replace("N", self._get_replacement_char("N"))
+            content = content.replace("D", self._get_replacement_char("D"))
+            return content
+
+        custom_code = re.sub(r"\{([^}]*)\}", _replace_inside_braces, pattern)
+        return custom_code
 
     @api.model
     def _get_replacement_char(self, char):
