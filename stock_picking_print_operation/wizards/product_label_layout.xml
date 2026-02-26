@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="product_label_layout_form_picking" model="ir.ui.view">
+        <field name="name">product.label.layout.form</field>
+        <field name="model">product.label.layout</field>
+        <field name="inherit_id" ref="stock.product_label_layout_form_picking" />
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='custom_quantity']" position="attributes">
+                <attribute
+                    name="invisible"
+                    add="move_quantity == 'line'"
+                    separator="or"
+                />
+            </xpath>
+        </field>
+    </record>
+</odoo>

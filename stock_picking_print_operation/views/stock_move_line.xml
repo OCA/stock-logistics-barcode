@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl). -->
+<odoo>
+    <record id="view_move_line_tree_detailed" model="ir.ui.view">
+        <field name="name">stock.move.line.list</field>
+        <field name="model">stock.move.line</field>
+        <field
+            name="inherit_id"
+            ref="stock.view_stock_move_line_detailed_operation_tree"
+        />
+        <field name="arch" type="xml">
+            <field name="state" position="after">
+                <field name="show_print_operation_button" column_invisible="1" />
+                <button
+                    name="action_print_line_barcode"
+                    title="Print Barcodes"
+                    type="object"
+                    icon="fa-print"
+                    invisible="not show_print_operation_button"
+                />
+            </field>
+        </field>
+    </record>
+</odoo>
