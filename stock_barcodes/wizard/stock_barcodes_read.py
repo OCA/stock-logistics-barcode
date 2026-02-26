@@ -260,6 +260,12 @@ class WizStockBarcodesRead(models.AbstractModel):
             return True
         return False
 
+    def process_barcode_lot_name(self):
+        if self.product_id and self.product_id.tracking != "none":
+            self.action_lot_scaned_post(self.barcode)
+            return True
+        return False
+
     def process_barcode_lot_id(self):
         if self.env.user.has_group("stock.group_production_lot"):
             lot_domain = [("name", "=", self.barcode)]
@@ -306,14 +312,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self._set_messagge_info(
                     "more_match", _("More than one lot found\nScan product before")
                 )
-            elif (
-                self.product_id
-                and self.product_id.tracking != "none"
-                and self.option_group_id.create_lot
-            ):
-                self.lot_name = self.barcode
-                self.action_lot_scaned_post(self.lot_name)
-                return True
         return False
 
     def process_barcode_package_id(self):
@@ -835,14 +833,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         )
 
     def process_lot_before_done(self):
-        if (
-            not self.lot_id
-            and self.lot_name
-            and self.product_id
-            and self.product_id.tracking != "none"
-            and self.option_group_id.create_lot
-        ):
-            self.lot_id = self._create_new_lot()
+        """To be inherited by other modules like stock_barcodes_gs1_expiry"""
         return True
 
     def play_sounds(self, res=False):
