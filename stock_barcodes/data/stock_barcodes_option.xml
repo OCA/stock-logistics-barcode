@@ -9,7 +9,7 @@
         <field name="is_manual_qty">True</field>
         <field name="is_manual_confirm">True</field>
         <field name="barcode_guided_mode">guided</field>
-        <field name="show_pending_moves">True</field>
+        <field name="show_pending_moves">pending</field>
         <field name="confirmed_moves">True</field>
         <field name="source_pending_moves">move_ids</field>
         <field name="fill_fields_from_lot">True</field>
@@ -112,7 +112,7 @@
         <field name="is_manual_qty">False</field>
         <field name="is_manual_confirm">False</field>
         <field name="barcode_guided_mode" />
-        <field name="show_pending_moves">True</field>
+        <field name="show_pending_moves">pending</field>
         <field name="confirmed_moves">False</field>
         <field name="source_pending_moves">move_line_ids</field>
         <field name="fill_fields_from_lot">False</field>
@@ -183,7 +183,7 @@
         <field name="auto_put_in_pack">False</field>
         <field name="is_manual_qty">False</field>
         <field name="is_manual_confirm">True</field>
-        <field name="show_pending_moves">True</field>
+        <field name="show_pending_moves">pending</field>
         <field name="confirmed_moves">True</field>
         <field name="source_pending_moves">move_line_ids</field>
         <field name="fill_fields_from_lot">True</field>
@@ -308,7 +308,7 @@
         <field name="is_manual_qty">False</field>
         <field name="is_manual_confirm">True</field>
         <field name="ignore_filled_fields">True</field>
-        <field name="show_pending_moves">False</field>
+        <field name="show_pending_moves">none</field>
         <field name="confirmed_moves">False</field>
         <field name="source_pending_moves">move_line_ids</field>
         <field name="fill_fields_from_lot">True</field>

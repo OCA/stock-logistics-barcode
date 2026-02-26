@@ -11,3 +11,7 @@ def migrate(env, version):
         UPDATE stock_move_line set qty_picked = qty_done;
         """,
     )
+    openupgrade.rename_columns(
+        env.cr,
+        {"stock_barcodes_option_group": [("show_pending_moves", None)]},
+    )

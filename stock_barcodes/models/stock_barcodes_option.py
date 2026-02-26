@@ -31,8 +31,14 @@ class StockBarcodesOptionGroup(models.Model):
         help="It allows to work with movements without reservation "
         "(Without detailed operations)",
     )
-    show_pending_moves = fields.Boolean(
-        string="Show pending moves", help="Shows a list of movements to process"
+    show_pending_moves = fields.Selection(
+        [
+            ("none", "None"),
+            ("pending", "Only pending moves"),
+            ("all", "All moves, pending and done"),
+        ],
+        string="Show pending moves",
+        help="Shows a list of movements to process",
     )
     source_pending_moves = fields.Selection(
         [("move_line_ids", "Detailed operations"), ("move_ids", "Operations")],

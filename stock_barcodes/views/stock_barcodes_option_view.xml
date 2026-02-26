@@ -27,7 +27,7 @@
                             <field name="show_pending_moves" />
                             <field
                                 name="source_pending_moves"
-                                invisible="show_pending_moves == False and barcode_guided_mode == False"
+                                invisible="show_pending_moves == 'none' and barcode_guided_mode == False"
                             />
                             <field name="group_key_for_todo_records" />
                             <field name="location_field_to_sort" />

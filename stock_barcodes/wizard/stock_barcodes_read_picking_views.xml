@@ -116,7 +116,7 @@
                                     <div class="oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-8 col-md-8">
-                                                <field name="product_id" class="h2" />
+                                                <field name="product_id" class="h3" />
                                                 <t
                                                     t-if="record.is_stock_move_line_origin.raw_value"
                                                 >
@@ -218,16 +218,43 @@
                             <field name="product_uom_id" />
                             <field name="lot_id" />
                             <field name="result_package_id" />
+                            <field name="picking_code" />
                             <templates>
                                 <t t-name="kanban-box">
                                     <div class="oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-8 col-md-8">
-                                                <field name="product_id" class="h2" />
+                                                <field name="product_id" class="h3" />
                                                 <div
-                                                    class="d-flex justify-content-start align-items-center indent h4 pt-3"
+                                                    class="d-flex justify-content-start align-items-center indent"
                                                 >
-                                                    <t t-if="record.lot_id.raw_value">
+                                                    <t
+                                                        t-if="record.picking_code.raw_value == 'outgoing'"
+                                                    >
+                                                        <field name="location_id" />
+                                                    </t>
+                                                    <t
+                                                        t-elif="record.picking_code.raw_value == 'incoming'"
+                                                    >
+                                                        <field
+                                                            name="location_dest_id"
+                                                        />
+                                                    </t>
+                                                    <t t-else="">
+                                                        <field
+                                                        name="location_id"
+                                                    /> --> <field
+                                                        name="location_dest_id"
+                                                    />
+                                                    </t>
+                                                </div>
+                                                <div
+                                                    class="d-flex justify-content-start align-items-center indent"
+                                                >
+                                                    <t t-if="record.lot_name.raw_value">
+                                                        Lot: <field name="lot_name" />
+                                                    </t>
+                                                    <t t-elif="record.lot_id.raw_value">
                                                         Lot: <field name="lot_id" />
                                                     </t>
                                                     <t

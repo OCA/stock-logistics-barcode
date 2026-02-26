@@ -86,17 +86,19 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     @api.depends("todo_line_ids", "picking_id.move_line_ids.qty_picked")
     def _compute_pending_move_ids(self):
-        if self.option_group_id.show_pending_moves:
+        if self.option_group_id.show_pending_moves == "pending":
             self.pending_move_ids = self.todo_line_ids.filtered(
                 lambda t: t.state == "pending"
                 and any(
                     sm.barcode_backorder_action == "pending" for sm in t.stock_move_ids
                 )
             )
-        else:
+        elif self.option_group_id.show_pending_moves == "all":
             self.pending_move_ids = self.todo_line_ids.filtered(
                 lambda t: not t.is_extra_line
             )
+        else:
+            self.pending_move_ids = False
 
     @api.depends(
         "todo_line_ids", "todo_line_ids.qty_done", "picking_id.move_line_ids.qty_picked"
