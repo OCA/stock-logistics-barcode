@@ -249,11 +249,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
         if self.option_group_id.get_option_value("location_id", "filled_default"):
             self.location_id = move_line.location_id
-        elif self.picking_type_code != "incoming":
+        elif self.option_group_id.get_option_value("location_id", "clean_after_done"):
             self.location_id = False
         if self.option_group_id.get_option_value("location_dest_id", "filled_default"):
             self.location_dest_id = move_line.location_dest_id
-        elif self.picking_type_code != "outgoing":
+        elif self.option_group_id.get_option_value(
+            "location_dest_id", "clean_after_done"
+        ):
             self.location_dest_id = False
         if self.option_group_id.get_option_value("package_id", "filled_default"):
             self.package_id = move_line.package_id
@@ -279,7 +281,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if option.filled_default:
                 self[option.field_name] = move_line[option.field_name]
             else:
-                if not self.env.context.get("skip_clean_values", False):
+                if (
+                    not self.env.context.get("skip_clean_values", False)
+                    and option.clean_after_done
+                ):
                     self[option.field_name] = False
         self.update_fields_after_determine_todo(move_line)
         self.action_show_step()
@@ -359,7 +364,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "location_id": self.location_id.id,
             "location_dest_id": self.location_dest_id.id,
             "lot_id": self.lot_id.id,
-            "lot_name": self.lot_id.name,
+            "lot_name": self.lot_name,
             "barcode_scan_state": "done_forced",
             "package_id": self.package_id.id,
             "result_package_id": self.result_package_id.id,
@@ -478,20 +483,31 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             moves_todo = StockMove.search(domain)
         sml_vals = {}
         candidate_lines = self._get_candidate_stock_move_lines(moves_todo, sml_vals)
-        lines = candidate_lines.filtered(
-            lambda line: (
-                line.lot_id == self.lot_id and line.barcode_scan_state == "pending"
+        if self.lot_name:
+            lines = candidate_lines.filtered(
+                lambda line: (
+                    line.lot_name == self.lot_name
+                    and line.barcode_scan_state == "pending"
+                )
             )
-        )
+        else:
+            lines = candidate_lines.filtered(
+                lambda line: (
+                    line.lot_id == self.lot_id and line.barcode_scan_state == "pending"
+                )
+            )
         # Check if exists lines with lot created if product has tracking serial
         if self.product_id.tracking == "serial":
             serial_lines = self.picking_id.move_line_ids.filtered(
                 lambda sml: (
-                    sml.lot_id == self.lot_id or sml.lot_name == self.lot_id.name
+                    (self.lot_id and sml.lot_id == self.lot_id)
+                    or (self.lot_name and sml.lot_name == self.lot_name)
                 )
                 and sml.qty_picked >= 1.0
             )
             if serial_lines:
+                self.lot_name = False
+                self.lot_id = False
                 self._set_messagge_info("more_match", _("S/N Already in picking"))
                 return False
         # For incoming pickings the lot is not filled so we try fill it with
@@ -504,8 +520,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if (
                 self.option_group_id.create_lot
                 and self.product_id.tracking == "serial"
-                and candidate_lines.filtered(lambda ln: ln.lot_name == self.lot_id.name)
+                and candidate_lines.filtered(lambda ln: ln.lot_name == self.lot_name)
             ):
+                self.lot_name = False
                 self.lot_id = False
                 self._set_messagge_info("more_match", _("S/N already created"))
                 return False
@@ -513,15 +530,18 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 lambda line: (not line.lot_id and line.barcode_scan_state == "pending")
             )
             if lines:
-                sml_vals.update(
-                    {"lot_id": self.lot_id.id, "lot_name": self.lot_id.name}
-                )
+                sml_vals.update({"lot_id": self.lot_id.id, "lot_name": self.lot_name})
         candidate_domain = self._get_candidate_line_domain()
         if candidate_domain:
             lines = lines.filtered_domain(candidate_domain)
         # Take into account all smls to get a line to update
         if not lines:
-            lines = candidate_lines.filtered(lambda ln: (ln.lot_id == self.lot_id))
+            if self.lot_name:
+                lines = candidate_lines.filtered(
+                    lambda ln: ln.lot_name == self.lot_name
+                )
+            else:
+                lines = candidate_lines.filtered(lambda ln: ln.lot_id == self.lot_id)
             if candidate_domain:
                 lines = lines.filtered_domain(candidate_domain)
         available_qty = self.product_qty
