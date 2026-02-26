@@ -8,24 +8,27 @@ from odoo.exceptions import UserError
 from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestBarcodesGeneratorAbstract(BaseCommon, FakeModelLoader):
+class TestBarcodesGeneratorAbstract(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
-        cls.loader = FakeModelLoader(cls.env, cls.__module__)
-        cls.loader.backup_registry()
+
+    def setUp(self):
+        super().setUp()
+        self.loader = FakeModelLoader(self.env, self.__module__)
+        self.loader.backup_registry()
         from .models import BarcodeGeneratorUserFake, BarcodeRuleUserFake
 
-        cls.loader.update_registry(
+        self.loader.update_registry(
             (
                 BarcodeGeneratorUserFake,
                 BarcodeRuleUserFake,
             )
         )
-        cls.barcode_rule_fake = cls.env["barcode.rule"].create(
+        self.barcode_rule_fake = self.env["barcode.rule"].create(
             {
                 "name": "User rule",
-                "barcode_nomenclature_id": cls.env.ref(
+                "barcode_nomenclature_id": self.env.ref(
                     "barcodes.default_barcode_nomenclature"
                 ).id,
                 "type": "user",
@@ -36,17 +39,16 @@ class TestBarcodesGeneratorAbstract(BaseCommon, FakeModelLoader):
                 "generate_model": "res.users",
             }
         )
-        cls.user_fake = cls.env["res.users"].create(
+        self.user_fake = self.env["res.users"].create(
             {
                 "name": "Test user",
                 "login": "testing_01",
             }
         )
 
-    @classmethod
-    def tearDownClass(cls):
-        cls.loader.restore_registry()
-        super().tearDownClass()
+    def tearDown(self):
+        self.loader.restore_registry()
+        super().tearDown()
 
     def test_generate_sequence_manually(self):
         self.user_fake.barcode_rule_id = self.barcode_rule_fake
