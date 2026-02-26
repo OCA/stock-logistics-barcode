@@ -56,3 +56,16 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.expiration_date = False
         self.use_date = False
         return super().action_clean_lot()
+
+    def process_lot_before_done(self):
+        if self.use_date or self.env.context.get("force_create_lot"):
+            if (
+                not self.lot_id
+                and self.lot_name
+                and self.product_id
+                and self.product_id.tracking != "none"
+                and self.option_group_id.create_lot
+            ):
+                self.lot_id = self._create_new_lot()
+            return True
+        return super().process_lot_before_done()
