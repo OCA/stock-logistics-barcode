@@ -99,3 +99,16 @@ class TestBarcodesGeneratorAbstract(TransactionCase, FakeModelLoader):
         self.user_fake.barcode_rule_id = self.barcode_rule_fake
         self.assertEqual(self.user_fake.barcode_base, 1)
         self.assertEqual(self.user_fake.barcode, "2000001000007")
+
+    def test_get_custom_barcode_preserves_literal_chars(self):
+        self.barcode_rule_fake.pattern = "ABND.....{NNNDD}"
+        self.user_fake.barcode_rule_id = self.barcode_rule_fake
+        custom = self.env["res.users"]._get_custom_barcode(self.user_fake)
+        self.assertTrue(custom.startswith("ABND"))
+        self.assertTrue(custom.endswith("00000"))
+
+    def test_get_custom_barcode_no_braces(self):
+        self.barcode_rule_fake.pattern = "AMZNCC0024670952....."
+        self.user_fake.barcode_rule_id = self.barcode_rule_fake
+        custom = self.env["res.users"]._get_custom_barcode(self.user_fake)
+        self.assertEqual(custom, "AMZNCC0024670952.....")
