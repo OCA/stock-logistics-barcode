@@ -151,6 +151,11 @@ msgstr ""
 "[('product_packaging_ids', '=', [])]}\"/>"
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
+msgid "<span class=\"fa fa-barcode fa-2x mt-2 mx-3\" title=\"Barcode\"/>"
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "<span class=\"fa fa-map-marker\" title=\"Location name\"/>"
 msgstr "<span class=\"fa fa-map-marker\" title=\"Nom de l'emplacement\"/>"
@@ -479,6 +484,11 @@ msgstr "Transferts suggérés"
 #: model:ir.model,name:stock_barcodes.model_wiz_candidate_picking
 msgid "Candidate pickings for barcode interface"
 msgstr "Transferts suggérés pour l'interface codes-barres"
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_id
+msgid "Candidate stock picking"
+msgstr ""
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -1422,7 +1432,6 @@ msgstr "Mouvements en attente"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__picking_id
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_id
 msgid "Picking"
 msgstr "Transfert"
