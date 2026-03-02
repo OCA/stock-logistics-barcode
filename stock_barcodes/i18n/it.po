@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-02-28 16:09+0000\n"
+"PO-Revision-Date: 2026-03-02 18:45+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -181,6 +181,7 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span class=\"fa fa-barcode fa-2x mt-2 mx-3\" title=\"Barcode\"/>"
 msgstr ""
+"<span class=\"fa fa-barcode fa-2x mt-2 mx-3\" title=\"codice a barre\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -536,7 +537,7 @@ msgstr "Prelievi candidati per interfaccia codice a barre"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_id
 msgid "Candidate stock picking"
-msgstr ""
+msgstr "Candida prelievo magazzino"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
