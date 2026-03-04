@@ -30,13 +30,17 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     product_qty_reserved = fields.Float(
         "Reserved",
+        compute="_compute_product_qty_reserved",
         digits="Product Unit of Measure",
-        readonly=True,
+        store=True,
+        readonly=False,
     )
     product_uom_qty = fields.Float(
         "Demand",
+        compute="_compute_product_uom_qty",
         digits="Product Unit of Measure",
-        readonly=True,
+        store=True,
+        readonly=False,
     )
     qty_done = fields.Float(
         "Done",
@@ -66,6 +70,16 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     is_extra_line = fields.Boolean()
     # Used in kanban view
     is_stock_move_line_origin = fields.Boolean()
+
+    @api.depends("stock_move_ids.quantity")
+    def _compute_product_qty_reserved(self):
+        for rec in self.filtered(lambda mv: not mv.is_stock_move_line_origin):
+            rec.product_qty_reserved = sum(rec.line_ids.mapped("quantity"))
+
+    @api.depends("stock_move_ids.product_uom_qty")
+    def _compute_product_uom_qty(self):
+        for rec in self.filtered(lambda mv: not mv.is_stock_move_line_origin):
+            rec.product_uom_qty = sum(rec.stock_move_ids.mapped("product_uom_qty"))
 
     @api.depends("qty_done", "product_uom_qty")
     def _compute_qty_done_rest(self):
