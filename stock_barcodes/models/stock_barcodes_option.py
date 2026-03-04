@@ -141,6 +141,14 @@ class StockBarcodesOptionGroup(models.Model):
         string="Do not increase qty done on each scan",
     )
     show_form_scan = fields.Boolean(default=True)
+    search_picking_from_product = fields.Selection(
+        [
+            ("first", "First picking"),
+            ("last", "Last picking"),
+            # ('select', 'Select picking (Not implemented)'),
+        ],
+        help="Open found picking after scan a product",
+    )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
