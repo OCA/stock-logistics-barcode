@@ -878,8 +878,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     "package_id": line.package_id.id,
                     "result_package_id": line.result_package_id.id,
                     "uom_id": line.product_uom_id.id,
-                    "product_uom_qty": line.move_id.product_uom_qty,
-                    "product_qty_reserved": line.quantity_product_uom,
                     "line_ids": [(6, 0, line.ids)],
                     "stock_move_ids": [(6, 0, line.move_id.ids)],
                     "package_product_qty": package_product_dic
@@ -896,11 +894,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                         line.move_line_ids[:1] or line
                     ).location_dest_id.id,
                     "uom_id": line.product_uom.id,
-                    "product_uom_qty": line.product_uom_qty,
-                    "product_qty_reserved": line.move_line_ids
-                    # TODO: Use reserved_qty or reserved_uom_qty
-                    and sum(line.move_line_ids.mapped("quantity"))
-                    or line.product_uom_qty,
                     "line_ids": [(6, 0, line.move_line_ids.ids)],
                     "stock_move_ids": [(6, 0, line.ids)],
                     "is_stock_move_line_origin": False,
@@ -910,18 +903,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _update_fill_record_values(self, line, vals):
         if vals["is_stock_move_line_origin"]:
-            vals["product_uom_qty"] += sum(line.mapped("move_id.product_uom_qty"))
-            vals["product_qty_reserved"] += line.quantity
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
+            if line.lot_id and line.lot_id.id != vals.get("lot_id", False):
+                vals["lot_id"] = False
         else:
-            vals["product_uom_qty"] += line.product_uom_qty
-            vals["product_qty_reserved"] += (
-                line.move_line_ids
-                # TODO: Use reserved_qty or reserved_uom_qty
-                and sum(line.move_line_ids.mapped("quantity"))
-                or line.product_uom_qty
-            )
             vals["line_ids"][0][2].extend(line.move_line_ids.ids)
             vals["stock_move_ids"][0][2].extend(line.ids)
         return vals
@@ -953,13 +939,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                         line, todo_vals[key]
                     )
                 # Max between the reserved and picked..
-                # Ups!! in 18.0 not reserved quantities on sml... so???
-                if is_stock_move_line_origin:
-                    move_qty_dic[line.move_id] += max(
-                        sum(line.mapped("move_id.product_uom_qty")), line.qty_picked
-                    )
-                else:
-                    move_qty_dic[line] += max(line.product_uom_qty, line.qty_picked)
+                move = line.move_id if is_stock_move_line_origin else line
+                move_qty_dic[move] += max(line.quantity, line.qty_picked)
         for move in self.get_moves():
             qty = move_qty_dic[move]
             if (
