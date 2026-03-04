@@ -6,7 +6,7 @@ from odoo import models
 class StockPickingBatch(models.Model):
     _inherit = "stock.picking.batch"
 
-    def action_barcode_scan(self):
+    def _prepare_barcode_wiz_vals(self):
         first_picking = self.picking_ids[:1]
         picking_type_code = first_picking.picking_type_code
         option_group = first_picking.picking_type_id.barcode_option_group_id
@@ -29,7 +29,12 @@ class StockPickingBatch(models.Model):
             vals["location_id"] = first_picking.location_id.id
         if option_group.get_option_value("location_dest_id", "filled_default"):
             vals["location_dest_id"] = first_picking.location_dest_id.id
-        wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
+        return vals
+
+    def action_barcode_scan(self, wiz=False):
+        if not wiz:
+            vals = self._prepare_barcode_wiz_vals()
+            wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
         wiz.fill_pending_moves()
         wiz.determine_todo_action()
         action = self.env["ir.actions.act_window"]._for_xml_id(

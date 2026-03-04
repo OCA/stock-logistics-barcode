@@ -196,10 +196,33 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
 
     def action_validate_picking_batch(self):
         res = self.picking_batch_id.with_context(
-            stock_barcodes_validate_picking=True, show_picking_type_action_tree=True
+            stock_barcodes_validate_picking=True
         ).action_done()
         if res:
             return res
         return self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_action"
         )
+
+    def _get_moves_from_product_domain(self):
+        domain = super()._get_moves_from_product_domain()
+        if self.picking_mode == "picking_batch":
+            domain.append(("id", "in", self.picking_batch_id.move_ids.ids))
+        return domain
+
+    def get_action_after_validate(self):
+        if self.picking_mode != "picking_batch" and self.picking_batch_id:
+            self.picking_mode = "picking_batch"
+            self.picking_id = False
+            self.res_model_id = self.env.ref(
+                "stock_picking_batch.model_stock_picking_batch"
+            ).id
+            self.res_id = self.picking_batch_id.id
+            return self.picking_batch_id.action_barcode_scan(wiz=self)
+        return super().get_action_after_validate()
+
+    def open_actions(self):
+        action = self.get_action_after_validate()
+        if action:
+            return action
+        return super().open_actions()
