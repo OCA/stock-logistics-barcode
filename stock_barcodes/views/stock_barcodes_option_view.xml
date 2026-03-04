@@ -40,6 +40,7 @@
                             <field name="show_form_scan" />
                         </group>
                         <group>
+                            <field name="search_picking_from_product" />
                             <field name="ignore_filled_fields" />
                             <field name="keep_screen_values" />
                             <field name="is_manual_confirm" />
