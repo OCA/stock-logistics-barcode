@@ -1004,3 +1004,36 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_validate_picking(self):
         picking = self._get_picking_to_validate()
         return picking.button_validate()
+
+    def _get_moves_from_product_domain(self):
+        return [
+            ("picking_code", "=", self.picking_type_code),
+            ("state", "in", ["assigned", "partially_available"]),
+            ("product_id", "=", self.product_id.id),
+        ]
+
+    def get_picking_from_product(self):
+        moves = self.env["stock.move"].search(self._get_moves_from_product_domain())
+        pickings = moves.picking_id
+        return pickings
+
+    def process_barcode_product_id(self):
+        res = super().process_barcode_product_id()
+        if (
+            not self.picking_id
+            and self.option_group_id.search_picking_from_product
+            and self.product_id
+        ):
+            pickings = self.get_picking_from_product()
+            if not pickings:
+                return res
+            if self.option_group_id.search_picking_from_product == "first":
+                self.picking_id = pickings[:1]
+            elif self.option_group_id.search_picking_from_product == "last":
+                self.picking_id = pickings[-1:]
+            self.picking_mode = "picking"
+            self.res_model_id = self.env.ref("stock.model_stock_picking").id
+            self.res_id = self.picking_id.id
+            self.fill_pending_moves()
+            self.determine_todo_action()
+        return res
