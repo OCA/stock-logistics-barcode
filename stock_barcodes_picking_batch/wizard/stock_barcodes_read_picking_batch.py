@@ -76,7 +76,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
                 ml[location_field].posx,
                 ml[location_field].posy,
                 ml[location_field].posz,
-                ml[location_field].name,
+                ml[location_field].complete_name,
             )
         )
         return move_lines
