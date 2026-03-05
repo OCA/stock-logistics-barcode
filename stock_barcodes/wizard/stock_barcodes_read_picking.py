@@ -749,6 +749,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def check_done_conditions(self):
         res = super().check_done_conditions()
         if (
+            not self.option_group_id.allow_not_demanded_product
+            and self.product_id not in self.todo_line_ids.product_id
+        ):
+            self._set_messagge_info("not_found", _("Product not demanded"))
+            return False
+        if (
             self.picking_type_code != "incoming"
             and float_compare(
                 self.product_qty,
@@ -972,19 +978,28 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             control_panel_hidden=False
         ).get_formview_action()
 
+    def get_action_after_validate(self):
+        action = self.picking_id.picking_type_id.get_action_picking_tree_ready()
+        return action
+
     def _get_picking_to_validate(self):
-        """Inject context show_picking_type_action_tree to redirect to picking list
-        after validate picking in barcodes environment.
+        """Inject context action to redirect it after validate picking in barcodes
+        environment.
         The stock_barcodes_validate_picking key allows to know when a picking has been
         validated from stock barcodes interface.
         """
         return self.picking_id.with_context(
-            show_picking_type_action_tree=True, stock_barcodes_validate_picking=True
+            stock_barcodes_validate_picking=True,
         )
 
     def action_validate_picking(self):
         picking = self._get_picking_to_validate()
-        return picking.button_validate()
+        res = picking.button_validate()
+        if res is True:
+            action = self.get_action_after_validate()
+            if action:
+                return action
+        return res
 
     def _get_moves_from_product_domain(self):
         return [
@@ -998,8 +1013,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         pickings = moves.picking_id
         return pickings
 
-    def process_barcode_product_id(self):
-        res = super().process_barcode_product_id()
+    def action_picking_from_product(self):
         if (
             not self.picking_id
             and self.option_group_id.search_picking_from_product
@@ -1007,7 +1021,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         ):
             pickings = self.get_picking_from_product()
             if not pickings:
-                return res
+                return False
             if self.option_group_id.search_picking_from_product == "first":
                 self.picking_id = pickings[:1]
             elif self.option_group_id.search_picking_from_product == "last":
@@ -1015,6 +1029,21 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.picking_mode = "picking"
             self.res_model_id = self.env.ref("stock.model_stock_picking").id
             self.res_id = self.picking_id.id
-            self.fill_pending_moves()
-            self.determine_todo_action()
+            return self.picking_id.action_barcode_scan(wiz=self)
+        else:
+            return False
+
+    def process_barcode(self, barcode):
+        res = super().process_barcode(barcode)
+        if not res:
+            action = self.action_picking_from_product()
+            if action:
+                return action
+        return res
+
+    def action_confirm(self):
+        action = self.action_picking_from_product()
+        res = super().action_confirm()
+        if res and action:
+            return action
         return res

@@ -73,12 +73,12 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     @api.depends("stock_move_ids.quantity")
     def _compute_product_qty_reserved(self):
-        for rec in self.filtered(lambda mv: not mv.is_stock_move_line_origin):
+        for rec in self.filtered(lambda mv: not mv.is_extra_line):
             rec.product_qty_reserved = sum(rec.line_ids.mapped("quantity"))
 
     @api.depends("stock_move_ids.product_uom_qty")
     def _compute_product_uom_qty(self):
-        for rec in self.filtered(lambda mv: not mv.is_stock_move_line_origin):
+        for rec in self.filtered(lambda mv: not mv.is_extra_line):
             rec.product_uom_qty = sum(rec.stock_move_ids.mapped("product_uom_qty"))
 
     @api.depends("qty_done", "product_uom_qty")

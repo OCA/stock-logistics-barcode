@@ -495,7 +495,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                     "packaging_qty",
                 ]:
                     self._set_focus_on_qty_input("product_qty")
-                if option.field_name == "lot_id" and (
+                if option.field_name in ["lot_id", "lot_name"] and (
                     self.product_id.tracking == "none"
                     or self.auto_lot
                     or (self.lot_name and self.create_lot)
@@ -538,7 +538,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def dummy_on_barcode_scanned(self):
         """To avoid execute operations in onchange environment"""
-        self.process_barcode(self.barcode)
+        return self.process_barcode(self.barcode)
 
     def check_location_contidion(self):
         if not self.location_id:
@@ -709,16 +709,9 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def open_actions(self):
         self.display_menu = True
-        return self.env.ref(
+        return self.env["ir.actions.actions"]._for_xml_id(
             "stock_barcodes.action_stock_barcodes_action_client"
-        ).read()[0]
-
-    def action_back(self):
-        return self.env.ref("stock.stock_picking_type_action").read()[0]
-
-    def open_records(self):
-        action = self.action_ids
-        return action
+        )
 
     def get_option_value(self, field_name, attribute):
         option = self.option_group_id.option_ids.filtered(
@@ -756,7 +749,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.step = 0
         for option in options_required:
             if not getattr(self, option.field_name, False):
-                if option.field_name == "lot_id" and self.product_id.tracking == "none":
+                if (
+                    option.field_name in ["lot_id", "lot_name"]
+                    and self.product_id.tracking == "none"
+                ):
                     continue
                 self.step = option.step
                 break

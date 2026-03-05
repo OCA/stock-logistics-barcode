@@ -149,6 +149,7 @@ class StockBarcodesOptionGroup(models.Model):
         ],
         help="Open found picking after scan a product",
     )
+    allow_not_demanded_product = fields.Boolean()
 
     def get_option_value(self, field_name, attribute):
         option = self.option_ids.filtered(lambda op: op.field_name == field_name)[:1]
