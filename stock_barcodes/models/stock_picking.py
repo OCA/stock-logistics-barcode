@@ -27,15 +27,16 @@ class StockPicking(models.Model):
             vals["location_dest_id"] = self.location_dest_id.id
         return vals
 
-    def action_barcode_scan(self, option_group=False):
+    def action_barcode_scan(self, option_group=False, wiz=False):
         option_group = (
             option_group
             or self.picking_type_id.barcode_option_group_id
             or self.env.ref("stock_barcodes.stock_barcodes_option_group_operation")
         )
-        wiz = self.env["wiz.stock.barcodes.read.picking"].create(
-            self._prepare_barcode_wiz_vals(option_group)
-        )
+        if not wiz:
+            wiz = self.env["wiz.stock.barcodes.read.picking"].create(
+                self._prepare_barcode_wiz_vals(option_group)
+            )
         wiz.fill_pending_moves()
         wiz.determine_todo_action()
         action = self.env["ir.actions.actions"]._for_xml_id(
@@ -67,9 +68,6 @@ class StockPicking(models.Model):
             ).button_validate()
         else:
             res = super().button_validate()
-        if res is True and self.env.context.get("show_picking_type_action_tree", False):
-            res = self[:1].picking_type_id.get_action_picking_tree_ready()
-
         if self.env.context.get("stock_barcodes_validate_picking", False) and all(
             p.state == "done" for p in self
         ):
