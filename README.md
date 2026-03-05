@@ -22,7 +22,7 @@ Available addons
 ----------------
 addon | version | maintainers | summary
 --- | --- | --- | ---
-[barcodes_generator_abstract](barcodes_generator_abstract/) | 16.0.3.1.0 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Generate Barcodes for Any Models
+[barcodes_generator_abstract](barcodes_generator_abstract/) | 16.0.3.1.1 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Generate Barcodes for Any Models
 [barcodes_generator_location](barcodes_generator_location/) | 16.0.1.0.0 |  | Generate Barcodes for Stock Locations
 [barcodes_generator_package](barcodes_generator_package/) | 16.0.1.1.0 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Generate Barcodes for Product Packaging
 [barcodes_generator_product](barcodes_generator_product/) | 16.0.2.1.0 | <a href='https://github.com/legalsylvain'><img src='https://github.com/legalsylvain.png' width='32' height='32' style='border-radius:50%;' alt='legalsylvain'/></a> | Generate Barcodes for Products (Templates and Variants)
