@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <odoo>
     <record id="view_stock_barcodes_read_picking_batch_form" model="ir.ui.view">
-        <field name="name">stock.barcodes.read.picking.batch.form</field>
         <field name="model">wiz.stock.barcodes.read.picking</field>
         <field
             name="inherit_id"
@@ -59,35 +58,6 @@
                     name="invisible"
                 >review_picking_batch or not todo_line_display_ids</attribute>
             </field>
-            <!-- Hide fill from pending lines button for reviewers -->
-            <xpath
-                expr="//field[@name='pending_move_ids']//kanban//field[@name='qty_done']"
-                position="after"
-            >
-                <field name="review_picking_batch" invisible="1" />
-            </xpath>
-            <!-- Add button to confirm the review -->
-            <xpath
-                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
-                position="before"
-            >
-                <button
-                    name="action_confirm_review"
-                    type="object"
-                    class="btn btn-success btn-op-big"
-                    context="{'wiz_barcode_id': parent.id}"
-                    invisible="not review_picking_batch"
-                >
-                    <i class="fa fa-check" title="Confirm review" />
-                </button>
-            </xpath>
-            <xpath
-                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
-                position="attributes"
-            >
-                <attribute name="invisible">review_picking_batch</attribute>
-            </xpath>
-
             <xpath
                 expr="//div[hasclass('oe_stock_barcodes_bottombar')]"
                 position="after"
@@ -117,6 +87,41 @@
                 <attribute name="invisible">
                     review_picking_batch
                 </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_stock_barcodes_pending_moves_kanban" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.todo</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_pending_moves_kanban"
+        />
+        <field name="arch" type="xml">
+            <!-- Hide fill from pending lines button for reviewers -->
+            <xpath expr="//kanban//field[@name='qty_done']" position="after">
+                <field name="review_picking_batch" invisible="1" />
+            </xpath>
+            <!-- Add button to confirm the review -->
+            <xpath
+                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
+                position="before"
+            >
+                <button
+                    name="action_confirm_review"
+                    type="object"
+                    class="btn btn-success btn-op-big"
+                    context="{'wiz_barcode_id': parent.id}"
+                    invisible="not review_picking_batch"
+                >
+                    <i class="fa fa-check" title="Confirm review" />
+                </button>
+            </xpath>
+            <xpath
+                expr="//kanban//button[@name='action_barcode_inventory_quant_edit']"
+                position="attributes"
+            >
+                <attribute name="invisible">review_picking_batch</attribute>
             </xpath>
         </field>
     </record>
