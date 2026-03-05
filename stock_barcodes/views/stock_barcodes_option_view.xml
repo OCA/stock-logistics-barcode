@@ -47,6 +47,7 @@
                             <field name="is_manual_qty" />
                             <field name="accumulate_read_quantity" />
                             <field name="allow_negative_quant" />
+                            <field name="allow_not_demanded_product" />
                             <field name="fill_fields_from_lot" />
                             <field name="ignore_quant_location" />
                             <field name="auto_lot" />
