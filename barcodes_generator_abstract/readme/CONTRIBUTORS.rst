@@ -7,3 +7,7 @@
 * `Ooops404 <https://www.ooops404.com>`__:
 
   * Ilyas <irazor147@gmail.com>
+
+* `FactorLibre <https://www.factorlibre.com>`__:
+
+  * Sergio Bustamante Ojeda <sergio.bustamante@factorlibre.com>
