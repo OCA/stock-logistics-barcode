@@ -22,6 +22,9 @@ class StockBarcodesOptionGroup(models.Model):
         string="Manual entry",
         help="Default value when open scan interface",
     )
+    manual_entry_on_edit = fields.Boolean(
+        string="Manual entry on edit",
+    )
     manual_entry_field_focus = fields.Char(
         help="Set field to set focus when manual entry mode is enabled",
         default="location_id",

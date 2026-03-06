@@ -229,7 +229,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def action_barcode_inventory_quant_edit(self):
         wiz_barcode_id = self.env.context.get("wiz_barcode_id", False)
         wiz_barcode = self.env["wiz.stock.barcodes.read.picking"].browse(wiz_barcode_id)
-        wiz_barcode.manual_entry = True
+        if wiz_barcode.option_group_id.manual_entry_on_edit:
+            wiz_barcode.manual_entry = True
         self.fill_from_pending_line()
         self.env["bus.bus"]._sendone(
             "stock_barcodes_scan",

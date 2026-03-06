@@ -208,6 +208,7 @@
                                     />
                                     <field
                                         name="lot_name"
+                                        readonly="not manual_entry"
                                         invisible="not create_lot"
                                         style="max-width:60%"
                                         class="h5"
@@ -433,6 +434,7 @@
                             placeholder="Packaging"
                             nolabel="1"
                             invisible="product_packaging_ids == False"
+                            readonly="not manual_entry"
                         />
                     </div>
                 </group>
