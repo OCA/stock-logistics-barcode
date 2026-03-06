@@ -1,8 +1,3 @@
 <templates xml:space="preserve">
-    <t t-inherit="web.ViewButton" t-inherit-mode="extension">
-        <xpath expr="//button" position="attributes">
-            <attribute name="t-att-accesskey">props['accesskey']</attribute>
-            <attribute name="t-att-data-hotkey">props['data-hotkey']</attribute>
-        </xpath>
-    </t>
+    <!-- TODO: web.ViewButton removed in Odoo 18, no extension needed -->
 </templates>
