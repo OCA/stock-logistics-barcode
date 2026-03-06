@@ -7,7 +7,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 <templates xml:space="preserve">
     <t
         t-name="stock_barcodes.barcode_web_widget_numeric_step"
-        t-inherit="web_widget_numeric_step.web_widget_numeric_step"
+        t-inherit="web_widget_numeric_step"
         t-inherit-mode="extension"
     >
         <xpath expr="//input" position="attributes">
