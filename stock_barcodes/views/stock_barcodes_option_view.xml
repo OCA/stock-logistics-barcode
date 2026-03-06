@@ -22,6 +22,7 @@
                     <group string="Behavior settings">
                         <group>
                             <field name="manual_entry" />
+                            <field name="manual_entry_on_edit" />
                             <field name="manual_entry_field_focus" />
                             <field name="confirmed_moves" />
                             <field name="show_pending_moves" />
