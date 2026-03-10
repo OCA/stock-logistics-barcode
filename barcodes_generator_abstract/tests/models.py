@@ -26,6 +26,7 @@ class BarcodeGeneratorUserFake(models.Model):
     barcode = fields.Char(copy=False)
     company_ids = fields.Many2many(relation="res_users_tester_company_rel")
     group_ids = fields.Many2many(relation="res_users_tester_groups_rel")
+    role_ids = fields.Many2many(relation="res_users_tester_roles_rel")
 
     def init(self):
         """This is just to avoid errors during test model registry
