@@ -1,0 +1,11 @@
+[project]
+name = "odoo-addons-oca-stock-logistics-barcode"
+version = "19.0.20260310.0"
+dependencies = [
+    "odoo-addon-barcodes_generator_abstract==19.0.*",
+]
+classifiers=[
+    "Programming Language :: Python",
+    "Framework :: Odoo",
+    "Framework :: Odoo :: 19.0",
+]
