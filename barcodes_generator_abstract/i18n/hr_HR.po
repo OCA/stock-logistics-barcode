@@ -17,8 +17,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_generate_mixin__generate_type
@@ -76,6 +76,12 @@ msgid ""
 msgstr ""
 
 #. module: barcodes_generator_abstract
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__display_name
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__display_name
+msgid "Display Name"
+msgstr "Naziv"
+
+#. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin
 msgid "Generate Barcode Mixin"
 msgstr ""
@@ -88,7 +94,6 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:0
-#, python-format
 msgid ""
 "Generate Base can be used only with barcode rule with 'Generate Type' set to "
 "'Base managed by Sequence'"
@@ -108,6 +113,12 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 msgid "Generation Sequence"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__id
+msgid "ID"
 msgstr ""
 
 #. module: barcodes_generator_abstract
@@ -141,7 +152,6 @@ msgstr ""
 #. module: barcodes_generator_abstract
 #. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
-#, python-format
 msgid "Sequence - %s"
 msgstr ""
 
@@ -152,5 +162,12 @@ msgid ""
 "barcode rule."
 msgstr ""
 
-#~ msgid "Display Name"
-#~ msgstr "Naziv"
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__type__user
+msgid "User"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_model__res_users_tester
+msgid "Users"
+msgstr ""
