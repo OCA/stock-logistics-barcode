@@ -152,3 +152,13 @@ msgid ""
 "This value is used to generate barcode according to the setting of the "
 "barcode rule."
 msgstr ""
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__type__user
+msgid "User"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_model__res_users_tester
+msgid "Users"
+msgstr ""
