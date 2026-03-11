@@ -84,6 +84,12 @@ msgstr ""
 "selecciona esta regla."
 
 #. module: barcodes_generator_abstract
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__display_name
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: barcodes_generator_abstract
 #: model:ir.model,name:barcodes_generator_abstract.model_barcode_generate_mixin
 msgid "Generate Barcode Mixin"
 msgstr "Generar código de barras mixto"
@@ -96,7 +102,6 @@ msgstr "Generar código de barras"
 #. module: barcodes_generator_abstract
 #. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_generate_mixin.py:0
-#, python-format
 msgid ""
 "Generate Base can be used only with barcode rule with 'Generate Type' set to "
 "'Base managed by Sequence'"
@@ -119,6 +124,12 @@ msgstr "Generar tipo"
 #: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__sequence_id
 msgid "Generation Sequence"
 msgstr "Generación de secuencia"
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_generate_mixin__id
+#: model:ir.model.fields,field_description:barcodes_generator_abstract.field_barcode_rule__id
+msgid "ID"
+msgstr "ID"
 
 #. module: barcodes_generator_abstract
 #: model:ir.model.fields,help:barcodes_generator_abstract.field_barcode_rule__generate_model
@@ -155,7 +166,6 @@ msgstr "Seleccione una regla para generar un código de barras"
 #. module: barcodes_generator_abstract
 #. odoo-python
 #: code:addons/barcodes_generator_abstract/models/barcode_rule.py:0
-#, python-format
 msgid "Sequence - %s"
 msgstr "Secuencia - %s"
 
@@ -167,6 +177,16 @@ msgid ""
 msgstr ""
 "Este valor se utiliza para generar códigos de barras según la configuración "
 "de la regla del código de barras."
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__type__user
+msgid "User"
+msgstr ""
+
+#. module: barcodes_generator_abstract
+#: model:ir.model.fields.selection,name:barcodes_generator_abstract.selection__barcode_rule__generate_model__res_users_tester
+msgid "Users"
+msgstr ""
 
 #~ msgid ""
 #~ "Allow to generate barcode, including a number  (a base) in the final "
@@ -196,12 +216,6 @@ msgstr ""
 #~ msgstr ""
 #~ "Solo se puede utilizar una regla por modelo para la generación automática "
 #~ "de códigos de barras."
-
-#~ msgid "Display Name"
-#~ msgstr "Nombre mostrado"
-
-#~ msgid "ID"
-#~ msgstr "ID"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Última modificación en"
