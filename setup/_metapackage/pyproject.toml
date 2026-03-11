@@ -1,8 +1,9 @@
 [project]
 name = "odoo-addons-oca-stock-logistics-barcode"
-version = "19.0.20260310.0"
+version = "19.0.20260311.0"
 dependencies = [
     "odoo-addon-barcodes_generator_abstract==19.0.*",
+    "odoo-addon-barcodes_generator_product==19.0.*",
 ]
 classifiers=[
     "Programming Language :: Python",
