@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.tools.float_utils import float_compare
+from odoo.tools.float_utils import float_compare, float_round
 
 
 class WizStockBarcodesReadTodo(models.TransientModel):
@@ -209,13 +209,15 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.wiz_barcode_id._set_focus_on_qty_input()
 
     def operation_quantities(self):
-        self.fill_from_pending_line()
-        self.wiz_barcode_id.manual_entry = True
-        self.wiz_barcode_id.product_qty = self.qty_done_rest
-        if self.wiz_barcode_id.picking_id.picking_type_id.code != "incoming":
-            self.wiz_barcode_id.qty_available = self.qty_done_rest
-            self.wiz_barcode_id.location_id = self.location_id.id
-        self.wiz_barcode_id.with_context(manual_picking=True).action_confirm()
+        pending_qty = self.qty_done_rest
+        for sml in self.line_ids:
+            qty = min(pending_qty, sml.quantity)
+            sml.qty_picked = qty
+            pending_qty = float_round(
+                pending_qty - qty, precision_rounding=sml.product_uom_id.rounding
+            )
+            if pending_qty <= 0:
+                break
 
     def _get_fields_to_edit(self):
         return [
