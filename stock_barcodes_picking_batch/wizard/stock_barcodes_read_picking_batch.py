@@ -226,3 +226,9 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if action:
             return action
         return super().open_actions()
+
+    def _get_location_domain_for_quant_search(self):
+        if self.picking_mode == "picking_batch" and self.picking_batch_id:
+            location_ids = self.picking_batch_id.picking_ids.mapped("location_id")
+            return [("location_id", "child_of", location_ids.ids)]
+        return super()._get_location_domain_for_quant_search()
