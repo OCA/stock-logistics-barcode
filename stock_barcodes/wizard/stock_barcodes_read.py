@@ -239,15 +239,14 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
-            if (
-                self.option_group_id.fill_fields_from_lot
-                and self.location_id
-                and self.product_id
-            ):
+            if self.option_group_id.fill_fields_from_lot and self.product_id:
                 quant_domain = [
-                    ("location_id", "=", self.location_id.id),
                     ("product_id", "=", product.id),
                 ]
+                if self.location_id:
+                    quant_domain.append(("location_id", "=", self.location_id.id))
+                else:
+                    quant_domain.extend(self._get_location_domain_for_quant_search())
                 if self.lot_id:
                     quant_domain.append(("lot_id", "=", self.lot_id.id))
                 if self.package_id:
@@ -282,7 +281,12 @@ class WizStockBarcodesRead(models.AbstractModel):
                     if self.location_id:
                         quant_domain.append(("location_id", "=", self.location_id.id))
                     else:
-                        quant_domain.append(("location_id.usage", "=", "internal"))
+                        quant_domain.extend(
+                            self._get_location_domain_for_quant_search()
+                        )
+                        quant_domain.extend(
+                            self._get_location_domain_for_quant_search()
+                        )
                     if self.owner_id:
                         quant_domain.append(("owner_id", "=", self.owner_id.id))
                     quants = self.env["stock.quant"].search(quant_domain)
@@ -516,6 +520,12 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _option_required_hook(self, option_required):
         """Hook to evaluate is an option is required"""
         return False
+
+    def _get_location_domain_for_quant_search(self):
+        """Return domain terms to filter location_id in quant search.
+        Override to restrict locations based on picking/batch scope.
+        """
+        return [("location_id.usage", "=", "internal")]
 
     def _scanned_location(self, barcode):
         location = self.env["stock.location"].search(self._barcode_domain(barcode))
