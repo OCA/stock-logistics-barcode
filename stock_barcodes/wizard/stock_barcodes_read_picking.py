@@ -855,6 +855,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         else:
             return (line.location_id.id, line.product_id.id)
 
+    def _get_location_domain_for_quant_search(self):
+        if self.picking_id:
+            return [("location_id", "child_of", self.picking_id.location_id.ids)]
+        return super()._get_location_domain_for_quant_search()
+
     def _get_all_products_quantities_in_package(self, package):
         res = {}
         # TODO: Check if domain is applied and we must recover _get_contained_quants
