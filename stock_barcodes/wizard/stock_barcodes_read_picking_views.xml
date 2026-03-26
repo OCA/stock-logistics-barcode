@@ -237,7 +237,19 @@
                     icon="fa-check"
                     class="btn btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
                     d-flex justify-content-center align-items-center fs-2"
-                    invisible="picking_state not in ('draft', 'assigned', 'confirmed')"
+                    invisible="picking_state not in ('draft', 'assigned', 'confirmed') or not pending_move_ids"
+                    confirm="Are you sure to validate the picking ?"
+                    data-hotkey="'shift+v'"
+                >
+                    <span class="d-none d-lg-block">Validate</span>
+                </button>
+                <button
+                    name="action_validate_picking"
+                    type="object"
+                    icon="fa-check"
+                    class="btn btn-primary w-100 oe_kanban_action_button btn-sm text-uppercase
+                    d-flex justify-content-center align-items-center fs-2"
+                    invisible="picking_state not in ('draft', 'assigned', 'confirmed') or pending_move_ids"
                     confirm="Are you sure to validate the picking ?"
                     data-hotkey="'shift+v'"
                 >
