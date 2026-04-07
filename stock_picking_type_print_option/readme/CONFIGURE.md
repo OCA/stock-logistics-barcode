@@ -1,0 +1,2 @@
+- Go to Inventory > Configuration > Warehouse Management > Operation Types > Print Options
+- Define the desired default options for every operation type you want to configure.

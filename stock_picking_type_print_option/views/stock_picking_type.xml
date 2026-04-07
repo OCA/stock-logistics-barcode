@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- Copyright 2026 ACSONE SA/NV
+     License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl). -->
+<odoo>
+    <record model="ir.ui.view" id="stock_picking_type_form_view">
+        <field name="name">stock.picking.type.form</field>
+        <field name="model">stock.picking.type</field>
+        <field name="inherit_id" ref="stock.view_picking_type_form" />
+        <field name="arch" type="xml">
+            <group name="locations" position="after">
+                <group name="print_options" string="Print Options">
+                    <span>
+                        <div class="oe_grey">
+                            Choose the default label printing options you want
+                            for this operation type:
+                        </div>
+                    </span>
+                    <field name="print_label_option_print_format" />
+                    <field name="print_label_option_move_quantity" />
+                    <field name="print_label_option_extra_html" />
+                    <field name="print_label_option_pricelist_id" />
+                </group>
+            </group>
+        </field>
+    </record>
+</odoo>
