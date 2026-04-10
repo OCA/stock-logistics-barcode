@@ -359,16 +359,21 @@
                         <button
                             name="action_add_scan_manual"
                             type="object"
-                            title="ADD PRODUCT"
-                            icon="fa-plus"
-                            class="btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
-                            d-flex justify-content-center align-items-center fs-2"
-                            invisible="display_menu or not enable_add_product"
-                            style="width: 50px"
+                            title="Manual entry"
+                            icon="fa-pencil text-info"
+                            class="btn-secondary oe_kanban_action_button btn-sm fs-1"
+                            invisible="display_menu or not enable_add_product or not manual_entry"
                             data-hotkey="8"
-                        >
-                            <span class="d-none d-lg-block">Product</span>
-                        </button>
+                        />
+                        <button
+                            name="action_add_scan_manual"
+                            type="object"
+                            title="Manual entry"
+                            icon="fa-pencil"
+                            class="btn-secondary oe_kanban_action_button btn-sm fs-1"
+                            invisible="display_menu or not enable_add_product or manual_entry"
+                            data-hotkey="8"
+                        />
                         <!-- // -->
                         <button
                             name="action_clean_values"
@@ -388,7 +393,7 @@
                             icon="fa-check"
                             title="Confirm"
                             class="btn-success w-100 oe_kanban_action_button btn-sm text-uppercase d-flex justify-content-center align-items-center fs-2"
-                            invisible="((not is_manual_confirm and not manual_entry) or display_menu) or visible_force_done"
+                            invisible="((not is_manual_confirm and not manual_entry) or display_menu) or visible_force_done or not product_qty"
                             data-hotkey="8"
                         >
                             <span class="d-none d-lg-block">Confirm</span>
