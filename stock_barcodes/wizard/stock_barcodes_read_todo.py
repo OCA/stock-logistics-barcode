@@ -218,6 +218,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             )
             if pending_qty <= 0:
                 break
+        self.wiz_barcode_id.refresh_todo_records()
 
     def _get_fields_to_edit(self):
         return [

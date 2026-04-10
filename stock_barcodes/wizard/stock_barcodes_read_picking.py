@@ -294,6 +294,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def update_fields_after_determine_todo(self, move_line):
         self.picking_product_qty = move_line.qty_done
 
+    def refresh_todo_records(self):
+        if not self.keep_screen_values or self.todo_line_id.state != "pending":
+            if not self.env.context.get("skip_clean_values", False):
+                self.action_clean_values()
+            keep_vals = {}
+        else:
+            keep_vals = self._convert_to_write(self._cache)
+        self.fill_todo_records()
+        if self.forced_todo_key:
+            self.todo_line_id = self.pending_move_ids.filtered(
+                lambda ln: str(self._group_key(ln)) == self.forced_todo_key
+            )[:1]
+            self.selected_pending_move_id = self.todo_line_id
+            self.determine_todo_action(self.todo_line_id)
+        else:
+            self.determine_todo_action()
+        self.action_show_step()
+        if keep_vals:
+            self.update_keep_values(keep_vals)
+
     def action_done(self):
         res = super().action_done()
         if res:
@@ -301,24 +321,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if move_dic:
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
-                if not self.keep_screen_values or self.todo_line_id.state != "pending":
-                    if not self.env.context.get("skip_clean_values", False):
-                        self.action_clean_values()
-                    keep_vals = {}
-                else:
-                    keep_vals = self._convert_to_write(self._cache)
-                self.fill_todo_records()
-                if self.forced_todo_key:
-                    self.todo_line_id = self.pending_move_ids.filtered(
-                        lambda ln: str(self._group_key(ln)) == self.forced_todo_key
-                    )[:1]
-                    self.selected_pending_move_id = self.todo_line_id
-                    self.determine_todo_action(self.todo_line_id)
-                else:
-                    self.determine_todo_action()
-                self.action_show_step()
-                if keep_vals:
-                    self.update_keep_values(keep_vals)
+                self.refresh_todo_records()
             # Force refresh candidate pickings to show green if not pending moves
             if not self.pending_move_ids:
                 pass
@@ -485,7 +488,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             moves_todo = StockMove.search(domain)
         sml_vals = {}
         candidate_lines = self._get_candidate_stock_move_lines(moves_todo, sml_vals)
-        if self.lot_name:
+        if self.lot_name and not self.lot_id:
             lines = candidate_lines.filtered(
                 lambda line: (
                     line.lot_name == self.lot_name
