@@ -1003,10 +1003,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def action_validate_picking(self):
         picking = self._get_picking_to_validate()
         res = picking.button_validate()
+        action = self.get_action_after_validate()
         if res is True:
-            action = self.get_action_after_validate()
-            if action:
-                return action
+            res = action
+        elif "anotherAction" in res.get("params", {}):
+            res["params"]["anotherAction"] = action
         return res
 
     def _get_moves_from_product_domain(self):
