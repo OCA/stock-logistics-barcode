@@ -271,7 +271,7 @@
                     title="Detailed operations"
                     icon="fa-eye"
                     invisible="move_line_ids == False or show_detailed_operations"
-                    class="fs-2"
+                    class="btn-secondary oe_kanban_action_button btn-sm fs-1"
                 />
 
                 <button
@@ -280,7 +280,7 @@
                     title="Detailed operations"
                     icon="fa-eye-slash"
                     invisible="move_line_ids == False or not show_detailed_operations"
-                    class="fs-2"
+                    class="btn-secondary oe_kanban_action_button btn-sm fs-1"
                 />
             </xpath>
         </field>

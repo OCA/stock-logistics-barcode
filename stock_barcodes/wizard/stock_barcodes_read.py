@@ -832,10 +832,13 @@ class WizStockBarcodesRead(models.AbstractModel):
         return res
 
     def action_add_scan_manual(self):
-        self.manual_entry = True
+        self.manual_entry = not self.manual_entry
         self.send_bus_done(
             "stock_barcodes_scan",
-            {"type": "stock_barcodes_edit_manual", "payload": {"manual_entry": True}},
+            {
+                "type": "stock_barcodes_edit_manual",
+                "payload": {"manual_entry": self.manual_entry},
+            },
         )
 
     def process_lot_before_done(self):
