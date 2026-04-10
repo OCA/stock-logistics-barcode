@@ -33,9 +33,7 @@
                     type="object"
                     help="Start barcode interface"
                     invisible="state != 'in_progress'"
-                >
-                    <i class="fa fa-barcode fa-2x" />
-                </button>
+                />
             </footer>
         </field>
     </record>
