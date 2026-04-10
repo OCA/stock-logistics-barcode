@@ -212,7 +212,16 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
 
     def get_action_after_validate(self):
         if self.picking_mode != "picking_batch" and self.picking_batch_id:
-            return self.picking_id.picking_type_id.action_batch()
+            if self.picking_batch_id.state == "done":
+                # Return to batches list
+                return self.picking_id.picking_type_id.action_batch()
+            self.picking_mode = "picking_batch"
+            self.picking_id = False
+            self.res_model_id = self.env.ref(
+                "stock_picking_batch.model_stock_picking_batch"
+            ).id
+            self.res_id = self.picking_batch_id.id
+            return self.picking_batch_id.action_barcode_scan(wiz=self)
         return super().get_action_after_validate()
 
     def open_actions(self):
