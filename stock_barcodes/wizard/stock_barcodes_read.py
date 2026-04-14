@@ -267,7 +267,8 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def process_barcode_lot_id(self):
         if self.env.user.has_group("stock.group_production_lot"):
-            lot_domain = [("name", "=", self.barcode)]
+            lot_domain = self._get_location_domain_for_quant_search()
+            lot_domain.append(("name", "=", self.barcode))
             if self.product_id:
                 lot_domain.append(("product_id", "=", self.product_id.id))
             lot = self.env["stock.lot"].search(lot_domain)
@@ -281,9 +282,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                     if self.location_id:
                         quant_domain.append(("location_id", "=", self.location_id.id))
                     else:
-                        quant_domain.extend(
-                            self._get_location_domain_for_quant_search()
-                        )
                         quant_domain.extend(
                             self._get_location_domain_for_quant_search()
                         )
@@ -525,7 +523,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         """Return domain terms to filter location_id in quant search.
         Override to restrict locations based on picking/batch scope.
         """
-        return [("location_id.usage", "=", "internal")]
+        return [
+            ("location_id.usage", "=", "internal"),
+            ("company_id", "=", self.env.company.id),
+        ]
 
     def _scanned_location(self, barcode):
         location = self.env["stock.location"].search(self._barcode_domain(barcode))
