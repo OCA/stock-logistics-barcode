@@ -351,6 +351,14 @@ msgid "Barcode Option Group"
 msgstr "Grupo de opciones de código de barras"
 
 #. module: stock_barcodes
+#. odoo-python
+#: code:addons/stock_barcodes/models/stock_picking.py:0
+#, python-format
+msgid ""
+"Barcode Option Group is not configured on Operation Type '%(pick_type)s'."
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Barcode Options"
 msgstr "Opciones de código de barras"
