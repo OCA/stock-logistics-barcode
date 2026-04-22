@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<templates xml:space="preserve">
+    <t t-name="web_ir_actions_client_scan.ScanPlaceholder">
+        <div class="p-3 text-center text-muted">
+            Opening scanner…
+            <div class="mt-3">
+            <button type="button" class="btn btn-secondary" t-on-click="onClickBack">
+                    Back
+                </button>
+        </div>
+        </div>
+    </t>
+</templates>
