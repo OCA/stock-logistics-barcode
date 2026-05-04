@@ -6,40 +6,42 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-05-04 11:45+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: web_ir_actions_client_scan
 #. odoo-javascript
 #: code:addons/web_ir_actions_client_scan/static/src/action_scan/action_scan.xml:0
 msgid "Back"
-msgstr ""
+msgstr "Indietro"
 
 #. module: web_ir_actions_client_scan
 #. odoo-javascript
 #: code:addons/web_ir_actions_client_scan/static/src/action_scan/action_scan.esm.js:0
 msgid "Nothing scanned"
-msgstr ""
+msgstr "Nessuna lettura"
 
 #. module: web_ir_actions_client_scan
 #. odoo-javascript
 #: code:addons/web_ir_actions_client_scan/static/src/action_scan/action_scan.xml:0
 msgid "Opening scanner…"
-msgstr ""
+msgstr "Apertura scanner…"
 
 #. module: web_ir_actions_client_scan
 #. odoo-javascript
 #: code:addons/web_ir_actions_client_scan/static/src/action_scan/action_scan.esm.js:0
 msgid "Scanner not available"
-msgstr ""
+msgstr "Scanner non disponibile"
 
 #. module: web_ir_actions_client_scan
 #. odoo-javascript
 #: code:addons/web_ir_actions_client_scan/static/src/action_scan/action_scan.esm.js:0
 msgid "Unexpected server response"
-msgstr ""
+msgstr "Risposta serve non prevista"
