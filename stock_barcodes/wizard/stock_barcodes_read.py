@@ -267,8 +267,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def process_barcode_lot_id(self):
         if self.env.user.has_group("stock.group_production_lot"):
-            lot_domain = self._get_location_domain_for_quant_search()
-            lot_domain.append(("name", "=", self.barcode))
+            lot_domain = [("name", "=", self.barcode)]
             if self.product_id:
                 lot_domain.append(("product_id", "=", self.product_id.id))
             lot = self.env["stock.lot"].search(lot_domain)
