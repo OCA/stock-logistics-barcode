@@ -1,9 +1,12 @@
 # Copyright 2021 Tecnativa - Carlos Roca
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
-from odoo.tests.common import TransactionCase
+from odoo.tests import tagged
+
+from odoo.addons.base.tests.common import BaseCommon
 
 
-class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
+@tagged("-at_install", "post_install")
+class TestStockPickingProductBarcodeReportSecondaryUnit(BaseCommon):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -13,11 +16,11 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
         cls.product_barcode = cls.env["product.product"].create(
             {
                 "name": "Test Product 1",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "barcode": "1001",
                 "uom_id": primary_uom.id,
                 "uom_po_id": primary_uom.id,
-                "qty_available": 300,
                 "secondary_uom_ids": [
                     (
                         0,
@@ -42,13 +45,12 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                 ],
             }
         )
-        partner = cls.env["res.partner"].create({"name": "Test Partner"})
         picking_receipt_type = cls.env.ref("stock.picking_type_in")
         cls.picking = cls.env["stock.picking"].create(
             {
                 "location_id": cls.supplier_location.id,
                 "location_dest_id": cls.stock_location.id,
-                "partner_id": partner.id,
+                "partner_id": cls.partner.id,
                 "picking_type_id": picking_receipt_type.id,
                 "move_ids_without_package": [
                     (
@@ -57,7 +59,7 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                         {
                             "name": "Test 01",
                             "product_id": cls.product_barcode.id,
-                            "quantity_done": 50,
+                            "product_uom_qty": 50,
                             "product_uom": cls.product_barcode.uom_id.id,
                             "location_id": cls.supplier_location.id,
                             "location_dest_id": cls.stock_location.id,
@@ -66,7 +68,9 @@ class TestStockPickingProductBarcodeReportSecondaryUnit(TransactionCase):
                 ],
             }
         )
-        cls.picking.button_validate()
+        cls.picking.action_confirm()
+        cls.picking.move_ids.quantity = 50.0
+        cls.picking._action_done()
 
     def _create_print_wizard(self):
         self.wizard = (

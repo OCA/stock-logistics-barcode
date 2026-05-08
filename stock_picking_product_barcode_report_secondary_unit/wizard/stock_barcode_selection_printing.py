@@ -20,5 +20,5 @@ class WizStockBarcodeSelectionPrinting(models.TransientModel):
             ).factor
         else:
             factor = 1.0
-        res["label_qty"] = ceil(move_line.qty_done / (factor or 1.0))
+        res["label_qty"] = ceil(move_line.quantity / (factor or 1.0))
         return res
