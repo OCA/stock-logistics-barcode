@@ -27,6 +27,7 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.WizScanReadInventory = cls.env["wiz.stock.barcodes.read.inventory"]
         cls.WizScanReadTodo = cls.env["wiz.stock.barcodes.read.todo"]
         cls.WizStockBarcodeRead = cls.env["wiz.stock.barcodes.read"]
+        cls.WizCandidatePicking = cls.env["wiz.candidate.picking"]
         cls.StockProductionLot = cls.env["stock.lot"]
         cls.StockPicking = cls.env["stock.picking"]
         cls.StockQuant = cls.env["stock.quant"]
@@ -251,7 +252,8 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.product_wo_tracking = cls.Product.create(
             {
                 "name": "Product test wo lot tracking",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "tracking": "none",
                 "barcode": "8480000723208",
                 "packaging_ids": [
@@ -267,7 +269,8 @@ class TestCommonStockBarcodes(TransactionCase):
         )
         product_tracking_values = {
             "name": "Product test with lot tracking",
-            "type": "product",
+            "type": "consu",
+            "is_storable": True,
             "tracking": "lot",
             "barcode": "8433281006850",
             "packaging_ids": [
@@ -368,7 +371,7 @@ class TestCommonStockBarcodes(TransactionCase):
                             "location_id": cls.location_1.id,
                             "location_dest_id": cls.location_1.id,
                             "quantity_product_uom": 15,
-                            "qty_done": 10,
+                            "qty_picked": 10,
                         }
                     ),
                 ],

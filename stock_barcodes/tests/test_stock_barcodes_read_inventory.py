@@ -51,11 +51,12 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
             self.assertEqual(self.wiz_scan_read_inventory.inventory_product_qty, 0)
             self.assertFalse(self.wiz_scan_read_inventory.package_id)
             self.assertFalse(self.wiz_scan_read_inventory.manual_entry)
+            # v18: send_bus_done(channel, data) — data is {'type', 'payload'}
             mock_msg.assert_called_once_with(
                 "stock_barcodes_scan",
-                "stock_barcodes_edit_manual",
                 {
-                    "manual_entry": False,
+                    "type": "stock_barcodes_edit_manual",
+                    "payload": {"manual_entry": False},
                 },
             )
 

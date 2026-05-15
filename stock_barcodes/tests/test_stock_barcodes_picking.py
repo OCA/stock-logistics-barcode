@@ -165,7 +165,11 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             )
 
     def test_picking_wizard_scan_product(self):
-        # self.wiz_scan_picking.manual_entry = True
+        # In v18, after action_confirm an IN picking pre-creates sml with
+        # quantity = product_uom_qty (the expected demand). Scanning only
+        # updates qty_picked (processed) and picked, not quantity. Only at
+        # action_done the extension stock_move_line_qty_picked syncs
+        # quantity = qty_picked.  Asserts therefore target qty_picked here.
         wiz_scan_picking = self.wiz_scan_picking.with_context(
             force_create_move=True, no_increase_qty_done=True
         )
@@ -173,13 +177,13 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(sml.quantity, 1.0)
+        self.assertEqual(sml.qty_picked, 1.0)
         # Scan product with tracking lot enable
         self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_tracking
         )
-        self.assertEqual(sml.qty_done, 0.0)
+        self.assertEqual(sml.qty_picked, 0.0)
         self.assertEqual(
             self.wiz_scan_picking.message,
             "8433281006850 (Scan Product, Packaging, Lot / Serial)",
@@ -191,22 +195,24 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             lambda x: x.product_id == self.product_tracking and x.lot_id
         )
         self.assertEqual(sml.lot_id, self.lot_1)
-        self.assertEqual(sml.quantity, 1.0)
+        self.assertEqual(sml.qty_picked, 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
         stock_move = sml.move_id
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 1.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8411822222568")
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 1.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 1.0)
         self.assertEqual(
             self.wiz_scan_picking.message,
             "8411822222568 (Scan Product, Packaging, Lot / Serial)",
         )
         # Scan a package
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
-        # Package of 5 product units. Already three unit exists
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 5.0)
+        # Package of 5 product units. Already one unit existed (qty_picked=1)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 5.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
+        # v18 semantics: scan/manual entry updates qty_picked, quantity is
+        # synced only at action_done by stock_move_line_qty_picked extension.
         wiz_scan_picking = self.wiz_scan_picking.with_context(
             force_create_move=True, no_increase_qty_done=True
         )
@@ -218,9 +224,25 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(wiz_scan_picking.product_qty, 0.0)
         wiz_scan_picking.product_qty = 12.0
         wiz_scan_picking.action_confirm()
-        self.assertEqual(sml.quantity, 12.0)
+        self.assertEqual(sml.qty_picked, 12.0)
 
     def test_picking_wizard_scan_product_auto_lot(self):
+        # Previously-run tests (test_picking_wizard_scan_product et al) may have
+        # reserved units and left residual quants for product_tracking with
+        # in_date = now(). Those quants break LIFO ordering (now > 2021-01-06),
+        # so we wipe ALL pre-existing quants of this product and rebuild the
+        # 3-quant controlled set below from scratch.
+        self.env["stock.quant"].search(
+            [("product_id", "=", self.product_tracking.id)]
+        ).sudo().unlink()
+        self.quant_lot_1 = self.StockQuant.create(
+            {
+                "product_id": self.product_tracking.id,
+                "lot_id": self.lot_1.id,
+                "location_id": self.stock_location.id,
+                "quantity": 100.0,
+            }
+        )
         # Prepare more data
         lot_2 = self.StockProductionLot.create(
             {
@@ -255,6 +277,11 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.quant_lot_1.in_date = "2021-01-01"
         quant_lot_2.in_date = "2021-01-05"
         quant_lot_3.in_date = "2021-01-06"
+        # in_date is readonly=True in v18; flush + invalidate so the next
+        # _gather sees the updated values (removal strategy ordering depends
+        # on in_date).
+        self.env.flush_all()
+        self.env.invalidate_all()
         # Scan product with tracking lot enable
         self.action_barcode_scanned(self.wiz_scan_picking, "8433281006850")
         self.assertEqual(
@@ -281,6 +308,22 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.wiz_scan_picking_out.lot_id = False
         self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
             "stock.removal_lifo"
+        )
+        self.env.flush_all()
+        self.env.invalidate_all()
+        # Verify the removal strategy is effectively LIFO and that
+        # stock.quant._gather returns quants in the expected order.
+        gathered = self.env["stock.quant"]._gather(
+            self.product_tracking, self.stock_location
+        )
+        lots_order = [(q.lot_id.id, q.in_date) for q in gathered if q.lot_id]
+        self.assertEqual(
+            gathered[:1].lot_id,
+            lot_3,
+            msg=(
+                f"LIFO _gather should return lot_3 first; got {lots_order}. "
+                f"Expected lot_3.id={lot_3.id} (in_date 2021-01-06)."
+            ),
         )
         self.wiz_scan_picking_out.action_clean_values()
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
@@ -603,20 +646,22 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan.action_lock_picking()
             mock_msg.assert_called_once()
 
-        action_id = self.IrActionsWindow.create(
-            {
-                "name": "Test",
-                "type": "ir.actions.act_window",
-                "res_model": "stock.picking",
-            }
-        )
+        # In v18 actions flow as dicts (output of _for_xml_id and similar);
+        # the candidate picking validate is expected to return a tuple
+        # (valid, action_dict).
+        action_dict = {
+            "name": "Test",
+            "type": "ir.actions.act_window",
+            "res_model": "stock.picking",
+        }
         with patch.object(
             type(self.WizCandidatePicking),
             "action_validate_picking",
-            return_value=(False, action_id),
+            return_value=(False, action_dict),
         ) as mock_msg:
             result = self.wiz_scan.action_validate_picking()
-            self.assertIsInstance(result, type(self.IrActionsWindow))
+            self.assertIsInstance(result, dict)
+            self.assertEqual(result.get("type"), "ir.actions.act_window")
             mock_msg.assert_called_once()
 
         with patch.object(
@@ -642,7 +687,9 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         move_ids = self.wiz_scan.get_moves_or_move_lines()
         self.assertIsInstance(move_ids, type(self.StockMove))
 
-    @mock.patch(patch_action_done)
+    # In v18 action_done is overridden in WizStockBarcodesReadPicking, so we
+    # need to patch the override (not the base) for the test to short-circuit.
+    @mock.patch(patch_read_picking + ".action_done")
     @mock.patch(patch_manual_entry)
     def test_action_manual_entry(self, mock_manual_entry, mock_action_done):
         mock_manual_entry.return_value = True
@@ -716,6 +763,11 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
     def test_check_done_conditions(
         self, mock_set_messagge_info, mock_set_focus_on_qty_input
     ):
+        # v18: check_done_conditions adds an early "Product not demanded"
+        # check that fires when the scanned product is not in todo_line_ids.
+        # To exercise the subsequent location/qty checks the test enables
+        # allow_not_demanded_product on the option group.
+        self.option_group10.allow_not_demanded_product = True
         self.wiz_scan_option_guided.product_id = self.product_wo_tracking.id
         self.wiz_scan_option_guided.product_qty = 100
         self.wiz_scan_option_guided.qty_available = 100
@@ -729,12 +781,14 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.wiz_scan_option_guided.picking_id = self.picking_in_01.id
         result = self.wiz_scan_option_guided.check_done_conditions()
         self.assertFalse(result)
-        self.assertEqual(mock_set_messagge_info.call_count, 4)
+        # v18: the "Click on picking pushpin to lock it" call is no longer
+        # emitted when picking_id is already set (the lock-prompt check
+        # changed in Sergio's refactor). We assert the 3 actual calls.
+        self.assertEqual(mock_set_messagge_info.call_count, 3)
         expected_calls = [
             call("info", "Waiting location"),
             call("more_match", "Quantities not available in location"),
             call("info", "Waiting location"),
-            call("info", "Click on picking pushpin to lock it"),
         ]
         mock_set_messagge_info.assert_has_calls(expected_calls)
         mock_set_focus_on_qty_input.assert_called_once()
@@ -745,7 +799,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         )
         self.assertEqual(
             self.wiz_scan_option_guided.picking_product_qty,
-            self.test_move_line.qty_done,
+            self.test_move_line.qty_picked,
         )
 
     @mock.patch(patch_action_put_in_pack)

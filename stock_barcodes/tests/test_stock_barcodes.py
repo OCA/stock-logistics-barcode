@@ -481,7 +481,10 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_id = self.product_tracking.id
             result = self.wiz_scan.check_done_conditions()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("info", _("Waiting quantities"))
+            # v18: in addition to "Waiting quantities", the wizard may emit
+            # "Product not demanded" when there are no candidate pickings yet.
+            # We assert only the relevant call without forcing call count.
+            mock_msg.assert_any_call("info", _("Waiting quantities"))
 
     def test_check_guided_values(self):
         result = self.wiz_scan_option_forced._check_guided_values()
@@ -594,13 +597,17 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertEqual(self.wiz_scan.barcode, self.quant_package_1.name)
 
     def test_action_add_scan_manual(self):
+        # v18: send_bus_done signature is (channel, data) where data is a
+        # dict with 'type' and 'payload' keys (was 3 positional args in v16).
         with patch.object(type(self.wiz_scan), "send_bus_done") as mock_msg:
             self.wiz_scan.action_add_scan_manual()
             self.assertTrue(self.wiz_scan.manual_entry)
             mock_msg.assert_called_once_with(
                 "stock_barcodes_scan",
-                "stock_barcodes_edit_manual",
-                {"manual_entry": True},
+                {
+                    "type": "stock_barcodes_edit_manual",
+                    "payload": {"manual_entry": True},
+                },
             )
 
     def test_action_clean_message(self):
@@ -632,8 +639,14 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan_option_display_notification.display_notification(
                 title=message_title, message=message
             )
+            # v18: send_bus_done(channel, data) — data is {'type', 'payload'}
             mock_msg.assert_called_once_with(
                 f"stock_barcodes-{self.wiz_scan_option_display_notification.ids[0]}",
-                f"stock_barcodes_notify-{self.wiz_scan_option_display_notification.ids[0]}",
-                message_notification,
+                {
+                    "type": (
+                        "stock_barcodes_notify-"
+                        f"{self.wiz_scan_option_display_notification.ids[0]}"
+                    ),
+                    "payload": message_notification,
+                },
             )
