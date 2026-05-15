@@ -936,6 +936,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     "package_id": line.package_id.id,
                     "result_package_id": line.result_package_id.id,
                     "uom_id": line.product_uom_id.id,
+                    # Initialize aggregation counters so _update_fill_record_values
+                    # can += on subsequent calls (v18 field renames: reserved_uom_qty
+                    # -> quantity_product_uom; reserved_qty -> quantity).
+                    "product_uom_qty": line.quantity_product_uom,
+                    "product_qty_reserved": line.quantity,
                     "line_ids": [(6, 0, line.ids)],
                     "stock_move_ids": [(6, 0, line.move_id.ids)],
                     "package_product_qty": package_product_dic
@@ -952,6 +957,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                         line.move_line_ids[:1] or line
                     ).location_dest_id.id,
                     "uom_id": line.product_uom.id,
+                    "product_uom_qty": line.product_uom_qty,
+                    "product_qty_reserved": (
+                        sum(line.move_line_ids.mapped("quantity"))
+                        if line.move_line_ids
+                        else line.product_uom_qty
+                    ),
                     "line_ids": [(6, 0, line.move_line_ids.ids)],
                     "stock_move_ids": [(6, 0, line.ids)],
                     "is_stock_move_line_origin": False,
