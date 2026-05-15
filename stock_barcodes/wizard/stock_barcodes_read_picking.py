@@ -31,6 +31,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         [("incoming", "Vendors"), ("outgoing", "Customers"), ("internal", "Internal")],
         "Type of Operation",
     )
+    # Restored from 16.0 — the wizard exposes a one2many to wiz.candidate.picking
+    # so the form can list and lock/unlock candidate pickings while scanning.
+    candidate_picking_ids = fields.One2many(
+        comodel_name="wiz.candidate.picking",
+        inverse_name="wiz_barcode_id",
+        string="Candidate pickings",
+        readonly=True,
+    )
 
     move_line_ids = fields.One2many(
         comodel_name="stock.move.line", compute="_compute_move_line_ids"
@@ -168,6 +176,40 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             for rec in self
         ]
 
+    def _set_candidate_pickings(self, candidate_pickings):
+        # Restored from 16.0 — used to refresh the candidate_picking_ids
+        # one2many when default picking or onchange picking is set.
+        vals = [(5, 0, 0)]
+        vals.extend([(0, 0, {"picking_id": p.id}) for p in candidate_pickings])
+        self.candidate_picking_ids = vals
+
+    def _search_candidate_picking(self, moves_todo=False):
+        # Restored from 16.0 — discovers candidate pickings from the moves
+        # currently in scope and either auto-selects the only one or
+        # populates the candidate list for the user to pick manually.
+        if not moves_todo:
+            moves_todo = self.env["stock.move"].search(
+                self._prepare_stock_moves_domain()
+            )
+        if not self.picking_id:
+            candidate_pickings = moves_todo.mapped("picking_id")
+            candidate_pickings_count = len(candidate_pickings)
+            if candidate_pickings_count > 1:
+                self._set_candidate_pickings(candidate_pickings)
+                return False
+            if candidate_pickings_count == 1:
+                self.picking_id = candidate_pickings
+                self._set_candidate_pickings(candidate_pickings)
+            _logger.info("No picking assigned")
+        return True
+
+    def _set_default_picking(self):
+        # Restored from 16.0 — picks default picking_id from context and
+        # propagates it to candidate_picking_ids.
+        picking_id = self.env.context.get("default_picking_id", False)
+        if picking_id:
+            self._set_candidate_pickings(self.env["stock.picking"].browse(picking_id))
+
     @api.onchange("picking_id")
     def onchange_picking_id(self):
         self.fill_pending_moves()
@@ -292,7 +334,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.action_show_step()
 
     def update_fields_after_determine_todo(self, move_line):
-        self.picking_product_qty = move_line.qty_done
+        # v18: stock.move.line.qty_done was removed; we use qty_picked from
+        # stock_move_line_qty_picked extension.
+        self.picking_product_qty = move_line.qty_picked
 
     def refresh_todo_records(self):
         if not self.keep_screen_values or self.todo_line_id.state != "pending":
@@ -916,12 +960,23 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return vals
 
     def _update_fill_record_values(self, line, vals):
+        # Restored aggregation logic from 16.0 with v18 field renames:
+        # reserved_uom_qty -> quantity_product_uom; reserved_qty -> quantity
+        # (sum of currently reserved qty on move lines).
         if vals["is_stock_move_line_origin"]:
+            vals["product_uom_qty"] += line.quantity_product_uom
+            vals["product_qty_reserved"] += line.quantity
             vals["line_ids"][0][2].append(line.id)
             vals["stock_move_ids"][0][2].append(line.move_id.id)
             if line.lot_id and line.lot_id.id != vals.get("lot_id", False):
                 vals["lot_id"] = False
         else:
+            vals["product_uom_qty"] += line.product_uom_qty
+            vals["product_qty_reserved"] += (
+                line.move_line_ids
+                and sum(line.move_line_ids.mapped("quantity"))
+                or line.product_uom_qty
+            )
             vals["line_ids"][0][2].extend(line.move_line_ids.ids)
             vals["stock_move_ids"][0][2].extend(line.ids)
         return vals
@@ -986,6 +1041,30 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             control_panel_hidden=False
         ).get_formview_action()
 
+    def _candidate_picking_selected(self):
+        # Restored from 16.0 — when there's exactly one candidate picking it
+        # is the implicit selection, otherwise an empty recordset.
+        if len(self.candidate_picking_ids) == 1:
+            return self.candidate_picking_ids.picking_id
+        else:
+            return self.env["stock.picking"].browse()
+
+    def action_unlock_picking(self):
+        # Restored from 16.0 — delegates the unlock to each candidate picking
+        # row so the wizard goes back to the candidate-listing screen.
+        for candidate_picking in self.candidate_picking_ids:
+            candidate_picking.with_context(
+                wiz_barcode_id=self.id
+            ).action_unlock_picking()
+
+    def action_lock_picking(self):
+        # Restored from 16.0 — locks the current picking via each candidate
+        # picking row (symmetric of action_unlock_picking).
+        for candidate_picking in self.candidate_picking_ids:
+            candidate_picking.with_context(
+                wiz_barcode_id=self.id, picking_id=self.picking_id.id
+            ).action_lock_picking()
+
     def get_action_after_validate(self):
         action = self.picking_id.picking_type_id.get_action_picking_tree_ready()
         return action
@@ -1001,14 +1080,29 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         )
 
     def action_validate_picking(self):
-        picking = self._get_picking_to_validate()
-        res = picking.button_validate()
-        action = self.get_action_after_validate()
-        if res is True:
-            res = action
-        elif "anotherAction" in res.get("params", {}):
-            res["params"]["anotherAction"] = action
-        return res
+        # Restored from 16.0 — delegate the actual validation to each
+        # wiz.candidate.picking row (which knows how to deal with the
+        # immediate-transfer wizard) and only build the post-validate
+        # action when the delegation reports success.
+        valid, result = self.candidate_picking_ids.with_context(
+            wiz_barcode_id=self.id,
+            picking_id=self.picking_id.id,
+            skip_sms=True,
+            skip_immediate=True,
+        ).action_validate_picking()
+        if not valid:
+            return result
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.stock_barcodes_action_picking_tree_ready"
+        )
+        if self.picking_id and self.picking_id.picking_type_id:
+            context = self.env.context.copy()
+            context.update(safe_eval(action["context"]))
+            context.update(
+                {"search_default_picking_type_id": self.picking_id.picking_type_id.id}
+            )
+            action["context"] = context
+        return action
 
     def _get_moves_from_product_domain(self):
         return [

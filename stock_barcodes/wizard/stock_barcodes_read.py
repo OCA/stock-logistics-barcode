@@ -723,6 +723,14 @@ class WizStockBarcodesRead(models.AbstractModel):
             "stock_barcodes.action_stock_barcodes_action_client"
         )
 
+    def action_back(self):
+        # Restored from 16.0 — removed during the v18 migration but still
+        # required by the wizard navigation flow (back from scan screen to
+        # picking type tree). Matches PR OCA #733 style using _for_xml_id.
+        return self.env["ir.actions.actions"]._for_xml_id(
+            "stock.stock_picking_type_action"
+        )
+
     def get_option_value(self, field_name, attribute):
         option = self.option_group_id.option_ids.filtered(
             lambda op: op.field_name == field_name
