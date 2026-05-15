@@ -62,7 +62,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         comodel_name="wiz.stock.barcodes.read.todo"
     )
     show_detailed_operations = fields.Boolean(
-        related="option_group_id.show_detailed_operations", default=True, store=True
+        related="option_group_id.show_detailed_operations", store=True
     )
     keep_screen_values = fields.Boolean(related="option_group_id.keep_screen_values")
     # Extended from stock_barcodes_read base model
@@ -1077,6 +1077,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             ).action_lock_picking()
 
     def get_action_after_validate(self):
+        if not self.picking_id:
+            return False
         action = self.picking_id.picking_type_id.get_action_picking_tree_ready()
         return action
 

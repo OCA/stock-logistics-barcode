@@ -9,6 +9,7 @@
                     name="action_barcode_scan"
                     class="oe_stat_button"
                     icon="fa-barcode"
+                    title="Start barcode interface"
                     type="object"
                     help="Start barcode interface"
                     invisible="state not in ('confirmed', 'assigned')"
@@ -34,6 +35,7 @@
                             name="action_barcode_scan"
                             type="object"
                             icon="fa-barcode"
+                            title="Start barcode interface"
                             class="btn btn-secondary"
                         />
                     </div>

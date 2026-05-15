@@ -55,7 +55,7 @@
                             <field name="product_uom_id" />
                             <field name="quantity" />
                             <templates>
-                                <t t-name="kanban-box">
+                                <t t-name="card">
                                     <div class="oe_kanban_global_click">
                                         <div class="row w-auto">
                                             <div class="col-8 col-md-10">
