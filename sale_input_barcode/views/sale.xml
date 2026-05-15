@@ -1,5 +1,4 @@
 <odoo>
-
     <record id="action_sale_line_barcode" model="ir.actions.act_window">
         <field name="name">Input Product</field>
         <field name="type">ir.actions.act_window</field>
@@ -16,12 +15,13 @@
                 expr="//form//header//button[@name='action_confirm']"
                 position="after"
             >
-               <button
+                <button
                     type="action"
+                    title="Input Product"
                     help="Input product lines scanning barcodes"
                     name="%(action_sale_line_barcode)d"
                     icon="fa-qrcode"
-                    context="{'default_model': 'sale.order', 'default_method': 'action_sale_line_barcode', 'default_res_id': active_id}"
+                    context="{'default_model': 'sale.order', 'default_method': 'action_sale_line_barcode', 'default_res_id': id}"
                 />
             </xpath>
             <field name="name" position="after">
@@ -29,5 +29,4 @@
             </field>
         </field>
     </record>
-
 </odoo>

@@ -2,7 +2,6 @@ from odoo import fields, models
 
 
 class ResConfigSettings(models.TransientModel):
-
     _inherit = "res.config.settings"
 
     sale_barcode_update_existing_line = fields.Boolean(

@@ -53,8 +53,6 @@ class ProductLineMixin(models.AbstractModel):
                     )
                 )
         else:
-            raise UserError(
-                _("No product found matching this barcode %s" % barcode_str)
-            )
+            raise UserError(_("No product found matching this barcode %s", barcode_str))
 
         return self._populate_vals(product, barcode_dict)

@@ -1,6 +1,6 @@
 # copyright 2022 David BEAL @ Akretion
 
-from odoo import models
+from odoo import Command, models
 
 
 class SaleOrderLine(models.Model):
@@ -19,6 +19,7 @@ class SaleOrder(models.Model):
         """Create a sale line according barcode information"""
         self.ensure_one()
         self.process_barcode(barcode)
+        return {"type": "ir.actions.act_window_close"}
 
     def process_barcode(self, barcode):
         barcode = barcode.rstrip()
@@ -42,9 +43,4 @@ class SaleOrder(models.Model):
         if product_order_line and sale_barcode_update_existing_line:
             product_order_line.product_uom_qty += 1
         else:
-            product_order_line = self.env["sale.order.line"].new(line_vals)
-            product_order_line.product_id_change()
-            sale_line_vals = product_order_line._convert_to_write(
-                product_order_line._cache
-            )
-            self.write({"order_line": [(0, 0, sale_line_vals)]})
+            self.write({"order_line": [Command.create(line_vals)]})
