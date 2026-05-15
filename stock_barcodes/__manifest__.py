@@ -12,6 +12,7 @@
         "base",
         "barcodes",
         "stock",
+        "stock_move_line_qty_picked",
         "web_widget_numeric_step",
         "web",
         "mail",
