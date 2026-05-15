@@ -65,7 +65,7 @@
                                                 class="col-4 col-md-2 d-flex justify-content-end align-items-center"
                                             >
                                                 <img
-                                                    t-att-src="kanban_image('product.product', 'image_128', record.product_id.raw_value)"
+                                                    t-att-src="`/web/image/product.product/${record.product_id.raw_value}/image_128`"
                                                     role="img"
                                                     t-att-title="record.product_id.value"
                                                     height="40"
