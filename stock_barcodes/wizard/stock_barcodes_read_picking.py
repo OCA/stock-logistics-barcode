@@ -334,9 +334,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.action_show_step()
 
     def update_fields_after_determine_todo(self, move_line):
-        # v18: stock.move.line.qty_done was removed; we use qty_picked from
-        # stock_move_line_qty_picked extension.
-        self.picking_product_qty = move_line.qty_picked
+        # move_line is a wiz.stock.barcodes.read.todo record (not a stock.move.line).
+        # v18 removed stock.move.line.qty_done; the todo's own qty_done field is
+        # computed as sum(line_ids.qty_picked), so use it here (the todo record has
+        # no qty_picked attribute, which previously raised AttributeError).
+        self.picking_product_qty = move_line.qty_done
 
     def refresh_todo_records(self):
         if not self.keep_screen_values or self.todo_line_id.state != "pending":

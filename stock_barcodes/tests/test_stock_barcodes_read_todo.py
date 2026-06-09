@@ -77,3 +77,18 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
             # exactly once and the product remains the one the test set.
             mock_msg.assert_called_once()
             self.assertEqual(captured_product, self.product_tracking)
+
+    def test_update_fields_after_determine_todo_uses_todo_qty_done(self):
+        """Regression: update_fields_after_determine_todo() receives a
+        wiz.stock.barcodes.read.todo record (its parameter is named
+        ``move_line`` but it is NOT a stock.move.line). It must read the
+        todo's own aggregated ``qty_done`` (sum of line_ids.qty_picked); the
+        todo has no ``qty_picked`` attribute. The v18 migration wrongly used
+        ``move_line.qty_picked``, raising AttributeError on every scan that
+        reaches determine_todo_action().
+        """
+        todo = self.wiz_scan_read_todo
+        # The todo aggregates qty_picked (10) from its single move line.
+        self.assertEqual(todo.qty_done, 10.0)
+        self.wiz_scan.update_fields_after_determine_todo(todo)
+        self.assertEqual(self.wiz_scan.picking_product_qty, 10.0)
