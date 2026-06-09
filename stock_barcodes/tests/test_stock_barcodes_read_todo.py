@@ -92,3 +92,41 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         self.assertEqual(todo.qty_done, 10.0)
         self.wiz_scan.update_fields_after_determine_todo(todo)
         self.assertEqual(self.wiz_scan.picking_product_qty, 10.0)
+
+    def test_pending_qty_to_scan_excludes_fully_picked_move(self):
+        # Over-scan guard: a move already at its full demand (qty_picked ==
+        # product_uom_qty) must contribute 0 remaining, not its full demand.
+        # The off-by-one made the "higher than necessary" warning fire at
+        # demand+1 (e.g. 3/2) instead of at the demand (2/2).
+        Move = self.env["stock.move"]
+        dest = self.env.ref("stock.stock_location_customers")
+
+        def _make_move(name, demand, picked):
+            move = Move.create(
+                {
+                    "name": name,
+                    "product_id": self.product_wo_tracking.id,
+                    "product_uom": self.product_wo_tracking.uom_id.id,
+                    "product_uom_qty": demand,
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": dest.id,
+                    "move_line_ids": [
+                        Command.create(
+                            {
+                                "product_id": self.product_wo_tracking.id,
+                                "location_id": self.stock_location.id,
+                                "location_dest_id": dest.id,
+                                "quantity": demand,
+                            }
+                        )
+                    ],
+                }
+            )
+            move.move_line_ids.qty_picked = picked
+            return move
+
+        move_full = _make_move("full", 2, 2)  # 2/2 -> 0 remaining
+        move_partial = _make_move("partial", 5, 3)  # 3/5 -> 2 remaining
+        # 0 + 2 = 2. The off-by-one returned 4 (full move counted as its demand).
+        remaining = self.wiz_scan._get_pending_qty_to_scan(move_full | move_partial)
+        self.assertEqual(remaining, 2.0)

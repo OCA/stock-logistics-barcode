@@ -515,6 +515,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         return domain
 
+    def _get_pending_qty_to_scan(self, moves_todo):
+        """Remaining demand to fulfil across moves_todo: product_uom_qty minus
+        what is already picked. Used to warn when the scanned quantity exceeds
+        what is still needed. A move already at its full demand contributes 0
+        (a previous off-by-one let it contribute its full demand, so the
+        "higher than necessary" warning fired at demand+1 instead of demand)."""
+        return sum(sm.product_uom_qty - sm.qty_picked for sm in moves_todo)
+
     def _process_stock_move_line(self):  # noqa: C901
         """
         Search assigned or confirmed stock moves from a picking operation type
@@ -596,11 +604,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if candidate_domain:
                 lines = lines.filtered_domain(candidate_domain)
         available_qty = self.product_qty
-        max_quantity = sum(
-            sm.product_uom_qty
-            - (sm.qty_picked if sm.qty_picked != sm.product_uom_qty else 0)
-            for sm in moves_todo
-        )
+        max_quantity = self._get_pending_qty_to_scan(moves_todo)
         if (
             not self.option_group_id.code == "REL"
             and not self.env.context.get("force_create_move", False)
