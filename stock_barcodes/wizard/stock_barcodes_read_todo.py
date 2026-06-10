@@ -120,12 +120,18 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.wiz_barcode_id.determine_todo_action()
 
     def action_reset_lines(self):
+        # Capture the parent wizard BEFORE fill_todo_records(): that call
+        # rebuilds the todo list and unlinks THIS very record, so any later
+        # dereference of ``self`` (e.g. ``self.wiz_barcode_id``) raises
+        # MissingError and rolls back the whole reset (qty_picked stays as-is).
+        # Use the captured reference for the post-unlink calls.
+        wiz_barcode = self.wiz_barcode_id
         self.state = "pending"
         self.line_ids.barcode_scan_state = "pending"
         self.line_ids.qty_picked = 0.0
-        self.wiz_barcode_id.action_clean_values()
-        self.wiz_barcode_id.fill_todo_records()
-        self.wiz_barcode_id.determine_todo_action()
+        wiz_barcode.action_clean_values()
+        wiz_barcode.fill_todo_records()
+        wiz_barcode.determine_todo_action()
 
     def action_back_line(self):
         if self.position_index > 0:
