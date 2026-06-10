@@ -21,6 +21,31 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
             self.assertEqual(self.wiz_scan_read_todo.line_ids.qty_picked, 0)
             mock_msg.assert_called_once_with()
 
+    def test_action_reset_lines_survives_todo_unlink(self):
+        # Regression: fill_todo_records() rebuilds the todo list and unlinks
+        # THIS record. action_reset_lines must capture the parent wizard first
+        # and not dereference self afterwards; otherwise self.wiz_barcode_id
+        # raises MissingError and the whole reset rolls back (qty_picked stays).
+        # The previous test mocks fill_todo_records to a no-op, so it never
+        # exercised the unlink; here the mock unlinks self like the real one.
+        todo = self.wiz_scan_read_todo
+
+        def _unlink_self(*args, **kwargs):
+            todo.unlink()
+
+        with (
+            patch.object(type(self.wiz_scan), "action_clean_values"),
+            patch.object(
+                type(self.wiz_scan), "fill_todo_records", side_effect=_unlink_self
+            ),
+            patch.object(type(self.wiz_scan), "determine_todo_action") as mock_det,
+        ):
+            # Buggy code raised MissingError here; the fix reaches the parent
+            # call through the captured reference.
+            todo.action_reset_lines()
+            mock_det.assert_called_once_with()
+        self.assertFalse(todo.exists())
+
     def test_fields_to_fill_from_pending_line(self):
         return_values = [
             "location_id",
