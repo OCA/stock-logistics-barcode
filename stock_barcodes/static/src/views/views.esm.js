@@ -176,6 +176,16 @@ function setupView() {
                 type: payload?.message_type,
                 sticky: Boolean(payload?.sticky),
             });
+        } else if (type === "count_apply_inventory") {
+            // Restored from 16.0 (form_controller.esm.js, lost in the v18
+            // migration): the backend sends the number of inventory quants
+            // pending to apply on the "stock_barcodes_form_update" channel.
+            // Write it into the Apply button counter span(s); without this the
+            // span stayed empty and the button rendered "Apply ()".
+            const count = payload?.count ?? "";
+            document
+                .querySelectorAll("span.count_apply_inventory")
+                .forEach((el) => (el.textContent = count));
         }
     };
 
@@ -195,12 +205,15 @@ function setupView() {
         this.soundKo = soundKo;
 
         busService.subscribe("stock_barcodes_scan", handleNotification);
+        // Inventory "Apply" button counter is pushed on this channel
+        busService.subscribe("stock_barcodes_form_update", handleNotification);
         // DOM event
         document.body.addEventListener("keydown", onKeyDown);
 
         // Cleanup
         return () => {
             busService.unsubscribe("stock_barcodes_scan", handleNotification);
+            busService.unsubscribe("stock_barcodes_form_update", handleNotification);
             document.body.removeEventListener("keydown", onKeyDown);
             // Drop references (not appended, so no DOM removal needed)
             this.soundOk = null;
