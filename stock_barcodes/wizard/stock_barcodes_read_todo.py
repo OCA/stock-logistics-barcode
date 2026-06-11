@@ -217,8 +217,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def operation_quantities(self):
         pending_qty = self.qty_done_rest
         for sml in self.line_ids:
-            qty = min(pending_qty, sml.quantity)
-            sml.qty_picked = qty
+            qty = min(pending_qty, sml.quantity - sml.qty_picked)
+            sml.qty_picked += qty
             pending_qty = float_round(
                 pending_qty - qty, precision_rounding=sml.product_uom_id.rounding
             )
