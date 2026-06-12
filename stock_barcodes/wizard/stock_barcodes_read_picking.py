@@ -334,10 +334,11 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         self.action_show_step()
 
     def update_fields_after_determine_todo(self, move_line):
-        # move_line is a wiz.stock.barcodes.read.todo record (not a stock.move.line).
-        # v18 removed stock.move.line.qty_done; the todo's own qty_done field is
-        # computed as sum(line_ids.qty_picked), so use it here (the todo record has
-        # no qty_picked attribute, which previously raised AttributeError).
+        # move_line is always a wiz.stock.barcodes.read.todo record: the only
+        # caller, determine_todo_action(), passes self.todo_line_id (a
+        # Many2one to that model). Its aggregated qty_done field (= sum of
+        # line_ids.qty_picked) is the value we want. v18 removed
+        # stock.move.line.qty_done, so no stock.move.line is ever passed here.
         self.picking_product_qty = move_line.qty_done
 
     def refresh_todo_records(self):

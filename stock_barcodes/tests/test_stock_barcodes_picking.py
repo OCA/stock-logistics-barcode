@@ -794,9 +794,16 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         mock_set_focus_on_qty_input.assert_called_once()
 
     def test_update_fields_after_determine_todo(self):
-        self.wiz_scan_option_guided.update_fields_after_determine_todo(
-            self.test_move_line
+        # determine_todo_action() passes a wiz.stock.barcodes.read.todo record,
+        # never a stock.move.line; wrap the move line in a todo so the test
+        # exercises the real call (todo.qty_done = sum of line_ids.qty_picked).
+        todo = self.env["wiz.stock.barcodes.read.todo"].create(
+            {
+                "wiz_barcode_id": self.wiz_scan_option_guided.id,
+                "line_ids": [Command.set(self.test_move_line.ids)],
+            }
         )
+        self.wiz_scan_option_guided.update_fields_after_determine_todo(todo)
         self.assertEqual(
             self.wiz_scan_option_guided.picking_product_qty,
             self.test_move_line.qty_picked,
