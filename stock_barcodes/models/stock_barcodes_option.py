@@ -83,7 +83,7 @@ class StockBarcodesOptionGroup(models.Model):
     auto_lot = fields.Boolean(
         string="Get lots automatically",
         help="If checked the lot will be set automatically with the same "
-        "removal startegy",
+        "removal strategy",
     )
     create_lot = fields.Boolean(
         string="Create lots if not match",

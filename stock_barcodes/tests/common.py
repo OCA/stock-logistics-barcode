@@ -10,6 +10,9 @@ class TestCommonStockBarcodes(TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
+        # Force English so message assertions do not depend on the database
+        # language loaded in the running environment.
+        cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         # Active group_stock_packaging and group_production_lot for user
         group_stock_packaging = cls.env.ref("product.group_stock_packaging")
         group_production_lot = cls.env.ref("stock.group_production_lot")
@@ -251,7 +254,8 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.product_wo_tracking = cls.Product.create(
             {
                 "name": "Product test wo lot tracking",
-                "type": "product",
+                "type": "consu",
+                "is_storable": True,
                 "tracking": "none",
                 "barcode": "8480000723208",
                 "packaging_ids": [
@@ -267,7 +271,8 @@ class TestCommonStockBarcodes(TransactionCase):
         )
         product_tracking_values = {
             "name": "Product test with lot tracking",
-            "type": "product",
+            "type": "consu",
+            "is_storable": True,
             "tracking": "lot",
             "barcode": "8433281006850",
             "packaging_ids": [
@@ -368,7 +373,7 @@ class TestCommonStockBarcodes(TransactionCase):
                             "location_id": cls.location_1.id,
                             "location_dest_id": cls.location_1.id,
                             "quantity_product_uom": 15,
-                            "qty_done": 10,
+                            "qty_picked": 10,
                         }
                     ),
                 ],

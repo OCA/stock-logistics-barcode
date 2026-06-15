@@ -14,16 +14,10 @@ patch_stock_models = "odoo.addons.stock.models"
 patch_manual_entry = (
     patch_wizard + ".stock_barcodes_read.WizStockBarcodesRead.action_manual_entry"
 )
-patch_action_done = (
-    patch_wizard + ".stock_barcodes_read.WizStockBarcodesRead.action_done"
-)
 patch_read_picking = (
     patch_wizard + ".stock_barcodes_read_picking.WizStockBarcodesReadPicking"
 )
 patch_read = patch_wizard + ".stock_barcodes_read.WizStockBarcodesRead"
-patch_search_candidate_picking = patch_read_picking + ".action_done"
-
-patch_set_candidate_pickings = patch_read_picking + "._set_candidate_pickings"
 
 patch_prepare_stock_moves_domain = patch_read_picking + "._prepare_stock_moves_domain"
 
@@ -173,13 +167,13 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_wo_tracking
         )
-        self.assertEqual(sml.quantity, 1.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 1.0)
         # Scan product with tracking lot enable
         self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
         sml = self.picking_in_01.move_line_ids.filtered(
             lambda x: x.product_id == self.product_tracking
         )
-        self.assertEqual(sml.qty_done, 0.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 0.0)
         self.assertEqual(
             self.wiz_scan_picking.message,
             "8433281006850 (Scan Product, Packaging, Lot / Serial)",
@@ -191,12 +185,12 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             lambda x: x.product_id == self.product_tracking and x.lot_id
         )
         self.assertEqual(sml.lot_id, self.lot_1)
-        self.assertEqual(sml.quantity, 1.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8433281006850")
         stock_move = sml.move_id
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 1.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 1.0)
         self.action_barcode_scanned(wiz_scan_picking, "8411822222568")
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 1.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 1.0)
         self.assertEqual(
             self.wiz_scan_picking.message,
             "8411822222568 (Scan Product, Packaging, Lot / Serial)",
@@ -204,7 +198,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         # Scan a package
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
         # Package of 5 product units. Already three unit exists
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("quantity")), 5.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 5.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(
@@ -218,7 +212,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(wiz_scan_picking.product_qty, 0.0)
         wiz_scan_picking.product_qty = 12.0
         wiz_scan_picking.action_confirm()
-        self.assertEqual(sml.quantity, 12.0)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 12.0)
 
     def test_picking_wizard_scan_product_auto_lot(self):
         # Prepare more data
@@ -481,20 +475,8 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             dict,
         )
 
-    def test_set_default_picking(self):
-        with patch.object(type(self.wiz_scan), "_set_candidate_pickings") as mock_msg:
-            self.wiz_scan.with_context(
-                default_picking_id=self.picking_in_01.id
-            )._set_default_picking()
-            mock_msg.assert_called_once()
-
-        with patch.object(type(self.wiz_scan), "_set_candidate_pickings") as mock_msg:
-            self.wiz_scan._set_default_picking()
-            mock_msg.assert_not_called()
-
     def test_onchange_picking_id(self):
         with (
-            patch.object(type(self.wiz_scan), "_set_default_picking"),
             patch.object(type(self.wiz_scan), "fill_pending_moves"),
             patch.object(type(self.wiz_scan), "determine_todo_action") as mock_msg,
         ):
@@ -590,43 +572,19 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         result = self.wiz_scan._group_key(line=self.wiz_scan.todo_line_id)
         self.assertIsInstance(result, tuple)
 
-    def test_action_open_lock_unlock_picking(self):
-        with patch.object(type(self.wiz_scan), "action_open_picking") as mock_msg:
-            self.wiz_scan.action_open_picking()
-            mock_msg.assert_called_once()
+    def test_action_open_picking(self):
+        action = self.wiz_scan_picking.action_open_picking()
+        self.assertEqual(action["res_model"], "stock.picking")
+        self.assertEqual(action["res_id"], self.picking_in_01.id)
 
-        with patch.object(type(self.wiz_scan), "action_unlock_picking") as mock_msg:
-            self.wiz_scan.action_unlock_picking()
-            mock_msg.assert_called_once()
-
-        with patch.object(type(self.wiz_scan), "action_lock_picking") as mock_msg:
-            self.wiz_scan.action_lock_picking()
-            mock_msg.assert_called_once()
-
-        action_id = self.IrActionsWindow.create(
-            {
-                "name": "Test",
-                "type": "ir.actions.act_window",
-                "res_model": "stock.picking",
-            }
-        )
+    def test_action_validate_picking(self):
         with patch.object(
-            type(self.WizCandidatePicking),
-            "action_validate_picking",
-            return_value=(False, action_id),
-        ) as mock_msg:
-            result = self.wiz_scan.action_validate_picking()
-            self.assertIsInstance(result, type(self.IrActionsWindow))
-            mock_msg.assert_called_once()
-
-        with patch.object(
-            type(self.WizCandidatePicking),
-            "action_validate_picking",
-            return_value=(True, False),
-        ) as mock_msg:
-            result = self.wiz_scan.action_validate_picking()
+            type(self.StockPicking), "button_validate", return_value=True
+        ) as mock_validate:
+            result = self.wiz_scan_picking.action_validate_picking()
+            mock_validate.assert_called_once()
+            # When button_validate returns True the action after validate is returned
             self.assertEqual(result.get("type"), "ir.actions.act_window")
-            mock_msg.assert_called_once()
 
     def test_get_stock_move_lines_todo(self):
         self.wiz_scan.picking_id = self.picking.id
@@ -642,7 +600,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         move_ids = self.wiz_scan.get_moves_or_move_lines()
         self.assertIsInstance(move_ids, type(self.StockMove))
 
-    @mock.patch(patch_action_done)
+    @mock.patch(patch_read_picking + ".action_done")
     @mock.patch(patch_manual_entry)
     def test_action_manual_entry(self, mock_manual_entry, mock_action_done):
         mock_manual_entry.return_value = True
@@ -650,18 +608,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertTrue(result)
         mock_action_done.assert_called_once()
         mock_manual_entry.assert_called_once()
-
-    @mock.patch(patch_prepare_stock_moves_domain)
-    @mock.patch(patch_set_candidate_pickings)
-    def test_search_candidate_picking(
-        self, mock_set_candidate_pickings, mock_prepare_stock_moves_domain
-    ):
-        mock_prepare_stock_moves_domain.return_value = [
-            ("id", "=", self.stock_move_assigned1.id)
-        ]
-        result = self.WizScanReadPicking._search_candidate_picking()
-        self.assertTrue(result)
-        mock_set_candidate_pickings.assert_called_once()
 
     def test_create_new_stock_move(self):
         self.WizScanReadPicking.create_new_stock_move(self.test_move_line)
@@ -707,10 +653,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan_option_guided.result_package_id, self.quant_package_1
         )
 
-    def test_candidate_picking_selected(self):
-        result = self.wiz_scan_option_guided._candidate_picking_selected()
-        self.assertIsInstance(result, type(self.StockPicking))
-
     @mock.patch(patch_set_focus_on_qty_input)
     @mock.patch(patch_set_messagge_info)
     def test_check_done_conditions(
@@ -730,22 +672,24 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         result = self.wiz_scan_option_guided.check_done_conditions()
         self.assertFalse(result)
         self.assertEqual(mock_set_messagge_info.call_count, 4)
+        # The scanned product is not part of the picking demand, so the picking
+        # override rejects it right after the base "Waiting location" message.
         expected_calls = [
             call("info", "Waiting location"),
-            call("more_match", "Quantities not available in location"),
+            call("not_found", "Product not demanded"),
             call("info", "Waiting location"),
-            call("info", "Click on picking pushpin to lock it"),
+            call("not_found", "Product not demanded"),
         ]
         mock_set_messagge_info.assert_has_calls(expected_calls)
-        mock_set_focus_on_qty_input.assert_called_once()
+        mock_set_focus_on_qty_input.assert_not_called()
 
     def test_update_fields_after_determine_todo(self):
         self.wiz_scan_option_guided.update_fields_after_determine_todo(
-            self.test_move_line
+            self.wiz_scan_read_todo
         )
         self.assertEqual(
             self.wiz_scan_option_guided.picking_product_qty,
-            self.test_move_line.qty_done,
+            self.wiz_scan_read_todo.qty_done,
         )
 
     @mock.patch(patch_action_put_in_pack)
@@ -787,7 +731,8 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.stock_move_assigned1, vals
         )
         self.assertIsInstance(result, dict)
-        self.assertEqual(result["product_uom_qty"], 1)
+        # For move based todo records the scanned move is appended to stock_move_ids
+        self.assertIn(self.stock_move_assigned1.id, result["stock_move_ids"][0][2])
         vals.update(
             {
                 "is_stock_move_line_origin": True,
@@ -797,3 +742,85 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.test_move_line, vals
         )
         self.assertIsInstance(result, dict)
+
+    def test_compute_pending_move_ids(self):
+        wiz = self.wiz_scan_picking
+        self.assertTrue(wiz.todo_line_ids)
+        wiz.option_group_id.show_pending_moves = "none"
+        wiz._compute_pending_move_ids()
+        self.assertFalse(wiz.pending_move_ids)
+        wiz.option_group_id.show_pending_moves = "all"
+        wiz._compute_pending_move_ids()
+        self.assertEqual(
+            wiz.pending_move_ids,
+            wiz.todo_line_ids.filtered(lambda t: not t.is_extra_line),
+        )
+        wiz.option_group_id.show_pending_moves = "pending"
+        wiz._compute_pending_move_ids()
+        self.assertTrue(all(t.state == "pending" for t in wiz.pending_move_ids))
+
+    def test_allow_not_demanded_product(self):
+        # When allow_not_demanded_product is enabled the "Product not demanded"
+        # message is not raised for products outside the picking demand.
+        wiz = self.wiz_scan_option_guided
+        wiz.option_group_id = self.option_group10
+        wiz.option_group_id.allow_not_demanded_product = True
+        wiz.product_id = self.product_wo_tracking.id
+        wiz.product_qty = 1
+        with patch.object(type(wiz), "_set_messagge_info") as mock_msg:
+            wiz.check_done_conditions()
+            messages = [args[1] for args, _kw in mock_msg.call_args_list]
+            self.assertNotIn("Product not demanded", messages)
+
+    def test_search_picking_from_product(self):
+        wiz = self.ScanReadPicking.create(
+            {
+                "option_group_id": self.barcode_option_group_in.id,
+                "step": 1,
+                "picking_type_code": "incoming",
+            }
+        )
+        wiz.option_group_id.search_picking_from_product = "first"
+        wiz.product_id = self.product_wo_tracking.id
+        action = wiz.action_picking_from_product()
+        self.assertTrue(action)
+        self.assertEqual(wiz.picking_id, self.picking_in_01)
+
+    def test_auto_put_in_pack(self):
+        # When auto_put_in_pack is enabled, validating a picking without result
+        # package triggers action_put_in_pack before the standard validation.
+        self.picking_type_in.barcode_option_group_id.auto_put_in_pack = True
+        with (
+            patch.object(
+                type(self.StockPicking), "action_put_in_pack"
+            ) as mock_put_in_pack,
+            patch(
+                "odoo.addons.stock.models.stock_picking.Picking.button_validate",
+                return_value=True,
+            ),
+        ):
+            self.picking_in_01.button_validate()
+            mock_put_in_pack.assert_called_once()
+
+    def test_keep_screen_values(self):
+        # With keep_screen_values, refreshing the todo records while the current
+        # line is still pending must not clean the screen values.
+        wiz = self.wiz_scan_picking
+        wiz.todo_line_id = wiz.todo_line_ids.filtered(lambda t: t.state == "pending")[
+            :1
+        ]
+        self.assertTrue(wiz.todo_line_id)
+        with (
+            patch.object(type(wiz), "fill_todo_records"),
+            patch.object(type(wiz), "determine_todo_action"),
+            patch.object(type(wiz), "action_show_step"),
+            patch.object(type(wiz), "update_keep_values"),
+        ):
+            wiz.option_group_id.keep_screen_values = True
+            with patch.object(type(wiz), "action_clean_values") as mock_clean:
+                wiz.refresh_todo_records()
+                mock_clean.assert_not_called()
+            wiz.option_group_id.keep_screen_values = False
+            with patch.object(type(wiz), "action_clean_values") as mock_clean:
+                wiz.refresh_todo_records()
+                mock_clean.assert_called_once()

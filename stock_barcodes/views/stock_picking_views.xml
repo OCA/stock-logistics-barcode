@@ -34,6 +34,7 @@
                             name="action_barcode_scan"
                             type="object"
                             icon="fa-barcode"
+                            title="Start barcode interface"
                             class="btn btn-secondary"
                         />
                     </div>

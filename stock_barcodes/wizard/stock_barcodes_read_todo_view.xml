@@ -23,7 +23,7 @@
                 <field name="is_extra_line" />
                 <field name="is_stock_move_line_origin" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div
                             t-attf-class="oe_kanban_content "
                             t-attf-style="background-color: {{record.is_extra_line.raw_value == true and '#ffd683' or '#f0f9fb'}};"
@@ -235,7 +235,7 @@
                 <field name="picking_state" />
                 <field name="is_stock_move_line_origin" />
                 <templates>
-                    <t t-name="kanban-box">
+                    <t t-name="card">
                         <div class="oe_kanban_global_click">
                             <div class="row">
                                 <div class="col-8 col-md-8">

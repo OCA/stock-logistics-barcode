@@ -50,8 +50,8 @@
                 <field name="key_char_shortcut" />
                 <field name="icon_class" />
                 <templates>
-                    <t t-name="kanban-box">
-                        <div class="oe_kanban_card oe_kanban_content">
+                    <t t-name="card">
+                        <div class="oe_kanban_content">
                             <t t-set="shortcut" t-value="record.key_char_shortcut" />
                             <t
                                 t-set="hotkey"

@@ -53,9 +53,9 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
             self.assertFalse(self.wiz_scan_read_inventory.manual_entry)
             mock_msg.assert_called_once_with(
                 "stock_barcodes_scan",
-                "stock_barcodes_edit_manual",
                 {
-                    "manual_entry": False,
+                    "type": "stock_barcodes_edit_manual",
+                    "payload": {"manual_entry": False},
                 },
             )
 
@@ -67,3 +67,90 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
         self.wiz_scan_read_inventory.lot_id = self.lot_1.id
         self.wiz_scan_read_inventory._onchange_lot_id()
         self.assertFalse(self.wiz_scan_read_inventory.auto_lot)
+
+    def test_accumulate_read_quantity(self):
+        # With accumulate_read_quantity the scanned quantity is added to the
+        # existing inventory quant instead of overwriting it.
+        wiz = self.wiz_scan_read_inventory
+        wiz.option_group_id.accumulate_read_quantity = True
+        wiz.product_id = self.product_tracking
+        wiz.location_id = self.location_1
+        wiz.lot_id = self.lot_1
+        wiz.product_qty = 3
+        self.assertTrue(wiz._add_inventory_quant())
+        wiz.product_qty = 2
+        self.assertTrue(wiz._add_inventory_quant())
+        quant = self.StockQuant.search(
+            [
+                ("product_id", "=", self.product_tracking.id),
+                ("location_id", "=", self.location_1.id),
+                ("lot_id", "=", self.lot_1.id),
+            ],
+            limit=1,
+        )
+        self.assertEqual(quant.inventory_quantity, 5.0)
+
+    def test_overwrite_read_quantity(self):
+        # Without accumulate_read_quantity the scanned quantity overwrites the
+        # current inventory quantity.
+        wiz = self.wiz_scan_read_inventory
+        wiz.option_group_id.accumulate_read_quantity = False
+        wiz.product_id = self.product_tracking
+        wiz.location_id = self.location_1
+        wiz.lot_id = self.lot_1
+        wiz.product_qty = 3
+        self.assertTrue(wiz._add_inventory_quant())
+        wiz.product_qty = 2
+        self.assertTrue(wiz._add_inventory_quant())
+        quant = self.StockQuant.search(
+            [
+                ("product_id", "=", self.product_tracking.id),
+                ("location_id", "=", self.location_1.id),
+                ("lot_id", "=", self.lot_1.id),
+            ],
+            limit=1,
+        )
+        self.assertEqual(quant.inventory_quantity, 2.0)
+
+    def test_compute_inventory_quant_ids_side_effect_free(self):
+        # The compute must not emit bus notifications nor write any record.
+        wiz = self.wiz_scan_read_inventory
+        with patch.object(type(wiz), "send_bus_done") as mock_bus:
+            wiz.invalidate_recordset(["inventory_quant_ids"])
+            # Force the recomputation explicitly.
+            wiz._compute_inventory_quant_ids()
+            mock_bus.assert_not_called()
+
+    def test_refresh_inventory_quants_sends_bus(self):
+        wiz = self.wiz_scan_read_inventory
+        with patch.object(type(wiz), "send_bus_done") as mock_bus:
+            wiz._refresh_inventory_quants()
+            mock_bus.assert_called_once_with(
+                "stock_barcodes_form_update",
+                {
+                    "type": "count_apply_inventory",
+                    "payload": {"count": wiz.count_inventory_quants},
+                },
+            )
+
+    def test_refresh_inventory_quants_assigns_owner(self):
+        # When show_owner is enabled and an owner is set, refreshing stamps the
+        # owner on every displayed quant.
+        wiz = self.wiz_scan_read_inventory
+        wiz.option_group_id.show_owner = True
+        wiz.invalidate_recordset(["show_owner"])
+        wiz.owner_id = self.test_partner_id
+        wiz.product_id = self.product_tracking
+        wiz.location_id = self.location_1
+        wiz.lot_id = self.lot_1
+        wiz.product_qty = 3
+        self.assertTrue(wiz._add_inventory_quant())
+        # inventory_quant_ids does not depend on the quants, refresh the cache
+        # so the newly created quant is taken into account.
+        wiz.invalidate_recordset(["inventory_quant_ids"])
+        with patch.object(type(wiz), "send_bus_done"):
+            wiz._refresh_inventory_quants()
+        self.assertTrue(wiz.inventory_quant_ids)
+        self.assertTrue(
+            all(q.owner_id == self.test_partner_id for q in wiz.inventory_quant_ids)
+        )

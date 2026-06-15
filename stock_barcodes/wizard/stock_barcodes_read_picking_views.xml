@@ -130,7 +130,7 @@
                             <field name="result_package_id" />
                             <field name="picking_code" />
                             <templates>
-                                <t t-name="kanban-box">
+                                <t t-name="card">
                                     <div class="oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-8 col-md-8">

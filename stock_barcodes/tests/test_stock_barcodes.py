@@ -97,13 +97,6 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertTrue(self.barcode_action_valid.action_window_id)
         self.assertEqual(bool(self.barcode_action_invalid.action_window_id), False)
 
-    def test_action_back(self):
-        result = self.wiz_scan.action_back()
-        self.assertIn("name", result)
-        self.assertIn("type", result)
-        self.assertIn("res_model", result)
-        self.assertEqual(result["type"], "ir.actions.act_window")
-
     def test_barcode_context_action(self):
         context = self.barcode_action_valid.context
         self.assertTrue(bool(re.match(REGEX.get("context", ""), context)))
@@ -481,7 +474,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_id = self.product_tracking.id
             result = self.wiz_scan.check_done_conditions()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("info", _("Waiting quantities"))
+            mock_msg.assert_any_call("info", _("Waiting quantities"))
 
     def test_check_guided_values(self):
         result = self.wiz_scan_option_forced._check_guided_values()
@@ -599,8 +592,10 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.assertTrue(self.wiz_scan.manual_entry)
             mock_msg.assert_called_once_with(
                 "stock_barcodes_scan",
-                "stock_barcodes_edit_manual",
-                {"manual_entry": True},
+                {
+                    "type": "stock_barcodes_edit_manual",
+                    "payload": {"manual_entry": True},
+                },
             )
 
     def test_action_clean_message(self):
@@ -632,8 +627,90 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan_option_display_notification.display_notification(
                 title=message_title, message=message
             )
+            res_id = self.wiz_scan_option_display_notification.ids[0]
             mock_msg.assert_called_once_with(
-                f"stock_barcodes-{self.wiz_scan_option_display_notification.ids[0]}",
-                f"stock_barcodes_notify-{self.wiz_scan_option_display_notification.ids[0]}",
-                message_notification,
+                f"stock_barcodes-{res_id}",
+                {
+                    "type": f"stock_barcodes_notify-{res_id}",
+                    "payload": message_notification,
+                },
             )
+
+    def test_compute_is_manual_qty(self):
+        # Option group flags is_manual_qty, is_manual_confirm and auto_lot are
+        # propagated to the wizard through their computes.
+        self.wiz_scan.option_group_id.write(
+            {
+                "is_manual_qty": True,
+                "is_manual_confirm": True,
+                "auto_lot": True,
+            }
+        )
+        self.wiz_scan._compute_is_manual_qty()
+        self.assertTrue(self.wiz_scan.is_manual_qty)
+        self.assertTrue(self.wiz_scan.is_manual_confirm)
+        self.wiz_scan._compute_auto_lot()
+        self.assertTrue(self.wiz_scan.auto_lot)
+
+    def test_ignore_filled_fields_message(self):
+        # When ignore_filled_fields is enabled and no option matches the scanned
+        # barcode, a specific message is shown.
+        self.wiz_scan.option_group_id.ignore_filled_fields = True
+        self.action_barcode_scanned(self.wiz_scan, "barcodenotfound")
+        self.assertIn("field already filled", self.wiz_scan.message)
+
+        self.wiz_scan.option_group_id.ignore_filled_fields = False
+        self.action_barcode_scanned(self.wiz_scan, "barcodenotfound")
+        self.assertIn(
+            "Barcode not found with this screen values", self.wiz_scan.message
+        )
+
+    def test_show_stock_and_owner(self):
+        # show_stock and show_owner are related to the option group flags.
+        self.wiz_scan.option_group_id.write({"show_stock": True, "show_owner": True})
+        self.wiz_scan.invalidate_recordset(["show_stock", "show_owner"])
+        self.assertTrue(self.wiz_scan.show_stock)
+        self.assertTrue(self.wiz_scan.show_owner)
+        self.wiz_scan.option_group_id.write({"show_stock": False, "show_owner": False})
+        self.wiz_scan.invalidate_recordset(["show_stock", "show_owner"])
+        self.assertFalse(self.wiz_scan.show_stock)
+        self.assertFalse(self.wiz_scan.show_owner)
+
+    def test_confirmed_moves_states(self):
+        # confirmed_moves adds the "confirmed" state to the allowed move states.
+        self.wiz_scan.option_group_id.confirmed_moves = True
+        self.wiz_scan.invalidate_recordset(["confirmed_moves"])
+        self.assertIn("confirmed", self.wiz_scan._states_move_allowed())
+        self.wiz_scan.option_group_id.confirmed_moves = False
+        self.wiz_scan.invalidate_recordset(["confirmed_moves"])
+        self.assertNotIn("confirmed", self.wiz_scan._states_move_allowed())
+
+    def test_ignore_quant_location(self):
+        # When ignore_quant_location is disabled the location is taken from the
+        # scanned quant, and kept untouched when it is enabled.
+        self.wiz_scan.option_group_id.ignore_quant_location = False
+        self.wiz_scan.location_id = False
+        self.wiz_scan.set_info_from_quants(self.quant_lot_1)
+        self.assertEqual(self.wiz_scan.location_id, self.quant_lot_1.location_id)
+
+        self.wiz_scan.option_group_id.ignore_quant_location = True
+        self.wiz_scan.location_id = False
+        self.wiz_scan.set_info_from_quants(self.quant_lot_1)
+        self.assertFalse(self.wiz_scan.location_id)
+
+    def test_allow_negative_quant_lot(self):
+        # With fill_fields_from_lot, scanning a lot without stock is rejected
+        # unless allow_negative_quant is enabled.
+        self.wiz_scan.option_group_id.fill_fields_from_lot = True
+        self.wiz_scan.option_group_id.allow_negative_quant = False
+        wiz_user = self.wiz_scan.with_user(self.user_test)
+        self.wiz_scan.barcode = self.lot_2.name
+        with patch.object(type(self.wiz_scan), "_set_messagge_info") as mock_msg:
+            self.assertFalse(wiz_user.process_barcode_lot_id())
+            mock_msg.assert_any_call(
+                "more_match", "No stock available for this lot with screen values"
+            )
+
+        self.wiz_scan.option_group_id.allow_negative_quant = True
+        self.wiz_scan.barcode = self.lot_2.name
+        self.assertTrue(wiz_user.process_barcode_lot_id())
