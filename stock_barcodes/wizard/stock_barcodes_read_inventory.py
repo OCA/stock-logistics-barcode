@@ -27,42 +27,64 @@ class WizStockBarcodesReadInventory(models.TransientModel):
 
     def action_display_read_quant(self):
         self.display_read_quant = not self.display_read_quant
+        self._refresh_inventory_quants()
 
     @api.depends("inventory_quant_ids")
     def _compute_count_inventory_quants(self):
         for wiz in self:
             wiz.count_inventory_quants = len(wiz.inventory_quant_ids)
 
+    def _inventory_quant_ids_domain(self):
+        """Domain to retrieve the quants shown on the inventory mode list."""
+        self.ensure_one()
+        domain = [
+            ("user_id", "=", self.env.user.id),
+            ("inventory_date", "<=", fields.Date.context_today(self)),
+        ]
+        if self.display_read_quant:
+            domain.append(("inventory_quantity_set", "=", True))
+        else:
+            domain.append(("inventory_quantity_set", "=", False))
+        return domain
+
+    def _search_inventory_quants(self):
+        """Return the quants to display, ordered by write date when showing the
+        already read items or by location otherwise."""
+        self.ensure_one()
+        order = "write_date DESC" if self.display_read_quant else None
+        quants = self.env["stock.quant"].search(
+            self._inventory_quant_ids_domain(), order=order
+        )
+        if order is None:
+            quants = quants.sorted(
+                lambda q: (
+                    q.location_id.posx,
+                    q.location_id.posy,
+                    q.location_id.posz,
+                    q.location_id.name,
+                )
+            )
+        return quants
+
     @api.depends("display_read_quant")
     def _compute_inventory_quant_ids(self):
+        # Keep this compute side-effect free: record writes and bus
+        # notifications are handled by _refresh_inventory_quants.
         for wiz in self:
-            domain = [
-                ("user_id", "=", self.env.user.id),
-                ("inventory_date", "<=", fields.Date.context_today(self)),
-            ]
-            if wiz.display_read_quant:
-                domain.append(("inventory_quantity_set", "=", True))
-                order = "write_date DESC"
-            else:
-                domain.append(("inventory_quantity_set", "=", False))
-                order = None
-            quants = self.env["stock.quant"].search(domain, order=order)
-            if order is None:
-                quants = quants.sorted(
-                    lambda q: (
-                        q.location_id.posx,
-                        q.location_id.posy,
-                        q.location_id.posz,
-                        q.location_id.name,
-                    )
-                )
-            if self.show_owner and self.owner_id:
-                quants.with_context(allow_edit_owner=True).write(
-                    {"owner_id": self.owner_id.id}
-                )
-            wiz.inventory_quant_ids = quants
+            wiz.inventory_quant_ids = wiz._search_inventory_quants()
 
-            # UPDATE: Count elements for apply in inventory
+    def _refresh_inventory_quants(self):
+        """Stamp the selected owner on the displayed quants (when enabled) and
+        notify the client to refresh the apply-inventory counter.
+
+        These side effects are intentionally kept out of the compute method so
+        they are not triggered on every recomputation.
+        """
+        for wiz in self:
+            if wiz.show_owner and wiz.owner_id:
+                wiz.inventory_quant_ids.with_context(allow_edit_owner=True).write(
+                    {"owner_id": wiz.owner_id.id}
+                )
             wiz.send_bus_done(
                 "stock_barcodes_form_update",
                 {

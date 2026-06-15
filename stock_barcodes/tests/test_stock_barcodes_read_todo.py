@@ -18,7 +18,7 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
             self.wiz_scan_read_todo.action_reset_lines()
             self.wiz_scan_read_todo.line_ids._compute_barcode_scan_state()
             self.assertEqual(self.wiz_scan_read_todo.state, "pending")
-            self.assertEqual(self.wiz_scan_read_todo.line_ids.qty_done, 0)
+            self.assertEqual(self.wiz_scan_read_todo.line_ids.qty_picked, 0)
             mock_msg.assert_called_once_with()
 
     def test_fields_to_fill_from_pending_line(self):
@@ -39,9 +39,17 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         self.assertEqual(result, return_values)
 
     def test_operation_quantities(self):
-        with patch.object(type(self.wiz_scan), "action_confirm") as mock_msg:
-            self.wiz_scan_read_todo.product_id = self.product_tracking.id
+        # operation_quantities distributes the pending quantity over the lines and
+        # refreshes the todo records of the related barcode wizard.
+        with patch.object(type(self.wiz_scan), "refresh_todo_records") as mock_msg:
             self.wiz_scan_read_todo.operation_quantities()
-            self.assertTrue(self.wiz_scan_read_todo.wiz_barcode_id.manual_entry)
-            self.assertEqual(self.wiz_scan_read_todo.product_id, self.product_tracking)
             mock_msg.assert_called_once()
+
+    def test_manual_entry_on_edit(self):
+        # Editing a pending line enables manual entry on the wizard when the
+        # option group has manual_entry_on_edit set.
+        self.wiz_scan.option_group_id.manual_entry_on_edit = True
+        self.wiz_scan_read_todo.with_context(
+            wiz_barcode_id=self.wiz_scan.id
+        ).action_barcode_inventory_quant_edit()
+        self.assertTrue(self.wiz_scan.manual_entry)
