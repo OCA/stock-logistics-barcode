@@ -15,7 +15,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     _description = "Wizard to read barcode"
     # To prevent remove the record wizard until 2 days old
     _transient_max_hours = 48
-    _allowed_product_types = ["product", "consu"]
+    _allowed_product_types = ["consu"]
     _rec_name = "barcode"
 
     def _get_product_domain(self):
@@ -80,7 +80,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     auto_lot = fields.Boolean(
         string="Get lots automatically",
         help="If checked the lot will be set automatically with the same "
-        "removal startegy",
+        "removal strategy",
         compute="_compute_auto_lot",
         store=True,
         readonly=False,
@@ -821,14 +821,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             # Count elements for apply in inventory
             if self._name == "wiz.stock.barcodes.read.inventory":
                 self.display_read_quant = True
-                self._compute_count_inventory_quants()
-                self.send_bus_done(
-                    "stock_barcodes_form_update",
-                    {
-                        "type": "count_apply_inventory",
-                        "payload": {"count": self.count_inventory_quants},
-                    },
-                )
+                self._refresh_inventory_quants()
         return res
 
     def action_add_scan_manual(self):

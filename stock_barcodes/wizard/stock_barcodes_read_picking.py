@@ -54,7 +54,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         comodel_name="wiz.stock.barcodes.read.todo"
     )
     show_detailed_operations = fields.Boolean(
-        related="option_group_id.show_detailed_operations", default=True, store=True
+        related="option_group_id.show_detailed_operations", store=True
     )
     keep_screen_values = fields.Boolean(related="option_group_id.keep_screen_values")
     # Extended from stock_barcodes_read base model
@@ -108,18 +108,21 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "qty_picked"
         ).sorted(key=lambda sml: (sml.write_date, sml.create_date), reverse=True)
 
-    @api.depends("picking_id.move_line_ids.qty_picked")
+    @api.depends(
+        "product_id",
+        "picking_id.move_ids.product_uom_qty",
+        "picking_id.move_line_ids.qty_picked",
+    )
     def _compute_total_product(self):
-        self.total_product_uom_qty = 0.0
-        self.total_product_qty_done = 0.0
         for rec in self:
-            product_moves = rec.picking_id.move_ids.filtered(
-                lambda ln: ln.product_id.ids == self.product_id.ids
-                and ln.state != "cancel"
+            product_moves = rec.picking_id.move_ids.filtered_domain(
+                [
+                    ("product_id", "=", rec.product_id.id),
+                    ("state", "!=", "cancel"),
+                ]
             )
-            for line in product_moves:
-                rec.total_product_uom_qty += line.product_uom_qty
-                rec.total_product_qty_done += line.qty_picked
+            rec.total_product_uom_qty = sum(product_moves.mapped("product_uom_qty"))
+            rec.total_product_qty_done = sum(product_moves.mapped("qty_picked"))
 
     @api.depends("location_id", "product_id", "lot_id")
     def _compute_qty_available(self):
@@ -155,18 +158,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if over_done_qty > 0.0:
                 self.qty_available -= over_done_qty
 
-    def name_get(self):
-        return [
-            (
-                rec.id,
-                "{} - {} - {}".format(
-                    _("Barcode reader"),
-                    rec.picking_id.name or rec.picking_type_code,
-                    self.env.user.name,
-                ),
+    @api.depends("picking_id", "picking_type_code")
+    def _compute_display_name(self):
+        for rec in self:
+            rec.display_name = "{} - {} - {}".format(
+                _("Barcode reader"),
+                rec.picking_id.name or rec.picking_type_code or "",
+                self.env.user.name,
             )
-            for rec in self
-        ]
 
     @api.onchange("picking_id")
     def onchange_picking_id(self):
@@ -322,10 +321,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 if self.env.context.get("force_create_move"):
                     self.move_line_ids.barcode_scan_state = "done_forced"
                 self.refresh_todo_records()
-            # Force refresh candidate pickings to show green if not pending moves
-            if not self.pending_move_ids:
-                pass
-                # TODO: Make more visible when picking is done
             return move_dic
         return res
 
