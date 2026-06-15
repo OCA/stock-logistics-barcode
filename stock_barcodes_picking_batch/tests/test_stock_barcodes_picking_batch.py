@@ -108,8 +108,17 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
     def test_picking_batch_wizard_scan_product(self):
         self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
         self.picking_batch.action_assign()
+        # The class-level wiz_scan_picking_batch was built in setUpClass BEFORE
+        # action_assign, so its cached pending moves do not reflect the freshly
+        # reserved sml. Re-build the wizard now (same pattern as the sibling
+        # test_picking_batch_wizard_scan_more_product_than_needed).
+        action = self.picking_batch.action_barcode_scan()
+        self.wiz_scan_picking_batch = self.ScanReadPicking.browse(action["res_id"])
+        # no_increase_qty_done makes each scan set qty_picked exactly to the
+        # scanned qty (1 by default) instead of accumulating to the move's
+        # full available_qty (a behaviour change in v18 vs v16).
         wiz_scan_picking_batch = self.wiz_scan_picking_batch.with_context(
-            force_create_move=True
+            force_create_move=True, no_increase_qty_done=True
         )
         self.action_barcode_scanned(wiz_scan_picking_batch, "8480000723208")
         sml = self.picking_batch.move_line_ids.filtered(
@@ -125,7 +134,7 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         self.barcode_option_group_out.manual_entry = True
         self.barcode_option_group_out.is_manual_qty = True
         self.barcode_option_group_out.is_manual_confirm = True
-        self.barcode_option_group_out.show_pending_moves = True
+        self.barcode_option_group_out.show_pending_moves = "all"
 
         action = self.picking_batch.action_barcode_scan()
         self.wiz_scan_picking_batch = self.ScanReadPicking.browse(action["res_id"])
