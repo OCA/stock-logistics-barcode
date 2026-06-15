@@ -35,20 +35,21 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         related="picking_batch_id.show_check_availability"
     )
 
-    def name_get(self):
-        if self.picking_mode != "picking_batch":
-            return super().name_get()
-        return [
-            (
-                rec.id,
-                "{} - {} - {}".format(
-                    _("Barcode reader"),
-                    rec.picking_batch_id.name or rec.picking_type_code,
-                    self.env.user.name,
-                ),
+    @api.depends("picking_batch_id", "picking_type_code", "picking_mode")
+    def _compute_display_name(self):
+        # v18: name_get was removed; display_name is computed. Keep the
+        # "Barcode reader - <batch/type> - <user>" label for batch wizards
+        # and delegate the rest to the base implementation.
+        batch_recs = self.filtered(lambda r: r.picking_mode == "picking_batch")
+        for rec in batch_recs:
+            rec.display_name = "{} - {} - {}".format(
+                _("Barcode reader"),
+                rec.picking_batch_id.name or rec.picking_type_code,
+                self.env.user.name,
             )
-            for rec in self
-        ]
+        other = self - batch_recs
+        if other:
+            super(WizStockBarcodesReadPickingBatch, other)._compute_display_name()
 
     def _compute_move_line_ids(self):
         if self.picking_mode != "picking_batch":
@@ -222,9 +223,13 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         return super().get_action_after_validate()
 
     def open_actions(self):
-        action = self.get_action_after_validate()
-        if action:
-            return action
+        # Only short-circuit to the post-validate redirect for batch wizards;
+        # otherwise fall through to the base open_actions, which sets
+        # display_menu (a plain picking wizard must still open the menu).
+        if self.picking_batch_id:
+            action = self.get_action_after_validate()
+            if action:
+                return action
         return super().open_actions()
 
     def _get_location_domain_for_quant_search(self):
