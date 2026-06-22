@@ -114,6 +114,17 @@ class StockBarcodesOptionGroup(models.Model):
     use_location_dest_putaway = fields.Boolean(
         string="Use location dest. putaway",
     )
+    show_fixed_location_dest = fields.Boolean(
+        string="Show fixed dest. location",
+        help="Read the destination location already planned on the stock move "
+        "line, without recomputing the putaway strategy:\n"
+        "- Show it on each pending move of the barcode screen, only for a fixed "
+        "putaway (destination without storage category, i.e. independent of the "
+        "received quantity).\n"
+        "- When scanning a product, reuse the move line already routed by "
+        "putaway and keep its destination, instead of creating a duplicate line "
+        "at the generic picking destination.",
+    )
     location_field_to_sort = fields.Selection(
         selection=[
             ("location_id", "Origin Location"),

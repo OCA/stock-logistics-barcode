@@ -234,6 +234,8 @@
                 <field name="product_qty_reserved" />
                 <field name="picking_state" />
                 <field name="is_stock_move_line_origin" />
+                <field name="show_location_dest" />
+                <field name="location_dest_name" />
                 <templates>
                     <t t-name="card">
                         <div class="oe_kanban_global_click">
@@ -246,6 +248,14 @@
                                         <br />
                                         <field name="location_id" /> -->
                                         <field name="lot_id" />
+                                        <t t-if="record.show_location_dest.raw_value">
+                                        <br />
+                                        <i
+                                            class="fa fa-arrow-right me-1"
+                                            title="Destination"
+                                        />
+                                        <field name="location_dest_name" />
+                                    </t>
                                         <t
                                         t-if="record.package_id.raw_value or record.result_package_id.raw_value"
                                     >
