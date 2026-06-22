@@ -339,6 +339,37 @@ To use the barcode interface for actions:
 1. Go to *Barcodes*.
 2. Start scanning barcodes from actions.
 
+Show the planned destination location on pending moves
+------------------------------------------------------
+
+By default the pending moves list on the barcode screen shows the source
+location and lot of each move. When the option group has *Show fixed
+dest. location* enabled, the list also shows the **destination location
+already planned on the stock move line**, so the operator sees where the
+goods must be stored as soon as the picking is opened, without scanning
+anything.
+
+This only **reads** the destination resolved upstream when the move was
+prepared (e.g. the putaway strategy applied at reception). It never
+recomputes the putaway: putaway is a warehouse decision taken when the
+move is created, not a barcode-screen concern (see *Use location dest.
+putaway* for the opposite, recompute-on-scan behaviour).
+
+In addition, with this option enabled, **scanning a product reuses the
+move line already routed by putaway** and keeps its destination, instead
+of creating a new line at the generic picking destination. This way
+receiving by barcode keeps the goods on their planned putaway location.
+
+To keep the shown value reliable it is displayed only for moves whose
+destination has **no storage category**, i.e. a fixed putaway whose
+location does not depend on the received quantity. For capacity-based
+putaway (storage categories) the final location may still change on a
+partial receipt, so it is intentionally not shown.
+
+Enable it in *Inventory > Configuration > Barcode Option Groups*, on the
+option group used by the operation type, with the *Show fixed dest.
+location* checkbox.
+
 .. |Warehouse location access| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_warehouse_location.png
 .. |Warehouse location barcode| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_warehouse_location.png
 .. |Product packaging barcode| image:: https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_product_packaging.png
@@ -375,6 +406,16 @@ Known issues / Roadmap
 
 Changelog
 =========
+
+18.0.1.1.0 (2026-06-22)
+-----------------------
+
+- [ADD] New option *Show fixed dest. location* on barcode option groups.
+  It shows, in the pending moves list, the destination location already
+  planned on the stock move line (for a fixed putaway, destination
+  without storage category), and makes a scan reuse that move line
+  keeping its destination instead of duplicating it at the generic
+  picking destination. It never recomputes the putaway strategy.
 
 11.0.1.1.0 (2019-09-24)
 -----------------------

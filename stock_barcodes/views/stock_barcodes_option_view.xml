@@ -54,6 +54,7 @@
                             <field name="auto_lot" />
                             <field name="create_lot" />
                             <field name="use_location_dest_putaway" />
+                            <field name="show_fixed_location_dest" />
                             <field name="show_owner" />
                         </group>
                     </group>

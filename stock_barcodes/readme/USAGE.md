@@ -259,3 +259,32 @@ To use the barcode interface for actions:
 
 1. Go to *Barcodes*.
 2. Start scanning barcodes from actions.
+
+## Show the planned destination location on pending moves
+
+By default the pending moves list on the barcode screen shows the source
+location and lot of each move. When the option group has *Show fixed dest.
+location* enabled, the list also shows the **destination location already
+planned on the stock move line**, so the operator sees where the goods must
+be stored as soon as the picking is opened, without scanning anything.
+
+This only **reads** the destination resolved upstream when the move was
+prepared (e.g. the putaway strategy applied at reception). It never
+recomputes the putaway: putaway is a warehouse decision taken when the move
+is created, not a barcode-screen concern (see *Use location dest. putaway*
+for the opposite, recompute-on-scan behaviour).
+
+In addition, with this option enabled, **scanning a product reuses the move
+line already routed by putaway** and keeps its destination, instead of
+creating a new line at the generic picking destination. This way receiving by
+barcode keeps the goods on their planned putaway location.
+
+To keep the shown value reliable it is displayed only for moves whose
+destination has **no storage category**, i.e. a fixed putaway whose location
+does not depend on the received quantity. For capacity-based putaway
+(storage categories) the final location may still change on a partial
+receipt, so it is intentionally not shown.
+
+Enable it in *Inventory \> Configuration \> Barcode Option Groups*, on the
+option group used by the operation type, with the *Show fixed dest. location*
+checkbox.

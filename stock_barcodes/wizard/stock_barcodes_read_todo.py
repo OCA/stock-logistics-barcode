@@ -70,6 +70,12 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     is_extra_line = fields.Boolean()
     # Used in kanban view
     is_stock_move_line_origin = fields.Boolean()
+    show_location_dest = fields.Boolean(
+        compute="_compute_show_location_dest",
+        help="Technical: show the planned destination location on the pending "
+        "move card. Only for a fixed putaway (destination without storage "
+        "category); it reads location_dest_id without recomputing putaway.",
+    )
 
     @api.depends("stock_move_ids.quantity")
     def _compute_product_qty_reserved(self):
@@ -88,6 +94,24 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 rec.qty_done_rest = rec.product_qty_reserved - rec.qty_done
             else:
                 rec.qty_done_rest = rec.product_uom_qty - rec.qty_done
+
+    @api.depends(
+        "location_dest_id",
+        "location_dest_id.storage_category_id",
+        "wiz_barcode_id.option_group_id.show_fixed_location_dest",
+    )
+    def _compute_show_location_dest(self):
+        # Show the planned destination only when the option is enabled and the
+        # putaway is fixed (destination has no storage category). We never
+        # recompute the putaway strategy here: the destination was already
+        # resolved upstream when the move line was prepared; this only reads it.
+        for rec in self:
+            option_group = rec.wiz_barcode_id.option_group_id
+            rec.show_location_dest = bool(
+                option_group.show_fixed_location_dest
+                and rec.location_dest_id
+                and not rec.location_dest_id.storage_category_id
+            )
 
     def action_todo_next(self):
         self.state = "done_forced"
