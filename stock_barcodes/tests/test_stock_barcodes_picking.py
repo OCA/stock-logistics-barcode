@@ -158,6 +158,34 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 self.wiz_scan_picking.display_name,
             )
 
+    def test_candidate_reuses_putaway_adjusted_line(self):
+        # _get_candidate_stock_move_lines must reuse a move line routed by
+        # putaway to a destination other than the picking's generic one (so a
+        # scan picks into it and keeps that destination) only when
+        # show_fixed_location_dest is enabled. It never recomputes putaway.
+        wiz = self.wiz_scan_picking
+        moves = self.picking_in_01.move_ids.filtered(
+            lambda m: m.product_id == self.product_wo_tracking
+        )
+        # Route every move line of the product to a sublocation (fixed putaway),
+        # so none matches the generic picking/wizard destination (WH/Stock).
+        moves.move_line_ids.location_dest_id = self.location_2
+        wiz.location_id = self.supplier_location
+        wiz.location_dest_id = self.stock_location  # generic picking destination
+        wiz.product_id = self.product_wo_tracking
+        # Without the option the generic matching finds nothing: the lines are
+        # at the sublocation, not at the picking destination.
+        self.barcode_option_group_in.show_fixed_location_dest = False
+        self.assertFalse(wiz._get_candidate_stock_move_lines(moves, {}))
+        # With the option it reuses the putaway-adjusted lines, keeping their
+        # destination (it is not overwritten in sml_vals).
+        self.barcode_option_group_in.show_fixed_location_dest = True
+        sml_vals = {}
+        candidate = wiz._get_candidate_stock_move_lines(moves, sml_vals)
+        self.assertEqual(candidate, moves.move_line_ids)
+        self.assertEqual(candidate.location_dest_id, self.location_2)
+        self.assertNotIn("location_dest_id", sml_vals)
+
     def test_picking_wizard_scan_product(self):
         # self.wiz_scan_picking.manual_entry = True
         wiz_scan_picking = self.wiz_scan_picking.with_context(

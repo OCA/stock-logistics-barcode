@@ -438,6 +438,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 )
                 if candidate_lines and self.location_dest_id:
                     sml_vals.update({"location_dest_id": self.location_dest_id.id})
+        if not candidate_lines and self.option_group_id.show_fixed_location_dest:
+            # The move line was routed by putaway to a destination other than
+            # the picking's generic one (a fixed sublocation). Reuse that line
+            # and keep its planned destination instead of creating a duplicate
+            # line at the generic picking destination. We never recompute the
+            # putaway strategy: we read the destination already planned on the
+            # move line.
+            candidate_lines = moves_todo.mapped("move_line_ids").filtered(
+                lambda line: (
+                    line.location_id == self.location_id
+                    and line.product_id == self.product_id
+                    and line.location_dest_id != self.picking_location_dest_id
+                )
+            )
         return candidate_lines
 
     def _get_candidate_line_domain(self):

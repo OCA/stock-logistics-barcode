@@ -78,3 +78,40 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
             wiz_barcode_id=self.wiz_scan.id
         ).action_barcode_inventory_quant_edit()
         self.assertTrue(self.wiz_scan.manual_entry)
+
+    def test_show_location_dest_fixed_putaway(self):
+        # The pending-moves kanban can show the planned destination of a move
+        # WITHOUT recomputing putaway: it just reads location_dest_id, already
+        # resolved upstream when the move was prepared. To stay meaningful it is
+        # only flagged when the destination has no storage category (fixed
+        # putaway); for capacity-based putaway the destination may still change
+        # on partial receipts, so it is not shown.
+        group = self.StockBarcodesOptionGroup.create(
+            {"name": "Show fixed dest", "show_fixed_location_dest": True}
+        )
+        wiz = self.WizScanReadPicking.create({"option_group_id": group.id, "step": 1})
+        todo = self.WizScanReadTodo.create(
+            {"wiz_barcode_id": wiz.id, "location_dest_id": self.location_1.id}
+        )
+        # Fixed destination (no storage category) + option enabled -> shown
+        self.assertTrue(todo.show_location_dest)
+
+        # Destination with a storage category (capacity putaway) -> hidden
+        storage_categ = self.env["stock.storage.category"].create(
+            {"name": "Capacity category"}
+        )
+        dynamic_loc = self.StockLocation.create(
+            {
+                "name": "Dynamic bin",
+                "usage": "internal",
+                "location_id": self.stock_location.id,
+                "storage_category_id": storage_categ.id,
+            }
+        )
+        todo.location_dest_id = dynamic_loc
+        self.assertFalse(todo.show_location_dest)
+
+        # Option disabled -> hidden even for a fixed destination
+        todo.location_dest_id = self.location_1
+        group.show_fixed_location_dest = False
+        self.assertFalse(todo.show_location_dest)
