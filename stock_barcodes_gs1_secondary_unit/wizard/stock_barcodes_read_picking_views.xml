@@ -35,17 +35,17 @@
                 <div>
                     <span attrs="{'invisible': [('secondary_uom_id', '=', False)]}">
                         <field name="total_secondary_uom_qty_done" /> / <field
-                            name="total_secondary_uom_qty"
-                        /> <field
-                            name="secondary_uom_id"
-                            domain="['|', ('product_id', '=', product_id),
+                        name="total_secondary_uom_qty"
+                    /> <field
+                        name="secondary_uom_id"
+                        domain="['|', ('product_id', '=', product_id),
                                         '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
                                                  ('product_id', '=', False)]"
-                            attrs="{'required': [('product_id', '!=', False), ('secondary_uom_qty', '!=', 0.0)]}"
-                            force_save="1"
-                            readonly="1"
-                            options="{'no_open': True, 'no_create': True}"
-                        />
+                        attrs="{'required': [('product_id', '!=', False), ('secondary_uom_qty', '!=', 0.0)]}"
+                        force_save="1"
+                        readonly="1"
+                        options="{'no_open': True, 'no_create': True}"
+                    />
                     </span>
                 </div>
             </xpath>
@@ -110,9 +110,10 @@
                 <t t-if="record.secondary_uom_id.raw_value">
                     <div class="row">
                         <div class="col-12 font-italic text-success">
-                            <strong><field name="secondary_uom_qty" /> <field
-                                    name="secondary_uom_id"
-                                /></strong>
+                            <strong>
+                                <field name="secondary_uom_qty" />
+                                <field name="secondary_uom_id" />
+                            </strong>
                         </div>
                     </div>
                 </t>
@@ -143,14 +144,14 @@
                 <t t-if="record.secondary_uom_id.raw_value">
                     <div class="row">
                         <div class="col-12 font-italic text-success">
-                            <strong><field name="secondary_uom_qty" /> <field
-                                    name="secondary_uom_id"
-                                /></strong>
+                            <strong>
+                                <field name="secondary_uom_qty" />
+                                <field name="secondary_uom_id" />
+                            </strong>
                         </div>
                     </div>
                 </t>
             </xpath>
         </field>
     </record>
-
 </odoo>
