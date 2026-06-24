@@ -37,7 +37,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return vals
 
     def _get_candidate_line_domain(self):
-        domain = super(WizStockBarcodesReadPicking, self)._get_candidate_line_domain()
+        domain = super()._get_candidate_line_domain()
         if self.secondary_uom_id:
             domain.extend(
                 [
