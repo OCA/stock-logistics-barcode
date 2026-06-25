@@ -8,7 +8,7 @@
                 <field name="secondary_uom_qty" optional="show" />
                 <field name="secondary_uom_id" optional="show" />
             </xpath>
-            <xpath expr="//t[@t-esc='record.qty_done.value']/../.." position="inside">
+            <xpath expr="//t[@t-out='record.qty_done.value']/../.." position="inside">
                 <t t-if="record.secondary_uom_id.raw_value">
                     <span class="text-success">
                         (<field name="secondary_uom_qty" /> <field

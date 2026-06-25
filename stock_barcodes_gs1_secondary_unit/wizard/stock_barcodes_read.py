@@ -47,16 +47,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.secondary_uom_qty = 0.0
             self.product_qty = 1.0
 
-    def _prepare_scan_log_values(self, log_detail=False):
-        vals = super()._prepare_scan_log_values(log_detail=log_detail)
-        vals.update(
-            {
-                "secondary_uom_id": self.secondary_uom_id.id,
-                "secondary_uom_qty": self.secondary_uom_qty,
-            }
-        )
-        return vals
-
     def reset_qty(self):
         res = super().reset_qty()
         self.secondary_uom_qty = 0

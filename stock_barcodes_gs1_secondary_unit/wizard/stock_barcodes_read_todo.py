@@ -1,7 +1,7 @@
 # Copyright 2023 Tecnativa - Carlos Dauden
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import api, models
+from odoo import api, fields, models
 
 
 class WizStockBarcodesReadTodo(models.TransientModel):
@@ -11,6 +11,12 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         "qty_field": "product_uom_qty",
         "uom_field": "uom_id",
     }
+
+    # The mixin declares secondary_uom_qty as precompute=True, but here it
+    # depends on product_uom_qty, a stored computed field that is not
+    # precomputed on this model. Opt our field out of precompute so the field
+    # setup is consistent; it is still computed normally on write.
+    secondary_uom_qty = fields.Float(precompute=False)
 
     @api.model
     def fields_to_fill_from_pending_line(self):

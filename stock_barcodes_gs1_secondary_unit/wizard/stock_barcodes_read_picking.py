@@ -11,14 +11,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     total_secondary_uom_qty = fields.Float(compute="_compute_total_secondary_uom")
     total_secondary_uom_qty_done = fields.Float(compute="_compute_total_secondary_uom")
 
-    @api.depends("picking_id.move_line_ids.secondary_uom_qty")
+    @api.depends(
+        "product_id",
+        "picking_id.move_ids.secondary_uom_qty",
+        "picking_id.move_line_ids.secondary_uom_qty",
+    )
     def _compute_total_secondary_uom(self):
         self.total_secondary_uom_qty = 0.0
         self.total_secondary_uom_qty_done = 0.0
         for rec in self:
-            product_moves = rec.picking_id.move_lines.filtered(
-                lambda ln: ln.product_id.ids == self.product_id.ids
-                and ln.state != "cancel"
+            product_moves = rec.picking_id.move_ids.filtered_domain(
+                [
+                    ("product_id", "=", rec.product_id.id),
+                    ("state", "!=", "cancel"),
+                ]
             )
             for sm in product_moves:
                 rec.total_secondary_uom_qty += sm.secondary_uom_qty
@@ -61,14 +67,14 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             # Set secondary qty when stock.move full match with stock.move.line
             if not (move.move_line_ids - line) and not float_compare(
                 move.product_uom_qty,
-                line.product_uom_qty,
-                precision_rounding=line.product_uom_id.rounding,
+                move.quantity,
+                precision_rounding=move.product_uom.rounding,
             ):
                 vals["secondary_uom_qty"] = move.secondary_uom_qty
         elif line._name == "stock.move":
             # Set secondary qty when stock.move all quantity is available
             if not float_compare(
-                line.reserved_availability,
+                line.quantity,
                 line.product_uom_qty,
                 precision_rounding=line.product_uom.rounding,
             ):
