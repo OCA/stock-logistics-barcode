@@ -8,10 +8,9 @@
             name="inherit_id"
             ref="product_secondary_unit.product_template_form_view"
         />
-        <field name="groups_id" eval="[(4, ref('uom.group_uom'))]" />
         <field name="arch" type="xml">
             <field name="factor" position="after">
-                <field name="barcode" />
+                <field name="barcode" groups="uom.group_uom" />
             </field>
         </field>
     </record>
