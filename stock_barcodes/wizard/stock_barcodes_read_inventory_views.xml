@@ -64,12 +64,11 @@
                                             <div
                                                 class="col-4 col-md-2 d-flex justify-content-end align-items-center"
                                             >
-                                                <img
-                                                    t-att-src="kanban_image('product.product', 'image_128', record.product_id.raw_value)"
-                                                    role="img"
-                                                    t-att-title="record.product_id.value"
-                                                    height="40"
-                                                    width="40"
+                                                <field
+                                                    name="product_id"
+                                                    widget="image"
+                                                    options="{'preview_image': 'image_128', 'size': [40, 40]}"
+                                                    class="o_image_40_cover"
                                                     t-att-alt="record.product_id.value"
                                                 />
                                                 <button
