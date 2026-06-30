@@ -31,9 +31,15 @@ class StockMoveLine(models.Model):
     @api.depends("qty_picked", "quantity_product_uom")
     def _compute_barcode_scan_state(self):
         for line in self:
-            if line.qty_picked >= line.quantity_product_uom:
+            if line.barcode_scan_state == "done_forced" and line.qty_picked:
+                # A line forced by scanning keeps its state until its picked
+                # quantity is cleared; do not downgrade it to plain "done".
+                line.barcode_scan_state = "done_forced"
+            elif line.qty_picked and line.qty_picked >= line.quantity_product_uom:
                 line.barcode_scan_state = "done"
             else:
+                # Nothing picked (or no demand at all) is never "done": this
+                # avoids flagging empty 0/0 lines as done.
                 line.barcode_scan_state = "pending"
 
     def _barcodes_process_line_to_unlink(self):
