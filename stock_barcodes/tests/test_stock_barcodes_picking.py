@@ -245,6 +245,46 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(sml.location_dest_id, self.location_2)
         self.assertEqual(sml.qty_picked, 1.0)
 
+    def test_guided_lot_name_option_does_not_crash(self):
+        # A lot_name option (used to create new serials on reception) must not
+        # break guided mode: determine_todo_action fills option fields from the
+        # todo line, which has no lot_name field (KeyError before the fix).
+        group = self.barcode_option_group_in
+        group.barcode_guided_mode = "guided"
+        group.option_ids.filtered(lambda o: o.field_name == "lot_id").write(
+            {"field_name": "lot_name", "filled_default": True}
+        )
+        picking = (
+            self.env["stock.picking"]
+            .with_context(planned_picking=True)
+            .create(
+                {
+                    "location_id": self.supplier_location.id,
+                    "location_dest_id": self.stock_location.id,
+                    "partner_id": self.partner_agrolite.id,
+                    "picking_type_id": self.picking_type_in.id,
+                    "move_ids": [
+                        Command.create(
+                            {
+                                "name": self.product_tracking_serial.name,
+                                "product_id": self.product_tracking_serial.id,
+                                "product_uom_qty": 2,
+                                "product_uom": self.product_tracking_serial.uom_id.id,
+                                "location_id": self.supplier_location.id,
+                                "location_dest_id": self.stock_location.id,
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+        picking.action_confirm()
+        picking.action_assign()
+        # Opening the reader runs determine_todo_action; it must not raise.
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.assertEqual(wiz.picking_id, picking)
+
     def test_candidate_reuses_putaway_adjusted_line(self):
         # _get_candidate_stock_move_lines must reuse a move line routed by
         # putaway to a destination other than the picking's generic one (so a

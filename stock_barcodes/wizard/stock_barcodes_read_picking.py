@@ -279,7 +279,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         for option in self.option_group_id.option_ids:
             if option.field_name in processed_fields:
                 continue
-            if option.filled_default:
+            if option.filled_default and option.field_name in move_line._fields:
+                # The todo line has no field for some options (e.g. lot_name,
+                # used to create new serials on reception); skip filling those.
                 self[option.field_name] = move_line[option.field_name]
             else:
                 if (
