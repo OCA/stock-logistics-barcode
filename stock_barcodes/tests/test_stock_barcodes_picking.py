@@ -158,6 +158,93 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 self.wiz_scan_picking.display_name,
             )
 
+    def test_free_out_resolves_reserved_sublocation(self):
+        # Free (non-guided) mode: scanning a product whose stock is reserved in
+        # a sub-location must pick it from there, instead of failing because the
+        # wizard source defaults to the picking's parent location (where the
+        # product is not directly available).
+        self.env["stock.quant"]._update_available_quantity(
+            self.product_wo_tracking, self.location_1, 5
+        )
+        picking = (
+            self.env["stock.picking"]
+            .with_context(planned_picking=True)
+            .create(
+                {
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": self.customer_location.id,
+                    "partner_id": self.partner_agrolite.id,
+                    "picking_type_id": self.picking_type_out.id,
+                    "move_ids": [
+                        Command.create(
+                            {
+                                "name": self.product_wo_tracking.name,
+                                "product_id": self.product_wo_tracking.id,
+                                "product_uom_qty": 2,
+                                "product_uom": self.product_wo_tracking.uom_id.id,
+                                "location_id": self.stock_location.id,
+                                "location_dest_id": self.customer_location.id,
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+        picking.action_confirm()
+        picking.action_assign()
+        sml = picking.move_line_ids
+        self.assertEqual(sml.location_id, self.location_1)
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        # Source defaults to the picking parent location, not the sub-location.
+        self.assertEqual(wiz.location_id, self.stock_location)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        # The scan must be applied on the reserved sub-location line.
+        self.assertEqual(sml.qty_picked, 1.0)
+        self.assertEqual(wiz.location_id, self.location_1)
+
+    def test_in_redirects_dest_to_scanned_bin(self):
+        # Reception: choosing a destination bin (e.g. scanning it) must
+        # redirect the product to it, even when the line was already routed
+        # to another sub-location (putaway).
+        picking = (
+            self.env["stock.picking"]
+            .with_context(planned_picking=True)
+            .create(
+                {
+                    "location_id": self.supplier_location.id,
+                    "location_dest_id": self.stock_location.id,
+                    "partner_id": self.partner_agrolite.id,
+                    "picking_type_id": self.picking_type_in.id,
+                    "move_ids": [
+                        Command.create(
+                            {
+                                "name": self.product_wo_tracking.name,
+                                "product_id": self.product_wo_tracking.id,
+                                "product_uom_qty": 2,
+                                "product_uom": self.product_wo_tracking.uom_id.id,
+                                "location_id": self.supplier_location.id,
+                                "location_dest_id": self.stock_location.id,
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+        picking.action_confirm()
+        picking.action_assign()
+        sml = picking.move_line_ids
+        # Simulate a putaway-assigned destination sub-location.
+        sml.location_dest_id = self.location_1
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        # Operator picks a different destination bin, then scans the product.
+        wiz.location_dest_id = self.location_2
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        # The reception line is redirected to the chosen bin.
+        self.assertEqual(sml.location_dest_id, self.location_2)
+        self.assertEqual(sml.qty_picked, 1.0)
+
     def test_candidate_reuses_putaway_adjusted_line(self):
         # _get_candidate_stock_move_lines must reuse a move line routed by
         # putaway to a destination other than the picking's generic one (so a

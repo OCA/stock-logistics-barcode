@@ -429,11 +429,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 lambda op: op.field_name == "location_dest_id"
             )
             if not location_dest_option.forced:
+                # Redirect a line to the chosen destination. Besides lines still
+                # routed to the picking's generic destination, a destination
+                # explicitly chosen (scanned, i.e. different from the generic
+                # one) also redirects a line already routed elsewhere by
+                # putaway, so a scanned bin wins over the planned sub-location.
+                chosen_dest = (
+                    self.location_dest_id
+                    and self.location_dest_id != self.picking_location_dest_id
+                )
                 candidate_lines = moves_todo.mapped("move_line_ids").filtered(
                     lambda line: (
                         line.location_id == self.location_id
                         and line.product_id == self.product_id
-                        and line.location_dest_id == self.picking_location_dest_id
+                        and (
+                            line.location_dest_id == self.picking_location_dest_id
+                            or (
+                                chosen_dest
+                                and line.location_dest_id != self.location_dest_id
+                            )
+                        )
                     )
                 )
                 if candidate_lines and self.location_dest_id:
@@ -799,7 +814,38 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         res = super().action_product_scaned_post(product)
         if self.auto_lot and self.picking_type_code != "incoming":
             self.get_lot_by_removal_strategy()
+        self._resolve_free_source_location(product)
         return res
+
+    def _resolve_free_source_location(self, product):
+        """In free (non-guided) mode a plain product scan must pick the product
+        from where it is reserved.
+
+        The wizard source defaults to the picking's parent location, where a
+        product reserved in a sub-location is not directly available, so the
+        scan would fail with "not available in location". When the current
+        source has no pending reserved move line for the scanned product, move
+        it to the first pending reserved line of that product (sorted by
+        location). This makes a plain product scan work regardless of order,
+        lets multi-location reservations advance on their own, and respects a
+        source that already holds a pending reserved line (e.g. a scanned bin).
+        """
+        if self.option_group_id.barcode_guided_mode == "guided":
+            return
+        if not self.picking_id or self.picking_type_code == "incoming":
+            return
+        pending = self.picking_id.move_line_ids.filtered(
+            lambda ml: ml.product_id == product
+            and ml.barcode_scan_state == "pending"
+            and ml.location_id.usage == "internal"
+        )
+        if not pending or pending.filtered(
+            lambda ml: ml.location_id == self.location_id
+        ):
+            return
+        self.location_id = pending.sorted(key=lambda ml: ml.location_id.complete_name)[
+            0
+        ].location_id
 
     def action_assign_serial(self):
         move = self.env["stock.move"].search(self._prepare_stock_moves_domain())
