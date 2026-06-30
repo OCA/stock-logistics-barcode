@@ -39,3 +39,22 @@ class TestStockMove(TestCommonStockBarcodes):
         line.qty_picked = 15
         line._compute_barcode_scan_state()
         self.assertEqual(line.barcode_scan_state, "done")
+
+    def test_barcode_scan_state_zero_demand(self):
+        # A line with no demand and nothing picked must NOT be flagged done
+        # (0 >= 0 used to evaluate as done, leaving phantom 0/0 "done" lines).
+        line = self.stock_move_test.move_line_ids[0]
+        line.quantity_product_uom = 0
+        line.qty_picked = 0
+        line._compute_barcode_scan_state()
+        self.assertEqual(line.barcode_scan_state, "pending")
+
+    def test_barcode_scan_state_keeps_done_forced(self):
+        # A line forced by scanning keeps its done_forced state and is not
+        # downgraded to plain "done" by the recompute.
+        line = self.stock_move_test.move_line_ids[0]
+        line.quantity_product_uom = 0
+        line.qty_picked = 5
+        line.barcode_scan_state = "done_forced"
+        line._compute_barcode_scan_state()
+        self.assertEqual(line.barcode_scan_state, "done_forced")
