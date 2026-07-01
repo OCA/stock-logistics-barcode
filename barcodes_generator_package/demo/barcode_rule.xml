@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+    Copyright 2016-2017 LasLabs Inc.
+    License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+-->
+<odoo>
+
+    <record id="rule_package" model="barcode.rule">
+        <field name="name">Packaging Rule (Generated Barcode)</field>
+        <field
+            name="barcode_nomenclature_id"
+            ref="barcodes.default_barcode_nomenclature"
+        />
+        <field name="type">package</field>
+        <field name="sequence">998</field>
+        <field name="encoding">ean13</field>
+        <field name="pattern">123.........</field>
+        <field name="generate_type" eval="'sequence'" />
+        <field name="generate_model" eval="'product.packaging'" />
+        <field name="sequence_id" ref="product_packaging_ir_sequence" />
+    </record>
+
+</odoo>
