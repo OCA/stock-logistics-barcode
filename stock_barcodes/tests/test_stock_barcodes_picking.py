@@ -935,6 +935,32 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         wiz._compute_pending_move_ids()
         self.assertTrue(all(t.state == "pending" for t in wiz.pending_move_ids))
 
+    def test_guided_all_advances_past_done_group(self):
+        # show_pending_moves="all" also lists DONE lines in the pending kanban.
+        # The guided next-todo selection (grouped/forced-key path) must still
+        # skip done lines: after completing a grouped todo the reader must
+        # advance to the next pending group, not stay on the finished one.
+        group = self.barcode_option_group_in
+        group.barcode_guided_mode = "guided"
+        group.show_pending_moves = "all"
+        group.group_key_for_todo_records = "object.product_id.id"
+        wiz = self.wiz_scan_picking
+        wiz.fill_todo_records()
+        wiz.determine_todo_action()
+        done_group = wiz.todo_line_id
+        self.assertTrue(done_group)
+        done_product = done_group.product_id
+        # Complete every move line of this group so its todo line is "done".
+        for sml in done_group.line_ids:
+            sml.qty_picked = sml.quantity
+        # The refresh that runs after a scan keeps the finished group as the
+        # forced key; guided must not re-select it, it must move on.
+        wiz.forced_todo_key = str(wiz._group_key(done_group))
+        wiz.refresh_todo_records()
+        self.assertTrue(wiz.todo_line_id)
+        self.assertEqual(wiz.todo_line_id.state, "pending")
+        self.assertNotEqual(wiz.todo_line_id.product_id, done_product)
+
     def test_allow_not_demanded_product(self):
         # When allow_not_demanded_product is enabled the "Product not demanded"
         # message is not raised for products outside the picking demand.
