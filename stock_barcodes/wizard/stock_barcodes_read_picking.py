@@ -304,8 +304,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             keep_vals = self._convert_to_write(self._cache)
         self.fill_todo_records()
         if self.forced_todo_key:
+            # pending_move_ids also lists done lines when show_pending_moves is
+            # "all"; the next guided todo must only ever be a pending one, so a
+            # finished group is not re-selected instead of advancing.
             self.todo_line_id = self.pending_move_ids.filtered(
-                lambda ln: str(self._group_key(ln)) == self.forced_todo_key
+                lambda ln: ln.state == "pending"
+                and str(self._group_key(ln)) == self.forced_todo_key
             )[:1]
             self.selected_pending_move_id = self.todo_line_id
             self.determine_todo_action(self.todo_line_id)
