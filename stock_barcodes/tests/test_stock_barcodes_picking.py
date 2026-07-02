@@ -146,6 +146,27 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         action = cls.picking_out_01.action_barcode_scan()
         cls.wiz_scan_picking_out = cls.ScanReadPicking.browse(action["res_id"])
 
+    def test_incoming_scan_ignores_vendor_counterpart_qty(self):
+        # On a reception, scanning a plain product must add the scanned
+        # increment (+1), never the quantity of a quant. With
+        # fill_fields_from_lot the scan used to read the source location (the
+        # vendor location, holding the negative double-entry counterpart of
+        # past receipts) and feed that negative value into the scan.
+        self.barcode_option_group_in.fill_fields_from_lot = True
+        # Negative counterpart quant at the vendor (source) location.
+        self.env["stock.quant"]._update_available_quantity(
+            self.product_wo_tracking, self.supplier_location, -8
+        )
+        self.assertEqual(self.wiz_scan_picking.location_id, self.supplier_location)
+        wiz = self.wiz_scan_picking.with_context(force_create_move=True)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        picked = sum(
+            self.picking_in_01.move_line_ids.filtered(
+                lambda x: x.product_id == self.product_wo_tracking
+            ).mapped("qty_picked")
+        )
+        self.assertEqual(picked, 1.0)
+
     def test_wiz_picking_values(self):
         self.assertEqual(
             self.wiz_scan_picking.location_id, self.picking_in_01.location_id
