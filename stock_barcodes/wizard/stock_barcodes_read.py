@@ -226,6 +226,12 @@ class WizStockBarcodesRead(models.AbstractModel):
             return True
         return False
 
+    def _fill_fields_from_lot_active(self):
+        """Whether a bare product scan should prefill lot/package/owner from the
+        product's existing stock. Overridable so operation types where it makes
+        no sense (e.g. receptions) can disable it."""
+        return self.option_group_id.fill_fields_from_lot
+
     def process_barcode_product_id(self):
         domain = self._barcode_domain(self.barcode)
         product = self.env["product.product"].search(domain)
@@ -239,9 +245,13 @@ class WizStockBarcodesRead(models.AbstractModel):
                 )
                 return False
             self.action_product_scaned_post(product)
-            if self.option_group_id.fill_fields_from_lot and self.product_id:
+            if self._fill_fields_from_lot_active() and self.product_id:
                 quant_domain = [
                     ("product_id", "=", product.id),
+                    # Only inspect real stock: a virtual location
+                    # (supplier/customer/inventory) holds double-entry
+                    # counterparts, not on-hand, and must never be read here.
+                    ("location_id.usage", "=", "internal"),
                 ]
                 if self.location_id:
                     quant_domain.append(("location_id", "=", self.location_id.id))
@@ -255,7 +265,13 @@ class WizStockBarcodesRead(models.AbstractModel):
                     quant_domain.append(("owner_id", "=", self.owner_id.id))
                 quants = self.env["stock.quant"].search(quant_domain)
                 if quants:
-                    self.set_info_from_quants(quants)
+                    # Prefill lot/package/owner from stock, but not the
+                    # quantity: a product scan is a +1 increment, not the
+                    # on-hand. The quantity is only meaningful when a
+                    # package/lot barcode is scanned.
+                    self.with_context(
+                        skip_update_quantity_from_lot=True
+                    ).set_info_from_quants(quants)
             return True
         return False
 

@@ -812,6 +812,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         # TODO: Perhaps update location_id from quant??
         self.lot_id = quants.lot_id
 
+    def _fill_fields_from_lot_active(self):
+        # Selecting an existing lot/package from stock is meaningless on a
+        # reception, where new stock (and new lots) is received.
+        if self.picking_type_code == "incoming":
+            return False
+        return super()._fill_fields_from_lot_active()
+
     def action_product_scaned_post(self, product):
         res = super().action_product_scaned_post(product)
         if self.auto_lot and self.picking_type_code != "incoming":
