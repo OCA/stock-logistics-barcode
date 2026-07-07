@@ -978,28 +978,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         ).get_formview_action()
 
     def get_action_after_validate(self):
-        action = self.picking_id.picking_type_id.get_action_picking_tree_ready()
+        action = self.with_context(
+            operations_mode=True
+        ).picking_id.picking_type_id.get_action_picking_tree_ready()
         return action
 
     def _get_picking_to_validate(self):
         """Inject context action to redirect it after validate picking in barcodes
         environment.
-        The stock_barcodes_validate_picking key allows to know when a picking has been
+        The stock_barcodes_read_picking_id key allows to know when a picking has been
         validated from stock barcodes interface.
         """
         return self.picking_id.with_context(
-            stock_barcodes_validate_picking=True,
+            stock_barcodes_read_picking_id=self.id,
         )
 
     def action_validate_picking(self):
         picking = self._get_picking_to_validate()
-        res = picking.button_validate()
-        action = self.get_action_after_validate()
-        if res is True:
-            res = action
-        elif "anotherAction" in res.get("params", {}):
-            res["params"]["anotherAction"] = action
-        return res
+        return picking.with_context(
+            stock_barcodes_read_picking_id=self.id
+        ).button_validate()
 
     def _get_moves_from_product_domain(self):
         return [
