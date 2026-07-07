@@ -1,6 +1,10 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import logging
+
 from odoo import models
+
+_logger = logging.getLogger(__name__)
 
 
 class StockPicking(models.Model):
@@ -50,7 +54,7 @@ class StockPicking(models.Model):
             sml.quantity = sml.qty_picked
 
     def button_validate(self):
-        if self.env.context.get("stock_barcodes_validate_picking", False):
+        if self.env.context.get("stock_barcodes_read_picking_id", False):
             self.set_quantity_from_picked()
         put_in_pack_picks = self.filtered(
             lambda p: p.picking_type_id.barcode_option_group_id.auto_put_in_pack
@@ -68,10 +72,28 @@ class StockPicking(models.Model):
             ).button_validate()
         else:
             res = super().button_validate()
-        if self.env.context.get("stock_barcodes_validate_picking", False) and all(
+        if self.env.context.get("stock_barcodes_read_picking_id", False) and all(
             p.state == "done" for p in self
         ):
             self.env["bus.bus"]._sendone(
                 "stock_barcodes_scan", "actions_barcode", {"valid_picking": True}
             )
+        after_validate_action = False
+        wiz_id = self.env.context.get("stock_barcodes_read_picking_id", False)
+        if wiz_id:
+            wiz = self.env["wiz.stock.barcodes.read.picking"].browse(wiz_id)
+            after_validate_action = wiz.get_action_after_validate()
+        if not after_validate_action:
+            return res
+        if res is True:
+            res = after_validate_action
+        elif "params" in res:
+            if res["params"].get("anotherAction"):
+                _logger.error(
+                    "Several modules try adding anotherAction param in stock.picking "
+                    "button_validate method",
+                    res["params"]["anotherAction"],
+                    after_validate_action,
+                )
+            res["params"]["anotherAction"] = after_validate_action
         return res
