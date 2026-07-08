@@ -621,11 +621,10 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan_option_display_notification.display_notification(
                 title=message_title, message=message
             )
-            res_id = self.wiz_scan_option_display_notification.ids[0]
             mock_msg.assert_called_once_with(
-                f"stock_barcodes-{res_id}",
+                "stock_barcodes_scan",
                 {
-                    "type": f"stock_barcodes_notify-{res_id}",
+                    "type": "stock_barcodes_notify",
                     "payload": message_notification,
                 },
             )
