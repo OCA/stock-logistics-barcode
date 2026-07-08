@@ -13,6 +13,11 @@
   notification is sent when the read or the manual confirmation ends:
   always for errors, only in manual entry for informative messages, and
   for "Manual entry OK" only when the whole confirmation succeeded.
+- \[FIX\] Show each barcode notification only once. The barcode views
+  subscribed the same handler to two bus notification types, which leaks
+  a listener on every render (the bus service maps subscriptions by
+  callback), so each notification was displayed more and more times as
+  the session went on.
 - \[FIX\] Barcode action tile counters: the model-field check never
   matched (checked attributes on a string), so tiles counted all records
   of the model; named filters now count records matching the filter.

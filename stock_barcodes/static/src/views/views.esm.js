@@ -189,37 +189,55 @@ function setupView() {
         }
     };
 
-    useEffect(() => {
-        // Keydown handler
-        const onKeyDown = handleKeys;
+    // The bus service maps subscriptions by callback identity, so the same
+    // function must never be subscribed to two notification types: the
+    // second subscribe would overwrite the stored wrapper and unsubscribe
+    // would leak the first listener, showing every notification once per
+    // leaked handler.
+    const handleFormUpdateNotification = (notif) => handleNotification(notif);
 
-        // Create audio elements without jQuery
-        // (not needed to append to DOM to play)
-        const soundOk = new Audio("/stock_barcodes/static/src/sounds/bell.wav");
-        soundOk.preload = "auto";
-        const soundKo = new Audio("/stock_barcodes/static/src/sounds/error.wav");
-        soundKo.preload = "auto";
+    useEffect(
+        () => {
+            // Keydown handler
+            const onKeyDown = handleKeys;
 
-        // Store references on the component instance
-        this.soundOk = soundOk;
-        this.soundKo = soundKo;
+            // Create audio elements without jQuery
+            // (not needed to append to DOM to play)
+            const soundOk = new Audio("/stock_barcodes/static/src/sounds/bell.wav");
+            soundOk.preload = "auto";
+            const soundKo = new Audio("/stock_barcodes/static/src/sounds/error.wav");
+            soundKo.preload = "auto";
 
-        busService.subscribe("stock_barcodes_scan", handleNotification);
-        // Inventory "Apply" button counter is pushed on this channel
-        busService.subscribe("stock_barcodes_form_update", handleNotification);
-        // DOM event
-        document.body.addEventListener("keydown", onKeyDown);
+            // Store references on the component instance
+            this.soundOk = soundOk;
+            this.soundKo = soundKo;
 
-        // Cleanup
-        return () => {
-            busService.unsubscribe("stock_barcodes_scan", handleNotification);
-            busService.unsubscribe("stock_barcodes_form_update", handleNotification);
-            document.body.removeEventListener("keydown", onKeyDown);
-            // Drop references (not appended, so no DOM removal needed)
-            this.soundOk = null;
-            this.soundKo = null;
-        };
-    });
+            busService.subscribe("stock_barcodes_scan", handleNotification);
+            // Inventory "Apply" button counter is pushed on this channel
+            busService.subscribe(
+                "stock_barcodes_form_update",
+                handleFormUpdateNotification
+            );
+            // DOM event
+            document.body.addEventListener("keydown", onKeyDown);
+
+            // Cleanup
+            return () => {
+                busService.unsubscribe("stock_barcodes_scan", handleNotification);
+                busService.unsubscribe(
+                    "stock_barcodes_form_update",
+                    handleFormUpdateNotification
+                );
+                document.body.removeEventListener("keydown", onKeyDown);
+                // Drop references (not appended, so no DOM removal needed)
+                this.soundOk = null;
+                this.soundKo = null;
+            };
+        },
+        // Subscribe once on mount: OWL default dependencies ([NaN]) re-apply
+        // the effect on every render
+        () => []
+    );
 }
 
 function patchControllerSetup(Controller) {

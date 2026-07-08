@@ -29,18 +29,26 @@ export class StockBarcodesMainMenu extends Component {
                 type: "danger",
             });
         };
-        useEffect(() => {
-            // Subscribe() alone does not start the bus connection; make sure
-            // it is running so the scanned action can be received.
-            busService.start();
-            busService.subscribe("actions_main_menu_barcode", handleMainMenuBarcode);
-            return () => {
-                busService.unsubscribe(
+        useEffect(
+            () => {
+                // Subscribe() alone does not start the bus connection; make
+                // sure it is running so the scanned action can be received.
+                busService.start();
+                busService.subscribe(
                     "actions_main_menu_barcode",
                     handleMainMenuBarcode
                 );
-            };
-        });
+                return () => {
+                    busService.unsubscribe(
+                        "actions_main_menu_barcode",
+                        handleMainMenuBarcode
+                    );
+                };
+            },
+            // Subscribe once on mount: OWL default dependencies ([NaN])
+            // re-apply the effect on every render
+            () => []
+        );
     }
 
     hasService(service) {
