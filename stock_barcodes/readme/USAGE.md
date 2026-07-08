@@ -1,290 +1,189 @@
-## Barcode Configuration for Warehouse Locations
+The barcode scan screens recognize, in both free and guided mode:
 
-> 1. To see the following menu you must have the permission assigned: *Manage Multiple Stock Locations*.
+1. Warehouse locations (barcode field).
+2. Product packagings (barcode field).
+3. Products (barcode field).
+4. Lots / serial numbers (the barcode is the lot name).
+5. Packages (matched by name).
 
-> ![Warehouse location access](/stock_barcodes/static/src/img/access_menu_warehouse_location.png)
-
-> 2. Go to *Inventory \> Configuration \> Locations*.
-> 3. Select the location you want to associate with the barcode.
-> 4. Go to the Barcode field and assign the corresponding field.
-
-> ![Warehouse location barcode](/stock_barcodes/static/src/img/barcode_warehouse_location.png)
-
-> 5. Save the data.
-
-## Barcode Configuration for Product Packings
-
-> 1. To see the following menu you must have the permission assigned: *Manage Product Packaging*.
-
-> ![Product packaging barcode](/stock_barcodes/static/src/img/access_menu_product_packaging.png)
-
-> 2. Go to *Inventory \> Configuration \> Product Packings*.
-> 3. Create a new or select product packaging.
-> 4. Go to the Barcode field and assign the corresponding field.
-
-> ![Product packaging barcode](/stock_barcodes/static/src/img/barcode_product_packaging.png)
-
-> 5. Save the data.
-
-## Barcode Configuration for Product
-
-> 1. Go to *Inventory \> Products \> Products*.
-> 2. Create a new product.
-> 3. Go to the Barcode field and assign the corresponding field.
-
-> ![Product packaging barcode](/stock_barcodes/static/src/img/barcode_product.png)
-
-> 4. Save the data.
-
-## Barcode Configuration for Product lot
-
-> 1. Go to *Inventory \> Products \> Lots/Serial Numbers*.
-> 2. Create a new lot.
-> 3. In this case, the barcode matches the lot name, so when you name the lot, you already have the barcode configured.
-
-> ![Product lot barcode](/stock_barcodes/static/src/img/barcode_product_lot.png)
-
-> 4. Save the data.
-
-## Barcode interface for inventory operations
-
-Please note that the picking is marked with the entire
-quantity requested by default in the ready state.
-
-
-Option 1: To use the barcode interface on inventory
-
-> 1. Go to *Inventory \> operations \> Inventory Adjustments*.
-> 2. Create new inventory with "Select products manually" option.
-> 3. Start inventory.
-> 4. Click to "Scan barcodes" smart button.
-> 5. Start reading barcodes.
-
-Option 2: Use the barcode interface inventory directly from the Barcodes application
-
-1. Go to *Barcodes*.
-2. Select the *Inventory* option.
-
-> ![Inventory barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
-
-1. Start scanning barcodes.
-
-Actions
-\# Press the *+ Product* button to display the form for the new item.
-
-> ![Add product](/stock_barcodes/static/src/img/add_product.png)
-
-\# When you select a product, a numeric field is displayed to add the
-quantity.
-
-> ![Add quantity product](/stock_barcodes/static/src/img/form_add_product_quantity.png)
-
-\# When you press the button with the trash can icon, the values of the
-form are reset (except for the location) without closing it.
-
-> ![Reset data form](/stock_barcodes/static/src/img/form_add_product_reset.png)
-
-\# When you press the *Clean values* button, all fields are reset and
-the form is closed. \# When you press the *Confirm* button, the new item
-is added and the form is closed. \# When the eye icon is closed, the
-created items greater than zero are displayed, and if not, those less
-than or equal to zero.
-
-> ![Reset data form](/stock_barcodes/static/src/img/list_items.png)
-
-\# In the list, the trash can icon allows you to reset the quantity to
-zero and the edit icon allows you to change the item values.
-
-> ![Reset data form](/stock_barcodes/static/src/img/list_action_items.png)
-
-\# The *Apply* button is only displayed if there are items with
-quantities greater than zero, regardless of whether they were scanned or
-entered manually; If you press all the defined quantities will be
-processed after defining the reason for the inventory adjustment and
-then the main barcode menu will be displayed.
-
-> ![Apply inventory](/stock_barcodes/static/src/img/apply_inventory.png)
->
-> ![Apply inventory reason](/stock_barcodes/static/src/img/apply_inventory_reason.png)
+A bell sound confirms a successful scan and an error sound signals a
+rejected one. Status messages under the barcode field explain what the
+screen is waiting for and why a scan was rejected. The *Manual* button
+toggles manual entry to type values without a scanner.
 
 ## Barcode interface for picking operations
 
-You can use the barcode interface in a picking or an operation type, the
-main difference is that if you open the barcode interface from a
-picking, this picking is locked and you read products for it.
+You can open the scan screen from three places:
 
-To use the barcode interface on picking operations:
+1. **Barcodes main menu** (app *Barcodes*): select an operation tile,
+   then pick one of the ready transfers from the list.
 
-1. Go to *Inventory*.
-2. Click on scanner button on any operation type.
-3. Start reading barcodes.
+   ![Operation barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
 
-Option 1: To use the barcode interface on a picking:
+   ![List picking](/stock_barcodes/static/src/img/list_picking.png)
 
-> 1. Go to *Inventory \> Transfers*.
-> 2. Click to "Scan barcodes" smart button.
-> 3. Start reading barcodes.
+2. **An operation type card** in *Inventory > Overview* (scanner
+   button): scan products for any ready picking of that type.
+3. **A specific transfer** (*Scan barcodes* button in
+   *Inventory > Transfers*): the picking is locked and every scan
+   applies to it.
 
-Option 2: Use the barcode interface picking directly from the Barcodes application
+   ![Barcode interface picking](/stock_barcodes/static/src/img/barcode_interface_picking.png)
 
-1. Go to *Barcodes*.
-2. Select the option *OPERATIONS*.
+### Free mode
 
-> ![Operation barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
+Scan in any order; the screen reacts to the kind of barcode read:
 
-\# Select the type of picking. \# The pickings in ready status are
-displayed, select the one you want to start scanning.
+- **Product**: adds 1 unit (or waits for a lot if the product is
+  tracked). The source location is resolved automatically from the
+  pending reserved lines.
+- **Packaging**: selects the product and adds the packaging quantity.
+- **Lot**: scan the product first when several lots share the same name.
+  When *fill fields from lot* is active, scanning a lot fills product,
+  package, owner and location from the available stock.
+- **Package**: fills all fields from the package content.
+- **Location**: sets the source (or destination, per configuration) for
+  the following scans.
 
-> ![List picking](/stock_barcodes/static/src/img/list_picking.png)
+Quantities beyond the picking demand or beyond available stock are not
+written silently: the screen asks for confirmation (*force done*) or
+rejects the scan, depending on the option group.
 
-1. Start scanning barcodes.
+### Guided mode
 
-> ![List picking](/stock_barcodes/static/src/img/barcode_interface_picking.png)
+The screen shows the next pending move (product, lot, quantities,
+locations) and guides the operator step by step (e.g. *Scan Source*,
+then *Scan Product, Lot*). Scanning something different from what is
+expected is rejected with an explicit message (*Wrong product*, *Wrong
+lot*, *Wrong location*).
 
-Actions
-\# All the items that have been configured for the selected picking are
-listed.
+In the pending moves list you can:
 
-> ![List picking](/stock_barcodes/static/src/img/list_items_picking.png)
+- Jump to another line (arrows or tapping a card).
 
-\# The edit icon in the list allows you to modify the data.
+  ![List items picking](/stock_barcodes/static/src/img/list_items_picking.png)
 
-> ![Edit picking](/stock_barcodes/static/src/img/list_items_picking_edit.png)
+- Edit a line with the pencil icon.
 
-\# The button that contains a *+120* (in this case), allows you to define all the
-remaining quantities. Once defined, this button disappears and if you
-want to change the quantities, press the edit button.
+  ![Edit picking](/stock_barcodes/static/src/img/list_items_picking_edit.png)
 
-![Quantity picking](/stock_barcodes/static/src/img/list_items_picking_quantity.png)
+- Put the whole remaining quantity with the *+N* button (e.g. *+120*).
+  Once defined, this button disappears; use the edit icon to change the
+  quantity.
 
-\# If there is at least one item with a quantity already defined, an eye icon is displayed,
-which if closed shows the items and their quantities already scanned.
+  ![Quantity picking](/stock_barcodes/static/src/img/list_items_picking_quantity.png)
 
-![Picking scanned](/stock_barcodes/static/src/img/list_items_picking_scanned.png)
+- Show the lines already scanned with the eye icon.
 
-\# When you press the *Validate* button, a wizard will be displayed to confirm the action.
-If everything is correct, it is validated and you return to the picking
-list mentioned above.
+  ![Picking scanned](/stock_barcodes/static/src/img/list_items_picking_scanned.png)
 
-![Picking scanned](/stock_barcodes/static/src/img/confirm_items_picking.png)
+- Decide the backorder behavior per line when quantities are incomplete
+  (create backorder / no backorder / keep pending).
 
-\# If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned
-above, to confirm if you want to process all the quantities. If
-positive, you will proceed and be directed to the list mentioned above
-in the previous point.
+### Validation
 
-![Picking scanned](/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png)
+The *Validate* button confirms the transfer using the scanned
+quantities. A wizard is displayed to confirm the action; after
+validation you return to the ready-pickings list.
 
-\# Press the *+ Product* button to display the form for the new item.
+![Confirm items picking](/stock_barcodes/static/src/img/confirm_items_picking.png)
 
-> ![Add product](/stock_barcodes/static/src/img/add_product.png)
+If some lines have no quantity, the standard confirmation wizard asks
+whether to process all quantities.
 
-\# When you select a product, a numeric field is displayed to add the
-quantity.
+![Confirm all quantities](/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png)
 
-> ![Add quantity product](/stock_barcodes/static/src/img/form_add_product_quantity.png)
+With *Auto put in pack* enabled, unpacked lines are packed automatically
+before validating.
 
-\# When you press the button with the trash can icon, the values of the
-form are reset (except for the location) without closing it.
+### Extra products, new lots and packagings
 
-> ![Reset data form](/stock_barcodes/static/src/img/form_add_product_reset.png)
+- Press the *+ Product* button to add an item not in the demand (when
+  the option group allows non-demanded products).
 
-\# When you press the *Clean values* button, all fields are reset and
-the form is closed. \# When you press the *Confirm* button, the new item
-is added and the form is closed. \# When adding the new item all the
-quantities are assigned to it, if you want to modify it, press the edit
-icon.
+  ![Add product](/stock_barcodes/static/src/img/add_product.png)
 
-The barcode scanner interface has two operation modes. In both of them
-user can scan:
+  When you select a product, a numeric field is displayed to add the
+  quantity.
 
-1. Warehouse locations with barcode.
-2. Product packaging with barcode.
-3. Product with barcode.
-4. Product Lots (The barcode is name field in this case).
+  ![Add quantity product](/stock_barcodes/static/src/img/form_add_product_quantity.png)
 
-## Automatic operation mode
+  The trash can icon resets the form values (except the location)
+  without closing it; *Clean values* resets everything and closes the
+  form; *Confirm* adds the new item.
 
-This is the default mode, all screen controls are locked to avoid scan
-into fields.
+  ![Reset data form](/stock_barcodes/static/src/img/form_add_product_reset.png)
 
-The user only has to scan barcode in physical warehouse locations with a
-scanner hardward, the interface read the barcode and do operations in
-this order:
+- If a scanned lot does not exist on a receipt, it can be created on the
+  fly (*Create lots if not match*) or through the new lot dialog.
+- Unknown packagings can be registered from the scan screen with the new
+  packaging dialog: scan the packaging barcode, set the name and
+  confirm.
 
-1. Try search a product, if found, is assigned to product_id field and
-   creates or update inventory line with 1.0 unit. (If product has
-   tracking by lots the interface wait for a lot to be scanned).
-2. Try search a product packaging, if found, the product_id related is
-   set, product quantities are updated and create or update inventory
-   line with product quantities defined in the product packaging.
-3. Try search a lot (The product is mandatory in this case so you first
-   scan a product and then scann a lot), this lot field is not erased
-   until that product change, so for each product scann the interface
-   add or update a inventory line with this lot.
-4. Try to search a location, if found the field location is set and
-   next scan action will be done with this warehouse location.
+## Barcode interface for inventory adjustments
 
-If barcode has not found, when message is displayed you can create this
-lot scanning the product.
+Open *Barcodes > Inventory* (or the *Scan barcodes* button of an
+inventory adjustment).
 
-## Manual entry mode
+![Inventory barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
 
-You can change to "manual entry" to allow to select data without scanner
-hardware, but hardward scanner still active on, so a use case would be
-when user wants set quantities manually instead increment 1.0 unit peer
-scan action.
+Scan a location, then products/lots/packages:
 
-## Scan logs
+- Each product scan adds 1 unit to the counted quantity (or the
+  packaging quantity when a packaging is scanned). With *accumulate read
+  quantity* disabled, a new scan overwrites the counted quantity.
+- Serial-tracked products accept exactly one unit per serial; a second
+  read of the same serial is rejected.
+- The eye icon switches between the items already counted by you and the
+  pending ones.
 
-All scanned barcodes are saved into model. Barcode scanning interface
-display 10 last records linked to model, the goal of this log is show to
-user other reads with the same product and location done by other users.
-User can remove the last read scan.
+  ![List items](/stock_barcodes/static/src/img/list_items.png)
 
-## Barcode interface for barcode actions
+- Each line in the list can be edited (pencil), incremented/decremented
+  (+/-) or cleared (trash).
 
-To use the barcode interface for actions:
+  ![List action items](/stock_barcodes/static/src/img/list_action_items.png)
 
-1. Go to *Inventory \> Configuration \> Barcode Actions*.
-2. Create a new barcode action and configure the barcode.
+- The *Apply* button is displayed when there are counted items. It opens
+  the standard inventory adjustment confirmation (with reason), applies
+  your counted quants and returns to the main menu.
 
-![Print barcodes](/stock_barcodes/static/src/img/create_barcode_action.png)
+  ![Apply inventory](/stock_barcodes/static/src/img/apply_inventory.png)
 
-1. Select the barcode actions you want to use, a button (PRINT
-   BARCODES) will appear that allows you to print the configured
-   barcodes to PDF.
+  ![Apply inventory reason](/stock_barcodes/static/src/img/apply_inventory_reason.png)
 
-![Print barcodes](/stock_barcodes/static/src/img/print_barcodes.png)
+## Barcode actions
 
 1. Go to *Barcodes*.
-2. Start scanning barcodes from actions.
+2. Scan an action barcode (see Configuration) to open the corresponding
+   action directly, or tap its tile.
 
 ## Show the planned destination location on pending moves
 
 By default the pending moves list on the barcode screen shows the source
-location and lot of each move. When the option group has *Show fixed dest.
-location* enabled, the list also shows the **destination location already
-planned on the stock move line**, so the operator sees where the goods must
-be stored as soon as the picking is opened, without scanning anything.
+location and lot of each move. When the option group has *Show fixed
+dest. location* enabled, the list also shows the **destination location
+already planned on the stock move line**, so the operator sees where the
+goods must be stored as soon as the picking is opened, without scanning
+anything.
 
 This only **reads** the destination resolved upstream when the move was
 prepared (e.g. the putaway strategy applied at reception). It never
-recomputes the putaway: putaway is a warehouse decision taken when the move
-is created, not a barcode-screen concern (see *Use location dest. putaway*
-for the opposite, recompute-on-scan behaviour).
+recomputes the putaway: putaway is a warehouse decision taken when the
+move is created, not a barcode-screen concern (see *Use location dest.
+putaway* for the opposite, recompute-on-scan behaviour).
 
-In addition, with this option enabled, **scanning a product reuses the move
-line already routed by putaway** and keeps its destination, instead of
-creating a new line at the generic picking destination. This way receiving by
-barcode keeps the goods on their planned putaway location.
+In addition, with this option enabled, **scanning a product reuses the
+move line already routed by putaway** and keeps its destination, instead
+of creating a new line at the generic picking destination. This way
+receiving by barcode keeps the goods on their planned putaway location.
 
 To keep the shown value reliable it is displayed only for moves whose
-destination has **no storage category**, i.e. a fixed putaway whose location
-does not depend on the received quantity. For capacity-based putaway
-(storage categories) the final location may still change on a partial
-receipt, so it is intentionally not shown.
+destination has **no storage category**, i.e. a fixed putaway whose
+location does not depend on the received quantity. For capacity-based
+putaway (storage categories) the final location may still change on a
+partial receipt, so it is intentionally not shown.
 
-Enable it in *Inventory \> Configuration \> Barcode Option Groups*, on the
-option group used by the operation type, with the *Show fixed dest. location*
-checkbox.
+Enable it in *Inventory > Configuration > Barcode Option Groups*, on the
+option group used by the operation type, with the *Show fixed dest.
+location* checkbox.
