@@ -92,58 +92,55 @@ class StockBarcodesAction(models.Model):
             raise ValidationError(_("There can be no spaces at the beginning or end."))
 
     def _count_elements(self):
-        if self.context:
-            context_values = self.context.strip("{}").split(",")
+        res_model = self.action_window_id.res_model
+        if not self.context or not res_model:
+            return 0
+        model_fields = self.env[res_model]._fields
+        context_values = self.context.strip("{}").split(",")
 
-            def _map_context_values(x):
-                field_values = x.split(":")
-                field_name = field_values[0].split("search_default_")
-                if len(field_name) > 1:
-                    field_name = field_name[1].strip("'")
-                    field_value_format = field_values[1].replace("'", "").strip()
-                    field_value = (
-                        int(field_value_format)
-                        if field_value_format.isdigit()
-                        else field_value_format
-                    )
-                    if hasattr(
-                        self.action_window_id.res_model,
-                        FIELDS_NAME.get(field_name, field_name),
-                    ):
-                        return (
-                            f"{FIELDS_NAME.get(field_name, field_name)}",
-                            "=",
-                            field_value,
-                        )
-                    else:
-                        return False
-                else:
-                    return ()
-
-            domain = [
-                val_domain
-                for val_domain in list(
-                    map(lambda x: _map_context_values(x), context_values)
+        def _map_context_values(x):
+            field_values = x.split(":")
+            field_name = field_values[0].split("search_default_")
+            if len(field_name) > 1:
+                raw_name = field_name[1].strip("'")
+                mapped_name = FIELDS_NAME.get(raw_name)
+                if mapped_name:
+                    # Named search filter mapped to a field: a truthy value
+                    # just activates the filter, whose domain selects the
+                    # records having the field set.
+                    if mapped_name in model_fields:
+                        return (mapped_name, "!=", False)
+                    return False
+                if len(field_values) < 2:
+                    # Malformed entry (no value): the domain can not be built
+                    return False
+                field_value_format = field_values[1].replace("'", "").strip()
+                field_value = (
+                    int(field_value_format)
+                    if field_value_format.isdigit()
+                    else field_value_format
                 )
-            ]
-            search_count = (
-                list(filter(lambda x: x, domain))
-                if all(val_d is True for val_d in domain)
-                else []
-            )
-            return (
-                self.env[self.action_window_id.res_model].search_count(search_count)
-                if self.action_window_id.res_model
-                else 0
-            )
-        return 0
+                if raw_name in model_fields:
+                    return (raw_name, "=", field_value)
+                return False
+            return ()
+
+        domain = [_map_context_values(x) for x in context_values]
+        if any(val_domain is False for val_domain in domain):
+            # A search_default key does not match any model field: the
+            # domain can not be built reliably, so do not count anything.
+            return 0
+        return self.env[res_model].search_count(
+            [val_domain for val_domain in domain if val_domain]
+        )
 
     @api.depends("context")
     def _compute_count_elements(self):
         for barcode_action in self:
             barcode_action.count_elements = (
                 barcode_action._count_elements()
-                if "search_default_" in barcode_action.context
+                if barcode_action.context
+                and "search_default_" in barcode_action.context
                 else 0
             )
 

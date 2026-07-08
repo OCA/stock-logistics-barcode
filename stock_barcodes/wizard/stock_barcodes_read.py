@@ -452,8 +452,10 @@ class WizStockBarcodesRead(models.AbstractModel):
                 limit=1,
             )
 
+            # Target the scanning user's partner channel: string channels are
+            # broadcast and are not subscribed by the web client anyway.
             self.env["bus.bus"]._sendone(
-                "stock_barcodes_scan",
+                self.env.user.partner_id,
                 "actions_main_menu_barcode",
                 {
                     "action_ok": len(barcode_action) > 0,

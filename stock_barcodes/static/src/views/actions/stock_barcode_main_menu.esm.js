@@ -21,30 +21,24 @@ export class StockBarcodesMainMenu extends Component {
             this.barcodeActions = await this.getBarcodeActions();
         });
 
-        const handleNotification = ({detail: notifications}) => {
-            if (notifications && notifications.length > 0) {
-                notifications.forEach((notif) => {
-                    const {payload, type} = notif;
-                    if (type === "actions_main_menu_barcode") {
-                        if (payload.action_ok && payload.action) {
-                            return this.actionService.doAction(payload.action);
-                        }
-                        notification.add(
-                            _t("No action found with barcode: " + payload.barcode),
-                            {
-                                type: "danger",
-                            }
-                        );
-                    }
-                });
+        const handleMainMenuBarcode = (payload) => {
+            if (payload.action_ok && payload.action) {
+                return this.actionService.doAction(payload.action);
             }
+            notification.add(_t("No action found with barcode: %s", payload.barcode), {
+                type: "danger",
+            });
         };
         useEffect(() => {
-            busService.addChannel("stock_barcodes_main_menu");
-            busService.addEventListener("notification", handleNotification);
+            // Subscribe() alone does not start the bus connection; make sure
+            // it is running so the scanned action can be received.
+            busService.start();
+            busService.subscribe("actions_main_menu_barcode", handleMainMenuBarcode);
             return () => {
-                busService.deleteChannel("stock_barcodes_main_menu");
-                busService.removeEventListener("notification", handleNotification);
+                busService.unsubscribe(
+                    "actions_main_menu_barcode",
+                    handleMainMenuBarcode
+                );
             };
         });
     }
