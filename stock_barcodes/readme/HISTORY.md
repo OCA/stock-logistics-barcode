@@ -1,3 +1,21 @@
+## 18.0.1.3.0 (2026-07-08)
+
+- \[FIX\] Restore bus notifications broken by the 18.0 bus API: scanning
+  an action barcode from the main menu, the "transfer validated" toast
+  and the manual-edit toggle from a pending line. Events are now sent to
+  the scanning user only instead of a broadcast channel.
+- \[FIX\] Barcode action tile counters: the model-field check never
+  matched (checked attributes on a string), so tiles counted all records
+  of the model; named filters now count records matching the filter.
+- \[REF\] Remove pre-17.0 immediate-transfer leftovers, use
+  `_read_group` aggregation, convert the report model to
+  `AbstractModel`, drop a duplicated ACL, replace deprecated `t-esc`
+  with `t-out` and add `limit=1` to singleton barcode lookups.
+- \[REF\] Rename misspelled methods (`_set_message_info`,
+  `check_location_condition`, `check_lot_condition`). The old names are
+  kept as deprecated aliases; modules overriding them must move their
+  override to the new names.
+
 ## 18.0.1.1.0 (2026-06-22)
 
 - \[ADD\] New option *Show fixed dest. location* on barcode option groups.
