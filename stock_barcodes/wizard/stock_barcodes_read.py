@@ -996,7 +996,10 @@ class WizStockBarcodesRead(models.AbstractModel):
             }
             if title:
                 message["title"] = title
+            # The web client subscribes to the "stock_barcodes_scan"
+            # notification type and filters per record with the payload
+            # res_model/res_id, so the type must not carry the record id
             self.send_bus_done(
-                f"stock_barcodes-{self.ids[0]}",
-                {"type": f"stock_barcodes_notify-{self.ids[0]}", "payload": message},
+                "stock_barcodes_scan",
+                {"type": "stock_barcodes_notify", "payload": message},
             )
