@@ -28,6 +28,7 @@ class WizStockBarcodesReadPickingBatchRevision(models.TransientModel):
         if not self.review_picking_batch:
             return super().action_clean_values()
         self.picking_batch_id.move_line_ids.barcodes_is_reviewed = False
+        return True
 
     def action_barcodes_requested_review(self):
         self.barcodes_requested_review = not self.barcodes_requested_review

@@ -14,17 +14,20 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         "line_ids.qty_picked",
         "line_ids.product_uom_qty",
         "line_ids.barcode_scan_state",
+        "line_ids.barcodes_is_reviewed",
         "qty_done",
         "product_uom_qty",
     )
     def _compute_state(self):
-        if not self.wiz_barcode_id.review_picking_batch:
-            return super()._compute_state()
-        for rec in self:
+        # The compute can batch records from several wizards, so split by
+        # review mode instead of reading the flag on a multi-recordset
+        review_records = self.filtered("wiz_barcode_id.review_picking_batch")
+        for rec in review_records:
             if rec.line_ids.filtered(lambda ln: not ln.barcodes_is_reviewed):
                 rec.state = "pending"
             else:
                 rec.state = "done"
+        return super(WizStockBarcodesReadTodo, self - review_records)._compute_state()
 
     def action_confirm_review(self):
         self.line_ids.barcodes_is_reviewed = True
