@@ -17,14 +17,6 @@ from .common import TestCommonStockBarcodes
 
 @tagged("post_install", "-at_install")
 class TestStockBarcodes(TestCommonStockBarcodes):
-    @classmethod
-    def setUpClass(cls):
-        super().setUpClass()
-        cls.send_bus_done_calls = []
-
-    def fake_send_bus_done(self, channel, data):
-        self.send_bus_done_calls.append((channel, data))
-
     def test_wizard_scan_location(self):
         self.action_barcode_scanned(self.wiz_scan, "8411322222568")
         self.assertEqual(self.wiz_scan.location_id, self.location_1)
@@ -281,38 +273,40 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.wiz_scan.barcode = "ABC123"
         message_type = "info"
         message = "MESSAGE INFO"
-        self.wiz_scan._set_message_info(message_type=message_type, message=message)
+        with patch.object(type(self.wiz_scan), "send_bus_done") as mock_send:
+            self.wiz_scan._set_message_info(message_type=message_type, message=message)
+            # Messages are only buffered, nothing is notified yet
+            mock_send.assert_not_called()
         self.assertFalse(self.wiz_scan.manual_entry)
         expected_msg = "{} ({})".format("ABC123", message)
         self.assertEqual(self.wiz_scan.message, expected_msg)
         self.assertEqual(self.wiz_scan.message_type, message_type)
-        self.assertFalse(getattr(self.wiz_scan, "manual_entry", False))
-        self.assertEqual(len(self.send_bus_done_calls), 0)
 
+        # Intermediate messages are overwritten and only the last one is
+        # notified when the interaction ends
         self.wiz_scan.barcode = False
-        message = "NOT FOUND"
-        message_type = "not_found"
-        bus_data = {
-            "message": message,
-            "sticky": True,
-            "message_type": "danger",
-        }
         self.wiz_scan.manual_entry = False
-        self.wiz_scan._set_message_info(message_type, message)
-        self.fake_send_bus_done(
-            "stock_barcodes_scan",
-            {"type": "actions_barcode_notification", "payload": bus_data},
-        )
-
+        self.wiz_scan._set_message_info("more_match", "INTERMEDIATE")
+        self.wiz_scan._set_message_info("not_found", "NOT FOUND")
         self.assertTrue(self.wiz_scan.manual_entry)
-        self.assertEqual(len(self.send_bus_done_calls), 1)
-        channel, data = self.send_bus_done_calls[0]
+        self.assertEqual(self.wiz_scan.message, "NOT FOUND")
+        with patch.object(type(self.wiz_scan), "send_bus_done") as mock_send:
+            self.wiz_scan._notify_last_message()
+            mock_send.assert_called_once()
+            channel, data = mock_send.call_args.args
         self.assertEqual(channel, "stock_barcodes_scan")
         self.assertEqual(data["type"], "actions_barcode_notification")
         payload = data["payload"]
-        self.assertEqual(payload["message"], message)
-        self.assertTrue(payload.get("sticky", False))
+        self.assertEqual(payload["message"], "NOT FOUND")
         self.assertEqual(payload["message_type"], "danger")
+
+        # Success messages are only notified when explicitly requested
+        self.wiz_scan._set_message_info("success", "Manual entry OK")
+        with patch.object(type(self.wiz_scan), "send_bus_done") as mock_send:
+            self.wiz_scan._notify_last_message()
+            mock_send.assert_not_called()
+            self.wiz_scan._notify_last_message(include_success=True)
+            mock_send.assert_called_once()
 
     def test_process_barcode_location_dest_id(self):
         self.wiz_scan.barcode = "8411322222568"

@@ -174,43 +174,53 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _set_message_info(self, message_type, message):
         """
         Set message type and message description.
-        For manual entry mode barcode is not set so is not displayed
+
+        Messages are only buffered on the wizard: reading a barcode triggers
+        sequential lookups (a lot barcode is not a location, nor a product,
+        nor a package...) and several steps can buffer intermediate messages,
+        so each new message overwrites the previous one and only the last,
+        most significant, one is notified when the interaction ends
+        (see :meth:`_notify_last_message`).
         """
         self.message_type = message_type
-        # if self.barcode and self.message_type in ["more_match", "not_found"]:
         if self.barcode:
             self.message = _(
                 "%(barcode)s (%(message)s)", barcode=self.barcode, message=message
             )
         else:
             if message_type in TYPE_ERROR:
+                # Enable the form edit so the user can fix the wrong values
                 self.manual_entry = True
-                self.send_bus_done(
-                    "stock_barcodes_scan",
-                    {
-                        "type": "actions_barcode_notification",
-                        "payload": {
-                            "message": message,
-                            "sticky": True,
-                            "message_type": "danger"
-                            if message_type in TYPE_ERROR
-                            else message_type,
-                        },
-                    },
-                )
-            elif message_type != "info_page":
-                self.send_bus_done(
-                    "stock_barcodes_scan",
-                    {
-                        "type": "actions_barcode_notification",
-                        "payload": {
-                            "message": message,
-                            "message_type": message_type,
-                        },
-                    },
-                )
-            else:
-                self.message = f"{message}"
+            self.message = f"{message}"
+
+    def _notify_last_message(self, include_success=False):
+        """Notify the last buffered message when the interaction ends.
+
+        Called once per user interaction (barcode read or manual
+        confirmation). Errors are always notified; informative messages only
+        in manual entry (no barcode on screen), where the interface has
+        always relied on notifications; success messages only when explicitly
+        requested to avoid a notification on every correct read.
+        """
+        message_type = self.message_type
+        if not self.message or message_type == "info_page":
+            return
+        if message_type == "success" and not include_success:
+            return
+        if self.barcode and message_type not in TYPE_ERROR:
+            return
+        self.send_bus_done(
+            "stock_barcodes_scan",
+            {
+                "type": "actions_barcode_notification",
+                "payload": {
+                    "message": self.message,
+                    "message_type": "danger"
+                    if message_type in TYPE_ERROR
+                    else message_type,
+                },
+            },
+        )
 
     def _set_messagge_info(self, message_type, message):
         """Deprecated: misspelled alias kept for backward compatibility.
@@ -499,12 +509,6 @@ class WizStockBarcodesRead(models.AbstractModel):
                     self._set_message_info(
                         "not_found", _("Barcode not found with this screen values")
                     )
-                self.display_notification(
-                    self.barcode,
-                    message_type="danger",
-                    title=_("Barcode not found"),
-                    sticky=False,
-                )
                 return False
             if not self.check_option_required():
                 return False
@@ -577,7 +581,11 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def dummy_on_barcode_scanned(self):
         """To avoid execute operations in onchange environment"""
-        return self.process_barcode(self.barcode)
+        res = self.with_context(skip_notify_last_message=True).process_barcode(
+            self.barcode
+        )
+        self._notify_last_message()
+        return res
 
     def check_location_condition(self):
         if not self.location_id:
@@ -624,8 +632,6 @@ class WizStockBarcodesRead(models.AbstractModel):
             and not self._check_guided_values()
         ):
             return False
-        if self.manual_entry:
-            self._set_message_info("success", _("Manual entry OK"))
         return True
 
     def _check_guided_values(self):
@@ -836,12 +842,25 @@ class WizStockBarcodesRead(models.AbstractModel):
                 or self.option_group_id.no_increase_qty_done
             )
             force_create_move = context.get("force_create_move", False)
+        # action_done side effects (e.g. action_clean_values) reset
+        # manual_entry, so remember how the entry was made before running it
+        manual_entry = self.manual_entry
         res = self.with_context(
             no_increase_qty_done=no_increase_qty_done,
             force_create_move=force_create_move,
         ).action_done()
         self.invalidate_recordset()
         self.play_sounds(res)
+        if res and manual_entry:
+            # Notify only when the whole confirmation chain succeeded, not
+            # from check_done_conditions: extending wizards run additional
+            # checks afterwards (e.g. stock availability) that can still
+            # reject the entry.
+            self._set_message_info("success", _("Manual entry OK"))
+        if not self.env.context.get("skip_notify_last_message"):
+            # When confirming from a barcode read the notification is sent by
+            # dummy_on_barcode_scanned once the whole read ends
+            self._notify_last_message(include_success=bool(res and manual_entry))
         self._set_focus_on_qty_input()
 
         if force_create_move:

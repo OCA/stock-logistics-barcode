@@ -88,9 +88,15 @@ onchange environment and calls `process_barcode(barcode)`:
    - inventory wizard: `_add_inventory_quant()` writes `inventory_quantity` on the
      matching quant (create in `inventory_mode`), with serial-tracking guards and
      optional accumulation (`accumulate_read_quantity`).
-5. Feedback: sounds (`play_sounds`), sticky/transient notifications and focus control
-   are pushed to the client over `bus.bus` (`send_bus_done()` sends to the current
-   user's partner channel).
+5. Feedback: sounds (`play_sounds`), notifications and focus control are pushed to the
+   client over `bus.bus` (`send_bus_done()` sends to the current user's partner
+   channel). Messages set through `_set_message_info()` are only buffered on the wizard
+   (`message`/`message_type` fields, last one wins): the sequential lookups of step 1
+   and the check chain of step 4 produce intermediate messages that must not be
+   notified. `_notify_last_message()` sends a single notification per interaction — at
+   the end of `dummy_on_barcode_scanned()` (barcode read) or `action_confirm()` (manual
+   confirmation) — always for error types, only in manual entry for informative ones,
+   and for the success message only when the whole confirmation succeeded.
 
 ### Candidate move line resolution (picking wizard)
 
