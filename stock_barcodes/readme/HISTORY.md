@@ -4,6 +4,15 @@
   an action barcode from the main menu, the "transfer validated" toast
   and the manual-edit toggle from a pending line. Events are now sent to
   the scanning user only instead of a broadcast channel.
+- \[FIX\] Notify only the most significant message per interaction.
+  Reading a barcode triggers sequential lookups and checks that buffer
+  intermediate messages (e.g. "Manual entry OK" before the availability
+  check rejects the entry), and each one used to raise its own
+  notification. Messages are now buffered on the wizard (last one wins,
+  as the on-screen message field always behaved) and a single
+  notification is sent when the read or the manual confirmation ends:
+  always for errors, only in manual entry for informative messages, and
+  for "Manual entry OK" only when the whole confirmation succeeded.
 - \[FIX\] Barcode action tile counters: the model-field check never
   matched (checked attributes on a string), so tiles counted all records
   of the model; named filters now count records matching the filter.
