@@ -49,7 +49,10 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             )
         other = self - batch_recs
         if other:
-            super(WizStockBarcodesReadPickingBatch, other)._compute_display_name()
+            return super(
+                WizStockBarcodesReadPickingBatch, other
+            )._compute_display_name()
+        return None
 
     def _compute_move_line_ids(self):
         if self.picking_mode != "picking_batch":
@@ -111,7 +114,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if self.picking_mode != "picking_batch":
             return res
         if not self.picking_batch_id:
-            self._set_messagge_info(
+            self._set_message_info(
                 "info", _("Click on picking batch pushpin to lock it")
             )
             return False
