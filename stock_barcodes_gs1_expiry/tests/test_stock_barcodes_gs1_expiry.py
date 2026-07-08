@@ -81,7 +81,7 @@ class TestStockBarcodesGS1Expiry(TestStockBarcodesGS1):
             {"name": "Product remove time", "removal_time": 5}
         )
 
-    def test_wizard_scan_prueba(self):
+    def test_wizard_scan_expiry_dates(self):
         # Create a packaging for product
         self.product_wo_tracking_gs1.tracking = "lot"
 

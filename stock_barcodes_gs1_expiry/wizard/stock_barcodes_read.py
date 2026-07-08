@@ -52,13 +52,26 @@ class WizStockBarcodesRead(models.AbstractModel):
             )
         return vals
 
-    def action_clean_lot(self):
+    def _clean_expiry_dates(self):
+        """The scanned dates belong to the lot just processed: drop them so
+        the next read does not inherit them on a new lot."""
         self.expiration_date = False
         self.use_date = False
+
+    def action_clean_lot(self):
+        self._clean_expiry_dates()
         return super().action_clean_lot()
 
+    def action_clean_values(self):
+        self._clean_expiry_dates()
+        return super().action_clean_values()
+
     def process_lot_before_done(self):
-        if self.use_date or self.env.context.get("force_create_lot"):
+        if (
+            self.use_date
+            or self.expiration_date
+            or self.env.context.get("force_create_lot")
+        ):
             if (
                 not self.lot_id
                 and self.lot_name
