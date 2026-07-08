@@ -137,10 +137,10 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             domain_quant.append(("lot_id", "=", self.lot_id.id))
         # if self.package_id:
         #     domain_quant.append(('package_id', '=', self.package_id.id))
-        groups = self.env["stock.quant"].read_group(
-            domain_quant, ["quantity"], orderby="id", groupby=["id"]
+        [[quantity_sum]] = self.env["stock.quant"]._read_group(
+            domain_quant, aggregates=["quantity:sum"]
         )
-        self.qty_available = groups[0]["quantity"] if len(groups) > 0 else 0.0
+        self.qty_available = quantity_sum or 0.0
         # Unexpected done quantities must reduce qty_available
         if self.lot_id:
             done_move_lines = self.move_line_ids.filtered(
@@ -402,7 +402,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.option_group_id.get_option_value("product_id", "forced")
                 and self.product_id != self.todo_line_id.product_id
             ):
-                self._set_messagge_info("more_match", _("Wrong product"))
+                self._set_message_info("more_match", _("Wrong product"))
                 return False
         return True
 
@@ -543,7 +543,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             if serial_lines:
                 self.lot_name = False
                 self.lot_id = False
-                self._set_messagge_info("more_match", _("S/N Already in picking"))
+                self._set_message_info("more_match", _("S/N Already in picking"))
                 return False
         # For incoming pickings the lot is not filled so we try fill it with
         # the lot scanned
@@ -559,7 +559,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             ):
                 self.lot_name = False
                 self.lot_id = False
-                self._set_messagge_info("more_match", _("S/N already created"))
+                self._set_message_info("more_match", _("S/N already created"))
                 return False
             lines = candidate_lines.filtered(
                 lambda line: (not line.lot_id and line.barcode_scan_state == "pending")
@@ -592,7 +592,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             > 0
         ):
-            self._set_messagge_info(
+            self._set_message_info(
                 "more_match", _("Quantities scanned are higher than necessary.")
             )
             self.visible_force_done = True
@@ -781,7 +781,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             not self.option_group_id.allow_not_demanded_product
             and self.product_id not in self.todo_line_ids.product_id
         ):
-            self._set_messagge_info("not_found", _("Product not demanded"))
+            self._set_message_info("not_found", _("Product not demanded"))
             return False
         if (
             self.picking_type_code != "incoming"
@@ -794,7 +794,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             and not self.env.context.get("force_create_move", False)
             and not self.option_group_id.allow_negative_quant
         ):
-            self._set_messagge_info(
+            self._set_message_info(
                 "more_match", _("Quantities not available in location")
             )
             if self.option_group_id.allow_negative_quant:
@@ -805,7 +805,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         if self.picking_mode == "picking_batch":
             return res
         if not self.picking_id:
-            self._set_messagge_info("info", _("No picking selected"))
+            self._set_message_info("info", _("No picking selected"))
             return False
         return res
 

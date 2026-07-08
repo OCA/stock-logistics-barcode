@@ -53,7 +53,8 @@ class WizStockBarcodesNewPackaing(models.TransientModel):
     def confirm(self):
         ProductPackaging = self.env["product.packaging"]
         product_packaging = ProductPackaging.search(
-            [("product_id", "=", self.product_id.id), ("barcode", "=", self.barcode)]
+            [("product_id", "=", self.product_id.id), ("barcode", "=", self.barcode)],
+            limit=1,
         )
         if not product_packaging:
             product_packaging = ProductPackaging.create(

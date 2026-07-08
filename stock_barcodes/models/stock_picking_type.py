@@ -56,16 +56,12 @@ class StockPickingType(models.Model):
 
     def action_barcode_new_picking(self):
         self.ensure_one()
-        picking = (
-            self.env["stock.picking"]
-            .with_context(default_immediate_transfer=True)
-            .create(
-                {
-                    "picking_type_id": self.id,
-                    "location_id": self.default_location_src_id.id,
-                    "location_dest_id": self.default_location_dest_id.id,
-                }
-            )
+        picking = self.env["stock.picking"].create(
+            {
+                "picking_type_id": self.id,
+                "location_id": self.default_location_src_id.id,
+                "location_dest_id": self.default_location_dest_id.id,
+            }
         )
         option_group = self.new_picking_barcode_option_group_id
         return picking.action_barcode_scan(option_group=option_group)
@@ -82,19 +78,9 @@ class StockPickingType(models.Model):
         action = self.env["ir.actions.actions"]._for_xml_id(action_xmlid)
         if self:
             action["display_name"] = self.display_name
-
-        default_immediate_tranfer = True
-        if (
-            self.env["ir.config_parameter"]
-            .sudo()
-            .get_param("stock.no_default_immediate_tranfer")
-        ):
-            default_immediate_tranfer = False
-
         context = {
             "search_default_picking_type_id": [self.id],
             "default_picking_type_id": self.id,
-            "default_immediate_transfer": default_immediate_tranfer,
             "default_company_id": self.company_id.id,
         }
 

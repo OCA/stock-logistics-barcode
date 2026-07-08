@@ -141,7 +141,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         return True
 
     def _serial_tracking_message_fail(self):
-        self._set_messagge_info(
+        self._set_message_info(
             "more_match",
             _("Inventory line with more than one unit in serial tracked product"),
         )
