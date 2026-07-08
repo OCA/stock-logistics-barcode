@@ -75,8 +75,12 @@ class StockPicking(models.Model):
         if self.env.context.get("stock_barcodes_read_picking_id", False) and all(
             p.state == "done" for p in self
         ):
+            # Notify only the validating user, with the same envelope expected
+            # by the "stock_barcodes_scan" subscription of the web client.
             self.env["bus.bus"]._sendone(
-                "stock_barcodes_scan", "actions_barcode", {"valid_picking": True}
+                self.env.user.partner_id,
+                "stock_barcodes_scan",
+                {"type": "actions_barcode", "payload": {"valid_picking": True}},
             )
         after_validate_action = False
         wiz_id = self.env.context.get("stock_barcodes_read_picking_id", False)

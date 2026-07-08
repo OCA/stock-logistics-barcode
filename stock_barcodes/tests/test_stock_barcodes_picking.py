@@ -757,9 +757,9 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(action["res_id"], self.picking_in_01.id)
 
     def test_action_validate_picking(self):
-        with patch.object(
-            type(self.StockPicking), "button_validate", return_value=True
-        ) as mock_validate:
+        # Patch the core method so the stock_barcodes button_validate
+        # override still runs and returns the after-validate action.
+        with patch(patch_core_button_validate, return_value=True) as mock_validate:
             result = self.wiz_scan_picking.action_validate_picking()
             mock_validate.assert_called_once()
             # When button_validate returns True the action after validate is returned

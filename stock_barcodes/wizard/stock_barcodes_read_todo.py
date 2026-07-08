@@ -265,10 +265,10 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         if wiz_barcode.option_group_id.manual_entry_on_edit:
             wiz_barcode.manual_entry = True
         self.fill_from_pending_line()
-        self.env["bus.bus"]._sendone(
+        wiz_barcode.send_bus_done(
             "stock_barcodes_scan",
-            "stock_barcodes_edit_manual",
             {
-                "manual_entry": True,
+                "type": "stock_barcodes_edit_manual",
+                "payload": {"manual_entry": True},
             },
         )

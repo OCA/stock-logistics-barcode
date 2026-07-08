@@ -10,7 +10,7 @@ from odoo.exceptions import ValidationError
 from odoo.tests.common import tagged
 from odoo.tools.safe_eval import safe_eval
 
-from odoo.addons.stock_barcodes.models.stock_barcodes_action import FIELDS_NAME, REGEX
+from odoo.addons.stock_barcodes.models.stock_barcodes_action import REGEX
 
 from .common import TestCommonStockBarcodes
 
@@ -111,32 +111,32 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertEqual(field_values[0].strip("'"), "search_default_barcode_options")
         self.assertTrue(len(field_values[0].split("search_default_")), 2)
         self.assertEqual(self.barcode_action_invalid._count_elements(), 0)
+        # A missing context must not break the counter computation
         self.barcode_action_invalid.context = False
-        with self.assertRaises(TypeError):
-            self.barcode_action_invalid._compute_count_elements()
+        self.barcode_action_invalid._compute_count_elements()
+        self.assertEqual(self.barcode_action_invalid.count_elements, 0)
         self.barcode_action_invalid.context = "{}"
         self.assertFalse("search_default_" in self.barcode_action_invalid.context)
-
         self.assertEqual(self.barcode_action_invalid._count_elements(), 0)
-        self.barcode_action_valid.context = "{'search_default_code': 1}"
-        # self.assertEqual(self.barcode_action_valid._count_elements(), 5)
-        field_value_name = (
-            self.barcode_action_valid.context.strip("{}").split(",")[0].split(":")
+        # A named filter mapped through FIELDS_NAME counts the records
+        # matching the filter domain (field set)
+        PickingType = self.env["stock.picking.type"]
+        self.assertEqual(
+            self.barcode_action_valid._count_elements(),
+            PickingType.search_count([("barcode_option_group_id", "!=", False)]),
         )
-        field_name = field_value_name[0].split("search_default_")[1].strip("'")
-        self.assertTrue("search_default_" in self.barcode_action_valid.context)
-        self.assertFalse(
-            hasattr(
-                self.barcode_action_valid.action_window_id.res_model,
-                FIELDS_NAME.get(field_name, field_name),
-            )
+        # A search_default on a model field counts records matching its value
+        self.barcode_action_valid.context = "{'search_default_code': 'incoming'}"
+        self.assertEqual(
+            self.barcode_action_valid._count_elements(),
+            PickingType.search_count([("code", "=", "incoming")]),
         )
-        field_values = field_value_name[1].strip()
-        self.assertTrue(field_values.isdigit())
-
-        with self.assertRaises(IndexError):
-            self.barcode_action_invalid.context = "{'search_default_'}"
-            self.assertEqual(self.barcode_action_invalid._count_elements(), 0)
+        # An unknown search_default field can not build a reliable domain
+        self.barcode_action_valid.context = "{'search_default_dummy_field': 1}"
+        self.assertEqual(self.barcode_action_valid._count_elements(), 0)
+        # A malformed context entry must not raise
+        self.barcode_action_valid.context = "{'search_default_'}"
+        self.assertEqual(self.barcode_action_valid._count_elements(), 0)
         with self.assertRaises(ValidationError):
             self.StockBarcodeAction.create(
                 {
