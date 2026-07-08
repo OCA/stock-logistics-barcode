@@ -27,6 +27,10 @@ class StockMoveLine(models.Model):
         for line in self:
             if line.picked or line.state == "done":
                 line.qty_picked = line.quantity
+            else:
+                # Editable stored compute used as a smart default: keep the
+                # quantity accumulated by scanning.
+                line.qty_picked = line.qty_picked
 
     @api.depends("qty_picked", "quantity_product_uom")
     def _compute_barcode_scan_state(self):
