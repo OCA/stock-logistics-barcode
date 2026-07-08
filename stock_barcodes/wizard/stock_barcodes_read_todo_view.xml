@@ -78,9 +78,9 @@
                                             <span>
                                                 <field name="package_id" />
                                                 <t t-if="record.package_id">(<span
-                                                    t-esc="record.package_product_qty.value"
+                                                    t-out="record.package_product_qty.value"
                                                 /> <t
-                                                    t-esc="record.uom_id.value.slice(0,3)"
+                                                    t-out="record.uom_id.value.slice(0,3)"
                                                 />)</t>
                                             </span>
                                             <span>
@@ -94,7 +94,7 @@
                                 <div class="col-12">
                                     <span>
                                         <span class="fw-bold">
-                                        <t t-esc="record.qty_done.value" />
+                                        <t t-out="record.qty_done.value" />
                                     </span> /
                                         <t
                                         t-if="record.is_stock_move_line_origin.raw_value"
@@ -281,7 +281,7 @@
                                     </t>
                                         <span
                                         t-if="record.uom_id"
-                                        t-esc="record.uom_id.value"
+                                        t-out="record.uom_id.value"
                                     />
                                     </div>
                                 </div>
@@ -321,7 +321,7 @@
                                         +
                                         <span
                                         class="text-white"
-                                        t-esc="record.qty_done_rest.raw_value"
+                                        t-out="record.qty_done_rest.raw_value"
                                     />
                                     </button>
                                 </div>

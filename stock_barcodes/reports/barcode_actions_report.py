@@ -1,7 +1,7 @@
 from odoo import api, models
 
 
-class ReportStockBarcodesBarcodeActions(models.Model):
+class ReportStockBarcodesBarcodeActions(models.AbstractModel):
     _name = "report.stock_barcodes.report_barcode_actions"
     _description = "Print barcodes from barcode actions"
 

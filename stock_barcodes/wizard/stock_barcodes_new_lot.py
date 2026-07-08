@@ -12,7 +12,9 @@ class WizStockBarcodesNewLot(models.TransientModel):
     lot_name = fields.Char(string="Lot name")
 
     def on_barcode_scanned(self, barcode):
-        product = self.env["product.product"].search([("barcode", "=", barcode)])[:1]
+        product = self.env["product.product"].search(
+            [("barcode", "=", barcode)], limit=1
+        )
         if product and not self.product_id:
             self.product_id = product
             return
@@ -46,7 +48,8 @@ class WizStockBarcodesNewLot(models.TransientModel):
     def confirm(self):
         ProductionLot = self.env["stock.lot"]
         lot = ProductionLot.search(
-            [("product_id", "=", self.product_id.id), ("name", "=", self.lot_name)]
+            [("product_id", "=", self.product_id.id), ("name", "=", self.lot_name)],
+            limit=1,
         )
         if not lot:
             lot = self.env["stock.lot"].create(self._prepare_lot_values())

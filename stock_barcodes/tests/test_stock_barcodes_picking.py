@@ -21,12 +21,15 @@ patch_read = patch_wizard + ".stock_barcodes_read.WizStockBarcodesRead"
 
 patch_prepare_stock_moves_domain = patch_read_picking + "._prepare_stock_moves_domain"
 
-patch_set_messagge_info = patch_read + "._set_messagge_info"
+patch_set_message_info = patch_read + "._set_message_info"
 patch_set_focus_on_qty_input = patch_read + "._set_focus_on_qty_input"
 patch_check_done_conditions = patch_read + ".check_done_conditions"
 patch_action_assign_serial = patch_read_picking + ".action_assign_serial"
 patch_action_put_in_pack = (
     patch_stock_models + ".stock_picking.Picking.action_put_in_pack"
+)
+patch_core_button_validate = (
+    patch_stock_models + ".stock_picking.Picking.button_validate"
 )
 
 
@@ -704,7 +707,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertTrue(result)
 
         with patch.object(
-            type(self.wiz_scan_option_guided), "_set_messagge_info"
+            type(self.wiz_scan_option_guided), "_set_message_info"
         ) as mock_msg:
             self.wiz_scan_option_guided.product_id = self.product_tracking.id
             self.wiz_scan_option_guided.option_group_id = self.option_group8.id
@@ -830,9 +833,9 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         )
 
     @mock.patch(patch_set_focus_on_qty_input)
-    @mock.patch(patch_set_messagge_info)
+    @mock.patch(patch_set_message_info)
     def test_check_done_conditions(
-        self, mock_set_messagge_info, mock_set_focus_on_qty_input
+        self, mock_set_message_info, mock_set_focus_on_qty_input
     ):
         self.wiz_scan_option_guided.product_id = self.product_wo_tracking.id
         self.wiz_scan_option_guided.product_qty = 100
@@ -847,7 +850,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.wiz_scan_option_guided.picking_id = self.picking_in_01.id
         result = self.wiz_scan_option_guided.check_done_conditions()
         self.assertFalse(result)
-        self.assertEqual(mock_set_messagge_info.call_count, 4)
+        self.assertEqual(mock_set_message_info.call_count, 4)
         # The scanned product is not part of the picking demand, so the picking
         # override rejects it right after the base "Waiting location" message.
         expected_calls = [
@@ -856,7 +859,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             call("info", "Waiting location"),
             call("not_found", "Product not demanded"),
         ]
-        mock_set_messagge_info.assert_has_calls(expected_calls)
+        mock_set_message_info.assert_has_calls(expected_calls)
         mock_set_focus_on_qty_input.assert_not_called()
 
     def test_update_fields_after_determine_todo(self):
@@ -969,7 +972,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         wiz.option_group_id.allow_not_demanded_product = True
         wiz.product_id = self.product_wo_tracking.id
         wiz.product_qty = 1
-        with patch.object(type(wiz), "_set_messagge_info") as mock_msg:
+        with patch.object(type(wiz), "_set_message_info") as mock_msg:
             wiz.check_done_conditions()
             messages = [args[1] for args, _kw in mock_msg.call_args_list]
             self.assertNotIn("Product not demanded", messages)
