@@ -1,11 +1,13 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+import json
 from unittest.mock import patch
 
 from odoo.fields import Command
 from odoo.tests import common
 
+from odoo.addons.bus.models.bus import json_dump
 from odoo.addons.mail.tests.common import MailCommon
 from odoo.addons.stock_barcodes.tests.test_stock_barcodes import TestStockBarcodes
 
@@ -82,11 +84,24 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
     def _assert_barcode_notification(
         self, message, title="GS-1 code", sticky=True, notif_type="danger"
     ):
-        self.assertBusNotifications(
-            [[self.cr.dbname, f"stock_barcodes-{self.wiz_scan.id}"]],
-            [
-                {
-                    "type": f"stock_barcodes_notify-{self.wiz_scan.id}",
+        """Check that display_notification() pushed the expected payload.
+
+        Notifications are sent to the current user's partner channel (see
+        barcode_events_mixin.send_bus_done), which also carries sounds and
+        other payloads, so look for the expected message instead of
+        asserting the whole channel content with assertBusNotifications.
+        """
+        self.env.cr.precommit.run()  # trigger the creation of bus.bus records
+        channel = json_dump(
+            (self.cr.dbname, "res.partner", self.env.user.partner_id.id)
+        )
+        notifications = self.env["bus.bus"].sudo().search([("channel", "=", channel)])
+        messages = [json.loads(notification.message) for notification in notifications]
+        self.assertIn(
+            {
+                "type": "stock_barcodes_scan",
+                "payload": {
+                    "type": "stock_barcodes_notify",
                     "payload": {
                         "message": message,
                         "type": notif_type,
@@ -95,9 +110,9 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
                         "res_id": self.wiz_scan.id,
                         "title": title,
                     },
-                }
-            ],
-            check_unique=False,
+                },
+            },
+            messages,
         )
 
     def test_wizard_scan_gs1_package(self):
