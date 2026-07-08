@@ -75,41 +75,43 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_30(self, gs1_list):
         """Variable Qty"""
-        product_qty = self._process_product_qty_gs1(float(self.barcode))
-        if self.packaging_id:
-            self.packaging_qty = product_qty
-            self.product_qty = self.packaging_qty * self.packaging_id.qty
-        else:
-            self.product_qty = product_qty
-        return True
+        return self._set_gs1_product_qty(
+            self._process_product_qty_gs1(float(self.barcode))
+        )
 
     def _process_ai_37(self, gs1_list):
         """Product Qty"""
-        product_qty = self._process_product_qty_gs1(float(self.barcode))
+        return self._set_gs1_product_qty(
+            self._process_product_qty_gs1(float(self.barcode))
+        )
+
+    def _set_gs1_product_qty(self, product_qty):
+        """Set the quantities from a GS1 quantity AI, converting through the
+        scanned packaging when any."""
         if self.packaging_id:
             self.packaging_qty = product_qty
-            product_qty = self.packaging_id.qty * product_qty
+            product_qty *= self.packaging_id.qty
         self.product_qty = product_qty
         return True
 
     def _process_ai_310(self, gs1_list):
         """Net Weight"""
-        weight_ai = next(filter(lambda f: f["ai"].startswith("31"), gs1_list), False)
-        if weight_ai[
-            "use_weight_as_unit"
-        ] or self.product_uom_id.category_id == self.env.ref(
-            "uom.product_uom_categ_kgm"
-        ):
-            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
-        return True
+        return self._process_gs1_weight(gs1_list, "31")
 
     def _process_ai_330(self, gs1_list):
         """Gross Weight"""
-        weight_ai = next(filter(lambda f: f["ai"].startswith("33"), gs1_list), False)
-        if weight_ai[
-            "use_weight_as_unit"
-        ] or self.product_uom_id.category_id == self.env.ref(
-            "uom.product_uom_categ_kgm"
+        return self._process_gs1_weight(gs1_list, "33")
+
+    def _process_gs1_weight(self, gs1_list, ai_prefix):
+        """Set the quantity from a weight AI when the rule allows using the
+        weight as units or the product is weight based."""
+        weight_ai = next(
+            filter(lambda f: f["ai"].startswith(ai_prefix), gs1_list), False
+        )
+        if weight_ai and (
+            weight_ai.get("use_weight_as_unit")
+            or self.product_uom_id.category_id
+            == self.env.ref("uom.product_uom_categ_kgm")
         ):
             self.product_qty = self._process_product_qty_gs1(float(self.barcode))
         return True
@@ -160,21 +162,21 @@ class WizStockBarcodesRead(models.AbstractModel):
         for gs1_item in gs1_list:
             self.barcode = self._hook_process_gs1_value(gs1_item)
             ai = gs1_item["ai"]
-            ai_name = ai[:3]
-            if hasattr(self, f"_process_ai_{ai_name}"):
-                res = getattr(self, f"_process_ai_{ai_name}")(gs1_list=gs1_list)
+            process_ai = getattr(self, f"_process_ai_{ai[:3]}", None)
+            if process_ai:
+                res = process_ai(gs1_list=gs1_list)
                 if not res:
                     warning_msg_list.append(
                         self.message
-                        or _("({ai}){barcode} Not found").format(
-                            ai=ai, barcode=self.barcode
+                        or _(
+                            "(%(ai)s)%(barcode)s Not found",
+                            ai=ai,
+                            barcode=self.barcode,
                         )
                     )
                     self.message = False
             else:
-                warning_msg_list.append(
-                    _("AI GS1 ({ai}) Not implemented").format(ai=ai)
-                )
+                warning_msg_list.append(_("AI GS1 (%(ai)s) Not implemented", ai=ai))
         if warning_msg_list:
             self.barcode = False
             self._set_messagge_info("info", " ".join(warning_msg_list))
