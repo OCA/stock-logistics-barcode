@@ -1,7 +1,9 @@
 ## 18.0.1.3.0 (2026-07-08)
 
 - \[FIX\] Restore bus notifications broken by the 18.0 bus API: scanning
-  an action barcode from the main menu, the "transfer validated" toast,
+  an action barcode from the main menu (whose client-side scanner capture
+  was never wired since the feature was introduced in 16.0), the
+  "transfer validated" toast,
   the manual-edit toggle from a pending line and the
   `display_notification()` toasts (e.g. "Lot is required"), which were
   sent with a per-record notification type nobody subscribes to. Events

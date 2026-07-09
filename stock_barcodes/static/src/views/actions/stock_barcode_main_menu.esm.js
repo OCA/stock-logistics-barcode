@@ -1,8 +1,8 @@
+import {useBus, useService} from "@web/core/utils/hooks";
 import {_t} from "@web/core/l10n/translation";
 import {browser} from "@web/core/browser/browser";
 import {markup} from "@odoo/owl";
 import {registry} from "@web/core/registry";
-import {useService} from "@web/core/utils/hooks";
 
 const {Component, onWillStart, useEffect} = owl;
 
@@ -20,6 +20,14 @@ export class StockBarcodesMainMenu extends Component {
         onWillStart(async () => {
             this.barcodeActions = await this.getBarcodeActions();
         });
+
+        // Capture the scanner input on this screen and let the server look
+        // up the barcode action; the reply comes back through the
+        // "actions_main_menu_barcode" bus notification handled below.
+        const barcodeService = useService("barcode");
+        useBus(barcodeService.bus, "barcode_scanned", (ev) =>
+            this._onBarcodeScanned(ev.detail.barcode)
+        );
 
         const handleMainMenuBarcode = (payload) => {
             if (payload.action_ok && payload.action) {
@@ -53,6 +61,13 @@ export class StockBarcodesMainMenu extends Component {
 
     hasService(service) {
         return service in this.env.services;
+    }
+
+    async _onBarcodeScanned(barcode) {
+        await this.ormService.call("wiz.stock.barcodes.read", "process_barcode", [
+            [],
+            barcode,
+        ]);
     }
 
     mainMenuHome() {

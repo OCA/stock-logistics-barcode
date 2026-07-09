@@ -163,9 +163,12 @@ by _New_ to create an unplanned picking).
 All assets are ESM modules registered in `web.assets_backend` (ordered injection with
 `("after", ...)` for inherited XML templates):
 
-- `views/actions/stock_barcode_main_menu.esm.js`: client action
-  (`stock_barcodes_main_menu` bus channel) that lists `stock.barcodes.action` records as
-  tiles, listens for scanned action barcodes and executes the linked window action.
+- `views/actions/stock_barcode_main_menu.esm.js`: client action that lists
+  `stock.barcodes.action` records as tiles and handles action barcodes end to end: the
+  core `barcode` service captures the scan (`barcode_scanned`), the component calls
+  `wiz.stock.barcodes.read.process_barcode([], barcode)`, and the server replies on the
+  partner bus with the `actions_main_menu_barcode` notification carrying the window
+  action to execute (or a "not found" toast).
 - `views/form/form_controller.esm.js` + `form_view.esm.js`: barcode form variant that
   hides the control panel, guards the optional `barcode` service and manages listener
   cleanup.
