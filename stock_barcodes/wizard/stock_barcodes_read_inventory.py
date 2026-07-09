@@ -152,6 +152,14 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             result = self._add_inventory_quant()
             if result:
                 self.action_clean_values()
+                # Refresh the Apply counter after a scan. count_inventory_quants
+                # depends on the non-stored inventory_quant_ids, and creating a
+                # quant does not invalidate it, so force the recomputation before
+                # pushing the count to the client.
+                self.invalidate_recordset(
+                    ["inventory_quant_ids", "count_inventory_quants"]
+                )
+                self._refresh_inventory_quants()
         return result
 
     def action_manual_entry(self):
@@ -191,5 +199,11 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         action = self.env["ir.actions.actions"]._for_xml_id(
             "stock.action_stock_inventory_adjustement_name"
         )
-        action["context"] = {"default_quant_ids": self.inventory_quant_ids.ids}
+        # Flag the reason wizard context so that, once the quants are applied,
+        # stock.quant.action_apply_inventory only notifies the barcode interface
+        # for adjustments started from here (see models/stock_quant.py).
+        action["context"] = {
+            "default_quant_ids": self.inventory_quant_ids.ids,
+            "barcode_apply_inventory": True,
+        }
         return action
