@@ -121,6 +121,43 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
             wiz._compute_inventory_quant_ids()
             mock_bus.assert_not_called()
 
+    def test_apply_inventory_notifies_only_in_barcode_context(self):
+        # Applying an inventory adjustment from outside the barcode wizard
+        # (e.g. the product form "Update Quantity") must NOT push barcode users
+        # back to the scan menu, so no "actions_barcode" notification is sent.
+        quant = self.StockQuant.with_context(inventory_mode=True).create(
+            {
+                "product_id": self.product_wo_tracking.id,
+                "location_id": self.location_1.id,
+                "inventory_quantity": 5,
+            }
+        )
+        with patch.object(type(quant), "send_bus_done") as mock_bus:
+            quant.action_apply_inventory()
+            scan_calls = [
+                call
+                for call in mock_bus.call_args_list
+                if call.args and call.args[0] == "stock_barcodes_scan"
+            ]
+            self.assertFalse(scan_calls)
+
+    def test_apply_inventory_notifies_in_barcode_context(self):
+        # From the barcode wizard (barcode_apply_inventory flag) the adjustment
+        # notifies the scan interface.
+        quant = self.StockQuant.with_context(inventory_mode=True).create(
+            {
+                "product_id": self.product_wo_tracking.id,
+                "location_id": self.location_2.id,
+                "inventory_quantity": 7,
+            }
+        )
+        with patch.object(type(quant), "send_bus_done") as mock_bus:
+            quant.with_context(barcode_apply_inventory=True).action_apply_inventory()
+            mock_bus.assert_any_call(
+                "stock_barcodes_scan",
+                {"type": "actions_barcode", "payload": {"apply_inventory": True}},
+            )
+
     def test_refresh_inventory_quants_sends_bus(self):
         wiz = self.wiz_scan_read_inventory
         with patch.object(type(wiz), "send_bus_done") as mock_bus:

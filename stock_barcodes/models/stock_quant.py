@@ -78,10 +78,15 @@ class StockQuant(models.Model):
 
     def action_apply_inventory(self):
         res = super().action_apply_inventory()
-        self.send_bus_done(
-            "stock_barcodes_scan",
-            {"type": "actions_barcode", "payload": {"apply_inventory": True}},
-        )
+        # Only notify the barcode interface when the adjustment is applied from
+        # the barcode inventory wizard (it flags the context in apply_inventory).
+        # Applying from anywhere else (e.g. the product form "Update Quantity")
+        # must not push barcode users back to the scan menu.
+        if self.env.context.get("barcode_apply_inventory"):
+            self.send_bus_done(
+                "stock_barcodes_scan",
+                {"type": "actions_barcode", "payload": {"apply_inventory": True}},
+            )
         return res
 
     @api.model
