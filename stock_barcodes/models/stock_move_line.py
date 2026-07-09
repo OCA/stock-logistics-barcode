@@ -46,6 +46,46 @@ class StockMoveLine(models.Model):
                 # avoids flagging empty 0/0 lines as done.
                 line.barcode_scan_state = "pending"
 
+    @api.model_create_multi
+    def create(self, vals_list):
+        lines = super().create(vals_list)
+        if self.env.context.get("stock_barcodes_assign_serials"):
+            lines._stock_barcodes_set_scanned_from_dialog()
+        return lines
+
+    def write(self, vals):
+        res = super().write(vals)
+        if self.env.context.get("stock_barcodes_assign_serials") and (
+            "lot_id" in vals or "lot_name" in vals
+        ):
+            self._stock_barcodes_set_scanned_from_dialog()
+        return res
+
+    def _stock_barcodes_set_scanned_from_dialog(self):
+        """Count as scanned the lines that get a lot/serial in the detailed
+        operations dialog opened from the barcode screen (e.g. with the
+        generate serials widget), and link the new ones to their pending
+        card so its counters include them.
+        """
+        wiz = self.env["wiz.stock.barcodes.read.picking"].browse(
+            self.env.context.get("stock_barcodes_wiz_id")
+        )
+        for line in self:
+            if not line.lot_id and not line.lot_name:
+                continue
+            if line.move_id and not line.picking_id:
+                # The generate serials widget creates the lines from raw
+                # values bypassing the dialog subview defaults, so they come
+                # without picking and would be invisible to every view based
+                # on picking.move_line_ids
+                line.picking_id = line.move_id.picking_id
+            line.qty_picked = line.quantity
+            todo_lines = wiz.todo_line_ids.filtered(
+                lambda t, line=line: line.move_id in t.stock_move_ids
+                and line not in t.line_ids
+            )
+            todo_lines.line_ids = [(4, line.id)]
+
     def _barcodes_process_line_to_unlink(self):
         self.qty_picked = 0.0
 

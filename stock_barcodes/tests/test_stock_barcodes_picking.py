@@ -19,12 +19,10 @@ patch_read_picking = (
 )
 patch_read = patch_wizard + ".stock_barcodes_read.WizStockBarcodesRead"
 
-patch_prepare_stock_moves_domain = patch_read_picking + "._prepare_stock_moves_domain"
 
 patch_set_message_info = patch_read + "._set_message_info"
 patch_set_focus_on_qty_input = patch_read + "._set_focus_on_qty_input"
 patch_check_done_conditions = patch_read + ".check_done_conditions"
-patch_action_assign_serial = patch_read_picking + ".action_assign_serial"
 patch_action_put_in_pack = (
     patch_stock_models + ".stock_picking.Picking.action_put_in_pack"
 )
@@ -877,16 +875,85 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.wiz_scan_option_guided.action_put_in_pack()
         mock_action_put_in_pack.assert_called_once()
 
-    @mock.patch(patch_action_assign_serial)
-    @mock.patch(patch_prepare_stock_moves_domain)
-    def test_action_assign_serial(
-        self, mock_prepare_stock_moves_domain, mock_action_assign_serial
-    ):
-        mock_prepare_stock_moves_domain._prepare_stock_moves_domain.return_value = [
-            ("id", "in", [self.stock_move_assigned.id, self.stock_move_test.id])
-        ]
-        self.wiz_scan_option_guided.action_assign_serial()
-        mock_action_assign_serial.assert_called_once()
+    def test_action_assign_serial(self):
+        # A user opens the barcode screen of a reception with a serial
+        # tracked product, scans the product and presses the assign-serials
+        # button. The core removed the stock.assign.serial wizard in 18.0,
+        # so the button must open the detailed operations dialog of the
+        # pending move instead.
+        product_serial = self.product_tracking_serial
+        picking = self.env["stock.picking"].create(
+            {
+                "location_id": self.supplier_location.id,
+                "location_dest_id": self.stock_location.id,
+                "partner_id": self.partner_agrolite.id,
+                "picking_type_id": self.picking_type_in.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "name": product_serial.name,
+                            "product_id": product_serial.id,
+                            "product_uom_qty": 1,
+                            "product_uom": product_serial.uom_id.id,
+                            "location_id": self.supplier_location.id,
+                            "location_dest_id": self.stock_location.id,
+                        }
+                    )
+                ],
+            }
+        )
+        picking.action_confirm()
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.action_barcode_scanned(wiz, product_serial.barcode)
+        self.assertEqual(wiz.product_id, product_serial)
+        action = wiz.action_assign_serial()
+        self.assertEqual(action["res_model"], "stock.move")
+        self.assertEqual(action["target"], "new")
+        move = picking.move_ids
+        self.assertEqual(action["res_id"], move.id)
+        # The user generates 3 serials in the dialog (over the demand of 1):
+        # the lines must show up as scanned and linked to the pending card.
+        # Mimic the generate_serials widget save: it deletes the existing
+        # lines and creates one line per serial from the generated values,
+        # keeping only the fields of the dialog subview, under the dialog
+        # action context.
+        dialog_context = {
+            **action["context"],
+            "default_product_id": product_serial.id,
+            "default_location_dest_id": move.location_dest_id.id,
+            "default_location_id": move.location_id.id,
+            "default_tracking": product_serial.tracking,
+            "default_quantity": move.product_qty,
+        }
+        vals_list = move.with_context(
+            **action["context"]
+        ).action_generate_lot_line_vals(dialog_context, "generate", "SERIAL-000", 3, "")
+        sml_fields = self.env["stock.move.line"]._fields
+        commands = [Command.delete(line.id) for line in move.move_line_ids]
+        for vals in vals_list:
+            create_vals = {}
+            for key, value in vals.items():
+                if key not in sml_fields:
+                    continue
+                if isinstance(value, dict) and "id" in value:
+                    value = value["id"]
+                create_vals[key] = value
+            commands.append(Command.create(create_vals))
+        move.with_context(**action["context"]).write({"move_line_ids": commands})
+        self.assertEqual(len(move.move_line_ids), 3)
+        for line in move.move_line_ids:
+            self.assertEqual(line.qty_picked, 1)
+            self.assertEqual(line.barcode_scan_state, "done")
+        todo_line = wiz.todo_line_ids.filtered(lambda t: move in t.stock_move_ids)
+        self.assertEqual(set(todo_line.line_ids.ids), set(move.move_line_ids.ids))
+        self.assertEqual(todo_line.qty_done, 3)
+        self.assertEqual(todo_line.state, "done")
+        self.assertEqual(len(wiz.move_line_ids), 3)
+        # A product without pending moves on the screen warns the user
+        wiz.product_id = self.product_wo_tracking
+        with self.assertRaises(ValidationError):
+            wiz.action_assign_serial()
 
     def test_group_key(self):
         result = self.wiz_scan_option_guided._group_key(self.test_move_line)
