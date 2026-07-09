@@ -868,7 +868,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
             move = smls[:1].move_id
         if move:
-            return move.action_assign_serial()
+            # stock.move.action_assign_serial() is broken in 18.0: the
+            # stock.assign.serial wizard and its stock.act_assign_serial_numbers
+            # action were removed from the core, which replaced them with the
+            # generate_serials widget of the detailed operations dialog. Open
+            # that dialog instead. The context marks lines getting a lot there
+            # as scanned and links them to the pending card (see
+            # stock.move.line._stock_barcodes_set_scanned_from_dialog).
+            action = move.action_show_details()
+            action["context"] = dict(
+                action.get("context") or {},
+                stock_barcodes_assign_serials=True,
+                stock_barcodes_wiz_id=self.id,
+            )
+            return action
         raise ValidationError(_("No pending lines for this product"))
 
     def action_put_in_pack(self):

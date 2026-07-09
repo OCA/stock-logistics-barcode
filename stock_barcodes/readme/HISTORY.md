@@ -17,6 +17,14 @@
   notification is sent when the read or the manual confirmation ends:
   always for errors, only in manual entry for informative messages, and
   for "Manual entry OK" only when the whole confirmation succeeded.
+- \[FIX\] Assign serial numbers button: the core removed the
+  stock.assign.serial wizard in 18.0 leaving
+  stock.move.action_assign_serial() broken (missing
+  stock.act_assign_serial_numbers action), so the button crashed. It now
+  opens the detailed operations dialog of the pending move, where the
+  core 18.0 generate-serials widget lives. Lines receiving a
+  lot/serial in that dialog are counted as scanned and linked to the
+  pending card, so generated serials show up on the barcode screen.
 - \[FIX\] Show each barcode notification only once. The barcode views
   subscribed the same handler to two bus notification types, which leaks
   a listener on every render (the bus service maps subscriptions by
