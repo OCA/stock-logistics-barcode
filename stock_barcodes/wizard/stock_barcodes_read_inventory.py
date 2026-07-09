@@ -191,5 +191,11 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         action = self.env["ir.actions.actions"]._for_xml_id(
             "stock.action_stock_inventory_adjustement_name"
         )
-        action["context"] = {"default_quant_ids": self.inventory_quant_ids.ids}
+        # Flag the reason wizard context so that, once the quants are applied,
+        # stock.quant.action_apply_inventory only notifies the barcode interface
+        # for adjustments started from here (see models/stock_quant.py).
+        action["context"] = {
+            "default_quant_ids": self.inventory_quant_ids.ids,
+            "barcode_apply_inventory": True,
+        }
         return action
