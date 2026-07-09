@@ -1,2 +1,2 @@
 # generated from manifests external_dependencies
-python-barcode
+python-barcode<v0.15
