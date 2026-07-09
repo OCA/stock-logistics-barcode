@@ -152,6 +152,14 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             result = self._add_inventory_quant()
             if result:
                 self.action_clean_values()
+                # Refresh the Apply counter after a scan. count_inventory_quants
+                # depends on the non-stored inventory_quant_ids, and creating a
+                # quant does not invalidate it, so force the recomputation before
+                # pushing the count to the client.
+                self.invalidate_recordset(
+                    ["inventory_quant_ids", "count_inventory_quants"]
+                )
+                self._refresh_inventory_quants()
         return result
 
     def action_manual_entry(self):
