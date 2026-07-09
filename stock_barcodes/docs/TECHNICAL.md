@@ -188,8 +188,9 @@ direct `_sendone` calls with the partner as target. The client reacts with
 ## 5. Reports, hooks, security, packaging
 
 - **Report**: `report.stock_barcodes.report_barcode_actions` renders a PDF with the
-  Code128 images of the selected barcode actions. Images are generated with the external
-  `python-barcode` library (`stock.barcodes.action._generate_barcode`).
+  Code128 images of the selected barcode actions. Images are generated with the core
+  `ir.actions.report.barcode()` helper (`stock.barcodes.action._generate_barcode`), so
+  no external library is required.
 - **pre_init_hook**: creates `stock_move_line.barcode_scan_state`,
   `stock_move_line.qty_picked` and `stock_move.barcode_backorder_action` by SQL before
   the ORM loads, and seeds `qty_picked = quantity`, so installation on a large database
@@ -201,8 +202,9 @@ direct `_sendone` calls with the partner as target. The client reacts with
   `stock.barcodes.action` writable only by `base.group_system`). Feature gating reuses
   core groups (`stock.group_production_lot`, `stock.group_tracking_lot`,
   `product.group_stock_packaging`).
-- **Packaging**: PEP 517 `pyproject.toml` (whool); external dependency `python-barcode`
-  declared in the manifest.
+- **Packaging**: PEP 517 `pyproject.toml` (whool); no external Python dependencies (the
+  `python-barcode` requirement introduced by the 17.0 migration was dropped in favor of
+  the core barcode renderer).
 
 ## 6. Extension points
 

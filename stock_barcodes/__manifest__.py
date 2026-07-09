@@ -57,5 +57,4 @@
     },
     "installable": True,
     "pre_init_hook": "pre_init_hook",
-    "external_dependencies": {"python": ["python-barcode"]},
 }

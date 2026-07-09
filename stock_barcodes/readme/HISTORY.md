@@ -23,6 +23,9 @@
 - \[FIX\] Barcode action tile counters: the model-field check never
   matched (checked attributes on a string), so tiles counted all records
   of the model; named filters now count records matching the filter.
+- \[REF\] Drop the `python-barcode` external dependency introduced by
+  the 17.0 migration: barcode action images are rendered again with
+  the core `ir.actions.report.barcode()` helper, as in 16.0.
 - \[REF\] Remove pre-17.0 immediate-transfer leftovers, use
   `_read_group` aggregation, convert the report model to
   `AbstractModel`, drop a duplicated ACL, replace deprecated `t-esc`
