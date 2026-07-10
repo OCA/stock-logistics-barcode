@@ -7,7 +7,7 @@ from odoo.tests import Form, common
 class TestProductMultiBarcodeSupplier(common.SavepointCase):
     @classmethod
     def setUpClass(cls):
-        super(TestProductMultiBarcodeSupplier, cls).setUpClass()
+        super().setUpClass()
         cls.product = cls.env["product.product"].create({"name": "Test product"})
         cls.partner = cls.env["res.partner"].create({"name": "Test Partner"})
         cls.barcode = "123456789"
