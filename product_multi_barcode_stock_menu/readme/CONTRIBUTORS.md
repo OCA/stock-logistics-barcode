@@ -1,2 +1,4 @@
 - Ooops404 \<https://ooops404.com\>
   - Ilyas \<irazor147@gmail.com\>
+- [NuoBiT](https://www.nuobit.com):
+  - Deniz Gallo <dgallo@nuobit.com>

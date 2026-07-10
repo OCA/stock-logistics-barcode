@@ -67,6 +67,10 @@ Contributors
 
   - Ilyas <irazor147@gmail.com>
 
+- `NuoBiT <https://www.nuobit.com>`__:
+
+  - Deniz Gallo dgallo@nuobit.com
+
 Other credits
 -------------
 
