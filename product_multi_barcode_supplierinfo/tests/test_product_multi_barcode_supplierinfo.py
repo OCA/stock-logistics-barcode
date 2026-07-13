@@ -1,10 +1,11 @@
 # © 2022 ForgeFlow S.L.
+# Copyright 2026 NuoBiT Solutions - Deniz Gallo <dgallo@nuobit.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.tests import Form, common
 
 
-class TestProductMultiBarcodeSupplier(common.SavepointCase):
+class TestProductMultiBarcodeSupplier(common.TransactionCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -13,8 +14,10 @@ class TestProductMultiBarcodeSupplier(common.SavepointCase):
         cls.barcode = "123456789"
 
     def new_supplier(self):
-        form = Form(self.env["product.supplierinfo"])
-        form.name = self.partner
+        form = Form(
+            self.env["product.supplierinfo"].with_context(visible_product_tmpl_id=False)
+        )
+        form.partner_id = self.partner
         form.product_tmpl_id = self.product.product_tmpl_id
         return form
 
@@ -27,7 +30,6 @@ class TestProductMultiBarcodeSupplier(common.SavepointCase):
     def test02_delete_barcode_from_supplier(self):
         form = self.new_supplier()
         form.barcode = self.barcode
-        form.save()
-        supplierinfo = self.env["product.supplierinfo"].browse(form._values["id"])
+        supplierinfo = form.save()
         supplierinfo.unlink()
         self.assertTrue(not self.product.barcode_ids)

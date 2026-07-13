@@ -1,9 +1,10 @@
 # Copyright 2022 ForgeFlow S.L.
+# Copyright 2026 NuoBiT Solutions - Deniz Gallo <dgallo@nuobit.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 {
     "name": "Multi barcode from supplier pricelist",
     "summary": "Adds  supplier pricelist barcode in product barcode",
-    "version": "14.0.1.0.1",
+    "version": "18.0.1.0.0",
     "category": "Product Management",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "author": "ForgeFlow, Odoo Community Association (OCA)",

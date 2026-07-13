@@ -1,14 +1,15 @@
 # Copyright 2022 ForgeFlow S.L.
+# Copyright 2026 NuoBiT Solutions - Deniz Gallo <dgallo@nuobit.com>
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 
 
 class SupplierInfo(models.Model):
     _inherit = "product.supplierinfo"
 
-    barcode_id = fields.Many2one(comodel_name="product.barcode")
+    barcode_id = fields.Many2one(comodel_name="product.barcode", string="Barcode Entry")
 
     barcode = fields.Char(
         compute="_compute_barcode_name",
@@ -39,7 +40,7 @@ class SupplierInfo(models.Model):
                     supplier_info.barcode_id = barcode
             else:
                 supplier_info.barcode_id.name = supplier_info.barcode
-            supplier_info.barcode_id.supplier_id = supplier_info.name
+            supplier_info.barcode_id.supplier_id = supplier_info.partner_id
             supplier_info.barcode_id.product_tmpl_id = supplier_info.product_tmpl_id
             if supplier_info.product_tmpl_id.product_variant_count > 1:
                 supplier_info.barcode_id.product_id = supplier_info.product_id
@@ -53,7 +54,9 @@ class SupplierInfo(models.Model):
                 and (not rec.product_id)
             ):
                 raise ValidationError(
-                    _("You have to specify variant for the supplierinfo with barcode")
+                    self.env._(
+                        "You have to specify variant for the supplierinfo with barcode"
+                    )
                 )
 
     def unlink_product_barcode(self):
@@ -71,4 +74,4 @@ class SupplierInfo(models.Model):
         for rec in self:
             if rec.barcode:
                 rec.unlink_product_barcode()
-        super().unlink()
+        return super().unlink()
