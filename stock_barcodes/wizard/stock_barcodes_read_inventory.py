@@ -116,7 +116,26 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ("package_id", "=", self.package_id.id),
         ]
 
+    def _ensure_inventory_lot(self):
+        """Materialize the scanned lot when only its name is known.
+
+        Unlike pickings, where the lot is created through the stock move line
+        when it is done, an inventory reading is stored directly on a
+        ``stock.quant`` that needs a real ``lot_id``. When a brand new lot is
+        scanned (e.g. a GS1 barcode with a lot not registered yet) we only
+        have ``lot_name``, so create the lot before searching/creating the
+        quant to avoid losing the traceability.
+        """
+        if (
+            self.product_id.tracking != "none"
+            and self.lot_name
+            and not self.lot_id
+            and self.create_lot
+        ):
+            self.lot_id = self._create_new_lot()
+
     def _add_inventory_quant(self):
+        self._ensure_inventory_lot()
         StockQuant = self.env["stock.quant"]
         quant = StockQuant.search(self._inventory_quant_domain(), limit=1)
         quant = quant.with_context(inventory_mode=True)
