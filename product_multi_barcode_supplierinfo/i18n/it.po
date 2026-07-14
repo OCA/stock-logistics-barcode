@@ -1,0 +1,73 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* product_multi_barcode_supplierinfo
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-10-15 11:42+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,help:product_multi_barcode_supplierinfo.field_product_supplierinfo__barcode
+msgid "Article number used by supplier for product identification."
+msgstr "Numero articolo usato dal fornitore per identificazione prodotto."
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_supplierinfo__barcode
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_supplierinfo__barcode_id
+msgid "Barcode"
+msgstr "Codice a barre"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_barcode__display_name
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_supplierinfo__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_barcode__id
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_supplierinfo__id
+msgid "ID"
+msgstr "ID"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model,name:product_multi_barcode_supplierinfo.model_product_barcode
+msgid "Individual item in a product's barcode list"
+msgstr "Singolo oggetto nella lista codici a barre di un prodotto"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_barcode____last_update
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_supplierinfo____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_barcode__supplier_id
+msgid "Supplier"
+msgstr "Fornitore"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model,name:product_multi_barcode_supplierinfo.model_product_supplierinfo
+msgid "Supplier Pricelist"
+msgstr "Listino prezzi fornitore"
+
+#. module: product_multi_barcode_supplierinfo
+#: model:ir.model.fields,field_description:product_multi_barcode_supplierinfo.field_product_barcode__product_variant_count
+msgid "Variant Count"
+msgstr "Conteggio varianti"
+
+#. module: product_multi_barcode_supplierinfo
+#: code:addons/product_multi_barcode_supplierinfo/models/supplierinfo.py:0
+#, python-format
+msgid "You have to specify variant for the supplierinfo with barcode"
+msgstr ""
+"Bisogna indicare la variante per le informazioni fornitore con codice a barre"
