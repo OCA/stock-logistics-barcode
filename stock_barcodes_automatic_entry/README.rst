@@ -43,12 +43,13 @@ Usage
 To use this module, you need to:
 
 - Define, in the view, the button that will be clicked automatically as
-  the example below:
+  the example below. Use the ``d-none`` class (instead of
+  ``invisible="1"``) to hide the button, so it is kept in the DOM:
 
 .. code:: xml
 
    <button name="action_automatic_entry" type="object" string="Automatic entry" icon="fa-plus"
-           class="btn-primary barcode-automatic-entry" invisible="1"
+           class="btn-primary barcode-automatic-entry d-none"
    />
 
 - Define the logic to be executed upon button clicking
@@ -82,6 +83,9 @@ Contributors
 
 - Adrià Gil Sorribes <adria.gil@forgeflow.com>
 - Dhara Solanki <dhara.solanki@initos.com>
+- `NuoBiT <https://www.nuobit.com>`__:
+
+  - Deniz Gallo dgallo@nuobit.com
 
 Maintainers
 -----------
