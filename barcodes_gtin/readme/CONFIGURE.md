@@ -1,0 +1,1 @@
+To enable GTIN enforcement, go to `Settings > Inventory > Barcode` and check the box saying "Enforce GTIN Barcodes"
