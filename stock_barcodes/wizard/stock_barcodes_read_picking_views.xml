@@ -5,24 +5,50 @@
         <field name="model">wiz.stock.barcodes.read.picking</field>
         <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_read_form" />
         <field name="mode">primary</field>
+        <field name="priority">99</field>
         <field name="arch" type="xml">
-            <xpath expr="//button[@name='open_actions']" position="after">
-                <button
-                    name="action_open_picking"
-                    type="object"
-                    class="btn btn-primary"
-                    data-hotkey="'shift+o'"
-                >
-                    <field name="picking_id" />
-                </button>
-                <field name="partner_id" invisible="1" />
-                <span class="text-white fs-6 mt-3 w-15" invisible="partner_id == False">
-                    <field
-                        class="w-100"
-                        name="partner_name"
-                        invisible="context.get('hide_partner', False)"
-                    />
-                </span>
+            <xpath expr="//div[hasclass('barcode-info')]" position="attributes">
+                <attribute
+                    name="class"
+                    add="o_stock_barcodes_picking_info"
+                    separator=" "
+                />
+            </xpath>
+            <xpath expr="//button[@name='open_actions']" position="replace">
+                <div class="o_stock_barcodes_picking_header">
+                    <button
+                        name="open_actions"
+                        type="object"
+                        class="oe_kanban_action_button btn-sm"
+                        title="Open actions"
+                        invisible="display_menu"
+                        data-hotkey="0"
+                    >
+                        <i class="fa fa-chevron-left text-white" />
+                    </button>
+                    <button
+                        name="action_open_picking"
+                        type="object"
+                        class="btn btn-primary o_stock_barcodes_picking_ref"
+                        data-hotkey="'shift+o'"
+                    >
+                        <field name="picking_id" />
+                    </button>
+                    <field name="partner_id" invisible="1" />
+                    <span
+                        class="text-white fs-6 mt-3 w-15 o_stock_barcodes_partner"
+                        invisible="partner_id == False"
+                    >
+                        <field
+                            class="w-100"
+                            name="partner_name"
+                            invisible="context.get('hide_partner', False)"
+                        />
+                    </span>
+                </div>
+            </xpath>
+            <xpath expr="//field[@name='message']" position="attributes">
+                <attribute name="class">o_stock_barcodes_message text-white</attribute>
             </xpath>
             <xpath expr="//field[@name='message_type']" position="before">
                 <field
@@ -126,75 +152,81 @@
                             <field name="qty_picked" />
                             <field name="quantity" />
                             <field name="product_uom_id" />
+                            <field name="location_id" />
+                            <field name="location_dest_id" />
                             <field name="lot_id" />
+                            <field name="lot_name" />
                             <field name="result_package_id" />
                             <field name="picking_code" />
                             <templates>
                                 <t t-name="card">
-                                    <div class="oe_kanban_global_click">
-                                        <div class="row">
-                                            <div class="col-8 col-md-8">
-                                                <field name="product_id" class="h3" />
-                                                <div
-                                                    class="d-flex justify-content-start align-items-center indent"
+                                    <div
+                                        class="oe_kanban_global_click o_stock_barcodes_detailed_operation_card"
+                                    >
+                                        <div
+                                            class="o_stock_barcodes_detailed_operation_body"
+                                        >
+                                            <field
+                                                name="product_id"
+                                                class="o_stock_barcodes_detailed_operation_product"
+                                            />
+                                            <div
+                                                class="o_stock_barcodes_detailed_operation_meta"
+                                            >
+                                                <span
+                                                    class="fa fa-map-marker me-1"
+                                                    title="Location"
+                                                />
+                                                <t
+                                                    t-if="record.picking_code.raw_value == 'outgoing'"
                                                 >
-                                                    <t
-                                                        t-if="record.picking_code.raw_value == 'outgoing'"
-                                                    >
-                                                        <field name="location_id" />
-                                                    </t>
-                                                    <t
-                                                        t-elif="record.picking_code.raw_value == 'incoming'"
-                                                    >
-                                                        <field
-                                                            name="location_dest_id"
-                                                        />
-                                                    </t>
-                                                    <t t-else="">
-                                                        <field
-                                                        name="location_id"
-                                                    /> --> <field
-                                                        name="location_dest_id"
-                                                    />
-                                                    </t>
-                                                </div>
-                                                <div
-                                                    class="d-flex justify-content-start align-items-center indent"
+                                                    <field name="location_id" />
+                                                </t>
+                                                <t
+                                                    t-elif="record.picking_code.raw_value == 'incoming'"
                                                 >
-                                                    <t t-if="record.lot_name.raw_value">
-                                                        Lot: <field name="lot_name" />
-                                                    </t>
-                                                    <t t-elif="record.lot_id.raw_value">
-                                                        Lot: <field name="lot_id" />
-                                                    </t>
-                                                    <t
-                                                        t-if="record.result_package_id.raw_value"
-                                                    >
-                                                        Package: <field
-                                                        name="result_package_id"
-                                                    />
-                                                    </t>
-                                                </div>
+                                                    <field name="location_dest_id" />
+                                                </t>
+                                                <t t-else="">
+                                                    <field name="location_id" /> -->
+                                                    <field name="location_dest_id" />
+                                                </t>
                                             </div>
                                             <div
-                                                class="col-4 col-md-4 d-flex justify-content-end align-items-center"
+                                                class="o_stock_barcodes_detailed_operation_meta"
+                                                t-if="record.lot_name.raw_value or record.lot_id.raw_value or record.result_package_id.raw_value"
                                             >
-                                                <field
-                                                    class="h3 me-2"
-                                                    name="qty_picked"
-                                                />
-                                                <button
-                                                    name="action_barcode_detailed_operation_unlink"
-                                                    type="object"
-                                                    class="btn btn-op-big btn-outline-secondary mt0"
-                                                    context="{'wiz_barcode_id': parent.id}"
+                                                <t t-if="record.lot_name.raw_value">
+                                                    <span>Lot:</span>
+                                                    <field name="lot_name" />
+                                                </t>
+                                                <t t-elif="record.lot_id.raw_value">
+                                                    <span>Lot:</span>
+                                                    <field name="lot_id" />
+                                                </t>
+                                                <t
+                                                    t-if="record.result_package_id.raw_value"
                                                 >
-                                                    <i
-                                                        class="fa fa-trash"
-                                                        title="Remove"
-                                                    />
-                                                </button>
+                                                    <span class="ms-1">Pkg:</span>
+                                                    <field name="result_package_id" />
+                                                </t>
                                             </div>
+                                        </div>
+                                        <div
+                                            class="o_stock_barcodes_detailed_operation_actions"
+                                        >
+                                            <field
+                                                class="o_stock_barcodes_detailed_operation_qty"
+                                                name="qty_picked"
+                                            />
+                                            <button
+                                                name="action_barcode_detailed_operation_unlink"
+                                                type="object"
+                                                class="btn btn-op-big btn-outline-secondary o_stock_barcodes_detailed_operation_remove"
+                                                context="{'wiz_barcode_id': parent.id}"
+                                            >
+                                                <i class="fa fa-trash" title="Remove" />
+                                            </button>
                                         </div>
                                     </div>
                                 </t>

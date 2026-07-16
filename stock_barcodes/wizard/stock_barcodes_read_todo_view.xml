@@ -234,97 +234,124 @@
                 <field name="product_qty_reserved" />
                 <field name="picking_state" />
                 <field name="is_stock_move_line_origin" />
+                <field name="location_id" />
+                <field name="lot_id" />
+                <field name="package_id" />
+                <field name="result_package_id" />
                 <field name="show_location_dest" />
                 <field name="location_dest_name" />
                 <templates>
                     <t t-name="card">
-                        <div class="oe_kanban_global_click">
-                            <div class="row">
-                                <div class="col-8 col-md-8">
-                                    <field name="product_id" class="h3" />
-                                    <t
-                                        t-if="record.is_stock_move_line_origin.raw_value"
-                                    >
-                                        <br />
-                                        <field name="location_id" /> -->
-                                        <field name="lot_id" />
-                                        <t t-if="record.show_location_dest.raw_value">
-                                        <br />
-                                        <i
-                                            class="fa fa-arrow-right me-1"
-                                            title="Destination"
-                                        />
-                                        <field name="location_dest_name" />
-                                    </t>
-                                        <t
-                                        t-if="record.package_id.raw_value or record.result_package_id.raw_value"
-                                    >
-                                        <br />
-                                        <field name="package_id" />
-                                        <t t-if="record.result_package_id.raw_value">
-                                                --> <field name="result_package_id" />
-                                            </t>
-                                    </t>
-                                    </t>
+                        <div
+                            class="oe_kanban_global_click o_stock_barcodes_pending_operation_card"
+                        >
+                            <div class="o_stock_barcodes_pending_operation_body">
+                                <field
+                                    name="product_id"
+                                    class="o_stock_barcodes_pending_operation_product"
+                                />
+                                <t t-if="record.is_stock_move_line_origin.raw_value">
                                     <div
-                                        class="d-flex justify-content-start align-items-center indent h4 pt-3"
+                                        class="o_stock_barcodes_pending_operation_meta"
                                     >
-                                        <field name="qty_done" />
-                                        &#32;/&#32;
-                                        <t
-                                        t-if="record.is_stock_move_line_origin.raw_value"
-                                    >
-                                        <field name="product_qty_reserved" />
-                                    </t>
-                                        <t t-else="">
-                                        <field name="product_uom_qty" />
-                                    </t>
                                         <span
-                                        t-if="record.uom_id"
-                                        t-out="record.uom_id.value"
-                                    />
+                                            class="fa fa-map-marker me-1"
+                                            title="Location"
+                                        />
+                                        <field name="location_id" />
+                                        <t t-if="record.lot_id.raw_value">
+                                            <span class="ms-1">Lot:</span>
+                                            <field name="lot_id" />
+                                        </t>
                                     </div>
-                                </div>
-                                <div
-                                    class="col-4 col-md-4 d-flex justify-content-end align-items-center"
+                                    <t
+                                        t-if="record.show_location_dest.raw_value or record.package_id.raw_value or record.result_package_id.raw_value"
+                                    >
+                                        <div
+                                            class="o_stock_barcodes_pending_operation_meta"
+                                        >
+                                            <t
+                                                t-if="record.show_location_dest.raw_value"
+                                            >
+                                                <span
+                                                    class="fa fa-arrow-right me-1"
+                                                    title="Destination"
+                                                />
+                                                <field name="location_dest_name" />
+                                            </t>
+                                            <t
+                                                t-if="record.package_id.raw_value or record.result_package_id.raw_value"
+                                            >
+                                                <span
+                                                    class="fa fa-dropbox ms-1 me-1"
+                                                    title="Package"
+                                                />
+                                                <field name="package_id" />
+                                                <t
+                                                    t-if="record.result_package_id.raw_value"
+                                                >
+                                                    --> <field
+                                                    name="result_package_id"
+                                                />
+                                                </t>
+                                            </t>
+                                        </div>
+                                    </t>
+                                </t>
+                                <div class="o_stock_barcodes_pending_operation_qty">
+                                    <field name="qty_done" />
+                                    &#32;/&#32;
+                                    <t
+                                    t-if="record.is_stock_move_line_origin.raw_value"
                                 >
-                                    <button
-                                        name="action_reset_lines"
-                                        type="object"
-                                        class="btn btn-op-big btn-warning mt0 me-2"
-                                        context="{'wiz_barcode_id': parent.id}"
-                                        t-if="record.qty_done.raw_value &gt; 0"
-                                        title="Clean scanned quantity"
-                                    >
-                                        <i
-                                            class="fa fa-trash"
-                                            title="Clean scanned quantity"
-                                        />
-                                    </button>
-                                    <button
-                                        name="action_barcode_inventory_quant_edit"
-                                        type="object"
-                                        class="btn btn-op-big btn-outline-secondary mt0 me-2"
-                                        context="{'wiz_barcode_id': parent.id}"
-                                    >
-                                        <i
-                                            class="fa fa-pencil"
-                                            title="Edit inventory quantity"
-                                        />
-                                    </button>
-                                    <button
-                                        name="operation_quantities"
-                                        type="object"
-                                        class="btn btn-lg btn-primary btn-op-big"
-                                        t-if="record.qty_done_rest.raw_value > 0"
-                                    >
-                                        +
-                                        <span
-                                        class="text-white"
-                                        t-out="record.qty_done_rest.raw_value"
-                                    />
-                                    </button>
+                                    <field name="product_qty_reserved" />
+                                </t>
+                                    <t t-else="">
+                                    <field name="product_uom_qty" />
+                                </t>
+                                    <span
+                                    t-if="record.uom_id"
+                                    t-out="record.uom_id.value"
+                                />
                                 </div>
+                            </div>
+                            <div class="o_stock_barcodes_pending_operation_actions">
+                                <button
+                                    name="action_reset_lines"
+                                    type="object"
+                                    class="btn btn-op-big btn-warning o_stock_barcodes_pending_operation_button"
+                                    context="{'wiz_barcode_id': parent.id}"
+                                    t-if="record.qty_done.raw_value &gt; 0"
+                                    title="Clean scanned quantity"
+                                >
+                                    <i
+                                        class="fa fa-trash"
+                                        title="Clean scanned quantity"
+                                    />
+                                </button>
+                                <button
+                                    name="action_barcode_inventory_quant_edit"
+                                    type="object"
+                                    class="btn btn-op-big btn-outline-secondary o_stock_barcodes_pending_operation_button"
+                                    context="{'wiz_barcode_id': parent.id}"
+                                >
+                                    <i
+                                        class="fa fa-pencil"
+                                        title="Edit inventory quantity"
+                                    />
+                                </button>
+                                <button
+                                    name="operation_quantities"
+                                    type="object"
+                                    class="btn btn-lg btn-primary btn-op-big o_stock_barcodes_pending_operation_button o_stock_barcodes_pending_operation_todo"
+                                    t-if="record.qty_done_rest.raw_value > 0"
+                                >
+                                    +
+                                    <span
+                                    class="text-white"
+                                    t-out="record.qty_done_rest.raw_value"
+                                />
+                                </button>
                             </div>
                         </div>
                     </t>
