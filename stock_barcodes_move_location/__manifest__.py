@@ -11,7 +11,6 @@
     "depends": [
         "stock_barcodes",
         "stock_move_location",
-        "stock_barcodes_automatic_entry",
     ],
     "data": [
         "views/stock_picking_type_views.xml",
