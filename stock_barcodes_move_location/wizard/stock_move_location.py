@@ -16,10 +16,10 @@ class StockMoveLocationWizard(models.TransientModel):
         ]
 
     def action_barcode_scan(self):
-        action = self.env.ref(
+        action = self.env["ir.actions.act_window"]._for_xml_id(
             "stock_barcodes_move_location."
             "action_stock_barcodes_read_stock_move_location"
-        ).read()[0]
+        )
         action["context"] = {
             "default_location_id": self.origin_location_id.id,
             "default_move_location_id": self.id,

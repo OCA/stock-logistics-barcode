@@ -20,22 +20,22 @@
             <field name="product_qty" position="after">
                 <field name="move_location_qty" />
             </field>
-            <button name="action_manual_entry" position="before">
+            <xpath expr="//button[@name='action_manual_entry']" position="before">
                 <button
                     name='action_automatic_entry'
-                    type="object"
+                    type="button"
                     string="Automatic entry"
                     class="btn-default barcode-automatic-entry"
                     invisible="1"
                 />
-            </button>
-            <button name="action_manual_entry" position="before">
+            </xpath>
+            <xpath expr="//button[@name='action_manual_entry']" position="before">
                 <button
                     name='action_zbarcam'
                     type="object"
                     string="Scan With Z-BAR-CAM"
                 />
-            </button>
+            </xpath>
         </field>
     </record>
     <!--

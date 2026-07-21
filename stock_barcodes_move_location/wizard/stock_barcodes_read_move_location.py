@@ -29,7 +29,9 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         comodel_name="wiz.stock.move.location", string="Move Location", readonly=True
     )
     move_location_qty = fields.Float(
-        string="To Move quantities", digits="Product Unit of Measure", readonly=True,
+        string="To Move quantities",
+        digits="Product Unit of Measure",
+        readonly=True,
     )
     location_dest_id = fields.Many2one(
         comodel_name="stock.location", string="Destination Location", readonly=True
@@ -135,8 +137,9 @@ class WizStockBarcodesReadMoveLocation(models.TransientModel):
         return result
 
     def reset_qty(self):
-        super().reset_qty()
+        res = super().reset_qty()
         self.move_location_qty = 0.0
+        return res
 
     def action_undo_last_scan(self):
         res = super().action_undo_last_scan()
