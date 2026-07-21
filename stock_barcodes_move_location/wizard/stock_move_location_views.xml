@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record
+        id="view_wiz_stock_move_location_form_stock_move_location"
+        model="ir.ui.view"
+    >
+        <field name="model">wiz.stock.move.location</field>
+        <field
+            name="inherit_id"
+            ref="stock_move_location.view_wiz_stock_move_location_form_stock_move_location"
+        />
+        <field name="arch" type="xml">
+            <div name="button_box" position="inside">
+                <button
+                    name="action_barcode_scan"
+                    class="oe_stat_button"
+                    icon="fa-barcode"
+                    type="object"
+                    help="List view of lines"
+                >
+                    <div class="o_form_field o_stat_info">
+                        <span class="o_stat_text">Scan barcodes</span>
+                    </div>
+                </button>
+            </div>
+            <group name="main" position="after">
+                <group name="utility_button">
+                    <button
+                        name="clear_lines"
+                        string="Clear all"
+                        type="object"
+                        class="btn-primary"
+                    />
+                </group>
+            </group>
+        </field>
+    </record>
+    <record
+        id="stock_move_location.wiz_stock_move_location_action"
+        model="ir.actions.act_window"
+    >
+        <field name="target">current</field>
+    </record>
+</odoo>
