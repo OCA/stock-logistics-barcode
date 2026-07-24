@@ -225,16 +225,6 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             return self.picking_batch_id.action_barcode_scan(wiz=self)
         return super().get_action_after_validate()
 
-    def open_actions(self):
-        # Only short-circuit to the post-validate redirect for batch wizards;
-        # otherwise fall through to the base open_actions, which sets
-        # display_menu (a plain picking wizard must still open the menu).
-        if self.picking_batch_id:
-            action = self.get_action_after_validate()
-            if action:
-                return action
-        return super().open_actions()
-
     def _get_location_domain_for_quant_search(self):
         if self.picking_mode == "picking_batch" and self.picking_batch_id:
             location_ids = self.picking_batch_id.picking_ids.mapped("location_id")
