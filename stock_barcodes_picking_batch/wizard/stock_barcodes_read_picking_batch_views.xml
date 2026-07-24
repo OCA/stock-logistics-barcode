@@ -85,7 +85,7 @@
                             <field name="lot_id" />
                             <field name="result_package_id" />
                             <templates>
-                                <t t-name="kanban-box">
+                                <t t-name="card">
                                     <div class="oe_kanban_global_click">
                                         <div class="row">
                                             <div class="col-8 col-md-8">
@@ -137,7 +137,7 @@
                 <button
                     name="action_validate_picking_batch"
                     type="object"
-                    icon="fa-check fa-2x"
+                    icon="fa-check"
                     class="btn btn-secondary w-100 oe_kanban_action_button btn-sm text-uppercase
                     d-flex justify-content-center align-items-center fs-2"
                     invisible="picking_batch_state != 'in_progress'"
@@ -160,14 +160,16 @@
                     name="action_show_detailed_operations"
                     type="object"
                     title="Detailed operations"
-                    icon="fa-eye fa-2x"
+                    icon="fa-eye"
+                    class="btn-secondary oe_kanban_action_button btn-sm fs-1"
                     invisible="show_detailed_operations or not move_line_ids"
                 />
                 <button
                     name="action_show_detailed_operations"
                     type="object"
                     title="Detailed operations"
-                    icon="fa-eye-slash fa-2x"
+                    icon="fa-eye-slash"
+                    class="btn-secondary oe_kanban_action_button btn-sm fs-1"
                     invisible="not show_detailed_operations or not move_line_ids"
                 />
             </xpath>

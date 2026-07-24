@@ -32,6 +32,7 @@
                     icon="fa-barcode"
                     type="object"
                     help="Start barcode interface"
+                    title="Scan barcodes"
                     invisible="state != 'in_progress'"
                 />
             </footer>
