@@ -105,6 +105,14 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
             self.wiz_scan_picking_batch.display_name,
         )
 
+    def test_open_actions_displays_menu(self):
+        action = self.wiz_scan_picking_batch.open_actions()
+        self.assertTrue(self.wiz_scan_picking_batch.display_menu)
+        self.assertEqual(action["type"], "ir.actions.client")
+        self.assertEqual(
+            action["xml_id"], "stock_barcodes.action_stock_barcodes_action_client"
+        )
+
     def test_picking_batch_wizard_scan_product(self):
         self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
         self.picking_batch.action_assign()
