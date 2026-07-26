@@ -111,66 +111,69 @@ function setupView() {
         audio.play();
     };
 
-    const handleNotification = (notif) => {
-        const {payload, type} = notif;
-        if (
-            (this.model.root.resModel == payload.res_model) &
-            (this.model.root.resId == payload.res_id)
-        ) {
-            if (type === "stock_barcodes_sound") {
-                if (payload?.sound === "ko") {
-                    safePlay(this.soundKo);
-                } else {
-                    safePlay(this.soundOk);
-                }
-            } else if (type === "stock_barcodes_focus") {
-                requestIdleCallback(() => {
-                    // Build a robust selector: [name="..."] input
-                    let selector = "";
-                    if (window.CSS && typeof CSS.escape === "function") {
-                        selector = `[name="${CSS.escape(payload.field_name)}"] input`;
-                    } else {
-                        // Basic fallback (works si no hay caracteres especiales)
-                        selector = `[name="${payload.field_name}"] input`;
-                    }
-                    setTimeout(() => {
-                        waitVisibleElement(selector, 5000)
-                            .then((input) => {
-                                input.focus();
-                                input.select();
-                            })
-                            .catch((err) => console.warn(err.message));
-                    }, 300);
-                });
-            } else if (type === "stock_barcodes_notify") {
-                notification.add(payload?.message || "", {
-                    title: payload?.title,
-                    type: payload?.type,
-                    sticky: Boolean(payload?.sticky),
-                });
-            }
-        }
-
-        // Global (no limitados al record actual)
-        if (type === "stock_barcodes_edit_manual") {
-            if (payload?.manual_entry) {
-                this.env.bus.trigger("enableFormEditBarcode");
+    // Focus and select the input targeted by a focus notification
+    const handleRecordFocus = (payload) => {
+        requestIdleCallback(() => {
+            // Build a robust selector: [name="..."] input
+            let selector = "";
+            if (window.CSS && typeof CSS.escape === "function") {
+                selector = `[name="${CSS.escape(payload.field_name)}"] input`;
             } else {
-                this.env.bus.trigger("disableFormEditBarcode");
+                // Basic fallback (works si no hay caracteres especiales)
+                selector = `[name="${payload.field_name}"] input`;
             }
+            setTimeout(() => {
+                waitVisibleElement(selector, 5000)
+                    .then((input) => {
+                        input.focus();
+                        input.select();
+                    })
+                    .catch((err) => console.warn(err.message));
+            }, 300);
+        });
+    };
+
+    // Notifications limited to the current record (sound, focus, message)
+    const handleRecordNotification = (payload, type) => {
+        if (type === "stock_barcodes_sound") {
+            safePlay(payload?.sound === "ko" ? this.soundKo : this.soundOk);
+        } else if (type === "stock_barcodes_focus") {
+            handleRecordFocus(payload);
+        } else if (type === "stock_barcodes_notify") {
+            notification.add(payload?.message || "", {
+                title: payload?.title,
+                type: payload?.type,
+                sticky: Boolean(payload?.sticky),
+            });
+        }
+    };
+
+    // React to a picking validation / inventory application notification
+    const handleActionsBarcode = (payload) => {
+        if (payload?.valid_picking) {
+            notification.add(_t("The transfer has been validated"), {
+                type: "success",
+            });
+        } else if (payload?.apply_inventory) {
+            actionService.doAction(
+                "stock_barcodes.action_stock_barcodes_action_client"
+            );
+            notification.add(_t("The inventory adjustment has been validated"), {
+                type: "success",
+            });
+        }
+    };
+
+    // Notifications not limited to the current record
+    const handleGlobalNotification = (payload, type) => {
+        if (type === "stock_barcodes_edit_manual") {
+            this.env.bus.trigger(
+                payload?.manual_entry
+                    ? "enableFormEditBarcode"
+                    : "disableFormEditBarcode"
+            );
         } else if (type === "actions_barcode") {
-            if (payload?.valid_picking) {
-                notification.add(_t("The transfer has been validated"), {
-                    type: "success",
-                });
-            } else if (payload?.apply_inventory) {
-                actionService.doAction(
-                    "stock_barcodes.action_stock_barcodes_action_client"
-                );
-                notification.add(_t("The inventory adjustment has been validated"), {
-                    type: "success",
-                });
-            }
+            handleActionsBarcode(payload);
         } else if (type === "actions_barcode_notification") {
             notification.add(_t(payload?.message || ""), {
                 type: payload?.message_type,
@@ -187,6 +190,17 @@ function setupView() {
                 .querySelectorAll("span.count_apply_inventory")
                 .forEach((el) => (el.textContent = count));
         }
+    };
+
+    const handleNotification = (notif) => {
+        const {payload, type} = notif;
+        if (
+            this.model.root.resModel === payload.res_model &&
+            this.model.root.resId === payload.res_id
+        ) {
+            handleRecordNotification(payload, type);
+        }
+        handleGlobalNotification(payload, type);
     };
 
     // The bus service maps subscriptions by callback identity, so the same

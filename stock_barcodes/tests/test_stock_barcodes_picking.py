@@ -3,7 +3,7 @@
 from unittest import mock
 from unittest.mock import call, patch
 
-from odoo import Command, _
+from odoo import Command
 from odoo.exceptions import MissingError, UserError, ValidationError
 from odoo.tests.common import tagged
 
@@ -711,7 +711,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan_option_guided.option_group_id = self.option_group8.id
             result = self.wiz_scan_option_guided._check_guided_restrictions()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("more_match", _("Wrong product"))
+            mock_msg.assert_called_once_with("more_match", self.env._("Wrong product"))
 
     def test_action_assign_serial_required_hook_key(self):
         with self.assertRaises(ValidationError):

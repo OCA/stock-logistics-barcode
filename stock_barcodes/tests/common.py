@@ -16,7 +16,7 @@ class TestCommonStockBarcodes(TransactionCase):
         # Active group_stock_packaging and group_production_lot for user
         group_stock_packaging = cls.env.ref("product.group_stock_packaging")
         group_production_lot = cls.env.ref("stock.group_production_lot")
-        cls.env.user.groups_id = [
+        cls.env.user.group_ids = [
             (4, group_stock_packaging.id),
             (4, group_production_lot.id),
         ]

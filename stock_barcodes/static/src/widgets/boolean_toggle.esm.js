@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/* @odoo-module */
 
 import {BooleanToggleField} from "@web/views/fields/boolean_toggle/boolean_toggle_field";
 import {onMounted} from "@odoo/owl";
@@ -110,7 +110,8 @@ export class BarcodeBooleanToggle extends BooleanToggleField {
 const barcodeBooleanToggle = {
     displayName: "Barcode Boolean Toggle",
     component: BarcodeBooleanToggle,
-    supportedTypes: ["boolean"], // Was [""] -> fix for proper field binding
+    // Was [""] -> fix for proper field binding
+    supportedTypes: ["boolean"],
     extractProps: ({attrs}) => ({
         name: attrs.name,
     }),

@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 _logger = logging.getLogger(__name__)
 
@@ -25,7 +25,8 @@ class WizStockBarcodesRead(models.AbstractModel):
     res_model_id = fields.Many2one(comodel_name="ir.model", index=True)
     res_id = fields.Integer(index=True)
     product_id = fields.Many2one(
-        comodel_name="product.product", domain=_get_product_domain
+        comodel_name="product.product",
+        domain=lambda self: self._get_product_domain(),
     )
     product_uom_id = fields.Many2one(comodel_name="uom.uom")
     product_tracking = fields.Selection(related="product_id.tracking", readonly=True)
@@ -184,7 +185,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         """
         self.message_type = message_type
         if self.barcode:
-            self.message = _(
+            self.message = self.env._(
                 "%(barcode)s (%(message)s)", barcode=self.barcode, message=message
             )
         else:
@@ -256,11 +257,13 @@ class WizStockBarcodesRead(models.AbstractModel):
         product = self.env["product.product"].search(domain)
         if product:
             if len(product) > 1:
-                self._set_message_info("more_match", _("More than one product found"))
+                self._set_message_info(
+                    "more_match", self.env._("More than one product found")
+                )
                 return False
             elif product.type not in self._allowed_product_types:
                 self._set_message_info(
-                    "not_found", _("The product type is not allowed")
+                    "not_found", self.env._("The product type is not allowed")
                 )
                 return False
             self.action_product_scaned_post(product)
@@ -329,7 +332,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                     ):
                         self._set_message_info(
                             "more_match",
-                            _("No stock available for this lot with screen values"),
+                            self.env._(
+                                "No stock available for this lot with screen values"
+                            ),
                         )
                         self.lot_id = False
                         self.lot_name = False
@@ -346,7 +351,8 @@ class WizStockBarcodesRead(models.AbstractModel):
                 return True
             elif lot:
                 self._set_message_info(
-                    "more_match", _("More than one lot found\nScan product before")
+                    "more_match",
+                    self.env._("More than one lot found\nScan product before"),
                 )
         return False
 
@@ -368,9 +374,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         elif quants:
             self = self.with_context(ignore_quant_location=True)
             # self._set_message_info("more_match",
-            # _("Package located external location"))
+            # self.env._("Package located external location"))
         else:
-            # self._set_message_info("more_match", _("Package not fount or empty"))
+            # self._set_message_info(
+            #     "more_match", self.env._("Package not fount or empty"))
             return False
         self.set_info_from_quants(quants)
         return True
@@ -444,7 +451,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             if packaging:
                 if len(packaging) > 1:
                     self._set_message_info(
-                        "more_match", _("More than one package found")
+                        "more_match", self.env._("More than one package found")
                     )
                     self.packaging_id = False
                     return False
@@ -474,7 +481,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                 },
             )
         else:
-            self._set_message_info("success", _("OK"))
+            self._set_message_info("success", self.env._("OK"))
             options = self.option_group_id.option_ids
             barcode_found = False
             options_to_scan = options.filtered("to_scan")
@@ -503,17 +510,19 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.play_sounds(barcode_found)
                 if self.option_group_id.ignore_filled_fields:
                     self._set_message_info(
-                        "not_found", _("Barcode not found or field already filled")
+                        "not_found",
+                        self.env._("Barcode not found or field already filled"),
                     )
                 else:
                     self._set_message_info(
-                        "not_found", _("Barcode not found with this screen values")
+                        "not_found",
+                        self.env._("Barcode not found with this screen values"),
                     )
                 return False
             if not self.check_option_required():
                 return False
             if self.is_manual_confirm or self.manual_entry:
-                self._set_message_info("info", _("Review and confirm"))
+                self._set_message_info("info", self.env._("Review and confirm"))
                 return False
             return self.action_confirm()
 
@@ -536,9 +545,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 if self._option_required_hook(option):
                     continue
                 self.display_notification(
-                    _("{name} is required").format(name=option.name),
+                    self.env._("%(name)s is required", name=option.name),
                     message_type="danger",
-                    title=_("Empty field"),
+                    title=self.env._("Empty field"),
                     sticky=False,
                 )
                 self.action_show_step()
@@ -564,7 +573,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         )
         if location:
             self.location_id = location
-            self._set_message_info("info", _("Waiting product"))
+            self._set_message_info("info", self.env._("Waiting product"))
             return True
         else:
             return False
@@ -589,7 +598,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def check_location_condition(self):
         if not self.location_id:
-            self._set_message_info("info", _("Waiting location"))
+            self._set_message_info("info", self.env._("Waiting location"))
             # Remove product when no location has been scanned
             self.product_id = False
             return False
@@ -597,7 +606,7 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def check_lot_condition(self):
         if self.product_id.tracking != "none" and not self.lot_id and not self.lot_name:
-            self._set_message_info("info", _("Waiting lot"))
+            self._set_message_info("info", self.env._("Waiting lot"))
             return False
         return True
 
@@ -616,7 +625,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if not result_ok:
             return False
         if not self.product_id:
-            self._set_message_info("info", _("Waiting product"))
+            self._set_message_info("info", self.env._("Waiting product"))
             return False
         result_ok = self.check_lot_condition()
         if not result_ok:
@@ -625,7 +634,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             not self.product_qty
             and not self._name == "wiz.stock.barcodes.read.inventory"
         ):
-            self._set_message_info("info", _("Waiting quantities"))
+            self._set_message_info("info", self.env._("Waiting quantities"))
             return False
         if (
             self.option_group_id.barcode_guided_mode == "guided"
@@ -639,7 +648,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.product_id != self.guided_product_id
             and self.option_group_id.get_option_value("product_id", "forced")
         ):
-            self._set_message_info("more_match", _("Wrong product"))
+            self._set_message_info("more_match", self.env._("Wrong product"))
             self.product_qty = 0.0
             return False
         if (
@@ -647,19 +656,19 @@ class WizStockBarcodesRead(models.AbstractModel):
             and self.lot_id != self.guided_lot_id
             and self.option_group_id.get_option_value("lot_id", "forced")
         ):
-            self._set_message_info("more_match", _("Wrong lot"))
+            self._set_message_info("more_match", self.env._("Wrong lot"))
             return False
         if (
             self.location_id != self.guided_location_id
             and self.option_group_id.get_option_value("location_id", "forced")
         ):
-            self._set_message_info("more_match", _("Wrong location"))
+            self._set_message_info("more_match", self.env._("Wrong location"))
             return False
         if (
             self.location_dest_id != self.guided_location_dest_id
             and self.option_group_id.get_option_value("location_dest_id", "forced")
         ):
-            self._set_message_info("more_match", _("Wrong location dest"))
+            self._set_message_info("more_match", self.env._("Wrong location dest"))
             return False
         return True
 
@@ -674,7 +683,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if self.product_qty > limit_product_qty:
             # HACK: Some times users scan a barcode into input element.
             # At this time, to prevent this we check that the quantity be realistic.
-            self._set_message_info("more_match", _("The quantity is huge"))
+            self._set_message_info("more_match", self.env._("The quantity is huge"))
             return False
         if not self.check_done_conditions():
             return False
@@ -818,7 +827,8 @@ class WizStockBarcodesRead(models.AbstractModel):
             lambda op: op.step == self.step and op.to_scan
         )
         self._set_message_info(
-            "info_page", _("Scan {}").format(", ".join(options.mapped("name")))
+            "info_page",
+            self.env._("Scan %(options)s", options=", ".join(options.mapped("name"))),
         )
 
     @api.onchange("package_id")
@@ -856,7 +866,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             # from check_done_conditions: extending wizards run additional
             # checks afterwards (e.g. stock availability) that can still
             # reject the entry.
-            self._set_message_info("success", _("Manual entry OK"))
+            self._set_message_info("success", self.env._("Manual entry OK"))
         if not self.env.context.get("skip_notify_last_message"):
             # When confirming from a barcode read the notification is sent by
             # dummy_on_barcode_scanned once the whole read ends

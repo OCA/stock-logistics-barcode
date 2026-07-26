@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/* @odoo-module */
 
 /*
  * StockBarcodesFormController for Odoo 18 (compatible with 16/17).
@@ -15,8 +15,8 @@
 
 import {FormController} from "@web/views/form/form_controller";
 import {_t} from "@web/core/l10n/translation";
-import {useService} from "@web/core/utils/hooks";
 import {useEffect} from "@odoo/owl";
+import {useService} from "@web/core/utils/hooks";
 
 export class StockBarcodesFormController extends FormController {
     setup() {

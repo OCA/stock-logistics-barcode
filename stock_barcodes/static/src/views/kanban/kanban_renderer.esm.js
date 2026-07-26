@@ -1,9 +1,9 @@
-import {patch} from "@web/core/utils/patch";
-import {useEffect} from "@odoo/owl";
 import {FormController} from "@web/views/form/form_controller";
 import {KanbanController} from "@web/views/kanban/kanban_controller";
 import {ListController} from "@web/views/list/list_controller";
 import {isAllowedBarcodeModel} from "../../utils/barcodes_models_utils.esm";
+import {patch} from "@web/core/utils/patch";
+import {useEffect} from "@odoo/owl";
 
 /* Guarda las referencias originales ANTES del patch */
 const _origFormSetup = FormController.prototype.setup;

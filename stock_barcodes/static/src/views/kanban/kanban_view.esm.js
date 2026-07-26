@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/* @odoo-module */
 
 /**
  * Alias of the standard Kanban view to be referenced via `js_class="stock_barcodes_kanban"`.

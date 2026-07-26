@@ -1,6 +1,6 @@
 # Copyright 2023 Tecnativa - Sergio Teruel
 # License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 
 
 class WizStockBarcodesReadInventory(models.TransientModel):
@@ -13,7 +13,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         return [("type", "in", self._allowed_product_types), ("is_storable", "=", True)]
 
     # Overwrite is needed to take into account new domain values
-    product_id = fields.Many2one(domain=_get_product_domain)
+    product_id = fields.Many2one(domain=lambda self: self._get_product_domain())
     inventory_product_qty = fields.Float(
         string="Inventory quantities", digits="Product Unit of Measure", readonly=True
     )
@@ -162,7 +162,9 @@ class WizStockBarcodesReadInventory(models.TransientModel):
     def _serial_tracking_message_fail(self):
         self._set_message_info(
             "more_match",
-            _("Inventory line with more than one unit in serial tracked product"),
+            self.env._(
+                "Inventory line with more than one unit in serial tracked product"
+            ),
         )
 
     def action_done(self):

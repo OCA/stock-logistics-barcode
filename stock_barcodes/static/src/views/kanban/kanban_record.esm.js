@@ -8,10 +8,10 @@
  * - Limpia listeners al desmontar.
  */
 
-import {useEffect} from "@odoo/owl";
-import {patch} from "@web/core/utils/patch";
-import {isVisible} from "@web/core/utils/ui";
 import {KanbanRecord} from "@web/views/kanban/kanban_record";
+import {isVisible} from "@web/core/utils/ui";
+import {patch} from "@web/core/utils/patch";
+import {useEffect} from "@odoo/owl";
 
 /** Return the first visible element matching the selector within root. */
 function qVisible(root, selector) {
@@ -56,7 +56,8 @@ patch(KanbanRecord.prototype, {
             () => {
                 const el = this.el;
                 if (!(el instanceof HTMLElement)) {
-                    return; // No cleanup needed
+                    // No cleanup needed
+                    return;
                 }
 
                 // Ensure keyboard focusability / a11y if template didn't provide it.

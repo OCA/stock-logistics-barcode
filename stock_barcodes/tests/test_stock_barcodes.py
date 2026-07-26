@@ -5,7 +5,6 @@ import base64
 import re
 from unittest.mock import call, patch
 
-from odoo import _
 from odoo.exceptions import ValidationError
 from odoo.tests.common import tagged
 from odoo.tools.safe_eval import safe_eval
@@ -429,7 +428,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             result = self.wiz_scan._scanned_location("8411322222111")
             self.assertTrue(result)
             self.assertEqual(self.wiz_scan.location_id, self.stock_location_internal)
-            mock_msg.assert_called_once_with("info", _("Waiting product"))
+            mock_msg.assert_called_once_with("info", self.env._("Waiting product"))
 
         result = self.wiz_scan._scanned_location("8411322222111111")
         self.assertFalse(result)
@@ -468,7 +467,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_id = self.product_tracking.id
             result = self.wiz_scan.check_done_conditions()
             self.assertFalse(result)
-            mock_msg.assert_any_call("info", _("Waiting quantities"))
+            mock_msg.assert_any_call("info", self.env._("Waiting quantities"))
 
     def test_check_guided_values(self):
         result = self.wiz_scan_option_forced._check_guided_values()
@@ -508,10 +507,12 @@ class TestStockBarcodes(TestCommonStockBarcodes):
 
             mock_msg.assert_has_calls(
                 [
-                    call("more_match", _("Wrong product")),  # 1 condition
-                    call("more_match", _("Wrong lot")),  # 2 condition
-                    call("more_match", _("Wrong location")),  # 3 condition
-                    call("more_match", _("Wrong location dest")),  # 4 condition
+                    call("more_match", self.env._("Wrong product")),  # 1 condition
+                    call("more_match", self.env._("Wrong lot")),  # 2 condition
+                    call("more_match", self.env._("Wrong location")),  # 3 condition
+                    call(
+                        "more_match", self.env._("Wrong location dest")
+                    ),  # 4 condition
                 ]
             )
 
@@ -520,7 +521,9 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_qty = 10000000
             result = self.wiz_scan.action_done()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("more_match", _("The quantity is huge"))
+            mock_msg.assert_called_once_with(
+                "more_match", self.env._("The quantity is huge")
+            )
 
     def test_action_lot_scaned_post(self):
         self.wiz_scan.action_lot_scaned_post(self.lot_1.name)

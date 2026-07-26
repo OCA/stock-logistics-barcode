@@ -3,7 +3,7 @@
 import base64
 import re
 
-from odoo import _, api, fields, models
+from odoo import api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.tools.safe_eval import safe_eval
 
@@ -46,21 +46,23 @@ class StockBarcodesAction(models.Model):
                 REGEX.get("barcode", False), action.barcode
             ):
                 raise ValidationError(
-                    _(
-                        " The barcode {} is not correct."
+                    self.env._(
+                        " The barcode %(barcode)s is not correct."
                         "Use numbers, letters and dashes, without spaces."
-                        "E.g. 15753, BC-5789,er-56 "
-                        ""
-                    ).format(action.barcode)
+                        "E.g. 15753, BC-5789,er-56 ",
+                        barcode=action.barcode,
+                    )
                 )
             all_barcode = [bar for bar in action.mapped("barcode") if bar]
             domain = [("barcode", "in", all_barcode)]
             matched_actions = self.sudo().search(domain, order="id")
             if len(matched_actions) > len(all_barcode):
                 raise ValidationError(
-                    _(
-                        """ Barcode has already been assigned to the action(s): {}."""
-                    ).format(", ".join(matched_actions.mapped("name")))
+                    self.env._(
+                        " Barcode has already been assigned to the action(s):"
+                        " %(actions)s.",
+                        actions=", ".join(matched_actions.mapped("name")),
+                    )
                 )
 
     def _generate_barcode(self):
@@ -81,7 +83,9 @@ class StockBarcodesAction(models.Model):
         if self.context and not bool(
             re.match(REGEX.get("context", False), self.context)
         ):
-            raise ValidationError(_("There can be no spaces at the beginning or end."))
+            raise ValidationError(
+                self.env._("There can be no spaces at the beginning or end.")
+            )
 
     def _count_elements(self):
         res_model = self.action_window_id.res_model
