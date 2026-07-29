@@ -1032,28 +1032,29 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 # Max between the reserved and picked..
                 move = line.move_id if is_stock_move_line_origin else line
                 move_qty_dic[move] += max(line.quantity, line.qty_picked)
-        for move in self.get_moves():
-            qty = move_qty_dic[move]
-            if (
-                move.barcode_backorder_action == "pending"
-                and move.product_uom_qty > qty
-            ):
-                vals = self._prepare_fill_record_values(move, position)
-                vals.update(
-                    {
-                        "product_uom_qty": move.product_uom_qty - qty,
-                        "product_qty_reserved": 0.0,
-                        "line_ids": False,
-                        "is_extra_line": True,
-                    }
-                )
-                todo_vals[
-                    (
-                        move,
-                        "M",
+        if is_stock_move_line_origin and self.picking_type_code != "incoming":
+            for move in self.get_moves():
+                qty = move_qty_dic[move]
+                if (
+                    move.barcode_backorder_action == "pending"
+                    and move.product_uom_qty > qty
+                ):
+                    vals = self._prepare_fill_record_values(move, position)
+                    vals.update(
+                        {
+                            "product_uom_qty": move.product_uom_qty - qty,
+                            "product_qty_reserved": 0.0,
+                            "line_ids": False,
+                            "is_extra_line": True,
+                        }
                     )
-                ] = vals
-                position += 1
+                    todo_vals[
+                        (
+                            move,
+                            "M",
+                        )
+                    ] = vals
+                    position += 1
         self.todo_line_ids = self.env["wiz.stock.barcodes.read.todo"].create(
             list(todo_vals.values())
         )

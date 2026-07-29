@@ -240,6 +240,7 @@
                 <field name="result_package_id" />
                 <field name="show_location_dest" />
                 <field name="location_dest_name" />
+                <field name="picking_code" />
                 <templates>
                     <t t-name="card">
                         <div
@@ -302,7 +303,7 @@
                                     <field name="qty_done" />
                                     &#32;/&#32;
                                     <t
-                                    t-if="record.is_stock_move_line_origin.raw_value"
+                                    t-if="record.is_stock_move_line_origin.raw_value and record.picking_code.raw_value != 'incoming'"
                                 >
                                     <field name="product_qty_reserved" />
                                 </t>
