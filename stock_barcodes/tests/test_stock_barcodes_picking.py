@@ -24,10 +24,10 @@ patch_set_message_info = patch_read + "._set_message_info"
 patch_set_focus_on_qty_input = patch_read + "._set_focus_on_qty_input"
 patch_check_done_conditions = patch_read + ".check_done_conditions"
 patch_action_put_in_pack = (
-    patch_stock_models + ".stock_picking.Picking.action_put_in_pack"
+    patch_stock_models + ".stock_picking.StockPicking.action_put_in_pack"
 )
 patch_core_button_validate = (
-    patch_stock_models + ".stock_picking.Picking.button_validate"
+    patch_stock_models + ".stock_picking.StockPicking.button_validate"
 )
 
 
@@ -48,7 +48,8 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
 
         cls.barcode_option_group_out.barcode_guided_mode = False
         cls.barcode_option_group_in.barcode_guided_mode = False
-        cls.partner_agrolite = cls.env.ref("base.res_partner_2")
+        # No depender de los datos de demo (base.res_partner_2 ya no existe en 19).
+        cls.partner_agrolite = cls.env["res.partner"].create({"name": "Agrolite"})
         cls.picking_type_in = cls.env.ref("stock.picking_type_in")
         cls.picking_type_in.barcode_option_group_id = cls.barcode_option_group_in
         cls.picking_type_out = cls.env.ref("stock.picking_type_out")
@@ -57,8 +58,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
         cls.customer_location = cls.env.ref("stock.stock_location_customers")
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
-        cls.categ_unit = cls.env.ref("uom.product_uom_categ_unit")
-        cls.categ_kgm = cls.env.ref("uom.product_uom_categ_kgm")
         cls.picking_out_01 = (
             cls.env["stock.picking"]
             .with_context(planned_picking=True)
@@ -71,7 +70,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -96,7 +94,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_wo_tracking.uom_id.id,
@@ -106,7 +103,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_wo_tracking.uom_id.id,
@@ -116,7 +112,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -126,7 +121,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -200,7 +194,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_wo_tracking.name,
                                 "product_id": self.product_wo_tracking.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_wo_tracking.uom_id.id,
@@ -241,7 +234,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_wo_tracking.name,
                                 "product_id": self.product_wo_tracking.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_wo_tracking.uom_id.id,
@@ -288,7 +280,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_tracking_serial.name,
                                 "product_id": self.product_tracking_serial.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_tracking_serial.uom_id.id,
@@ -372,10 +363,13 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan_picking.message,
             "8411822222568 (Scan Product, Packaging, Lot / Serial)",
         )
-        # Scan a package
+        # Scan a packaging barcode: nothing happens anymore.
+        # Odoo 19 removed product.packaging and its barcode: packagings are
+        # uom.uom records without a barcode field, so there is nothing to look
+        # up. The quantity stays where it was and the message reports that the
+        # code was not found.
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
-        # Package of 5 product units. Already three unit exists
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 5.0)
+        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 1.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(
@@ -395,14 +389,12 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         # Prepare more data
         lot_2 = self.StockProductionLot.create(
             {
-                "name": "8411822222578",
                 "product_id": self.product_tracking.id,
                 "company_id": self.company.id,
             }
         )
         lot_3 = self.StockProductionLot.create(
             {
-                "name": "8411822222588",
                 "product_id": self.product_tracking.id,
                 "company_id": self.company.id,
             }
@@ -450,8 +442,14 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
 
         # Removal strategy LIFO
         self.wiz_scan_picking_out.lot_id = False
-        self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
-            "stock.removal_lifo"
+        # In Odoo 19 a product is no longer given a default category, so
+        # writing on product.categ_id.removal_strategy_id used to silently do
+        # nothing (write on an empty recordset) and the strategy stayed FIFO.
+        self.product_tracking.categ_id = self.env["product.category"].create(
+            {
+                "name": "LIFO category",
+                "removal_strategy_id": self.env.ref("stock.removal_lifo").id,
+            }
         )
         self.wiz_scan_picking_out.action_clean_values()
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
@@ -487,7 +485,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         {
                             "step": 2,
                             "name": "Packaging",
-                            "field_name": "packaging_id",
+                            "field_name": "packaging_uom_id",
                             "to_scan": True,
                             "required": False,
                         }
@@ -554,7 +552,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         {
                             "step": 2,
                             "name": "Packaging",
-                            "field_name": "packaging_id",
+                            "field_name": "packaging_uom_id",
                             "to_scan": True,
                             "required": False,
                         }
@@ -718,7 +716,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan.action_assign_serial()
 
         with (
-            patch.object(type(self.StockMove), "action_assign_serial"),
+            patch.object(type(self.StockMove), "action_show_details"),
             patch.object(
                 type(self.wiz_scan),
                 "_prepare_stock_moves_domain",
@@ -891,7 +889,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": product_serial.name,
                             "product_id": product_serial.id,
                             "product_uom_qty": 1,
                             "product_uom": product_serial.uom_id.id,
@@ -1067,7 +1064,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 type(self.StockPicking), "action_put_in_pack"
             ) as mock_put_in_pack,
             patch(
-                "odoo.addons.stock.models.stock_picking.Picking.button_validate",
+                "odoo.addons.stock.models.stock_picking.StockPicking.button_validate",
                 return_value=True,
             ),
         ):

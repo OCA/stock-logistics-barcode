@@ -5,7 +5,6 @@ from collections import OrderedDict, defaultdict
 
 from odoo import api, fields, models
 from odoo.exceptions import ValidationError
-from odoo.fields import first
 from odoo.tools.float_utils import float_compare, float_round
 from odoo.tools.safe_eval import safe_eval
 
@@ -179,26 +178,26 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 location_field = "location_dest_id"
             else:
                 location_field = "location_id"
+        # Odoo 19 quitó las coordenadas posx/posy/posz de stock.location, que es
+        # lo que ordenaba el recorrido del depósito. Queda el nombre completo,
+        # que respeta la jerarquía de ubicaciones; un módulo que reponga
+        # coordenadas puede extender `_get_location_sort_key`.
         if self.option_group_id.source_pending_moves == "move_line_ids":
             move_lines = move_lines.sorted(
-                lambda sml: (
-                    sml[location_field].posx,
-                    sml[location_field].posy,
-                    sml[location_field].posz,
-                    sml[location_field].complete_name,
-                )
+                lambda sml: self._get_location_sort_key(sml[location_field])
             )
         else:
             # Stock moves
             move_lines = move_lines.sorted(
-                lambda sm: (
-                    (sm.move_line_ids[:1] or sm)[location_field].posx,
-                    (sm.move_line_ids[:1] or sm)[location_field].posy,
-                    (sm.move_line_ids[:1] or sm)[location_field].posz,
-                    (sm.move_line_ids[:1] or sm)[location_field].complete_name,
+                lambda sm: self._get_location_sort_key(
+                    (sm.move_line_ids[:1] or sm)[location_field]
                 )
             )
         return move_lines
+
+    def _get_location_sort_key(self, location):
+        """Clave de ordenamiento del recorrido de preparación."""
+        return (location.complete_name or "",)
 
     def _get_stock_move_lines_todo(self):
         move_lines = self.picking_id.move_line_ids.filtered(
@@ -363,9 +362,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             "picking_id": picking.id,
             "move_id": candidate_move.id,
             "qty_picked": available_qty,
-            "product_uom_id": candidate_move.product_uom.id or self.product_id.uom_id.id
-            if not self.packaging_id
-            else self.packaging_id.product_uom_id.id,
+            # En 19 la presentación YA es una unidad de medida.
+            "product_uom_id": (
+                self.packaging_uom_id.id
+                or candidate_move.product_uom.id
+                or self.product_id.uom_id.id
+            ),
             "product_id": self.product_id.id,
             "location_id": self.location_id.id,
             "location_dest_id": self.location_dest_id.id,
@@ -762,7 +764,6 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def create_new_stock_move(self, sml):
         vals = {
-            "name": self.env._("New Move:") + sml.product_id.display_name,
             "product_uom": sml.product_uom_id.id,
             "product_uom_qty": sml.qty_picked,
             "state": "assigned",
@@ -813,9 +814,8 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return res
 
     def get_lot_by_removal_strategy(self):
-        quants = first(
-            self.env["stock.quant"]._gather(self.product_id, self.location_id)
-        )
+        # Odoo 19 quitó el helper `odoo.fields.first`; `[:1]` es lo que hacía.
+        quants = self.env["stock.quant"]._gather(self.product_id, self.location_id)[:1]
         # TODO: Perhaps update location_id from quant??
         self.lot_id = quants.lot_id
 
@@ -919,7 +919,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 self.product_id,
                 quantity=self.product_qty,
                 package=self.result_package_id,
-                packaging=self.packaging_id,
+                packaging=self.packaging_uom_id,
             )
             return bool(self.location_dest_id)
         return super()._option_required_hook(option_required)
@@ -927,7 +927,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def _group_key(self, line):
         group_key_for_todo_records = self.option_group_id.group_key_for_todo_records
         if group_key_for_todo_records:
-            return safe_eval(group_key_for_todo_records, globals_dict={"object": line})
+            return safe_eval(group_key_for_todo_records, {"object": line})
         if self.option_group_id.source_pending_moves == "move_line_ids":
             return (
                 line.location_id.id,

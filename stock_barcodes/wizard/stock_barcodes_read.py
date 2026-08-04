@@ -41,10 +41,16 @@ class WizStockBarcodesRead(models.AbstractModel):
     location_dest_id = fields.Many2one(
         comodel_name="stock.location", string="Location dest."
     )
-    packaging_id = fields.Many2one(comodel_name="product.packaging")
-    product_packaging_ids = fields.One2many(related="product_id.packaging_ids")
-    package_id = fields.Many2one(comodel_name="stock.quant.package")
-    result_package_id = fields.Many2one(comodel_name="stock.quant.package")
+    # Odoo 19 eliminó product.packaging: las presentaciones son unidades de
+    # medida (uom.uom) listadas en product_id.uom_ids.
+    packaging_uom_id = fields.Many2one(
+        comodel_name="uom.uom",
+        string="Packaging",
+        domain="[('id', 'in', product_packaging_uom_ids)]",
+    )
+    product_packaging_uom_ids = fields.Many2many(related="product_id.uom_ids")
+    package_id = fields.Many2one(comodel_name="stock.package")
+    result_package_id = fields.Many2one(comodel_name="stock.package")
     owner_id = fields.Many2one(comodel_name="res.partner")
     packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
     product_qty = fields.Float(digits="Product Unit of Measure")
@@ -158,8 +164,10 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     @api.onchange("packaging_qty")
     def onchange_packaging_qty(self):
-        if self.packaging_id:
-            self.product_qty = self.packaging_qty * self.packaging_id.qty
+        if self.packaging_uom_id:
+            self.product_qty = self.packaging_uom_id._compute_quantity(
+                self.packaging_qty, self.product_id.uom_id
+            )
 
     @api.onchange(
         "product_id",
@@ -386,7 +394,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         if not self.env.user.has_group("stock.group_tracking_lot"):
             return False
         domain = [("name", "=", self.barcode)]
-        package = self.env["stock.quant.package"].search(domain, limit=1)
+        package = self.env["stock.package"].search(domain, limit=1)
         if package:
             self.result_package_id = package
             return True
@@ -444,19 +452,11 @@ class WizStockBarcodesRead(models.AbstractModel):
                         self.location_id = locations
 
     def process_barcode_packaging_id(self):
-        domain = self._barcode_domain(self.barcode)
-        if self.env.user.has_group("product.group_stock_packaging"):
-            domain.append(("product_id", "!=", False))
-            packaging = self.env["product.packaging"].search(domain)
-            if packaging:
-                if len(packaging) > 1:
-                    self._set_message_info(
-                        "more_match", self.env._("More than one package found")
-                    )
-                    self.packaging_id = False
-                    return False
-                self.action_packaging_scaned_post(packaging)
-                return True
+        # En Odoo 19 las presentaciones son uom.uom y el core NO les da un
+        # campo de código de barras, así que no hay dónde buscar. La
+        # presentación se elige a mano y multiplica la cantidad
+        # (onchange_packaging_qty). Cuando el core —o un módulo de la OCA—
+        # vuelva a dar barcode a la unidad de medida, acá se reengancha.
         return False
 
     def process_barcode(self, barcode):
@@ -702,14 +702,18 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.set_product_qty()
 
     def action_packaging_scaned_post(self, packaging):
-        self.packaging_id = packaging
-        if (
-            self.product_id != packaging.product_id
-            and self.lot_id.product_id != packaging.product_id
-        ):
-            self.lot_id = False
-        self.product_id = packaging.product_id
+        # `packaging` es una uom.uom: no identifica al producto (una misma
+        # unidad sirve a muchos), así que solo se acepta si pertenece al
+        # producto en curso.
+        if packaging not in self.product_id.uom_ids:
+            self._set_message_info(
+                "not_found",
+                self.env._("That packaging does not belong to this product"),
+            )
+            return False
+        self.packaging_uom_id = packaging
         self.set_product_qty()
+        return True
 
     def action_lot_scaned_post(self, lot):
         if isinstance(lot, str):
@@ -725,9 +729,11 @@ class WizStockBarcodesRead(models.AbstractModel):
             or self.option_group_id.get_option_value("product_qty", "filled_default")
         ):
             return
-        elif self.packaging_id:
+        elif self.packaging_uom_id:
             self.packaging_qty = 1.0
-            self.product_qty = self.packaging_id.qty * self.packaging_qty
+            self.product_qty = self.packaging_uom_id._compute_quantity(
+                self.packaging_qty, self.product_id.uom_id
+            )
         else:
             self.packaging_qty = 0.0
             self.product_qty = 1.0
@@ -747,7 +753,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.action_show_step()
 
     def action_create_package(self):
-        self.result_package_id = self.env["stock.quant.package"].create({})
+        self.result_package_id = self.env["stock.package"].create({})
 
     def action_clean_values(self):
         options = self.option_group_id.option_ids
@@ -936,7 +942,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _set_focus_on_qty_input(self, field_name=None):
         if field_name is None:
             field_name = "product_qty"
-        if field_name == "product_qty" and self.packaging_id:
+        if field_name == "product_qty" and self.packaging_uom_id:
             field_name = "packaging_qty"
 
         self.send_bus_done(

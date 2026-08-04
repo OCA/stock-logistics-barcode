@@ -24,7 +24,6 @@
         "views/stock_move_line_views.xml",
         "views/stock_picking_views.xml",
         "wizard/stock_barcodes_new_lot_views.xml",
-        "wizard/stock_barcodes_new_packaging_views.xml",
         "wizard/stock_barcodes_read_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
         "wizard/stock_barcodes_read_todo_view.xml",

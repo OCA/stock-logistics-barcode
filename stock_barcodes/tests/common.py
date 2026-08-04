@@ -14,7 +14,7 @@ class TestCommonStockBarcodes(TransactionCase):
         # language loaded in the running environment.
         cls.env = cls.env(context=dict(cls.env.context, lang="en_US"))
         # Active group_stock_packaging and group_production_lot for user
-        group_stock_packaging = cls.env.ref("product.group_stock_packaging")
+        group_stock_packaging = cls.env.ref("uom.group_uom")
         group_production_lot = cls.env.ref("stock.group_production_lot")
         cls.env.user.group_ids = [
             (4, group_stock_packaging.id),
@@ -25,7 +25,8 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.IrActions = cls.env["ir.actions.actions"]
         cls.Product = cls.env["product.product"]
         cls.ProductTemplate = cls.env["product.template"]
-        cls.ProductPackaging = cls.env["product.packaging"]
+        # En 19 una "packaging" es una unidad de medida (uom.uom).
+        cls.ProductPackaging = cls.env["uom.uom"]
         cls.WizScanReadPicking = cls.env["wiz.stock.barcodes.read.picking"]
         cls.WizScanReadInventory = cls.env["wiz.stock.barcodes.read.inventory"]
         cls.WizScanReadTodo = cls.env["wiz.stock.barcodes.read.todo"]
@@ -34,7 +35,7 @@ class TestCommonStockBarcodes(TransactionCase):
         cls.StockPicking = cls.env["stock.picking"]
         cls.StockQuant = cls.env["stock.quant"]
         cls.StockLocation = cls.env["stock.location"]
-        cls.StockQuantpackage = cls.env["stock.quant.package"]
+        cls.StockQuantpackage = cls.env["stock.package"]
         cls.StockBarcodeAction = cls.env["stock.barcodes.action"]
         cls.StockMove = cls.env["stock.move"]
         cls.ActionReport = cls.env["ir.actions.report"]
@@ -67,7 +68,7 @@ class TestCommonStockBarcodes(TransactionCase):
 
         cls.user_test_packing = mail_new_test_user(
             cls.env,
-            groups="base.group_user,product.group_stock_packaging",
+            groups="base.group_user,uom.group_uom",
             login="test_user_packing",
             name="Test user packing",
             signature="--\nTest user packing",
@@ -258,12 +259,12 @@ class TestCommonStockBarcodes(TransactionCase):
                 "is_storable": True,
                 "tracking": "none",
                 "barcode": "8480000723208",
-                "packaging_ids": [
+                "uom_ids": [
                     Command.create(
                         {
                             "name": "Box 10 Units",
-                            "qty": 10.0,
-                            "barcode": "5099206074439",
+                            "relative_uom_id": cls.env.ref("uom.product_uom_unit").id,
+                            "relative_factor": 10.0,
                         }
                     )
                 ],
@@ -275,9 +276,13 @@ class TestCommonStockBarcodes(TransactionCase):
             "is_storable": True,
             "tracking": "lot",
             "barcode": "8433281006850",
-            "packaging_ids": [
+            "uom_ids": [
                 Command.create(
-                    {"name": "Box 5 Units", "qty": 5.0, "barcode": "5420008510489"}
+                    {
+                        "name": "Box 5 Units",
+                        "relative_uom_id": cls.env.ref("uom.product_uom_unit").id,
+                        "relative_factor": 5.0,
+                    }
                 )
             ],
         }
@@ -286,9 +291,13 @@ class TestCommonStockBarcodes(TransactionCase):
             {
                 "tracking": "serial",
                 "barcode": "84332810068950",
-                "packaging_ids": [
+                "uom_ids": [
                     Command.create(
-                        {"name": "Box 15 Units", "qty": 5.0, "barcode": "5420008520489"}
+                        {
+                            "name": "Box 15 Units",
+                            "relative_uom_id": cls.env.ref("uom.product_uom_unit").id,
+                            "relative_factor": 5.0,
+                        }
                     )
                 ],
             }
@@ -299,12 +308,12 @@ class TestCommonStockBarcodes(TransactionCase):
             {
                 "tracking": "serial",
                 "barcode": "84332810068742",
-                "packaging_ids": [
+                "uom_ids": [
                     Command.create(
                         {
                             "name": "Box 15 Units",
-                            "qty": 5.0,
-                            "barcode": "84332810068722",
+                            "relative_uom_id": cls.env.ref("uom.product_uom_unit").id,
+                            "relative_factor": 5.0,
                         }
                     )
                 ],
@@ -407,7 +416,6 @@ class TestCommonStockBarcodes(TransactionCase):
         )
 
         values_move = {
-            "name": "Test move",
             "product_id": cls.product_tracking.id,
             "product_uom_qty": 1.0,
             "product_uom": cls.product_tracking.uom_id.id,
@@ -522,7 +530,7 @@ class TestCommonStockBarcodes(TransactionCase):
                         {
                             "step": 2,
                             "name": "Packaging",
-                            "field_name": "packaging_id",
+                            "field_name": "packaging_uom_id",
                             "to_scan": True,
                             "required": False,
                         }

@@ -36,21 +36,24 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertEqual(self.wiz_scan.product_qty, 0.0)
         self.wiz_scan.product_qty = 50.0
 
-    def test_wizard_scan_package(self):
+    def test_wizard_packaging_multiplies_qty(self):
+        """La presentación multiplica la cantidad leída.
+
+        En Odoo 19 una presentación es una unidad de medida (uom.uom) y el core
+        no le da código de barras, así que ya no se llega a ella escaneando:
+        se elige, y la cantidad se expresa en cajas. El factor sale de la
+        conversión de unidades."""
         self.wiz_scan.location_id = self.location_1
         self.wiz_scan.action_show_step()
-        self.action_barcode_scanned(self.wiz_scan, "5420008510489")
-        self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
-        self.assertEqual(self.wiz_scan.product_qty, 5.0)
-        self.assertEqual(
-            self.wiz_scan.packaging_id, self.product_tracking.packaging_ids
-        )
+        caja_5 = self.product_tracking.uom_ids
+        self.assertEqual(len(caja_5), 1)
 
-        # Manual entry
         self.wiz_scan.manual_entry = True
         self.wiz_scan.action_clean_values()
-        self.action_barcode_scanned(self.wiz_scan, "5420008510489")
-        self.assertEqual(self.wiz_scan.packaging_qty, 1.0)
+        self.action_barcode_scanned(self.wiz_scan, self.product_tracking.barcode)
+        self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
+
+        self.wiz_scan.packaging_uom_id = caja_5
         self.wiz_scan.packaging_qty = 3.0
         self.wiz_scan.onchange_packaging_qty()
         self.assertEqual(self.wiz_scan.product_qty, 15.0)
@@ -400,21 +403,33 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertTrue(result)
 
     def test_process_barcode_packaging_id(self):
-        packing = self.wiz_scan.process_barcode_packaging_id()
-        self.assertFalse(packing)
+        """Escanear una presentación no resuelve nada en 19, a propósito.
 
-        packing_values = {
-            "name": "Test product packing",
-            "product_uom_id": self.env.ref("uom.product_uom_unit").id,
-            "product_id": self.env.ref("product.product_product_4").id,
-            "barcode": "8411822222568",
-        }
-        self.ProductPackaging.create(packing_values)
+        `uom.uom` no tiene campo de código de barras en el core, así que no hay
+        dónde buscar: el método devuelve False y la presentación se elige a
+        mano. Este test fija esa expectativa para que, si el core (o un módulo
+        de la OCA) vuelve a dar barcode a la unidad de medida, salte."""
+        self.assertFalse(self.wiz_scan.process_barcode_packaging_id())
 
-        wiz_scan_user = self.wiz_scan.with_user(self.user_test_packing)
         self.wiz_scan.barcode = "8411822222568"
-        result = wiz_scan_user.process_barcode_packaging_id()
-        self.assertTrue(result)
+        wiz_scan_user = self.wiz_scan.with_user(self.user_test_packing)
+        self.assertFalse(wiz_scan_user.process_barcode_packaging_id())
+        self.assertFalse(
+            "barcode" in self.env["uom.uom"]._fields,
+            "uom.uom volvió a tener barcode: reenganchar el escaneo de presentaciones",
+        )
+
+    def test_packaging_from_other_product_is_rejected(self):
+        """Una unidad de medida no identifica al producto: solo se acepta si
+        está declarada como presentación de ese producto."""
+        ajena = self.product_tracking_serial.uom_ids
+        self.wiz_scan.product_id = self.product_tracking
+        self.assertFalse(self.wiz_scan.action_packaging_scaned_post(ajena))
+        self.assertFalse(self.wiz_scan.packaging_uom_id)
+
+        propia = self.product_tracking.uom_ids
+        self.assertTrue(self.wiz_scan.action_packaging_scaned_post(propia))
+        self.assertEqual(self.wiz_scan.packaging_uom_id, propia)
 
     def test_scanned_location(self):
         with (

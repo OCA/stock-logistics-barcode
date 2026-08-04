@@ -11,7 +11,9 @@ from .common import TestCommonStockBarcodes
 @tagged("post_install", "-at_install")
 class TestStockMove(TestCommonStockBarcodes):
     def test_action_barcode_detailed_operation_unlink(self):
-        self.env.context = dict(self.env.context, wiz_barcode_id=self.wiz_scan.id)
+        self.env = self.env(
+            context=dict(self.env.context, wiz_barcode_id=self.wiz_scan.id)
+        )
         with (
             patch.object(type(self.StockMove), "_action_assign") as mock_action_assign,
             patch.object(

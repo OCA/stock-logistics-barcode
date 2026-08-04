@@ -216,7 +216,7 @@
                                     <field
                                         name="lot_id"
                                         options="{'no_create': True, 'no_open': True}"
-                                        domain="[('product_id', '=', product_id)]"
+                                        domain="[('id', 'in', product_packaging_uom_ids)]"
                                         context="{'default_product_id': product_id}"
                                         readonly="not manual_entry"
                                         invisible="create_lot"
@@ -422,34 +422,23 @@
         <field name="arch" type="xml">
             <group name="option_qty" position="before">
                 <group name="packaging" col="1">
-                    <div colspan="2" groups="product.group_stock_packaging">
-                        <field name="product_packaging_ids" invisible="1" />
+                    <div colspan="2" groups="uom.group_uom">
+                        <field name="product_packaging_uom_ids" invisible="1" />
                         <span
                             class="fa fa-archive d-sm-none oe_span_small_icon"
                             title="Source Location"
-                            invisible="product_packaging_ids == False"
+                            invisible="product_packaging_uom_ids == False"
                         />
                         <field
-                            name="packaging_id"
+                            name="packaging_uom_id"
                             options="{'no_open': True, 'no_create': True}"
-                            domain="[('product_id', '=', product_id)]"
+                            domain="[('id', 'in', product_packaging_uom_ids)]"
                             force_save="1"
                             style="width: 75%"
                             class="h5"
                             placeholder="Packaging"
                             nolabel="1"
                             readonly="not manual_entry"
-                        />
-                        <button
-                            id="btn_create_packaging"
-                            class="btn-sm float-end oe_kanban_action_button btn btn-secondary border"
-                            type="action"
-                            name="%(action_stock_barcodes_new_packaging)d"
-                            icon="fa-plus fa-1x"
-                            title="Create packaging"
-                            context="{'default_product_id': product_id}"
-                            invisible="not create_lot"
-                            help="Create new packaging"
                         />
                     </div>
                 </group>
@@ -458,11 +447,11 @@
                 expr="//div[@name='total_qty_field']//field[@name='product_qty']"
                 position="before"
             >
-                <field name="product_packaging_ids" invisible="1" />
+                <field name="product_packaging_uom_ids" invisible="1" />
                 <div
                     class="d-flex flex-column"
                     id="packaging_qty_field"
-                    invisible="not product_packaging_ids"
+                    invisible="not product_packaging_uom_ids"
                 >
                     <span
                         class="f-weight-900 d-none d-sm-block my-2"
@@ -472,12 +461,12 @@
                         force_save="1"
                         widget="numeric_step"
                         options="{'auto_select': True}"
-                        groups="product.group_stock_packaging"
+                        groups="uom.group_uom"
                     />
                 </div>
             </xpath>
             <!-- <div name="total_qty_field" position="before">
-                <div class="col text-center" groups="product.group_stock_packaging">
+                <div class="col text-center" groups="uom.group_uom">
                 </div>
             </div> -->
         </field>
@@ -501,10 +490,10 @@
         <field name="arch" type="xml">
             <form string="Barcodes manual quantities">
                 <sheet>
-                    <field name="packaging_id" invisible="1" />
+                    <field name="packaging_uom_id" invisible="1" />
                     <field
                         name="packaging_qty"
-                        invisible="packaging_id == False"
+                        invisible="packaging_uom_id == False"
                         force_save="1"
                         nolabel="1"
                         widget="numeric_step"
