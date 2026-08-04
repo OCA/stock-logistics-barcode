@@ -1,3 +1,4 @@
+from . import stock_backorder_confirmation
 from . import stock_barcodes_new_lot
 from . import stock_barcodes_new_packaging
 from . import stock_barcodes_read
