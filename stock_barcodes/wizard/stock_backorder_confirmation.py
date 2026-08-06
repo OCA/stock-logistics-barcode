@@ -18,12 +18,18 @@ class StockBackorderConfirmation(models.TransientModel):
         validating a picking within a continued scanning session can reach
         this wizard's buttons with that key missing, or carrying a stale
         value left over from a previous validate in the same session.
-        ``pick_ids`` is this wizard record's own stored data, always
-        correctly scoped to the pickings it was actually created for, so it
-        is always the source of truth here, not just a fallback for the
-        missing-context case.
+        ``pick_ids`` is this wizard record's own stored data, correctly scoped
+        to the pickings it was created for, so it is the source of truth when
+        the context key is missing or stale.
+
+        It must not replace a context key that already covers those pickings:
+        the wizard only holds the pickings needing a backorder, while the
+        validation can legitimately span more of them (validating a batch asks
+        for a backorder on some of its pickings but must validate them all),
+        and narrowing it down would leave the rest unvalidated.
         """
-        if self.pick_ids:
+        picking_ids = self.env.context.get("button_validate_picking_ids")
+        if self.pick_ids and not set(self.pick_ids.ids) <= set(picking_ids or []):
             return self.with_context(button_validate_picking_ids=self.pick_ids.ids)
         return self
 
