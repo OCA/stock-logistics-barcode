@@ -47,7 +47,10 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         self.assertFalse(todo.exists())
 
     def test_fields_to_fill_from_pending_line(self):
-        return_values = [
+        # Modules extending this method append their own fields (e.g.
+        # stock_barcodes_gs1_secondary_unit adds secondary_uom_id), so check the
+        # fields this module is responsible for instead of the exact list.
+        base_values = [
             "location_id",
             "location_dest_id",
             "product_id",
@@ -56,12 +59,13 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         ]
         self.wiz_scan_read_todo.wiz_barcode_id.keep_result_package = True
         result = self.wiz_scan_read_todo.fields_to_fill_from_pending_line()
-        self.assertEqual(result, return_values)
+        self.assertEqual([f for f in result if f in base_values], base_values)
+        self.assertNotIn("result_package_id", result)
 
-        return_values.append("result_package_id")
         self.wiz_scan_read_todo.wiz_barcode_id.keep_result_package = False
         result = self.wiz_scan_read_todo.fields_to_fill_from_pending_line()
-        self.assertEqual(result, return_values)
+        self.assertEqual([f for f in result if f in base_values], base_values)
+        self.assertIn("result_package_id", result)
 
     def test_operation_quantities(self):
         # operation_quantities distributes the pending quantity over the lines and
