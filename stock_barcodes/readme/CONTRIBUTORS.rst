@@ -23,3 +23,5 @@
 * `Binhex <https://www.binhex.cloud/>`_:
 
   * Edilio Escalona Almira
+
+* Takahiro SUNAGA <t.sunaga@takahii.co>
