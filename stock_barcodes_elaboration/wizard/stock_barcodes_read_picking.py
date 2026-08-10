@@ -28,7 +28,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         for elaboration_id in line.elaboration_ids.ids:
             if elaboration_id not in elaboration_ids:
                 elaboration_ids.append(elaboration_id)
-            vals["elaboration_ids"] = elaboration_ids
+        vals["elaboration_ids"] = [(6, 0, elaboration_ids)]
         if (
             line.elaboration_note
             and line.elaboration_note not in vals["elaboration_note"]

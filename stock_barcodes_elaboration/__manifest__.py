@@ -4,14 +4,13 @@
     "name": "Stock Barcodes Elaboration",
     "summary": "Extends barcode reader module to show elaboration info"
     "into secondary unit data.",
-    "version": "15.0.1.1.1",
+    "version": "18.0.1.0.0",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
     "category": "Extra Tools",
     "depends": ["stock_barcodes", "sale_elaboration"],
     "data": [
-        "wizard/stock_barcodes_read_picking_views.xml",
         "wizard/stock_barcodes_read_todo_view.xml",
     ],
     "installable": True,

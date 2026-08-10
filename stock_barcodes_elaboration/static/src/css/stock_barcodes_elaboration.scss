@@ -2,7 +2,8 @@
     .o_kanban_view .oe_kanban_card .o_field_many2manytags .o_tag,
     .o_kanban_view .oe_kanban_card .o_kanban_tags .o_tag,
     .o_kanban_view .o_kanban_record .o_field_many2manytags .o_tag,
-    .o_kanban_view .o_kanban_record .o_kanban_tags .o_tag {
+    .o_kanban_view .o_kanban_record .o_kanban_tags .o_tag,
+    .o_stock_barcodes_pending_operation_card .o_field_many2manytags .o_tag {
         font-size: 12px;
         font-style: italic;
         font-weight: bold;
