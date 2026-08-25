@@ -1,0 +1,103 @@
+# Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
+import logging
+
+from odoo import models
+
+_logger = logging.getLogger(__name__)
+
+
+class StockPicking(models.Model):
+    _inherit = "stock.picking"
+
+    def _prepare_barcode_wiz_vals(self, option_group):
+        vals = {
+            "picking_id": self.id,
+            "res_model_id": self.env.ref("stock.model_stock_picking").id,
+            "res_id": self.id,
+            "picking_type_code": self.picking_type_code,
+            "option_group_id": option_group.id,
+            "manual_entry": option_group.manual_entry,
+            "picking_mode": "picking",
+        }
+        if self.picking_type_id.code == "outgoing":
+            vals["location_dest_id"] = self.location_dest_id.id
+        elif self.picking_type_id.code == "incoming":
+            vals["location_id"] = self.location_id.id
+
+        if option_group.get_option_value("location_id", "filled_default"):
+            vals["location_id"] = self.location_id.id
+        if option_group.get_option_value("location_dest_id", "filled_default"):
+            vals["location_dest_id"] = self.location_dest_id.id
+        return vals
+
+    def action_barcode_scan(self, option_group=False, wiz=False):
+        option_group = (
+            option_group
+            or self.picking_type_id.barcode_option_group_id
+            or self.env.ref("stock_barcodes.stock_barcodes_option_group_operation")
+        )
+        if not wiz:
+            wiz = self.env["wiz.stock.barcodes.read.picking"].create(
+                self._prepare_barcode_wiz_vals(option_group)
+            )
+        wiz.fill_pending_moves()
+        wiz.determine_todo_action()
+        action = self.env["ir.actions.actions"]._for_xml_id(
+            "stock_barcodes.action_stock_barcodes_read_picking"
+        )
+        action["res_id"] = wiz.id
+        return action
+
+    def set_quantity_from_picked(self):
+        for sml in self.move_line_ids:
+            sml.quantity = sml.qty_picked
+
+    def button_validate(self):
+        if self.env.context.get("stock_barcodes_read_picking_id", False):
+            self.set_quantity_from_picked()
+        put_in_pack_picks = self.filtered(
+            lambda p: p.picking_type_id.barcode_option_group_id.auto_put_in_pack
+            and not p.move_line_ids.result_package_id
+        )
+        if put_in_pack_picks:
+            put_in_pack_picks.action_put_in_pack()
+        context = self.env.context
+        if not context.get("picking_ids_not_to_backorder", False) and context.get(
+            "skip_backorder", False
+        ):
+            res = super(
+                StockPicking,
+                self.with_context(skip_backorder=context.get("skip_backorder", False)),
+            ).button_validate()
+        else:
+            res = super().button_validate()
+        if self.env.context.get("stock_barcodes_read_picking_id", False) and all(
+            p.state == "done" for p in self
+        ):
+            # Notify only the validating user, with the same envelope expected
+            # by the "stock_barcodes_scan" subscription of the web client.
+            self.env["bus.bus"]._sendone(
+                self.env.user.partner_id,
+                "stock_barcodes_scan",
+                {"type": "actions_barcode", "payload": {"valid_picking": True}},
+            )
+        after_validate_action = False
+        wiz_id = self.env.context.get("stock_barcodes_read_picking_id", False)
+        if wiz_id:
+            wiz = self.env["wiz.stock.barcodes.read.picking"].browse(wiz_id)
+            after_validate_action = wiz.get_action_after_validate()
+        if not after_validate_action:
+            return res
+        if res is True:
+            res = after_validate_action
+        elif "params" in res:
+            if res["params"].get("anotherAction"):
+                _logger.error(
+                    "Several modules try adding anotherAction param in stock.picking "
+                    "button_validate method",
+                    res["params"]["anotherAction"],
+                    after_validate_action,
+                )
+            res["params"]["anotherAction"] = after_validate_action
+        return res

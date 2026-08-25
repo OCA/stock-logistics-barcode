@@ -1,0 +1,616 @@
+@mixin margin-form-edit-sm($margin) {
+    @include media-breakpoint-down(sm) {
+        margin: $margin !important;
+    }
+}
+
+.oe_stock_scan_button {
+    border: none !important;
+    background: none !important;
+    box-shadow: none !important;
+}
+
+.oe_stock_barcodes_bottombar {
+    align-items: stretch;
+    bottom: 0;
+    background-color: $o-view-background-color;
+    border-width: 1px 0 0 0 solid $border-color;
+    box-shadow: 0 -3px 10px #c9ccd2;
+    display: flex;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    width: 100%;
+
+    > button[name="action_add_scan_manual"],
+    > .btn-group.dropup > button {
+        flex: 0 0 42px;
+        min-width: 42px !important;
+        width: 42px !important;
+    }
+
+    > .btn-group.dropup {
+        display: flex;
+        flex: 0 0 auto;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+
+    > .btn-group.dropup:has(> button:not(.o_invisible_modifier)) {
+        flex-basis: 42px;
+        width: 42px !important;
+    }
+
+    > button.w-100 {
+        flex: 1 1 0;
+        min-width: 0 !important;
+        width: auto !important;
+    }
+}
+
+// Avoid too big small buttons from core
+.o_web_client.o_touch_device {
+    .oe_stock_barcordes_form {
+        .btn {
+            &,
+            .btn-sm {
+                padding: 0.25rem 0.5rem;
+            }
+        }
+    }
+}
+
+.oe_stock_barcordes_form {
+    padding: 0 !important;
+    height: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+    // Recover useless space
+    div[name="_barcode_scanned"] {
+        min-height: 0 !important;
+    }
+
+    div.o_form_nosheet {
+        display: contents !important;
+    }
+
+    div[name="package_id"] {
+        width: 90% !important;
+    }
+
+    div[name="product_id"],
+    div[name="lot_id"] {
+        width: 80% !important;
+    }
+
+    div[name="product_id"],
+    div[name="package_id"],
+    div[name="lot_name"] {
+        @include margin-form-edit-sm(0 0 0 1%);
+        input {
+            min-height: 35px;
+        }
+    }
+
+    div[name="location_dest_id"] {
+        @include margin-form-edit-sm(0 0 1% 1%);
+    }
+
+    div.scan_fields {
+        div {
+            margin-bottom: 2px;
+        }
+
+        div.o-autocomplete.dropdown {
+            + a.o_dropdown_button {
+                display: none !important;
+            }
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 0 2% 0 2% !important;
+        }
+
+        > div.o_inner_group.grid.col-lg-6 {
+            div.o_cell {
+                width: 100% !important;
+            }
+        }
+
+        div.mt4.col-lg-6 {
+            @include media-breakpoint-down(sm) {
+                margin-bottom: 1.5rem !important;
+            }
+        }
+
+        &:has(button[name="action_clean_lot"]) {
+            div[name="lot_name"] {
+                width: 88% !important;
+                @include media-breakpoint-down(sm) {
+                    width: 90% !important;
+                }
+            }
+
+            button[name="action_clean_lot"] {
+                margin-left: 5px !important;
+            }
+        }
+
+        div#packaging_qty_field {
+            div.o_kanban_renderer {
+                margin: 0 !important;
+                padding: 0 !important;
+            }
+        }
+    }
+
+    .o_group .scan_fields {
+        &.o_inner_group {
+            margin-bottom: 0 !important;
+        }
+
+        @include media-breakpoint-down(sm) {
+            padding: 2% 0 2% 0 !important;
+        }
+    }
+
+    .o_form_sheet,
+    .o_form_sheet_bg {
+        padding: 0 !important;
+        margin: 0 !important;
+        max-width: 100% !important;
+        border: 0 !important;
+    }
+
+    // In Odoo 16 the flat input styling lacks proper usability
+    .o_field_widget {
+        margin-bottom: 1px !important;
+
+        .o_input {
+            border-radius: 3px;
+            border-width: 1px;
+            background-color: white;
+        }
+
+        .o_x2m_control_panel {
+            margin: 0px !important;
+        }
+    }
+
+    .o_kanban_record {
+        flex-basis: 100%;
+
+        .btn-full-width {
+            margin: -9px;
+            width: calc(100% + 18px);
+            height: calc(100% + 18px);
+        }
+
+        &.o_kanban_ghost {
+            display: none;
+        }
+    }
+
+    .alert {
+        //position: fixed;
+        top: 0;
+        width: 100%;
+        border-radius: 0;
+        padding: 0;
+        min-height: 50px;
+        z-index: 999;
+    }
+
+    .oe_stock_barcordes_content {
+        max-width: 100%;
+        overflow-x: hidden !important;
+        overflow-y: auto !important;
+        -webkit-overflow-scrolling: touch;
+        touch-action: pan-y;
+        padding: 7px !important;
+
+        div.g-col-sm-2 {
+            &:has(div.o_horizontal_separator) {
+                display: none !important;
+            }
+        }
+
+        div.o_inner_group.grid.px-3 {
+            padding: 0 !important;
+        }
+
+        div[name="action_unlock_picking"] {
+            span {
+                color: white !important;
+            }
+        }
+    }
+
+    div[name="info"] {
+        line-height: 1.1 !important;
+
+        div.alert {
+            display: flex !important;
+            @include media-breakpoint-down(sm) {
+                display: block !important;
+                text-align: center !important;
+            }
+        }
+
+        div.o_stock_barcodes_picking_info {
+            align-items: center !important;
+            align-content: start !important;
+            display: grid !important;
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: auto auto;
+            height: auto !important;
+            min-height: 0 !important;
+            overflow: hidden;
+            padding-bottom: 0 !important;
+            padding-top: 0 !important;
+            row-gap: 0;
+            text-align: center !important;
+
+            .o_stock_barcodes_picking_header {
+                align-items: center;
+                column-gap: 0.25rem;
+                display: grid;
+                grid-column: 1 / -1;
+                grid-row: 1;
+                grid-template-columns: 30px minmax(4.5rem, 0.8fr) minmax(0, 1.2fr);
+                min-width: 0;
+                width: 100%;
+            }
+
+            button[name="open_actions"] {
+                grid-column: 1;
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+            }
+
+            button[name="action_open_picking"] {
+                background: transparent !important;
+                border: 0 !important;
+                box-shadow: none !important;
+                color: white !important;
+                display: block !important;
+                grid-column: 2;
+                justify-self: start;
+                min-width: 0 !important;
+                max-width: 100%;
+                overflow: hidden;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                text-align: left;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100%;
+
+                .o_field_widget,
+                span {
+                    display: inline !important;
+                    max-width: 100%;
+                    overflow: hidden;
+                    text-align: left;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                }
+            }
+
+            .o_stock_barcodes_partner {
+                display: block;
+                grid-column: 3;
+                margin-top: 0 !important;
+                max-width: 100% !important;
+                overflow: hidden;
+                text-align: right;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100% !important;
+            }
+
+            .o_field_widget[name="message"] {
+                display: block;
+                grid-column: 1 / -1;
+                grid-row: 2;
+                line-height: 1.05 !important;
+                margin: 0 !important;
+                min-height: 0 !important;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+
+                span {
+                    line-height: inherit !important;
+                    margin: 0 !important;
+                    min-height: 0 !important;
+                }
+            }
+
+            .o_stock_barcodes_message {
+                font-size: 1rem !important;
+                grid-column: 1 / -1;
+                grid-row: 2;
+                line-height: 1 !important;
+                margin: 0 !important;
+                min-height: 0 !important;
+                overflow: hidden;
+                padding: 0 !important;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                width: 100%;
+            }
+
+            span.fa-barcode {
+                display: none !important;
+            }
+        }
+
+        div.barcode-danger {
+            background-color: #dc3545 !important;
+        }
+        .o_field_many2one {
+            > a.o_form_uri {
+                span {
+                    color: white !important;
+                }
+            }
+        }
+    }
+}
+
+.o_kanban_barcode {
+    .o_kanban_record.oe_kanban_details {
+        @extend .btn;
+        @extend .btn-secondary;
+        padding: 0.6em 0;
+        margin-bottom: 0.5em;
+    }
+}
+
+.oe_kanban_action_button:focus {
+    background-color: lightgray;
+}
+
+// Left icon in small screens
+.oe_span_small_icon {
+    width: 25px;
+    text-align: center;
+}
+
+// Display 100% all menu elements
+.oe_kanban_card_full_width {
+    width: 100% !important;
+}
+
+// The kanban view adds some pre-styles that we want to be able to tweak
+div[name="menu_actions"] {
+    div[role="article"] {
+        margin-top: 10px !important;
+    }
+}
+
+// Dropdown that is desactivated at lg width
+@media (min-width: 992px) {
+    .d-lg-flex-no-dropdown {
+        position: relative !important;
+        display: flex !important;
+        border: none;
+        box-shadow: none;
+        bottom: auto !important;
+        transform: none !important;
+    }
+}
+
+.dropdown-menu.d-lg-flex-no-dropdown {
+    .d-flex {
+        margin-bottom: 5px;
+    }
+}
+
+// Compact barcode UI for low-resolution handheld browsers.
+@media (max-width: 575.98px), (max-height: 760px) {
+    .oe_stock_barcordes_form {
+        font-size: 0.875rem;
+
+        .h3,
+        h3 {
+            font-size: 1rem !important;
+            line-height: 1.15 !important;
+        }
+
+        .h4 {
+            font-size: 0.875rem !important;
+            line-height: 1.15 !important;
+        }
+
+        .h5 {
+            font-size: 0.875rem !important;
+            line-height: 1.15 !important;
+        }
+
+        .fs-1 {
+            font-size: 1.2rem !important;
+        }
+
+        .fs-2 {
+            font-size: 1.05rem !important;
+        }
+
+        div[name="info"] {
+            margin-bottom: 0 !important;
+
+            .alert {
+                align-items: center !important;
+                min-height: 0 !important;
+                padding: 0 0.25rem !important;
+            }
+
+            .alert.o_stock_barcodes_picking_info {
+                align-content: start !important;
+                display: grid !important;
+                grid-template-rows: auto auto;
+                height: auto !important;
+                min-height: 0 !important;
+                overflow: hidden;
+                padding-bottom: 0 !important;
+                padding-top: 0 !important;
+                row-gap: 0 !important;
+            }
+
+            .btn:not(.o_stock_barcodes_picking_ref),
+            button[name="open_actions"] {
+                min-height: 26px !important;
+                min-width: 32px !important;
+                padding: 0.1rem 0.35rem !important;
+            }
+
+            button[name="open_actions"] {
+                min-height: 26px !important;
+                min-width: 30px !important;
+            }
+
+            .o_stock_barcodes_picking_header {
+                grid-template-columns: 30px minmax(4.2rem, 0.75fr) minmax(0, 1.25fr);
+            }
+
+            button[name="action_open_picking"] {
+                font-size: 0.78rem !important;
+                line-height: 1 !important;
+                min-height: 22px !important;
+                padding: 0 !important;
+            }
+
+            .o_stock_barcodes_partner {
+                font-size: 0.74rem !important;
+                line-height: 1.1 !important;
+            }
+
+            .o_field_widget[name="message"] {
+                font-size: 0.95rem !important;
+                line-height: 1 !important;
+            }
+
+            .o_stock_barcodes_message {
+                font-size: 0.9rem !important;
+                line-height: 1 !important;
+            }
+        }
+
+        .oe_stock_barcordes_content {
+            padding: 3px !important;
+        }
+
+        .scan_fields {
+            padding: 0.25rem !important;
+
+            div {
+                margin-bottom: 1px !important;
+            }
+
+            .o_field_widget {
+                margin-bottom: 0 !important;
+            }
+
+            .o_input,
+            input {
+                min-height: 28px !important;
+                padding: 0.15rem 0.35rem !important;
+            }
+
+            .oe_span_small_icon {
+                width: 18px !important;
+            }
+
+            button.btn,
+            .btn {
+                min-height: 30px !important;
+                padding: 0.15rem 0.35rem !important;
+            }
+        }
+
+        div[name="todo_line_display_ids"],
+        div[name="pending_move_ids"],
+        div[name="move_line_ids"] {
+            div.o_kanban_renderer {
+                gap: 0.25rem !important;
+                padding: 0 !important;
+
+                div.o_kanban_record {
+                    margin: 0 0 0.3rem 0 !important;
+                    padding: 0.35rem !important;
+                    box-shadow: rgba(0, 0, 0, 0.18) 0 2px 6px !important;
+
+                    .row {
+                        --bs-gutter-x: 0.35rem;
+                    }
+
+                    .col-8 {
+                        flex: 0 0 auto;
+                        width: 64%;
+                    }
+
+                    .col-4 {
+                        flex: 0 0 auto;
+                        width: 36%;
+                    }
+
+                    .indent {
+                        text-indent: 0 !important;
+                    }
+
+                    .indent.h4,
+                    .pt-3 {
+                        padding-top: 0.2rem !important;
+                    }
+
+                    i.fa-pencil,
+                    i.fa-trash {
+                        font-size: 1.25rem !important;
+                    }
+                }
+
+                button.btn-op-big {
+                    border-radius: 6px !important;
+                    font-size: 0.75rem !important;
+                    height: 38px !important;
+                    line-height: 1 !important;
+                    min-width: 36px !important;
+                    padding: 0.2rem 0.35rem !important;
+                }
+            }
+        }
+
+        .oe_stock_barcodes_bottombar {
+            min-height: 42px !important;
+
+            .btn,
+            button {
+                min-height: 42px !important;
+                padding: 0.2rem 0.45rem !important;
+            }
+
+            > button[name="action_add_scan_manual"],
+            > .btn-group.dropup > button {
+                flex-basis: 42px;
+                min-width: 42px !important;
+                padding-left: 0 !important;
+                padding-right: 0 !important;
+                width: 42px !important;
+            }
+
+            > button.w-100 {
+                min-width: 0 !important;
+                width: auto !important;
+            }
+
+            .btn-group.dropup {
+                min-width: 0 !important;
+            }
+
+            > .btn-group.dropup:has(> button:not(.o_invisible_modifier)) {
+                flex-basis: 42px;
+                width: 42px !important;
+            }
+        }
+    }
+}
