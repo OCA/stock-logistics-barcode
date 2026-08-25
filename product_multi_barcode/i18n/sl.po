@@ -9,7 +9,7 @@ msgstr ""
 "Project-Id-Version: stock-logistics-barcode (8.0)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2016-04-30 02:48+0000\n"
-"PO-Revision-Date: 2023-04-11 13:27+0000\n"
+"PO-Revision-Date: 2026-08-25 04:46+0000\n"
 "Last-Translator: Matjaz Mozetic <matjaz@luxim.si>\n"
 "Language-Team: Slovenian (http://www.transifex.com/oca/OCA-stock-logistics-"
 "barcode-8-0/language/sl/)\n"
@@ -19,24 +19,24 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=4; plural=n%100==1 ? 0 : n%100==2 ? 1 : n%100==3 || "
 "n%100==4 ? 2 : 3;\n"
-"X-Generator: Weblate 4.14.1\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
 msgid "Barcode"
-msgstr ""
+msgstr "Črtna koda"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 msgid "Barcodes"
-msgstr ""
+msgstr "Črtne kode"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
 msgid "Company"
-msgstr ""
+msgstr "Družba"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
@@ -61,7 +61,7 @@ msgstr "ID"
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_barcode
 msgid "Individual item in a product's barcode list"
-msgstr ""
+msgstr "Posamezen artikel na seznamu črtnih kod proizvoda"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
@@ -81,7 +81,7 @@ msgstr "Zadnjič posodobljeno"
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
 msgid "Main barcode"
-msgstr ""
+msgstr "Glavna črtna koda"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_template
@@ -91,14 +91,13 @@ msgstr "Proizvod"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
-#, fuzzy
 msgid "Product Tmpl"
-msgstr "Proizvod"
+msgstr "Predloga proizvoda"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Različica proizvoda"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
@@ -112,6 +111,8 @@ msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for product "
 "\"%(product_name)s\" in the company %(company_name)s"
 msgstr ""
+"Črtna koda '%(barcode_name)s' že obstaja za proizvod '%(product_name)s' v "
+"družbi %(company_name)s"
 
 #~ msgid "Last Modified on"
 #~ msgstr "Zadnjič spremenjeno"
