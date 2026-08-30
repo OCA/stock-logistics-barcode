@@ -1,0 +1,1 @@
+odoo-addon-web_widget_numeric_step @ git+https://github.com/OCA/web.git@refs/pull/3429/head#subdirectory=web_widget_numeric_step
