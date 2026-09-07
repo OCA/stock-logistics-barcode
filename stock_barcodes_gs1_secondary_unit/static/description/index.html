@@ -1,0 +1,558 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>Stock Barcodes GS1 Secondary Unit</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="stock-barcodes-gs1-secondary-unit">
+<h1 class="title">Stock Barcodes GS1 Secondary Unit</h1>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:c8e4f328712d181ccb6d132e0661f7007c2d60d675c17fbf551040843a501424
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes_gs1_secondary_unit"><img alt="OCA/stock-logistics-barcode" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-barcode-18-0/stock-logistics-barcode-18-0-stock_barcodes_gs1_secondary_unit"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module teaches the GS1 barcode reading wizards
+(<tt class="docutils literal">stock_barcodes_gs1</tt>) to recognize a product’s <strong>secondary unit</strong>
+(from <tt class="docutils literal">stock_secondary_unit</tt>/<tt class="docutils literal">product_secondary_unit</tt> - e.g. a count
+of pieces or boxes alongside a product that is actually measured by
+weight) directly from a scanned label, and to route the scanned quantity
+to the right field.</p>
+<p>A <tt class="docutils literal">product.secondary.unit</tt> record (e.g. “box of 8 pieces”) gets its
+own <tt class="docutils literal">barcode</tt>. Two GS1 Application Identifiers are checked against it:</p>
+<ul class="simple">
+<li><strong>AI 01</strong> (GTIN of the trade item itself): scanning the secondary
+unit’s own barcode (e.g. a box label) identifies both the product and
+which secondary unit/pack size it represents in one scan.</li>
+<li><strong>AI 02</strong> (GTIN of the contained trade item, used on a
+logistic/shipping label that wraps several units of a product):
+matching it against a secondary unit additionally arms the wizard so
+that a <strong>count Application Identifier scanned right after it in the
+same barcode</strong><ul>
+<li><strong>AI 30</strong> (Variable count of items) or <strong>AI 37</strong> (Count of items) -
+gets routed to the secondary unit’s quantity instead of the
+product’s primary quantity (e.g. weight). Both AIs share one hook in
+the base module (<tt class="docutils literal">_set_gs1_product_qty</tt>), so both are covered the
+same way</li>
+<li>counting 3 boxes of fish sold by weight must land on “3 pieces”,
+never get treated as “3 kg”.</li>
+</ul>
+</li>
+</ul>
+<p>Beyond the single-operation scanning wizard, the module also extends:</p>
+<ul class="simple">
+<li>The <strong>batch picking-read wizard</strong> (scan-driven filling of a whole
+transfer): keeps a running total of demanded vs. already-scanned
+secondary quantity per product, keeps scans of different secondary
+units of the same product on separate move lines instead of merging
+them, adds up the secondary quantity when a further scan matches an
+existing line, and auto-fills the secondary quantity once a
+move/line’s own primary demand is already fully covered by what was
+scanned.</li>
+<li>The <strong>pending-to-scan (“to-do”) list</strong>: groups pending lines by
+secondary unit too (so different secondary units of the same product
+show as separate rows to complete), and carries the secondary unit
+over when a new row is filled from a pending one.</li>
+<li>Removing an already-scanned line resets its secondary quantity back to
+zero, so it can’t resurface stale if the line is reused.</li>
+</ul>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#usage" id="toc-entry-1">Usage</a><ul>
+<li><a class="reference internal" href="#scanning-a-secondary-unit-s-own-barcode-ai-01" id="toc-entry-2">Scanning a secondary unit’s own barcode (AI 01)</a></li>
+<li><a class="reference internal" href="#scanning-a-shipping-logistic-label-with-an-embedded-count-ai-02-ai-30-37" id="toc-entry-3">Scanning a shipping/logistic label with an embedded count (AI 02 + AI 30/37)</a></li>
+<li><a class="reference internal" href="#filling-a-whole-transfer-by-scanning-batch-picking-read-wizard" id="toc-entry-4">Filling a whole transfer by scanning (batch picking-read wizard)</a></li>
+<li><a class="reference internal" href="#working-through-the-pending-to-scan-list" id="toc-entry-5">Working through the pending-to-scan list</a></li>
+<li><a class="reference internal" href="#removing-a-scanned-line" id="toc-entry-6">Removing a scanned line</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-7">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-8">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-9">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-10">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-11">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-1">Usage</a></h1>
+<p>This module has no configuration of its own - it activates automatically
+once a <tt class="docutils literal">product.secondary.unit</tt> is given a <tt class="docutils literal">barcode</tt> (Inventory &gt;
+Configuration &gt; Secondary Units, or from the product form’s secondary
+units list). Everything below happens through the normal GS1 scanning
+wizards from <tt class="docutils literal">stock_barcodes_gs1</tt>.</p>
+<div class="section" id="scanning-a-secondary-unit-s-own-barcode-ai-01">
+<h2><a class="toc-backref" href="#toc-entry-2">Scanning a secondary unit’s own barcode (AI 01)</a></h2>
+<p>Set the secondary unit’s <tt class="docutils literal">barcode</tt> to the same code printed on the
+package (e.g. a box label GTIN). Scanning that code on the barcode-read
+wizard for a move:</p>
+<ul class="simple">
+<li>Matches the <tt class="docutils literal">product.secondary.unit</tt> directly and sets it as the
+wizard’s secondary unit.</li>
+<li>Sets the wizard’s product to that secondary unit’s product.</li>
+<li>If nothing else is entered manually, defaults the secondary quantity
+to 1 and derives the primary quantity from it
+(<tt class="docutils literal">secondary_uom_qty * factor</tt>).</li>
+</ul>
+</div>
+<div class="section" id="scanning-a-shipping-logistic-label-with-an-embedded-count-ai-02-ai-30-37">
+<h2><a class="toc-backref" href="#toc-entry-3">Scanning a shipping/logistic label with an embedded count (AI 02 + AI 30/37)</a></h2>
+<p>A logistic label wraps several units of a product and states the GTIN of
+what’s inside (AI 02) together with a count (AI 30 or AI 37). Example,
+from a real test case: a secondary unit “box AI02” (factor 8, i.e. 8
+units per box) with <tt class="docutils literal">barcode</tt> <tt class="docutils literal">18412598033091</tt>, scanning
+<tt class="docutils literal">0218412598033091&lt;FNC1&gt;373</tt> (AI 02 with that GTIN, then AI 37 = 3):</p>
+<ul class="simple">
+<li>The AI 02 GTIN match sets the secondary unit on the wizard, the same
+way AI 01 does, and additionally records that the next quantity AI
+must land on the secondary unit.</li>
+<li>The AI 37 value (<tt class="docutils literal">3</tt>) is then written to the wizard’s secondary
+quantity, not its product quantity - the wizard ends up with
+<tt class="docutils literal">secondary_uom_qty = 3.0</tt> and, since the secondary unit’s factor is
+8, <tt class="docutils literal">product_qty = 24.0</tt> (3 boxes x 8 units).</li>
+<li>Scanning <tt class="docutils literal"><span class="pre">...303</span></tt> (AI 30, same GTIN) instead of <tt class="docutils literal"><span class="pre">...373</span></tt> produces
+the identical result - AI 30 and AI 37 are handled the same way.</li>
+<li>If the AI 02 GTIN does not match any secondary unit, the barcode falls
+through to the base module’s own handling (a plain product/packaging
+match), and a later AI 30/37 sets the primary quantity as usual.</li>
+</ul>
+</div>
+<div class="section" id="filling-a-whole-transfer-by-scanning-batch-picking-read-wizard">
+<h2><a class="toc-backref" href="#toc-entry-4">Filling a whole transfer by scanning (batch picking-read wizard)</a></h2>
+<p>When using the wizard that fills an entire transfer’s operations from
+successive scans (not just one move at a time):</p>
+<ul class="simple">
+<li>The wizard’s demand/done totals for a product (shown while scanning)
+add up the secondary quantity across all of that product’s moves/lines
+in the transfer, not just the primary one.</li>
+<li>A scan that matches an <em>existing</em> move line for the same product but a
+<em>different</em> secondary unit creates/uses a separate line instead of
+merging into the wrong one.</li>
+<li>Scanning the same secondary unit again for a line that already has
+some secondary quantity recorded <em>adds</em> the newly scanned quantity to
+what was already there, instead of replacing it - successive scans of
+the same box accumulate.</li>
+<li>Once a move (or a move line that is the only one left for its move)
+already matches its primary demand exactly, the wizard auto-fills its
+secondary quantity from the move’s own secondary demand - so an
+operator who finishes a line by weight alone still gets the expected
+piece count pre-filled, without having to scan or type it separately.</li>
+</ul>
+</div>
+<div class="section" id="working-through-the-pending-to-scan-list">
+<h2><a class="toc-backref" href="#toc-entry-5">Working through the pending-to-scan list</a></h2>
+<p>The “still to scan” list groups its rows by secondary unit as well as by
+product (unless the “group key for pending records” option is turned off
+for that scanning session) - so if a product is expected in two
+different secondary units on the same transfer, each shows as its own
+row to complete. Filling a new scanned row from one of these pending
+rows carries the secondary unit over automatically.</p>
+</div>
+<div class="section" id="removing-a-scanned-line">
+<h2><a class="toc-backref" href="#toc-entry-6">Removing a scanned line</a></h2>
+<p>Deleting an already-scanned operation line from the wizard also resets
+its secondary quantity to zero, so a reused line never keeps a stale
+count from what was previously scanned there.</p>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h1><a class="toc-backref" href="#toc-entry-7">Bug Tracker</a></h1>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes_gs1_secondary_unit%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h1><a class="toc-backref" href="#toc-entry-8">Credits</a></h1>
+<div class="section" id="authors">
+<h2><a class="toc-backref" href="#toc-entry-9">Authors</a></h2>
+<ul class="simple">
+<li>Tecnativa</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h2><a class="toc-backref" href="#toc-entry-10">Contributors</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
+<li>Sergio Teruel</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2><a class="toc-backref" href="#toc-entry-11">Maintainers</a></h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes_gs1_secondary_unit">OCA/stock-logistics-barcode</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>

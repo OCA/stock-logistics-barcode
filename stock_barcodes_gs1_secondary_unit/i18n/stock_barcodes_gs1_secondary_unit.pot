@@ -1,0 +1,115 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcodes_gs1_secondary_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 15.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__barcode
+msgid "International Article Number used for product identification."
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_stock_barcodes_read_log
+msgid "Log barcode scanner"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: code:addons/stock_barcodes_gs1_secondary_unit/wizard/stock_barcodes_read.py:0
+#, python-format
+msgid "More than one secondary uom found"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_product_secondary_unit
+msgid "Product Secondary Unit"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__product_tmpl_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__product_tmpl_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__product_tmpl_id
+msgid "Product Template"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_id
+msgid "Second unit"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__total_secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__total_secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__total_secondary_uom_qty
+msgid "Second. Demand"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__total_secondary_uom_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__total_secondary_uom_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__total_secondary_uom_qty_done
+msgid "Second. Done"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_qty
+msgid "Secondary Qty"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_stock_barcodes_read_log__secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_qty
+msgid "Secondary UOM Qty"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_single_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_single_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_single_qty
+msgid "Secondary single Qty"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_stock_barcodes_read_log__secondary_uom_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_gs1_secondary_unit.view_stock_barcodes_read_form
+msgid "Secondary uom"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read
+msgid "Wizard to read barcode"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_picking
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_todo
+msgid "Wizard to read barcode todo"
+msgstr ""
