@@ -6,3 +6,5 @@
   - Ilyas \<<irazor147@gmail.com>\>
 - [Trobz](https://trobz.com):
   - Khoi (Kien Kim) \<<khoikk@trobz.com>\>
+- [FactorLibre](https://www.factorlibre.com):
+  - Sergio Bustamante Ojeda \<<sergio.bustamante@factorlibre.com>\>
