@@ -810,9 +810,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         return res
 
     def get_lot_by_removal_strategy(self):
-        quants = first(
-            self.env["stock.quant"]._gather(self.product_id, self.location_id)
-        )
+        all_quants = self.env["stock.quant"]._gather(self.product_id, self.location_id)
+        # _gather() can return a quant with nothing actually available (e.g. a
+        # fully reserved one, or a leftover zero-quantity quant created as a
+        # side effect of a previous reservation/unreservation cycle): such a
+        # quant must never win the removal-strategy pick over one that really
+        # has stock, regardless of how its in_date/id happen to sort.
+        quants = first(all_quants.filtered(lambda q: q.available_quantity > 0))
         # TODO: Perhaps update location_id from quant??
         self.lot_id = quants.lot_id
 
