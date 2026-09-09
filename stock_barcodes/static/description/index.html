@@ -1,0 +1,907 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="Docutils: https://docutils.sourceforge.io/" />
+<title>Stock Barcodes</title>
+<style type="text/css">
+
+/*
+:Author: David Goodger (goodger@python.org)
+:Id: $Id: html4css1.css 9511 2024-01-13 09:50:07Z milde $
+:Copyright: This stylesheet has been placed in the public domain.
+
+Default cascading style sheet for the HTML output of Docutils.
+Despite the name, some widely supported CSS2 features are used.
+
+See https://docutils.sourceforge.io/docs/howto/html-stylesheets.html for how to
+customize this style sheet.
+*/
+
+/* used to remove borders from tables and images */
+.borderless, table.borderless td, table.borderless th {
+  border: 0 }
+
+table.borderless td, table.borderless th {
+  /* Override padding for "table.docutils td" with "! important".
+     The right padding separates the table cells. */
+  padding: 0 0.5em 0 0 ! important }
+
+.first {
+  /* Override more specific margin styles with "! important". */
+  margin-top: 0 ! important }
+
+.last, .with-subtitle {
+  margin-bottom: 0 ! important }
+
+.hidden {
+  display: none }
+
+.subscript {
+  vertical-align: sub;
+  font-size: smaller }
+
+.superscript {
+  vertical-align: super;
+  font-size: smaller }
+
+a.toc-backref {
+  text-decoration: none ;
+  color: black }
+
+blockquote.epigraph {
+  margin: 2em 5em ; }
+
+dl.docutils dd {
+  margin-bottom: 0.5em }
+
+object[type="image/svg+xml"], object[type="application/x-shockwave-flash"] {
+  overflow: hidden;
+}
+
+/* Uncomment (and remove this text!) to get bold-faced definition list terms
+dl.docutils dt {
+  font-weight: bold }
+*/
+
+div.abstract {
+  margin: 2em 5em }
+
+div.abstract p.topic-title {
+  font-weight: bold ;
+  text-align: center }
+
+div.admonition, div.attention, div.caution, div.danger, div.error,
+div.hint, div.important, div.note, div.tip, div.warning {
+  margin: 2em ;
+  border: medium outset ;
+  padding: 1em }
+
+div.admonition p.admonition-title, div.hint p.admonition-title,
+div.important p.admonition-title, div.note p.admonition-title,
+div.tip p.admonition-title {
+  font-weight: bold ;
+  font-family: sans-serif }
+
+div.attention p.admonition-title, div.caution p.admonition-title,
+div.danger p.admonition-title, div.error p.admonition-title,
+div.warning p.admonition-title, .code .error {
+  color: red ;
+  font-weight: bold ;
+  font-family: sans-serif }
+
+/* Uncomment (and remove this text!) to get reduced vertical space in
+   compound paragraphs.
+div.compound .compound-first, div.compound .compound-middle {
+  margin-bottom: 0.5em }
+
+div.compound .compound-last, div.compound .compound-middle {
+  margin-top: 0.5em }
+*/
+
+div.dedication {
+  margin: 2em 5em ;
+  text-align: center ;
+  font-style: italic }
+
+div.dedication p.topic-title {
+  font-weight: bold ;
+  font-style: normal }
+
+div.figure {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+div.footer, div.header {
+  clear: both;
+  font-size: smaller }
+
+div.line-block {
+  display: block ;
+  margin-top: 1em ;
+  margin-bottom: 1em }
+
+div.line-block div.line-block {
+  margin-top: 0 ;
+  margin-bottom: 0 ;
+  margin-left: 1.5em }
+
+div.sidebar {
+  margin: 0 0 0.5em 1em ;
+  border: medium outset ;
+  padding: 1em ;
+  background-color: #ffffee ;
+  width: 40% ;
+  float: right ;
+  clear: right }
+
+div.sidebar p.rubric {
+  font-family: sans-serif ;
+  font-size: medium }
+
+div.system-messages {
+  margin: 5em }
+
+div.system-messages h1 {
+  color: red }
+
+div.system-message {
+  border: medium outset ;
+  padding: 1em }
+
+div.system-message p.system-message-title {
+  color: red ;
+  font-weight: bold }
+
+div.topic {
+  margin: 2em }
+
+h1.section-subtitle, h2.section-subtitle, h3.section-subtitle,
+h4.section-subtitle, h5.section-subtitle, h6.section-subtitle {
+  margin-top: 0.4em }
+
+h1.title {
+  text-align: center }
+
+h2.subtitle {
+  text-align: center }
+
+hr.docutils {
+  width: 75% }
+
+img.align-left, .figure.align-left, object.align-left, table.align-left {
+  clear: left ;
+  float: left ;
+  margin-right: 1em }
+
+img.align-right, .figure.align-right, object.align-right, table.align-right {
+  clear: right ;
+  float: right ;
+  margin-left: 1em }
+
+img.align-center, .figure.align-center, object.align-center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+table.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  text-align: left }
+
+.align-center {
+  clear: both ;
+  text-align: center }
+
+.align-right {
+  text-align: right }
+
+/* reset inner alignment in figures */
+div.align-right {
+  text-align: inherit }
+
+/* div.align-center * { */
+/*   text-align: left } */
+
+.align-top    {
+  vertical-align: top }
+
+.align-middle {
+  vertical-align: middle }
+
+.align-bottom {
+  vertical-align: bottom }
+
+ol.simple, ul.simple {
+  margin-bottom: 1em }
+
+ol.arabic {
+  list-style: decimal }
+
+ol.loweralpha {
+  list-style: lower-alpha }
+
+ol.upperalpha {
+  list-style: upper-alpha }
+
+ol.lowerroman {
+  list-style: lower-roman }
+
+ol.upperroman {
+  list-style: upper-roman }
+
+p.attribution {
+  text-align: right ;
+  margin-left: 50% }
+
+p.caption {
+  font-style: italic }
+
+p.credits {
+  font-style: italic ;
+  font-size: smaller }
+
+p.label {
+  white-space: nowrap }
+
+p.rubric {
+  font-weight: bold ;
+  font-size: larger ;
+  color: maroon ;
+  text-align: center }
+
+p.sidebar-title {
+  font-family: sans-serif ;
+  font-weight: bold ;
+  font-size: larger }
+
+p.sidebar-subtitle {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+p.topic-title {
+  font-weight: bold }
+
+pre.address {
+  margin-bottom: 0 ;
+  margin-top: 0 ;
+  font: inherit }
+
+pre.literal-block, pre.doctest-block, pre.math, pre.code {
+  margin-left: 2em ;
+  margin-right: 2em }
+
+pre.code .ln { color: gray; } /* line numbers */
+pre.code, code { background-color: #eeeeee }
+pre.code .comment, code .comment { color: #5C6576 }
+pre.code .keyword, code .keyword { color: #3B0D06; font-weight: bold }
+pre.code .literal.string, code .literal.string { color: #0C5404 }
+pre.code .name.builtin, code .name.builtin { color: #352B84 }
+pre.code .deleted, code .deleted { background-color: #DEB0A1}
+pre.code .inserted, code .inserted { background-color: #A3D289}
+
+span.classifier {
+  font-family: sans-serif ;
+  font-style: oblique }
+
+span.classifier-delimiter {
+  font-family: sans-serif ;
+  font-weight: bold }
+
+span.interpreted {
+  font-family: sans-serif }
+
+span.option {
+  white-space: nowrap }
+
+span.pre {
+  white-space: pre }
+
+span.problematic, pre.problematic {
+  color: red }
+
+span.section-subtitle {
+  /* font-size relative to parent (h1..h6 element) */
+  font-size: 80% }
+
+table.citation {
+  border-left: solid 1px gray;
+  margin-left: 1px }
+
+table.docinfo {
+  margin: 2em 4em }
+
+table.docutils {
+  margin-top: 0.5em ;
+  margin-bottom: 0.5em }
+
+table.footnote {
+  border-left: solid 1px black;
+  margin-left: 1px }
+
+table.docutils td, table.docutils th,
+table.docinfo td, table.docinfo th {
+  padding-left: 0.5em ;
+  padding-right: 0.5em ;
+  vertical-align: top }
+
+table.docutils th.field-name, table.docinfo th.docinfo-name {
+  font-weight: bold ;
+  text-align: left ;
+  white-space: nowrap ;
+  padding-left: 0 }
+
+/* "booktabs" style (no vertical lines) */
+table.docutils.booktabs {
+  border: 0px;
+  border-top: 2px solid;
+  border-bottom: 2px solid;
+  border-collapse: collapse;
+}
+table.docutils.booktabs * {
+  border: 0px;
+}
+table.docutils.booktabs th {
+  border-bottom: thin solid;
+  text-align: left;
+}
+
+h1 tt.docutils, h2 tt.docutils, h3 tt.docutils,
+h4 tt.docutils, h5 tt.docutils, h6 tt.docutils {
+  font-size: 100% }
+
+ul.auto-toc {
+  list-style-type: none }
+
+</style>
+</head>
+<body>
+<div class="document" id="stock-barcodes">
+<h1 class="title">Stock Barcodes</h1>
+
+<!-- !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! This file is generated by oca-gen-addon-readme !!
+!! changes will be overwritten.                   !!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!! source digest: sha256:c7c9cbff0b1c6617bed1983dca004d2ec9c817ba2d213138af77548c2c844c97
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! -->
+<p><a class="reference external image-reference" href="https://odoo-community.org/page/development-status"><img alt="Beta" src="https://img.shields.io/badge/maturity-Beta-yellow.png" /></a> <a class="reference external image-reference" href="http://www.gnu.org/licenses/agpl-3.0-standalone.html"><img alt="License: AGPL-3" src="https://img.shields.io/badge/licence-AGPL--3-blue.png" /></a> <a class="reference external image-reference" href="https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes"><img alt="OCA/stock-logistics-barcode" src="https://img.shields.io/badge/github-OCA%2Fstock--logistics--barcode-lightgray.png?logo=github" /></a> <a class="reference external image-reference" href="https://translation.odoo-community.org/projects/stock-logistics-barcode-18-0/stock-logistics-barcode-18-0-stock_barcodes"><img alt="Translate me on Weblate" src="https://img.shields.io/badge/weblate-Translate%20me-F47D42.png" /></a> <a class="reference external image-reference" href="https://runboat.odoo-community.org/builds?repo=OCA/stock-logistics-barcode&amp;target_branch=18.0"><img alt="Try me on Runboat" src="https://img.shields.io/badge/runboat-Try%20me-875A7B.png" /></a></p>
+<p>This module provides a barcode scanning interface for stock operations:
+receipts, deliveries, internal transfers, relocations and inventory
+adjustments.</p>
+<p>It is designed for keyboard-wedge scanners (USB/Bluetooth) and works on
+desktop and mobile browsers, without requiring the Odoo Enterprise
+barcode application.</p>
+<p>Main features:</p>
+<ul class="simple">
+<li>A scan screen for pickings and operation types, in <strong>free</strong> or
+<strong>guided</strong> mode (the screen proposes one pending move at a time and
+validates what the operator scans).</li>
+<li>A scan screen for <strong>inventory adjustments</strong> writing counted quantities
+on stock quants.</li>
+<li>Recognition of product, product packaging, lot/serial, package and
+location barcodes.</li>
+<li><strong>Barcode option groups</strong>: a data-driven configuration of the screen
+behavior per operation type (fields to scan, required, pre-filled,
+forced, cleaned after each read, steps, backorder handling, putaway
+handling, etc.).</li>
+<li>A <strong>Barcodes</strong> main menu with configurable, printable barcode actions
+(scan an action barcode to open it).</li>
+<li>A base abstract wizard (<tt class="docutils literal">wiz.stock.barcodes.read</tt>) that other
+modules extend (GS1, batch picking, …).</li>
+</ul>
+<p><strong>Table of contents</strong></p>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#configuration" id="toc-entry-1">Configuration</a><ul>
+<li><a class="reference internal" href="#barcodes-on-master-data" id="toc-entry-2">Barcodes on master data</a><ul>
+<li><a class="reference internal" href="#warehouse-locations" id="toc-entry-3">Warehouse locations</a></li>
+<li><a class="reference internal" href="#product-packagings" id="toc-entry-4">Product packagings</a></li>
+<li><a class="reference internal" href="#products" id="toc-entry-5">Products</a></li>
+<li><a class="reference internal" href="#lots-serial-numbers" id="toc-entry-6">Lots / serial numbers</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#barcode-option-groups" id="toc-entry-7">Barcode option groups</a></li>
+<li><a class="reference internal" href="#operation-types" id="toc-entry-8">Operation types</a></li>
+<li><a class="reference internal" href="#barcode-actions" id="toc-entry-9">Barcode actions</a></li>
+<li><a class="reference internal" href="#system-parameters" id="toc-entry-10">System parameters</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#usage" id="toc-entry-11">Usage</a><ul>
+<li><a class="reference internal" href="#barcode-interface-for-picking-operations" id="toc-entry-12">Barcode interface for picking operations</a><ul>
+<li><a class="reference internal" href="#free-mode" id="toc-entry-13">Free mode</a></li>
+<li><a class="reference internal" href="#guided-mode" id="toc-entry-14">Guided mode</a></li>
+<li><a class="reference internal" href="#validation" id="toc-entry-15">Validation</a></li>
+<li><a class="reference internal" href="#extra-products-new-lots-and-packagings" id="toc-entry-16">Extra products, new lots and packagings</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#barcode-interface-for-inventory-adjustments" id="toc-entry-17">Barcode interface for inventory adjustments</a></li>
+<li><a class="reference internal" href="#barcode-actions-1" id="toc-entry-18">Barcode actions</a></li>
+<li><a class="reference internal" href="#show-the-planned-destination-location-on-pending-moves" id="toc-entry-19">Show the planned destination location on pending moves</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-20">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-21">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-22">18.0.1.3.0 (2026-07-08)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-23">18.0.1.1.0 (2026-06-22)</a></li>
+<li><a class="reference internal" href="#section-3" id="toc-entry-24">11.0.1.1.0 (2019-09-24)</a></li>
+<li><a class="reference internal" href="#section-4" id="toc-entry-25">13.0.1.1.1 (2021-02-06)</a></li>
+<li><a class="reference internal" href="#section-5" id="toc-entry-26">14.0.1.0.0 (2021-04-05)</a></li>
+<li><a class="reference internal" href="#section-6" id="toc-entry-27">16.0.1.0.0 (2025-01-23)</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-28">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-29">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-30">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-31">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-32">Maintainers</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="configuration">
+<h1><a class="toc-backref" href="#toc-entry-1">Configuration</a></h1>
+<div class="section" id="barcodes-on-master-data">
+<h2><a class="toc-backref" href="#toc-entry-2">Barcodes on master data</a></h2>
+<p>The interface recognizes four kinds of barcodes. Assign them first:</p>
+<div class="section" id="warehouse-locations">
+<h3><a class="toc-backref" href="#toc-entry-3">Warehouse locations</a></h3>
+<ol class="arabic">
+<li><p class="first">You need the permission <em>Manage Multiple Stock Locations</em> to see the
+menu.</p>
+<p><img alt="Warehouse location access" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_warehouse_location.png" /></p>
+</li>
+<li><p class="first">Go to <em>Inventory &gt; Configuration &gt; Locations</em>.</p>
+</li>
+<li><p class="first">Select the location and fill in the <em>Barcode</em> field.</p>
+<p><img alt="Warehouse location barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_warehouse_location.png" /></p>
+</li>
+</ol>
+</div>
+<div class="section" id="product-packagings">
+<h3><a class="toc-backref" href="#toc-entry-4">Product packagings</a></h3>
+<ol class="arabic">
+<li><p class="first">You need the permission <em>Manage Product Packaging</em> to see the menu.</p>
+<p><img alt="Product packaging access" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/access_menu_product_packaging.png" /></p>
+</li>
+<li><p class="first">Go to <em>Inventory &gt; Configuration &gt; Product Packagings</em>.</p>
+</li>
+<li><p class="first">Create or select a packaging and fill in the <em>Barcode</em> field.
+Scanning a packaging selects its product and proposes the packaging
+quantity.</p>
+<p><img alt="Product packaging barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_packaging.png" /></p>
+</li>
+</ol>
+</div>
+<div class="section" id="products">
+<h3><a class="toc-backref" href="#toc-entry-5">Products</a></h3>
+<ol class="arabic simple">
+<li>Go to <em>Inventory &gt; Products &gt; Products</em>.</li>
+<li>Fill in the <em>Barcode</em> field of each product.</li>
+</ol>
+</div>
+<div class="section" id="lots-serial-numbers">
+<h3><a class="toc-backref" href="#toc-entry-6">Lots / serial numbers</a></h3>
+<p>The lot <strong>name</strong> acts as its barcode, so no extra configuration is
+needed (requires <em>Lots &amp; Serial Numbers</em> enabled).</p>
+<p><img alt="Product lot barcode" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_product_lot.png" /></p>
+<p>Packages are matched by their name, so scanning a package label selects
+the package content (requires <em>Packages</em> enabled).</p>
+</div>
+</div>
+<div class="section" id="barcode-option-groups">
+<h2><a class="toc-backref" href="#toc-entry-7">Barcode option groups</a></h2>
+<p>Go to <em>Inventory &gt; Configuration &gt; Barcodes &gt; Barcode Option Groups</em> to
+define how the scan screen behaves. The module ships six ready-to-use
+groups: <strong>Picking IN</strong>, <strong>Picking OUT</strong>, <strong>Picking Internal</strong>,
+<strong>Relocation</strong>, <strong>Inventory</strong> and a generic <strong>Operation</strong> fallback.</p>
+<p>For each group you can configure, among others:</p>
+<ul class="simple">
+<li><strong>Mode — Guided</strong>: the screen proposes one pending move at a time and
+validates that the operator scans the expected product/lot/location.</li>
+<li><strong>Options list</strong>: per field (product, lot, package, locations,
+quantity, …) whether it must be scanned, is required, comes
+pre-filled, is forced and whether it is cleaned after each
+confirmation. Fields are grouped in <em>steps</em>: the screen tells the
+operator what to scan next.</li>
+<li>Manual entry / manual confirmation / manual quantities.</li>
+<li><strong>Show pending moves</strong> (only pending, or all) and their data source
+(operations or detailed operations).</li>
+<li><strong>Confirmed moves</strong>: allow working on moves without reservation.</li>
+<li><strong>Get lots automatically</strong> (removal strategy) and <strong>Create lots if not
+match</strong> (receipts).</li>
+<li>Allow negative stock, accumulate read quantity, auto put in pack, keep
+screen values, and other fine-tuning flags (each field has an
+explanatory tooltip).</li>
+<li><strong>Use location dest. putaway</strong>: when the destination is required and
+empty, compute it from the putaway strategy.</li>
+<li><strong>Show fixed dest. location</strong>: show on each pending move the
+destination already planned by a fixed putaway, and make scans reuse
+that move line (see Usage).</li>
+</ul>
+</div>
+<div class="section" id="operation-types">
+<h2><a class="toc-backref" href="#toc-entry-8">Operation types</a></h2>
+<p>On each operation type (<em>Inventory &gt; Configuration &gt; Operation Types</em>)
+you can select:</p>
+<ul class="simple">
+<li><strong>Barcode option group</strong>: used when scanning the operation type or its
+pickings.</li>
+<li><strong>New picking barcode option group</strong>: used when creating an unplanned
+picking from the barcode interface (<em>New</em> button).</li>
+</ul>
+<p>If no group is set, the generic <em>Operation</em> group is used.</p>
+</div>
+<div class="section" id="barcode-actions">
+<h2><a class="toc-backref" href="#toc-entry-9">Barcode actions</a></h2>
+<p><em>Inventory &gt; Configuration &gt; Barcodes &gt; Barcode Actions</em> define the
+tiles shown in the <em>Barcodes</em> main menu. Each action can have its own
+barcode: scanning it from the main menu opens the action directly.</p>
+<p><img alt="Create barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/create_barcode_action.png" /></p>
+<p>Select actions and press <em>Print barcodes</em> to generate a PDF with their
+Code128 barcodes, e.g. for a laminated menu sheet.</p>
+<p><img alt="Print barcodes" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/print_barcodes.png" /></p>
+</div>
+<div class="section" id="system-parameters">
+<h2><a class="toc-backref" href="#toc-entry-10">System parameters</a></h2>
+<p>The system parameter <tt class="docutils literal">stock_barcodes.limit_product_qty</tt> (default
+999999) rejects absurd quantities caused by scanning a barcode into a
+quantity input.</p>
+</div>
+</div>
+<div class="section" id="usage">
+<h1><a class="toc-backref" href="#toc-entry-11">Usage</a></h1>
+<p>The barcode scan screens recognize, in both free and guided mode:</p>
+<ol class="arabic simple">
+<li>Warehouse locations (barcode field).</li>
+<li>Product packagings (barcode field).</li>
+<li>Products (barcode field).</li>
+<li>Lots / serial numbers (the barcode is the lot name).</li>
+<li>Packages (matched by name).</li>
+</ol>
+<p>A bell sound confirms a successful scan and an error sound signals a
+rejected one. Status messages under the barcode field explain what the
+screen is waiting for and why a scan was rejected. The <em>Manual</em> button
+toggles manual entry to type values without a scanner.</p>
+<div class="section" id="barcode-interface-for-picking-operations">
+<h2><a class="toc-backref" href="#toc-entry-12">Barcode interface for picking operations</a></h2>
+<p>You can open the scan screen from three places:</p>
+<ol class="arabic">
+<li><p class="first"><strong>Barcodes main menu</strong> (app <em>Barcodes</em>): select an operation tile,
+then pick one of the ready transfers from the list.</p>
+<p><img alt="Operation barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></p>
+<p><img alt="List picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_picking.png" /></p>
+</li>
+<li><p class="first"><strong>An operation type card</strong> in <em>Inventory &gt; Overview</em> (scanner
+button): scan products for any ready picking of that type.</p>
+</li>
+<li><p class="first"><strong>A specific transfer</strong> (<em>Scan barcodes</em> button in <em>Inventory &gt;
+Transfers</em>): the picking is locked and every scan applies to it.</p>
+<p><img alt="Barcode interface picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/barcode_interface_picking.png" /></p>
+</li>
+</ol>
+<div class="section" id="free-mode">
+<h3><a class="toc-backref" href="#toc-entry-13">Free mode</a></h3>
+<p>Scan in any order; the screen reacts to the kind of barcode read:</p>
+<ul class="simple">
+<li><strong>Product</strong>: adds 1 unit (or waits for a lot if the product is
+tracked). The source location is resolved automatically from the
+pending reserved lines.</li>
+<li><strong>Packaging</strong>: selects the product and adds the packaging quantity.</li>
+<li><strong>Lot</strong>: scan the product first when several lots share the same name.
+When <em>fill fields from lot</em> is active, scanning a lot fills product,
+package, owner and location from the available stock.</li>
+<li><strong>Package</strong>: fills all fields from the package content.</li>
+<li><strong>Location</strong>: sets the source (or destination, per configuration) for
+the following scans.</li>
+</ul>
+<p>Quantities beyond the picking demand or beyond available stock are not
+written silently: the screen asks for confirmation (<em>force done</em>) or
+rejects the scan, depending on the option group.</p>
+</div>
+<div class="section" id="guided-mode">
+<h3><a class="toc-backref" href="#toc-entry-14">Guided mode</a></h3>
+<p>The screen shows the next pending move (product, lot, quantities,
+locations) and guides the operator step by step (e.g. <em>Scan Source</em>,
+then <em>Scan Product, Lot</em>). Scanning something different from what is
+expected is rejected with an explicit message (<em>Wrong product</em>, <em>Wrong
+lot</em>, <em>Wrong location</em>).</p>
+<p>In the pending moves list you can:</p>
+<ul>
+<li><p class="first">Jump to another line (arrows or tapping a card).</p>
+<p><img alt="List items picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking.png" /></p>
+</li>
+<li><p class="first">Edit a line with the pencil icon.</p>
+<p><img alt="Edit picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_edit.png" /></p>
+</li>
+<li><p class="first">Put the whole remaining quantity with the <em>+N</em> button (e.g. <em>+120</em>).
+Once defined, this button disappears; use the edit icon to change the
+quantity.</p>
+<p><img alt="Quantity picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_quantity.png" /></p>
+</li>
+<li><p class="first">Show the lines already scanned with the eye icon.</p>
+<p><img alt="Picking scanned" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items_picking_scanned.png" /></p>
+</li>
+<li><p class="first">Decide the backorder behavior per line when quantities are incomplete
+(create backorder / no backorder / keep pending).</p>
+</li>
+</ul>
+</div>
+<div class="section" id="validation">
+<h3><a class="toc-backref" href="#toc-entry-15">Validation</a></h3>
+<p>The <em>Validate</em> button confirms the transfer using the scanned
+quantities. A wizard is displayed to confirm the action; after
+validation you return to the ready-pickings list.</p>
+<p><img alt="Confirm items picking" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_items_picking.png" /></p>
+<p>If some lines have no quantity, the standard confirmation wizard asks
+whether to process all quantities.</p>
+<p><img alt="Confirm all quantities" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/confirm_all_quantity_items_picking.png" /></p>
+<p>With <em>Auto put in pack</em> enabled, unpacked lines are packed automatically
+before validating.</p>
+</div>
+<div class="section" id="extra-products-new-lots-and-packagings">
+<h3><a class="toc-backref" href="#toc-entry-16">Extra products, new lots and packagings</a></h3>
+<ul>
+<li><p class="first">Press the <em>+ Product</em> button to add an item not in the demand (when
+the option group allows non-demanded products).</p>
+<p><img alt="Add product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/add_product.png" /></p>
+<p>When you select a product, a numeric field is displayed to add the
+quantity.</p>
+<p><img alt="Add quantity product" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_quantity.png" /></p>
+<p>The trash can icon resets the form values (except the location)
+without closing it; <em>Clean values</em> resets everything and closes the
+form; <em>Confirm</em> adds the new item.</p>
+<p><img alt="Reset data form" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/form_add_product_reset.png" /></p>
+</li>
+<li><p class="first">If a scanned lot does not exist on a receipt, it can be created on the
+fly (<em>Create lots if not match</em>) or through the new lot dialog.</p>
+</li>
+<li><p class="first">Unknown packagings can be registered from the scan screen with the new
+packaging dialog: scan the packaging barcode, set the name and
+confirm.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="barcode-interface-for-inventory-adjustments">
+<h2><a class="toc-backref" href="#toc-entry-17">Barcode interface for inventory adjustments</a></h2>
+<p>Open <em>Barcodes &gt; Inventory</em> (or the <em>Scan barcodes</em> button of an
+inventory adjustment).</p>
+<p><img alt="Inventory barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></p>
+<p>Scan a location, then products/lots/packages:</p>
+<ul>
+<li><p class="first">Each product scan adds 1 unit to the counted quantity (or the
+packaging quantity when a packaging is scanned). With <em>accumulate read
+quantity</em> disabled, a new scan overwrites the counted quantity.</p>
+</li>
+<li><p class="first">Serial-tracked products accept exactly one unit per serial; a second
+read of the same serial is rejected.</p>
+</li>
+<li><p class="first">The eye icon switches between the items already counted by you and the
+pending ones.</p>
+<p><img alt="List items" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_items.png" /></p>
+</li>
+<li><p class="first">Each line in the list can be edited (pencil), incremented/decremented
+(+/-) or cleared (trash).</p>
+<p><img alt="List action items" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/list_action_items.png" /></p>
+</li>
+<li><p class="first">The <em>Apply</em> button is displayed when there are counted items. It opens
+the standard inventory adjustment confirmation (with reason), applies
+your counted quants and returns to the main menu.</p>
+<p><img alt="Apply inventory" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory.png" /></p>
+<p><img alt="Apply inventory reason" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/apply_inventory_reason.png" /></p>
+</li>
+</ul>
+</div>
+<div class="section" id="barcode-actions-1">
+<h2><a class="toc-backref" href="#toc-entry-18">Barcode actions</a></h2>
+<ol class="arabic simple">
+<li>Go to <em>Barcodes</em>.</li>
+<li>Scan an action barcode (see Configuration) to open the corresponding
+action directly, or tap its tile.</li>
+</ol>
+</div>
+<div class="section" id="show-the-planned-destination-location-on-pending-moves">
+<h2><a class="toc-backref" href="#toc-entry-19">Show the planned destination location on pending moves</a></h2>
+<p>By default the pending moves list on the barcode screen shows the source
+location and lot of each move. When the option group has <em>Show fixed
+dest. location</em> enabled, the list also shows the <strong>destination location
+already planned on the stock move line</strong>, so the operator sees where the
+goods must be stored as soon as the picking is opened, without scanning
+anything.</p>
+<p>This only <strong>reads</strong> the destination resolved upstream when the move was
+prepared (e.g. the putaway strategy applied at reception). It never
+recomputes the putaway: putaway is a warehouse decision taken when the
+move is created, not a barcode-screen concern (see <em>Use location dest.
+putaway</em> for the opposite, recompute-on-scan behaviour).</p>
+<p>In addition, with this option enabled, <strong>scanning a product reuses the
+move line already routed by putaway</strong> and keeps its destination, instead
+of creating a new line at the generic picking destination. This way
+receiving by barcode keeps the goods on their planned putaway location.</p>
+<p>To keep the shown value reliable it is displayed only for moves whose
+destination has <strong>no storage category</strong>, i.e. a fixed putaway whose
+location does not depend on the received quantity. For capacity-based
+putaway (storage categories) the final location may still change on a
+partial receipt, so it is intentionally not shown.</p>
+<p>Enable it in <em>Inventory &gt; Configuration &gt; Barcode Option Groups</em>, on the
+option group used by the operation type, with the <em>Show fixed dest.
+location</em> checkbox.</p>
+</div>
+</div>
+<div class="section" id="known-issues-roadmap">
+<h1><a class="toc-backref" href="#toc-entry-20">Known issues / Roadmap</a></h1>
+<ul class="simple">
+<li>Execute action_done() method outside onchange environment.</li>
+<li>Allow create product when a barcode has not been found.</li>
+<li>Allow to select picking reading its barcode.</li>
+<li>Allow to select multiple pickings to process scanned products.</li>
+</ul>
+<p>Technical debt (see <tt class="docutils literal">docs/TECHNICAL.md</tt>):</p>
+<ul class="simple">
+<li><tt class="docutils literal">action_confirm()</tt> persists the onchange cache through
+<tt class="docutils literal">_convert_to_write(self._cache)</tt>, relying on ORM internals.</li>
+<li>Rename the <tt class="docutils literal">onchange_*</tt> helpers to <tt class="docutils literal">_onchange_*</tt> (silent API break
+for downstream overrides, needs coordination).</li>
+<li>Drop the deprecated misspelled aliases (<tt class="docutils literal">_set_messagge_info</tt>,
+<tt class="docutils literal">check_location_contidion</tt>, <tt class="docutils literal">check_lot_contidion</tt>) after one
+migration cycle.</li>
+</ul>
+</div>
+<div class="section" id="changelog">
+<h1><a class="toc-backref" href="#toc-entry-21">Changelog</a></h1>
+<div class="section" id="section-1">
+<h2><a class="toc-backref" href="#toc-entry-22">18.0.1.3.0 (2026-07-08)</a></h2>
+<ul class="simple">
+<li>[FIX] Restore bus notifications broken by the 18.0 bus API: scanning
+an action barcode from the main menu (whose client-side scanner
+capture was never wired since the feature was introduced in 16.0), the
+“transfer validated” toast, the manual-edit toggle from a pending line
+and the <tt class="docutils literal">display_notification()</tt> toasts (e.g. “Lot is required”),
+which were sent with a per-record notification type nobody subscribes
+to. Events are now sent to the scanning user only instead of a
+broadcast channel.</li>
+<li>[FIX] Notify only the most significant message per interaction.
+Reading a barcode triggers sequential lookups and checks that buffer
+intermediate messages (e.g. “Manual entry OK” before the availability
+check rejects the entry), and each one used to raise its own
+notification. Messages are now buffered on the wizard (last one wins,
+as the on-screen message field always behaved) and a single
+notification is sent when the read or the manual confirmation ends:
+always for errors, only in manual entry for informative messages, and
+for “Manual entry OK” only when the whole confirmation succeeded.</li>
+<li>[FIX] Assign serial numbers button: the core removed the
+stock.assign.serial wizard in 18.0 leaving
+stock.move.action_assign_serial() broken (missing
+stock.act_assign_serial_numbers action), so the button crashed. It now
+opens the detailed operations dialog of the pending move, where the
+core 18.0 generate-serials widget lives. Lines receiving a lot/serial
+in that dialog are counted as scanned and linked to the pending card,
+so generated serials show up on the barcode screen.</li>
+<li>[FIX] Show each barcode notification only once. The barcode views
+subscribed the same handler to two bus notification types, which leaks
+a listener on every render (the bus service maps subscriptions by
+callback), so each notification was displayed more and more times as
+the session went on.</li>
+<li>[FIX] Barcode action tile counters: the model-field check never
+matched (checked attributes on a string), so tiles counted all records
+of the model; named filters now count records matching the filter.</li>
+<li>[REF] Drop the <tt class="docutils literal"><span class="pre">python-barcode</span></tt> external dependency introduced by
+the 17.0 migration: barcode action images are rendered again with the
+core <tt class="docutils literal">ir.actions.report.barcode()</tt> helper, as in 16.0.</li>
+<li>[REF] Remove pre-17.0 immediate-transfer leftovers, use
+<tt class="docutils literal">_read_group</tt> aggregation, convert the report model to
+<tt class="docutils literal">AbstractModel</tt>, drop a duplicated ACL, replace deprecated <tt class="docutils literal"><span class="pre">t-esc</span></tt>
+with <tt class="docutils literal"><span class="pre">t-out</span></tt> and add <tt class="docutils literal">limit=1</tt> to singleton barcode lookups.</li>
+<li>[REF] Rename misspelled methods (<tt class="docutils literal">_set_message_info</tt>,
+<tt class="docutils literal">check_location_condition</tt>, <tt class="docutils literal">check_lot_condition</tt>). The old names
+are kept as deprecated aliases; modules overriding them must move
+their override to the new names.</li>
+</ul>
+</div>
+<div class="section" id="section-2">
+<h2><a class="toc-backref" href="#toc-entry-23">18.0.1.1.0 (2026-06-22)</a></h2>
+<ul class="simple">
+<li>[ADD] New option <em>Show fixed dest. location</em> on barcode option groups.
+It shows, in the pending moves list, the destination location already
+planned on the stock move line (for a fixed putaway, destination
+without storage category), and makes a scan reuse that move line
+keeping its destination instead of duplicating it at the generic
+picking destination. It never recomputes the putaway strategy.</li>
+</ul>
+</div>
+<div class="section" id="section-3">
+<h2><a class="toc-backref" href="#toc-entry-24">11.0.1.1.0 (2019-09-24)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. User can uses barcode interface in picking
+operations.</li>
+</ul>
+</div>
+<div class="section" id="section-4">
+<h2><a class="toc-backref" href="#toc-entry-25">13.0.1.1.1 (2021-02-06)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. Add option to get lots automatically based on
+removal strategy in inventory.</li>
+</ul>
+</div>
+<div class="section" id="section-5">
+<h2><a class="toc-backref" href="#toc-entry-26">14.0.1.0.0 (2021-04-05)</a></h2>
+<ul class="simple">
+<li>[ADD] New feature. Add security for users.</li>
+</ul>
+</div>
+<div class="section" id="section-6">
+<h2><a class="toc-backref" href="#toc-entry-27">16.0.1.0.0 (2025-01-23)</a></h2>
+<ul class="simple">
+<li>[IMP] Improved views to optimize navigation and functionality.
+Intuitive and mobile-friendly views. Visual improvement of the main
+view accessed from the Barcodes menu.</li>
+<li>[ADD] New feature. Barcode reading to barcode actions. Generate PDF
+document for the barcodes of the selected barcode actions.</li>
+</ul>
+</div>
+</div>
+<div class="section" id="bug-tracker">
+<h1><a class="toc-backref" href="#toc-entry-28">Bug Tracker</a></h1>
+<p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
+In case of trouble, please check there if your issue has already been reported.
+If you spotted it first, help us to smash it by providing a detailed and welcomed
+<a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues/new?body=module:%20stock_barcodes%0Aversion:%2018.0%0A%0A**Steps%20to%20reproduce**%0A-%20...%0A%0A**Current%20behavior**%0A%0A**Expected%20behavior**">feedback</a>.</p>
+<p>Do not contact contributors directly about support or help with technical issues.</p>
+</div>
+<div class="section" id="credits">
+<h1><a class="toc-backref" href="#toc-entry-29">Credits</a></h1>
+<div class="section" id="authors">
+<h2><a class="toc-backref" href="#toc-entry-30">Authors</a></h2>
+<ul class="simple">
+<li>Tecnativa</li>
+</ul>
+</div>
+<div class="section" id="contributors">
+<h2><a class="toc-backref" href="#toc-entry-31">Contributors</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
+<li>Sergio Teruel</li>
+<li>Carlos Dauden</li>
+<li>Pedro M. Baeza</li>
+<li>Alexandre D. Díaz</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.onestein.eu">Onestein</a>:<ul>
+<li>Andrea Stirpe</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.initos.com">InitOS</a>:<ul>
+<li>Foram Shah</li>
+</ul>
+</li>
+<li><a class="reference external" href="https://www.forgeflow.com">ForgeFlow</a>:<ul>
+<li>Lois Rilo</li>
+</ul>
+</li>
+<li>Enric Tobella</li>
+<li><a class="reference external" href="https://www.binhex.cloud/">Binhex Cloud</a>:<ul>
+<li>Edilio Escalona Almira</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="maintainers">
+<h2><a class="toc-backref" href="#toc-entry-32">Maintainers</a></h2>
+<p>This module is maintained by the OCA.</p>
+<a class="reference external image-reference" href="https://odoo-community.org">
+<img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />
+</a>
+<p>OCA, or the Odoo Community Association, is a nonprofit organization whose
+mission is to support the collaborative development of Odoo features and
+promote its widespread use.</p>
+<p>This module is part of the <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes">OCA/stock-logistics-barcode</a> project on GitHub.</p>
+<p>You are welcome to contribute. To learn how please visit <a class="reference external" href="https://odoo-community.org/page/Contribute">https://odoo-community.org/page/Contribute</a>.</p>
+</div>
+</div>
+</div>
+</body>
+</html>
