@@ -74,17 +74,8 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             wiz.inventory_quant_ids = wiz._search_inventory_quants()
 
     def _refresh_inventory_quants(self):
-        """Stamp the selected owner on the displayed quants (when enabled) and
-        notify the client to refresh the apply-inventory counter.
-
-        These side effects are intentionally kept out of the compute method so
-        they are not triggered on every recomputation.
-        """
+        """Notify the client without changing the identity of counted quants."""
         for wiz in self:
-            if wiz.show_owner and wiz.owner_id:
-                wiz.inventory_quant_ids.with_context(allow_edit_owner=True).write(
-                    {"owner_id": wiz.owner_id.id}
-                )
             wiz.send_bus_done(
                 "stock_barcodes_form_update",
                 {
@@ -100,6 +91,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             "inventory_quantity": self.product_qty,
             "lot_id": self.lot_id.id,
             "package_id": self.package_id.id,
+            "owner_id": self.owner_id.id,
         }
 
     def _inventory_quant_domain(self):
@@ -114,6 +106,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ("location_id", "=", self.location_id.id),
             ("lot_id", "=", self.lot_id.id),
             ("package_id", "=", self.package_id.id),
+            ("owner_id", "=", self.owner_id.id),
         ]
 
     def _ensure_inventory_lot(self):

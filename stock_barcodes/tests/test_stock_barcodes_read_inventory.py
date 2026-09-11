@@ -170,24 +170,52 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
                 },
             )
 
-    def test_refresh_inventory_quants_assigns_owner(self):
-        # When show_owner is enabled and an owner is set, refreshing stamps the
-        # owner on every displayed quant.
-        wiz = self.wiz_scan_read_inventory
-        wiz.option_group_id.show_owner = True
-        wiz.invalidate_recordset(["show_owner"])
-        wiz.owner_id = self.test_partner_id
-        wiz.product_id = self.product_tracking
-        wiz.location_id = self.location_1
-        wiz.lot_id = self.lot_1
-        wiz.product_qty = 3
-        self.assertTrue(wiz._add_inventory_quant())
-        # inventory_quant_ids does not depend on the quants, refresh the cache
-        # so the newly created quant is taken into account.
-        wiz.invalidate_recordset(["inventory_quant_ids"])
-        with patch.object(type(wiz), "send_bus_done"):
-            wiz._refresh_inventory_quants()
-        self.assertTrue(wiz.inventory_quant_ids)
-        self.assertTrue(
-            all(q.owner_id == self.test_partner_id for q in wiz.inventory_quant_ids)
+    def test_inventory_preserves_other_owners(self):
+        owner = self.test_partner_id
+        other_owner = self.ResPartner.create({"name": "Other stock owner"})
+        product = self.product_wo_tracking
+        quants = self.StockQuant.with_context(inventory_mode=True)
+        other_quant = quants.create(
+            {
+                "product_id": product.id,
+                "location_id": self.location_1.id,
+                "owner_id": other_owner.id,
+                "inventory_quantity": 3,
+            }
         )
+        action = self.env.ref(
+            "stock_barcodes.stock_barcodes_action_inventory"
+        ).open_action()
+        wiz = self.WizScanReadInventory.browse(action["res_id"])
+        wiz.option_group_id.show_owner = True
+        wiz.owner_id = owner
+        if not wiz.display_read_quant:
+            wiz.action_display_read_quant()
+        self.assertEqual(other_quant.owner_id, other_owner)
+        wiz.write(
+            {
+                "product_id": product.id,
+                "location_id": self.location_1.id,
+                "product_qty": 5,
+                "manual_entry": True,
+            }
+        )
+        self.assertTrue(wiz.action_confirm())
+        own_quant = quants.search(
+            [
+                ("product_id", "=", product.id),
+                ("location_id", "=", self.location_1.id),
+                ("owner_id", "=", owner.id),
+            ]
+        )
+        self.assertEqual(own_quant.inventory_quantity, 5)
+        self.assertEqual(other_quant.owner_id, other_owner)
+        self.assertEqual(other_quant.inventory_quantity, 3)
+        other_quant.with_context(
+            wiz_barcode_id=wiz.id
+        ).action_barcode_inventory_quant_edit()
+        self.assertEqual(wiz.owner_id, other_owner)
+        wiz.product_qty = 4
+        self.assertTrue(wiz.action_confirm())
+        self.assertEqual(other_quant.inventory_quantity, 4)
+        self.assertEqual(own_quant.inventory_quantity, 5)
