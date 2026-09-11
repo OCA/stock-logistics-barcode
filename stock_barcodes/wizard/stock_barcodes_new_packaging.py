@@ -23,8 +23,6 @@ class WizStockBarcodesNewPackaing(models.TransientModel):
             "name": self.name,
             "barcode": self.barcode,
             "company_id": self.product_id.company_id.id,
-            "sales": False,
-            "purchase": False,
         }
         if "sales" in ProductPackaging:
             vals["sales"] = False

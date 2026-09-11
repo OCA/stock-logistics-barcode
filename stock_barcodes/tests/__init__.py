@@ -8,3 +8,4 @@ from . import test_stock_barcodes_read_inventory
 from . import test_stock_quant
 from . import test_stock_picking_type
 from . import test_barcode_actions_report
+from . import test_new_packaging
