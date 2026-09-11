@@ -33,6 +33,7 @@ class StockQuant(models.Model):
             "product_uom_id",
             "lot_id",
             "package_id",
+            "owner_id",
         ]
 
     def action_barcode_inventory_quant_edit(self):
