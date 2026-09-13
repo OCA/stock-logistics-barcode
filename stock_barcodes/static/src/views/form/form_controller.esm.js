@@ -17,6 +17,7 @@ import {FormController} from "@web/views/form/form_controller";
 import {_t} from "@web/core/l10n/translation";
 import {useService} from "@web/core/utils/hooks";
 import {useEffect} from "@odoo/owl";
+import {scanBarcode} from "@web/core/barcode/barcode_dialog";
 
 export class StockBarcodesFormController extends FormController {
     setup() {
@@ -72,27 +73,15 @@ export class StockBarcodesFormController extends FormController {
         // If a scanner is already running, stop and restart for a clean session.
         this._stopScannerIfAny();
 
-        if (this.barcode && typeof this.barcode.start === "function") {
-            // Start service-based scanning
-            const stop = this.barcode.start({
-                // Called on every successful scan
-                onBarcodeScanned: (payload) => {
-                    // Some impls pass a raw string, others an object { barcode, ... }
-                    const code =
-                        typeof payload === "string" ? payload : payload?.barcode || "";
-                    if (!code) {
-                        this._notifyWarn(_t("Empty barcode."));
-                        return;
-                    }
+        if (this.barcode) {
+            try {
+                const code = await scanBarcode(this.env);
+                if (code) {
                     this.onBarcodeScanned(code);
-                },
-                // Error callback for camera/permission issues, etc.
-                onError: (err) => {
-                    this.onBarcodeError(err);
-                },
-            });
-            this._stopBarcode = typeof stop === "function" ? stop : null;
-            this._notifyInfo(_t("Scanner started. Press Esc or switch tab to stop."));
+                }
+            } catch (error) {
+                this.onBarcodeError(error);
+            }
             return;
         }
 
@@ -110,6 +99,8 @@ export class StockBarcodesFormController extends FormController {
      * Override this to implement custom search/write/open flows.
      */
     onBarcodeScanned(code) {
+        // Camera scans follow the same field/onchange workflow as hardware scans.
+        this.barcode?.bus.trigger("barcode_scanned", {barcode: code});
         // Emit an application-level event so renderer or parent components can handle it.
         // Consumers can listen to: env.bus.on("stock_barcodes:scan", (evt) => {...})
         const payload = {
