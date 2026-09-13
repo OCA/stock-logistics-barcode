@@ -9,3 +9,6 @@ from . import test_stock_quant
 from . import test_stock_picking_type
 from . import test_barcode_actions_report
 from . import test_new_packaging
+from . import test_scan_uom
+from . import test_scan_allocation
+from . import test_auto_lot

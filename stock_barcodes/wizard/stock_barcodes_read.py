@@ -704,6 +704,7 @@ class WizStockBarcodesRead(models.AbstractModel):
         ):
             self.lot_id = False
         self.product_id = packaging.product_id
+        self.product_uom_id = packaging.product_id.uom_id
         self.set_product_qty()
 
     def action_lot_scaned_post(self, lot):

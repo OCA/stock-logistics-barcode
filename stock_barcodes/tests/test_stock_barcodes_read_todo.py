@@ -2,6 +2,7 @@
 
 from unittest.mock import patch
 
+from odoo import Command
 from odoo.tests.common import tagged
 
 from .common import TestCommonStockBarcodes
@@ -68,11 +69,39 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         self.assertIn("result_package_id", result)
 
     def test_operation_quantities(self):
-        # operation_quantities distributes the pending quantity over the lines and
-        # refreshes the todo records of the related barcode wizard.
-        with patch.object(type(self.wiz_scan), "refresh_todo_records") as mock_msg:
-            self.wiz_scan_read_todo.operation_quantities()
-            mock_msg.assert_called_once()
+        product = self.product_wo_tracking
+        destination = self.env.ref("stock.stock_location_customers")
+        self.StockQuant._update_available_quantity(product, self.location_1, 5)
+        picking = self.StockPicking.create(
+            {
+                "picking_type_id": self.env.ref("stock.picking_type_out").id,
+                "location_id": self.location_1.id,
+                "location_dest_id": destination.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "name": product.display_name,
+                            "product_id": product.id,
+                            "product_uom": product.uom_id.id,
+                            "product_uom_qty": 5,
+                            "location_id": self.location_1.id,
+                            "location_dest_id": destination.id,
+                        }
+                    )
+                ],
+            }
+        )
+        picking.action_confirm()
+        picking.action_assign()
+        action = picking.action_barcode_scan()
+        wizard = self.WizScanReadPicking.browse(action["res_id"])
+        self.assertEqual(wizard.todo_line_ids.uom_id, product.uom_id)
+        wizard.todo_line_ids.operation_quantities()
+        self.assertEqual(picking.move_ids.qty_picked, 5)
+        self.assertEqual(wizard.todo_line_ids.qty_done, 5)
+        self.assertEqual(wizard.todo_line_ids.state, "done")
+        wizard.action_validate_picking()
+        self.assertEqual(picking.state, "done")
 
     def test_manual_entry_on_edit(self):
         # Editing a pending line enables manual entry on the wizard when the
