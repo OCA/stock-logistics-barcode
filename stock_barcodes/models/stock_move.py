@@ -22,10 +22,17 @@ class StockMove(models.Model):
         compute="_compute_qty_picked",
     )
 
-    @api.depends("move_line_ids.qty_picked")
+    @api.depends(
+        "move_line_ids.qty_picked", "move_line_ids.product_uom_id", "product_uom"
+    )
     def _compute_qty_picked(self):
         for move in self:
-            move.qty_picked = sum(move.mapped("move_line_ids.qty_picked"))
+            move.qty_picked = sum(
+                line.product_uom_id._compute_quantity(
+                    line.qty_picked, move.product_uom, round=False
+                )
+                for line in move.move_line_ids
+            )
 
     def _action_done(self, cancel_backorder=False):
         moves_cancel_backorder = self.browse()

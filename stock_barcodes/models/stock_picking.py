@@ -51,7 +51,7 @@ class StockPicking(models.Model):
 
     def set_quantity_from_picked(self):
         for sml in self.move_line_ids:
-            sml.quantity = sml.qty_picked
+            sml.write({"quantity": sml.qty_picked, "picked": bool(sml.qty_picked)})
 
     def button_validate(self):
         if self.env.context.get("stock_barcodes_read_picking_id", False):
