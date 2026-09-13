@@ -12,6 +12,7 @@ import {useEffect} from "@odoo/owl";
 import {patch} from "@web/core/utils/patch";
 import {isVisible} from "@web/core/utils/ui";
 import {KanbanRecord} from "@web/views/kanban/kanban_record";
+import {isAllowedBarcodeModel} from "../../utils/barcodes_models_utils.esm";
 
 /** Return the first visible element matching the selector within root. */
 function qVisible(root, selector) {
@@ -27,6 +28,7 @@ function qVisible(root, selector) {
 /** Find the primary clickable target inside a kanban record. */
 function resolvePrimaryTarget(recordEl) {
     return (
+        qVisible(recordEl, "button[name='action_barcode_scan']") ||
         qVisible(recordEl, ".oe_kanban_action_button, .oe_btn_quick_action") ||
         qVisible(recordEl, ".oe_kanban_global_click") ||
         qVisible(recordEl, "a, button")
@@ -52,9 +54,12 @@ patch(KanbanRecord.prototype, {
             _origSetup.call(this, ...arguments);
         }
 
+        if (!isAllowedBarcodeModel(this.props.record.resModel)) {
+            return;
+        }
         useEffect(
             () => {
-                const el = this.el;
+                const el = this.rootRef.el;
                 if (!(el instanceof HTMLElement)) {
                     return; // No cleanup needed
                 }
@@ -69,7 +74,7 @@ patch(KanbanRecord.prototype, {
 
                 const onKeyDown = (ev) => {
                     if (ev.key !== "Enter") return;
-                    if (!el.contains(ev.target)) return;
+                    if (ev.target !== el) return;
                     if (isEditableTarget(ev.target)) return;
 
                     // Avoid modified Enter (Ctrl/Meta/Shift/Alt)

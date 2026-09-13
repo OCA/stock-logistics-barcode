@@ -30,7 +30,7 @@
                         name="action_open_picking"
                         type="object"
                         class="btn btn-primary o_stock_barcodes_picking_ref"
-                        data-hotkey="'shift+o'"
+                        data-hotkey="shift+o"
                     >
                         <field name="picking_id" />
                     </button>
@@ -271,7 +271,7 @@
                     d-flex justify-content-center align-items-center fs-2"
                     invisible="picking_state not in ('draft', 'assigned', 'confirmed') or not pending_move_ids"
                     confirm="Are you sure to validate the picking ?"
-                    data-hotkey="'shift+v'"
+                    data-hotkey="shift+v"
                 >
                     <span class="d-none d-lg-block">Validate</span>
                 </button>
@@ -283,7 +283,7 @@
                     d-flex justify-content-center align-items-center fs-2"
                     invisible="picking_state not in ('draft', 'assigned', 'confirmed') or pending_move_ids"
                     confirm="Are you sure to validate the picking ?"
-                    data-hotkey="'shift+v'"
+                    data-hotkey="shift+v"
                 >
                     <span class="d-none d-lg-block">Validate</span>
                 </button>

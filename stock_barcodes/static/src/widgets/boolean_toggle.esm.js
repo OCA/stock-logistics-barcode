@@ -33,7 +33,7 @@ export class BarcodeBooleanToggle extends BooleanToggleField {
 
         // Ensure initial UI sync on mount
         onMounted(() => {
-            this.enableFormEdit(this.props.value, true);
+            this.enableFormEdit(this.props.record.data[this.props.name], true);
         });
 
         // React to external bus events to toggle edit mode

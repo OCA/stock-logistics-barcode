@@ -124,7 +124,8 @@ function setupView() {
                     safePlay(this.soundOk);
                 }
             } else if (type === "stock_barcodes_focus") {
-                requestIdleCallback(() => {
+                const schedule = window.requestIdleCallback || window.setTimeout;
+                schedule(() => {
                     // Build a robust selector: [name="..."] input
                     let selector = "";
                     if (window.CSS && typeof CSS.escape === "function") {
@@ -212,6 +213,7 @@ function setupView() {
             this.soundOk = soundOk;
             this.soundKo = soundKo;
 
+            busService.start();
             busService.subscribe("stock_barcodes_scan", handleNotification);
             // Inventory "Apply" button counter is pushed on this channel
             busService.subscribe(

@@ -38,18 +38,15 @@
         "reports/reports.xml",
     ],
     "assets": {
+        "web.assets_unit_tests": [
+            "stock_barcodes/static/tests/**/*.test.js",
+        ],
         "web.assets_backend": [
             "/stock_barcodes/static/src/**/*.esm.js",
             (
                 "after",
                 "/web_widget_numeric_step/static/src/numeric_step.xml",
                 "/stock_barcodes/static/src/widgets/numeric_step.xml",
-            ),
-            "/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml",
-            (
-                "after",
-                "/web/static/src/views/view_button/view_button.xml",
-                "/stock_barcodes/static/src/widgets/view_button.xml",
             ),
             "/stock_barcodes/static/src/views/actions/stock_barcode_main_menu.xml",
             "/stock_barcodes/static/src/**/*.scss",
