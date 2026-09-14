@@ -3,7 +3,6 @@
 import logging
 
 from odoo import _, api, fields, models
-from odoo.tools.float_utils import float_compare
 
 _logger = logging.getLogger(__name__)
 
@@ -91,12 +90,16 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             )._compute_display_name()
         return None
 
+    @api.depends("picking_mode", "picking_batch_id.move_line_ids.qty_picked")
     def _compute_move_line_ids(self):
-        if self.picking_mode != "picking_batch":
-            return super()._compute_move_line_ids()
-        self.move_line_ids = self.picking_batch_id.move_line_ids.filtered(
-            "qty_picked"
-        ).sorted("write_date", reverse=True)
+        for wizard in self:
+            if wizard.picking_mode != "picking_batch":
+                super(WizStockBarcodesReadPickingBatch, wizard)._compute_move_line_ids()
+            else:
+                wizard.move_line_ids = wizard.picking_batch_id.move_line_ids.filtered(
+                    "qty_picked"
+                ).sorted("write_date", reverse=True)
+        return None
 
     @api.onchange("picking_batch_id")
     def onchange_picking_batch_id(self):
@@ -130,6 +133,11 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         else:
             return self.picking_batch_id.move_ids
 
+    def get_moves(self):
+        if self.picking_mode == "picking_batch":
+            return self.picking_batch_id.move_ids
+        return super().get_moves()
+
     def update_fields_after_determine_todo(self, move_line):
         if self.picking_mode != "picking_batch":
             return super().update_fields_after_determine_todo(move_line)
@@ -144,7 +152,11 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
     def update_fields_after_process_stock(self, moves):
         if self.picking_mode != "picking_batch":
             return super().update_fields_after_process_stock(moves)
-        self.picking_batch_product_qty = sum(moves.mapped("quantity"))
+        uom = self.product_uom_id or self.product_id.uom_id
+        self.picking_batch_product_qty = sum(
+            move.product_uom._compute_quantity(move.quantity, uom, round=False)
+            for move in moves
+        )
 
     def check_done_conditions(self):
         res = super().check_done_conditions()
@@ -158,84 +170,34 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         return res
 
     def action_back(self):
-        action = super().action_back()
+        """Compatibility entry point for clients using the former back button."""
         if self.picking_mode == "picking_batch":
-            action["views"] = [
-                (
-                    self.env.ref(
-                        "stock_barcodes_picking_batch.stock_batch_picking_form"
-                    ).id,
-                    "form",
-                )
-            ]
-        return action
+            return self.action_open_picking_batch()
+        return self.action_open_picking()
 
     def create_new_stock_move_line(self, moves_todo, available_qty):
         if self.picking_mode != "picking_batch" or self.env.context.get(
             "skip_split_quantity_between_moves", False
         ):
             return super().create_new_stock_move_line(moves_todo, available_qty)
-        to_do = self.todo_line_ids.filtered(
-            lambda ln: ln.state == "pending"
-            and ln.product_id == self.product_id
-            and ln.qty_done < ln.product_uom_qty
+        candidate = moves_todo[:1]
+        picking = (
+            candidate.picking_id
+            or self.picking_batch_id.picking_ids.filtered(
+                lambda record: record.state not in ("done", "cancel")
+            )[-1:]
         )
-        if to_do.line_ids:
-            moves = to_do.line_ids.filtered(
-                lambda ln: ln.barcode_scan_state == "pending"
-            )
-        else:
-            moves = to_do.stock_move_ids.filtered(
-                lambda ln: ln.quantity < ln.product_uom_qty
-            )
-        # TODO: split between all lines
-        sml = self.env["stock.move.line"].browse()
-        for move in moves:
-            if move._name == "stock.move.line":
-                move_demand = move.move_id.product_uom_qty
-            else:
-                move_demand = move.product_uom_qty
-            if move_demand:
-                assigned_qty = min(
-                    max(move_demand - move.qty_picked, 0.0), available_qty
-                )
-            else:
-                assigned_qty = available_qty
-            available_qty -= assigned_qty
-            if move == moves[-1:] and (
-                float_compare(
-                    available_qty, 0, precision_rounding=self.product_id.uom_id.rounding
-                )
-                > 0
-            ):
-                # Assig all to last move
-                assigned_qty += available_qty
-            sml += self.env["stock.move.line"].create(
-                self.with_context(picking=move.picking_id)._prepare_move_line_values(
-                    move.move_id if move._name == "stock.move.line" else move,
-                    assigned_qty,
-                )
-            )
-        if available_qty:
-            # What do I do with the extra quantities?
-            # By moment I assign all to the last picking
-            last_move = self.picking_batch_id.move_ids.filtered(
-                lambda mv: mv.product_id == self.product_id
-            )[-1]
-            sml += self.env["stock.move.line"].create(
-                self.with_context(
-                    picking=last_move.picking_id
-                )._prepare_move_line_values(
-                    last_move,
-                    available_qty,
-                )
-            )
-        return sml
+        return super(
+            WizStockBarcodesReadPickingBatch, self.with_context(picking=picking)
+        ).create_new_stock_move_line(moves_todo, available_qty)
 
     def action_open_picking_batch(self):
         return self.picking_batch_id.get_formview_action()
 
     def action_validate_picking_batch(self):
+        self.picking_batch_id.picking_ids.filtered(
+            lambda picking: picking.state not in ("done", "cancel")
+        ).set_quantity_from_picked()
         res = self.picking_batch_id.with_context(
             stock_barcodes_read_picking_id=self.id
         ).action_done()
@@ -251,7 +213,7 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
         if self.picking_batch_id:
             if self.picking_batch_id.state == "done":
                 # Return to batches list
-                return self.picking_id.picking_type_id.action_batch()
+                return self.picking_batch_id.picking_type_id.action_batch()
             if self.picking_mode != "picking_batch":
                 self.picking_mode = "picking_batch"
                 self.picking_id = False

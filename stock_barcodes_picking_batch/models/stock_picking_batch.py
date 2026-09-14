@@ -8,27 +8,22 @@ class StockPickingBatch(models.Model):
 
     def _prepare_barcode_wiz_vals(self):
         first_picking = self.picking_ids[:1]
-        picking_type_code = first_picking.picking_type_code
-        option_group = first_picking.picking_type_id.barcode_option_group_id
-        vals = {
-            "picking_batch_id": self.id,
-            "res_model_id": self.env.ref(
-                "stock_picking_batch.model_stock_picking_batch"
-            ).id,
-            "res_id": self.id,
-            "picking_type_code": picking_type_code,
-            "option_group_id": option_group.id,
-            "picking_mode": "picking_batch",
-        }
-        if first_picking.picking_type_id.code == "outgoing":
-            vals["location_dest_id"] = first_picking.location_dest_id.id
-        if first_picking.picking_type_id.code == "incoming":
-            vals["location_id"] = first_picking.location_id.id
-
-        if option_group.get_option_value("location_id", "filled_default"):
-            vals["location_id"] = first_picking.location_id.id
-        if option_group.get_option_value("location_dest_id", "filled_default"):
-            vals["location_dest_id"] = first_picking.location_dest_id.id
+        option_group = (
+            first_picking.picking_type_id.barcode_option_group_id
+            or self.env.ref("stock_barcodes.stock_barcodes_option_group_operation")
+        )
+        vals = first_picking._prepare_barcode_wiz_vals(option_group)
+        vals.pop("picking_id", None)
+        vals.update(
+            {
+                "picking_batch_id": self.id,
+                "res_model_id": self.env.ref(
+                    "stock_picking_batch.model_stock_picking_batch"
+                ).id,
+                "res_id": self.id,
+                "picking_mode": "picking_batch",
+            }
+        )
         return vals
 
     def action_barcode_scan(self, wiz=False):
