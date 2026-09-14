@@ -268,3 +268,93 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         action = barcode_action.open_action()
         self.assertEqual(action["res_model"], "stock.picking.batch")
         self.assertIn(("is_wave", "=", True), safe_eval(action["domain"]))
+
+    def _open_manual_batch_scanner(self):
+        self.barcode_option_group_out.write(
+            {
+                "manual_entry": True,
+                "is_manual_qty": True,
+                "is_manual_confirm": True,
+                "confirmed_moves": True,
+                "show_pending_moves": "all",
+            }
+        )
+        action = self.picking_batch.action_barcode_scan()
+        wizard = self.ScanReadPicking.browse(action["res_id"])
+        self.assertTrue(wizard.manual_entry)
+        return wizard
+
+    def _scan_batch_quantity(self, wizard, quantity):
+        self.action_barcode_scanned(wizard, self.product_wo_tracking.barcode)
+        wizard.product_qty = quantity
+        wizard.action_confirm()
+
+    def test_batch_unreserved_demand_is_split_and_validated(self):
+        self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
+        self.assertFalse(self.picking_batch.move_line_ids)
+        wizard = self._open_manual_batch_scanner()
+        self.assertEqual(sum(wizard.todo_line_ids.mapped("product_uom_qty")), 6)
+        self._scan_batch_quantity(wizard, 6)
+        for picking in self.picking_batch.picking_ids:
+            self.assertEqual(sum(picking.move_line_ids.mapped("qty_picked")), 3)
+        wizard.action_validate_picking_batch()
+        self.assertEqual(self.picking_batch.state, "done")
+        for picking in self.picking_batch.picking_ids:
+            self.assertEqual(picking.state, "done")
+            self.assertEqual(sum(picking.move_line_ids.mapped("quantity")), 3)
+
+    def test_batch_reserved_demand_is_split_and_validated(self):
+        self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
+        self.picking_batch.action_assign()
+        wizard = self._open_manual_batch_scanner()
+        self._scan_batch_quantity(wizard, 6)
+        self.assertEqual(wizard.total_product_uom_qty, 6)
+        self.assertEqual(wizard.total_product_qty_done, 6)
+        for picking in self.picking_batch.picking_ids:
+            self.assertEqual(sum(picking.move_line_ids.mapped("qty_picked")), 3)
+        wizard.action_validate_picking_batch()
+        self.assertEqual(self.picking_batch.state, "done")
+        for picking in self.picking_batch.picking_ids:
+            self.assertEqual(picking.state, "done")
+            self.assertEqual(sum(picking.move_line_ids.mapped("quantity")), 3)
+
+    def test_batch_extra_quantity_is_not_duplicated(self):
+        self._create_quant_for_product(self.stock_location, self.product_wo_tracking)
+        wizard = self._open_manual_batch_scanner()
+        self._scan_batch_quantity(wizard, 7)
+        self.assertTrue(wizard.visible_force_done)
+        wizard.action_force_done()
+        self.assertEqual(sum(self.picking_batch.move_line_ids.mapped("qty_picked")), 7)
+        self.assertEqual(
+            sorted(
+                sum(picking.move_line_ids.mapped("qty_picked"))
+                for picking in self.picking_batch.picking_ids
+            ),
+            [3, 4],
+        )
+        wizard.action_validate_picking_batch()
+        self.assertEqual(self.picking_batch.state, "done")
+        self.assertEqual(sum(self.picking_batch.move_line_ids.mapped("quantity")), 7)
+
+    def test_batch_rejects_duplicate_serial(self):
+        self.product_wo_tracking.tracking = "serial"
+        lot = self.env["stock.lot"].create(
+            {
+                "name": "BATCH-SERIAL",
+                "product_id": self.product_wo_tracking.id,
+                "company_id": self.env.company.id,
+            }
+        )
+        self.env["stock.quant"]._update_available_quantity(
+            self.product_wo_tracking, self.stock_location, 1, lot_id=lot
+        )
+        self.picking_batch.action_assign()
+        wizard = self._open_manual_batch_scanner()
+        for _scan in range(2):
+            self.action_barcode_scanned(wizard, self.product_wo_tracking.barcode)
+            self.action_barcode_scanned(wizard, lot.name)
+            wizard.product_qty = 1
+            wizard.action_confirm()
+            self.assertEqual(
+                sum(self.picking_batch.move_line_ids.mapped("qty_picked")), 1
+            )
