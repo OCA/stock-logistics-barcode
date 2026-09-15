@@ -118,7 +118,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     )
     def _compute_total_product(self):
         for rec in self:
-            product_moves = rec.picking_id.move_ids.filtered_domain(
+            product_moves = rec.get_moves().filtered_domain(
                 [
                     ("product_id", "=", rec.product_id.id),
                     ("state", "!=", "cancel"),
@@ -136,7 +136,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 for line in product_moves.move_line_ids
             )
 
-    @api.depends("location_id", "product_id", "lot_id")
+    @api.depends("location_id", "product_id", "lot_id", "owner_id")
     def _compute_qty_available(self):
         if not self.product_id or self.location_id.usage != "internal":
             self.qty_available = 0.0
@@ -144,6 +144,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
         domain_quant = [
             ("product_id", "=", self.product_id.id),
             ("location_id", "=", self.location_id.id),
+            ("owner_id", "=", self.owner_id.id),
         ]
         if self.lot_id:
             domain_quant.append(("lot_id", "=", self.lot_id.id))
@@ -162,7 +163,9 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             done_move_lines = self.move_line_ids.filtered(
                 lambda m: m.product_id == self.product_id
             )
-        for sml in done_move_lines:
+        for sml in done_move_lines.filtered_domain(
+            [("owner_id", "=", self.owner_id.id)]
+        ):
             over_done_qty = float_round(
                 sml.product_uom_id._compute_quantity(
                     sml.qty_picked - sml.quantity, sml.product_id.uom_id, round=False
@@ -493,7 +496,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
 
     def _get_candidate_line_domain(self):
         """To be extended for other modules"""
-        domain = []
+        domain = [("owner_id", "=", self.owner_id.id)]
         if self.env.user.has_group("stock.group_tracking_lot"):
             # Check if sml is created with complete content so we fill result package to
             # set the complete package
@@ -552,7 +555,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             )
         # Check if exists lines with lot created if product has tracking serial
         if self.product_id.tracking == "serial":
-            serial_lines = self.picking_id.move_line_ids.filtered(
+            serial_lines = self.get_moves().move_line_ids.filtered(
                 lambda sml: (
                     (self.lot_id and sml.lot_id == self.lot_id)
                     or (self.lot_name and sml.lot_name == self.lot_name)
