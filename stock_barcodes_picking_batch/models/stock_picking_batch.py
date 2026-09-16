@@ -30,8 +30,8 @@ class StockPickingBatch(models.Model):
         if option_group.get_option_value("location_dest_id", "filled_default"):
             vals["location_dest_id"] = first_picking.location_dest_id.id
         wiz = self.env["wiz.stock.barcodes.read.picking"].create(vals)
-        wiz.determine_todo_action()
         wiz.fill_pending_moves()
+        wiz.determine_todo_action()
         action = self.env["ir.actions.act_window"]._for_xml_id(
             "stock_barcodes_picking_batch.action_stock_barcodes_read_picking_batch"
         )
