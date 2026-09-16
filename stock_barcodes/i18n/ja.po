@@ -6,13 +6,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 16.0\n"
 "Report-Msgid-Bugs-To: \n"
-"Last-Translator: Automatically generated\n"
+"PO-Revision-Date: 2026-09-16 04:26+0000\n"
+"Last-Translator: \"Toshikimi Shigenobu (Quartile)\" <nobu@quartile.co>\n"
 "Language-Team: none\n"
 "Language: ja\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 5.15.2\n"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__state
@@ -30,13 +32,26 @@ msgid ""
 " * Done: The transfer has been processed.\n"
 " * Cancelled: The transfer has been cancelled."
 msgstr ""
+" *ドラフト:転送はまだ確認されていません。予約は適用されません。 \n"
+"*別の操作を待機中:この転送は、準備が整う前に別の操作を待機しています。 \n"
+"*待機中:転送は一部の製品の可用性を待機しています。 \n"
+"(a)配送ポリシーは'できるだけ早く'です。商品を予約することはできません。 \n"
+"(b)配送ポリシーは'すべての製品の準備ができたら'です。すべての製品を予約できる"
+"わけではありません。 \n"
+"*準備完了:転送を処理する準備ができています。 \n"
+"(a)配送ポリシーは'できるだけ早く'です。少なくとも1つの製品が予約されています"
+"。 \n"
+"(b)配送ポリシーは'すべての製品の準備ができたら'です。すべての製品が予約されて"
+"います。 \n"
+"*完了:転送は処理されました。 \n"
+"*キャンセル済み:転送はキャンセルされました。"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/models/stock_barcodes_action.py:0
 #, python-format
 msgid " Barcode has already been assigned to the action(s): {}."
-msgstr ""
+msgstr " バーコードは既にアクション {} に割当てられています。"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -46,39 +61,41 @@ msgid ""
 " The barcode {} is not correct.Use numbers, letters and dashes, without "
 "spaces.E.g. 15753, BC-5789,er-56 "
 msgstr ""
+" バーコード {} が正しくありません。スペースを使わず、数字、英字、ハイフンを使"
+"用してください。例: 15753, BC-5789,er-56 "
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "%(barcode)s (%(message)s)"
-msgstr ""
+msgstr "%(barcode)s (%(message)s)"
 
 #. module: stock_barcodes
 #: model:ir.actions.report,print_report_name:stock_barcodes.action_report_barcode_actions
 msgid "'Barcodes - %s' % (object.name)"
-msgstr ""
+msgstr "'バーコード - %s' % (object.name)"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "1 - Scan or input product barcode"
-msgstr ""
+msgstr "1 - プロダクトバーコードをスキャンまたは入力"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "2 - Scan or input product lot barcode"
-msgstr ""
+msgstr "2 - プロダクトロットバーコードをスキャンまたは入力"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
 msgid "<i class=\"fa fa-barcode fa-2x\" title=\"Start barcode interface\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-barcode fa-2x\" title=\"バーコードインタフェースを開始\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<i class=\"fa fa-pencil\" title=\"Edit inventory quantity\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-pencil\" title=\"棚卸数量を編集\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_picking_type_kanban
@@ -86,16 +103,18 @@ msgid ""
 "<i class=\"fa fa-plus\" title=\"Scan new picking \"/>\n"
 "                        <small>New</small>"
 msgstr ""
+"<i class=\"fa fa-plus\" title=\"新規ピッキングをスキャン \"/>\n"
+"                        <small>新規</small>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<i class=\"fa fa-trash\" title=\"Remove\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-trash\" title=\"削除\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid "<i class=\"fa fa-trash\" title=\"Reset inventory quantity\"/>"
-msgstr ""
+msgstr "<i class=\"fa fa-trash\" title=\"棚卸数量をリセット\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -103,6 +122,8 @@ msgid ""
 "<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\">-&gt;\n"
 "                                    </span>"
 msgstr ""
+"<span attrs=\"{'invisible': [('result_package_id', '=', False)]}\">-&gt;\n"
+"                                    </span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -110,16 +131,18 @@ msgid ""
 "<span class=\"d-none d-lg-block\">Apply</span>\n"
 "                    (<span class=\"count_apply_inventory\"/>)"
 msgstr ""
+"<span class=\"d-none d-lg-block\">適用</span>\n"
+"                    (<span class=\"count_apply_inventory\"/>)"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<span class=\"d-none d-lg-block\">Put in back</span>"
-msgstr ""
+msgstr "<span class=\"d-none d-lg-block\">梱包する</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<span class=\"d-none d-lg-block\">Validate</span>"
-msgstr ""
+msgstr "<span class=\"d-none d-lg-block\">確認</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -129,6 +152,10 @@ msgid ""
 "                        This picking is already done\n"
 "                    </span>"
 msgstr ""
+"<span class=\"fa fa-6x mb-4 fa-exclamation-triangle\"/>\n"
+"                    <span class=\"fa fa-2x fa-exclamation-triangle\">\n"
+"                        このピッキングは既に完了しています\n"
+"                    </span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_packaging_form
@@ -136,41 +163,44 @@ msgid ""
 "<span class=\"fa fa-archive d-sm-none oe_span_small_icon\" title=\"Source "
 "Location\" attrs=\"{'invisible': [('product_packaging_ids', '=', [])]}\"/>"
 msgstr ""
+"<span class=\"fa fa-archive d-sm-none oe_span_small_icon\" title=\"移動元"
+"ロケーション\" attrs=\"{'invisible': [('product_packaging_ids', '=', [])]}"
+"\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span class=\"fa fa-barcode fa-2x mt-2 mx-3\" title=\"Barcode\"/>"
-msgstr ""
+msgstr "<span class=\"fa fa-barcode fa-2x mt-2 mx-3\" title=\"バーコード\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "<span class=\"fa fa-map-marker\" title=\"Location name\"/>"
-msgstr ""
+msgstr "<span class=\"fa fa-map-marker\" title=\"ロケーション名\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "<span class=\"fa fa-tags\" title=\"Lot S/N\"/>"
-msgstr ""
+msgstr "<span class=\"fa fa-tags\" title=\"ロット/シリアル番号\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span class=\"fs-1 d-none d-lg-block\">Clean Values</span>"
-msgstr ""
+msgstr "<span class=\"fs-1 d-none d-lg-block\">値をクリア</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span class=\"fs-1 d-none d-lg-block\">Confirm</span>"
-msgstr ""
+msgstr "<span class=\"fs-1 d-none d-lg-block\">確認</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "<span class=\"fs-1 d-none d-lg-block\">Product</span>"
-msgstr ""
+msgstr "<span class=\"fs-1 d-none d-lg-block\">プロダクト</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
-msgstr ""
+msgstr "<span class=\"o_stat_text\">バーコードスキャン</span>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -178,6 +208,9 @@ msgid ""
 "<strong class=\" d-none d-sm-block\">Dest. Location</strong>\n"
 "                    <span class=\"fa fa-2x fa-share text-center d-sm-none oe_span_small_icon\" title=\"Destination Location\"/>"
 msgstr ""
+"<strong class=\" d-none d-sm-block\">移動先ロケーション</strong>\n"
+"                    <span class=\"fa fa-2x fa-share text-center d-sm-none "
+"oe_span_small_icon\" title=\"移動先ロケーション\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -186,6 +219,10 @@ msgid ""
 "                                    </strong>\n"
 "                                    <span class=\"fa fa-map-marker fa-2x d-sm-none oe_span_small_icon\" title=\"Source Location\"/>"
 msgstr ""
+"<strong class=\" d-none d-sm-block\">移動元ロケーション\n"
+"                                    </strong>\n"
+"                                    <span class=\"fa fa-map-marker fa-2x d-"
+"sm-none oe_span_small_icon\" title=\"移動元ロケーション\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -193,6 +230,9 @@ msgid ""
 "<strong class=\"d-none d-sm-block\">Lot S/N</strong>\n"
 "                                    <span class=\"fa fa-tags fa-2x d-sm-none oe_span_small_icon\" title=\"Lot S/N\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">ロット/シリアル番号</strong>\n"
+"                                    <span class=\"fa fa-tags fa-2x d-sm-none "
+"oe_span_small_icon\" title=\"ロット/シリアル番号\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -200,6 +240,9 @@ msgid ""
 "<strong class=\"d-none d-sm-block\">Package</strong>\n"
 "                    <span class=\"fa fa-inbox fa-2x d-sm-none oe_span_small_icon\" title=\"package\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">パッケージ</strong>\n"
+"                    <span class=\"fa fa-inbox fa-2x d-sm-none "
+"oe_span_small_icon\" title=\"パッケージ\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -207,6 +250,9 @@ msgid ""
 "<strong class=\"d-none d-sm-block\">Product</strong>\n"
 "                                    <span class=\"fa fa-th-list fa-2x d-sm-none oe_span_small_icon\" title=\"Product\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">プロダクト</strong>\n"
+"                                    <span class=\"fa fa-th-list fa-2x d-sm-"
+"none oe_span_small_icon\" title=\"プロダクト\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -215,6 +261,10 @@ msgid ""
 "                                    </strong>\n"
 "                                    <span class=\"fa fa-cubes d-sm-none oe_span_small_icon\" title=\"Source Package to Result Package\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">移動元パッケージ -&gt; 結果パッケージ\n"
+"                                    </strong>\n"
+"                                    <span class=\"fa fa-cubes d-sm-none "
+"oe_span_small_icon\" title=\"移動元パッケージから結果パッケージへ\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -222,75 +272,78 @@ msgid ""
 "<strong class=\"d-none d-sm-block\">Total Qty</strong>\n"
 "                                    <span class=\"fa fa-hashtag d-sm-none oe_span_small_icon\" title=\"Total Quantity\"/>"
 msgstr ""
+"<strong class=\"d-none d-sm-block\">合計数量</strong>\n"
+"                                    <span class=\"fa fa-hashtag d-sm-none "
+"oe_span_small_icon\" title=\"合計数量\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "ADD PRODUCT"
-msgstr ""
+msgstr "プロダクト追加"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__accumulate_read_quantity
 msgid "Accumulate Read Quantity"
-msgstr ""
+msgstr "読取数量を累積"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__action_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__action_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__action_ids
 msgid "Action"
-msgstr ""
+msgstr "アクション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__action_window_id
 msgid "Action window"
-msgstr ""
+msgstr "アクションウィンドウ"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_action
 msgid "Actions for barcode interface"
-msgstr ""
+msgstr "バーコードインタフェース用アクション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__active
 msgid "Active"
-msgstr ""
+msgstr "有効"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__allow_negative_quant
 msgid "Allow Negative Quant"
-msgstr ""
+msgstr "マイナス在庫を許可"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__create_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__create_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_lot
 msgid "Allow create lot"
-msgstr ""
+msgstr "ロット作成を許可"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
-msgstr ""
+msgstr "このピッキングを確認しますか？"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Assign Serial Numbers"
-msgstr ""
+msgstr "シリアル番号を割り当てる"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack"
-msgstr ""
+msgstr "自動梱包"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack before picking validation"
-msgstr ""
+msgstr "ピッキング確認前に自動で梱包します"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_move__barcode_backorder_action
 msgid "Backorder action"
-msgstr ""
+msgstr "バックオーダアクション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__barcode
@@ -299,17 +352,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__barcode
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.stock_location_form_inherit
 msgid "Barcode"
-msgstr ""
+msgstr "バーコード"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_barcodes_barcode_events_mixin
 msgid "Barcode Event Mixin"
-msgstr ""
+msgstr "バーコードイベントMixin"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__barcode_option_group_id
 msgid "Barcode Option Group"
-msgstr ""
+msgstr "バーコードオプショングループ"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -318,11 +371,13 @@ msgstr ""
 msgid ""
 "Barcode Option Group is not configured on Operation Type '%(pick_type)s'."
 msgstr ""
+"オペレーションタイプ '%(pick_type)s' にバーコードオプショングループが設定され"
+"ていません。"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Barcode Options"
-msgstr ""
+msgstr "バーコードオプション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_quant___barcode_scanned
@@ -331,72 +386,72 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
 msgid "Barcode Scanned"
-msgstr ""
+msgstr "スキャンされたバーコード"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/actions/stock_barcode_main_menu.xml:0
 #, python-format
 msgid "Barcode Scanner"
-msgstr ""
+msgstr "バーコードスキャナ"
 
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes
 msgid "Barcode actions"
-msgstr ""
+msgstr "バーコードアクション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__barcode_image
 msgid "Barcode image"
-msgstr ""
+msgstr "バーコード画像"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode not found"
-msgstr ""
+msgstr "バーコードが見つかりません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode not found or field already filled"
-msgstr ""
+msgstr "バーコードが見つからないか、項目が既に入力されています"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Barcode not found with this screen values"
-msgstr ""
+msgstr "この画面の値ではバーコードが見つかりません"
 
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes_option_group
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
 msgid "Barcode options"
-msgstr ""
+msgstr "バーコードオプション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__success
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__success
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__success
 msgid "Barcode read correctly"
-msgstr ""
+msgstr "バーコードを正常に読取りました"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__info
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__info
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__info
 msgid "Barcode read with additional info"
-msgstr ""
+msgstr "追加情報付きでバーコードを読取りました"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Barcode reader"
-msgstr ""
+msgstr "バーコードリーダ"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_action_kanban
@@ -405,105 +460,105 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_type_form
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Barcodes"
-msgstr ""
+msgstr "バーコード"
 
 #. module: stock_barcodes
 #: model:ir.actions.report,name:stock_barcodes.action_report_barcode_actions
 msgid "Barcodes (PDF)"
-msgstr ""
+msgstr "バーコード (PDF)"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_inventory
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_read_picking
 msgid "Barcodes Read"
-msgstr ""
+msgstr "バーコード読取"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_action
 msgid "Barcodes actions"
-msgstr ""
+msgstr "バーコードアクション"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form_manual_qty
 msgid "Barcodes manual quantities"
-msgstr ""
+msgstr "バーコード手動数量"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_menu
 msgid "Barcodes menu"
-msgstr ""
+msgstr "バーコードメニュー"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_option
 msgid "Barcodes options"
-msgstr ""
+msgstr "バーコードオプション"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_option_group
 msgid "Barcodes options groups"
-msgstr ""
+msgstr "バーコードオプショングループ"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
 msgid "Behavior settings"
-msgstr ""
+msgstr "動作設定"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 msgid "Cancel"
-msgstr ""
+msgstr "取消"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__name
 msgid "Candidate Picking"
-msgstr ""
+msgstr "候補ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_ids
 msgid "Candidate pickings"
-msgstr ""
+msgstr "候補ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_candidate_picking
 msgid "Candidate pickings for barcode interface"
-msgstr ""
+msgstr "バーコードインタフェース用候補ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__candidate_picking_id
 msgid "Candidate stock picking"
-msgstr ""
+msgstr "候補在庫ピッキング"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Clean"
-msgstr ""
+msgstr "クリア"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__clean_after_done
 msgid "Clean After Done"
-msgstr ""
+msgstr "完了後にクリア"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Clean Values"
-msgstr ""
+msgstr "値をクリア"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Clean lot"
-msgstr ""
+msgstr "ロットをクリア"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Clean package info"
-msgstr ""
+msgstr "パッケージ情報をクリア"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Clean product"
-msgstr ""
+msgstr "プロダクトをクリア"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -511,24 +566,24 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Click on picking pushpin to lock it"
-msgstr ""
+msgstr "ピッキングをロックするにはピンをクリックしてください"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__code
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__company_id
 msgid "Company"
-msgstr ""
+msgstr "会社"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_new_lot
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__confirmed_moves
@@ -536,53 +591,53 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__confirmed_moves
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__confirmed_moves
 msgid "Confirmed moves"
-msgstr ""
+msgstr "確認済移動"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__partner_id
 msgid "Contact"
-msgstr ""
+msgstr "連絡先"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__context
 msgid "Context"
-msgstr ""
+msgstr "コンテキスト"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__count_elements
 msgid "Count Elements"
-msgstr ""
+msgstr "要素数"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__count_inventory_quants
 msgid "Count Inventory Quants"
-msgstr ""
+msgstr "棚卸保管ロット数"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move__barcode_backorder_action__create_backorder
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Create Backorder"
-msgstr ""
+msgstr "バックオーダを作成"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Create lot"
-msgstr ""
+msgstr "ロット作成"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__create_lot
 msgid "Create lots if not match"
-msgstr ""
+msgstr "一致しない場合ロットを作成"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Create new lot"
-msgstr ""
+msgstr "新規ロット作成"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Create new package"
-msgstr ""
+msgstr "新規パッケージ作成"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__create_uid
@@ -595,7 +650,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__create_uid
 msgid "Created by"
-msgstr ""
+msgstr "作成者"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__create_date
@@ -608,64 +663,64 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__create_date
 msgid "Created on"
-msgstr ""
+msgstr "作成日"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__date
 msgid "Creation Date"
-msgstr ""
+msgstr "作成日"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_candidate_picking__date
 msgid "Creation Date, usually the time of the order"
-msgstr ""
+msgstr "作成日は通常オーダされた時です"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__outgoing
 msgid "Customers"
-msgstr ""
+msgstr "顧客"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__manual_entry
 msgid "Default value when open scan interface"
-msgstr ""
+msgstr "スキャンインタフェースを開いた時のデフォルト値"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_uom_qty
 msgid "Demand"
-msgstr ""
+msgstr "要求"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_dest_name
 msgid "Destinatino Name"
-msgstr ""
+msgstr "移動先名"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_dest_id
 msgid "Destination Location"
-msgstr ""
+msgstr "移動先ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__source_pending_moves__move_line_ids
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Detailed operations"
-msgstr ""
+msgstr "詳細オペレーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__display_assign_serial
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_assign_serial
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__display_assign_serial
 msgid "Display Assign Serial"
-msgstr ""
+msgstr "シリアル割り当ての表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__display_menu
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_menu
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__display_menu
 msgid "Display Menu"
-msgstr ""
+msgstr "メニュー表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__display_name
@@ -678,17 +733,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__display_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__display_name
 msgid "Display Name"
-msgstr ""
+msgstr "表示名"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__display_notification
 msgid "Display Odoo notifications"
-msgstr ""
+msgstr "Odoo通知を表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__no_increase_qty_done
 msgid "Do not increase qty done on each scan"
-msgstr ""
+msgstr "スキャンごとに完了数量を増やさない"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_done
@@ -696,71 +751,71 @@ msgstr ""
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done
 msgid "Done"
-msgstr ""
+msgstr "完了"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done_forced
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done_forced
 msgid "Done forced"
-msgstr ""
+msgstr "強制完了"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Empty field"
-msgstr ""
+msgstr "空の項目"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__enable_add_product
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__enable_add_product
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__enable_add_product
 msgid "Enable Add Product"
-msgstr ""
+msgstr "プロダクト追加を有効化"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Ensure the traceability of a storable product in your warehouse."
-msgstr ""
+msgstr "倉庫に置いておける商品を追跡できるようにする"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__manual_entry
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__manual_entry
 msgid "Entry manual data"
-msgstr ""
+msgstr "データを手動入力"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__field_name
 msgid "Field Name"
-msgstr ""
+msgstr "フィールド名"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__fill_fields_from_lot
 msgid "Fill Fields From Lot"
-msgstr ""
+msgstr "ロットから項目を入力"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__filled_default
 msgid "Filled Default"
-msgstr ""
+msgstr "デフォルトで入力済"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Force done"
-msgstr ""
+msgstr "強制完了"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__forced
 msgid "Forced"
-msgstr ""
+msgstr "強制"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__forced_todo_key
 msgid "Forced Todo Key"
-msgstr ""
+msgstr "強制Todoキー"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_lot
@@ -768,52 +823,52 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__auto_lot
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 msgid "Get lots automatically"
-msgstr ""
+msgstr "ロットを自動取得"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__product_packaging_ids
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_packaging_ids
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_packaging_ids
 msgid "Gives the different ways to package the same product."
-msgstr ""
+msgstr "同一プロダクトの様々な梱包方法を指定します。"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
 msgid "Group Key For Todo Records"
-msgstr ""
+msgstr "Todoレコードのグループ化キー"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__barcode_guided_mode__guided
 msgid "Guided"
-msgstr ""
+msgstr "ガイド付"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__guided_location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__guided_location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__guided_location_id
 msgid "Guided Location"
-msgstr ""
+msgstr "ガイドロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__guided_location_dest_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__guided_location_dest_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__guided_location_dest_id
 msgid "Guided Location Dest"
-msgstr ""
+msgstr "ガイド移動先ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__guided_lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__guided_lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__guided_lot_id
 msgid "Guided Lot"
-msgstr ""
+msgstr "ガイドロット"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__guided_product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__guided_product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__guided_product_id
 msgid "Guided Product"
-msgstr ""
+msgstr "ガイドプロダクト"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__id
@@ -826,12 +881,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__id
 msgid "ID"
-msgstr ""
+msgstr "ID"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__icon_class
 msgid "Icon Class"
-msgstr ""
+msgstr "アイコンクラス"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__accumulate_read_quantity
@@ -839,6 +894,8 @@ msgid ""
 "If checked quantity will be accumulated to the existing record instead of "
 "overwrite it with the new quantity value"
 msgstr ""
+"チェックすると、新しい数量で上書きする代わりに既存レコードの数量に加算されま"
+"す"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_lot
@@ -847,7 +904,7 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__auto_lot
 msgid ""
 "If checked the lot will be set automatically with the same removal startegy"
-msgstr ""
+msgstr "チェックすると、同じ引当方針に従ってロットが自動的に設定されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__create_lot
@@ -855,114 +912,118 @@ msgid ""
 "If checked the lot will created automatically with the scanned barcode if "
 "not exists "
 msgstr ""
+"チェックすると、ロットが存在しない場合にスキャンしたバーコードで自動的に作成"
+"されます "
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__show_detailed_operations
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__show_detailed_operations
 msgid "If checked the picking detailed operations are displayed"
-msgstr ""
+msgstr "チェックすると、ピッキングの詳細オペレーションが表示されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__keep_screen_values
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_screen_values
 msgid ""
 "If checked the wizard values are kept until the pending move is completed"
-msgstr ""
+msgstr "チェックすると、保留中の移動が完了するまでウィザードの値が保持されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__fill_fields_from_lot
 msgid ""
 "If checked, the fields in the interface will be filled from the scanned lot"
-msgstr ""
+msgstr "チェックすると、インタフェースの項目がスキャンしたロットから入力されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__is_manual_qty
 msgid ""
 "If it is checked, it always shows the product quantity field in edit mode"
-msgstr ""
+msgstr "チェックすると、プロダクト数量項目が常に編集モードで表示されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__allow_negative_quant
 msgid ""
 "If it is checked, it will allow the creation of movements that generate "
 "negative stock"
-msgstr ""
+msgstr "チェックすると、マイナス在庫となる移動の作成が許可されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__ignore_quant_location
 msgid ""
 "If it is checked, quant location will be ignored when reading lot/package"
 msgstr ""
+"チェックすると、ロット/パッケージ読取時に保管ロットのロケーションが無視されま"
+"す"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
 msgid "If it is marked, the movement must always be confirmed from a button"
-msgstr ""
+msgstr "チェックすると、移動は常にボタンから確認する必要があります"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "If locked keep result package"
-msgstr ""
+msgstr "ロック時に結果パッケージを保持"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__ignore_quant_location
 msgid "Ignore Quant Location"
-msgstr ""
+msgstr "保管ロットロケーションを無視"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__ignore_filled_fields
 msgid "Ignore filled fields"
-msgstr ""
+msgstr "入力済項目を無視"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Ignore rest"
-msgstr ""
+msgstr "残りを無視"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__info_page
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__info_page
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__info_page
 msgid "Info page"
-msgstr ""
+msgstr "情報ページ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
 msgid "Internal"
-msgstr ""
+msgstr "内部"
 
 #. module: stock_barcodes
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_inventory
 msgid "Inventory"
-msgstr ""
+msgstr "在庫"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_quant_ids
 msgid "Inventory Quant"
-msgstr ""
+msgstr "棚卸保管ロット"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_inventory.py:0
 #, python-format
 msgid "Inventory line with more than one unit in serial tracked product"
-msgstr ""
+msgstr "シリアル番号追跡プロダクトで数量が1を超える棚卸明細です"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__inventory_product_qty
 msgid "Inventory quantities"
-msgstr ""
+msgstr "棚卸数量"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid "Inventory quants"
-msgstr ""
+msgstr "棚卸保管ロット"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_is_extra_line
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__is_extra_line
 msgid "Is Extra Line"
-msgstr ""
+msgstr "追加明細"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__is_manual_confirm
@@ -970,7 +1031,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__is_manual_confirm
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__is_manual_confirm
 msgid "Is Manual Confirm"
-msgstr ""
+msgstr "手動確認"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__is_manual_qty
@@ -978,17 +1039,17 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__is_manual_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__is_manual_qty
 msgid "Is Manual Qty"
-msgstr ""
+msgstr "手動数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__is_pending
 msgid "Is Pending"
-msgstr ""
+msgstr "保留中"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__is_stock_move_line_origin
 msgid "Is Stock Move Line Origin"
-msgstr ""
+msgstr "在庫移動明細由来"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__confirmed_moves
@@ -998,30 +1059,30 @@ msgstr ""
 msgid ""
 "It allows to work with movements without reservation (Without detailed "
 "operations)"
-msgstr ""
+msgstr "引当なしの移動（詳細オペレーションなし）で作業できるようになります"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__keep_result_package
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__keep_result_package
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_result_package
 msgid "Keep Result Package"
-msgstr ""
+msgstr "結果パッケージを保持"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__keep_screen_values
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__keep_screen_values
 msgid "Keep Screen Values"
-msgstr ""
+msgstr "画面の値を保持"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__key_char_shortcut
 msgid "Key Char Shortcut"
-msgstr ""
+msgstr "ショートカット文字"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__key_shortcut
 msgid "Key Shortcut"
-msgstr ""
+msgstr "ショートカットキー"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions____last_update
@@ -1034,7 +1095,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking____last_update
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo____last_update
 msgid "Last Modified on"
-msgstr ""
+msgstr "最終更新日"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__write_uid
@@ -1047,7 +1108,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__write_uid
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__write_uid
 msgid "Last Updated by"
-msgstr ""
+msgstr "最終更新者"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_report_stock_barcodes_report_barcode_actions__write_date
@@ -1060,12 +1121,12 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__write_date
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__write_date
 msgid "Last Updated on"
-msgstr ""
+msgstr "最終更新日"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__line_ids
 msgid "Line"
-msgstr ""
+msgstr "明細"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__location_id
@@ -1073,29 +1134,29 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__location_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_id
 msgid "Location"
-msgstr ""
+msgstr "ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_dest_id
 msgid "Location Dest"
-msgstr ""
+msgstr "移動先ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__location_field_to_sort
 msgid "Location Field To Sort"
-msgstr ""
+msgstr "ソート対象ロケーション項目"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__location_name
 msgid "Location Name"
-msgstr ""
+msgstr "ロケーション名"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__location_dest_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__location_dest_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__location_dest_id
 msgid "Location dest."
-msgstr ""
+msgstr "移動先ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__lot_id
@@ -1103,53 +1164,53 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__lot_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__lot_id
 msgid "Lot"
-msgstr ""
+msgstr "ロット"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid "Lot S/N:"
-msgstr ""
+msgstr "ロット/シリアル番号:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__lot_name
 msgid "Lot name"
-msgstr ""
+msgstr "ロット名"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__lot_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__lot_name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__lot_name
 msgid "Lot/Serial Number Name"
-msgstr ""
+msgstr "ロット/シリアル番号名"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Lot:"
-msgstr ""
+msgstr "ロット:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__manual_entry
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__manual_entry
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__manual_entry
 msgid "Manual"
-msgstr ""
+msgstr "手動"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__manual_entry_field_focus
 msgid "Manual Entry Field Focus"
-msgstr ""
+msgstr "手動入力時のフォーカス項目"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__manual_entry
 msgid "Manual entry"
-msgstr ""
+msgstr "手動入力"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Manual entry OK"
-msgstr ""
+msgstr "手動入力OK"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__message
@@ -1157,26 +1218,26 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__message
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__message
 msgid "Message"
-msgstr ""
+msgstr "メッセージ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__message_step
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__message_step
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__message_step
 msgid "Message Step"
-msgstr ""
+msgstr "メッセージステップ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__message_type
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__message_type
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__message_type
 msgid "Message Type"
-msgstr ""
+msgstr "メッセージタイプ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__barcode_guided_mode
 msgid "Mode"
-msgstr ""
+msgstr "モード"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1186,37 +1247,39 @@ msgid ""
 "More than one lot found\n"
 "Scan product before"
 msgstr ""
+"複数のロットが見つかりました\n"
+"プロダクトを先にスキャンしてください"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__more_match
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__more_match
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__more_match
 msgid "More than one matches found"
-msgstr ""
+msgstr "複数の一致が見つかりました"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one package found"
-msgstr ""
+msgstr "複数のパッケージが見つかりました"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "More than one product found"
-msgstr ""
+msgstr "複数のプロダクトが見つかりました"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__move_line_ids
 msgid "Move Line"
-msgstr ""
+msgstr "移動明細"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "NOT AVAILABLE"
-msgstr ""
+msgstr "利用不可"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__name
@@ -1224,102 +1287,102 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__name
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__name
 msgid "Name"
-msgstr ""
+msgstr "名称"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.action_stock_barcodes_new_lot
 msgid "New Lot"
-msgstr ""
+msgstr "新規ロット"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "New Move:"
-msgstr ""
+msgstr "新規移動:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
 msgid "New Picking Barcode Option Group"
-msgstr ""
+msgstr "新規ピッキングのバーコードオプショングループ"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Next"
-msgstr ""
+msgstr "次"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move__barcode_backorder_action__skip_backorder
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "No Backorder"
-msgstr ""
+msgstr "バックオーダなし"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/actions/stock_barcode_main_menu.esm.js:0
 #, python-format
 msgid "No action found with barcode: "
-msgstr ""
+msgstr "このバーコードのアクションが見つかりません: "
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_inventory__message_type__not_found
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__message_type__not_found
 msgid "No barcode found"
-msgstr ""
+msgstr "バーコードが見つかりません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "No pending lines for this product"
-msgstr ""
+msgstr "このプロダクトに保留中の明細はありません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "No stock available for this lot with screen values"
-msgstr ""
+msgstr "画面の値ではこのロットに利用可能な在庫がありません"
 
 #. module: stock_barcodes
 #: model_terms:ir.actions.act_window,help:stock_barcodes.stock_barcodes_action_picking_tree_ready
 msgid "No transfer found. Let's create one!"
-msgstr ""
+msgstr "転送が見つかりません。作ってみましょう!"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__note
 msgid "Notes"
-msgstr ""
+msgstr "ノート"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Odoo will not create a backorder for this move. Are you sure?"
-msgstr ""
+msgstr "Odooはこの移動のバックオーダを作成しません。よろしいですか？"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
 msgid "Open actions"
-msgstr ""
+msgstr "アクションを開く"
 
 #. module: stock_barcodes
 #: model:ir.actions.act_window,name:stock_barcodes.stock_barcodes_action_picking_tree_ready
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__source_pending_moves__move_ids
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_barcode_operations
 msgid "Operations"
-msgstr ""
+msgstr "オペレーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__option_ids
 msgid "Option"
-msgstr ""
+msgstr "オプション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__option_group_id
@@ -1327,34 +1390,34 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__option_group_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__option_group_id
 msgid "Option Group"
-msgstr ""
+msgstr "オプショングループ"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_option
 msgid "Options for barcode interface"
-msgstr ""
+msgstr "バーコードインタフェース用オプション"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_barcodes_option_group
 msgid "Options group for barcode interface"
-msgstr ""
+msgstr "バーコードインタフェース用オプショングループ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_id
 msgid "Origin Location"
-msgstr ""
+msgstr "元ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__source_pending_moves
 msgid "Origin of the data to generate the movements to process"
-msgstr ""
+msgstr "処理対象の移動を生成するためのデータ元"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__owner_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__owner_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__owner_id
 msgid "Owner"
-msgstr ""
+msgstr "オーナー"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__package_id
@@ -1362,24 +1425,24 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__package_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__package_id
 msgid "Package"
-msgstr ""
+msgstr "パッケージ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__package_product_qty
 msgid "Package Product Qty"
-msgstr ""
+msgstr "パッケージプロダクト数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__packaging_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__packaging_qty
 msgid "Package Qty"
-msgstr ""
+msgstr "パッケージ数量"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Package:"
-msgstr ""
+msgstr "パッケージ:"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__packaging_id
@@ -1387,96 +1450,96 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__packaging_id
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_packaging_form
 msgid "Packaging"
-msgstr ""
+msgstr "パッケージング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__partner_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__partner_id
 msgid "Partner"
-msgstr ""
+msgstr "取引先"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move__barcode_backorder_action__pending
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__pending
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__pending
 msgid "Pending"
-msgstr ""
+msgstr "保留"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__pending_move_ids
 msgid "Pending Move"
-msgstr ""
+msgstr "保留中移動"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Pending moves"
-msgstr ""
+msgstr "保留中移動"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__picking_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_id
 msgid "Picking"
-msgstr ""
+msgstr "ピッキング"
 
 #. module: stock_barcodes
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_picking_in
 msgid "Picking IN"
-msgstr ""
+msgstr "入庫ピッキング"
 
 #. module: stock_barcodes
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_picking_int
 msgid "Picking INTERNAL"
-msgstr ""
+msgstr "内部ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_mode
 msgid "Picking Mode"
-msgstr ""
+msgstr "ピッキングモード"
 
 #. module: stock_barcodes
 #: model:stock.barcodes.action,name:stock_barcodes.stock_barcodes_action_picking_out
 msgid "Picking OUT"
-msgstr ""
+msgstr "出庫ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking_type
 msgid "Picking Type"
-msgstr ""
+msgstr "ピッキングタイプ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_mode__picking
 msgid "Picking mode"
-msgstr ""
+msgstr "ピッキングモード"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_product_qty
 msgid "Picking quantities"
-msgstr ""
+msgstr "ピッキング数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_ids
 msgid "Pickings"
-msgstr ""
+msgstr "ピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__position_index
 msgid "Position Index"
-msgstr ""
+msgstr "位置インデックス"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Previous"
-msgstr ""
+msgstr "前"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_action_tree
 msgid "Print barcodes"
-msgstr ""
+msgstr "バーコード印刷"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_report_stock_barcodes_report_barcode_actions
 msgid "Print barcodes from barcode actions"
-msgstr ""
+msgstr "バーコードアクションからバーコードを印刷"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__product_id
@@ -1485,112 +1548,112 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_id
 msgid "Product"
-msgstr ""
+msgstr "プロダクト"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__total_product_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__total_product_uom_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__total_product_uom_qty
 msgid "Product Demand"
-msgstr ""
+msgstr "プロダクト要求数量"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_move_line
 msgid "Product Moves (Stock Move Line)"
-msgstr ""
+msgstr "製品の移動(在庫移動ライン)"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_packaging_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_packaging_ids
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_packaging_ids
 msgid "Product Packages"
-msgstr ""
+msgstr "プロダクトパッケージング"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_qty
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_qty
 msgid "Product Qty"
-msgstr ""
+msgstr "プロダクト数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__total_product_qty_done
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__total_product_qty_done
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__total_product_qty_done
 msgid "Product Qty. Done"
-msgstr ""
+msgstr "プロダクト完了数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_uom_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_uom_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_uom_id
 msgid "Product Uom"
-msgstr ""
+msgstr "プロダクト単位"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Put in Pack"
-msgstr ""
+msgstr "梱包する"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Put in pack"
-msgstr ""
+msgstr "梱包する"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__qty_available
 msgid "Qty Available"
-msgstr ""
+msgstr "利用可能数量"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__qty_done_rest
 msgid "Qty Done Rest"
-msgstr ""
+msgstr "完了数量残"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Quantities not available in location"
-msgstr ""
+msgstr "ロケーションに利用可能な数量がありません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Quantities scanned are higher than necessary"
-msgstr ""
+msgstr "スキャンした数量が必要数を超えています"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_quant
 msgid "Quants"
-msgstr ""
+msgstr "保管ロット"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Range"
-msgstr ""
+msgstr "範囲"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__display_read_quant
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
 msgid "Read items"
-msgstr ""
+msgstr "読取項目"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__display_read_quant
 msgid "Read items on inventory mode"
-msgstr ""
+msgstr "棚卸モードで読取項目を表示"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form_manual_qty
 msgid "Reopen"
-msgstr ""
+msgstr "再度開く"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__required
 msgid "Required"
-msgstr ""
+msgstr "必須"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__res_id
@@ -1598,7 +1661,7 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__res_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__res_ids
 msgid "Res"
-msgstr ""
+msgstr "リソース"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__res_model_id
@@ -1606,18 +1669,18 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__res_model_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__res_model_id
 msgid "Res Model"
-msgstr ""
+msgstr "リソースモデル"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_reserved
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_qty_reserved
 msgid "Reserved"
-msgstr ""
+msgstr "引当済"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Restore to pending"
-msgstr ""
+msgstr "保留に戻す"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__result_package_id
@@ -1625,39 +1688,39 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__result_package_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__result_package_id
 msgid "Result Package"
-msgstr ""
+msgstr "結果パッケージ"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Review and confirm"
-msgstr ""
+msgstr "確認して確定してください"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "S/N Already in picking"
-msgstr ""
+msgstr "シリアル番号は既にピッキングにあります"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "S/N already created"
-msgstr ""
+msgstr "シリアル番号は既に作成されています"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__scan_count
 msgid "Scan Count"
-msgstr ""
+msgstr "スキャン回数"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_move_line__barcode_scan_state
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__state
 msgid "Scan State"
-msgstr ""
+msgstr "スキャン状態"
 
 #. module: stock_barcodes
 #. odoo-javascript
@@ -1665,48 +1728,48 @@ msgstr ""
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "Scan a"
-msgstr ""
+msgstr "レコードを絞込むには"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/actions/stock_barcode_main_menu.xml:0
 #, python-format
 msgid "Scan a barcode actions"
-msgstr ""
+msgstr "バーコードアクションをスキャン"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.report_barcode_actions
 msgid "Scan your actions and streamline your actions."
-msgstr ""
+msgstr "アクションをスキャンして作業を効率化しましょう。"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Scan {}"
-msgstr ""
+msgstr "{}をスキャン"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__selected_pending_move_id
 msgid "Selected Pending Move"
-msgstr ""
+msgstr "選択された保留中移動"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__sequence
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__sequence
 msgid "Sequence"
-msgstr ""
+msgstr "付番"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__manual_entry_field_focus
 msgid "Set field to set focus when manual entry mode is enabled"
-msgstr ""
+msgstr "手動入力モードが有効な時にフォーカスする項目を設定します"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__show_detailed_operations
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__show_detailed_operations
 msgid "Show Detailed Operations"
-msgstr ""
+msgstr "詳細オペレーションを表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__show_form_scan
@@ -1714,46 +1777,46 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__show_form_scan
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__show_form_scan
 msgid "Show Form Scan"
-msgstr ""
+msgstr "スキャンフォームを表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read__create_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__create_lot
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__create_lot
 msgid "Show lot name field"
-msgstr ""
+msgstr "ロット名項目を表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__show_pending_moves
 msgid "Show pending moves"
-msgstr ""
+msgstr "保留中移動を表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__show_pending_moves
 msgid "Shows a list of movements to process"
-msgstr ""
+msgstr "処理対象の移動一覧を表示します"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_id
 msgid "Source Location"
-msgstr ""
+msgstr "移動元ロケーション"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__source_pending_moves
 msgid "Source Pending Moves"
-msgstr ""
+msgstr "保留中移動の取得元"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form
 msgid "Start barcode interface"
-msgstr ""
+msgstr "バーコードインタフェースを開始"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__state
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_state
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__picking_state
 msgid "Status"
-msgstr ""
+msgstr "ステータス"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__step
@@ -1761,53 +1824,53 @@ msgstr ""
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__step
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__step
 msgid "Step"
-msgstr ""
+msgstr "ステップ"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_option_group_form
 msgid "Steps to scan"
-msgstr ""
+msgstr "スキャン手順"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_move
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__stock_move_ids
 msgid "Stock Move"
-msgstr ""
+msgstr "在庫移動"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/views.esm.js:0
 #, python-format
 msgid "The inventory adjustment has been validated"
-msgstr ""
+msgstr "在庫調整が確認されました"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "The product type is not allowed"
-msgstr ""
+msgstr "このプロダクトタイプは許可されていません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "The quantity is huge"
-msgstr ""
+msgstr "数量が大きすぎます"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/views.esm.js:0
 #, python-format
 msgid "The transfer has been validated"
-msgstr ""
+msgstr "運送が確認されました"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/models/stock_barcodes_action.py:0
 #, python-format
 msgid "There can be no spaces at the beginning or end."
-msgstr ""
+msgstr "先頭または末尾にスペースを含めることはできません。"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_picking_type__new_picking_barcode_option_group_id
@@ -1815,69 +1878,72 @@ msgid ""
 "This Barcode Option Group will be selected when clicking the 'New' button in"
 " an operation type. It will be used to create a non planned picking."
 msgstr ""
+"オペレーションタイプで「新規」ボタンをクリックした時に、この"
+"バーコードオプショングループが選択されます。計画外のピッキングの作成に使用さ"
+"れます。"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "This move will be set to pending. Are you sure?"
-msgstr ""
+msgstr "この移動は保留に設定されます。よろしいですか？"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_ids
 msgid "To Do Lines"
-msgstr ""
+msgstr "Todo明細"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__to_scan
 msgid "To Scan"
-msgstr ""
+msgstr "スキャン対象"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_id
 msgid "Todo Line"
-msgstr ""
+msgstr "Todo明細"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__todo_line_display_ids
 msgid "Todo Line Display"
-msgstr ""
+msgstr "Todo明細表示"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_tracking
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_tracking
 msgid "Tracking"
-msgstr ""
+msgstr "追跡"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_stock_picking
 msgid "Transfer"
-msgstr ""
+msgstr "運送"
 
 #. module: stock_barcodes
 #: model_terms:ir.actions.act_window,help:stock_barcodes.stock_barcodes_action_picking_tree_ready
 msgid "Transfers allow you to move products from one location to another."
-msgstr ""
+msgstr "転送を使用すると、製品をある場所から別の場所に移動できます。"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_type_code
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__picking_code
 msgid "Type of Operation"
-msgstr ""
+msgstr "処理タイプ"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_pickingtype_filter
 msgid "Type of operation"
-msgstr ""
+msgstr "オペレーションタイプ"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__uom_id
 msgid "Uom"
-msgstr ""
+msgstr "単位"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__use_location_dest_putaway
 msgid "Use location dest. putaway"
-msgstr ""
+msgstr "移動先ロケーションの入庫規則を使用"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_quant___barcode_scanned
@@ -1886,33 +1952,33 @@ msgstr ""
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory___barcode_scanned
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking___barcode_scanned
 msgid "Value of the last barcode scanned."
-msgstr ""
+msgstr "最後にスキャンされたバーコードの値。"
 
 #. module: stock_barcodes
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
 msgid "Vendors"
-msgstr ""
+msgstr "仕入先"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__visible_force_done
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__visible_force_done
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__visible_force_done
 msgid "Visible Force Done"
-msgstr ""
+msgstr "強制完了を表示"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting location"
-msgstr ""
+msgstr "ロケーション待ち"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting lot"
-msgstr ""
+msgstr "ロット待ち"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1920,47 +1986,47 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting product"
-msgstr ""
+msgstr "プロダクト待ち"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Waiting quantities"
-msgstr ""
+msgstr "数量待ち"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__barcode_guided_mode
 msgid ""
 "When guided mode is selected, information will appear with the movement to "
 "be processed"
-msgstr ""
+msgstr "ガイドモードを選択すると、処理対象の移動とともに情報が表示されます"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__wiz_barcode_id
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__wiz_barcode_id
 msgid "Wiz Barcode"
-msgstr ""
+msgstr "バーコードウィザード"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__wiz_picking_id
 msgid "Wizard Picking"
-msgstr ""
+msgstr "ウィザードピッキング"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_new_lot
 msgid "Wizard to create new lot from barcode scanner"
-msgstr ""
+msgstr "バーコードスキャナから新規ロットを作成するウィザード"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read
 msgid "Wizard to read barcode"
-msgstr ""
+msgstr "バーコード読取ウィザード"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_inventory
 msgid "Wizard to read barcode on inventory"
-msgstr ""
+msgstr "棚卸のバーコード読取ウィザード"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
@@ -1970,28 +2036,28 @@ msgstr ""
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
 msgid "Wizard to read barcode todo"
-msgstr ""
+msgstr "バーコード読取Todoウィザード"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong location"
-msgstr ""
+msgstr "ロケーションが正しくありません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong location dest"
-msgstr ""
+msgstr "移動先ロケーションが正しくありません"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "Wrong lot"
-msgstr ""
+msgstr "ロットが正しくありません"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1999,7 +2065,7 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "Wrong product"
-msgstr ""
+msgstr "プロダクトが正しくありません"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
@@ -2008,13 +2074,17 @@ msgid ""
 "The object variable is used to refer to the source record\n"
 "For example, object.location_id,object.product_id,object.lot_id"
 msgstr ""
+"処理対象の移動を生成するためのグループ化キーとなる項目のリストを設定できます"
+"。\n"
+"object変数は元レコードを参照するために使用します。\n"
+"例: object.location_id,object.product_id,object.lot_id"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "You can not add extra moves if you have not set a picking"
-msgstr ""
+msgstr "ピッキングを設定していない場合、追加の移動を追加できません"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
@@ -2022,18 +2092,20 @@ msgid ""
 "You have not set any quantity to this operation and it will be removed from "
 "pending moves. Are you sure?"
 msgstr ""
+"このオペレーションに数量が設定されていないため、保留中移動から削除されます。"
+"よろしいですか？"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "lock picking"
-msgstr ""
+msgstr "ピッキングをロック"
 
 #. module: stock_barcodes
 #. odoo-javascript
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "lot"
-msgstr ""
+msgstr "ロット"
 
 #. module: stock_barcodes
 #. odoo-javascript
@@ -2041,7 +2113,7 @@ msgstr ""
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "or a"
-msgstr ""
+msgstr "または"
 
 #. module: stock_barcodes
 #. odoo-javascript
@@ -2049,7 +2121,7 @@ msgstr ""
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "product"
-msgstr ""
+msgstr "プロダクト"
 
 #. module: stock_barcodes
 #. odoo-javascript
@@ -2057,7 +2129,7 @@ msgstr ""
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "to filter your records"
-msgstr ""
+msgstr "をスキャンしてください"
 
 #. module: stock_barcodes
 #. odoo-javascript
@@ -2065,16 +2137,16 @@ msgstr ""
 #: code:addons/stock_barcodes/static/src/views/kanban/stock_barcodes_kanban.xml:0
 #, python-format
 msgid "transfer"
-msgstr ""
+msgstr "運送"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "unlock picking"
-msgstr ""
+msgstr "ピッキングのロックを解除"
 
 #. module: stock_barcodes
 #. odoo-python
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 #, python-format
 msgid "{name} is required"
-msgstr ""
+msgstr "{name}は必須です"
