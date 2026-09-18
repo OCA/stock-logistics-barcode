@@ -1,0 +1,1 @@
+This module enhances Odoo's product barcode search mechanism to seamlessly handle differences between GTIN-13 and GTIN-14 (EAN-13 with a leading zero) formats. 
