@@ -1,0 +1,115 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* sale_input_barcode
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 14.0\n"
+"Report-Msgid-Bugs-To: \n"
+"PO-Revision-Date: 2025-05-06 09:24+0000\n"
+"Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
+"Language-Team: none\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.10.4\n"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order___barcode_scanned
+msgid "Barcode Scanned"
+msgstr "Codice a barre letto"
+
+#. module: sale_input_barcode
+#: model:ir.model,name:sale_input_barcode.model_res_config_settings
+msgid "Config Settings"
+msgstr "Impostazioni configurazione"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,field_description:sale_input_barcode.field_product_barcode_line_mixin__display_name
+#: model:ir.model.fields,field_description:sale_input_barcode.field_res_config_settings__display_name
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order__display_name
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order_line__display_name
+msgid "Display Name"
+msgstr "Nome visualizzato"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,field_description:sale_input_barcode.field_product_barcode_line_mixin__id
+#: model:ir.model.fields,field_description:sale_input_barcode.field_res_config_settings__id
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order__id
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order_line__id
+msgid "ID"
+msgstr "ID"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,field_description:sale_input_barcode.field_res_config_settings__sale_barcode_update_existing_line
+msgid "Increase quantity instead of creating a new line"
+msgstr "Aumenta la quantità invece di creare una nuova riga"
+
+#. module: sale_input_barcode
+#: model:ir.actions.act_window,name:sale_input_barcode.action_sale_line_barcode
+msgid "Input Product"
+msgstr "Inserisci prodotto"
+
+#. module: sale_input_barcode
+#: model_terms:ir.ui.view,arch_db:sale_input_barcode.view_order_form
+msgid "Input product lines scanning barcodes"
+msgstr "Inserisci prodotti nelle righe scansionando codici a barre"
+
+#. module: sale_input_barcode
+#: model_terms:ir.ui.view,arch_db:sale_input_barcode.view_res_config_settings_sale_input_barcode
+msgid ""
+"Instead of creating a new sale order line it increases the quantity for each "
+"barcode scan"
+msgstr ""
+"Invece di creare una nuova riga ordine, viene aumentata la quantità quando "
+"un prodotto viene scansionato più volte"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,field_description:sale_input_barcode.field_product_barcode_line_mixin____last_update
+#: model:ir.model.fields,field_description:sale_input_barcode.field_res_config_settings____last_update
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order____last_update
+#: model:ir.model.fields,field_description:sale_input_barcode.field_sale_order_line____last_update
+msgid "Last Modified on"
+msgstr "Ultima modifica il"
+
+#. module: sale_input_barcode
+#: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
+#, python-format
+msgid "No product found matching this barcode %s"
+msgstr "Nessun prodotto corrisponde al codice a barre %s"
+
+#. module: sale_input_barcode
+#: model:ir.model,name:sale_input_barcode.model_sale_order
+msgid "Sales Order"
+msgstr "Ordine di vendita"
+
+#. module: sale_input_barcode
+#: model:ir.model,name:sale_input_barcode.model_sale_order_line
+msgid "Sales Order Line"
+msgstr "Riga ordine di vendita"
+
+#. module: sale_input_barcode
+#: code:addons/sale_input_barcode/models/product_barcode_line_mixin.py:0
+#, python-format
+msgid ""
+"These products %s share the same barcode.\n"
+"Impossible to guess which one to choose."
+msgstr ""
+"I prodotti %s hanno lo stesso codice a barre.\n"
+"Non è possibile scegliere quale aggiungere."
+
+#. module: sale_input_barcode
+#: model:ir.model,name:sale_input_barcode.model_product_barcode_line_mixin
+msgid "Utilities for any model to deal with product_id field"
+msgstr "Utilità per qualsiasi modello per gestire il campo product_id"
+
+#. module: sale_input_barcode
+#: model:ir.model.fields,help:sale_input_barcode.field_sale_order___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr "Valore dell'ultimo codice a barre letto."
+
+#, python-format
+#~ msgid "Decoded barcode %s doesn't include a valid segment for GTIN"
+#~ msgstr "Il codice a barre %s non include un segmento GTIN valido"
