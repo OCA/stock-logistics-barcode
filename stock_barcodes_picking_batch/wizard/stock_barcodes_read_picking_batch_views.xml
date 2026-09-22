@@ -30,7 +30,38 @@
                 <field name="picking_batch_id" invisible="1" force_save="1" />
                 <field name="show_detailed_operations" invisible="1" />
                 <field name="todo_line_is_extra_line" invisible="1" />
+                <field name="picking_location_id" invisible="1" />
+                <field name="picking_location_dest_id" invisible="1" />
+                <field name="company_id" invisible="1" />
             </field>
+            <field name="location_id" position="attributes">
+                <attribute
+                    name="domain"
+                >[('id', 'child_of', picking_location_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]</attribute>
+            </field>
+            <group name="location" position="attributes">
+                <attribute name="readonly" add="(not manual_entry)" separator=" or " />
+                <attribute name="invisible">picking_type_code == 'incoming'</attribute>
+            </group>
+            <group name="location" position="after">
+                <div>
+                    <strong class=" d-none d-sm-block">Dest. Location</strong>
+                    <span
+                        class="fa fa-share text-center d-sm-none oe_span_small_icon"
+                        title="Destination Location"
+                    />
+                    <field
+                        name="location_dest_id"
+                        options="{'no_create': True, 'no_open': True}"
+                        readonly="not manual_entry"
+                        force_save="1"
+                        nolabel="1"
+                        style="width:90%"
+                        class="h5"
+                        domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
+                    />
+                </div>
+            </group>
             <group name="scan_fields" position="attributes">
                 <!--  hide group scan_fields for extra todo lines -->
                 <attribute name="invisible">todo_line_is_extra_line </attribute>

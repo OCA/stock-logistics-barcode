@@ -2,6 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 from odoo import Command
 from odoo.tests.common import tagged
+from odoo.tools.safe_eval import safe_eval
 
 from odoo.addons.stock_barcodes.tests.test_stock_barcodes_picking import (
     TestStockBarcodesPicking,
@@ -169,3 +170,101 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
             lambda x: x.product_id == self.product_wo_tracking
         )
         self.assertEqual(sum(sml.mapped("qty_picked")), 15.0)
+
+    def _create_wave_from_receptions(self):
+        """Receive two pickings and put all their move lines in a wave, as a
+        user does from Prepare Wave"""
+        pickings = self.env["stock.picking"]
+        for qty in (2, 3):
+            pickings |= (
+                self.env["stock.picking"]
+                .with_context(planned_picking=True)
+                .create(
+                    {
+                        "location_id": self.supplier_location.id,
+                        "location_dest_id": self.stock_location.id,
+                        "partner_id": self.partner_agrolite.id,
+                        "picking_type_id": self.picking_type_in.id,
+                        "move_ids": [
+                            Command.create(
+                                {
+                                    "name": self.product_wo_tracking.name,
+                                    "product_id": self.product_wo_tracking.id,
+                                    "product_uom_qty": qty,
+                                    "product_uom": self.product_wo_tracking.uom_id.id,
+                                    "location_id": self.supplier_location.id,
+                                    "location_dest_id": self.stock_location.id,
+                                }
+                            )
+                        ],
+                    }
+                )
+            )
+        pickings.action_confirm()
+        pickings.move_line_ids._add_to_wave()
+        wave = pickings.batch_id
+        self.assertTrue(wave.is_wave)
+        wave.action_confirm()
+        return wave
+
+    def test_wave_reception_wizard_locations(self):
+        wave = self._create_wave_from_receptions()
+        action = wave.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.assertEqual(wiz.picking_mode, "picking_batch")
+        self.assertEqual(wiz.picking_type_code, "incoming")
+        self.assertEqual(wiz.picking_location_id, self.supplier_location)
+        self.assertEqual(wiz.picking_location_dest_id, self.stock_location)
+        self.assertEqual(wiz.company_id, wave.company_id)
+        # Receptions show the destination location, not the source one
+        arch = self.ScanReadPicking.get_view(
+            self.env.ref(
+                "stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form"
+            ).id
+        )["arch"]
+        self.assertIn('name="location_dest_id"', arch)
+        self.assertIn("picking_type_code == 'incoming'", arch)
+
+    def test_wave_reception_keeps_putaway_destination(self):
+        # Same as test_candidate_reuses_putaway_adjusted_line but on a wave:
+        # the generic destination of the batch pickings must be known, so a
+        # line routed by putaway to a sublocation is not redirected back to it.
+        wave = self._create_wave_from_receptions()
+        action = wave.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        moves = wave.move_ids
+        moves.move_line_ids.location_dest_id = self.location_2
+        wiz.location_id = self.supplier_location
+        wiz.location_dest_id = self.stock_location
+        wiz.product_id = self.product_wo_tracking
+        self.barcode_option_group_in.show_fixed_location_dest = False
+        self.assertFalse(wiz._get_candidate_stock_move_lines(moves, {}))
+        self.barcode_option_group_in.show_fixed_location_dest = True
+        sml_vals = {}
+        candidate = wiz._get_candidate_stock_move_lines(moves, sml_vals)
+        self.assertEqual(candidate, moves.move_line_ids)
+        self.assertEqual(candidate.location_dest_id, self.location_2)
+        self.assertNotIn("location_dest_id", sml_vals)
+
+    def test_wave_reception_scan_redirects_to_scanned_bin(self):
+        wave = self._create_wave_from_receptions()
+        action = wave.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        sml = wave.move_line_ids
+        # Operator chooses a destination bin, then scans the product
+        wiz.location_dest_id = self.location_1
+        wiz = wiz.with_context(no_increase_qty_done=True)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        # The reserved line is reused and redirected, no new line is created
+        self.assertEqual(wave.move_line_ids, sml)
+        picked_sml = sml.filtered("qty_picked")
+        self.assertEqual(picked_sml.location_dest_id, self.location_1)
+        self.assertEqual(sum(sml.mapped("qty_picked")), 1.0)
+
+    def test_barcode_menu_wave_action(self):
+        barcode_action = self.env.ref(
+            "stock_barcodes_picking_batch.stock_barcodes_action_picking_wave"
+        )
+        action = barcode_action.open_action()
+        self.assertEqual(action["res_model"], "stock.picking.batch")
+        self.assertIn(("is_wave", "=", True), safe_eval(action["domain"]))
