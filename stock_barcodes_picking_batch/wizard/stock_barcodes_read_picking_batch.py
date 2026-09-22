@@ -34,6 +34,43 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
     picking_batch_show_check_availability = fields.Boolean(
         related="picking_batch_id.show_check_availability"
     )
+    # In batch mode picking_id is empty, so take these values from the batch
+    picking_location_id = fields.Many2one(
+        comodel_name="stock.location",
+        related=False,
+        compute="_compute_picking_locations",
+    )
+    picking_location_dest_id = fields.Many2one(
+        comodel_name="stock.location",
+        related=False,
+        compute="_compute_picking_locations",
+    )
+    company_id = fields.Many2one(
+        comodel_name="res.company", related=False, compute="_compute_company_id"
+    )
+
+    @api.depends(
+        "picking_mode",
+        "picking_id.location_id",
+        "picking_id.location_dest_id",
+        "picking_batch_id.picking_ids.location_id",
+        "picking_batch_id.picking_ids.location_dest_id",
+    )
+    def _compute_picking_locations(self):
+        for rec in self:
+            picking = rec.picking_id
+            if rec.picking_mode == "picking_batch":
+                picking = rec.picking_batch_id.picking_ids[:1]
+            rec.picking_location_id = picking.location_id
+            rec.picking_location_dest_id = picking.location_dest_id
+
+    @api.depends("picking_mode", "picking_id.company_id", "picking_batch_id.company_id")
+    def _compute_company_id(self):
+        for rec in self:
+            if rec.picking_mode == "picking_batch":
+                rec.company_id = rec.picking_batch_id.company_id
+            else:
+                rec.company_id = rec.picking_id.company_id
 
     @api.depends("picking_batch_id", "picking_type_code", "picking_mode")
     def _compute_display_name(self):
