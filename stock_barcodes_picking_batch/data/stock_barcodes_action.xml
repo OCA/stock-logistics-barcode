@@ -12,4 +12,16 @@
         >{"search_default_my_batch": 1, "search_default_draft": False}</field>
         <field name="key_char_shortcut">5</field>
     </record>
+    <record id="stock_barcodes_action_picking_wave" model="stock.barcodes.action">
+        <field name="name">Wave transfers</field>
+        <field name="sequence">35</field>
+        <field
+            name="action_window_id"
+            ref="stock_picking_batch.action_picking_tree_wave"
+        />
+        <field
+            name="context"
+        >{"search_default_my_batch": 1, "search_default_draft": False}</field>
+        <field name="key_char_shortcut">6</field>
+    </record>
 </odoo>
