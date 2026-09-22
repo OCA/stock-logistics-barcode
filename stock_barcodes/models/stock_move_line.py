@@ -14,23 +14,6 @@ class StockMoveLine(models.Model):
         readonly=False,
         store=True,
     )
-    qty_picked = fields.Float(
-        "Quantity picked",
-        digits="Product Unit of Measure",
-        readonly=False,
-        store=True,
-        compute="_compute_qty_picked",
-    )
-
-    @api.depends("picked", "quantity")
-    def _compute_qty_picked(self):
-        for line in self:
-            if line.picked or line.state == "done":
-                line.qty_picked = line.quantity
-            else:
-                # Editable stored compute used as a smart default: keep the
-                # quantity accumulated by scanning.
-                line.qty_picked = line.qty_picked
 
     @api.depends("qty_picked", "quantity")
     def _compute_barcode_scan_state(self):

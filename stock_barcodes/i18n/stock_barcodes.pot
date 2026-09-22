@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-09-15 07:57+0000\n"
-"PO-Revision-Date: 2026-09-15 07:57+0000\n"
+"POT-Creation-Date: 2026-09-22 14:56+0000\n"
+"PO-Revision-Date: 2026-09-22 14:56+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -1690,13 +1690,25 @@ msgid "Quantities scanned are higher than necessary."
 msgstr ""
 
 #. module: stock_barcodes
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_move_line_form_qty_picked
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form_qty_picked
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_move_line_detailed_operation_tree
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_move_line_operation_tree
 msgid "Quantity Picked"
 msgstr ""
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_stock_move__qty_picked
-#: model:ir.model.fields,field_description:stock_barcodes.field_stock_move_line__qty_picked
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_move_line_form_qty_picked
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_picking_form_qty_picked
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_move_line_detailed_operation_tree
+#: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_move_line_operation_tree
+msgid ""
+"Quantity actually prepared. If no line is picked, validation uses the usual "
+"quantities. Once picking has started, change this quantity in the detailed "
+"operations to adjust what will be transferred."
+msgstr ""
+
+#. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_move_line_operation_tree
 msgid "Quantity picked"
 msgstr ""
