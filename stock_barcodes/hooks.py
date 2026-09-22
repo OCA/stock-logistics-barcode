@@ -9,8 +9,6 @@ def pre_init_hook(env):
         ALTER TABLE stock_move_line
             ADD COLUMN IF NOT EXISTS barcode_scan_state VARCHAR DEFAULT 'pending';
         ALTER TABLE stock_move_line ALTER COLUMN barcode_scan_state DROP DEFAULT;
-        ALTER TABLE stock_move_line ADD COLUMN IF NOT EXISTS qty_picked numeric;
-        UPDATE stock_move_line set qty_picked = quantity;
         """,
     )
     env.cr.execute(
