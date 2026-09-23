@@ -826,8 +826,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 float_compare(available_qty, 0, precision_rounding=scan_uom.rounding)
                 > 0
             ):
-                # After distributing the amount read, I still have an amount to
-                # distribute, and I assign it to the first movement.
+                # Real excess over the total demand: keep it on the first movement
                 stock_move_lines += self.create_new_stock_move_line(
                     moves_to_link[:1], available_qty
                 )
