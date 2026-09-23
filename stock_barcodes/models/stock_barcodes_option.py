@@ -77,8 +77,10 @@ class StockBarcodesOptionGroup(models.Model):
     group_key_for_todo_records = fields.Char(
         help="You can establish a list of fields that will act as a grouping "
         "key to generate the movements to be process.\n"
-        "The object variable is used to refer to the source record\n"
-        "For example, object.location_id,object.product_id,object.lot_id"
+        "The object variable is used to refer to the source stock move or "
+        "stock move line\n"
+        "For example, object.location_id,object.product_id,object.lot_id or "
+        "object.picking_id,object.product_id"
     )
     auto_lot = fields.Boolean(
         string="Get lots automatically",

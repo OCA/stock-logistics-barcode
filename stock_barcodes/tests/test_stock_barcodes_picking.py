@@ -1086,6 +1086,27 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(wiz.todo_line_id.state, "pending")
         self.assertNotEqual(wiz.todo_line_id.product_id, done_product)
 
+    def test_group_key_with_source_record_fields(self):
+        # The grouping key is evaluated on the source moves, so it can use
+        # fields the todo records do not have (e.g. picking_id). In guided mode
+        # the current todo line must be found again after a refresh.
+        group = self.barcode_option_group_in
+        group.barcode_guided_mode = "guided"
+        group.show_pending_moves = "all"
+        group.group_key_for_todo_records = "object.picking_id,object.product_id"
+        action = self.picking_in_01.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.assertEqual(
+            wiz.todo_line_ids.product_id,
+            self.product_wo_tracking | self.product_tracking,
+        )
+        self.assertEqual(len(wiz.todo_line_ids), 2)
+        product = wiz.todo_line_id.product_id
+        self.assertTrue(product)
+        wiz.refresh_todo_records()
+        self.assertEqual(wiz.forced_todo_key, str((self.picking_in_01, product)))
+        self.assertEqual(wiz.todo_line_id.product_id, product)
+
     def test_allow_not_demanded_product(self):
         # When allow_not_demanded_product is enabled the "Product not demanded"
         # message is not raised for products outside the picking demand.
