@@ -1061,7 +1061,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return bool(self.location_dest_id)
         return super()._option_required_hook(option_required)
 
+    def _get_group_key_record(self, line):
+        """Todo records only copy some fields of the moves or move lines they
+        group, so evaluate the key on their first source record instead. Extra
+        todo lines have no source move line, so they keep using the todo."""
+        if line._name != "wiz.stock.barcodes.read.todo":
+            return line
+        if self.option_group_id.source_pending_moves == "move_line_ids":
+            source = line.line_ids[:1] if line else self.env["stock.move.line"]
+        else:
+            source = line.stock_move_ids[:1] if line else self.env["stock.move"]
+        return source if source or not line else line
+
     def _group_key(self, line):
+        line = self._get_group_key_record(line)
         group_key_for_todo_records = self.option_group_id.group_key_for_todo_records
         if group_key_for_todo_records:
             return safe_eval(group_key_for_todo_records, globals_dict={"object": line})
