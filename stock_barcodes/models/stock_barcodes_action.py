@@ -21,15 +21,32 @@ class StockBarcodesAction(models.Model):
 
     name = fields.Char(translate=True)
     active = fields.Boolean(default=True)
-    sequence = fields.Integer(default=100)
-    action_window_id = fields.Many2one(
-        comodel_name="ir.actions.act_window", string="Action window"
+    sequence = fields.Integer(
+        default=100, help="Order of the tile in the Barcodes menu"
     )
-    context = fields.Char()
+    action_window_id = fields.Many2one(
+        comodel_name="ir.actions.act_window",
+        string="Action window",
+        help="Window action executed when the tile is pressed or its barcode "
+        "is scanned",
+    )
+    context = fields.Char(
+        help="Optional context added to the window action, e.g. "
+        "{'search_default_code': 'incoming'} to open it with a filter of its "
+        "search view already applied.\n"
+        "It must not start or end with a space",
+    )
     key_shortcut = fields.Integer()
     key_char_shortcut = fields.Char()
-    icon_class = fields.Char()
-    barcode = fields.Char()
+    icon_class = fields.Char(
+        help="CSS class of the icon shown on the tile, e.g. a Font Awesome "
+        "class such as fa-truck"
+    )
+    barcode = fields.Char(
+        help="Barcode that triggers this action when scanned from the barcode "
+        "interface. Only letters, digits and dashes, without spaces, and it "
+        "must not be used by another action",
+    )
     barcode_image = fields.Image(
         "Barcode image",
         readonly=True,
