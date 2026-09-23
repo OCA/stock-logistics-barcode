@@ -13,6 +13,7 @@
         "data/stock_barcodes_action.xml",
         "views/stock_picking_batch_views.xml",
         "wizard/stock_barcodes_read_picking_batch_views.xml",
+        "wizard/stock_barcodes_read_todo_views.xml",
     ],
     "assets": {
         "web.assets_backend": [
