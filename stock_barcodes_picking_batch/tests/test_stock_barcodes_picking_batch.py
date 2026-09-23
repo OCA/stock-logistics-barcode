@@ -358,3 +358,35 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
             self.assertEqual(
                 sum(self.picking_batch.move_line_ids.mapped("qty_picked")), 1
             )
+
+    def test_wave_reception_group_by_picking(self):
+        wave = self._create_wave_from_receptions()
+        self.barcode_option_group_in.group_key_for_todo_records = (
+            "object.picking_id,object.product_id"
+        )
+        action = wave.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        # One todo line per picking, each one showing its picking reference
+        self.assertEqual(len(wiz.todo_line_ids), 2)
+        self.assertEqual(
+            sorted(wiz.todo_line_ids.mapped("picking_names")),
+            sorted(wave.picking_ids.mapped("name")),
+        )
+
+    def test_wave_reception_picking_names_default_group(self):
+        wave = self._create_wave_from_receptions()
+        action = wave.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        # Same location and product: both pickings are grouped in one line
+        self.assertEqual(len(wiz.todo_line_ids), 1)
+        self.assertEqual(
+            set(wiz.todo_line_ids.picking_names.split(", ")),
+            set(wave.picking_ids.mapped("name")),
+        )
+
+    def test_picking_wizard_has_no_picking_names(self):
+        picking = self._create_wave_from_receptions().picking_ids[:1]
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.assertTrue(wiz.todo_line_ids)
+        self.assertFalse(any(wiz.todo_line_ids.mapped("picking_names")))
