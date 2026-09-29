@@ -45,7 +45,7 @@ class WizStockBarcodesRead(models.AbstractModel):
     package_id = fields.Many2one(comodel_name="stock.quant.package")
     result_package_id = fields.Many2one(comodel_name="stock.quant.package")
     owner_id = fields.Many2one(comodel_name="res.partner")
-    packaging_qty = fields.Float(string="Package Qty", digits="Product Unit of Measure")
+    packaging_qty = fields.Float(digits="Product Unit of Measure")
     product_qty = fields.Float(digits="Product Unit of Measure")
     manual_entry = fields.Boolean(string="Manual", help="Entry manual data")
     confirmed_moves = fields.Boolean(
@@ -448,7 +448,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             if packaging:
                 if len(packaging) > 1:
                     self._set_message_info(
-                        "more_match", _("More than one package found")
+                        "more_match", _("More than one packaging found")
                     )
                     self.packaging_id = False
                     return False
@@ -484,6 +484,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             options_to_scan = options.filtered("to_scan")
             options_required = options.filtered("required")
             options_to_scan = options_to_scan.filtered(lambda op: op.step == self.step)
+            read_item, read_qty = self._get_read_item(), self._get_read_qty()
             for option in options_to_scan:
                 if (
                     self.option_group_id.ignore_filled_fields
@@ -498,6 +499,7 @@ class WizStockBarcodesRead(models.AbstractModel):
                     res = option_func()
                     if res:
                         barcode_found = True
+                        self._accumulate_read_qty(option, read_item, read_qty)
                         self.play_sounds(barcode_found)
                         break
                     elif self.message_type != "success":
@@ -714,12 +716,43 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.lot_id = lot
         self.set_product_qty()
 
-    def set_product_qty(self):
-        if (
+    def _is_product_qty_set_by_user(self):
+        return (
             self.manual_entry
             or self.is_manual_qty
             or self.option_group_id.get_option_value("product_qty", "filled_default")
+        )
+
+    def _get_read_item(self):
+        return (self.product_id, self.packaging_id, self.lot_id, self.lot_name)
+
+    def _get_read_qty(self):
+        return (self.product_qty, self.packaging_qty)
+
+    def _accumulate_read_qty(self, option, read_item, read_qty):
+        """Add one more unit (or packaging) to the quantity read so far when
+        the same item is scanned again before confirming the reading.
+        Without manual confirmation every scan is already confirmed on its own."""
+        product_qty, packaging_qty = read_qty
+        if (
+            not self.option_group_id.accumulate_read_quantity
+            or not self.is_manual_confirm
+            or option.field_name not in ("product_id", "packaging_id", "lot_id")
+            or self._is_product_qty_set_by_user()
+            or not product_qty
+            or self._get_read_item() != read_item
         ):
+            return
+        if self.packaging_id:
+            # Only a packaging just read counts, not a quantity filled from stock
+            if self.packaging_qty == 1.0:
+                self.packaging_qty = packaging_qty + 1.0
+                self.product_qty = self.packaging_id.qty * self.packaging_qty
+        elif self.product_qty == 1.0:
+            self.product_qty = product_qty + 1.0
+
+    def set_product_qty(self):
+        if self._is_product_qty_set_by_user():
             return
         elif self.packaging_id:
             self.packaging_qty = 1.0

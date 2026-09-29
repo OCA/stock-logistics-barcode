@@ -46,6 +46,7 @@ class StockQuant(models.Model):
             for fname in self._get_fields_to_edit():
                 wiz_barcode[fname] = quant[fname]
             wiz_barcode.product_qty = quant.inventory_quantity
+            wiz_barcode.edit_inventory_quant_id = quant
 
         wiz_barcode.manual_entry = True
         self.send_bus_done(

@@ -1,3 +1,20 @@
+## 18.0.1.5.0 (2026-09-29)
+
+- \[IMP\] *Replace quantity on each reading* (`no_increase_qty_done`)
+  now also applies to inventories: a reading is added to the counted
+  quantity unless it is set. *Accumulate read quantity* is renamed to
+  *Accumulate repeated readings* and adds one unit (or packaging) when
+  the same item is read again before a manual confirmation. The
+  migration keeps the inventory behavior of each database and leaves the
+  new accumulation disabled.
+- \[FIX\] Confirming a counted inventory line edited from the list
+  added its quantity again (doubling it) when readings were added; the
+  edited line now always replaces its counted quantity.
+- \[FIX\] Map the 15.0 `move_lines` value of *Source pending moves* to
+  `move_ids`.
+- \[REM\] Remove the unused *Show all quantities* and *Allow direct
+  partial delivery* options.
+
 ## 18.0.1.3.0 (2026-07-08)
 
 - \[FIX\] Restore bus notifications broken by the 18.0 bus API: scanning

@@ -260,7 +260,7 @@
                     groups="stock.group_tracking_lot"
                     data-hotkey="6"
                 >
-                    <span class="d-none d-lg-block">Put in back</span>
+                    <span class="d-none d-lg-block">Put in pack</span>
                 </button>
                 <!--                t-att-class="'btn float-end' + (record.is_pending.raw_value == false ? ' btn-primary' : ' btn-secondary border')"-->
                 <button
