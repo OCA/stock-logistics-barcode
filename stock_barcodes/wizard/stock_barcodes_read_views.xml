@@ -466,7 +466,7 @@
                 >
                     <span
                         class="f-weight-900 d-none d-sm-block my-2"
-                    >Package Quantity</span>
+                    >Packaging Quantity</span>
                     <field
                         name="packaging_qty"
                         force_save="1"

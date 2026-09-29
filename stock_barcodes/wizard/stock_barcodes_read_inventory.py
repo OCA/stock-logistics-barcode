@@ -24,6 +24,8 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         compute="_compute_count_inventory_quants", store=True
     )
     display_read_quant = fields.Boolean(string="Read items", default=True)
+    # Counted quant loaded from the list to be edited: its quantity is replaced
+    edit_inventory_quant_id = fields.Many2one(comodel_name="stock.quant")
 
     def action_display_read_quant(self):
         self.display_read_quant = not self.display_read_quant
@@ -138,10 +140,13 @@ class WizStockBarcodesReadInventory(models.TransientModel):
             ):
                 self._serial_tracking_message_fail()
                 return False
-            if self.option_group_id.accumulate_read_quantity:
-                quant.inventory_quantity += self.product_qty
-            else:
+            if (
+                quant == self.edit_inventory_quant_id
+                or self.option_group_id.no_increase_qty_done
+            ):
                 quant.inventory_quantity = self.product_qty
+            else:
+                quant.inventory_quantity += self.product_qty
         else:
             if self.product_id.tracking == "serial" and self.product_qty != 1:
                 self._serial_tracking_message_fail()
@@ -184,6 +189,7 @@ class WizStockBarcodesReadInventory(models.TransientModel):
         res = super().action_clean_values()
         self.inventory_product_qty = 0.0
         self.package_id = False
+        self.edit_inventory_quant_id = False
         # Hide Form Edit
         self.manual_entry = False
         self.send_bus_done(

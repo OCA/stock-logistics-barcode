@@ -29,35 +29,16 @@ selects the package content (requires _Packages_ enabled).
 ### 1.2 Option groups
 
 _Inventory > Configuration > Barcodes > Barcode Option Groups_ define how the scan
-screen behaves. The module ships six ready-to-use groups: **Picking IN**, **Picking
-OUT**, **Picking Internal**, **Relocation**, **Inventory** and a generic **Operation**
-fallback.
+screen behaves. The first task of an implementation is to analyze with the customer the
+flow of each operation and adjust the options to it. The module ships six example
+groups: **Picking IN**, **Picking OUT**, **Picking Internal**, **Relocation**,
+**Inventory** and a generic **Operation** fallback.
 
-For each group you can configure, among others:
-
-- **Mode — Guided**: the screen proposes one pending move at a time and validates that
-  the operator scans the expected product/lot/location. Without guided mode the operator
-  scans freely against the picking.
-- **Options list**: per field (product, lot, package, source location, destination,
-  quantity, …) whether it must be _scanned_, is _required_, comes _pre-filled_, is
-  _forced_ (guided mode rejects a different value) and whether it is _cleaned after each
-  confirmation_. Fields are grouped in _steps_: the screen tells the operator what to
-  scan next.
-- **Manual entry / manual confirmation / manual quantities**: show editable fields and
-  require pressing _Confirm_ instead of confirming on each scan.
-- **Show pending moves**: display the list of moves to process (only pending, or all
-  including done).
-- **Confirmed moves**: allow working on moves without stock reservation.
-- **Get lots automatically**: pick the lot using the product removal strategy
-  (FIFO/FEFO) instead of scanning it.
-- **Create lots if not match**: on receipts, scanning an unknown lot creates it on the
-  fly.
-- **Allow negative stock**, **accumulate read quantity**, **auto put in pack**, **keep
-  screen values**, and other fine-tuning flags (each field has an explanatory tooltip).
-- **Use location dest. putaway**: when the destination is required and empty, compute it
-  from the putaway strategy.
-- **Show fixed dest. location**: show on each pending move the destination already
-  planned by a fixed putaway, and make scans reuse that move line (see section 5).
+Each group has a _Steps to scan_ list (per field: step, to scan, required, filled by
+default, forced, cleaned after each reading) and a set of flags for the screen,
+confirmation, pending moves, quantities, lots, packages and locations. The full
+reference of every option is in the _Barcode option groups_ section of the module
+README, and each field has an explanatory tooltip.
 
 ### 1.3 Operation types
 
@@ -68,7 +49,9 @@ On each operation type (_Inventory > Configuration > Operation Types_) you can s
 - **New picking barcode option group**: the group used when creating an unplanned
   picking from the barcode interface (_New_ button).
 
-If no group is set, the generic _Operation_ group is used.
+The _Barcodes_ tiles and the scanner button of the _Inventory > Overview_ cards only
+list operation types with a barcode option group. The _Scan barcodes_ button of a
+transfer uses the generic _Operation_ group when its operation type has none.
 
 ### 1.4 Barcode actions
 
@@ -139,11 +122,17 @@ are packed automatically before validating.
 ## 3. Inventory adjustments
 
 Open _Barcodes > Inventory_ (or the _Scan barcodes_ button of an inventory adjustment).
-Scan a location, then products/lots/packages:
+The screen uses the _Inventory_ option group. With the location filled by default it
+opens on the stock location of the first warehouse; make the location scannable to count
+other locations. Then scan products, lots, packagings or packages:
 
 - Each product scan adds 1 unit to the counted quantity (or the packaging quantity when
-  a packaging is scanned). With _accumulate read quantity_ disabled, a new scan
-  overwrites the counted quantity instead.
+  a packaging is scanned). With _Replace quantity on each reading_, a new reading
+  overwrites the counted quantity instead. Confirming a line edited from the list always
+  replaces its counted quantity.
+- With _Accumulate repeated readings_ and manual confirmation, scanning the same
+  product, lot or packaging again before confirming adds one more unit (or packaging) to
+  the quantity to confirm.
 - Serial-tracked products accept exactly one unit per serial; a second read of the same
   serial is rejected.
 - The **eye** button switches between the items already counted by you and the pending

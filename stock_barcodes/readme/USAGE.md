@@ -23,7 +23,9 @@ You can open the scan screen from three places:
    ![List picking](/stock_barcodes/static/src/img/list_picking.png)
 
 2. **An operation type card** in *Inventory > Overview* (scanner
-   button): scan products for any ready picking of that type.
+   button): scan products for any ready picking of that type. With
+   *Search picking from product*, reading a product opens a ready
+   picking that contains it.
 3. **A specific transfer** (*Scan barcodes* button in
    *Inventory > Transfers*): the picking is locked and every scan
    applies to it.
@@ -127,11 +129,17 @@ inventory adjustment).
 
 ![Inventory barcode action](/stock_barcodes/static/src/img/inventory_barcode_action.png)
 
-Scan a location, then products/lots/packages:
+The screen uses the *Inventory* option group. With the location filled
+by default it opens on the stock location of the first warehouse; make
+the location scannable to count other locations. Then scan products,
+lots, packagings or packages:
 
 - Each product scan adds 1 unit to the counted quantity (or the
-  packaging quantity when a packaging is scanned). With *accumulate read
-  quantity* disabled, a new scan overwrites the counted quantity.
+  packaging quantity when a packaging is scanned). With *Replace quantity
+  on each reading*, a new reading overwrites the counted quantity.
+- With *Accumulate repeated readings* and manual confirmation, scanning
+  the same product, lot or packaging again before confirming adds one
+  more unit (or packaging) to the quantity to confirm.
 - Serial-tracked products accept exactly one unit per serial; a second
   read of the same serial is rejected.
 - The eye icon switches between the items already counted by you and the
@@ -140,7 +148,8 @@ Scan a location, then products/lots/packages:
   ![List items](/stock_barcodes/static/src/img/list_items.png)
 
 - Each line in the list can be edited (pencil), incremented/decremented
-  (+/-) or cleared (trash).
+  (+/-) or cleared (trash). Confirming an edited line replaces its counted
+  quantity.
 
   ![List action items](/stock_barcodes/static/src/img/list_action_items.png)
 

@@ -148,11 +148,26 @@ help strings for the full list): `barcode_guided_mode` (guided vs free), `manual
 destination is required and empty), `show_fixed_location_dest` (read — never recompute —
 the putaway destination already planned on the move line), `keep_screen_values`,
 `no_increase_qty_done`, `search_picking_from_product`, `allow_not_demanded_product`,
-`show_detailed_operations`, `display_notification`, `show_stock`, `show_owner`.
+`show_detailed_operations`, `display_notification`, `show_stock`, `show_owner`,
+`show_form_scan`, `ignore_filled_fields`, `ignore_quant_location`,
+`location_field_to_sort`, `group_key_for_todo_records`, `manual_entry_on_edit`,
+`manual_entry_field_focus`, `display_read_quant`.
+
+`no_increase_qty_done` chooses between adding a confirmed reading to the recorded
+quantity (default) or replacing it, in both the picking wizard (`qty_picked` of the move
+line) and the inventory wizard (`inventory_quantity` of the quant; a quant loaded with
+the pencil, `edit_inventory_quant_id`, is always replaced). `accumulate_read_quantity`
+is only read by `process_barcode()`: with manual confirmation, it adds one unit or
+packaging when the same item is read again before confirming. The group `code` also
+changes behavior: `IN` keeps the source location and `OUT` the quantity when filling
+from quants (`set_info_from_quants()`), and `REL` skips the over-demand check in
+`_process_stock_move_line()`.
 
 Six option groups are shipped as `noupdate="1"` data: Picking OUT (`OUT`), Picking IN
 (`IN`), Internal, Relocation (`REL`), Inventory and the generic fallback Operation group
-(used when the picking type has no `barcode_option_group_id`).
+(used by `stock.picking.action_barcode_scan()` when the picking type has no
+`barcode_option_group_id`). The inventory screen always uses the Inventory group
+(`stock.barcodes.action.open_inventory_action()`).
 
 `stock.picking.type` gets two Many2one fields: `barcode_option_group_id` (used when
 scanning against the type or a picking) and `new_picking_barcode_option_group_id` (used

@@ -2,6 +2,7 @@
 
 from unittest.mock import patch
 
+from odoo import Command
 from odoo.tests.common import tagged
 
 from .common import TestCommonStockBarcodes
@@ -68,11 +69,11 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
         self.wiz_scan_read_inventory._onchange_lot_id()
         self.assertFalse(self.wiz_scan_read_inventory.auto_lot)
 
-    def test_accumulate_read_quantity(self):
-        # With accumulate_read_quantity the scanned quantity is added to the
-        # existing inventory quant instead of overwriting it.
+    def test_add_read_quantity(self):
+        # By default the scanned quantity is added to the existing inventory
+        # quant instead of overwriting it.
         wiz = self.wiz_scan_read_inventory
-        wiz.option_group_id.accumulate_read_quantity = True
+        wiz.option_group_id.no_increase_qty_done = False
         wiz.product_id = self.product_tracking
         wiz.location_id = self.location_1
         wiz.lot_id = self.lot_1
@@ -91,10 +92,10 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
         self.assertEqual(quant.inventory_quantity, 5.0)
 
     def test_overwrite_read_quantity(self):
-        # Without accumulate_read_quantity the scanned quantity overwrites the
-        # current inventory quantity.
+        # With no_increase_qty_done the scanned quantity overwrites the current
+        # inventory quantity.
         wiz = self.wiz_scan_read_inventory
-        wiz.option_group_id.accumulate_read_quantity = False
+        wiz.option_group_id.no_increase_qty_done = True
         wiz.product_id = self.product_tracking
         wiz.location_id = self.location_1
         wiz.lot_id = self.lot_1
@@ -111,6 +112,123 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
             limit=1,
         )
         self.assertEqual(quant.inventory_quantity, 2.0)
+
+    def _create_scan_wizard(
+        self, accumulate_read_quantity=True, is_manual_confirm=True
+    ):
+        option_group = self.StockBarcodesOptionGroup.create(
+            {
+                "name": "Scan inventory",
+                "is_manual_confirm": is_manual_confirm,
+                "accumulate_read_quantity": accumulate_read_quantity,
+                "option_ids": [
+                    Command.create(
+                        {
+                            "step": 1,
+                            "name": field_name,
+                            "field_name": field_name,
+                            "to_scan": True,
+                            "required": field_name == "product_id",
+                        }
+                    )
+                    for field_name in (
+                        "location_id",
+                        "product_id",
+                        "packaging_id",
+                        "lot_id",
+                    )
+                ],
+            }
+        )
+        return self.WizScanReadInventory.create(
+            {
+                "option_group_id": option_group.id,
+                "step": 1,
+                "location_id": self.location_1.id,
+            }
+        )
+
+    def test_accumulate_read_quantity_repeated_scans(self):
+        # Scanning the same product again before confirming adds one unit,
+        # scanning another product starts over.
+        wiz = self._create_scan_wizard()
+        for __ in range(3):
+            self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.assertEqual(wiz.product_qty, 3.0)
+        self.action_barcode_scanned(wiz, self.product_tracking.barcode)
+        self.assertEqual(wiz.product_id, self.product_tracking)
+        self.assertEqual(wiz.product_qty, 1.0)
+
+    def test_accumulate_read_quantity_packaging(self):
+        wiz = self._create_scan_wizard()
+        packaging = self.product_wo_tracking.packaging_ids[:1]
+        self.action_barcode_scanned(wiz, packaging.barcode)
+        self.action_barcode_scanned(wiz, packaging.barcode)
+        self.assertEqual(wiz.packaging_qty, 2.0)
+        self.assertEqual(wiz.product_qty, 2 * packaging.qty)
+
+    def test_accumulate_read_quantity_other_scans(self):
+        # Scanning a location does not read a unit, and the lot scan that
+        # completes a product reading is the same unit, not a new one.
+        wiz = self._create_scan_wizard()
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.action_barcode_scanned(wiz, self.location_2.barcode)
+        self.assertEqual(wiz.location_id, self.location_2)
+        self.assertEqual(wiz.product_qty, 2.0)
+        self.action_barcode_scanned(wiz, self.product_tracking.barcode)
+        self.action_barcode_scanned(wiz, self.lot_2.name)
+        self.assertEqual(wiz.lot_id, self.lot_2)
+        self.assertEqual(wiz.product_qty, 1.0)
+        self.action_barcode_scanned(wiz, self.lot_2.name)
+        self.assertEqual(wiz.product_qty, 2.0)
+
+    def test_accumulate_read_quantity_auto_confirm(self):
+        # Each scan is confirmed on its own and added to the counted quant
+        wiz = self._create_scan_wizard(is_manual_confirm=False)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.assertFalse(wiz.product_qty)
+        quant = self.StockQuant.search(
+            [
+                ("product_id", "=", self.product_wo_tracking.id),
+                ("location_id", "=", self.location_1.id),
+            ]
+        )
+        self.assertEqual(quant.inventory_quantity, 2.0)
+
+    def test_edit_counted_quant_replaces_quantity(self):
+        # Editing a counted line from the list loads its whole counted quantity,
+        # so confirming it must replace that quantity, never add it again.
+        wiz = self._create_scan_wizard()
+        wiz.update({"product_id": self.product_wo_tracking.id, "product_qty": 5})
+        self.assertTrue(wiz._add_inventory_quant())
+        quant = self.StockQuant.search(
+            [
+                ("product_id", "=", self.product_wo_tracking.id),
+                ("location_id", "=", self.location_1.id),
+            ]
+        )
+        with patch.object(type(quant), "send_bus_done"):
+            quant.with_context(
+                wiz_barcode_id=wiz.id
+            ).action_barcode_inventory_quant_edit()
+        self.assertEqual(wiz.product_qty, 5.0)
+        wiz.product_qty = 7
+        self.assertTrue(wiz._add_inventory_quant())
+        self.assertEqual(quant.inventory_quantity, 7.0)
+        # Once the edition is cleaned, new readings are added again
+        with patch.object(type(wiz), "send_bus_done"):
+            wiz.action_clean_values()
+        wiz.update({"product_id": self.product_wo_tracking.id, "product_qty": 1})
+        self.assertTrue(wiz._add_inventory_quant())
+        self.assertEqual(quant.inventory_quantity, 8.0)
+
+    def test_no_accumulate_read_quantity_repeated_scans(self):
+        wiz = self._create_scan_wizard(accumulate_read_quantity=False)
+        for __ in range(3):
+            self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.assertEqual(wiz.product_qty, 1.0)
 
     def test_compute_inventory_quant_ids_side_effect_free(self):
         # The compute must not emit bus notifications nor write any record.
