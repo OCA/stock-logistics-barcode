@@ -10,6 +10,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     # Extended from stock_barcodes_read base model
     total_secondary_uom_qty = fields.Float(compute="_compute_total_secondary_uom")
     total_secondary_uom_qty_done = fields.Float(compute="_compute_total_secondary_uom")
+    total_secondary_uom_name = fields.Char(compute="_compute_total_secondary_uom")
 
     @api.depends(
         "product_id",
@@ -31,6 +32,13 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                 rec.total_secondary_uom_qty_done += sum(
                     sm.move_line_ids.mapped("secondary_uom_qty")
                 )
+            # The totals add up quantities of every secondary unit of the
+            # product moves, so warn when they are not all the same unit
+            secondary_uoms = product_moves.secondary_uom_id or rec.secondary_uom_id
+            name = "-".join(secondary_uoms.mapped("name"))
+            rec.total_secondary_uom_name = (
+                f"\u26a0\ufe0f{name}" if len(secondary_uoms) > 1 else name
+            )
 
     def _prepare_move_line_values(self, candidate_move, available_qty):
         vals = super()._prepare_move_line_values(candidate_move, available_qty)

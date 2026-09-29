@@ -36,15 +36,7 @@
                     <span invisible="not secondary_uom_id">
                         <field name="total_secondary_uom_qty_done" /> / <field
                         name="total_secondary_uom_qty"
-                    /> <field
-                        name="secondary_uom_id"
-                        domain="['|', ('product_id', '=', product_id),
-                                        '&amp;', ('product_tmpl_id.product_variant_ids', 'in', [product_id]),
-                                                 ('product_id', '=', False)]"
-                        force_save="1"
-                        readonly="1"
-                        options="{'no_open': True, 'no_create': True}"
-                    />
+                    /> <field name="total_secondary_uom_name" />
                     </span>
                 </div>
             </xpath>

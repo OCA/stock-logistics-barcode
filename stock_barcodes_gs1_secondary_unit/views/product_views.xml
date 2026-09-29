@@ -10,7 +10,17 @@
         />
         <field name="arch" type="xml">
             <field name="factor" position="after">
-                <field name="barcode" groups="uom.group_uom" />
+                <field
+                    name="packaging_indicator"
+                    groups="uom.group_uom"
+                    optional="show"
+                />
+                <field
+                    name="barcode"
+                    groups="uom.group_uom"
+                    readonly="packaging_indicator"
+                    force_save="1"
+                />
             </field>
         </field>
     </record>
