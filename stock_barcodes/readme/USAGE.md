@@ -51,6 +51,24 @@ Quantities beyond the picking demand or beyond available stock are not
 written silently: the screen asks for confirmation (*force done*) or
 rejects the scan, depending on the option group.
 
+### Product information and stock by location
+
+Once a product is read, the information button next to it opens a dialog
+with the on hand, incoming, outgoing and forecasted quantities of the
+product and its stock in each location. Deliveries and internal
+transfers list first the locations the removal strategy takes stock
+from; receptions list them in reverse order. Tapping a location fills
+the source location, or the destination location on receptions.
+
+The buttons next to the source and destination location fields open the
+same list without the product quantities, to pick a location quickly:
+the source one in removal strategy order, the destination one (receptions
+and internal transfers) in reverse order.
+
+On small screens, where the field labels are replaced by icons, these
+buttons are hidden and the product and location icons become buttons
+that open them instead.
+
 ### Guided mode
 
 The screen shows the next pending move (product, lot, quantities,

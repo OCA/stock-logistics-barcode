@@ -86,6 +86,17 @@ Scan in any order; the screen reacts to the kind of barcode read:
 - **Location**: sets the source (or destination, per configuration) for the following
   scans.
 
+Once a product is read, the information button next to it opens the product information:
+its stock in each location, plus the on hand, incoming, outgoing and forecasted
+quantities of the product. Deliveries and internal transfers list first the locations
+the removal strategy takes stock from; receptions list them in reverse order. Tapping a
+location sets it as the source location, or as the destination location on receptions. A
+button next to the source and destination location fields opens the same list without
+the product quantities, to pick a location quickly: the source one in removal order, the
+destination one (receptions and internal transfers) in reverse order. On small screens,
+where the field labels are replaced by icons, both buttons are hidden and the product
+and location icons become buttons that open them instead.
+
 Quantities beyond the picking demand or beyond available stock are not written silently:
 the screen asks for confirmation (_force done_) or rejects the scan, depending on the
 option group.

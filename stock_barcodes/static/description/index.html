@@ -385,6 +385,9 @@ validates what the operator scans).</li>
 on stock quants.</li>
 <li>Recognition of product, product packaging, lot/serial, package and
 location barcodes.</li>
+<li>A <strong>product information</strong> dialog with the on hand, incoming, outgoing
+and forecasted quantities and the stock by location, also used to pick
+the source or destination location among the ones with stock.</li>
 <li><strong>Barcode option groups</strong>: a data-driven configuration of the screen
 behavior per operation type (fields to scan, required, pre-filled,
 forced, cleaned after each read, steps, backorder handling, putaway
@@ -422,32 +425,34 @@ modules extend (GS1, batch picking, …).</li>
 <li><a class="reference internal" href="#usage" id="toc-entry-17">Usage</a><ul>
 <li><a class="reference internal" href="#barcode-interface-for-picking-operations" id="toc-entry-18">Barcode interface for picking operations</a><ul>
 <li><a class="reference internal" href="#free-mode" id="toc-entry-19">Free mode</a></li>
-<li><a class="reference internal" href="#guided-mode" id="toc-entry-20">Guided mode</a></li>
-<li><a class="reference internal" href="#validation" id="toc-entry-21">Validation</a></li>
-<li><a class="reference internal" href="#extra-products-new-lots-and-packagings" id="toc-entry-22">Extra products, new lots and packagings</a></li>
+<li><a class="reference internal" href="#product-information-and-stock-by-location" id="toc-entry-20">Product information and stock by location</a></li>
+<li><a class="reference internal" href="#guided-mode" id="toc-entry-21">Guided mode</a></li>
+<li><a class="reference internal" href="#validation" id="toc-entry-22">Validation</a></li>
+<li><a class="reference internal" href="#extra-products-new-lots-and-packagings" id="toc-entry-23">Extra products, new lots and packagings</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#barcode-interface-for-inventory-adjustments" id="toc-entry-23">Barcode interface for inventory adjustments</a></li>
-<li><a class="reference internal" href="#barcode-actions-1" id="toc-entry-24">Barcode actions</a></li>
-<li><a class="reference internal" href="#show-the-planned-destination-location-on-pending-moves" id="toc-entry-25">Show the planned destination location on pending moves</a></li>
+<li><a class="reference internal" href="#barcode-interface-for-inventory-adjustments" id="toc-entry-24">Barcode interface for inventory adjustments</a></li>
+<li><a class="reference internal" href="#barcode-actions-1" id="toc-entry-25">Barcode actions</a></li>
+<li><a class="reference internal" href="#show-the-planned-destination-location-on-pending-moves" id="toc-entry-26">Show the planned destination location on pending moves</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-26">Known issues / Roadmap</a></li>
-<li><a class="reference internal" href="#changelog" id="toc-entry-27">Changelog</a><ul>
-<li><a class="reference internal" href="#section-1" id="toc-entry-28">18.0.1.5.0 (2026-09-29)</a></li>
-<li><a class="reference internal" href="#section-2" id="toc-entry-29">18.0.1.3.0 (2026-07-08)</a></li>
-<li><a class="reference internal" href="#section-3" id="toc-entry-30">18.0.1.1.0 (2026-06-22)</a></li>
-<li><a class="reference internal" href="#section-4" id="toc-entry-31">11.0.1.1.0 (2019-09-24)</a></li>
-<li><a class="reference internal" href="#section-5" id="toc-entry-32">13.0.1.1.1 (2021-02-06)</a></li>
-<li><a class="reference internal" href="#section-6" id="toc-entry-33">14.0.1.0.0 (2021-04-05)</a></li>
-<li><a class="reference internal" href="#section-7" id="toc-entry-34">16.0.1.0.0 (2025-01-23)</a></li>
+<li><a class="reference internal" href="#known-issues-roadmap" id="toc-entry-27">Known issues / Roadmap</a></li>
+<li><a class="reference internal" href="#changelog" id="toc-entry-28">Changelog</a><ul>
+<li><a class="reference internal" href="#section-1" id="toc-entry-29">18.0.1.6.0 (2026-10-02)</a></li>
+<li><a class="reference internal" href="#section-2" id="toc-entry-30">18.0.1.5.0 (2026-09-29)</a></li>
+<li><a class="reference internal" href="#section-3" id="toc-entry-31">18.0.1.3.0 (2026-07-08)</a></li>
+<li><a class="reference internal" href="#section-4" id="toc-entry-32">18.0.1.1.0 (2026-06-22)</a></li>
+<li><a class="reference internal" href="#section-5" id="toc-entry-33">11.0.1.1.0 (2019-09-24)</a></li>
+<li><a class="reference internal" href="#section-6" id="toc-entry-34">13.0.1.1.1 (2021-02-06)</a></li>
+<li><a class="reference internal" href="#section-7" id="toc-entry-35">14.0.1.0.0 (2021-04-05)</a></li>
+<li><a class="reference internal" href="#section-8" id="toc-entry-36">16.0.1.0.0 (2025-01-23)</a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#bug-tracker" id="toc-entry-35">Bug Tracker</a></li>
-<li><a class="reference internal" href="#credits" id="toc-entry-36">Credits</a><ul>
-<li><a class="reference internal" href="#authors" id="toc-entry-37">Authors</a></li>
-<li><a class="reference internal" href="#contributors" id="toc-entry-38">Contributors</a></li>
-<li><a class="reference internal" href="#maintainers" id="toc-entry-39">Maintainers</a></li>
+<li><a class="reference internal" href="#bug-tracker" id="toc-entry-37">Bug Tracker</a></li>
+<li><a class="reference internal" href="#credits" id="toc-entry-38">Credits</a><ul>
+<li><a class="reference internal" href="#authors" id="toc-entry-39">Authors</a></li>
+<li><a class="reference internal" href="#contributors" id="toc-entry-40">Contributors</a></li>
+<li><a class="reference internal" href="#maintainers" id="toc-entry-41">Maintainers</a></li>
 </ul>
 </li>
 </ul>
@@ -717,8 +722,24 @@ the following scans.</li>
 written silently: the screen asks for confirmation (<em>force done</em>) or
 rejects the scan, depending on the option group.</p>
 </div>
+<div class="section" id="product-information-and-stock-by-location">
+<h3><a class="toc-backref" href="#toc-entry-20">Product information and stock by location</a></h3>
+<p>Once a product is read, the information button next to it opens a dialog
+with the on hand, incoming, outgoing and forecasted quantities of the
+product and its stock in each location. Deliveries and internal
+transfers list first the locations the removal strategy takes stock
+from; receptions list them in reverse order. Tapping a location fills
+the source location, or the destination location on receptions.</p>
+<p>The buttons next to the source and destination location fields open the
+same list without the product quantities, to pick a location quickly:
+the source one in removal strategy order, the destination one
+(receptions and internal transfers) in reverse order.</p>
+<p>On small screens, where the field labels are replaced by icons, these
+buttons are hidden and the product and location icons become buttons
+that open them instead.</p>
+</div>
 <div class="section" id="guided-mode">
-<h3><a class="toc-backref" href="#toc-entry-20">Guided mode</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-21">Guided mode</a></h3>
 <p>The screen shows the next pending move (product, lot, quantities,
 locations) and guides the operator step by step (e.g. <em>Scan Source</em>,
 then <em>Scan Product, Lot</em>). Scanning something different from what is
@@ -746,7 +767,7 @@ quantity.</p>
 </ul>
 </div>
 <div class="section" id="validation">
-<h3><a class="toc-backref" href="#toc-entry-21">Validation</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-22">Validation</a></h3>
 <p>The <em>Validate</em> button confirms the transfer using the scanned
 quantities. A wizard is displayed to confirm the action; after
 validation you return to the ready-pickings list.</p>
@@ -758,7 +779,7 @@ whether to process all quantities.</p>
 before validating.</p>
 </div>
 <div class="section" id="extra-products-new-lots-and-packagings">
-<h3><a class="toc-backref" href="#toc-entry-22">Extra products, new lots and packagings</a></h3>
+<h3><a class="toc-backref" href="#toc-entry-23">Extra products, new lots and packagings</a></h3>
 <ul>
 <li><p class="first">Press the <em>+ Product</em> button to add an item not in the demand (when
 the option group allows non-demanded products).</p>
@@ -782,7 +803,7 @@ confirm.</p>
 </div>
 </div>
 <div class="section" id="barcode-interface-for-inventory-adjustments">
-<h2><a class="toc-backref" href="#toc-entry-23">Barcode interface for inventory adjustments</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-24">Barcode interface for inventory adjustments</a></h2>
 <p>Open <em>Barcodes &gt; Inventory</em> (or the <em>Scan barcodes</em> button of an
 inventory adjustment).</p>
 <p><img alt="Inventory barcode action" src="https://raw.githubusercontent.com/stock_barcodes/static/src/img/inventory_barcode_action.png" /></p>
@@ -821,7 +842,7 @@ your counted quants and returns to the main menu.</p>
 </ul>
 </div>
 <div class="section" id="barcode-actions-1">
-<h2><a class="toc-backref" href="#toc-entry-24">Barcode actions</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-25">Barcode actions</a></h2>
 <ol class="arabic simple">
 <li>Go to <em>Barcodes</em>.</li>
 <li>Scan an action barcode (see Configuration) to open the corresponding
@@ -829,7 +850,7 @@ action directly, or tap its tile.</li>
 </ol>
 </div>
 <div class="section" id="show-the-planned-destination-location-on-pending-moves">
-<h2><a class="toc-backref" href="#toc-entry-25">Show the planned destination location on pending moves</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-26">Show the planned destination location on pending moves</a></h2>
 <p>By default the pending moves list on the barcode screen shows the source
 location and lot of each move. When the option group has <em>Show fixed
 dest. location</em> enabled, the list also shows the <strong>destination location
@@ -856,7 +877,7 @@ location</em> checkbox.</p>
 </div>
 </div>
 <div class="section" id="known-issues-roadmap">
-<h1><a class="toc-backref" href="#toc-entry-26">Known issues / Roadmap</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-27">Known issues / Roadmap</a></h1>
 <ul class="simple">
 <li>Execute action_done() method outside onchange environment.</li>
 <li>Allow create product when a barcode has not been found.</li>
@@ -901,9 +922,21 @@ migration cycle.</li>
 </ul>
 </div>
 <div class="section" id="changelog">
-<h1><a class="toc-backref" href="#toc-entry-27">Changelog</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-28">Changelog</a></h1>
 <div class="section" id="section-1">
-<h2><a class="toc-backref" href="#toc-entry-28">18.0.1.5.0 (2026-09-29)</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-29">18.0.1.6.0 (2026-10-02)</a></h2>
+<ul class="simple">
+<li>[ADD] Product information: a button next to the read product opens its
+on hand, incoming, outgoing and forecasted quantities and its stock in
+each location, ordered by the removal strategy (reversed on
+receptions). Tapping a location fills the screen location.</li>
+<li>[ADD] Buttons next to the source and destination locations list only
+the locations with stock to pick one, the destination ones in reverse
+order. On small screens the field icons replace these buttons.</li>
+</ul>
+</div>
+<div class="section" id="section-2">
+<h2><a class="toc-backref" href="#toc-entry-30">18.0.1.5.0 (2026-09-29)</a></h2>
 <ul class="simple">
 <li>[IMP] <em>Replace quantity on each reading</em> (<tt class="docutils literal">no_increase_qty_done</tt>)
 now also applies to inventories: a reading is added to the counted
@@ -921,8 +954,8 @@ line now always replaces its counted quantity.</li>
 partial delivery</em> options.</li>
 </ul>
 </div>
-<div class="section" id="section-2">
-<h2><a class="toc-backref" href="#toc-entry-29">18.0.1.3.0 (2026-07-08)</a></h2>
+<div class="section" id="section-3">
+<h2><a class="toc-backref" href="#toc-entry-31">18.0.1.3.0 (2026-07-08)</a></h2>
 <ul class="simple">
 <li>[FIX] Restore bus notifications broken by the 18.0 bus API: scanning
 an action barcode from the main menu (whose client-side scanner
@@ -970,8 +1003,8 @@ are kept as deprecated aliases; modules overriding them must move
 their override to the new names.</li>
 </ul>
 </div>
-<div class="section" id="section-3">
-<h2><a class="toc-backref" href="#toc-entry-30">18.0.1.1.0 (2026-06-22)</a></h2>
+<div class="section" id="section-4">
+<h2><a class="toc-backref" href="#toc-entry-32">18.0.1.1.0 (2026-06-22)</a></h2>
 <ul class="simple">
 <li>[ADD] New option <em>Show fixed dest. location</em> on barcode option groups.
 It shows, in the pending moves list, the destination location already
@@ -981,28 +1014,28 @@ keeping its destination instead of duplicating it at the generic
 picking destination. It never recomputes the putaway strategy.</li>
 </ul>
 </div>
-<div class="section" id="section-4">
-<h2><a class="toc-backref" href="#toc-entry-31">11.0.1.1.0 (2019-09-24)</a></h2>
+<div class="section" id="section-5">
+<h2><a class="toc-backref" href="#toc-entry-33">11.0.1.1.0 (2019-09-24)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature. User can uses barcode interface in picking
 operations.</li>
 </ul>
 </div>
-<div class="section" id="section-5">
-<h2><a class="toc-backref" href="#toc-entry-32">13.0.1.1.1 (2021-02-06)</a></h2>
+<div class="section" id="section-6">
+<h2><a class="toc-backref" href="#toc-entry-34">13.0.1.1.1 (2021-02-06)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature. Add option to get lots automatically based on
 removal strategy in inventory.</li>
 </ul>
 </div>
-<div class="section" id="section-6">
-<h2><a class="toc-backref" href="#toc-entry-33">14.0.1.0.0 (2021-04-05)</a></h2>
+<div class="section" id="section-7">
+<h2><a class="toc-backref" href="#toc-entry-35">14.0.1.0.0 (2021-04-05)</a></h2>
 <ul class="simple">
 <li>[ADD] New feature. Add security for users.</li>
 </ul>
 </div>
-<div class="section" id="section-7">
-<h2><a class="toc-backref" href="#toc-entry-34">16.0.1.0.0 (2025-01-23)</a></h2>
+<div class="section" id="section-8">
+<h2><a class="toc-backref" href="#toc-entry-36">16.0.1.0.0 (2025-01-23)</a></h2>
 <ul class="simple">
 <li>[IMP] Improved views to optimize navigation and functionality.
 Intuitive and mobile-friendly views. Visual improvement of the main
@@ -1013,7 +1046,7 @@ document for the barcodes of the selected barcode actions.</li>
 </div>
 </div>
 <div class="section" id="bug-tracker">
-<h1><a class="toc-backref" href="#toc-entry-35">Bug Tracker</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-37">Bug Tracker</a></h1>
 <p>Bugs are tracked on <a class="reference external" href="https://github.com/OCA/stock-logistics-barcode/issues">GitHub Issues</a>.
 In case of trouble, please check there if your issue has already been reported.
 If you spotted it first, help us to smash it by providing a detailed and welcomed
@@ -1021,15 +1054,15 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 <p>Do not contact contributors directly about support or help with technical issues.</p>
 </div>
 <div class="section" id="credits">
-<h1><a class="toc-backref" href="#toc-entry-36">Credits</a></h1>
+<h1><a class="toc-backref" href="#toc-entry-38">Credits</a></h1>
 <div class="section" id="authors">
-<h2><a class="toc-backref" href="#toc-entry-37">Authors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-39">Authors</a></h2>
 <ul class="simple">
 <li>Tecnativa</li>
 </ul>
 </div>
 <div class="section" id="contributors">
-<h2><a class="toc-backref" href="#toc-entry-38">Contributors</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-40">Contributors</a></h2>
 <ul class="simple">
 <li><a class="reference external" href="https://www.tecnativa.com">Tecnativa</a>:<ul>
 <li>Sergio Teruel</li>
@@ -1058,7 +1091,7 @@ If you spotted it first, help us to smash it by providing a detailed and welcome
 </ul>
 </div>
 <div class="section" id="maintainers">
-<h2><a class="toc-backref" href="#toc-entry-39">Maintainers</a></h2>
+<h2><a class="toc-backref" href="#toc-entry-41">Maintainers</a></h2>
 <p>This module is maintained by the OCA.</p>
 <a class="reference external image-reference" href="https://odoo-community.org">
 <img alt="Odoo Community Association" src="https://odoo-community.org/logo.png" />

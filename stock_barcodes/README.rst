@@ -45,6 +45,9 @@ Main features:
   on stock quants.
 - Recognition of product, product packaging, lot/serial, package and
   location barcodes.
+- A **product information** dialog with the on hand, incoming, outgoing
+  and forecasted quantities and the stock by location, also used to pick
+  the source or destination location among the ones with stock.
 - **Barcode option groups**: a data-driven configuration of the screen
   behavior per operation type (fields to scan, required, pre-filled,
   forced, cleaned after each read, steps, backorder handling, putaway
@@ -345,6 +348,25 @@ Quantities beyond the picking demand or beyond available stock are not
 written silently: the screen asks for confirmation (*force done*) or
 rejects the scan, depending on the option group.
 
+Product information and stock by location
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Once a product is read, the information button next to it opens a dialog
+with the on hand, incoming, outgoing and forecasted quantities of the
+product and its stock in each location. Deliveries and internal
+transfers list first the locations the removal strategy takes stock
+from; receptions list them in reverse order. Tapping a location fills
+the source location, or the destination location on receptions.
+
+The buttons next to the source and destination location fields open the
+same list without the product quantities, to pick a location quickly:
+the source one in removal strategy order, the destination one
+(receptions and internal transfers) in reverse order.
+
+On small screens, where the field labels are replaced by icons, these
+buttons are hidden and the product and location icons become buttons
+that open them instead.
+
 Guided mode
 ~~~~~~~~~~~
 
@@ -578,6 +600,17 @@ Technical debt (see ``docs/TECHNICAL.md``):
 
 Changelog
 =========
+
+18.0.1.6.0 (2026-10-02)
+-----------------------
+
+- [ADD] Product information: a button next to the read product opens its
+  on hand, incoming, outgoing and forecasted quantities and its stock in
+  each location, ordered by the removal strategy (reversed on
+  receptions). Tapping a location fills the screen location.
+- [ADD] Buttons next to the source and destination locations list only
+  the locations with stock to pick one, the destination ones in reverse
+  order. On small screens the field icons replace these buttons.
 
 18.0.1.5.0 (2026-09-29)
 -----------------------

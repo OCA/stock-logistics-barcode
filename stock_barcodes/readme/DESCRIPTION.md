@@ -15,6 +15,9 @@ Main features:
   on stock quants.
 - Recognition of product, product packaging, lot/serial, package and
   location barcodes.
+- A **product information** dialog with the on hand, incoming, outgoing
+  and forecasted quantities and the stock by location, also used to pick
+  the source or destination location among the ones with stock.
 - **Barcode option groups**: a data-driven configuration of the screen
   behavior per operation type (fields to scan, required, pre-filled,
   forced, cleaned after each read, steps, backorder handling, putaway

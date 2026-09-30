@@ -243,6 +243,22 @@ The module is designed to be inherited (e.g. `stock_barcodes_gs1`,
 - `_states_move_allowed()`, `_prepare_stock_moves_domain()` — candidate moves.
 - `_fill_fields_from_lot_active()` — disable stock prefill per flow (receptions return
   `False`).
+- `_get_location_stock_field()`, `_get_location_stock_parent_locations()`,
+  `_sort_location_stock()` — stock by location list (`wiz.stock.barcodes.product.info`):
+  the screen field a tapped location fills, the locations whose internal sublocations
+  are listed (the picking source, or destination on receptions; the company warehouses
+  otherwise) and the order of the list. Quants come from `stock.quant._gather()`, so the
+  default order is the removal strategy one; the picking wizard reverses it on
+  receptions (`_is_location_stock_reversed()`). The `location_stock_field` and
+  `location_stock_reverse` context keys force the filled field (and with it the source
+  or destination scope) and the order: the source and destination selection buttons set
+  them, so internal transfers list the source locations in removal order and the
+  destination ones in reverse order, while the product information button keeps the
+  defaults. `_get_location_stock()` returns the `(location, quantity)` pairs in that
+  order for other features to reuse. `action_select_location_stock()` opens the same
+  dialog with `show_product_info` off, from a button shown whenever there is a product;
+  showing it only under some condition costs a stock query on every screen load, so it
+  is left to extensions.
 
 ## 7. Odoo 18.0 alignment review
 

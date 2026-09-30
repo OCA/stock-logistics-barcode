@@ -1007,6 +1007,38 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             0
         ].location_id
 
+    def _get_location_stock_field(self):
+        if (
+            "location_stock_field" not in self.env.context
+            and self.picking_type_code == "incoming"
+        ):
+            return "location_dest_id"
+        return super()._get_location_stock_field()
+
+    def _is_location_stock_reversed(self):
+        if "location_stock_reverse" not in self.env.context:
+            # Receptions put stock away, so list first the locations that
+            # would be emptied last.
+            return self.picking_type_code == "incoming"
+        return super()._is_location_stock_reversed()
+
+    def _get_location_stock_parent_locations(self):
+        if self._get_location_stock_field() == "location_dest_id":
+            location = self.picking_location_dest_id
+        else:
+            location = self.picking_location_id
+        return location or super()._get_location_stock_parent_locations()
+
+    def _set_location_from_stock(self, field_name, location):
+        res = super()._set_location_from_stock(field_name, location)
+        if (
+            field_name == "location_id"
+            and self.auto_lot
+            and self.product_id.tracking != "none"
+        ):
+            self.get_lot_by_removal_strategy()
+        return res
+
     def action_assign_serial(self):
         move = self.env["stock.move"].search(self._prepare_stock_moves_domain())
         if len(move) > 1:
