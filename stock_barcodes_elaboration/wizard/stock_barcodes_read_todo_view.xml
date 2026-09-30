@@ -9,7 +9,9 @@
                 <field name="elaboration_note" />
             </xpath>
             <xpath expr="//kanban//div[@name='action']" position="before">
-                <t t-if="record.elaboration_ids.raw_value.length gt 0">
+                <t
+                    t-if="record.elaboration_ids.raw_value.length gt 0 or record.elaboration_note.raw_value"
+                >
                     <div class="row mt8 mb8 border border-success elaboration">
                         <div class="col-12 mt4">
                             <h5>Elaboration</h5>
@@ -40,11 +42,16 @@
                 expr="//div[hasclass('o_stock_barcodes_pending_operation_body')]"
                 position="inside"
             >
-                <t t-if="record.elaboration_ids.raw_value.length gt 0">
+                <t
+                    t-if="record.elaboration_ids.raw_value.length gt 0 or record.elaboration_note.raw_value"
+                >
                     <div class="o_stock_barcodes_pending_operation_meta elaboration">
                         <strong>
                             <field name="elaboration_ids" widget="many2many_tags" />
                         </strong>
+                        <div t-if="record.elaboration_note.raw_value">
+                            <field name="elaboration_note" />
+                        </div>
                     </div>
                 </t>
             </xpath>
