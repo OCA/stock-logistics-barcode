@@ -223,6 +223,18 @@
                 color: white !important;
             }
         }
+
+        .o_stock_barcodes_picking_note {
+            font-size: 1.25rem;
+
+            * {
+                color: inherit !important;
+            }
+
+            p:last-child {
+                margin-bottom: 0;
+            }
+        }
     }
 
     div[name="info"] {

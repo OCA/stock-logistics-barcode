@@ -6,6 +6,7 @@ from collections import OrderedDict, defaultdict
 from odoo import _, api, fields, models
 from odoo.exceptions import ValidationError
 from odoo.fields import first
+from odoo.tools import is_html_empty
 from odoo.tools.float_utils import float_compare, float_round
 from odoo.tools.safe_eval import safe_eval
 
@@ -69,6 +70,7 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     qty_available = fields.Float(compute="_compute_qty_available")
     partner_id = fields.Many2one("res.partner", related="picking_id.partner_id")
     partner_name = fields.Char(related="partner_id.name")
+    picking_note = fields.Html(compute="_compute_picking_note")
     enable_add_product = fields.Boolean(compute="_compute_enable_add_product")
 
     def action_show_detailed_operations(self):
@@ -78,6 +80,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
     def _compute_enable_add_product(self):
         for rec in self:
             rec.enable_add_product = rec.picking_state != "done"
+
+    @api.depends("picking_id.note")
+    def _compute_picking_note(self):
+        for rec in self:
+            note = rec.picking_id.note
+            rec.picking_note = False if is_html_empty(note) else note
 
     @api.depends("todo_line_id")
     def _compute_todo_line_display_ids(self):
