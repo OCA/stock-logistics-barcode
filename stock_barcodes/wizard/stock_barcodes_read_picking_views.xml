@@ -51,6 +51,12 @@
                 <attribute name="class">o_stock_barcodes_message text-white</attribute>
             </xpath>
             <xpath expr="//field[@name='message_type']" position="before">
+                <div
+                    class="o_stock_barcodes_picking_note text-danger fst-italic fw-bold text-center"
+                    invisible="not picking_note or context.get('hide_note', False)"
+                >
+                    <field name="picking_note" readonly="1" />
+                </div>
                 <field
                     name="todo_line_display_ids"
                     mode="kanban"
