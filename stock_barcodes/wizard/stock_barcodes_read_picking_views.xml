@@ -89,20 +89,42 @@
             <group name="location" position="after">
                 <div>
                     <strong class=" d-none d-sm-block">Dest. Location</strong>
-                    <span
-                        class="fa fa-share text-center d-sm-none oe_span_small_icon"
-                        title="Destination Location"
-                    />
-                    <field
-                        name="location_dest_id"
-                        options="{'no_create': True, 'no_open': True}"
-                        readonly="not manual_entry"
-                        force_save="1"
-                        nolabel="1"
-                        style="width:90%"
-                        class="h5"
-                        domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
-                    />
+                    <div class="d-flex align-items-center gap-1">
+                        <!-- Small screens: the icon replaces the selection button -->
+                        <span
+                            class="fa fa-share text-center d-sm-none oe_span_small_icon o_stock_barcodes_location_dest_icon"
+                            title="Destination Location"
+                            invisible="picking_type_code in ('incoming', 'internal') and product_id"
+                        />
+                        <button
+                            class="btn btn-sm btn-info d-sm-none me-2 o_stock_barcodes_location_dest_icon_button"
+                            name="action_select_location_stock"
+                            type="object"
+                            context="{'location_stock_field': 'location_dest_id', 'location_stock_reverse': True}"
+                            icon="fa-share"
+                            title="Select a location with stock"
+                            invisible="picking_type_code not in ('incoming', 'internal') or not product_id"
+                        />
+                        <field
+                            name="location_dest_id"
+                            options="{'no_create': True, 'no_open': True}"
+                            readonly="not manual_entry"
+                            force_save="1"
+                            nolabel="1"
+                            style="min-width:0"
+                            class="h5 flex-grow-1 mb-0"
+                            domain="[('id', 'child_of', picking_location_dest_id), '|', ('company_id', '=', False), ('company_id', '=', company_id), ('usage', '!=', 'view')]"
+                        />
+                        <button
+                            class="btn-sm btn-info oe_kanban_action_button btn d-none d-sm-inline-block o_stock_barcodes_location_dest_button"
+                            name="action_select_location_stock"
+                            type="object"
+                            context="{'location_stock_field': 'location_dest_id', 'location_stock_reverse': True}"
+                            icon="fa-share fa-1x"
+                            title="Select a location with stock"
+                            invisible="picking_type_code not in ('incoming', 'internal') or not product_id"
+                        />
+                    </div>
                 </div>
             </group>
             <group name="scan_fields" position="attributes">

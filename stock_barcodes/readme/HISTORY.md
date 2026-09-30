@@ -1,3 +1,13 @@
+## 18.0.1.6.0 (2026-10-02)
+
+- \[ADD\] Product information: a button next to the read product opens
+  its on hand, incoming, outgoing and forecasted quantities and its stock
+  in each location, ordered by the removal strategy (reversed on
+  receptions). Tapping a location fills the screen location.
+- \[ADD\] Buttons next to the source and destination locations list
+  only the locations with stock to pick one, the destination ones in
+  reverse order. On small screens the field icons replace these buttons.
+
 ## 18.0.1.5.0 (2026-09-29)
 
 - \[IMP\] *Replace quantity on each reading* (`no_increase_qty_done`)

@@ -3,7 +3,7 @@
 {
     "name": "Stock Barcodes",
     "summary": "It provides read barcode on stock operations.",
-    "version": "18.0.1.5.0",
+    "version": "18.0.1.6.0",
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
@@ -27,6 +27,7 @@
         "views/stock_picking_views.xml",
         "wizard/stock_barcodes_new_lot_views.xml",
         "wizard/stock_barcodes_new_packaging_views.xml",
+        "wizard/stock_barcodes_product_info_views.xml",
         "wizard/stock_barcodes_read_views.xml",
         "wizard/stock_barcodes_read_picking_views.xml",
         "wizard/stock_barcodes_read_todo_view.xml",

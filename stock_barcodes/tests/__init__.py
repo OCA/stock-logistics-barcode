@@ -14,3 +14,4 @@ from . import test_scan_allocation
 from . import test_auto_lot
 from . import test_scan_owner
 from . import test_picked_workflows
+from . import test_product_info

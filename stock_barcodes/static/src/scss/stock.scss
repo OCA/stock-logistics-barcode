@@ -626,3 +626,11 @@ div[name="menu_actions"] {
         }
     }
 }
+
+// Stock by location dialog: one location per row on any screen width
+.o_stock_barcodes_product_info .o_kanban_renderer.o_kanban_ungrouped .o_kanban_record {
+    flex-basis: 100%;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}

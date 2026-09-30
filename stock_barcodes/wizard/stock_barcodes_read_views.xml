@@ -67,19 +67,41 @@
                                 <div class="mt-1" colspan="2">
                                     <strong class=" d-none d-sm-block">Source Location
                                     </strong>
-                                    <span
-                                        class="fa fa-map-marker d-sm-none oe_span_small_icon"
-                                        title="Source Location"
-                                    />
-                                    <field
-                                        name="location_id"
-                                        options="{'no_create': True, 'no_open': True}"
-                                        readonly="not manual_entry"
-                                        force_save="1"
-                                        nolabel="1"
-                                        style="width:90%"
-                                        class="h5"
-                                    />
+                                    <div class="d-flex align-items-center gap-1">
+                                        <!-- Small screens: the icon replaces the selection button -->
+                                        <span
+                                            class="fa fa-map-marker d-sm-none oe_span_small_icon o_stock_barcodes_location_icon"
+                                            title="Source Location"
+                                            invisible="product_id"
+                                        />
+                                        <button
+                                            class="btn btn-sm btn-info d-sm-none me-2 o_stock_barcodes_location_icon_button"
+                                            name="action_select_location_stock"
+                                            type="object"
+                                            context="{'location_stock_field': 'location_id', 'location_stock_reverse': False}"
+                                            icon="fa-map-marker"
+                                            title="Select a location with stock"
+                                            invisible="not product_id"
+                                        />
+                                        <field
+                                            name="location_id"
+                                            options="{'no_create': True, 'no_open': True}"
+                                            readonly="not manual_entry"
+                                            force_save="1"
+                                            nolabel="1"
+                                            style="min-width:0"
+                                            class="h5 flex-grow-1 mb-0"
+                                        />
+                                        <button
+                                            class="btn-sm btn-info oe_kanban_action_button btn d-none d-sm-inline-block o_stock_barcodes_location_button"
+                                            name="action_select_location_stock"
+                                            type="object"
+                                            context="{'location_stock_field': 'location_id', 'location_stock_reverse': False}"
+                                            icon="fa-map-marker fa-1x"
+                                            title="Select a location with stock"
+                                            invisible="not product_id"
+                                        />
+                                    </div>
                                 </div>
                             </group>
                             <group
@@ -155,26 +177,46 @@
                             <group col="2">
                                 <div class="m-0" colspan="2">
                                     <strong class="d-none d-sm-block">Product</strong>
-                                    <span
-                                        class="fa fa-th-list d-sm-none oe_span_small_icon"
-                                        title="Product"
-                                    />
-                                    <field
-                                        name="product_id"
-                                        options="{'no_create': True, 'no_open': True}"
-                                        readonly="not manual_entry"
-                                        force_save="1"
-                                        style="max-width:75%"
-                                        class="h5"
-                                    />
-                                    <button
-                                        class="btn-sm float-end btn-warning oe_kanban_action_button btn mr4"
-                                        name="action_clean_product"
-                                        type="object"
-                                        icon="fa-trash fa-1x"
-                                        title="Clean product"
-                                        invisible="product_id == False"
-                                    />
+                                    <!-- Small screens: the icon replaces the info button -->
+                                    <div class="d-flex align-items-center gap-1">
+                                        <span
+                                            class="fa fa-th-list d-sm-none oe_span_small_icon o_stock_barcodes_product_icon"
+                                            title="Product"
+                                            invisible="product_id"
+                                        />
+                                        <button
+                                            class="btn btn-sm btn-info d-sm-none me-2 o_stock_barcodes_product_icon_button"
+                                            name="action_open_product_info"
+                                            type="object"
+                                            icon="fa-info-circle"
+                                            title="Product information"
+                                            invisible="not product_id"
+                                        />
+                                        <field
+                                            name="product_id"
+                                            options="{'no_create': True, 'no_open': True}"
+                                            readonly="not manual_entry"
+                                            force_save="1"
+                                            style="flex: 0 1 75%; min-width: 0"
+                                            class="h5 mb-0"
+                                        />
+                                        <button
+                                            class="btn-sm btn-info oe_kanban_action_button btn d-none d-sm-inline-block o_stock_barcodes_product_button"
+                                            name="action_open_product_info"
+                                            type="object"
+                                            icon="fa-info-circle fa-1x"
+                                            title="Product information"
+                                            invisible="not product_id"
+                                        />
+                                        <button
+                                            class="btn-sm btn-warning oe_kanban_action_button btn ms-auto"
+                                            name="action_clean_product"
+                                            type="object"
+                                            icon="fa-trash fa-1x"
+                                            title="Clean product"
+                                            invisible="product_id == False"
+                                        />
+                                    </div>
                                 </div>
                                 <div
                                     class="m-0"

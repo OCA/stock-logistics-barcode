@@ -1,8 +1,10 @@
 # Copyright 2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 import logging
+from collections import defaultdict
 
-from odoo import _, api, fields, models
+from odoo import Command, _, api, fields, models
+from odoo.tools.float_utils import float_compare
 
 _logger = logging.getLogger(__name__)
 
@@ -835,6 +837,116 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def action_reopen_wizard(self):
         return self.get_formview_action()
+
+    def _get_location_stock_field(self):
+        """Screen location filled when a location is selected in the stock by
+        location list. The ``location_stock_field`` context key forces it."""
+        return self.env.context.get("location_stock_field", "location_id")
+
+    def _is_location_stock_reversed(self):
+        """Whether the locations are listed in reverse removal strategy order.
+        The ``location_stock_reverse`` context key forces it."""
+        return self.env.context.get("location_stock_reverse", False)
+
+    def _get_location_stock_parent_locations(self):
+        """Locations whose internal sublocations are listed in the stock by
+        location list."""
+        return (
+            self.env["stock.warehouse"]
+            .search([("company_id", "=", self.env.company.id)])
+            .view_location_id
+        )
+
+    def _get_location_stock_quants(self):
+        """Internal quants of the product, in removal strategy order."""
+        StockQuant = self.env["stock.quant"]
+        quants = StockQuant.browse()
+        for location in self._get_location_stock_parent_locations():
+            quants |= StockQuant._gather(self.product_id, location)
+        return quants.filtered(lambda q: q.location_id.usage == "internal")
+
+    def _sort_location_stock(self, quants):
+        """Return the locations of the quants in the order they are listed.
+
+        The quants come in removal strategy order, so by default the first
+        locations are the ones the stock would be taken from. Override to
+        list the locations in another order.
+        """
+        locations = quants.location_id
+        if self._is_location_stock_reversed():
+            return locations[::-1]
+        return locations
+
+    def _get_location_stock(self):
+        """Return the (location, quantity) pairs of the locations with stock of
+        the product, in the order they are listed."""
+        quants = self._get_location_stock_quants()
+        qty_by_location = defaultdict(float)
+        for quant in quants:
+            qty_by_location[quant.location_id] += quant.quantity
+        rounding = self.product_id.uom_id.rounding
+        return [
+            (location, qty_by_location[location])
+            for location in self._sort_location_stock(quants)
+            if float_compare(
+                qty_by_location[location], 0.0, precision_rounding=rounding
+            )
+            > 0
+        ]
+
+    def _prepare_product_info_vals(self, show_product_info=True):
+        product = self.product_id.with_context(
+            location=self._get_location_stock_parent_locations().ids
+        )
+        return {
+            "res_model": self._name,
+            "res_id": self.id,
+            "location_field": self._get_location_stock_field(),
+            "product_id": self.product_id.id,
+            "show_product_info": show_product_info,
+            "qty_available": product.qty_available,
+            "incoming_qty": product.incoming_qty,
+            "outgoing_qty": product.outgoing_qty,
+            "virtual_available": product.virtual_available,
+            "line_ids": [
+                Command.create(
+                    {
+                        "sequence": sequence,
+                        "location_id": location.id,
+                        "quantity": quantity,
+                    }
+                )
+                for sequence, (location, quantity) in enumerate(
+                    self._get_location_stock()
+                )
+            ],
+        }
+
+    def _action_product_info(self, name, show_product_info=True):
+        self.ensure_one()
+        wiz = self.env["wiz.stock.barcodes.product.info"].create(
+            self._prepare_product_info_vals(show_product_info=show_product_info)
+        )
+        return {
+            "type": "ir.actions.act_window",
+            "name": name,
+            "res_model": wiz._name,
+            "res_id": wiz.id,
+            "view_mode": "form",
+            "views": [(False, "form")],
+            "target": "new",
+        }
+
+    def action_open_product_info(self):
+        return self._action_product_info(_("Product information"))
+
+    def action_select_location_stock(self):
+        """Only list the locations with stock to pick one of them."""
+        return self._action_product_info(_("Select location"), show_product_info=False)
+
+    def _set_location_from_stock(self, field_name, location):
+        self[field_name] = location
+        self.action_show_step()
 
     @api.onchange("step")
     def action_show_step(self):
