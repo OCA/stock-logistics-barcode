@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
 from odoo.tests import TransactionCase, tagged
 
 from ..hooks import post_init_hook
@@ -76,3 +77,14 @@ class TestProductMultiBarcode(TransactionCase):
             ]
         )
         self.assertEqual(len(products), 2)
+        products = self.product.search(
+            [("product_tmpl_id", "any", [("name", "=", self.product_1.name)])]
+        )
+        self.assertIn(self.product_1, products)
+
+    def test_search_with_internal_domain_operator(self):
+        self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
+        domain = Domain(
+            "product_tmpl_id", "any!", [("name", "=", "no-such-product-name")]
+        ) | Domain("barcode", "=", self.valid_barcode_1)
+        self.assertEqual(self.product.search(domain), self.product_1)
