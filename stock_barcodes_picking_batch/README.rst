@@ -28,9 +28,14 @@ Stock Barcodes Picking Batch
 
 |badge1| |badge2| |badge3| |badge4| |badge5|
 
-This module extends barcode reader interface to allow to read quant
-barcodes. After barcode has been readed the product, lot and location
-are been filled.
+This module extends the barcode scan screen of ``stock_barcodes`` to
+batch transfers and waves: scanned products, lots and packages are
+allocated to the pending moves of all the transfers of the batch, and
+the batch can be validated from the same screen.
+
+The pending moves show the transfer they belong to, and reception
+batches and waves work on their destination location, with the same
+location selection as single transfers.
 
 **Table of contents**
 
@@ -40,7 +45,12 @@ are been filled.
 Usage
 =====
 
-Read usage section from stock_barcodes module.
+1. Open a batch transfer or a wave and press *Scan barcodes*, or select
+   the *Picking batch* or *Wave transfers* tile in the *Barcodes* main
+   menu.
+2. Scan as described in the usage section of ``stock_barcodes``. On
+   reception and internal batches, the button next to the destination
+   location lists the locations with stock of the product to pick one.
 
 Bug Tracker
 ===========
