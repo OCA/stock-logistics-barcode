@@ -4,8 +4,10 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: Odoo Server 16.0\n"
+"Project-Id-Version: Odoo Server 18.0\n"
 "Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-02 12:21+0000\n"
+"PO-Revision-Date: 2026-10-02 12:21+0000\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
@@ -14,23 +16,36 @@ msgstr ""
 "Plural-Forms: \n"
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__product_ref_done
-msgid "#Product Ref done:"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__product_ref_count
-msgid "#Product Ref:"
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "<i class=\"fa fa-trash\" title=\"Remove\"/>"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "<i class=\"fa fa-trash\" title=\"Remove\" style=\"font-size:1.5em\"/>"
+msgid "<span class=\"d-none d-lg-block\">Validate</span>"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "<i class=\"fa fa-upload\" title=\"Fill from pencil\" style=\"font-size:1.5em\"/>"
+msgid ""
+"<span class=\"fa fa-6x mb-4 fa-exclamation-triangle\"/>\n"
+"                    <span class=\"fa fa-2x fa-exclamation-triangle\">\n"
+"                        This picking batch is already done\n"
+"                    </span>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_pending_moves_kanban
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_todo_kanban
+msgid "<span class=\"fa fa-file-text-o me-1\" title=\"Picking\"/>"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid ""
+"<span class=\"fa fa-share text-center d-sm-none oe_span_small_icon "
+"o_stock_barcodes_location_dest_icon\" title=\"Destination Location\" "
+"invisible=\"picking_type_code in ('incoming', 'internal') and product_id\"/>"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
@@ -40,25 +55,17 @@ msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "<span for=\"product_ref_count\">#Ref: </span>"
+msgid "<strong class=\" d-none d-sm-block\">Dest. Location</strong>"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid ""
-"<span> | </span>\n"
-"                                                    <span for=\"product_ref_done\">#Read: </span>"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Are you sure to validate the picking batch?"
+msgid "Are you sure to validate the picking ?"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #. odoo-python
 #: code:addons/stock_barcodes_picking_batch/wizard/stock_barcodes_read_picking_batch.py:0
-#, python-format
 msgid "Barcode reader"
 msgstr ""
 
@@ -73,46 +80,19 @@ msgid "Batch Transfer"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__name
-msgid "Candidate Picking Batch"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__candidate_picking_batch_ids
-msgid "Candidate picking batch"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model,name:stock_barcodes_picking_batch.model_wiz_candidate_picking_batch
-msgid "Candidate picking batchs for barcode interface"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
 #. odoo-python
 #: code:addons/stock_barcodes_picking_batch/wizard/stock_barcodes_read_picking_batch.py:0
-#: code:addons/stock_barcodes_picking_batch/wizard/stock_barcodes_read_picking_batch.py:0
-#, python-format
 msgid "Click on picking batch pushpin to lock it"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__company_id
+msgid "Company"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__confirmed_moves
 msgid "Confirmed moves"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__create_uid
-msgid "Created by"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__create_date
-msgid "Created on"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__date
-msgid "Creation Date"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
@@ -126,23 +106,8 @@ msgid "Detailed operations"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__display_name
-msgid "Display Name"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__id
-msgid "ID"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
 #: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_type_code__internal
 msgid "Internal"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__is_pending
-msgid "Is Pending"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
@@ -153,28 +118,8 @@ msgid ""
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch____last_update
-msgid "Last Modified on"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__write_uid
-msgid "Last Updated by"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__write_date
-msgid "Last Updated on"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
 msgid "Lot:"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Open"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
@@ -193,12 +138,26 @@ msgid "Picking Batch"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_location_id
+msgid "Picking Location"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
+msgid "Picking Location Dest"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_mode
 msgid "Picking Mode"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__picking_batch_id
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_todo__picking_names
+msgid "Picking Names"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
 #: model:stock.barcodes.action,name:stock_barcodes_picking_batch.stock_barcodes_action_picking_batch
 msgid "Picking batch"
 msgstr ""
@@ -214,8 +173,18 @@ msgid "Picking batch quantities"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__scan_count
-msgid "Scan Count"
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.stock_picking_batch_kanban
+msgid "Scan barcodes"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
+msgid "Select a location with stock"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_batch_show_check_availability
+msgid "Show Check Availability"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
@@ -225,7 +194,7 @@ msgid "Start barcode interface"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__state
+#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_stock_barcodes_read_picking__picking_batch_state
 msgid "State"
 msgstr ""
 
@@ -235,26 +204,21 @@ msgid "Type of Operation"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch.view_stock_barcodes_read_picking_batch_form
-msgid "Validate"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
 #: model:ir.model.fields.selection,name:stock_barcodes_picking_batch.selection__wiz_stock_barcodes_read_picking__picking_type_code__incoming
 msgid "Vendors"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__wiz_barcode_id
-msgid "Wiz Barcode"
-msgstr ""
-
-#. module: stock_barcodes_picking_batch
-#: model:ir.model.fields,field_description:stock_barcodes_picking_batch.field_wiz_candidate_picking_batch__wiz_picking_batch_id
-msgid "Wizard Picking Batch"
+#: model:stock.barcodes.action,name:stock_barcodes_picking_batch.stock_barcodes_action_picking_wave
+msgid "Wave transfers"
 msgstr ""
 
 #. module: stock_barcodes_picking_batch
 #: model:ir.model,name:stock_barcodes_picking_batch.model_wiz_stock_barcodes_read_picking
 msgid "Wizard to read barcode on picking batch"
+msgstr ""
+
+#. module: stock_barcodes_picking_batch
+#: model:ir.model,name:stock_barcodes_picking_batch.model_wiz_stock_barcodes_read_todo
+msgid "Wizard to read barcode todo"
 msgstr ""
