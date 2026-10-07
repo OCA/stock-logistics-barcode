@@ -1,0 +1,173 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcodes_gs1_secondary_unit
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2026-10-07 17:46+0000\n"
+"PO-Revision-Date: 2023-04-27 19:44+0200\n"
+"Last-Translator: Sergio Teruel <sergio.teruel@tecnativa.com>\n"
+"Language-Team: \n"
+"Language: es_ES\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.0.1\n"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__barcode
+msgid "Barcode"
+msgstr "Código de barras"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__packaging_indicator
+msgid ""
+"GS1 packaging indicator digit. When set, the barcode is the GTIN-14 built "
+"from this digit, the product barcode and a new check digit."
+msgstr ""
+"Dígito indicador de embalaje GS1. Si se indica, el código de barras es el "
+"GTIN-14 formado por este dígito, el código de barras del producto y un nuevo "
+"dígito de control."
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__gs1_qty_target_field
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__gs1_qty_target_field
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__gs1_qty_target_field
+msgid "Gs1 Qty Target Field"
+msgstr "Campo destino de la cantidad GS1"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__barcode
+msgid "International Article Number used for product identification."
+msgstr ""
+"Número de artículo internacional usado para la identificación de producto."
+
+#. module: stock_barcodes_gs1_secondary_unit
+#. odoo-python
+#: code:addons/stock_barcodes_gs1_secondary_unit/wizard/stock_barcodes_read.py:0
+msgid "More than one secondary uom found"
+msgstr ""
+"Se ha encontrado más de una unidad secundaria para este código de barras"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_product_secondary_unit__packaging_indicator
+msgid "Packaging Indicator"
+msgstr "Indicador de embalaje"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_stock_move_line
+msgid "Product Moves (Stock Move Line)"
+msgstr "Movimientos de producto (línea de movimiento de stock)"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_product_secondary_unit
+msgid "Product Secondary Unit"
+msgstr "Unidad Secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__product_tmpl_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__product_tmpl_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__product_tmpl_id
+msgid "Product Template"
+msgstr "Plantilla de producto"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_id
+msgid "Second unit"
+msgstr "Unidad secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__total_secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__total_secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__total_secondary_uom_qty
+msgid "Second. Demand"
+msgstr "Demanda secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__total_secondary_uom_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__total_secondary_uom_qty_done
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__total_secondary_uom_qty_done
+msgid "Second. Done"
+msgstr "Hecho secundario"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_todo__secondary_uom_qty
+msgid "Secondary Qty"
+msgstr "Cdad. secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_qty
+msgid "Secondary UOM Qty"
+msgstr "Cta. Ud. secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_single_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_single_qty
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_single_qty
+msgid "Secondary single Qty"
+msgstr "Cta. Ud. secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields.selection,name:stock_barcodes_gs1_secondary_unit.selection__wiz_stock_barcodes_read__gs1_qty_target_field__secondary_uom_qty
+#: model:ir.model.fields.selection,name:stock_barcodes_gs1_secondary_unit.selection__wiz_stock_barcodes_read_inventory__gs1_qty_target_field__secondary_uom_qty
+#: model:ir.model.fields.selection,name:stock_barcodes_gs1_secondary_unit.selection__wiz_stock_barcodes_read_picking__gs1_qty_target_field__secondary_uom_qty
+msgid "Secondary unit qty"
+msgstr "Cant. unidad secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__secondary_uom_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__secondary_uom_id
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__secondary_uom_id
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_gs1_secondary_unit.view_stock_barcodes_read_form
+msgid "Secondary uom"
+msgstr "Unidad Secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__gs1_qty_target_field
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__gs1_qty_target_field
+#: model:ir.model.fields,help:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__gs1_qty_target_field
+msgid ""
+"Technical field to establish which quantity field a GS1 count AI (30 - "
+"Variable count of items, 37 - Count of items) should be routed to, set by AI "
+"02 matching a secondary unit package."
+msgstr ""
+"Campo técnico que indica a qué campo de cantidad se asigna un AI GS1 de "
+"recuento (30 - recuento variable de artículos, 37 - recuento de artículos), "
+"establecido por un AI 02 que coincide con un embalaje de unidad secundaria."
+
+#. module: stock_barcodes_gs1_secondary_unit
+#. odoo-python
+#: code:addons/stock_barcodes_gs1_secondary_unit/models/product_second_unit.py:0
+msgid ""
+"The barcode %(barcode)s is already used by the secondary unit %(unit)s of "
+"%(product)s."
+msgstr ""
+"El código de barras %(barcode)s ya lo usa la unidad secundaria %(unit)s de "
+"%(product)s."
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read__total_secondary_uom_name
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_inventory__total_secondary_uom_name
+#: model:ir.model.fields,field_description:stock_barcodes_gs1_secondary_unit.field_wiz_stock_barcodes_read_picking__total_secondary_uom_name
+msgid "Total Secondary Uom Name"
+msgstr "Nombre de la unidad secundaria"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read
+msgid "Wizard to read barcode"
+msgstr "Asistente para leer códigos de barras"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_picking
+msgid "Wizard to read barcode on picking"
+msgstr "Asistente para leer códigos de barras desde los albaranes"
+
+#. module: stock_barcodes_gs1_secondary_unit
+#: model:ir.model,name:stock_barcodes_gs1_secondary_unit.model_wiz_stock_barcodes_read_todo
+msgid "Wizard to read barcode todo"
+msgstr "Asistente para leer códigos de barras"
