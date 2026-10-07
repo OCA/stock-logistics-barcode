@@ -98,6 +98,9 @@ Secondary unit barcodes
   changes. E.g. indicator ``1`` and product barcode ``8412598033094``
   give ``18412598033091``.
 - Without packaging indicator the barcode is typed by hand.
+- Two active secondary units cannot share a barcode, since a scan could
+  not tell them apart. An archived unit may keep it, and it is checked
+  again when it is restored.
 - For templates with several variants, set the **variant** of the
   secondary unit, so a scan identifies the right variant. A secondary
   unit without variant keeps the variant already read on the screen when

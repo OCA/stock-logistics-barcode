@@ -454,6 +454,9 @@ and a new check digit, and it is updated when the product barcode
 changes. E.g. indicator <tt class="docutils literal">1</tt> and product barcode <tt class="docutils literal">8412598033094</tt>
 give <tt class="docutils literal">18412598033091</tt>.</li>
 <li>Without packaging indicator the barcode is typed by hand.</li>
+<li>Two active secondary units cannot share a barcode, since a scan could
+not tell them apart. An archived unit may keep it, and it is checked
+again when it is restored.</li>
 <li>For templates with several variants, set the <strong>variant</strong> of the
 secondary unit, so a scan identifies the right variant. A secondary
 unit without variant keeps the variant already read on the screen when
