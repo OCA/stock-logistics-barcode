@@ -98,6 +98,9 @@ Secondary unit barcodes
   changes. E.g. indicator ``1`` and product barcode ``8412598033094``
   give ``18412598033091``.
 - Without packaging indicator the barcode is typed by hand.
+- Two active secondary units cannot share a barcode, since a scan could
+  not tell them apart. An archived unit may keep it, and it is checked
+  again when it is restored.
 - For templates with several variants, set the **variant** of the
   secondary unit, so a scan identifies the right variant. A secondary
   unit without variant keeps the variant already read on the screen when
@@ -220,6 +223,17 @@ This module is maintained by the OCA.
 OCA, or the Odoo Community Association, is a nonprofit organization whose
 mission is to support the collaborative development of Odoo features and
 promote its widespread use.
+
+.. |maintainer-sergio-teruel| image:: https://github.com/sergio-teruel.png?size=40px
+    :target: https://github.com/sergio-teruel
+    :alt: sergio-teruel
+.. |maintainer-carlosdauden| image:: https://github.com/carlosdauden.png?size=40px
+    :target: https://github.com/carlosdauden
+    :alt: carlosdauden
+
+Current `maintainers <https://odoo-community.org/page/maintainer-role>`__:
+
+|maintainer-sergio-teruel| |maintainer-carlosdauden| 
 
 This module is part of the `OCA/stock-logistics-barcode <https://github.com/OCA/stock-logistics-barcode/tree/18.0/stock_barcodes_gs1_secondary_unit>`_ project on GitHub.
 

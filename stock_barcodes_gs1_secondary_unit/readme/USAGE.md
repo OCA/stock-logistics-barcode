@@ -10,6 +10,8 @@ GS1 scanning wizards from `stock_barcodes_gs1`.
   new check digit, and it is updated when the product barcode changes. E.g. indicator `1` and
   product barcode `8412598033094` give `18412598033091`.
 - Without packaging indicator the barcode is typed by hand.
+- Two active secondary units cannot share a barcode, since a scan could not tell them
+  apart. An archived unit may keep it, and it is checked again when it is restored.
 - For templates with several variants, set the **variant** of the secondary unit, so a scan
   identifies the right variant. A secondary unit without variant keeps the variant already
   read on the screen when it belongs to the same template, or uses the only variant of the

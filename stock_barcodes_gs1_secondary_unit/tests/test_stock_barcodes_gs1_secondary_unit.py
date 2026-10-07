@@ -1,6 +1,7 @@
 # Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
 
+from odoo.exceptions import ValidationError
 from odoo.tests import tagged
 
 from odoo.addons.stock_barcodes_gs1.tests.test_stock_barcodes_gs1 import (
@@ -86,6 +87,35 @@ class TestStockBarcodesGS1SecondaryUnit(TestStockBarcodesGS1):
         self.secondary_unit.barcode = "08412598033094"
         self.product_tracking.barcode = "8412598033094"
         self.assertEqual(self.secondary_unit.barcode, "08412598033094")
+
+    def test_secondary_unit_barcode_unique(self):
+        # Two active secondary units with the same barcode cannot be told
+        # apart when scanning, so the second one is rejected
+        self.product_tracking.barcode = "8412598033094"
+        self.secondary_unit.packaging_indicator = "1"
+        values = {
+            "product_tmpl_id": self.product_tracking.product_tmpl_id.id,
+            "name": "box 14",
+            "uom_id": self.product_tracking.uom_id.id,
+            "factor": 14.0,
+        }
+        with self.assertRaises(ValidationError):
+            self.env["product.secondary.unit"].create(
+                dict(values, packaging_indicator="1")
+            )
+        box_14 = self.env["product.secondary.unit"].create(
+            dict(values, packaging_indicator="2")
+        )
+        with self.assertRaises(ValidationError):
+            box_14.packaging_indicator = "1"
+        with self.assertRaises(ValidationError):
+            box_14.barcode = "18412598033091"
+        # An archived unit may keep the barcode, but not be restored with it
+        self.secondary_unit.active = False
+        box_14.packaging_indicator = "1"
+        self.assertEqual(box_14.barcode, "18412598033091")
+        with self.assertRaises(ValidationError):
+            self.secondary_unit.active = True
 
     def test_wizard_scan_gs1_secondary_unit_variant(self):
         # A secondary unit of a multi-variant template identifies its own

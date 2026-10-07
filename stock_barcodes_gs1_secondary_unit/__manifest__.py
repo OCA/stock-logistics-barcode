@@ -8,6 +8,7 @@
     "author": "Tecnativa, " "Odoo Community Association (OCA)",
     "website": "https://github.com/OCA/stock-logistics-barcode",
     "license": "AGPL-3",
+    "maintainers": ["sergio-teruel", "carlosdauden"],
     "category": "Extra Tools",
     "depends": ["stock_barcodes_gs1", "stock_secondary_unit"],
     "data": [
