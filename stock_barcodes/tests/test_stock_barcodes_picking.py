@@ -267,6 +267,42 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertEqual(sml.location_dest_id, self.location_2)
         self.assertEqual(sml.qty_picked, 1.0)
 
+    def test_in_units_read_stay_when_another_bin_is_chosen(self):
+        picking = self.env["stock.picking"].create(
+            {
+                "location_id": self.supplier_location.id,
+                "location_dest_id": self.stock_location.id,
+                "partner_id": self.partner_agrolite.id,
+                "picking_type_id": self.picking_type_in.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "name": self.product_wo_tracking.name,
+                            "product_id": self.product_wo_tracking.id,
+                            "product_uom_qty": 3,
+                            "product_uom": self.product_wo_tracking.uom_id.id,
+                            "location_id": self.supplier_location.id,
+                            "location_dest_id": self.stock_location.id,
+                        }
+                    )
+                ],
+            }
+        )
+        picking.action_confirm()
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        wiz.location_dest_id = self.location_1
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        # The operator changes the destination bin for the last unit
+        wiz.location_dest_id = self.location_2
+        self.action_barcode_scanned(wiz, self.product_wo_tracking.barcode)
+        picked = {
+            line.location_dest_id: line.qty_picked
+            for line in picking.move_line_ids.filtered("qty_picked")
+        }
+        self.assertEqual(picked, {self.location_1: 2.0, self.location_2: 1.0})
+
     def test_guided_lot_name_option_does_not_crash(self):
         # A lot_name option (used to create new serials on reception) must not
         # break guided mode: determine_todo_action fills option fields from the

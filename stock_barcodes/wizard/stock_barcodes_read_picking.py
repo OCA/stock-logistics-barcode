@@ -471,9 +471,12 @@ class WizStockBarcodesReadPicking(models.TransientModel):
                     self.location_dest_id
                     and self.location_dest_id != self.picking_location_dest_id
                 )
+                # Units already read stay in their destination: a new line is
+                # created for the chosen one instead
                 candidate_lines = moves_todo.mapped("move_line_ids").filtered(
                     lambda line: (
-                        line.location_id == self.location_id
+                        not line.qty_picked
+                        and line.location_id == self.location_id
                         and line.product_id == self.product_id
                         and (
                             line.location_dest_id == self.picking_location_dest_id
