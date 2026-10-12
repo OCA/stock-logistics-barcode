@@ -101,3 +101,55 @@ class TestStockBarcodesGS1Expiry(TestStockBarcodesGS1):
             result["removal_date"],
             self.date_1 - timedelta(days=self.product_wo_tracking_gs1.removal_time),
         )
+
+    def test_new_lot_does_not_inherit_dates(self):
+        self.product_wo_tracking_gs1.tracking = "lot"
+        self.action_barcode_scanned(self.wiz_inventory, self.gs1_barcode_01_exiry_date)
+        self.assertEqual(self.wiz_inventory.expiration_date, self.date_1)
+        self.action_barcode_scanned(self.wiz_inventory, "011841052524493010NEW-LOT")
+        self.assertFalse(self.wiz_inventory.expiration_date)
+        self.assertFalse(self.wiz_inventory.use_date)
+        self.wiz_inventory.action_confirm()
+        self.assertEqual(self.wiz_inventory.lot_id.name, "NEW-LOT")
+        self.assertNotEqual(self.wiz_inventory.lot_id.expiration_date, self.date_1)
+
+    def test_changed_packaging_product_does_not_inherit_dates(self):
+        self.product_wo_tracking_gs1.tracking = "lot"
+        other_product = self.product_tracking_gs1
+        packaging = self.ProductPackaging.create(
+            {
+                "name": "Other product packaging",
+                "product_id": other_product.id,
+                "qty": 1,
+                "barcode": "08412598002106",
+            }
+        )
+        self.action_barcode_scanned(self.wiz_inventory, self.gs1_barcode_01_exiry_date)
+        self.action_barcode_scanned(
+            self.wiz_inventory, "01" + packaging.barcode + "10AB-123"
+        )
+        self.assertEqual(self.wiz_inventory.product_id, other_product)
+        self.assertFalse(self.wiz_inventory.expiration_date)
+        self.wiz_inventory.action_confirm()
+        self.assertEqual(self.wiz_inventory.lot_id.product_id, other_product)
+        self.assertNotEqual(self.wiz_inventory.lot_id.expiration_date, self.date_1)
+
+    def test_date_before_new_lot_is_kept(self):
+        self.product_wo_tracking_gs1.tracking = "lot"
+        self.action_barcode_scanned(self.wiz_inventory, self.gs1_barcode_01_exiry_date)
+        self.action_barcode_scanned(
+            self.wiz_inventory, "01184105252449301719070410NEW-LOT"
+        )
+        self.assertEqual(self.wiz_inventory.expiration_date, self.date_2)
+        self.wiz_inventory.action_confirm()
+        self.assertEqual(self.wiz_inventory.lot_id.name, "NEW-LOT")
+        self.assertEqual(self.wiz_inventory.lot_id.expiration_date, self.date_2)
+
+    def test_date_read_before_lot_is_kept(self):
+        self.product_wo_tracking_gs1.tracking = "lot"
+        self.action_barcode_scanned(self.wiz_inventory, "011841052524493017140704")
+        self.action_barcode_scanned(self.wiz_inventory, "10NEW-LOT")
+        self.assertEqual(self.wiz_inventory.expiration_date, self.date_1)
+        self.wiz_inventory.action_confirm()
+        self.assertEqual(self.wiz_inventory.lot_id.name, "NEW-LOT")
+        self.assertEqual(self.wiz_inventory.lot_id.expiration_date, self.date_1)

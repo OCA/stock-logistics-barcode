@@ -58,6 +58,16 @@ class WizStockBarcodesRead(models.AbstractModel):
         self.expiration_date = False
         self.use_date = False
 
+    def _hook_gs1_item_changed(self, gs1_list):
+        """Keep only the dates read with the new product or lot"""
+        res = super()._hook_gs1_item_changed(gs1_list)
+        ais = {gs1_item["ai"] for gs1_item in gs1_list}
+        if "15" not in ais:
+            self.use_date = False
+        if "17" not in ais:
+            self.expiration_date = False
+        return res
+
     def action_clean_lot(self):
         self._clean_expiry_dates()
         return super().action_clean_lot()
