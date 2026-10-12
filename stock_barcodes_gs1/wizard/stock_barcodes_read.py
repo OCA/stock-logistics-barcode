@@ -56,13 +56,22 @@ class WizStockBarcodesRead(models.AbstractModel):
 
     def _process_ai_10(self, gs1_list):
         """Serial/Lot identification"""
+        if self.product_id and self.product_id.tracking == "none":
+            return True
+        # Do not keep the lot of a previous reading when this one is not found
+        self.lot_id = False
         self.lot_name = self.barcode
         # Determine if barcode scanned has included the weight to no update product_qty
         # from lot
         weight_ai = next(filter(lambda f: f["ai"].startswith("31"), gs1_list), False)
         if weight_ai:
             self = self.with_context(skip_update_quantity_from_lot=True)
-        return self.process_barcode_lot_id()
+        if self.process_barcode_lot_id():
+            return True
+        # A lot not found yet is created on confirmation when the options allow it
+        return bool(
+            self.option_group_id.create_lot and self.product_id and self.lot_name
+        )
 
     def _process_ai_21(self, gs1_list):
         """Serial number identification"""
@@ -113,7 +122,14 @@ class WizStockBarcodesRead(models.AbstractModel):
             or self.product_uom_id.category_id
             == self.env.ref("uom.product_uom_categ_kgm")
         ):
-            self.product_qty = self._process_product_qty_gs1(float(self.barcode))
+            quantity = float(self.barcode)
+            rule = weight_ai.get("rule", self.env["barcode.rule"])
+            weight_uom = rule.associated_uom_id
+            if weight_uom and weight_uom.category_id == self.product_uom_id.category_id:
+                quantity = weight_uom._compute_quantity(
+                    quantity, self.product_uom_id, round=False
+                )
+            self.product_qty = self._process_product_qty_gs1(quantity)
         return True
 
     def _process_ai_15(self, gs1_list):
@@ -127,6 +143,11 @@ class WizStockBarcodesRead(models.AbstractModel):
     def _hook_process_gs1_value(self, gs1_item):
         """Hook to be extended by other modules"""
         return gs1_item["value"]
+
+    def _hook_gs1_item_changed(self, gs1_list):
+        """The barcode has read another product or lot than the previous reading.
+        To be extended by other modules to drop the values of the previous reading.
+        """
 
     @staticmethod
     def _is_lot_ai_in_barcode(gs1_list):
@@ -155,7 +176,10 @@ class WizStockBarcodesRead(models.AbstractModel):
         if gs1_list is None:
             return super().process_barcode(barcode)
         warning_msg_list = []
+        failed = False
         self.message = False
+        previous_product = self.product_id
+        previous_lot = self.lot_id.name or self.lot_name
         # Empty previous packaging wnen barcode contains 30, 37, 310, 330, etc.
         if next(filter(lambda f: f["ai"][0] == "3", gs1_list), False):
             self.packaging_id = False
@@ -166,6 +190,7 @@ class WizStockBarcodesRead(models.AbstractModel):
             if process_ai:
                 res = process_ai(gs1_list=gs1_list)
                 if not res:
+                    failed = True
                     warning_msg_list.append(
                         self.message
                         or _(
@@ -177,6 +202,17 @@ class WizStockBarcodesRead(models.AbstractModel):
                     self.message = False
             else:
                 warning_msg_list.append(_("AI GS1 (%(ai)s) Not implemented", ai=ai))
+        if failed:
+            # A partial reading could be confirmed on the product of the previous one
+            self.product_id = False
+            self.packaging_id = False
+            self.action_clean_lot()
+            self.product_qty = 0.0
+            self.packaging_qty = 0.0
+        if (previous_product and previous_product != self.product_id) or (
+            previous_lot and previous_lot != (self.lot_id.name or self.lot_name)
+        ):
+            self._hook_gs1_item_changed(gs1_list)
         if warning_msg_list:
             self.barcode = False
             self._set_messagge_info("info", " ".join(warning_msg_list))
@@ -184,6 +220,9 @@ class WizStockBarcodesRead(models.AbstractModel):
                 self.display_notification(
                     warning_msg, message_type="danger", title="GS-1 code"
                 )
+        if failed:
+            self.play_sounds(False)
+            return False
         if not self.with_context(
             skip_display_notification=True
         ).check_option_required():

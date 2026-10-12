@@ -118,6 +118,9 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
     def test_wizard_scan_gs1_package(self):
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01)
         self.assertEqual(self.wiz_scan.packaging_id, self.packaging_gs1)
+        # The lot of a product without tracking is ignored
+        self.assertEqual(self.wiz_scan.product_id.tracking, "none")
+        self.assertFalse(self.wiz_scan.lot_name)
         # Scan no exist packaging
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_01_not_found)
         self.assertIn(
@@ -125,7 +128,6 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
             "(Barcode not found with this screen values)",
             self.wiz_scan.message,
         )
-        self._assert_barcode_notification(message="(10)AB-123 Not found")
 
     def test_wizard_scan_gs1_package_units(self):
         self.packaging_gs1.product_id = self.product_tracking_gs1
@@ -159,6 +161,93 @@ class TestStockBarcodesGS1(TestStockBarcodes, MailCommon):
         # Scan non exists product
         self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02_not_found)
         self._assert_barcode_notification(message="(02)28501110080433 Not found")
+
+    def test_unknown_product_does_not_count_previous_product(self):
+        self.wiz_scan = self._gs1_inventory_wizard(manual_confirm=False)
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02)
+        quants = self.env["stock.quant"].search(
+            [("product_id", "=", self.product_wo_tracking_gs1.id)]
+        )
+        quantities = quants.mapped("inventory_quantity")
+        self.assertEqual(sum(quantities), 1)
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02_not_found)
+        self.assertFalse(self.wiz_scan.product_id)
+        self.assertFalse(self.wiz_scan.lot_id)
+        self.assertEqual(quants.mapped("inventory_quantity"), quantities)
+
+    def _gs1_inventory_wizard(self, manual_confirm=True):
+        options = self.env["stock.barcodes.option.group"].create(
+            {
+                "name": "GS1 inventory regression",
+                "is_manual_confirm": manual_confirm,
+                "create_lot": True,
+                "option_ids": [
+                    Command.create(
+                        {
+                            "name": field,
+                            "field_name": field,
+                            "step": 1,
+                            "required": field != "lot_id",
+                            "to_scan": True,
+                        }
+                    )
+                    for field in ("location_id", "product_id", "lot_id")
+                ],
+            }
+        )
+        return self.env["wiz.stock.barcodes.read.inventory"].create(
+            {"location_id": self.location_1.id, "option_group_id": options.id}
+        )
+
+    def test_weight_converts_kilograms_to_grams(self):
+        self.wiz_scan = self._gs1_inventory_wizard()
+        grams = self.env.ref("uom.product_uom_gram")
+        self.product_wo_tracking_gs1.write({"uom_id": grams.id, "uom_po_id": grams.id})
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02 + "3103002500")
+        self.assertEqual(self.wiz_scan.product_qty, 2500)
+        self.wiz_scan.action_confirm()
+        quants = self.env["stock.quant"].search(
+            [
+                ("product_id", "=", self.product_wo_tracking_gs1.id),
+                ("location_id", "=", self.location_1.id),
+            ]
+        )
+        self.assertEqual(sum(quants.mapped("inventory_quantity")), 2500)
+
+    def test_gross_weight_converts_to_grams(self):
+        self.env.ref("barcodes_gs1_nomenclature.barcode_rule_gs1_310y").copy(
+            {"name": "Gross weight", "pattern": r"(330[0-5])(\d{6})"}
+        )
+        grams = self.env.ref("uom.product_uom_gram")
+        self.product_wo_tracking_gs1.write({"uom_id": grams.id, "uom_po_id": grams.id})
+        self.wiz_scan.manual_entry = True
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02 + "3303002500")
+        self.assertEqual(self.wiz_scan.product_qty, 2500)
+
+    def test_new_lot_replaces_previous_lot(self):
+        self.wiz_scan = self._gs1_inventory_wizard()
+        self.product_wo_tracking_gs1.tracking = "lot"
+        lot = self.StockProductionLot.create(
+            {
+                "name": "OLD-LOT",
+                "product_id": self.product_wo_tracking_gs1.id,
+                "company_id": self.company.id,
+            }
+        )
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02 + "10OLD-LOT")
+        self.assertEqual(self.wiz_scan.lot_id, lot)
+        self.action_barcode_scanned(self.wiz_scan, self.gs1_barcode_02 + "10NEW-LOT")
+        self.assertFalse(self.wiz_scan.lot_id)
+        self.assertEqual(self.wiz_scan.lot_name, "NEW-LOT")
+        self.wiz_scan.action_confirm()
+        self.assertTrue(
+            self.StockProductionLot.search(
+                [
+                    ("product_id", "=", self.product_wo_tracking_gs1.id),
+                    ("name", "=", "NEW-LOT"),
+                ]
+            )
+        )
 
     def test_wizard_scan_gs1_product_as_packaging(self):
         self.wiz_scan.location_id = self.location_1.id
