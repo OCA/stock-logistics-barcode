@@ -12,7 +12,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     @api.depends(
         "line_ids",
         "line_ids.qty_picked",
-        "line_ids.product_uom_qty",
+        "line_ids.quantity_product_uom",
+        "review_picking_batch",
         "line_ids.barcode_scan_state",
         "line_ids.barcodes_is_reviewed",
         "qty_done",
@@ -31,3 +32,5 @@ class WizStockBarcodesReadTodo(models.TransientModel):
 
     def action_confirm_review(self):
         self.line_ids.barcodes_is_reviewed = True
+        # Persistent move-line changes do not invalidate transient computes.
+        self.filtered("review_picking_batch").state = "done"

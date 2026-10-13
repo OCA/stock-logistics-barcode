@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 13.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-07-08 21:22+0000\n"
+"POT-Creation-Date: 2026-09-14 15:44+0000\n"
 "PO-Revision-Date: 2024-04-02 12:37+0200\n"
 "Last-Translator: Carlos Dauden <carlos.dauden@tecnativa.com>\n"
 "Language-Team: \n"
@@ -68,6 +68,12 @@ msgstr "Solicitar revisión"
 #: model:ir.model.fields,field_description:stock_barcodes_picking_batch_revision.field_wiz_stock_barcodes_read_todo__review_picking_batch
 msgid "Review Picking Batch"
 msgstr "Revisar agrupación de albaranes"
+
+#. module: stock_barcodes_picking_batch_revision
+#. odoo-python
+#: code:addons/stock_barcodes_picking_batch_revision/wizard/stock_barcodes_read_picking_batch.py:0
+msgid "Review all operations before validating the batch."
+msgstr "Revise todas las operaciones antes de validar la agrupación."
 
 #. module: stock_barcodes_picking_batch_revision
 #: model_terms:ir.ui.view,arch_db:stock_barcodes_picking_batch_revision.view_stock_barcodes_read_picking_batch_form

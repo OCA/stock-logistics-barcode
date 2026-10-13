@@ -74,7 +74,7 @@
                             d-flex justify-content-center align-items-center fs-2"
                         invisible="picking_batch_state != 'in_progress'"
                         confirm="Are you sure to validate the picking ?"
-                        data-hotkey="'shift+v'"
+                        data-hotkey="shift+v"
                     >
                         <span class="d-lg-block">Validate</span>
                     </button>
