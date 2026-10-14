@@ -1,0 +1,4 @@
+- Adrià Gil Sorribes \<adria.gil@forgeflow.com\>
+- Dhara Solanki \<dhara.solanki@initos.com\>
+- [NuoBiT](https://www.nuobit.com):
+  - Deniz Gallo <dgallo@nuobit.com>
