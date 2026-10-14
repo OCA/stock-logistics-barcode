@@ -1,0 +1,172 @@
+# Copyright 2108-2019 Sergio Teruel <sergio.teruel@tecnativa.com>
+# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl).
+
+from odoo.exceptions import ValidationError
+from odoo.tests import tagged
+
+from odoo.addons.stock_barcodes_gs1.tests.test_stock_barcodes_gs1 import (
+    TestStockBarcodesGS1,
+)
+
+
+@tagged("post_install", "-at_install")
+class TestStockBarcodesGS1SecondaryUnit(TestStockBarcodesGS1):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.secondary_unit = cls.env["product.secondary.unit"].create(
+            {
+                "product_tmpl_id": cls.product_tracking.product_tmpl_id.id,
+                "name": "box 8",
+                "uom_id": cls.product_tracking.uom_id.id,
+                "factor": 8.0,
+                "barcode": "08412598033094",
+            }
+        )
+
+    def test_wizard_scan_gs1_secondary_unit(self):
+        # Scanning barcode with package data
+        self.action_barcode_scanned(self.wiz_scan, "0108412598033094")
+        self.assertEqual(self.wiz_scan.secondary_uom_id, self.secondary_unit)
+        self.wiz_scan.secondary_uom_qty = 5.0
+        self.wiz_scan.onchange_secondary_uom_qty()
+        self.assertEqual(self.wiz_scan.product_qty, 40.0)
+
+    def test_wizard_scan_gs1_secondary_unit_ai37(self):
+        """AI 02 (contained trade item GTIN) matching a secondary unit must
+        route AI 37 (count of items) to secondary_uom_qty, not product_qty -
+        e.g. counting pieces of fish sold by weight: the count on the label
+        must land on the piece count, not get treated as a weight/qty.
+        """
+        secondary_unit_ai02 = self.env["product.secondary.unit"].create(
+            {
+                "product_tmpl_id": self.product_tracking.product_tmpl_id.id,
+                "name": "box AI02",
+                "uom_id": self.product_tracking.uom_id.id,
+                "factor": 8.0,
+                "barcode": "18412598033091",
+            }
+        )
+        self.action_barcode_scanned(
+            self.wiz_scan, "0218412598033091" + self.gs1_separator + "373"
+        )
+        self.assertEqual(self.wiz_scan.secondary_uom_id, secondary_unit_ai02)
+        self.assertEqual(self.wiz_scan.secondary_uom_qty, 3.0)
+        self.assertEqual(self.wiz_scan.product_qty, 24.0)
+
+    def test_wizard_scan_gs1_secondary_unit_ai30(self):
+        """AI 30 (variable count of items) shares the same routing hook as
+        AI 37 in the base module (_set_gs1_product_qty) - must be covered
+        the same way, not just AI 37.
+        """
+        secondary_unit_ai02 = self.env["product.secondary.unit"].create(
+            {
+                "product_tmpl_id": self.product_tracking.product_tmpl_id.id,
+                "name": "box AI02",
+                "uom_id": self.product_tracking.uom_id.id,
+                "factor": 8.0,
+                "barcode": "18412598033091",
+            }
+        )
+        self.action_barcode_scanned(
+            self.wiz_scan, "0218412598033091" + self.gs1_separator + "303"
+        )
+        self.assertEqual(self.wiz_scan.secondary_uom_id, secondary_unit_ai02)
+        self.assertEqual(self.wiz_scan.secondary_uom_qty, 3.0)
+        self.assertEqual(self.wiz_scan.product_qty, 24.0)
+
+    def test_secondary_unit_barcode_from_packaging_indicator(self):
+        # The GTIN-14 is the indicator, the item GTIN-13 without its check
+        # digit and a new check digit. Without indicator the barcode is manual.
+        self.product_tracking.barcode = "8412598033094"
+        self.secondary_unit.packaging_indicator = "1"
+        self.assertEqual(self.secondary_unit.barcode, "18412598033091")
+        self.product_tracking.barcode = "40170725"
+        self.assertEqual(self.secondary_unit.barcode, "10000040170722")
+        self.secondary_unit.packaging_indicator = False
+        self.secondary_unit.barcode = "08412598033094"
+        self.product_tracking.barcode = "8412598033094"
+        self.assertEqual(self.secondary_unit.barcode, "08412598033094")
+
+    def test_secondary_unit_barcode_unique(self):
+        # Two active secondary units with the same barcode cannot be told
+        # apart when scanning, so the second one is rejected
+        self.product_tracking.barcode = "8412598033094"
+        self.secondary_unit.packaging_indicator = "1"
+        values = {
+            "product_tmpl_id": self.product_tracking.product_tmpl_id.id,
+            "name": "box 14",
+            "uom_id": self.product_tracking.uom_id.id,
+            "factor": 14.0,
+        }
+        with self.assertRaises(ValidationError):
+            self.env["product.secondary.unit"].create(
+                dict(values, packaging_indicator="1")
+            )
+        box_14 = self.env["product.secondary.unit"].create(
+            dict(values, packaging_indicator="2")
+        )
+        with self.assertRaises(ValidationError):
+            box_14.packaging_indicator = "1"
+        with self.assertRaises(ValidationError):
+            box_14.barcode = "18412598033091"
+        # An archived unit may keep the barcode, but not be restored with it
+        self.secondary_unit.active = False
+        box_14.packaging_indicator = "1"
+        self.assertEqual(box_14.barcode, "18412598033091")
+        with self.assertRaises(ValidationError):
+            self.secondary_unit.active = True
+
+    def test_wizard_scan_gs1_secondary_unit_variant(self):
+        # A secondary unit of a multi-variant template identifies its own
+        # variant, never the first variant of the template
+        attribute = self.env["product.attribute"].create(
+            {
+                "name": "Caliber",
+                "value_ids": [(0, 0, {"name": "Small"}), (0, 0, {"name": "Big"})],
+            }
+        )
+        template = self.env["product.template"].create(
+            {
+                "name": "Product with variants",
+                "is_storable": True,
+                "attribute_line_ids": [
+                    (
+                        0,
+                        0,
+                        {
+                            "attribute_id": attribute.id,
+                            "value_ids": [(6, 0, attribute.value_ids.ids)],
+                        },
+                    )
+                ],
+            }
+        )
+        variant_big = template.product_variant_ids[-1]
+        secondary_unit_values = {
+            "product_tmpl_id": template.id,
+            "uom_id": template.uom_id.id,
+            "factor": 5.0,
+        }
+        secondary_unit_big = self.env["product.secondary.unit"].create(
+            dict(
+                secondary_unit_values,
+                name="box big",
+                product_id=variant_big.id,
+                barcode="18412598033190",
+            )
+        )
+        self.action_barcode_scanned(self.wiz_scan, "0218412598033190")
+        self.assertEqual(self.wiz_scan.secondary_uom_id, secondary_unit_big)
+        self.assertEqual(self.wiz_scan.product_id, variant_big)
+        # Without variant on the unit, the variant already read is kept
+        secondary_unit_template = self.env["product.secondary.unit"].create(
+            dict(
+                secondary_unit_values,
+                name="box any",
+                barcode="18412598033299",
+            )
+        )
+        self.action_barcode_scanned(self.wiz_scan, "0218412598033299")
+        self.assertEqual(self.wiz_scan.secondary_uom_id, secondary_unit_template)
+        self.assertEqual(self.wiz_scan.product_id, variant_big)
