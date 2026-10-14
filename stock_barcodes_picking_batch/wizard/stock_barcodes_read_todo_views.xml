@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_pending_moves_kanban" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.todo</field>
+        <field
+            name="inherit_id"
+            ref="stock_barcodes.view_stock_barcodes_pending_moves_kanban"
+        />
+        <field name="arch" type="xml">
+            <field name="picking_code" position="after">
+                <field name="picking_names" />
+            </field>
+            <xpath
+                expr="//field[hasclass('o_stock_barcodes_pending_operation_product')]"
+                position="after"
+            >
+                <div
+                    t-if="record.picking_names.raw_value"
+                    class="o_stock_barcodes_pending_operation_meta"
+                >
+                    <span class="fa fa-file-text-o me-1" title="Picking" />
+                    <field name="picking_names" />
+                </div>
+            </xpath>
+        </field>
+    </record>
+    <record id="view_stock_barcodes_todo_kanban" model="ir.ui.view">
+        <field name="model">wiz.stock.barcodes.read.todo</field>
+        <field name="inherit_id" ref="stock_barcodes.view_stock_barcodes_todo_kanban" />
+        <field name="arch" type="xml">
+            <field name="picking_code" position="after">
+                <field name="picking_names" />
+            </field>
+            <xpath
+                expr="//templates//field[@name='product_id']/../../.."
+                position="after"
+            >
+                <div t-if="record.picking_names.raw_value" class="row">
+                    <div class="col">
+                        <span class="fa fa-file-text-o me-1" title="Picking" />
+                        <field name="picking_names" />
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+</odoo>
