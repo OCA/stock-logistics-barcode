@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
-# Copyright 2021 Sunflower IT <https://sunflowerweb.nl>
-# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl.html).
+# Copyright 2021 Therp BV <https://therp.nl>
+# License AGPL-3.0 or later (https://www.gnu.org/licenses/agpl).
 
 from odoo import fields, models
 
 
 class BarcodesMultilineDemoWizard(models.TransientModel):
-    _name = 'barcodes_multiline.demo_wizard'
-    _inherit = 'barcodes.barcode_events_mixin'
+    _name = "barcodes_multiline.demo_wizard"
+    _inherit = "barcodes.barcode_events_mixin"
+    _description = "Barcodes Multiline Demo Wizard"
 
     text = fields.Text()
 
