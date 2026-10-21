@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
     <record id="action_sale_line_barcode" model="ir.actions.act_window">
         <field name="name">Input Product</field>
