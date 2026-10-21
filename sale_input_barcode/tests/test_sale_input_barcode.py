@@ -15,6 +15,15 @@ class TestSaleInputBarcode(SaleCommon):
         cls.barcode = "5156000000030"
         cls.product.barcode = cls.barcode
         cls.order = cls._create_so(user_id=cls._test_user.id, order_line=[])
+        cls.other_company = cls._create_company(name="Other Company")
+        cls._create_product(
+            name="Other Company Product",
+            barcode="5156000000031",
+            company_id=cls.other_company.id,
+        )
+        cls._create_product(
+            name="Not Saleable Product", barcode="5156000000032", sale_ok=False
+        )
         cls.pricelist = cls._create_pricelist(
             item_ids=[
                 Command.create(
@@ -64,6 +73,33 @@ class TestSaleInputBarcode(SaleCommon):
         line = self.order.order_line
         self.assertEqual(len(line), 1)
         self.assertEqual(line.product_uom_qty, 2)
+
+    def test_update_existing_line_same_uom_only(self):
+        self._set_update_existing_line(True)
+        self.order.order_line = [
+            Command.create(
+                {"product_id": self.product.id, "product_uom_id": self.uom_pack_6.id}
+            )
+        ]
+
+        self.order.process_barcode(self.barcode)
+
+        self.assertEqual(len(self.order.order_line), 2)
+        unit_line = self.order.order_line.filtered(
+            lambda line: line.product_uom_id == self.uom_unit
+        )
+        self.assertEqual(unit_line.product_uom_qty, 1)
+
+    def test_product_of_other_company(self):
+        order = self.order.with_context(
+            allowed_company_ids=(self.order.company_id | self.other_company).ids
+        )
+        with self.assertRaises(UserError):
+            order.process_barcode("5156000000031")
+
+    def test_product_not_saleable(self):
+        with self.assertRaises(UserError):
+            self.order.process_barcode("5156000000032")
 
     def test_on_barcode_scanned(self):
         with Form(self.order) as order_form:

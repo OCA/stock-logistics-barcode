@@ -1,11 +1,15 @@
 # copyright 2022 David BEAL @ Akretion
 
 from odoo import Command, api, fields, models
+from odoo.fields import Domain
 
 
 class SaleOrderLine(models.Model):
     _name = "sale.order.line"
     _inherit = ("sale.order.line", "product.barcode.line.mixin")
+
+    def _get_barcode_product_domain(self):
+        return super()._get_barcode_product_domain() & Domain("sale_ok", "=", True)
 
 
 class SaleOrder(models.Model):
@@ -35,7 +39,10 @@ class SaleOrder(models.Model):
         )
 
         product_order_line = self.order_line.filtered(
-            lambda x: x.product_id.id == line_vals.get("product_id")
+            lambda x: (
+                x.product_id.id == line_vals.get("product_id")
+                and x.product_uom_id.id == line_vals.get("product_uom_id")
+            )
         )[:1]
         sale_barcode_update_existing_line = (
             self.env["ir.config_parameter"]
