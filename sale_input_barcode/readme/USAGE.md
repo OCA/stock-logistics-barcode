@@ -1,11 +1,5 @@
 1. Navigate to a Sales Order.
-2. Press the button in the header with the QR Code icon.
-3. Use a barcode scanner to scan a barcode.
-
-Alternatively:
-1. Navigate to a Sales Order.
-2. Activate "Edit Mode".
-3. Use a barcode scanner to scan a barcode.
+2. Use a barcode scanner to scan a barcode.
 
 If a product is found using the barcode, a new line with that product
 will be added to the Sales Order.

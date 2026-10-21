@@ -5,17 +5,14 @@
         <field name="model">res.config.settings</field>
         <field name="inherit_id" ref="sale.res_config_settings_view_form" />
         <field name="arch" type="xml">
-            <xpath expr="//setting[@id='no_edit_order']" position="inside">
-                <div class="o_setting_left_pane">
+            <setting id="no_edit_order" position="after">
+                <setting
+                    id="sale_barcode_update_existing_line"
+                    help="Instead of creating a new sale order line it increases the quantity for each barcode scan"
+                >
                     <field name="sale_barcode_update_existing_line" />
-                </div>
-                <div class="o_setting_right_pane">
-                    <label for="sale_barcode_update_existing_line" />
-                    <div class="text-muted">
-                        Instead of creating a new sale order line it increases the quantity for each barcode scan
-                    </div>
-                </div>
-            </xpath>
+                </setting>
+            </setting>
         </field>
     </record>
 </odoo>

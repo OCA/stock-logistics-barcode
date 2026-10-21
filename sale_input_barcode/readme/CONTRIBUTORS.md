@@ -16,3 +16,7 @@
   > - Dessan Hemrayev \<dessanhemrayev@mail.com\>
 
 - Tuan Hoang \<hng.atuan@gmail.com\>
+
+- 360 ERP \<https://www.360erp.com\>:
+
+  > - Diogo Catarino

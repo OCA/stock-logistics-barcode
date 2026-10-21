@@ -1,81 +1,78 @@
 # © 2022 David BEAL @ Akretion
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.exceptions import UserError
-from odoo.tests import TransactionCase
+from odoo.tests import Form
+
+from odoo.addons.sale.tests.common import SaleCommon
 
 
-class Test(TransactionCase):
+class TestSaleInputBarcode(SaleCommon):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        cls.barcode = "5156000000030"
+        cls.product.barcode = cls.barcode
+        cls.order = cls._create_so(user_id=cls._test_user.id, order_line=[])
+        cls.pricelist = cls._create_pricelist(
+            item_ids=[
+                Command.create(
+                    {
+                        "applied_on": "0_product_variant",
+                        "product_id": cls.product.id,
+                        "compute_price": "fixed",
+                        "fixed_price": 15.0,
+                    }
+                )
+            ]
+        )
+
+    def _set_update_existing_line(self, value):
+        self.env["ir.config_parameter"].sudo().set_bool(
+            "sale_input_barcode.sale_barcode_update_existing_line", value
+        )
+
     def test_input_line(self):
-        barcode = "5156000000030"
-        product = self.env["product.product"].create(
-            {
-                "name": "barcode test",
-                "barcode": barcode,
-            }
-        )
-        sale = self.env["sale.order"].create(
-            {
-                "partner_id": self.env["res.partner"]
-                .create({"name": "Test Customer"})
-                .id,
-            }
-        )
+        self.order.process_barcode(self.barcode)
 
-        sale.action_sale_line_barcode(barcode)
+        line = self.order.order_line
+        self.assertEqual(line.product_id, self.product)
+        self.assertEqual(line.product_uom_qty, 1)
+        self.assertEqual(line.product_uom_id, self.product.uom_id)
+        self.assertEqual(line.price_unit, 20.0)
 
-        self.assertIn(product, sale.order_line.mapped("product_id"))
+    def test_input_line_pricelist_price(self):
+        self.order.pricelist_id = self.pricelist
+
+        self.order.process_barcode(self.barcode)
+
+        self.assertEqual(self.order.order_line.price_unit, 15.0)
+
+    def test_input_line_new_line(self):
+        self.order.process_barcode(self.barcode)
+        self.order.process_barcode(self.barcode)
+
+        self.assertEqual(len(self.order.order_line), 2)
 
     def test_input_line_update_existing_line(self):
-        barcode = "5156000000031"
-        product = self.env["product.product"].create(
-            {
-                "name": "barcode test update",
-                "barcode": barcode,
-            }
-        )
-        sale = self.env["sale.order"].create(
-            {
-                "partner_id": self.env["res.partner"]
-                .create({"name": "Test Customer"})
-                .id,
-            }
-        )
+        self._set_update_existing_line(True)
 
-        self.env["ir.config_parameter"].sudo().set_param(
-            "sale_input_barcode.sale_barcode_update_existing_line",
-            "True",
-        )
+        self.order.process_barcode(self.barcode)
+        self.order.process_barcode(self.barcode)
 
-        sale.action_sale_line_barcode(barcode)
-        sale.action_sale_line_barcode(barcode)
-
-        line = sale.order_line.filtered(lambda line: line.product_id == product)
+        line = self.order.order_line
         self.assertEqual(len(line), 1)
         self.assertEqual(line.product_uom_qty, 2)
 
     def test_on_barcode_scanned(self):
-        barcode = "5156000000032"
-        product = self.env["product.product"].create(
-            {
-                "name": "barcode test scanned",
-                "barcode": barcode,
-            }
-        )
-        sale = self.env["sale.order"].create(
-            {
-                "partner_id": self.env["res.partner"]
-                .create({"name": "Test Customer"})
-                .id,
-            }
-        )
+        with Form(self.order) as order_form:
+            order_form["_barcode_scanned"] = self.barcode
+            order_form["_barcode_scanned"] = self.barcode
 
-        sale.on_barcode_scanned(barcode)
-
-        self.assertIn(product, sale.order_line.mapped("product_id"))
+        self.assertEqual(len(self.order.order_line), 2)
+        self.assertEqual(self.order.order_line.product_id, self.product)
 
     def test_no_product_found(self):
-        sale_line = self.env["sale.order.line"]
-
         with self.assertRaises(UserError):
-            sale_line._process_barcode_on_product_line("0000000000000")
+            self.order.process_barcode("0000000000000")

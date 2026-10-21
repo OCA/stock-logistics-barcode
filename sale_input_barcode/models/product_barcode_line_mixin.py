@@ -1,6 +1,6 @@
 # copyright 2022 David BEAL @ Akretion
 
-from odoo import _, api, models
+from odoo import api, models
 from odoo.exceptions import UserError
 
 
@@ -26,19 +26,10 @@ class ProductLineMixin(models.AbstractModel):
         Builds a dictionary to use in the `create` function
         Hook for customizations
         """
-        vals = {
+        return {
             "product_id": product.id,
             "product_uom_qty": 1,
-            "name": product.name,
-            "price_unit": product.list_price,
         }
-        if "order_id" in self._fields:
-            order_id = self.env.context.get("order_id")
-            if isinstance(order_id, models.NewId):
-                vals["order_id"] = order_id.origin
-            else:
-                vals["order_id"] = order_id
-        return vals
 
     def _process_barcode_on_product_line(self, raw_barcode):
         barcode_str, barcode_dict = self._decode_barcode(raw_barcode)
@@ -46,13 +37,15 @@ class ProductLineMixin(models.AbstractModel):
         if product:
             if len(product) > 1:
                 raise UserError(
-                    _(
+                    self.env._(
                         "These products %s share the same barcode.\n"
-                        "Impossible to guess which one to choose."
-                        % [(x.display_name for x in product)]
+                        "Impossible to guess which one to choose.",
+                        ", ".join(product.mapped("display_name")),
                     )
                 )
         else:
-            raise UserError(_("No product found matching this barcode %s", barcode_str))
+            raise UserError(
+                self.env._("No product found matching this barcode %s", barcode_str)
+            )
 
         return self._populate_vals(product, barcode_dict)
