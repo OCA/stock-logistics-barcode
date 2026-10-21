@@ -109,6 +109,19 @@ class TestSaleInputBarcode(SaleCommon):
         self.assertEqual(len(self.order.order_line), 2)
         self.assertEqual(self.order.order_line.product_id, self.product)
 
+    def test_quotation_only(self):
+        self.order._action_cancel()
+
+        with self.assertRaises(UserError):
+            self.order.process_barcode(self.barcode)
+        self.assertFalse(self.order.order_line)
+
+    def test_on_barcode_scanned_warning(self):
+        result = self.order.on_barcode_scanned("0000000000000")
+
+        self.assertEqual(result["warning"]["type"], "notification")
+        self.assertFalse(self.order.order_line)
+
     def test_no_product_found(self):
         with self.assertRaises(UserError):
             self.order.process_barcode("0000000000000")

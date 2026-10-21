@@ -1,6 +1,7 @@
 # copyright 2022 David BEAL @ Akretion
 
 from odoo import Command, api, fields, models
+from odoo.exceptions import UserError
 from odoo.fields import Domain
 
 
@@ -28,9 +29,17 @@ class SaleOrder(models.Model):
             return self.on_barcode_scanned(barcode)
 
     def on_barcode_scanned(self, barcode):
-        self.process_barcode(barcode)
+        try:
+            self.process_barcode(barcode)
+        except UserError as error:
+            # A notification does not interrupt the next scans like a dialog
+            return {"warning": {"message": str(error), "type": "notification"}}
 
     def process_barcode(self, barcode):
+        if self.state not in ("draft", "sent"):
+            raise UserError(
+                self.env._("Products can only be added by barcode to quotations.")
+            )
         barcode = barcode.rstrip()
         line_vals = (
             self.env["sale.order.line"]

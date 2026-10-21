@@ -47,7 +47,7 @@ No specific configuration necessary
 Usage
 =====
 
-1. Navigate to a Sales Order.
+1. Navigate to a quotation (products can only be added to quotations).
 2. Use a barcode scanner to scan a barcode.
 
 If a product is found using the barcode, a new line with that product
