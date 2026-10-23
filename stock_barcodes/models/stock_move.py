@@ -17,6 +17,19 @@ class StockMove(models.Model):
         default="pending",
     )
 
+    def _barcode_action_assign(self):
+        """Reserve again moves whose scanned lines have been removed.
+
+        _action_assign skips picked moves, and a move keeps its stored picked
+        flag when it has no move line left, so a move without any picked line
+        is unpicked first.
+        """
+        self.filtered(
+            lambda move: move.picked
+            and not any(line.picked for line in move.move_line_ids)
+        ).picked = False
+        self._action_assign()
+
     def _action_done(self, cancel_backorder=False):
         moves_cancel_backorder = self.browse()
         if not cancel_backorder:

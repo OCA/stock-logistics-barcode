@@ -134,7 +134,7 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
                     for field_name in (
                         "location_id",
                         "product_id",
-                        "packaging_id",
+                        "packaging_uom_id",
                         "lot_id",
                     )
                 ],
@@ -161,11 +161,14 @@ class TestStockBarcodesReadInventory(TestCommonStockBarcodes):
 
     def test_accumulate_read_quantity_packaging(self):
         wiz = self._create_scan_wizard()
-        packaging = self.product_wo_tracking.packaging_ids[:1]
+        packaging = self.packaging_tracking
         self.action_barcode_scanned(wiz, packaging.barcode)
         self.action_barcode_scanned(wiz, packaging.barcode)
         self.assertEqual(wiz.packaging_qty, 2.0)
-        self.assertEqual(wiz.product_qty, 2 * packaging.qty)
+        self.assertEqual(
+            wiz.product_qty,
+            packaging.uom_id._compute_quantity(2, packaging.product_id.uom_id),
+        )
 
     def test_accumulate_read_quantity_other_scans(self):
         # Scanning a location does not read a unit, and the lot scan that

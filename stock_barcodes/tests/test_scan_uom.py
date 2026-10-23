@@ -61,7 +61,6 @@ class ScanUomCommon(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": product.display_name,
                             "product_id": product.id,
                             "product_uom": uom.id,
                             "product_uom_qty": demand,
@@ -87,14 +86,21 @@ class TestScanUom(ScanUomCommon):
                 "barcode": "PRODUCT-DOZEN",
                 "is_storable": True,
                 "uom_id": self.dozen.id,
-                "uom_po_id": self.dozen.id,
             }
         )
-        packaging = self.ProductPackaging.create(
+        # In 19.0 a packaging is a unit of measure with a product barcode
+        packaging = self.ProductUom.create(
             {
-                "name": "Two dozen",
                 "product_id": product.id,
-                "qty": 2,
+                "uom_id": self.env["uom.uom"]
+                .create(
+                    {
+                        "name": "Two dozen",
+                        "relative_uom_id": self.dozen.id,
+                        "relative_factor": 2,
+                    }
+                )
+                .id,
                 "barcode": "PACKAGING-TWO-DOZEN",
             }
         )
@@ -102,7 +108,7 @@ class TestScanUom(ScanUomCommon):
             Command.create(
                 {
                     "name": "Packaging",
-                    "field_name": "packaging_id",
+                    "field_name": "packaging_uom_id",
                     "step": 1,
                     "sequence": 10,
                     "to_scan": True,

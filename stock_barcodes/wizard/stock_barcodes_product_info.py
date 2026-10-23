@@ -19,17 +19,11 @@ class WizStockBarcodesProductInfo(models.TransientModel):
     product_id = fields.Many2one(comodel_name="product.product", readonly=True)
     show_product_info = fields.Boolean(default=True)
     product_uom_id = fields.Many2one(related="product_id.uom_id")
-    qty_available = fields.Float(
-        string="On Hand", digits="Product Unit of Measure", readonly=True
-    )
-    incoming_qty = fields.Float(
-        string="Incoming", digits="Product Unit of Measure", readonly=True
-    )
-    outgoing_qty = fields.Float(
-        string="Outgoing", digits="Product Unit of Measure", readonly=True
-    )
+    qty_available = fields.Float(string="On Hand", digits="Product Unit", readonly=True)
+    incoming_qty = fields.Float(string="Incoming", digits="Product Unit", readonly=True)
+    outgoing_qty = fields.Float(string="Outgoing", digits="Product Unit", readonly=True)
     virtual_available = fields.Float(
-        string="Forecasted", digits="Product Unit of Measure", readonly=True
+        string="Forecasted", digits="Product Unit", readonly=True
     )
     line_ids = fields.One2many(
         comodel_name="wiz.stock.barcodes.product.info.location",
@@ -54,7 +48,7 @@ class WizStockBarcodesProductInfoLocation(models.TransientModel):
     )
     sequence = fields.Integer()
     location_id = fields.Many2one(comodel_name="stock.location", readonly=True)
-    quantity = fields.Float(digits="Product Unit of Measure", readonly=True)
+    quantity = fields.Float(digits="Product Unit", readonly=True)
     product_uom_id = fields.Many2one(related="wiz_id.product_uom_id")
 
     def action_select(self):

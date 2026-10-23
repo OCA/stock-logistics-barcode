@@ -20,9 +20,9 @@ class StockPicking(models.Model):
             "manual_entry": option_group.manual_entry,
             "picking_mode": "picking",
         }
-        if self.picking_type_id.code == "outgoing":
+        if self.picking_type_code == "outgoing":
             vals["location_dest_id"] = self.location_dest_id.id
-        elif self.picking_type_id.code == "incoming":
+        elif self.picking_type_code == "incoming":
             vals["location_id"] = self.location_id.id
 
         if option_group.get_option_value("location_id", "filled_default"):
@@ -32,6 +32,7 @@ class StockPicking(models.Model):
         return vals
 
     def action_barcode_scan(self, option_group=False, wiz=False):
+        self.ensure_one()
         option_group = (
             option_group
             or self.picking_type_id.barcode_option_group_id

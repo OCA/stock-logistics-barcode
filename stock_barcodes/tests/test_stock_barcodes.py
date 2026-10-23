@@ -5,7 +5,6 @@ import base64
 import re
 from unittest.mock import call, patch
 
-from odoo import _
 from odoo.exceptions import ValidationError
 from odoo.tests.common import tagged
 from odoo.tools.safe_eval import safe_eval
@@ -37,21 +36,17 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         self.assertEqual(self.wiz_scan.product_qty, 0.0)
         self.wiz_scan.product_qty = 50.0
 
-    def test_wizard_scan_package(self):
+    def test_wizard_packaging_multiplies_qty(self):
         self.wiz_scan.location_id = self.location_1
         self.wiz_scan.action_show_step()
-        self.action_barcode_scanned(self.wiz_scan, "5420008510489")
-        self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
-        self.assertEqual(self.wiz_scan.product_qty, 5.0)
-        self.assertEqual(
-            self.wiz_scan.packaging_id, self.product_tracking.packaging_ids
-        )
+        self.assertEqual(self.packaging_uom_tracking.relative_factor, 5.0)
 
-        # Manual entry
         self.wiz_scan.manual_entry = True
         self.wiz_scan.action_clean_values()
-        self.action_barcode_scanned(self.wiz_scan, "5420008510489")
-        self.assertEqual(self.wiz_scan.packaging_qty, 1.0)
+        self.action_barcode_scanned(self.wiz_scan, self.product_tracking.barcode)
+        self.assertEqual(self.wiz_scan.product_id, self.product_tracking)
+
+        self.wiz_scan.packaging_uom_id = self.packaging_uom_tracking
         self.wiz_scan.packaging_qty = 3.0
         self.wiz_scan.onchange_packaging_qty()
         self.assertEqual(self.wiz_scan.product_qty, 15.0)
@@ -400,22 +395,99 @@ class TestStockBarcodes(TestCommonStockBarcodes):
         result = wiz_scan_user.process_barcode_result_package_id()
         self.assertTrue(result)
 
-    def test_process_barcode_packaging_id(self):
-        packing = self.wiz_scan.process_barcode_packaging_id()
-        self.assertFalse(packing)
-
-        packing_values = {
-            "name": "Test product packing",
-            "product_uom_id": self.env.ref("uom.product_uom_unit").id,
-            "product_id": self.env.ref("product.product_product_4").id,
-            "barcode": "8411822222568",
-        }
-        self.ProductPackaging.create(packing_values)
+    def test_process_barcode_packaging_uom_id(self):
+        self.assertFalse(self.wiz_scan.process_barcode_packaging_uom_id())
 
         wiz_scan_user = self.wiz_scan.with_user(self.user_test_packing)
-        self.wiz_scan.barcode = "8411822222568"
-        result = wiz_scan_user.process_barcode_packaging_id()
-        self.assertTrue(result)
+        wiz_scan_user.barcode = self.packaging_tracking.barcode
+        self.assertTrue(wiz_scan_user.process_barcode_packaging_uom_id())
+        self.assertEqual(wiz_scan_user.product_id, self.product_tracking)
+        self.assertEqual(wiz_scan_user.packaging_uom_id, self.packaging_uom_tracking)
+        self.assertEqual(wiz_scan_user.product_qty, 5.0)
+
+    def test_packaging_scan_switches_product(self):
+        self.wiz_scan.product_id = self.product_tracking
+        self.wiz_scan.lot_id = self.lot_1
+
+        self.assertTrue(
+            self.wiz_scan.action_packaging_scaned_post(self.packaging_tracking_serial)
+        )
+        self.assertEqual(self.wiz_scan.product_id, self.product_tracking_serial)
+        self.assertEqual(
+            self.wiz_scan.packaging_uom_id, self.packaging_uom_tracking_serial
+        )
+        self.assertFalse(self.wiz_scan.lot_id)
+        self.assertEqual(self.wiz_scan.product_qty, 5.0)
+
+    def test_create_packaging_barcode(self):
+        wizard = self.WizStockBarcodesNewPackaging.with_context(
+            active_model=self.wiz_scan._name, active_id=self.wiz_scan.id
+        ).create(
+            {
+                "product_id": self.product_tracking.id,
+                "barcode": "1234567890123",
+                "name": "Box 6 Units",
+                "quantity": 6.0,
+            }
+        )
+
+        action = wizard.confirm()
+        packaging = self.ProductUom.search([("barcode", "=", "1234567890123")], limit=1)
+        self.assertTrue(packaging)
+        self.assertEqual(packaging.product_id, self.product_tracking)
+        self.assertEqual(packaging.uom_id.relative_uom_id, self.product_tracking.uom_id)
+        self.assertEqual(packaging.uom_id.relative_factor, 6.0)
+        self.assertIn(packaging.uom_id, self.product_tracking.uom_ids)
+        self.assertEqual(self.wiz_scan.packaging_uom_id, packaging.uom_id)
+        self.assertEqual(action["res_id"], self.wiz_scan.id)
+
+    def test_create_packaging_barcode_reuses_uom_of_same_size(self):
+        # A new barcode for a known packaging size reuses its UoM instead of
+        # creating a duplicated one.
+        uom_count = self.env["uom.uom"].search_count([])
+        wizard = self.WizStockBarcodesNewPackaging.with_context(
+            active_model=self.wiz_scan._name, active_id=self.wiz_scan.id
+        ).create(
+            {
+                "product_id": self.product_wo_tracking.id,
+                "barcode": "1234567890456",
+                "name": "Another box of 10",
+                "quantity": 10.0,
+            }
+        )
+        wizard.confirm()
+        packaging = self.ProductUom.search([("barcode", "=", "1234567890456")])
+        self.assertEqual(packaging.uom_id, self.packaging_uom_wo_tracking)
+        self.assertEqual(self.env["uom.uom"].search_count([]), uom_count)
+        self.assertEqual(self.wiz_scan.packaging_uom_id, self.packaging_uom_wo_tracking)
+
+    def test_create_packaging_barcode_rejects_non_positive_qty(self):
+        wizard = self.WizStockBarcodesNewPackaging.with_context(
+            active_model=self.wiz_scan._name, active_id=self.wiz_scan.id
+        ).create(
+            {
+                "product_id": self.product_tracking.id,
+                "barcode": "1234567890999",
+                "name": "Invalid packaging",
+                "quantity": 0.0,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            wizard.confirm()
+
+    def test_create_packaging_barcode_rejects_other_product(self):
+        wizard = self.WizStockBarcodesNewPackaging.with_context(
+            active_model=self.wiz_scan._name, active_id=self.wiz_scan.id
+        ).create(
+            {
+                "product_id": self.product_tracking_serial.id,
+                "barcode": self.packaging_tracking.barcode,
+                "name": "Conflicting packaging",
+                "quantity": 2.0,
+            }
+        )
+        with self.assertRaises(ValidationError):
+            wizard.confirm()
 
     def test_scanned_location(self):
         with (
@@ -429,7 +501,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             result = self.wiz_scan._scanned_location("8411322222111")
             self.assertTrue(result)
             self.assertEqual(self.wiz_scan.location_id, self.stock_location_internal)
-            mock_msg.assert_called_once_with("info", _("Waiting product"))
+            mock_msg.assert_called_once_with("info", self.env._("Waiting product"))
 
         result = self.wiz_scan._scanned_location("8411322222111111")
         self.assertFalse(result)
@@ -468,7 +540,7 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_id = self.product_tracking.id
             result = self.wiz_scan.check_done_conditions()
             self.assertFalse(result)
-            mock_msg.assert_any_call("info", _("Waiting quantities"))
+            mock_msg.assert_any_call("info", self.env._("Waiting quantities"))
 
     def test_check_guided_values(self):
         result = self.wiz_scan_option_forced._check_guided_values()
@@ -508,10 +580,12 @@ class TestStockBarcodes(TestCommonStockBarcodes):
 
             mock_msg.assert_has_calls(
                 [
-                    call("more_match", _("Wrong product")),  # 1 condition
-                    call("more_match", _("Wrong lot")),  # 2 condition
-                    call("more_match", _("Wrong location")),  # 3 condition
-                    call("more_match", _("Wrong location dest")),  # 4 condition
+                    call("more_match", self.env._("Wrong product")),  # 1 condition
+                    call("more_match", self.env._("Wrong lot")),  # 2 condition
+                    call("more_match", self.env._("Wrong location")),  # 3 condition
+                    call(
+                        "more_match", self.env._("Wrong location dest")
+                    ),  # 4 condition
                 ]
             )
 
@@ -520,7 +594,9 @@ class TestStockBarcodes(TestCommonStockBarcodes):
             self.wiz_scan.product_qty = 10000000
             result = self.wiz_scan.action_done()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("more_match", _("The quantity is huge"))
+            mock_msg.assert_called_once_with(
+                "more_match", self.env._("The quantity is huge")
+            )
 
     def test_action_lot_scaned_post(self):
         self.wiz_scan.action_lot_scaned_post(self.lot_1.name)

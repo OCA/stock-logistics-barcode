@@ -1,11 +1,11 @@
-/** @odoo-module **/
+/* @odoo-module */
 
 /* Copyright 2021 Tecnativa - Alexandre D. Díaz
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
-import {registry} from "@web/core/registry";
-import {formView} from "@web/views/form/form_view";
 import {StockBarcodesFormController} from "./form_controller.esm";
+import {formView} from "@web/views/form/form_view";
+import {registry} from "@web/core/registry";
 
 /**
  * Alias of the standard Form view with a custom Controller.
@@ -13,7 +13,8 @@ import {StockBarcodesFormController} from "./form_controller.esm";
  */
 export const StockBarcodesFormView = {
     ...formView,
-    type: "form", // Be explicit for future-proofing
+    // Be explicit for future-proofing
+    type: "form",
     Controller: StockBarcodesFormController,
 };
 

@@ -23,7 +23,7 @@ The interface can recognize four kinds of barcodes. Assign them first:
 - **Lots / serial numbers** — the lot **name** acts as its barcode, no extra
   configuration is needed (requires _Lots & Serial Numbers_ enabled).
 
-Packages (`stock.quant.package`) are matched by their name, so scanning a package label
+Packages (`stock.package`) are matched by their name, so scanning a package label
 selects the package content (requires _Packages_ enabled).
 
 ### 1.2 Option groups

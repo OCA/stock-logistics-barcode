@@ -169,12 +169,10 @@ class StockBarcodesOptionGroup(models.Model):
         "instead of the pending ones.",
     )
     show_stock = fields.Boolean(
-        default=False,
         help="Show on the scan screen the quantity of the product available in "
         "the selected location.",
     )
     show_owner = fields.Boolean(
-        default=False,
         help="Show the owner field on the scan screen.",
     )
     no_increase_qty_done = fields.Boolean(
