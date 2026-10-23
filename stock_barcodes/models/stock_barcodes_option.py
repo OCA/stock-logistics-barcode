@@ -224,8 +224,7 @@ class StockBarcodesOption(models.Model):
         "of the picking or operation type when the screen is opened."
     )
     forced = fields.Boolean(
-        help="Guided mode: reject a value different from the one of the pending "
-        "move."
+        help="Guided mode: reject a value different from the one of the pending move."
     )
     to_scan = fields.Boolean(
         help="The field can be filled by reading a barcode in its step."
