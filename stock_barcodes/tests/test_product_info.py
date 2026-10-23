@@ -51,7 +51,6 @@ class TestProductInfo(ScanUomCommon):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": self.product.display_name,
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
                             "product_uom_qty": demand,
@@ -142,7 +141,6 @@ class TestProductInfo(ScanUomCommon):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": self.product.display_name,
                             "product_id": self.product.id,
                             "product_uom": self.product.uom_id.id,
                             "product_uom_qty": 2,

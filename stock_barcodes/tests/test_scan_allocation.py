@@ -162,7 +162,6 @@ class TestScanSiblingMoves(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": product.name,
                             "description_picking": f"order line {index}",
                             "product_id": product.id,
                             "product_uom_qty": demand,

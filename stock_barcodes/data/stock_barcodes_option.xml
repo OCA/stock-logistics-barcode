@@ -471,7 +471,7 @@
         <field name="name">Packaging</field>
         <field name="step">2</field>
         <field name="sequence">10</field>
-        <field name="field_name">packaging_id</field>
+        <field name="field_name">packaging_uom_id</field>
         <field name="filled_default">False</field>
         <field name="forced">False</field>
         <field name="to_scan">True</field>
@@ -568,7 +568,7 @@
         <field name="name">Packaging</field>
         <field name="step">2</field>
         <field name="sequence">10</field>
-        <field name="field_name">packaging_id</field>
+        <field name="field_name">packaging_uom_id</field>
         <field name="filled_default">False</field>
         <field name="forced">False</field>
         <field name="to_scan">True</field>

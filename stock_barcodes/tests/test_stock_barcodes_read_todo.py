@@ -80,7 +80,6 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": product.display_name,
                             "product_id": product.id,
                             "product_uom": product.uom_id.id,
                             "product_uom_qty": 5,
@@ -148,3 +147,84 @@ class TestStockBarcodesReadTodo(TestCommonStockBarcodes):
         todo.location_dest_id = self.location_1
         group.show_fixed_location_dest = False
         self.assertFalse(todo.show_location_dest)
+
+    def _create_reserved_out_picking(self, demand, available):
+        product = self.product_wo_tracking
+        destination = self.env.ref("stock.stock_location_customers")
+        self.StockQuant._update_available_quantity(product, self.location_1, available)
+        picking = self.StockPicking.create(
+            {
+                "picking_type_id": self.env.ref("stock.picking_type_out").id,
+                "location_id": self.location_1.id,
+                "location_dest_id": destination.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "product_id": product.id,
+                            "product_uom": product.uom_id.id,
+                            "product_uom_qty": demand,
+                            "location_id": self.location_1.id,
+                            "location_dest_id": destination.id,
+                        }
+                    )
+                ],
+            }
+        )
+        picking.action_confirm()
+        picking.action_assign()
+        action = picking.action_barcode_scan()
+        return picking, self.WizScanReadPicking.browse(action["res_id"])
+
+    def test_action_todo_next(self):
+        # Forcing a line as done sets the reserved quantity to the picked one
+        # and rebuilds the todo list (which unlinks the forced todo record).
+        picking, wizard = self._create_reserved_out_picking(5, 5)
+        todo = wizard.todo_line_ids
+        self.assertEqual(len(todo), 1)
+        picking.move_line_ids.qty_picked = 2
+        todo.action_todo_next()
+        self.assertFalse(todo.exists())
+        self.assertEqual(picking.move_line_ids.quantity, 2)
+        # The rest of the demand is now proposed as an extra line
+        extra_line = wizard.todo_line_ids.filtered("is_extra_line")
+        self.assertEqual(extra_line.product_uom_qty, 3)
+
+    def test_action_todo_next_extra_line(self):
+        # Partially reserved move: the missing quantity is shown as an extra
+        # line and forcing it applies the backorder action from the context.
+        picking, wizard = self._create_reserved_out_picking(5, 3)
+        extra_line = wizard.todo_line_ids.filtered("is_extra_line")
+        self.assertEqual(len(extra_line), 1)
+        self.assertEqual(extra_line.product_uom_qty, 2)
+        extra_line.with_context(
+            barcode_backorder_action="skip_backorder"
+        ).action_todo_next()
+        self.assertEqual(picking.move_ids.barcode_backorder_action, "skip_backorder")
+        self.assertFalse(wizard.todo_line_ids.filtered("is_extra_line"))
+
+    def test_action_todo_next_extra_line_pending(self):
+        # Keeping the extra line pending drops the move lines and reserves again.
+        picking, wizard = self._create_reserved_out_picking(5, 3)
+        extra_line = wizard.todo_line_ids.filtered("is_extra_line")
+        extra_line.with_context(barcode_backorder_action="pending").action_todo_next()
+        self.assertEqual(picking.move_ids.barcode_backorder_action, "pending")
+        self.assertEqual(picking.move_ids.quantity, 3)
+
+    def test_action_back_next_line(self):
+        todo_2 = self.WizScanReadTodo.create(
+            {"wiz_barcode_id": self.wiz_scan.id, "position_index": 1}
+        )
+        todo_1 = self.wiz_scan_read_todo
+        self.assertEqual(self.wiz_scan.todo_line_ids, todo_1 | todo_2)
+        with patch.object(
+            type(self.wiz_scan), "determine_todo_action"
+        ) as mock_determine:
+            # Already on the first / last line: nothing to move to
+            todo_1.action_back_line()
+            todo_2.action_next_line()
+            mock_determine.assert_not_called()
+            todo_1.action_next_line()
+            mock_determine.assert_called_once_with(forced_todo_line=todo_2)
+            mock_determine.reset_mock()
+            todo_2.action_back_line()
+            mock_determine.assert_called_once_with(forced_todo_line=todo_1)

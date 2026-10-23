@@ -11,7 +11,9 @@ from .common import TestCommonStockBarcodes
 @tagged("post_install", "-at_install")
 class TestStockMove(TestCommonStockBarcodes):
     def test_action_barcode_detailed_operation_unlink(self):
-        self.env.context = dict(self.env.context, wiz_barcode_id=self.wiz_scan.id)
+        self.env = self.env(
+            context=dict(self.env.context, wiz_barcode_id=self.wiz_scan.id)
+        )
         with (
             patch.object(type(self.StockMove), "_action_assign") as mock_action_assign,
             patch.object(
@@ -44,7 +46,7 @@ class TestStockMove(TestCommonStockBarcodes):
         # A line with no demand and nothing picked must NOT be flagged done
         # (0 >= 0 used to evaluate as done, leaving phantom 0/0 "done" lines).
         line = self.stock_move_test.move_line_ids[0]
-        line.quantity_product_uom = 0
+        line.quantity = 0
         line.qty_picked = 0
         line._compute_barcode_scan_state()
         self.assertEqual(line.barcode_scan_state, "pending")
@@ -53,7 +55,7 @@ class TestStockMove(TestCommonStockBarcodes):
         # A line forced by scanning keeps its done_forced state and is not
         # downgraded to plain "done" by the recompute.
         line = self.stock_move_test.move_line_ids[0]
-        line.quantity_product_uom = 0
+        line.quantity = 0
         line.qty_picked = 5
         line.barcode_scan_state = "done_forced"
         line._compute_barcode_scan_state()

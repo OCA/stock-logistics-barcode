@@ -16,7 +16,6 @@ class TestAutoLot(ScanUomCommon):
                 "is_storable": True,
                 "tracking": "lot",
                 "uom_id": self.unit.id,
-                "uom_po_id": self.unit.id,
             }
         )
         lot = self.StockProductionLot.create(

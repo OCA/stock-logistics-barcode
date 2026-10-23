@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.tools.float_utils import float_compare, float_round
+from odoo.tools.float_utils import float_compare
 
 
 class WizStockBarcodesReadTodo(models.TransientModel):
@@ -31,20 +31,20 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     product_qty_reserved = fields.Float(
         "Reserved",
         compute="_compute_product_qty_reserved",
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         store=True,
         readonly=False,
     )
     product_uom_qty = fields.Float(
         "Demand",
         compute="_compute_product_uom_qty",
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         store=True,
         readonly=False,
     )
     qty_done = fields.Float(
         "Done",
-        digits="Product Unit of Measure",
+        digits="Product Unit",
         compute="_compute_qty_done",
     )
     qty_done_rest = fields.Float(compute="_compute_qty_done_rest", store=True)
@@ -57,8 +57,8 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     product_id = fields.Many2one(comodel_name="product.product")
     lot_id = fields.Many2one(comodel_name="stock.lot")
     uom_id = fields.Many2one(comodel_name="uom.uom")
-    package_id = fields.Many2one(comodel_name="stock.quant.package")
-    result_package_id = fields.Many2one(comodel_name="stock.quant.package")
+    package_id = fields.Many2one(comodel_name="stock.package")
+    result_package_id = fields.Many2one(comodel_name="stock.package")
     package_product_qty = fields.Float()
 
     res_model_id = fields.Many2one(comodel_name="ir.model")
@@ -134,14 +134,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
         self.state = "done_forced"
         self.line_ids.barcode_scan_state = "done_forced"
         for sml in self.line_ids:
-            if (
-                float_compare(
-                    sml.quantity,
-                    sml.qty_picked,
-                    precision_rounding=sml.product_uom_id.rounding,
-                )
-                == 0
-            ):
+            if not sml.product_uom_id.compare(sml.quantity, sml.qty_picked):
                 continue
             if sml.move_id.state == "confirmed" and sml.qty_picked:
                 sml.move_id.state = "partially_available"
@@ -155,10 +148,11 @@ class WizStockBarcodesReadTodo(models.TransientModel):
             if barcode_backorder_action == "pending":
                 self.stock_move_ids.move_line_ids.unlink()
                 self.stock_move_ids._action_assign()
+        # fill_todo_records() unlinks THIS record, so keep the parent wizard
+        # (see action_reset_lines).
         wiz_barcode = self.wiz_barcode_id
-        self.wiz_barcode_id.fill_todo_records()
-        self.wiz_barcode_id = wiz_barcode
-        self.wiz_barcode_id.determine_todo_action()
+        wiz_barcode.fill_todo_records()
+        wiz_barcode.determine_todo_action()
 
     def action_reset_lines(self):
         # Capture the parent wizard BEFORE fill_todo_records(): that call
@@ -213,7 +207,7 @@ class WizStockBarcodesReadTodo(models.TransientModel):
                 == "move_line_ids"
                 and rec.line_ids
                 and (
-                    rec.qty_done >= rec.product_uom_qty
+                    rec.uom_id.compare(rec.qty_done, rec.product_uom_qty) >= 0
                     or not any(
                         ln.barcode_scan_state == "pending" for ln in rec.line_ids
                     )
@@ -258,19 +252,15 @@ class WizStockBarcodesReadTodo(models.TransientModel):
     def operation_quantities(self):
         pending_qty = self.qty_done_rest
         for sml in self.line_ids:
-            qty = min(
-                pending_qty,
-                sml.product_uom_id._compute_quantity(
-                    max(sml.quantity - sml.qty_picked, 0.0), self.uom_id, round=False
-                ),
+            line_pending_qty = sml.product_uom_id._compute_quantity(
+                max(sml.quantity - sml.qty_picked, 0.0), self.uom_id, round=False
             )
+            qty = min(pending_qty, line_pending_qty)
             sml.qty_picked += self.uom_id._compute_quantity(
                 qty, sml.product_uom_id, round=False
             )
-            pending_qty = float_round(
-                pending_qty - qty, precision_rounding=self.uom_id.rounding
-            )
-            if pending_qty <= 0:
+            pending_qty = self.uom_id.round(pending_qty - qty)
+            if self.uom_id.compare(pending_qty, 0) <= 0:
                 break
         self.wiz_barcode_id.refresh_todo_records()
 

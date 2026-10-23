@@ -1,4 +1,4 @@
-/** @odoo-module **/
+/* @odoo-module */
 
 /* Copyright 2022 Tecnativa - Alexandre D. Díaz
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
@@ -11,7 +11,7 @@ import {patch} from "@web/core/utils/patch";
  * Patch: improve UX for numeric step fields when used in barcode-enabled models.
  * - Auto-select all content on focus.
  * - Pressing Enter triggers stock confirm / force-done actions automatically.
- * Compatible with Odoo 16–18.
+ * Adapted to the Odoo 19/OCA web_widget_numeric_step API.
  */
 patch(NumericStep.prototype, {
     /**
@@ -55,6 +55,6 @@ patch(NumericStep.prototype, {
         }
 
         // Fallback to parent behavior
-        super._onKeyDown?.(ev);
+        super._onKeyDown(ev);
     },
 });

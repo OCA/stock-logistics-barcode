@@ -78,8 +78,8 @@ class StockQuant(models.Model):
         self.write({"inventory_quantity": self.inventory_quantity + 1})
         self.enable_current_operations()
 
-    def action_apply_inventory(self):
-        res = super().action_apply_inventory()
+    def action_apply_inventory(self, date=None):
+        res = super().action_apply_inventory(date=date)
         # Only notify the barcode interface when the adjustment is applied from
         # the barcode inventory wizard (it flags the context in apply_inventory).
         # Applying from anywhere else (e.g. the product form "Update Quantity")

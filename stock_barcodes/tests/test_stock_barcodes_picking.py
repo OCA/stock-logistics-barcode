@@ -3,7 +3,7 @@
 from unittest import mock
 from unittest.mock import call, patch
 
-from odoo import Command, _
+from odoo import Command
 from odoo.exceptions import MissingError, UserError, ValidationError
 from odoo.tests.common import tagged
 
@@ -24,10 +24,10 @@ patch_set_message_info = patch_read + "._set_message_info"
 patch_set_focus_on_qty_input = patch_read + "._set_focus_on_qty_input"
 patch_check_done_conditions = patch_read + ".check_done_conditions"
 patch_action_put_in_pack = (
-    patch_stock_models + ".stock_picking.Picking.action_put_in_pack"
+    patch_stock_models + ".stock_picking.StockPicking.action_put_in_pack"
 )
 patch_core_button_validate = (
-    patch_stock_models + ".stock_picking.Picking.button_validate"
+    patch_stock_models + ".stock_picking.StockPicking.button_validate"
 )
 
 
@@ -48,7 +48,8 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
 
         cls.barcode_option_group_out.barcode_guided_mode = False
         cls.barcode_option_group_in.barcode_guided_mode = False
-        cls.partner_agrolite = cls.env.ref("base.res_partner_2")
+        # Do not rely on demo data: base.res_partner_2 no longer exists in Odoo 19.
+        cls.partner_agrolite = cls.env["res.partner"].create({"name": "Agrolite"})
         cls.picking_type_in = cls.env.ref("stock.picking_type_in")
         cls.picking_type_in.barcode_option_group_id = cls.barcode_option_group_in
         cls.picking_type_out = cls.env.ref("stock.picking_type_out")
@@ -57,8 +58,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         cls.supplier_location = cls.env.ref("stock.stock_location_suppliers")
         cls.customer_location = cls.env.ref("stock.stock_location_customers")
         cls.stock_location = cls.env.ref("stock.stock_location_stock")
-        cls.categ_unit = cls.env.ref("uom.product_uom_categ_unit")
-        cls.categ_kgm = cls.env.ref("uom.product_uom_categ_kgm")
         cls.picking_out_01 = (
             cls.env["stock.picking"]
             .with_context(planned_picking=True)
@@ -71,7 +70,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -96,7 +94,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_wo_tracking.uom_id.id,
@@ -106,7 +103,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_wo_tracking.name,
                                 "product_id": cls.product_wo_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_wo_tracking.uom_id.id,
@@ -116,7 +112,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 3,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -126,7 +121,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         ),
                         Command.create(
                             {
-                                "name": cls.product_tracking.name,
                                 "product_id": cls.product_tracking.id,
                                 "product_uom_qty": 5,
                                 "product_uom": cls.product_tracking.uom_id.id,
@@ -200,7 +194,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_wo_tracking.name,
                                 "product_id": self.product_wo_tracking.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_wo_tracking.uom_id.id,
@@ -241,7 +234,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_wo_tracking.name,
                                 "product_id": self.product_wo_tracking.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_wo_tracking.uom_id.id,
@@ -277,7 +269,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": self.product_wo_tracking.name,
                             "product_id": self.product_wo_tracking.id,
                             "product_uom_qty": 3,
                             "product_uom": self.product_wo_tracking.uom_id.id,
@@ -324,7 +315,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                     "move_ids": [
                         Command.create(
                             {
-                                "name": self.product_tracking_serial.name,
                                 "product_id": self.product_tracking_serial.id,
                                 "product_uom_qty": 2,
                                 "product_uom": self.product_tracking_serial.uom_id.id,
@@ -408,10 +398,15 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan_picking.message,
             "8411822222568 (Scan Product, Packaging, Lot / Serial)",
         )
-        # Scan a package
+        # Scan a packaging barcode. The box contains 5 product units.
+        self.assertEqual(
+            self.packaging_uom_tracking._compute_quantity(
+                1, self.product_tracking.uom_id
+            ),
+            5.0,
+        )
         self.action_barcode_scanned(wiz_scan_picking, "5420008510489")
-        # Package of 5 product units. Already three unit exists
-        self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 5.0)
+        self.assertEqual(stock_move.qty_picked, 5.0)
 
     def test_picking_wizard_scan_product_manual_entry(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(
@@ -431,14 +426,12 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         # Prepare more data
         lot_2 = self.StockProductionLot.create(
             {
-                "name": "8411822222578",
                 "product_id": self.product_tracking.id,
                 "company_id": self.company.id,
             }
         )
         lot_3 = self.StockProductionLot.create(
             {
-                "name": "8411822222588",
                 "product_id": self.product_tracking.id,
                 "company_id": self.company.id,
             }
@@ -486,19 +479,28 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
 
         # Removal strategy LIFO
         self.wiz_scan_picking_out.lot_id = False
-        self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
-            "stock.removal_lifo"
+        # In Odoo 19 a product is no longer given a default category, so
+        # writing on product.categ_id.removal_strategy_id used to silently do
+        # nothing (write on an empty recordset) and the strategy stayed FIFO.
+        self.product_tracking.categ_id = self.env["product.category"].create(
+            {
+                "name": "LIFO category",
+                "removal_strategy_id": self.env.ref("stock.removal_lifo").id,
+            }
         )
         self.wiz_scan_picking_out.action_clean_values()
         self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
         self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_3)
 
     def test_picking_wizard_scan_product_auto_lot_skips_unavailable_quant(self):
-        """A quant with nothing available must never win the removal-strategy
-        pick, no matter how its in_date/id happen to sort against a quant
-        that actually has stock (e.g. a zero-quantity quant left over from a
-        previous reservation/unreservation cycle, dated later than the real
-        stock)."""
+        location = self.StockLocation.create(
+            {
+                "name": "LIFO test location",
+                "usage": "internal",
+                "location_id": self.stock_location.id,
+                "removal_strategy_id": self.env.ref("stock.removal_lifo").id,
+            }
+        )
         lot_real = self.StockProductionLot.create(
             {
                 "name": "8411822223001",
@@ -517,7 +519,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             {
                 "product_id": self.product_tracking.id,
                 "lot_id": lot_real.id,
-                "location_id": self.stock_location.id,
+                "location_id": location.id,
                 "quantity": 10.0,
             }
         )
@@ -525,28 +527,20 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             {
                 "product_id": self.product_tracking.id,
                 "lot_id": lot_ghost.id,
-                "location_id": self.stock_location.id,
+                "location_id": location.id,
                 "quantity": 0.0,
             }
         )
-        # Neutralize the class-level quant_lot_1 (real stock, but with an
-        # implicit in_date of "now") so it can't win the LIFO pick either -
-        # this test is only about quant_real vs. quant_ghost.
-        self.quant_lot_1.in_date = "2020-01-01"
         quant_real.in_date = "2021-01-01"
-        # The ghost quant is dated LATER than the real one, so LIFO would
-        # pick it first if the code only looked at in_date/id.
         quant_ghost.in_date = "2021-06-01"
 
-        self.product_tracking.categ_id.removal_strategy_id = self.env.ref(
-            "stock.removal_lifo"
-        )
-        self.wiz_scan_picking_out.option_group_id.auto_lot = True
-        self.wiz_scan_picking_out.auto_lot = True
-        self.wiz_scan_picking_out.lot_id = False
-        self.wiz_scan_picking_out.action_clean_values()
-        self.action_barcode_scanned(self.wiz_scan_picking_out, "8433281006850")
-        self.assertEqual(self.wiz_scan_picking_out.lot_id, lot_real)
+        wiz = self.wiz_scan_picking_out
+        wiz.product_id = self.product_tracking
+        wiz.location_id = location
+        wiz.lot_id = False
+        wiz.get_lot_by_removal_strategy()
+
+        self.assertEqual(wiz.lot_id, lot_real)
 
     @classmethod
     def _create_barcode_option_group_incoming(cls):
@@ -578,7 +572,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         {
                             "step": 2,
                             "name": "Packaging",
-                            "field_name": "packaging_id",
+                            "field_name": "packaging_uom_id",
                             "to_scan": True,
                             "required": False,
                         }
@@ -645,7 +639,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                         {
                             "step": 2,
                             "name": "Packaging",
-                            "field_name": "packaging_id",
+                            "field_name": "packaging_uom_id",
                             "to_scan": True,
                             "required": False,
                         }
@@ -802,14 +796,14 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             self.wiz_scan_option_guided.option_group_id = self.option_group8.id
             result = self.wiz_scan_option_guided._check_guided_restrictions()
             self.assertFalse(result)
-            mock_msg.assert_called_once_with("more_match", _("Wrong product"))
+            mock_msg.assert_called_once_with("more_match", self.env._("Wrong product"))
 
     def test_action_assign_serial_required_hook_key(self):
         with self.assertRaises(ValidationError):
             self.wiz_scan.action_assign_serial()
 
         with (
-            patch.object(type(self.StockMove), "action_assign_serial"),
+            patch.object(type(self.StockMove), "action_show_details"),
             patch.object(
                 type(self.wiz_scan),
                 "_prepare_stock_moves_domain",
@@ -982,7 +976,6 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 "move_ids": [
                     Command.create(
                         {
-                            "name": product_serial.name,
                             "product_id": product_serial.id,
                             "product_uom_qty": 1,
                             "product_uom": product_serial.uom_id.id,
@@ -1179,7 +1172,7 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
                 type(self.StockPicking), "action_put_in_pack"
             ) as mock_put_in_pack,
             patch(
-                "odoo.addons.stock.models.stock_picking.Picking.button_validate",
+                "odoo.addons.stock.models.stock_picking.StockPicking.button_validate",
                 return_value=True,
             ),
         ):

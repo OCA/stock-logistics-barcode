@@ -1,22 +1,17 @@
+import {Component, markup, onWillStart, useEffect} from "@odoo/owl";
 import {useBus, useService} from "@web/core/utils/hooks";
 import {_t} from "@web/core/l10n/translation";
 import {browser} from "@web/core/browser/browser";
-import {markup} from "@odoo/owl";
 import {registry} from "@web/core/registry";
-
-const {Component, onWillStart, useEffect} = owl;
 
 export class StockBarcodesMainMenu extends Component {
     setup() {
-        super.setup();
         this.actionService = useService("action");
         this.ormService = useService("orm");
-        const busService = this.env.services.bus_service;
+        const busService = useService("bus_service");
         const notification = useService("notification");
         this.modelBarcodeAction = "stock.barcodes.action";
-        this.homeMenuService = null;
-        if (this.hasService("home_menu"))
-            this.homeMenuService = useService("home_menu");
+        this.homeMenuService = this.env.services.home_menu || null;
         onWillStart(async () => {
             this.barcodeActions = await this.getBarcodeActions();
         });
@@ -87,7 +82,7 @@ export class StockBarcodesMainMenu extends Component {
             "open_action",
             [action_id]
         );
-        action.help = markup(_t(action.help));
+        action.help = markup(action.help || "");
         return this.actionService.doAction(action);
     }
 

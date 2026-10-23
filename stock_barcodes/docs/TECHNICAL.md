@@ -1,9 +1,10 @@
 # Stock Barcodes — Technical Documentation
 
-Module: `stock_barcodes` (18.0.1.3.0) — OCA `stock-logistics-barcode`
+Module: `stock_barcodes` (19.0.1.0.0) — OCA `stock-logistics-barcode`
 
 This document describes the internal architecture of the module, its extension points,
-and the result of the Odoo 18.0 alignment review.
+and the result of the Odoo 18.0 alignment review (section 7), kept as reference for the
+19.0 migration.
 
 ## 1. Purpose and architecture
 
@@ -30,33 +31,32 @@ The architecture has three layers:
 
 ### Models
 
-| Model                               | Type           | Role                                                                                            |
-| ----------------------------------- | -------------- | ----------------------------------------------------------------------------------------------- |
-| `wiz.stock.barcodes.read`           | AbstractModel  | Base scan wizard: barcode routing, messages, sounds, steps                                      |
-| `wiz.stock.barcodes.read.picking`   | TransientModel | Scanning against pickings / operation types                                                     |
-| `wiz.stock.barcodes.read.inventory` | TransientModel | Scanning for inventory adjustments (writes `stock.quant.inventory_quantity`)                    |
-| `wiz.stock.barcodes.read.todo`      | TransientModel | "Pending moves" cards: grouped view of moves/move lines to process                              |
-| `wiz.stock.barcodes.new.lot`        | TransientModel | Create/select a lot from the scan screen                                                        |
-| `wiz.stock.barcodes.new.packaging`  | TransientModel | Create/select a product packaging from the scan screen                                          |
-| `stock.barcodes.option.group`       | Model          | Behavior profile bound to an operation type                                                     |
-| `stock.barcodes.option`             | Model          | Per-field behavior (to_scan, required, forced, filled_default, clean_after_done, step)          |
-| `stock.barcodes.action`             | Model          | Barcode-triggered window actions (main menu), printable Code128 image                           |
-| `stock.move` (inherit)              | —              | `barcode_backorder_action`, `qty_picked` (computed sum), backorder handling in `_action_done()` |
-| `stock.move.line` (inherit)         | —              | `barcode_scan_state`, `qty_picked` (scanned quantity, decoupled from reservation)               |
-| `stock.picking` (inherit)           | —              | Wizard bootstrap (`action_barcode_scan`), `button_validate()` integration                       |
-| `stock.picking.type` (inherit)      | —              | Option group binding, scan from operation type, unplanned picking                               |
-| `stock.quant` (inherit)             | —              | Inventory-mode kanban actions (+1/-1, edit, clear), owner edit whitelist                        |
+| Model                               | Type           | Role                                                                                   |
+| ----------------------------------- | -------------- | -------------------------------------------------------------------------------------- |
+| `wiz.stock.barcodes.read`           | AbstractModel  | Base scan wizard: barcode routing, messages, sounds, steps                             |
+| `wiz.stock.barcodes.read.picking`   | TransientModel | Scanning against pickings / operation types                                            |
+| `wiz.stock.barcodes.read.inventory` | TransientModel | Scanning for inventory adjustments (writes `stock.quant.inventory_quantity`)           |
+| `wiz.stock.barcodes.read.todo`      | TransientModel | "Pending moves" cards: grouped view of moves/move lines to process                     |
+| `wiz.stock.barcodes.new.lot`        | TransientModel | Create/select a lot from the scan screen                                               |
+| `wiz.stock.barcodes.new.packaging`  | TransientModel | Create a packaging (`uom.uom` + `product.uom` barcode) from the scan screen            |
+| `stock.barcodes.option.group`       | Model          | Behavior profile bound to an operation type                                            |
+| `stock.barcodes.option`             | Model          | Per-field behavior (to_scan, required, forced, filled_default, clean_after_done, step) |
+| `stock.barcodes.action`             | Model          | Barcode-triggered window actions (main menu), printable Code128 image                  |
+| `stock.move` (inherit)              | —              | `barcode_backorder_action`, backorder handling in `_action_done()`                     |
+| `stock.move.line` (inherit)         | —              | `barcode_scan_state`                                                                   |
+| `stock.picking` (inherit)           | —              | Wizard bootstrap (`action_barcode_scan`), `button_validate()` integration              |
+| `stock.picking.type` (inherit)      | —              | Option group binding, scan from operation type, unplanned picking                      |
+| `stock.quant` (inherit)             | —              | Inventory-mode kanban actions (+1/-1, edit, clear), owner edit whitelist               |
 
 ### Key design decision: `qty_picked`
 
 Since Odoo 17 the core replaced `stock.move.line.qty_done` with `quantity` + `picked`.
-The module keeps its own `qty_picked` float on `stock.move.line`, decoupled from the
-reserved `quantity`, so scanning can accumulate partial quantities without touching the
-reservation. On validation from the barcode interface,
+The scanned quantity is stored in `stock.move.line.qty_picked` (and summed on
+`stock.move.qty_picked`), provided by the OCA `stock_move_line_qty_picked` module, as in
+18.0. It is decoupled from the reserved `quantity`, so scanning can accumulate partial
+quantities without touching the reservation. On validation from the barcode interface,
 `stock.picking.set_quantity_from_picked()` copies `qty_picked` into `quantity` before
-calling the standard `button_validate()`. The compute `_compute_qty_picked` seeds
-`qty_picked` from `quantity` when the line is `picked` or done (store=True,
-readonly=False: an editable compute used as a smart default).
+calling the standard `button_validate()`.
 
 `barcode_scan_state` (`pending` / `done` / `done_forced`) tracks scanning progress per
 move line and drives the pending-moves cards.
@@ -193,8 +193,9 @@ All assets are ESM modules registered in `web.assets_backend` (ordered injection
 - `utils/barcode_handler_field.esm.js` and `barcodes_models_utils.esm.js`: keep the
   invisible barcode input focused and route `stock_barcodes_scan` bus payloads (sounds
   via `bell.wav`/`error.wav`, notifications, manual-entry toggle, focus requests).
-- `widgets/`: `numeric_step` (extends OCA `web_widget_numeric_step`), `boolean_toggle`,
-  `view_button` template extension.
+- `widgets/`: `numeric_step` (extends OCA `web_widget_numeric_step`) and
+  `boolean_toggle`. In 19.0 the `view_button` / `view_compiler` patches were dropped:
+  the core `ViewButton` renders extra attributes such as `data-hotkey` by itself.
 
 Bus channels: every payload goes through the current user's partner channel
 (auto-subscribed by the websocket for authenticated sessions), either via
@@ -209,17 +210,19 @@ direct `_sendone` calls with the partner as target. The client reacts with
   Code128 images of the selected barcode actions. Images are generated with the core
   `ir.actions.report.barcode()` helper (`stock.barcodes.action._generate_barcode`), so
   no external library is required.
-- **pre_init_hook**: creates `stock_move_line.barcode_scan_state`,
-  `stock_move_line.qty_picked` and `stock_move.barcode_backorder_action` by SQL before
-  the ORM loads, and seeds `qty_picked = quantity`, so installation on a large database
-  avoids the ORM per-record default.
+- **pre_init_hook**: creates `stock_move_line.barcode_scan_state` and
+  `stock_move.barcode_backorder_action` by SQL before the ORM loads, so installation on
+  a large database avoids the ORM per-record default (`qty_picked` is created by
+  `stock_move_line_qty_picked`).
 - **Migrations**: `18.0.1.0.0` pre/post scripts (openupgradelib) create `qty_picked`
   from the removed `qty_done` and convert `show_pending_moves` from boolean to
   selection.
 - **Security**: plain ACLs on the wizards and configuration models (`base.group_user`;
   `stock.barcodes.action` writable only by `base.group_system`). Feature gating reuses
   core groups (`stock.group_production_lot`, `stock.group_tracking_lot`,
-  `product.group_stock_packaging`).
+  `uom.group_uom`). In 19.0 `product.packaging` is gone: a packaging is a `uom.uom`
+  relative to the product unit, and its barcode is a `product.uom` record (unique per
+  barcode), which `process_barcode_packaging_uom_id` looks up.
 - **Packaging**: PEP 517 `pyproject.toml` (whool); no external Python dependencies (the
   `python-barcode` requirement introduced by the 17.0 migration was dropped in favor of
   the core barcode renderer).

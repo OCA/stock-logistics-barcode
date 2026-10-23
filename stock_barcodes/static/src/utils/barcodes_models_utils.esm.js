@@ -1,4 +1,4 @@
-/** @odoo-module */
+/* @odoo-module */
 /* Copyright 2022 Tecnativa - Alexandre D. Díaz
  * License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl). */
 
@@ -9,6 +9,7 @@ export const barcodeModels = [
     "stock.picking.type",
     "wiz.candidate.picking",
     "wiz.stock.barcodes.new.lot",
+    "wiz.stock.barcodes.new.packaging",
     "wiz.stock.barcodes.read",
     "wiz.stock.barcodes.read.inventory",
     "wiz.stock.barcodes.read.picking",

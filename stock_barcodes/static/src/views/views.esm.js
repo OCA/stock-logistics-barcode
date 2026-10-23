@@ -7,6 +7,7 @@ import {FormController} from "@web/views/form/form_controller";
 import {KanbanController} from "@web/views/kanban/kanban_controller";
 import {ListController} from "@web/views/list/list_controller";
 import {_t} from "@web/core/l10n/translation";
+import {browser} from "@web/core/browser/browser";
 import {isAllowedBarcodeModel} from "../utils/barcodes_models_utils.esm";
 import {patch} from "@web/core/utils/patch";
 import {useEffect} from "@odoo/owl";
@@ -89,7 +90,7 @@ function setupView() {
         } else if (ev.keyCode === 120) {
             // F9
             const button = document.querySelector("button[name='action_clean_values']");
-            if (isVisible(button)) {
+            if (button && isVisible(button)) {
                 button.click();
             }
         } else if (ev.keyCode === 123 || ev.keyCode === 115) {
@@ -111,69 +112,71 @@ function setupView() {
         audio.play();
     };
 
-    const handleNotification = (notif) => {
-        const {payload, type} = notif;
-        if (
-            (this.model.root.resModel == payload.res_model) &
-            (this.model.root.resId == payload.res_id)
-        ) {
-            if (type === "stock_barcodes_sound") {
-                if (payload?.sound === "ko") {
-                    safePlay(this.soundKo);
-                } else {
-                    safePlay(this.soundOk);
-                }
-            } else if (type === "stock_barcodes_focus") {
-                const schedule = window.requestIdleCallback || window.setTimeout;
-                schedule(() => {
-                    // Build a robust selector: [name="..."] input
-                    let selector = "";
-                    if (window.CSS && typeof CSS.escape === "function") {
-                        selector = `[name="${CSS.escape(payload.field_name)}"] input`;
-                    } else {
-                        // Basic fallback (works si no hay caracteres especiales)
-                        selector = `[name="${payload.field_name}"] input`;
-                    }
-                    setTimeout(() => {
-                        waitVisibleElement(selector, 5000)
-                            .then((input) => {
-                                input.focus();
-                                input.select();
-                            })
-                            .catch((err) => console.warn(err.message));
-                    }, 300);
-                });
-            } else if (type === "stock_barcodes_notify") {
-                notification.add(payload?.message || "", {
-                    title: payload?.title,
-                    type: payload?.type,
-                    sticky: Boolean(payload?.sticky),
-                });
-            }
-        }
-
-        // Global (no limitados al record actual)
-        if (type === "stock_barcodes_edit_manual") {
-            if (payload?.manual_entry) {
-                this.env.bus.trigger("enableFormEditBarcode");
+    // Focus and select the input targeted by a focus notification
+    const handleRecordFocus = (payload) => {
+        browser.setTimeout(() => {
+            // Build a robust selector: [name="..."] input
+            let selector = "";
+            if (window.CSS && typeof CSS.escape === "function") {
+                selector = `[name="${CSS.escape(payload.field_name)}"] input`;
             } else {
-                this.env.bus.trigger("disableFormEditBarcode");
+                // Basic fallback when the field name needs no CSS escaping
+                selector = `[name="${payload.field_name}"] input`;
             }
+            browser.setTimeout(() => {
+                waitVisibleElement(selector, 5000)
+                    .then((input) => {
+                        input.focus();
+                        input.select();
+                    })
+                    .catch(() => undefined);
+            }, 300);
+        }, 0);
+    };
+
+    // Notifications limited to the current record (sound, focus, message)
+    const handleRecordNotification = (payload, type) => {
+        if (type === "stock_barcodes_sound") {
+            safePlay(payload?.sound === "ko" ? this.soundKo : this.soundOk);
+        } else if (type === "stock_barcodes_focus") {
+            handleRecordFocus(payload);
+        } else if (type === "stock_barcodes_notify") {
+            notification.add(payload?.message || "", {
+                title: payload?.title,
+                type: payload?.type,
+                sticky: Boolean(payload?.sticky),
+            });
+        }
+    };
+
+    // React to a picking validation / inventory application notification
+    const handleActionsBarcode = (payload) => {
+        if (payload?.valid_picking) {
+            notification.add(_t("The transfer has been validated"), {
+                type: "success",
+            });
+        } else if (payload?.apply_inventory) {
+            actionService.doAction(
+                "stock_barcodes.action_stock_barcodes_action_client"
+            );
+            notification.add(_t("The inventory adjustment has been validated"), {
+                type: "success",
+            });
+        }
+    };
+
+    // Notifications not limited to the current record
+    const handleGlobalNotification = (payload, type) => {
+        if (type === "stock_barcodes_edit_manual") {
+            this.env.bus.trigger(
+                payload?.manual_entry
+                    ? "enableFormEditBarcode"
+                    : "disableFormEditBarcode"
+            );
         } else if (type === "actions_barcode") {
-            if (payload?.valid_picking) {
-                notification.add(_t("The transfer has been validated"), {
-                    type: "success",
-                });
-            } else if (payload?.apply_inventory) {
-                actionService.doAction(
-                    "stock_barcodes.action_stock_barcodes_action_client"
-                );
-                notification.add(_t("The inventory adjustment has been validated"), {
-                    type: "success",
-                });
-            }
+            handleActionsBarcode(payload);
         } else if (type === "actions_barcode_notification") {
-            notification.add(_t(payload?.message || ""), {
+            notification.add(payload?.message || "", {
                 type: payload?.message_type,
                 sticky: Boolean(payload?.sticky),
             });
@@ -190,6 +193,17 @@ function setupView() {
         }
     };
 
+    const handleNotification = (notif) => {
+        const {payload, type} = notif;
+        if (
+            this.model.root.resModel === payload.res_model &&
+            this.model.root.resId === payload.res_id
+        ) {
+            handleRecordNotification(payload, type);
+        }
+        handleGlobalNotification(payload, type);
+    };
+
     // The bus service maps subscriptions by callback identity, so the same
     // function must never be subscribed to two notification types: the
     // second subscribe would overwrite the stored wrapper and unsubscribe
@@ -204,9 +218,13 @@ function setupView() {
 
             // Create audio elements without jQuery
             // (not needed to append to DOM to play)
-            const soundOk = new Audio("/stock_barcodes/static/src/sounds/bell.wav");
+            const soundOk = new browser.Audio(
+                "/stock_barcodes/static/src/sounds/bell.wav"
+            );
             soundOk.preload = "auto";
-            const soundKo = new Audio("/stock_barcodes/static/src/sounds/error.wav");
+            const soundKo = new browser.Audio(
+                "/stock_barcodes/static/src/sounds/error.wav"
+            );
             soundKo.preload = "auto";
 
             // Store references on the component instance
@@ -246,10 +264,8 @@ function patchControllerSetup(Controller) {
     patch(Controller.prototype, {
         setup() {
             super.setup(...arguments);
-            // Guard por si props aún no están listas
             const resModel = this?.props?.resModel;
             if (resModel && isAllowedBarcodeModel(resModel)) {
-                // Ejecuta tu wiring (useEffect, bus, etc.)
                 setupView.call(this);
             }
         },
