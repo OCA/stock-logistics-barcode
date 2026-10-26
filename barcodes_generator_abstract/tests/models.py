@@ -31,4 +31,3 @@ class BarcodeGeneratorUserFake(models.Model):
     def init(self):
         """This is just to avoid errors during test model registry
         because auth_totp launches a script about totp_secret column"""
-        pass
