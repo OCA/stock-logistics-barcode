@@ -6,3 +6,5 @@
   - Ilyas \<<irazor147@gmail.com>\>
 - [Trobz](https://trobz.com):
   - Khoi (Kien Kim) \<<khoikk@trobz.com>\>
+- [360 ERP](https://www.360erp.com):
+  - Diogo Catarino
