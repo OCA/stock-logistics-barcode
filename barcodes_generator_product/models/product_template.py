@@ -11,7 +11,6 @@ class ProductTemplate(models.Model):
 
     # Related to display product product information if is_product_variant
     barcode_rule_id = fields.Many2one(
-        string="Barcode Rule",
         compute="_compute_barcode_rule_id",
         inverse="_inverse_barcode_rule_id",
         comodel_name="barcode.rule",

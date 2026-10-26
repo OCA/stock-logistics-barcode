@@ -9,6 +9,8 @@ from odoo.addons.base.tests.common import BaseCommon
 class Tests(BaseCommon):
     """Tests 'Barcodes Generator for Products'"""
 
+    _test_user_groups = None
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -59,13 +61,9 @@ class Tests(BaseCommon):
         )
 
     def test_02_manual_generation_product(self):
-        self.template_multi = self.ProductTemplate.create(
-            {"name": "Template Multi Variant"}
-        )
         self.product_variant_1 = self.ProductProduct.create(
             {
                 "name": "Variant 1",
-                "product_tmpl_id": self.template_multi.id,
                 "barcode_rule_id": self.barcode_rule_manually.id,
                 "barcode_base": 12345,
             }
