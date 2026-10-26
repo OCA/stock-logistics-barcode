@@ -5,6 +5,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
+from odoo.fields import Domain
 
 
 class ProductProduct(models.Model):
@@ -54,17 +55,11 @@ class ProductProduct(models.Model):
 
     @api.model
     def _search(self, domain, *args, **kwargs):
-        for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
-            domain = self._get_barcode_domain(sub_domain, domain)
+        domain = Domain(domain).map_conditions(self._map_barcode_condition)
         return super()._search(domain, *args, **kwargs)
 
-    def _get_barcode_domain(self, sub_domain, domain):
-        barcode_operator = sub_domain[1]
-        barcode_value = sub_domain[2]
-        domain = [
-            ("barcode_ids.name", barcode_operator, barcode_value)
-            if x[0] == "barcode" and x[2] == barcode_value
-            else x
-            for x in domain
-        ]
-        return domain
+    @api.model
+    def _map_barcode_condition(self, condition):
+        if condition.field_expr == "barcode":
+            return Domain("barcode_ids.name", condition.operator, condition.value)
+        return condition
