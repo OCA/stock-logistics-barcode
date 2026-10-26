@@ -16,7 +16,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             ref="barcodes.default_barcode_nomenclature"
         />
         <field name="type">product</field>
-        <field name="sequence">998</field>
+        <field name="sequence" eval="998" />
         <field name="encoding">ean13</field>
         <field name="pattern">20.....{NNNDD}</field>
         <field name="generate_type">manual</field>
@@ -30,7 +30,7 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
             ref="barcodes.default_barcode_nomenclature"
         />
         <field name="type">product</field>
-        <field name="sequence">999</field>
+        <field name="sequence" eval="999" />
         <field name="encoding">ean13</field>
         <field name="pattern">21.....{NNNDD}</field>
         <field name="generate_type">sequence</field>
