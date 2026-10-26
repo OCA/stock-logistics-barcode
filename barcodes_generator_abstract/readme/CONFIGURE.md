@@ -1,7 +1,7 @@
 To configure this module, you need to:
 
-- Go to Settings / Technical / Sequences & Identifiers / Barcode
-  Nomenclatures
+- Go to Settings / Technical / User Interface / Sequences &
+  Identifiers / Barcode Nomenclatures
 - Select a Nomenclature
 - Create or select a rule
 

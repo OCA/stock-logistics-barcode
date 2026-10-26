@@ -10,17 +10,19 @@ from .models import BarcodeGeneratorUserFake, BarcodeRuleUserFake
 
 
 class TestBarcodesGeneratorAbstract(BaseCommon):
+    _test_user_groups = None
+
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
 
         add_to_registry(cls.registry, BarcodeGeneratorUserFake)
         add_to_registry(cls.registry, BarcodeRuleUserFake)
-        test_models = ["res.users.tester", "barcode.rule"]
+        test_models = ["barcode.generate.tester", "barcode.rule"]
 
         cls.registry._setup_models__(cls.env.cr, test_models)
         cls.registry.init_models(cls.env.cr, test_models, {"models_to_check": True})
-        cls.addClassCleanup(cls.registry.__delitem__, "res.users.tester")
+        cls.addClassCleanup(cls.registry.__delitem__, "barcode.generate.tester")
 
         cls.barcode_rule_fake = cls.env["barcode.rule"].create(
             {
@@ -33,14 +35,13 @@ class TestBarcodesGeneratorAbstract(BaseCommon):
                 "encoding": "ean13",
                 "pattern": "20.....{NNNDD}",
                 "generate_type": "manual",
-                "generate_model": "res.users.tester",
+                "generate_model": "barcode.generate.tester",
             }
         )
 
-        cls.user_fake = cls.env["res.users.tester"].create(
+        cls.user_fake = cls.env["barcode.generate.tester"].create(
             {
                 "name": "Test user",
-                "login": "testing_01",
             }
         )
 
