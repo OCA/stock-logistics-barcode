@@ -54,16 +54,12 @@ License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
                 <attribute name="invisible">True</attribute>
             </field>
             <field name="barcode" position="after">
-                <label for="barcode" invisible="product_variant_count &gt; 1" />
-                <div
-                    name="div_barcode"
-                    class="o_row"
-                    invisible="product_variant_count &gt; 1"
-                >
+                <label for="barcode" />
+                <div name="div_barcode" class="o_row">
                     <field
                         name="barcode"
                         class="oe_inline"
-                        readonly="generate_type == 'sequence'"
+                        readonly="barcode_rule_id and generate_type == 'sequence'"
                     />
                     <button
                         name="generate_barcode"
