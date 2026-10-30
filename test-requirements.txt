@@ -1,0 +1,1 @@
+odoo-addon-stock_move_line_qty_picked @ git+https://github.com/OCA/stock-logistics-workflow.git@refs/pull/2459/head#subdirectory=stock_move_line_qty_picked
