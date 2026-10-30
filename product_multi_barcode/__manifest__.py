@@ -6,7 +6,7 @@
 
 {
     "name": "Multiple barcodes on products",
-    "version": "19.0.1.0.1",
+    "version": "20.0.1.0.0",
     "license": "AGPL-3",
     "author": "Camptocamp, "
     "Trey, "
@@ -20,7 +20,7 @@
     "data": [
         "views/product_view.xml",
         "views/product_template_view.xml",
-        "security/ir.model.access.csv",
+        "security/ir.access.csv",
     ],
     "installable": True,
     "post_init_hook": "post_init_hook",

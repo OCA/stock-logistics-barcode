@@ -8,6 +8,9 @@
         <field name="arch" type="xml">
             <field name="barcode" position="attributes">
                 <attribute name="readonly">True</attribute>
+                <attribute
+                    name="invisible"
+                >product_variant_count &gt; 1 or (product_variant_count == 0 and valid_product_template_attribute_line_ids) or type in ['service', 'combo']</attribute>
             </field>
             <field name="barcode" position="after">
                 <field invisible="product_variant_count > 1" name="barcode_ids">

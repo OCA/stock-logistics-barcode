@@ -13,3 +13,20 @@ def post_init_hook(env):
     FROM product_product
     WHERE barcode IS NOT NULL"""
     )
+    clear_multi_variant_template_barcodes(env.cr)
+
+
+def clear_multi_variant_template_barcodes(cr):
+    """Barcodes live on the variants: a template with several active variants
+    keeps no barcode of its own."""
+    cr.execute(
+        """
+    UPDATE product_template pt
+    SET barcode = NULL
+    WHERE pt.barcode IS NOT NULL
+    AND (
+        SELECT count(*)
+        FROM product_product pp
+        WHERE pp.product_tmpl_id = pt.id AND pp.active
+    ) > 1"""
+    )
