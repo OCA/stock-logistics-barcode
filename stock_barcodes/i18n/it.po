@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Odoo Server 14.0\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2026-04-20 15:45+0000\n"
+"PO-Revision-Date: 2026-11-06 13:47+0000\n"
 "Last-Translator: mymage <stefano.consolaro@mymage.it>\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -60,7 +60,7 @@ msgstr ""
 #: code:addons/stock_barcodes/models/stock_barcodes_action.py:0
 #, python-format
 msgid " Barcode has already been assigned to the action(s): {}."
-msgstr " Il codice a barre è già stato assegnato all'azione: {}."
+msgstr " Il codice a barre è già stato assegnato alle seguenti azioni: {}."
 
 #. module: stock_barcodes
 #. odoo-python
@@ -70,8 +70,8 @@ msgid ""
 " The barcode {} is not correct.Use numbers, letters and dashes, without "
 "spaces.E.g. 15753, BC-5789,er-56 "
 msgstr ""
-" il codice a barre {} non è corretto. Usare numeri, lettere, e trattini "
-"senza spazi. Es. 15753, BC-5789,er-56 "
+" Il codice a barre {} non è corretto. Utilizzare numeri, lettere e trattini, "
+"senza spazi. Es. 15753, BC-5789, er-56 "
 
 #. module: stock_barcodes
 #. odoo-python
@@ -119,7 +119,7 @@ msgstr ""
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "<i class=\"fa fa-trash\" title=\"Remove\"/>"
-msgstr "<i class=\"fa fa-trash\" title=\"Rimovi\"/>"
+msgstr "<i class=\"fa fa-trash\" title=\"Rimuovi\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_inventory_form
@@ -255,9 +255,9 @@ msgid ""
 "                    <span class=\"fa fa-inbox fa-2x d-sm-none "
 "oe_span_small_icon\" title=\"package\"/>"
 msgstr ""
-"<strong class=\"d-none d-sm-block\">Colli</strong>\n"
+"<strong class=\"d-none d-sm-block\">Collo</strong>\n"
 "                    <span class=\"fa fa-inbox fa-2x d-sm-none "
-"oe_span_small_icon\" title=\"Colli\"/>"
+"oe_span_small_icon\" title=\"collo\"/>"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_form
@@ -341,7 +341,7 @@ msgstr "Permetti creazione lotto"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Are you sure to validate the picking ?"
-msgstr "Sei sicuro di validare il prelievo?"
+msgstr "Si è sicuri di validare il prelievo?"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
@@ -351,7 +351,7 @@ msgstr "Assegna numeri seriali"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
 msgid "Auto put in pack"
-msgstr "Metti in pacco automatico"
+msgstr "Metti in confezione automaticamente"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,help:stock_barcodes.field_stock_barcodes_option_group__auto_put_in_pack
@@ -412,7 +412,7 @@ msgstr "Codice a barre letto"
 #: code:addons/stock_barcodes/static/src/views/actions/stock_barcode_main_menu.xml:0
 #, python-format
 msgid "Barcode Scanner"
-msgstr "Scanner codice a barre"
+msgstr "Lettore di codici a barre"
 
 #. module: stock_barcodes
 #: model:ir.ui.menu,name:stock_barcodes.menu_action_stock_barcodes
@@ -624,7 +624,7 @@ msgstr "Contesto"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_action__count_elements
 msgid "Count Elements"
-msgstr "Contggio elementi"
+msgstr "Conteggio elementi"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_inventory__count_inventory_quants
@@ -775,7 +775,7 @@ msgstr "Completato"
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_move_line__barcode_scan_state__done_forced
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_read_todo__state__done_forced
 msgid "Done forced"
-msgstr "Fatto forzato"
+msgstr "Forzato a fatto"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -848,7 +848,7 @@ msgstr "Preleva lotti automaticamente"
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_inventory__product_packaging_ids
 #: model:ir.model.fields,help:stock_barcodes.field_wiz_stock_barcodes_read_picking__product_packaging_ids
 msgid "Gives the different ways to package the same product."
-msgstr "Consente di creare colli in modi diversi lo stesso prodotto."
+msgstr "Consente di creare in modi diversi colli dello stesso prodotto."
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option_group__group_key_for_todo_records
@@ -1377,7 +1377,7 @@ msgstr "Nessuna quantità disponibile per questo lotto con i valori a schermo"
 #. module: stock_barcodes
 #: model_terms:ir.actions.act_window,help:stock_barcodes.stock_barcodes_action_picking_tree_ready
 msgid "No transfer found. Let's create one!"
-msgstr "Nessun trasferimento trovato. Crearne uno!"
+msgstr "Nessun trasferimento trovato. Creiamone uno!"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__note
@@ -1563,12 +1563,12 @@ msgstr "Precedente"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_action_tree
 msgid "Print barcodes"
-msgstr "Stampa codice a barre"
+msgstr "Stampa codici a barre"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_report_stock_barcodes_report_barcode_actions
 msgid "Print barcodes from barcode actions"
-msgstr "Stampa codici a barre da azioni codici a barre"
+msgstr "Stampa codici a barre dalle azioni codice a barre"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_new_lot__product_id
@@ -1622,12 +1622,12 @@ msgstr "UdM prodotto"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Put in Pack"
-msgstr "Metti nel collo"
+msgstr "Metti nel pacco"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_read_picking_form
 msgid "Put in pack"
-msgstr "Metti nel collo"
+msgstr "Metti nel pacco"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__qty_available
@@ -1637,7 +1637,7 @@ msgstr "Q.tà disponibile"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__qty_done_rest
 msgid "Qty Done Rest"
-msgstr "Residuo q.tà lavorata"
+msgstr "Residuo q.tà completata"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1682,7 +1682,7 @@ msgstr "Riapri"
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_stock_barcodes_option__required
 msgid "Required"
-msgstr "Obbligatorio"
+msgstr "Richiesta"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__res_id
@@ -1704,12 +1704,12 @@ msgstr "Modello res"
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_candidate_picking__product_qty_reserved
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_todo__product_qty_reserved
 msgid "Reserved"
-msgstr "Riservato"
+msgstr "Prenotata"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
 msgid "Restore to pending"
-msgstr "Rimetti in sospeso"
+msgstr "Rimetti in attesa"
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read__result_package_id
@@ -1768,7 +1768,7 @@ msgstr "Scansiona una azione codice a barre"
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.report_barcode_actions
 msgid "Scan your actions and streamline your actions."
-msgstr "Scansiona le tue azioni e ottimizza le tue azioni."
+msgstr "Scansiona e semplifica le tue azioni."
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1893,7 +1893,7 @@ msgstr "La quantità è enorme"
 #: code:addons/stock_barcodes/static/src/views/views.esm.js:0
 #, python-format
 msgid "The transfer has been validated"
-msgstr "il trasferimento è stato validato"
+msgstr "Il trasferimento è stato validato"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -1953,7 +1953,8 @@ msgstr "Trasferimento"
 #: model_terms:ir.actions.act_window,help:stock_barcodes.stock_barcodes_action_picking_tree_ready
 msgid "Transfers allow you to move products from one location to another."
 msgstr ""
-"I trasferimento consentono di movimentare i prodotti tra le ubicazioni."
+"I trasferimenti consentono di spostare i prodotti da un'ubicazione a "
+"un'altra."
 
 #. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_type_code
@@ -2117,7 +2118,8 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read_picking.py:0
 #, python-format
 msgid "You can not add extra moves if you have not set a picking"
-msgstr "Non puoi aggiungere movimenti extra se non hai impostato un prelievo"
+msgstr ""
+"Non si possono aggiungere movimenti extra se non si è impostato un prelievo"
 
 #. module: stock_barcodes
 #: model_terms:ir.ui.view,arch_db:stock_barcodes.view_stock_barcodes_todo_kanban
