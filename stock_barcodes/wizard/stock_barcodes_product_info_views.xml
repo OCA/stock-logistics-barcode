@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_stock_barcodes_product_info_form" model="ir.ui.view">
+        <field name="name">stock.barcodes.product.info.form</field>
+        <field name="model">wiz.stock.barcodes.product.info</field>
+        <field name="arch" type="xml">
+            <form class="o_stock_barcodes_product_info">
+                <field name="product_uom_id" invisible="1" />
+                <field name="show_product_info" invisible="1" />
+                <div invisible="not show_product_info">
+                    <div class="h5 mb-2">
+                        <field name="product_id" options="{'no_open': True}" />
+                    </div>
+                    <div class="row g-0 text-center mb-2">
+                        <div class="col-3 px-1">
+                            <div class="text-muted small">On Hand</div>
+                            <field name="qty_available" class="fw-bold" />
+                        </div>
+                        <div class="col-3 px-1">
+                            <div class="text-muted small">Incoming</div>
+                            <field name="incoming_qty" class="fw-bold" />
+                        </div>
+                        <div class="col-3 px-1">
+                            <div class="text-muted small">Outgoing</div>
+                            <field name="outgoing_qty" class="fw-bold" />
+                        </div>
+                        <div class="col-3 px-1">
+                            <div class="text-muted small">Forecasted</div>
+                            <field name="virtual_available" class="fw-bold" />
+                        </div>
+                    </div>
+                </div>
+                <div class="text-muted mb-1">
+                    Tap a location to set it as
+                    <field name="location_field" class="oe_inline" readonly="1" />
+                </div>
+                <field name="line_ids" mode="kanban" nolabel="1">
+                    <kanban
+                        action="action_select"
+                        type="object"
+                        create="0"
+                        delete="0"
+                        class="o_kanban_mobile"
+                    >
+                        <field name="product_uom_id" />
+                        <templates>
+                            <t t-name="card" class="flex-row align-items-center">
+                                <field
+                                    name="location_id"
+                                    class="fw-bold fs-5 flex-grow-1"
+                                />
+                                <span class="fs-5 text-nowrap ms-2">
+                                    <field name="quantity" />
+                                    <field
+                                        name="product_uom_id"
+                                        class="ms-1"
+                                        groups="uom.group_uom"
+                                    />
+                                </span>
+                            </t>
+                        </templates>
+                    </kanban>
+                </field>
+                <div
+                    class="alert alert-info text-center"
+                    role="alert"
+                    invisible="line_ids"
+                >
+                    No stock in any location
+                </div>
+                <footer>
+                    <button
+                        string="Close"
+                        special="cancel"
+                        class="btn-secondary oe_kanban_action_button"
+                        data-hotkey="x"
+                    />
+                </footer>
+            </form>
+        </field>
+    </record>
+</odoo>

@@ -22,6 +22,14 @@ class TestBarcodesGeneratorAbstract(BaseCommon):
         cls.registry.init_models(cls.env.cr, test_models, {"models_to_check": True})
         cls.addClassCleanup(cls.registry.__delitem__, "res.users.tester")
 
+        # Avoid the `digest` module auto-subscribing the fake test user to the
+        # default digest: it unions `digest.user_ids` (comodel `res.users`)
+        # with the created recordset, which is of model `res.users.tester`
+        # here, and Odoo's ORM raises on inconsistent-model unions.
+        cls.env["ir.config_parameter"].sudo().set_param(
+            "digest.default_digest_emails", False
+        )
+
         cls.barcode_rule_fake = cls.env["barcode.rule"].create(
             {
                 "name": "User rule",
