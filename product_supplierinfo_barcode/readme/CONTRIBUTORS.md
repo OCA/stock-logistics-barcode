@@ -1,0 +1,5 @@
+- Lorenzo Battistini (<https://takobi.online>)
+- Helly kapatel \<helly.kapatel@initos.com\>
+- Eric Antones \<eantones@nuobit.com\>
+- [NuoBiT](https://www.nuobit.com):
+  - Deniz Gallo <dgallo@nuobit.com>
