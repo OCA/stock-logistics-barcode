@@ -9,7 +9,7 @@ class ProductTemplate(models.Model):
         store=True,
     )
 
-    @api.depends("product_variant_ids.barcode")
+    @api.depends("product_variant_ids.active", "product_variant_ids.barcode")
     def _compute_has_missing_barcodes(self):
         for product in self:
             product.has_missing_barcodes = bool(
