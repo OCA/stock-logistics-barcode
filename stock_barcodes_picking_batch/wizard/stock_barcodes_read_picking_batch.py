@@ -68,14 +68,14 @@ class WizStockBarcodesReadPickingBatch(models.TransientModel):
             "qty_done"
         ).sorted("write_date", reverse=True)
 
-    @api.model
-    def create(self, vals):
+    @api.model_create_multi
+    def create(self, vals_list):
         # When user click any view button the wizard record is create and the
         # picking batch candidates have been lost, so we need set it.
-        wiz = super().create(vals)
-        if wiz.picking_batch_id:
-            wiz._set_candidate_picking_batchs(wiz.picking_batch_id)
-        return wiz
+        wizards = super().create(vals_list)
+        for wizard in wizards.filtered("picking_batch_id"):
+            wizard._set_candidate_picking_batchs(wizard.picking_batch_id)
+        return wizards
 
     @api.onchange("picking_batch_id")
     def onchange_picking_batch_id(self):
