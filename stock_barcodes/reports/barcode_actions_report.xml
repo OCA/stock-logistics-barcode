@@ -1,0 +1,25 @@
+<odoo>
+    <template id="report_barcode_actions">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="row text-center mb-4">
+                        <h1>Scan your actions and streamline your actions.</h1>
+                    </div>
+                    <div class="row">
+                        <t t-foreach="barcodes" t-as="barcode">
+                            <div class="col-4 text-center">
+                                <h2 t-out="barcode['name']" />
+                                <img
+                                    t-att-src="'data:image/png;base64,%s' % barcode['barcode_image'].decode('utf-8')"
+                                    width="100%"
+                                    height="160px"
+                                />
+                            </div>
+                        </t>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+</odoo>
