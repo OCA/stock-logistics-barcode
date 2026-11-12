@@ -22,7 +22,6 @@ class ProductBarcode(models.Model):
         default=0,
     )
     product_id = fields.Many2one(
-        string="Product",
         comodel_name="product.product",
         compute="_compute_product",
         store=True,
