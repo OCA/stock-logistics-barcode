@@ -390,3 +390,59 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         wiz = self.ScanReadPicking.browse(action["res_id"])
         self.assertTrue(wiz.todo_line_ids)
         self.assertFalse(any(wiz.todo_line_ids.mapped("picking_names")))
+
+    def test_batch_picking_from_product_keeps_picking_destination(self):
+        # The batch wizard holds the destination of the first picking of the
+        # batch, here the inter-company location of its partner: the picking
+        # found by product must keep its own one.
+        intercompany_location = self.StockLocation.create(
+            {"name": "Inter-company transit", "usage": "transit"}
+        )
+        intercompany_partner = self.ResPartner.create(
+            {
+                "name": "Inter-company partner",
+                "property_stock_customer": intercompany_location.id,
+            }
+        )
+        product = self.Product.create({"name": "Product", "is_storable": True})
+        self.StockQuant._update_available_quantity(product, self.stock_location, 2)
+
+        # Oldest move: the product search finds this picking
+        picking = self.StockPicking.create(
+            {
+                "picking_type_id": self.picking_type_out.id,
+                "partner_id": self.partner_agrolite.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "name": product.name,
+                            "product_id": product.id,
+                            "product_uom_qty": 1,
+                        }
+                    )
+                ],
+            }
+        )
+        # Written after the copy, which keeps the original destination and
+        # scheduled date. Scheduled earlier: first picking of the batch.
+        first_picking = picking.copy()
+        first_picking.write(
+            {"partner_id": intercompany_partner.id, "scheduled_date": "2000-01-01"}
+        )
+        (picking | first_picking).action_assign()
+        batch = self.env["stock.picking.batch"].create(
+            {"picking_ids": [Command.set((picking | first_picking).ids)]}
+        )
+        batch.action_confirm()
+        batch.invalidate_recordset(["picking_ids"])
+        self.assertEqual(batch.picking_ids[:1], first_picking)
+        option_group = self._create_barcode_option_group_outgoing(manual_entry=True)
+        option_group.search_picking_from_product = "first"
+        self.picking_type_out.barcode_option_group_id = option_group
+        wiz = self.ScanReadPicking.browse(batch.action_barcode_scan()["res_id"])
+        wiz.product_id = product
+        wiz.product_qty = 1
+        wiz.action_confirm()
+        self.assertEqual(wiz.picking_id, picking)
+        self.assertEqual(picking.move_line_ids.location_dest_id, self.customer_location)
+        self.assertEqual(picking.move_line_ids.qty_picked, 1.0)
