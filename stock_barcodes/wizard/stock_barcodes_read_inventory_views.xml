@@ -12,7 +12,7 @@
             </field>
             <!-- hide result package from inventory -->
             <group name="quant_package" position="replace">
-                <div class="mt4">
+                <div class="mt4" groups="stock.group_tracking_lot">
                     <strong class="d-none d-sm-block">Package</strong>
                     <span
                         class="fa fa-inbox fa-2x d-sm-none oe_span_small_icon"
