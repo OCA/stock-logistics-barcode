@@ -1,0 +1,360 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* stock_barcodes_move_location
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 13.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: \n"
+"Plural-Forms: \n"
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_wiz_stock_move_location_form_stock_move_location
+msgid "<span class=\"o_stat_text\">Scan barcodes</span>"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__action_ids
+msgid "Action"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_stock_barcodes_read_move_location_form
+msgid "Automatic entry"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__barcode
+msgid "Barcode"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location___barcode_scanned
+msgid "Barcode Scanned"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: code:addons/stock_barcodes_move_location/wizard/stock_barcodes_read_move_location.py:0
+#, python-format
+msgid "Barcode reader"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.actions.act_window,name:stock_barcodes_move_location.action_stock_barcodes_read_stock_move_location
+msgid "Barcodes Read"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_wiz_stock_move_location_form_stock_move_location
+msgid "Clear all"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__confirmed_moves
+msgid "Confirmed moves"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__create_uid
+msgid "Created by"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__create_date
+msgid "Created on"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__location_dest_id
+msgid "Destination Location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__display_assign_serial
+msgid "Display Assign Serial"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__display_menu
+msgid "Display Menu"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__display_name
+msgid "Display Name"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_stock_picking_type__no_move_proposal
+msgid "Do Not Propose Moves (Move On Hand)"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_tracking
+msgid "Ensure the traceability of a storable product in your warehouse."
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__manual_entry
+msgid "Entry manual data"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__auto_lot
+msgid "Get lots automatically"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_packaging_ids
+msgid "Gives the different ways to package the same product."
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__guided_location_id
+msgid "Guided Location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__guided_location_dest_id
+msgid "Guided Location Dest"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__guided_lot_id
+msgid "Guided Lot"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__guided_product_id
+msgid "Guided Product"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__id
+msgid "ID"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__auto_lot
+msgid ""
+"If checked the lot will be set automatically with the same removal startegy"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__is_manual_confirm
+msgid "Is Manual Confirm"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__is_manual_qty
+msgid "Is Manual Qty"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__confirmed_moves
+msgid ""
+"It allows to work with movements without reservation (Without detailed "
+"operations)"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location____last_update
+msgid "Last Modified on"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__write_uid
+msgid "Last Updated by"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__write_date
+msgid "Last Updated on"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_wiz_stock_move_location_form_stock_move_location
+msgid "List view of lines"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__location_id
+msgid "Location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__lot_id
+msgid "Lot"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__manual_entry
+msgid "Manual"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_stock_picking_type__no_move_proposal
+msgid "Mark this option to not to propose stock moves to be processed"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__message
+msgid "Message"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__message_step
+msgid "Message Step"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__message_type
+msgid "Message Type"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: code:addons/stock_barcodes_move_location/wizard/stock_move_location.py:0
+#, python-format
+msgid "Move Between Locations"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__move_location_id
+msgid "Move Location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__option_group_id
+msgid "Option Group"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_stock_barcodes_read_move_location_form
+msgid "Origin Location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__owner_id
+msgid "Owner"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__package_id
+msgid "Package"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__packaging_qty
+msgid "Package Qty"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__packaging_id
+msgid "Packaging"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model,name:stock_barcodes_move_location.model_stock_picking_type
+msgid "Picking Type"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_id
+msgid "Product"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_packaging_ids
+msgid "Product Packages"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_qty
+msgid "Product Qty"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_uom_id
+msgid "Product Uom"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__qty_available
+msgid "Qty Available"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__res_id
+msgid "Res"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__res_model_id
+msgid "Res Model"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__result_package_id
+msgid "Result Package"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__scan_log_ids
+msgid "Scan Log"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model_terms:ir.ui.view,arch_db:stock_barcodes_move_location.view_stock_barcodes_read_move_location_form
+msgid "Scan With Z-BAR-CAM"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__show_scan_log
+msgid "Show Scan Log"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__step
+msgid "Step"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__move_location_qty
+msgid "To Move quantities"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__product_tracking
+msgid "Tracking"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,help:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location___barcode_scanned
+msgid "Value of the last barcode scanned."
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model.fields,field_description:stock_barcodes_move_location.field_wiz_stock_barcodes_read_move_location__visible_force_done
+msgid "Visible Force Done"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: code:addons/stock_barcodes_move_location/wizard/stock_barcodes_read_move_location.py:0
+#, python-format
+msgid "Waiting for input lot"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model,name:stock_barcodes_move_location.model_wiz_stock_move_location
+msgid "Wizard move location"
+msgstr ""
+
+#. module: stock_barcodes_move_location
+#: model:ir.model,name:stock_barcodes_move_location.model_wiz_stock_barcodes_read_move_location
+msgid "Wizard to read barcode on move location"
+msgstr ""
