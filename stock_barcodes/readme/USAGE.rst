@@ -13,62 +13,62 @@ Option 2: Use the barcode interface inventory directly from the Barcodes applica
   #. Go to *Barcodes*.
   #. Select the *Inventory* option.
 
-    .. image:: ../static/src/img/inventory_barcode_action.png
-       :height: 100
-       :width: 200
-       :alt: Inventory barcode action
+     .. image:: ../static/src/img/inventory_barcode_action.png
+        :height: 100
+        :width: 200
+        :alt: Inventory barcode action
 
   #. Start scanning barcodes.
 
 Actions
-  # Press the *+ Product* button to display the form for the new item.
+  #. Press the *+ Product* button to display the form for the new item.
 
-    .. image:: ../static/src/img/add_product.png
-       :height: 100
-       :width: 200
-       :alt: Add product
+     .. image:: ../static/src/img/add_product.png
+        :height: 100
+        :width: 200
+        :alt: Add product
 
-  # When you select a product, a numeric field is displayed to add the quantity.
+  #. When you select a product, a numeric field is displayed to add the quantity.
 
-    .. image:: ../static/src/img/form_add_product_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Add quantity product
+     .. image:: ../static/src/img/form_add_product_quantity.png
+        :height: 100
+        :width: 200
+        :alt: Add quantity product
 
-  # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
+  #. When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
 
-    .. image:: ../static/src/img/form_add_product_reset.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+     .. image:: ../static/src/img/form_add_product_reset.png
+        :height: 100
+        :width: 200
+        :alt: Reset data form
 
-  # When you press the *Clean values* button, all fields are reset and the form is closed.
-  # When you press the *Confirm* button, the new item is added and the form is closed.
-  # When the eye icon is closed, the created items greater than zero are displayed, and if not, those less than or equal to zero.
+  #. When you press the *Clean values* button, all fields are reset and the form is closed.
+  #. When you press the *Confirm* button, the new item is added and the form is closed.
+  #. When the eye icon is closed, the created items greater than zero are displayed, and if not, those less than or equal to zero.
 
-    .. image:: ../static/src/img/list_items.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+     .. image:: ../static/src/img/list_items.png
+        :height: 100
+        :width: 200
+        :alt: Reset data form
 
-  # In the list, the trash can icon allows you to reset the quantity to zero and the edit icon allows you to change the item values.
+  #. In the list, the trash can icon allows you to reset the quantity to zero and the edit icon allows you to change the item values.
 
-    .. image:: ../static/src/img/list_action_items.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+     .. image:: ../static/src/img/list_action_items.png
+        :height: 100
+        :width: 200
+        :alt: Reset data form
 
-  # The *Apply* button is only displayed if there are items with quantities greater than zero, regardless of whether they were scanned or entered manually; If you press all the defined quantities will be processed after defining the reason for the inventory adjustment and then the main barcode menu will be displayed.
+  #. The *Apply* button is only displayed if there are items with quantities greater than zero, regardless of whether they were scanned or entered manually; If you press all the defined quantities will be processed after defining the reason for the inventory adjustment and then the main barcode menu will be displayed.
 
-    .. image:: ../static/src/img/apply_inventory.png
-       :height: 100
-       :width: 200
-       :alt: Apply inventory
+     .. image:: ../static/src/img/apply_inventory.png
+        :height: 100
+        :width: 200
+        :alt: Apply inventory
 
-    .. image:: ../static/src/img/apply_inventory_reason.png
-       :height: 100
-       :width: 200
-       :alt: Apply inventory reason
+     .. image:: ../static/src/img/apply_inventory_reason.png
+        :height: 100
+        :width: 200
+        :alt: Apply inventory reason
 
 
 Barcode interface for picking operations
@@ -93,99 +93,99 @@ Option 2: Use the barcode interface picking directly from the Barcodes applicati
   #. Go to *Barcodes*.
   #. Select the option *OPERATIONS*.
 
-    .. image:: ../static/src/img/inventory_barcode_action.png
-       :height: 100
-       :width: 200
-       :alt: Operation barcode action
+     .. image:: ../static/src/img/inventory_barcode_action.png
+        :height: 100
+        :width: 200
+        :alt: Operation barcode action
 
-  # Select the type of picking.
-  # The pickings in ready status are displayed, select the one you want to start scanning.
+  #. Select the type of picking.
+  #. The pickings in ready status are displayed, select the one you want to start scanning.
 
-    .. image:: ../static/src/img/list_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+     .. image:: ../static/src/img/list_picking.png
+        :height: 100
+        :width: 200
+        :alt: List picking
 
   #. Start scanning barcodes.
 
-    .. image:: ../static/src/img/barcode_interface_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+     .. image:: ../static/src/img/barcode_interface_picking.png
+        :height: 100
+        :width: 200
+        :alt: List picking
 
 Actions
-  # All the items that have been configured for the selected picking are listed.
+  #. All the items that have been configured for the selected picking are listed.
 
-    .. image:: ../static/src/img/list_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: List picking
+     .. image:: ../static/src/img/list_items_picking.png
+        :height: 100
+        :width: 200
+        :alt: List picking
 
-  # The edit icon in the list allows you to modify the data.
+  #. The edit icon in the list allows you to modify the data.
 
-    .. image:: ../static/src/img/list_items_picking_edit.png
-       :height: 100
-       :width: 200
-       :alt: Edit picking
+     .. image:: ../static/src/img/list_items_picking_edit.png
+        :height: 100
+        :width: 200
+        :alt: Edit picking
 
-  # The button that contains a *+120* (in this case), allows you to define all the
-    remaining quantities. Once defined, this button disappears and if you want to change the
-    quantities, press the edit button.
+  #. The button that contains a *+120* (in this case), allows you to define all the
+     remaining quantities. Once defined, this button disappears and if you want to change the
+     quantities, press the edit button.
 
-    .. image:: ../static/src/img/list_items_picking_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Quantity picking
+     .. image:: ../static/src/img/list_items_picking_quantity.png
+        :height: 100
+        :width: 200
+        :alt: Quantity picking
 
-  # If there is at least one item with a quantity already defined, an eye icon is displayed,
-    which if closed shows the items and their quantities already scanned.
+  #. If there is at least one item with a quantity already defined, an eye icon is displayed,
+     which if closed shows the items and their quantities already scanned.
 
-    .. image:: ../static/src/img/list_items_picking_scanned.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+     .. image:: ../static/src/img/list_items_picking_scanned.png
+        :height: 100
+        :width: 200
+        :alt: Picking scanned
 
-  # When you press the *Validate* button, a wizard will be displayed to confirm the action.
-    If everything is correct, it is validated and you return to the picking list mentioned above.
+  #. When you press the *Validate* button, a wizard will be displayed to confirm the action.
+     If everything is correct, it is validated and you return to the picking list mentioned above.
 
-    .. image:: ../static/src/img/confirm_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+     .. image:: ../static/src/img/confirm_items_picking.png
+        :height: 100
+        :width: 200
+        :alt: Picking scanned
 
-  # If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned
-    above, to confirm if you want to process all the quantities. If positive, you will proceed
-    and be directed to the list mentioned above in the previous point.
+  #. If there is an item whose quantity is zero, a wizard will be displayed after the one mentioned
+     above, to confirm if you want to process all the quantities. If positive, you will proceed
+     and be directed to the list mentioned above in the previous point.
 
-    .. image:: ../static/src/img/confirm_all_quantity_items_picking.png
-       :height: 100
-       :width: 200
-       :alt: Picking scanned
+     .. image:: ../static/src/img/confirm_all_quantity_items_picking.png
+        :height: 100
+        :width: 200
+        :alt: Picking scanned
 
-  # Press the *+ Product* button to display the form for the new item.
+  #. Press the *+ Product* button to display the form for the new item.
 
-    .. image:: ../static/src/img/add_product.png
-       :height: 100
-       :width: 200
-       :alt: Add product
+     .. image:: ../static/src/img/add_product.png
+        :height: 100
+        :width: 200
+        :alt: Add product
 
-  # When you select a product, a numeric field is displayed to add the quantity.
+  #. When you select a product, a numeric field is displayed to add the quantity.
 
-    .. image:: ../static/src/img/form_add_product_quantity.png
-       :height: 100
-       :width: 200
-       :alt: Add quantity product
+     .. image:: ../static/src/img/form_add_product_quantity.png
+        :height: 100
+        :width: 200
+        :alt: Add quantity product
 
-  # When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
+  #. When you press the button with the trash can icon, the values of the form are reset (except for the location) without closing it.
 
-    .. image:: ../static/src/img/form_add_product_reset.png
-       :height: 100
-       :width: 200
-       :alt: Reset data form
+     .. image:: ../static/src/img/form_add_product_reset.png
+        :height: 100
+        :width: 200
+        :alt: Reset data form
 
-  # When you press the *Clean values* button, all fields are reset and the form is closed.
-  # When you press the *Confirm* button, the new item is added and the form is closed.
-  # When adding the new item all the quantities are assigned to it, if you want to modify it, press the edit icon.
+  #. When you press the *Clean values* button, all fields are reset and the form is closed.
+  #. When you press the *Confirm* button, the new item is added and the form is closed.
+  #. When adding the new item all the quantities are assigned to it, if you want to modify it, press the edit icon.
 
 The barcode scanner interface has two operation modes. In both of them user
 can scan:
