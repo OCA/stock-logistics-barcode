@@ -851,7 +851,6 @@ msgid "Demand"
 msgstr "Demanda"
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__stock_barcodes_option_group__location_field_to_sort__location_dest_id
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_product_info__location_field__location_dest_id
 msgid "Destination Location"
@@ -1742,6 +1741,16 @@ msgid "Picking INTERNAL"
 msgstr "Albarà INTERN"
 
 #. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_id
+msgid "Picking Location"
+msgstr ""
+
+#. module: stock_barcodes
+#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_dest_id
+msgid "Picking Location Dest"
+msgstr ""
+
+#. module: stock_barcodes
 #: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_mode
 msgid "Picking Mode"
 msgstr "Mode d'albarà"
@@ -2238,7 +2247,6 @@ msgstr ""
 "una segona ubicació llegida estableix el destí quan l'origen ja és emplenat)."
 
 #. module: stock_barcodes
-#: model:ir.model.fields,field_description:stock_barcodes.field_wiz_stock_barcodes_read_picking__picking_location_id
 #: model:ir.model.fields.selection,name:stock_barcodes.selection__wiz_stock_barcodes_product_info__location_field__location_id
 msgid "Source Location"
 msgstr "Ubicació d'origen"
@@ -2606,8 +2614,8 @@ msgstr "Assistent per llegir codis de barres a l'inventari"
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_picking
-msgid "Wizard to read barcode on picking"
-msgstr "Assistent per llegir codis de barres als albarans"
+msgid "Wizard to read barcode on picking batch"
+msgstr ""
 
 #. module: stock_barcodes
 #: model:ir.model,name:stock_barcodes.model_wiz_stock_barcodes_read_todo
@@ -2651,15 +2659,15 @@ msgid ""
 "generate the movements to be process.\n"
 "The object variable is used to refer to the source stock move or stock move "
 "line\n"
-"For example, object.location_id,object.product_id,object.lot_id or object."
-"picking_id,object.product_id"
+"For example, object.location_id,object.product_id,object.lot_id or "
+"object.picking_id,object.product_id"
 msgstr ""
 "Podeu establir una llista de camps que actuaran com a clau d'agrupació per "
 "generar els moviments a processar.\n"
 "La variable object fa referència al moviment o a la línia de moviment "
 "d'origen\n"
-"Per exemple, object.location_id,object.product_id,object.lot_id o object."
-"picking_id,object.product_id"
+"Per exemple, object.location_id,object.product_id,object.lot_id o "
+"object.picking_id,object.product_id"
 
 #. module: stock_barcodes
 #. odoo-python
@@ -2681,3 +2689,6 @@ msgstr ""
 #: code:addons/stock_barcodes/wizard/stock_barcodes_read.py:0
 msgid "{name} is required"
 msgstr "{name} és obligatori"
+
+#~ msgid "Wizard to read barcode on picking"
+#~ msgstr "Assistent per llegir codis de barres als albarans"
