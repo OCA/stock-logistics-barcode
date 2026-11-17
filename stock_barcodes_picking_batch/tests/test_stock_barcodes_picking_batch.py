@@ -336,6 +336,19 @@ class TestStockBarcodesPickingBatch(TestStockBarcodesPicking):
         self.assertEqual(self.picking_batch.state, "done")
         self.assertEqual(sum(self.picking_batch.move_line_ids.mapped("quantity")), 7)
 
+    def test_batch_scan_shared_serial_takes_the_lot_in_stock(self):
+        picking, lot = self._create_relabelled_serial_picking()
+        batch = self.env["stock.picking.batch"].create({"name": "relabelled serial"})
+        picking.batch_id = batch
+        batch.action_confirm()
+        batch.action_assign()
+        action = batch.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.assertEqual(wiz.picking_mode, "picking_batch")
+        self.action_barcode_scanned(wiz, "SN-RELABEL-001")
+        self.assertEqual(picking.move_line_ids.lot_id, lot)
+        self.assertEqual(picking.move_line_ids.qty_picked, 1.0)
+
     def test_batch_rejects_duplicate_serial(self):
         self.product_wo_tracking.tracking = "serial"
         lot = self.env["stock.lot"].create(
