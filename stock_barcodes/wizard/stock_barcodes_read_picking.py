@@ -1320,6 +1320,20 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             self.picking_mode = "picking"
             self.res_model_id = self.env.ref("stock.model_stock_picking").id
             self.res_id = self.picking_id.id
+            # The wizard still holds the default locations of where it was opened
+            # (the operation type or another picking of a batch). Take the ones of
+            # the found picking, as when the wizard is opened from it; otherwise
+            # they are read as chosen by the user and overwrite the move lines.
+            picking_vals = self.picking_id._prepare_barcode_wiz_vals(
+                self.option_group_id
+            )
+            self.update(
+                {
+                    field_name: picking_vals[field_name]
+                    for field_name in ("location_id", "location_dest_id")
+                    if field_name in picking_vals
+                }
+            )
             return self.picking_id.action_barcode_scan(wiz=self)
         else:
             return False

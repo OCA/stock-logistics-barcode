@@ -1170,6 +1170,48 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         self.assertTrue(action)
         self.assertEqual(wiz.picking_id, self.picking_in_01)
 
+    def test_picking_from_product_keeps_picking_destination(self):
+        # The wizard opened from the operation type holds its destination: the
+        # picking found by product must keep its own one, here the inter-company
+        # location of the partner.
+        intercompany_location = self.StockLocation.create(
+            {"name": "Inter-company transit", "usage": "transit"}
+        )
+        partner = self.ResPartner.create(
+            {
+                "name": "Inter-company partner",
+                "property_stock_customer": intercompany_location.id,
+            }
+        )
+        product = self.Product.create({"name": "Product", "is_storable": True})
+        self.StockQuant._update_available_quantity(product, self.stock_location, 1)
+        picking = self.StockPicking.create(
+            {
+                "picking_type_id": self.picking_type_out.id,
+                "partner_id": partner.id,
+                "move_ids": [
+                    Command.create(
+                        {
+                            "name": product.name,
+                            "product_id": product.id,
+                            "product_uom_qty": 1,
+                        }
+                    )
+                ],
+            }
+        )
+        picking.action_assign()
+        option_group = self._create_barcode_option_group_outgoing(manual_entry=True)
+        option_group.search_picking_from_product = "first"
+        self.picking_type_out.barcode_option_group_id = option_group
+        action = self.picking_type_out.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        wiz.product_id = product
+        wiz.product_qty = 1
+        wiz.action_confirm()
+        self.assertEqual(picking.move_line_ids.location_dest_id, intercompany_location)
+        self.assertEqual(picking.move_line_ids.qty_picked, 1.0)
+
     def test_auto_put_in_pack(self):
         # When auto_put_in_pack is enabled, validating a picking without result
         # package triggers action_put_in_pack before the standard validation.
