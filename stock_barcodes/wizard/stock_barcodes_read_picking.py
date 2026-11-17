@@ -1135,6 +1135,43 @@ class WizStockBarcodesReadPicking(models.TransientModel):
             return [("location_id", "child_of", self.picking_id.location_id.ids)]
         return super()._get_location_domain_for_quant_search()
 
+    def _get_pickings_for_lot_search(self):
+        """Pickings whose source stock decides which lots can be read."""
+        return self.picking_id
+
+    def _lot_search_requires_stock(self):
+        """Only lots with stock in the source can be taken from an operation
+        that takes goods out of internal locations. Several products can share
+        a lot name (e.g. a manufacturing order that relabels a product keeping
+        its serial number), and the consumed lot must not hide the one that
+        is on the shelf.
+        """
+        pickings = self._get_pickings_for_lot_search()
+        return (
+            bool(pickings)
+            and not self.option_group_id.allow_negative_quant
+            and all(
+                picking.location_id.usage == "internal"
+                and not picking.picking_type_id.use_create_lots
+                for picking in pickings
+            )
+        )
+
+    def _prepare_lot_domain(self):
+        domain = super()._prepare_lot_domain()
+        if self._lot_search_requires_stock():
+            domain.append(
+                (
+                    "quant_ids",
+                    "any",
+                    [
+                        ("quantity", ">", 0.0),
+                        *self._get_location_domain_for_quant_search(),
+                    ],
+                )
+            )
+        return domain
+
     def _get_all_products_quantities_in_package(self, package):
         res = {}
         # TODO: Check if domain is applied and we must recover _get_contained_quants
