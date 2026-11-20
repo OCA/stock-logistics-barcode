@@ -615,6 +615,74 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
             }
         )
 
+    def _create_relabelled_serial_picking(self):
+        """A manufacturing order relabels a product into another one keeping
+        its serial number: the consumed product keeps a lot with that name and
+        no stock, and the new product has the same serial on the shelf.
+        """
+        self.StockProductionLot.create(
+            {
+                "name": "SN-RELABEL-001",
+                "product_id": self.product_tracking_serial1.id,
+                "company_id": self.company.id,
+            }
+        )
+        lot = self.StockProductionLot.create(
+            {
+                "name": "SN-RELABEL-001",
+                "product_id": self.product_tracking_serial.id,
+                "company_id": self.company.id,
+            }
+        )
+        self.StockQuant._update_available_quantity(
+            self.product_tracking_serial, self.stock_location, 1, lot_id=lot
+        )
+        picking = (
+            self.env["stock.picking"]
+            .with_context(planned_picking=True)
+            .create(
+                {
+                    "location_id": self.stock_location.id,
+                    "location_dest_id": self.customer_location.id,
+                    "partner_id": self.partner_agrolite.id,
+                    "picking_type_id": self.picking_type_out.id,
+                    "move_ids": [
+                        Command.create(
+                            {
+                                "name": self.product_tracking_serial.name,
+                                "product_id": self.product_tracking_serial.id,
+                                "product_uom_qty": 1,
+                                "product_uom": self.product_tracking_serial.uom_id.id,
+                                "location_id": self.stock_location.id,
+                                "location_dest_id": self.customer_location.id,
+                            }
+                        )
+                    ],
+                }
+            )
+        )
+        picking.action_confirm()
+        return picking, lot
+
+    def test_out_scan_shared_serial_takes_the_lot_in_stock(self):
+        picking, lot = self._create_relabelled_serial_picking()
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.action_barcode_scanned(wiz, "SN-RELABEL-001")
+        self.assertEqual(picking.move_line_ids.lot_id, lot)
+        self.assertEqual(picking.move_line_ids.qty_picked, 1.0)
+
+    def test_out_scan_shared_serial_negative_quant_stays_ambiguous(self):
+        # When the operation may take lots without stock, the stock can not
+        # tell the lots apart and the product must be read first.
+        self.barcode_option_group_out.allow_negative_quant = True
+        picking, _lot = self._create_relabelled_serial_picking()
+        action = picking.action_barcode_scan()
+        wiz = self.ScanReadPicking.browse(action["res_id"])
+        self.action_barcode_scanned(wiz, "SN-RELABEL-001")
+        self.assertEqual(wiz.message_type, "more_match")
+        self.assertFalse(picking.move_line_ids.qty_picked)
+
     @classmethod
     def _create_barcode_option_group_outgoing(cls, manual_entry=False):
         return cls.env["stock.barcodes.option.group"].create(
