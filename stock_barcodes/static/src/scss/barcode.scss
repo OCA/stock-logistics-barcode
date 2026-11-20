@@ -1,0 +1,490 @@
+@mixin barcode-decoration() {
+    i.fa-barcode {
+        font-size: 2em !important;
+        @include media-breakpoint-down(sm) {
+            font-size: 3em !important;
+        }
+    }
+}
+
+.w-15 {
+    width: 15% !important;
+}
+
+div.o_kanban_renderer {
+    button[name="action_barcode_scan"] {
+        @include barcode-decoration;
+    }
+}
+
+div.o_kanban_stock_barcodes {
+    padding: 10px !important;
+
+    button.o_stock_mobile_barcode {
+        @include barcode-decoration;
+    }
+
+    button.o_stock_mobile_barcode:focus {
+        box-shadow: none !important;
+    }
+}
+
+div.alert.barcode-info {
+    background-color: $o-community-color !important;
+
+    span.fa-barcode {
+        margin: 0.5rem 1rem 0 1rem !important;
+
+        @include media-breakpoint-down(sm) {
+            margin: 0 0 0 5px !important;
+            font-size: 1em !important;
+        }
+    }
+}
+
+.inventory_quant_ids_with_form {
+    height: 710px !important;
+    @include media-breakpoint-down(sm) {
+        height: 500px !important;
+    }
+}
+
+.inventory_quant_ids_without_form {
+    height: 822px !important;
+    @include media-breakpoint-down(sm) {
+        height: 648px !important;
+    }
+}
+
+div.oe_kanban_picking_done {
+    background-color: #353840 !important;
+    border: none !important;
+    box-shadow: none !important;
+    height: 230px !important;
+}
+
+div[name="inventory_quant_ids"],
+div[name="todo_line_display_ids"],
+div[name="pending_move_ids"],
+div[name="move_line_ids"] {
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+    -webkit-overflow-scrolling: auto;
+    touch-action: pan-y;
+
+    &.o_field_x2many,
+    .o_field_x2many,
+    .o_field_x2many_kanban,
+    .o_renderer {
+        height: auto !important;
+        max-height: none !important;
+        overflow: visible !important;
+    }
+
+    div.o_kanban_renderer {
+        height: auto !important;
+        max-height: none !important;
+        max-width: 100%;
+        overflow-x: hidden;
+        overflow-y: visible !important;
+        padding: 0 !important;
+
+        &:has(div.oe_kanban_picking_done) {
+            height: 50% !important;
+        }
+
+        div.o_kanban_record {
+            box-sizing: border-box;
+            box-shadow: rgba(0, 0, 0, 0.35) 0 5px 15px !important;
+            max-width: 100%;
+            min-width: 0;
+            width: 100%;
+
+            i.fa-pencil,
+            i.fa-trash {
+                font-size: 3.5em !important;
+            }
+
+            img,
+            span.text-end.fw-bold {
+                margin-right: 5% !important;
+            }
+
+            div.indent {
+                text-indent: 5px !important;
+            }
+        }
+
+        button.btn-op-big {
+            min-width: 55px !important;
+            height: 60px !important;
+            padding: 12px 8px !important;
+            border-radius: 8px !important;
+            line-height: 16px !important;
+            font-size: 16px !important;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            text-transform: none;
+        }
+    }
+}
+
+div[name="move_line_ids"] {
+    div.o_kanban_renderer {
+        div.o_kanban_record:has(.o_stock_barcodes_detailed_operation_card) {
+            padding: 0 !important;
+        }
+    }
+
+    .o_stock_barcodes_detailed_operation_card {
+        align-items: stretch;
+        box-sizing: border-box;
+        display: grid;
+        gap: 0.35rem;
+        grid-template-columns: minmax(0, 1fr) 58px;
+        max-width: 100%;
+        min-height: 82px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .o_stock_barcodes_detailed_operation_body {
+        min-width: 0;
+        padding: 0.45rem 0 0.45rem 0.55rem;
+    }
+
+    .o_stock_barcodes_detailed_operation_product {
+        display: -webkit-box;
+        font-size: 1rem !important;
+        font-weight: 600;
+        line-height: 1.15 !important;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 3;
+    }
+
+    .o_stock_barcodes_detailed_operation_meta {
+        color: #4b5563;
+        display: block;
+        font-size: 0.8rem;
+        line-height: 1.15;
+        margin-top: 0.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_stock_barcodes_detailed_operation_actions {
+        align-items: center;
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+        justify-content: center;
+        padding: 0.3rem;
+    }
+
+    .o_stock_barcodes_detailed_operation_qty {
+        font-size: 1rem !important;
+        font-weight: 700;
+        line-height: 1;
+        margin: 0 !important;
+        text-align: center;
+    }
+
+    .o_stock_barcodes_detailed_operation_remove {
+        height: 36px !important;
+        min-width: 36px !important;
+        padding: 0 !important;
+        width: 36px !important;
+
+        i.fa-trash {
+            font-size: 1rem !important;
+        }
+    }
+
+    @include media-breakpoint-down(sm) {
+        .o_stock_barcodes_detailed_operation_card {
+            grid-template-columns: minmax(0, 1fr) 52px;
+            min-height: 78px;
+        }
+
+        .o_stock_barcodes_detailed_operation_body {
+            padding: 0.35rem 0 0.35rem 0.4rem;
+        }
+
+        .o_stock_barcodes_detailed_operation_product {
+            font-size: 0.9rem !important;
+        }
+
+        .o_stock_barcodes_detailed_operation_meta {
+            font-size: 0.74rem;
+        }
+
+        .o_stock_barcodes_detailed_operation_remove {
+            height: 32px !important;
+            min-width: 32px !important;
+            width: 32px !important;
+
+            i.fa-trash {
+                font-size: 0.95rem !important;
+            }
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        div.o_kanban_renderer {
+            div.o_kanban_record:has(.o_stock_barcodes_detailed_operation_card) {
+                margin-bottom: 0.45rem !important;
+            }
+        }
+
+        .o_stock_barcodes_detailed_operation_card {
+            grid-template-columns: minmax(0, 1fr) auto;
+            min-height: 68px;
+        }
+
+        .o_stock_barcodes_detailed_operation_body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0.65rem 0.9rem;
+        }
+
+        .o_stock_barcodes_detailed_operation_product {
+            font-size: 1.05rem !important;
+            -webkit-line-clamp: 2;
+        }
+
+        .o_stock_barcodes_detailed_operation_meta {
+            font-size: 0.86rem;
+        }
+
+        .o_stock_barcodes_detailed_operation_actions {
+            flex-direction: row;
+            min-width: 112px;
+            padding: 0.45rem 0.65rem;
+        }
+
+        div.o_kanban_renderer button.o_stock_barcodes_detailed_operation_remove {
+            height: 38px !important;
+            min-width: 38px !important;
+            width: 38px !important;
+        }
+    }
+}
+
+div[name="pending_move_ids"] {
+    div.o_kanban_renderer {
+        div.o_kanban_record:has(.o_stock_barcodes_pending_operation_card) {
+            padding: 0 !important;
+        }
+    }
+
+    .o_stock_barcodes_pending_operation_card {
+        align-items: stretch;
+        box-sizing: border-box;
+        display: grid;
+        gap: 0.25rem;
+        grid-template-columns: minmax(0, 1fr) 50px;
+        max-width: 100%;
+        min-height: 100px;
+        overflow: hidden;
+        width: 100%;
+    }
+
+    .o_stock_barcodes_pending_operation_body {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-width: 0;
+        padding: 0.45rem 0 0.45rem 0.55rem;
+    }
+
+    .o_stock_barcodes_pending_operation_product {
+        display: -webkit-box;
+        font-size: 1rem !important;
+        font-weight: 600;
+        line-height: 1.15 !important;
+        overflow: hidden;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 4;
+    }
+
+    .o_stock_barcodes_pending_operation_meta {
+        color: #4b5563;
+        display: block;
+        font-size: 0.8rem;
+        line-height: 1.15;
+        margin-top: 0.2rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .o_stock_barcodes_pending_operation_qty {
+        font-size: 0.9rem;
+        font-weight: 700;
+        line-height: 1;
+        margin-top: 0.45rem;
+    }
+
+    .o_stock_barcodes_pending_operation_actions {
+        align-items: center;
+        border-left: 1px solid rgba(0, 0, 0, 0.08);
+        display: flex;
+        flex-direction: column;
+        gap: 0.3rem;
+        justify-content: center;
+        padding: 0.3rem;
+    }
+
+    .o_stock_barcodes_pending_operation_button {
+        height: 30px !important;
+        min-width: 32px !important;
+        padding: 0 !important;
+        width: 34px !important;
+
+        i.fa-pencil,
+        i.fa-trash {
+            font-size: 0.85rem !important;
+        }
+    }
+
+    .o_stock_barcodes_pending_operation_todo {
+        font-size: 0.8rem !important;
+        font-weight: 700;
+        height: 34px !important;
+        order: -1;
+    }
+
+    @include media-breakpoint-down(sm) {
+        .o_stock_barcodes_pending_operation_card {
+            grid-template-columns: minmax(0, 1fr) 46px;
+            min-height: 92px;
+        }
+
+        .o_stock_barcodes_pending_operation_body {
+            padding: 0.35rem 0 0.35rem 0.4rem;
+        }
+
+        .o_stock_barcodes_pending_operation_product {
+            font-size: 0.9rem !important;
+        }
+
+        .o_stock_barcodes_pending_operation_meta {
+            font-size: 0.74rem;
+        }
+
+        .o_stock_barcodes_pending_operation_qty {
+            font-size: 0.82rem;
+            margin-top: 0.35rem;
+        }
+
+        .o_stock_barcodes_pending_operation_actions {
+            gap: 0.22rem;
+            padding: 0.2rem;
+        }
+
+        .o_stock_barcodes_pending_operation_button {
+            height: 28px !important;
+            min-width: 30px !important;
+            width: 32px !important;
+
+            i.fa-pencil,
+            i.fa-trash {
+                font-size: 0.8rem !important;
+            }
+        }
+
+        .o_stock_barcodes_pending_operation_todo {
+            height: 32px !important;
+        }
+    }
+
+    @include media-breakpoint-up(md) {
+        div.o_kanban_renderer {
+            div.o_kanban_record:has(.o_stock_barcodes_pending_operation_card) {
+                margin-bottom: 0.45rem !important;
+            }
+        }
+
+        .o_stock_barcodes_pending_operation_card {
+            grid-template-columns: minmax(0, 1fr) auto;
+            min-height: 74px;
+        }
+
+        .o_stock_barcodes_pending_operation_body {
+            padding: 0.65rem 0.9rem;
+        }
+
+        .o_stock_barcodes_pending_operation_product {
+            font-size: 1.05rem !important;
+            -webkit-line-clamp: 2;
+        }
+
+        .o_stock_barcodes_pending_operation_meta {
+            font-size: 0.86rem;
+        }
+
+        .o_stock_barcodes_pending_operation_qty {
+            font-size: 0.95rem;
+            margin-top: 0.35rem;
+        }
+
+        .o_stock_barcodes_pending_operation_actions {
+            display: grid;
+            gap: 0.35rem;
+            grid-template-columns: repeat(3, 46px);
+            justify-content: center;
+            min-width: 166px;
+            padding: 0.45rem 0.65rem;
+        }
+
+        button[name="action_reset_lines"] {
+            grid-column: 1;
+        }
+
+        button[name="action_barcode_inventory_quant_edit"] {
+            grid-column: 2;
+        }
+
+        button[name="operation_quantities"] {
+            grid-column: 3;
+        }
+
+        div.o_kanban_renderer button.o_stock_barcodes_pending_operation_button {
+            height: 42px !important;
+            min-width: 46px !important;
+            width: 46px !important;
+
+            i.fa-pencil,
+            i.fa-trash {
+                font-size: 1rem !important;
+            }
+        }
+
+        .o_stock_barcodes_pending_operation_todo {
+            font-size: 0.9rem !important;
+            height: 42px !important;
+            order: 0;
+        }
+    }
+}
+
+div.stock_barcodes_action_kanban {
+    div.o_kanban_record {
+        div.oe_kanban_content {
+            padding: 1.5rem 1.5rem 1.5rem 0.5rem !important;
+
+            div.count-elements {
+                border: 1px solid;
+                padding: 1px 4px 1px 4px !important;
+                border-radius: 40% !important;
+                background-color: lightgray !important;
+            }
+        }
+    }
+}
