@@ -1,0 +1,1 @@
+In real-world logistics and retail environments, physical barcode labels or scanner hardware frequently introduce or omit leading zeros (e.g., turning a 13-digit EAN `5412345678901` into a 14-digit GTIN `05412345678901`).
