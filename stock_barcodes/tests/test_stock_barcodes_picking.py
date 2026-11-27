@@ -413,6 +413,19 @@ class TestStockBarcodesPicking(TestCommonStockBarcodes):
         # Package of 5 product units. Already three unit exists
         self.assertEqual(sum(stock_move.move_line_ids.mapped("qty_picked")), 5.0)
 
+    def test_picking_wizard_scan_returns_no_move_dict(self):
+        wiz_scan_picking = self.wiz_scan_picking.with_context(
+            force_create_move=True, no_increase_qty_done=True
+        )
+        wiz_scan_picking._barcode_scanned = "8480000723208"
+        wiz_scan_picking._on_barcode_scanned()
+        res = wiz_scan_picking.dummy_on_barcode_scanned()
+        sml = self.picking_in_01.move_line_ids.filtered(
+            lambda x: x.product_id == self.product_wo_tracking
+        )
+        self.assertEqual(sum(sml.mapped("qty_picked")), 1.0)
+        self.assertIs(res, True)
+
     def test_picking_wizard_scan_product_manual_entry(self):
         wiz_scan_picking = self.wiz_scan_picking.with_context(
             force_create_move=True, no_increase_qty_done=True

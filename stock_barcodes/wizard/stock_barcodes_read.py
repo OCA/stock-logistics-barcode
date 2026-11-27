@@ -593,7 +593,9 @@ class WizStockBarcodesRead(models.AbstractModel):
             self.barcode
         )
         self._notify_last_message()
-        return res
+        if isinstance(res, dict) and res.get("type"):
+            return res
+        return bool(res)
 
     def check_location_condition(self):
         if not self.location_id:
