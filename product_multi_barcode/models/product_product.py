@@ -34,10 +34,10 @@ class ProductProduct(models.Model):
         barcodes_to_unlink = self.env["product.barcode"]
         create_barcode_vals_list = []
         for product in self:
-            if product.barcode_ids:
-                product.barcode_ids[0].name = product.barcode
-            elif not product.barcode:
+            if not product.barcode:
                 barcodes_to_unlink |= product.barcode_ids
+            elif product.barcode_ids:
+                product.barcode_ids[0].name = product.barcode
             else:
                 create_barcode_vals_list.append(product._prepare_barcode_vals())
         if barcodes_to_unlink:

@@ -2,6 +2,7 @@
 # © 2018 Xavier Jimenez (QubiQ)
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
+from odoo import Command
 from odoo.exceptions import ValidationError
 from odoo.tests import TransactionCase, tagged
 
@@ -36,7 +37,9 @@ class TestProductMultiBarcode(TransactionCase):
             'The Barcode "%(barcode)s" already exists for product "%(product)s"'
             % {"barcode": self.valid_barcode_1, "product": self.product_1.name},
         ):
-            self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
+            self.product_1.barcode_ids = [
+                Command.create({"name": self.valid_barcode_1})
+            ]
 
     def test_post_init_hook(self):
         self.env.cr.execute(
@@ -53,12 +56,12 @@ class TestProductMultiBarcode(TransactionCase):
 
     def test_search(self):
         self.product_1.barcode_ids = [
-            (0, 0, {"name": self.valid_barcode_1}),
-            (0, 0, {"name": self.valid_barcode2_1}),
+            Command.create({"name": self.valid_barcode_1}),
+            Command.create({"name": self.valid_barcode2_1}),
         ]
         self.product_2.barcode_ids = [
-            (0, 0, {"name": self.valid_barcode_2}),
-            (0, 0, {"name": self.valid_barcode2_2}),
+            Command.create({"name": self.valid_barcode_2}),
+            Command.create({"name": self.valid_barcode2_2}),
         ]
         products = self.product.search([("barcode", "=", self.valid_barcode_1)])
         self.assertEqual(len(products), 1)
@@ -74,3 +77,8 @@ class TestProductMultiBarcode(TransactionCase):
             ]
         )
         self.assertEqual(len(products), 2)
+
+    def test_clear_barcode(self):
+        self.product_1.barcode = "test-barcode"
+        # ↓ this should not raise an error
+        self.product_1.barcode = False
